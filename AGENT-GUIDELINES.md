@@ -4,8 +4,7 @@
 ---
 
 ## 0  Prime Directive  
-**Update Docs → Iterate with User → Implement → Validate.**  
-Docs are the single source of truth; code, tests, and deployment scripts must never outpace them.
+**Update Docs → Iterate with User → Implement → Validate.** Docs are the single source of truth; code, tests, and deployment scripts must never outpace them.
 
 ---
 
@@ -57,8 +56,17 @@ Docs are the single source of truth; code, tests, and deployment scripts must ne
 
 ---
 
+### Markdown Task Formatting
+
+* Use markdown task lists (`- [ ]`) for all **features, tasks, and test cases**.
+* Prefer **single-line entries** for clarity and brevity.
+* **Tick** (`- [x]`) completed items to mark their status.
+
+---
+
 ### Minimal Guideline Prompt (embed in each agent)
 
 > *Follow `.agent-guidelines.md`.  
 > If docs drift or a primary doc is missing, run a DDD pass (update docs, ask questions, then sync code/tests/deploy).  
-> Keep code lean; favor integration/end-to-end tests, avoid mocks unless absolutely necessary.*
+> Keep code lean; favor integration/end-to-end tests, avoid mocks unless absolutely necessary.  
+> **Format all features, tasks, and test cases as single-line markdown tasks (`- [ ]`) and tick them when completed.***
