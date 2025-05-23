@@ -24,14 +24,15 @@
 ### DDD Passes
 
 - [Full Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/full_pass.md) - Comprehensive pass encompassing all aspects
-- [Foundation Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/foundation_pass.md) - Creating foundational documentation and architecture
-- [Documentation Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/documentation_pass.md) - Documenting features, requirements, and priorities
-- [Implementation Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/implementation_pass.md) - Implementing features with basic test coverage
-- [Testing Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/testing_pass.md) - Adding comprehensive tests and verifying edge cases
-- [Refactoring Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/refactoring_pass.md) - Cleaning up code without changing functionality
-- [Synchronization Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/synchronization_pass.md) - Aligning documentation with code at any scale
-- [Quality Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/quality_pass.md) - Verifying and improving documentation quality
-- [Prune Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/prune_pass.md) - Removing outdated or redundant content
+- [1. Foundation Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/1_foundation_pass.md) - Creating foundational documentation and architecture
+- [2. Documentation Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/2_documentation_pass.md) - Documenting features, requirements, and priorities
+- [3. Implementation Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/3_implementation_pass.md) - Implementing features with basic test coverage
+- [4. Testing Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/4_testing_pass.md) - Adding comprehensive tests and verifying edge cases
+- [5. Refactoring Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/5_refactoring_pass.md) - Cleaning up code without changing functionality
+- [6. Code Review Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/6_code_review_pass.md) - Reviewing PR changes and providing feedback
+- [7. Synchronization Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/7_synchronization_pass.md) - Aligning documentation with code at any scale
+- [8. Quality Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/8_quality_pass.md) - Verifying and improving documentation quality
+- [9. Prune Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/9_prune_pass.md) - Removing outdated or redundant content
 
 ---
 

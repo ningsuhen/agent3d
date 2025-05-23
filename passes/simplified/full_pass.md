@@ -2,7 +2,7 @@
 
 **Purpose:** A comprehensive pass that encompasses all aspects of documentation-driven development, from foundation to quality assurance, ensuring complete alignment between documentation and code.
 
-**Encompasses:** All other passes (Foundation, Documentation, Implementation, Testing, Refactoring, Synchronization, Quality, Prune)
+**Encompasses:** All other passes (1. Foundation, 2. Documentation, 3. Implementation, 4. Testing, 5. Refactoring, 6. Code Review, 7. Synchronization, 8. Quality, 9. Prune)
 
 ## When to Use
 - For major project milestones or releases
@@ -77,15 +77,21 @@ A Full Pass is extensive and may be executed in phases, focusing on different as
    - Improve performance and maintainability
    - Ensure architectural alignment
 
-6. **Synchronization Phase**
+6. **Code Review Phase**
+   - Review changes between base branch and PR
+   - Provide feedback through PR comments
+   - Set PR review status to "Pending" until issues are addressed
+   - Approve PR once all issues are resolved
+
+7. **Synchronization Phase**
    - Align documentation with current implementation
    - Reconcile any divergences
 
-7. **Quality Phase**
+8. **Quality Phase**
    - Verify documentation accuracy
    - Improve quality
 
-8. **Prune Phase**
+9. **Prune Phase**
    - Remove outdated or redundant content
    - Archive historical information when appropriate
 
