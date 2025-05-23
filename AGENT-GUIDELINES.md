@@ -59,6 +59,6 @@ Docs are the single source of truth; code, tests, and deployment scripts must ne
 
 ### Minimal Guideline Prompt (embed in each agent)
 
-> *Follow `.agent-guideline.md`.  
+> *Follow `.agent-guidelines.md`.  
 > If docs drift or a primary doc is missing, run a DDD pass (update docs, ask questions, then sync code/tests/deploy).  
 > Keep code lean; favor integration/end-to-end tests, avoid mocks unless absolutely necessary.*
