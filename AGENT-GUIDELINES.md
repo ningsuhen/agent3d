@@ -3,7 +3,7 @@
 
 ---
 
-## 0  Prime Directive  
+## 0  Prime Directive
 **Update Docs → Iterate with User → Implement → Validate.** Docs are the single source of truth; code, tests, and deployment scripts must never outpace them.
 
 ---
@@ -18,8 +18,31 @@
 | **Sync** | Finalize docs, then produce matching code, tests, CI, deploy scripts. | Review & approve. |
 | **Guard** | Refuse or fail if docs & code diverge. | — |
 
-> **DDD Pass** – When instructed, perform **Scan → Draft → Ask → Sync**, then commit  
+> **DDD Pass** – When instructed, perform **Scan → Draft → Ask → Sync**, then commit
 > `DDD: <summary>` (or tag `docs-n/a` if no drift).
+
+### Pass Types
+
+#### Documentation & Planning Passes
+- [Genesis Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/genesis_pass.md) - Initial creation of core documentation
+- [Blueprint Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/blueprint_pass.md) - Architectural design and technical decisions
+- [Feature Forge](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/feature_forge.md) - Detailing a new feature
+- [Discovery Dive](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/discovery_dive.md) - Uncovering unknown requirements
+- [Roadmap Readout](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/roadmap_readout.md) - Updating based on new priorities
+- [Clarity Quest](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/clarity_quest.md) - Clarifying ambiguous documentation
+
+#### Synchronization & Implementation Passes
+- [Sync Sprint](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/sync_sprint.md) - Rapid alignment after minor drift
+- [Delta Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/delta_pass.md) - Small, incremental changes
+- [Rendition Resolve](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/rendition_resolve.md) - Reconciling significant divergence
+
+#### Validation & Maintenance Passes
+- [Audit Sweep](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/audit_sweep.md) - Comprehensive verification
+- [Integrity Check](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/integrity_check.md) - Quick, automated verification
+
+#### Refinement & Cleanup Passes
+- [Prune Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/prune_pass.md) - Removing outdated content
+- [Polish Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/polish_pass.md) - Enhancing clarity and readability
 
 ---
 
@@ -50,8 +73,8 @@
 ---
 
 ## 4  Drift Enforcement
-* Each commit updates a doc file **or** tags `docs-n/a`.  
-* CI fails on doc↔code mismatch or missing artifacts.  
+* Each commit updates a doc file **or** tags `docs-n/a`.
+* CI fails on doc↔code mismatch or missing artifacts.
 * Agent rejects tasks that violate DDD or Lean-Code/Test rules.
 
 ---
@@ -66,7 +89,7 @@
 
 ### Minimal Guideline Prompt (embed in each agent)
 
-> *Follow `.agent-guidelines.md`.  
-> If docs drift or a primary doc is missing, run a DDD pass (update docs, ask questions, then sync code/tests/deploy).  
-> Keep code lean; favor integration/end-to-end tests, avoid mocks unless absolutely necessary.  
+> *Follow `.agent-guidelines.md`.
+> If docs drift or a primary doc is missing, run a DDD pass (update docs, ask questions, then sync code/tests/deploy).
+> Keep code lean; favor integration/end-to-end tests, avoid mocks unless absolutely necessary.
 > **Format all features, tasks, and test cases as single-line markdown tasks (`- [ ]`) and tick them when completed.***
