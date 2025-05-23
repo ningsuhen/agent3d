@@ -33,10 +33,8 @@
 
 ### DDD Rules
 
-1. **Docs First, Always** - Documentation is the source of truth. Code, tests, and deployment scripts must never outpace documentation.
-2. **Comprehensive Coverage** - Ensure all features, requirements, and priorities are fully documented.
-3. **Clarity Above All** - Documentation should be clear, concise, and accessible to all stakeholders.
-4. **Consistency is Key** - Maintain consistent formatting, terminology, and structure across all documentation.
+- [Python Rules](https://raw.githubusercontent.com/ningsuhen/agent3d/main/rules/python.md) - Rules for Python development
+- [JavaScript Rules](https://raw.githubusercontent.com/ningsuhen/agent3d/main/rules/javascript.md) - Rules for JavaScript development
 
 ---
 
@@ -48,6 +46,14 @@
 | **Real Tests Over Mocks** | Prefer integration & end-to-end tests that exercise concrete components. Use mocks/stubs only when external calls (e.g., payment gateways) make them unavoidable. |
 | **Traceability** | Each test references its `TC-####` in `docs/TEST-CASES.md`. |
 | **Fast Feedback** | Critical end-to-end paths run in CI; heavier suites may run nightly. |
+| **Language-Specific Rules** | Follow the language-specific rules defined in the rules directory. |
+
+### Language-Specific Rules
+
+- [Python](https://raw.githubusercontent.com/ningsuhen/agent3d/main/rules/python.md) - Rules for Python development
+- [JavaScript](https://raw.githubusercontent.com/ningsuhen/agent3d/main/rules/javascript.md) - Rules for JavaScript development
+- [Java](https://raw.githubusercontent.com/ningsuhen/agent3d/main/rules/java.md) - Rules for Java development
+- [Go](https://raw.githubusercontent.com/ningsuhen/agent3d/main/rules/go.md) - Rules for Go development
 
 ---
 
