@@ -21,28 +21,22 @@
 > **DDD Pass** – When instructed, perform **Scan → Draft → Ask → Sync**, then commit
 > `DDD: <summary>` (or tag `docs-n/a` if no drift).
 
-### Pass Types
 
-#### Documentation & Planning Passes
-- [Genesis Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/genesis_pass.md) - Initial creation of core documentation
-- [Blueprint Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/blueprint_pass.md) - Architectural design and technical decisions
-- [Feature Forge](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/feature_forge.md) - Detailing a new feature
-- [Discovery Dive](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/discovery_dive.md) - Uncovering unknown requirements
-- [Roadmap Readout](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/roadmap_readout.md) - Updating based on new priorities
-- [Clarity Quest](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/clarity_quest.md) - Clarifying ambiguous documentation
+### DDD Passes
 
-#### Synchronization & Implementation Passes
-- [Sync Sprint](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/sync_sprint.md) - Rapid alignment after minor drift
-- [Delta Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/delta_pass.md) - Small, incremental changes
-- [Rendition Resolve](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/rendition_resolve.md) - Reconciling significant divergence
+- [Full Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/full_pass.md) - Comprehensive pass encompassing all aspects
+- [Foundation Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/foundation_pass.md) - Creating foundational documentation and architecture
+- [Documentation Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/documentation_pass.md) - Documenting features, requirements, and priorities
+- [Synchronization Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/synchronization_pass.md) - Aligning documentation with code at any scale
+- [Quality Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/quality_pass.md) - Verifying and improving documentation quality
+- [Prune Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/prune_pass.md) - Removing outdated or redundant content
 
-#### Validation & Maintenance Passes
-- [Audit Sweep](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/audit_sweep.md) - Comprehensive verification
-- [Integrity Check](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/integrity_check.md) - Quick, automated verification
+### DDD Rules
 
-#### Refinement & Cleanup Passes
-- [Prune Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/prune_pass.md) - Removing outdated content
-- [Polish Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/individual/polish_pass.md) - Enhancing clarity and readability
+1. **Docs First, Always** - Documentation is the source of truth. Code, tests, and deployment scripts must never outpace documentation.
+2. **Comprehensive Coverage** - Ensure all features, requirements, and priorities are fully documented.
+3. **Clarity Above All** - Documentation should be clear, concise, and accessible to all stakeholders.
+4. **Consistency is Key** - Maintain consistent formatting, terminology, and structure across all documentation.
 
 ---
 
