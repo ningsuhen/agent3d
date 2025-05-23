@@ -1,6 +1,10 @@
-# Agent3D - Documentation-Driven Development Framework for LLM Coding Agents
+# Agent3D - Documentation-Driven Development Guidelines for LLM Coding Agents
 
-Agent3D is a comprehensive framework that implements Documentation-Driven Development (DDD) principles specifically designed for Large Language Model (LLM) coding agents. It ensures that documentation remains the single source of truth throughout the development process.
+Agent3D is a **documentation-only** framework that defines Documentation-Driven Development (DDD) principles specifically for Large Language Model (LLM) coding agents. It provides a structured approach to ensure documentation remains the single source of truth throughout the development process.
+
+## Important Note
+
+**This project is purely a documentation project.** It does not contain any implementations, libraries, or code to import. Its sole purpose is to provide a standardized set of guidelines that LLM coding agents can reference remotely.
 
 ## Overview
 
@@ -10,19 +14,20 @@ The core principle is simple: **"Write the docs, then write the code—keep it l
 
 ## Key Features
 
+- **Remote Guideline Reference**: Designed to be referenced by LLM agents during coding tasks
 - **Structured Development Process**: Clear, numbered passes from foundation to maintenance
 - **Documentation as Source of Truth**: Ensures code never outpaces documentation
 - **Language-Specific Rules**: Tailored guidelines for Python, JavaScript, Java, and Go
 - **Lean Code Principles**: Focused on implementing only what's documented
 - **Test-Driven Approach**: Emphasis on real tests over mocks
 
-## Getting Started
+## How to Use
 
 To use Agent3D in your LLM agent:
 
-1. Implement the Agent Guideline Protocol (see below)
-2. Follow the DDD passes in sequence for each development task
-3. Adhere to the language-specific rules for your project
+1. Implement the Agent Guideline Protocol (see below) to reference these guidelines remotely
+2. Instruct your agent to follow the DDD passes in sequence for each development task
+3. Direct your agent to adhere to the language-specific rules for your project
 
 ## Agent Guideline Protocol
 
@@ -47,7 +52,7 @@ As an agent, your foundational operational principles are derived from the DDD R
 
 ## DDD Passes
 
-Agent3D implements a series of passes that guide the development process:
+Agent3D defines a series of passes that guide the development process:
 
 1. **Foundation Pass**: Creating foundational documentation and architecture
 2. **Documentation Pass**: Documenting features, requirements, and priorities
@@ -61,9 +66,15 @@ Agent3D implements a series of passes that guide the development process:
 
 Additionally, a **Full Pass** encompasses all of the above passes for comprehensive project updates.
 
-## Documentation
+## Documentation Structure
 
-For detailed guidelines, refer to the [AGENT-GUIDELINES.md](AGENT-GUIDELINES.md) file.
+This repository contains only documentation files:
+
+- **AGENT-GUIDELINES.md**: The main guidelines document that agents should reference
+- **passes/simplified/**: Detailed descriptions of each DDD pass
+- **rules/**: Language-specific development rules
+
+There are no implementation files, libraries, or code to import. The examples directory contains only documentation examples, not functional code.
 
 ## License
 
@@ -71,4 +82,4 @@ For detailed guidelines, refer to the [AGENT-GUIDELINES.md](AGENT-GUIDELINES.md)
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions to improve the documentation are welcome! Please feel free to submit a Pull Request with enhancements to the guidelines, passes, or rules.
