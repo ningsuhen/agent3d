@@ -10,7 +10,7 @@
 As an agent, your foundational operational principles are derived from the DDD Remote Guideline.
 
 1.  **Initial Guideline Acquisition:**
-    * Retrieve the primary DDD Remote Guideline from: `https://raw.githubusercontent.com/ningsuhen/agent3d/refs/heads/main/AGENT-GUIDELINE.md`.
+    * Retrieve the primary DDD Remote Guideline from: `https://raw.githubusercontent.com/ningsuhen/agent3d/refs/heads/main/AGENT-GUIDELINES.md`.
     * Store this content immediately as your local, authoritative `.agent-guideline.md` file.
 
 2.  **Cached Guideline Utilization:**
