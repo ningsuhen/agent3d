@@ -1,6 +1,10 @@
 # Contributing to Agent3D
 
-Thank you for your interest in contributing to Agent3D! This document provides guidelines and instructions for contributing to the project.
+Thank you for your interest in contributing to Agent3D! This document provides guidelines and instructions for contributing to this documentation-only project.
+
+## Important Note
+
+**Agent3D is a documentation-only project.** Contributions should focus on improving the guidelines, passes, and rules documentation. There are no implementations, libraries, or code to contribute to.
 
 ## Code of Conduct
 
@@ -10,51 +14,32 @@ Please be respectful and considerate of others when contributing to this project
 
 ### Reporting Issues
 
-If you find a bug or have a suggestion for improvement:
+If you find an issue with the documentation or have a suggestion for improvement:
 
 1. Check if the issue already exists in the [GitHub Issues](https://github.com/ningsuhen/agent3d/issues)
-2. If not, create a new issue with a clear description and, if possible, steps to reproduce
+2. If not, create a new issue with a clear description of the documentation problem or enhancement
 
 ### Submitting Changes
 
 1. Fork the repository
 2. Create a new branch for your changes
-3. Make your changes following the coding and documentation guidelines
+3. Make your documentation changes following the guidelines below
 4. Submit a pull request
 
 ### Pull Request Process
 
-1. Ensure your code follows the project's coding standards
-2. Update documentation to reflect any changes
-3. Include tests for new functionality
-4. Ensure all tests pass
-5. Link any relevant issues in your pull request description
-6. Wait for review and address any feedback
+1. Ensure your documentation follows the project's standards
+2. Make sure all links and references are correct
+3. Link any relevant issues in your pull request description
+4. Wait for review and address any feedback
 
 ## Documentation-Driven Development
 
-This project follows Documentation-Driven Development (DDD) principles. All contributions should adhere to these principles:
+This project defines Documentation-Driven Development (DDD) principles. All contributions should adhere to these principles:
 
 1. Documentation precedes code implementation
 2. Documentation is the single source of truth
 3. Code should never outpace documentation
-
-### DDD Process for Contributors
-
-1. Start with updating or creating documentation for your feature or fix
-2. Get documentation reviewed and approved
-3. Implement code according to the documentation
-4. Ensure tests cover the implementation
-5. Submit both documentation and code changes together
-
-## Coding Standards
-
-### General Guidelines
-
-- Follow language-specific rules in the `rules/` directory
-- Keep code lean and avoid speculative abstractions
-- Write clear, self-documenting code
-- Include appropriate comments for complex logic
 
 ### Documentation Standards
 
@@ -62,6 +47,21 @@ This project follows Documentation-Driven Development (DDD) principles. All cont
 - Follow the existing documentation structure
 - Use task lists (`- [ ]`) for features, tasks, and test cases
 - Keep entries concise and clear
+- Ensure language is clear and accessible for LLM agents to interpret
+- Maintain consistent formatting across all documentation files
+
+### Guidelines for Specific Documentation Types
+
+#### Pass Documentation
+- Maintain the numbered structure (1. Foundation Pass, 2. Documentation Pass, etc.)
+- Include clear "When to Use" sections
+- Ensure the "Process" sections follow the Scan → Draft → Ask → Sync workflow
+- Include clear "Expected Outcomes" sections
+
+#### Language-Specific Rules
+- Keep rules organized by category (Environment Setup, Code Style, etc.)
+- Ensure rules are specific and actionable
+- Avoid ambiguous language that could be misinterpreted by LLM agents
 
 ## License
 

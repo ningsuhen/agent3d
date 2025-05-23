@@ -1,12 +1,16 @@
 # Features
 
-This document outlines the features of the Agent3D framework, grouped by module.
+This document outlines the features of the Agent3D documentation framework, grouped by module.
 
-## Core Framework
+## Important Note
 
-- [ ] Agent Guideline Protocol - Mechanism for agents to retrieve and follow DDD guidelines
+**Agent3D is a documentation-only framework.** It does not contain any implementations, libraries, or code to import. The features listed below refer to the documentation guidelines and principles defined in this repository, not to functional components.
+
+## Core Documentation Framework
+
+- [ ] Agent Guideline Protocol - Guidelines for agents to retrieve and follow DDD principles
 - [ ] DDD Pass System - Structured approach to documentation-driven development
-- [ ] Documentation Validation - Tools to verify documentation completeness and accuracy
+- [ ] Documentation Standards - Guidelines for documentation completeness and accuracy
 
 ## Documentation Passes
 
@@ -30,8 +34,8 @@ This document outlines the features of the Agent3D framework, grouped by module.
 - [ ] Java Rules - Development guidelines for Java projects
 - [ ] Go Rules - Development guidelines for Go projects
 
-## Integration
+## Integration Guidelines
 
-- [ ] LLM Agent Integration - Tools and APIs for integrating with LLM coding agents
-- [ ] CI/CD Integration - Hooks and validators for continuous integration pipelines
-- [ ] Version Control Integration - Tools for working with Git and other VCS systems
+- [ ] LLM Agent Integration - Guidelines for instructing LLM coding agents to follow Agent3D principles
+- [ ] CI/CD Integration - Documentation for validating documentation-code alignment in CI/CD pipelines
+- [ ] Version Control Integration - Best practices for documentation in version control systems

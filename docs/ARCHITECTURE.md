@@ -1,10 +1,10 @@
 # Architecture
 
-This document outlines the architecture of the Agent3D framework.
+This document outlines the architecture of the Agent3D documentation framework.
 
 ## System Overview
 
-Agent3D is a documentation-driven development framework designed for LLM coding agents. The framework consists of several components that work together to ensure documentation remains the single source of truth throughout the development process.
+Agent3D is a **documentation-only** framework that defines documentation-driven development principles for LLM coding agents. The framework consists of documentation components that work together to provide a comprehensive guideline system that ensures documentation remains the single source of truth throughout the development process.
 
 ```mermaid
 graph TD
@@ -27,17 +27,17 @@ sequenceDiagram
     participant Agent
     participant Local Cache
     participant Remote Repo
-    
+
     Agent->>Remote Repo: Initial Guideline Acquisition
     Remote Repo-->>Agent: AGENT-GUIDELINES.md
     Agent->>Local Cache: Store as .agent-guidelines.md
-    
+
     loop Every 6 hours
         Agent->>Remote Repo: Check for updates
         Remote Repo-->>Agent: Updated guidelines (if any)
         Agent->>Local Cache: Update if changed
     end
-    
+
     Agent->>Local Cache: Reference for all actions
 ```
 
@@ -55,7 +55,7 @@ graph LR
     F --> G[Synchronization Pass]
     G --> H[Quality Pass]
     H --> I[Prune Pass]
-    
+
     J[Full Pass] -.-> A
     J -.-> B
     J -.-> C
@@ -86,19 +86,19 @@ graph TD
     A --> C[JavaScript]
     A --> D[Java]
     A --> E[Go]
-    
+
     B --> B1[Environment Setup]
     B --> B2[Code Style]
     B --> B3[Testing]
-    
+
     C --> C1[Environment Setup]
     C --> C2[Code Style]
     C --> C3[Testing]
-    
+
     D --> D1[Environment Setup]
     D --> D2[Code Style]
     D --> D3[Testing]
-    
+
     E --> E1[Environment Setup]
     E --> E2[Code Style]
     E --> E3[Testing]
@@ -126,21 +126,24 @@ agent3d/
 ├── AGENT-GUIDELINES.md    # Main guidelines document
 ├── README.md              # Project overview
 ├── LICENSE                # MIT License
+├── CONTRIBUTING.md        # Contribution guidelines
 ├── docs/                  # Documentation directory
 │   ├── FEATURES.md        # Feature specifications
 │   ├── ARCHITECTURE.md    # This document
 │   ├── TASKS.md           # Project backlog
 │   ├── TEST-CASES.md      # Test case specifications
 │   └── DEPLOYMENT.md      # Deployment instructions
-├── passes/                # DDD passes
+├── passes/                # DDD passes documentation
 │   └── simplified/        # Simplified pass definitions
 │       ├── full_pass.md   # Full pass documentation
 │       ├── 1_foundation_pass.md
 │       ├── 2_documentation_pass.md
 │       └── ...            # Other numbered passes
-└── rules/                 # Language-specific rules
+└── rules/                 # Language-specific rules documentation
     ├── python.md          # Python rules
     ├── javascript.md      # JavaScript rules
     ├── java.md            # Java rules
     └── go.md              # Go rules
 ```
+
+**Note:** This repository contains only documentation files. There are no implementation files, libraries, or executable code. All examples are provided as documentation examples only and are not meant to be functional.

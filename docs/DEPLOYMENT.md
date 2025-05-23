@@ -1,10 +1,10 @@
 # Deployment
 
-This document outlines the deployment process for the Agent3D framework.
+This document outlines how to reference and use the Agent3D documentation framework.
 
 ## Overview
 
-Agent3D is primarily a documentation framework and doesn't require traditional deployment. Instead, it's integrated into LLM agents through the Agent Guideline Protocol.
+Agent3D is **exclusively a documentation framework** and doesn't have any code to deploy. It's designed to be referenced remotely by LLM coding agents through the Agent Guideline Protocol.
 
 ## Integration Methods
 
@@ -51,72 +51,63 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Check for documentation updates
         run: |
           # Script to check if code changes have corresponding doc changes
           # or are tagged with docs-n/a
-          
+
       - name: Validate documentation completeness
         run: |
           # Script to ensure all required documentation exists
-          
+
       - name: Check for documentation-code alignment
         run: |
           # Script to verify documentation accurately reflects code
 ```
 
-## Environment Setup
+## Implementation in LLM Agents
 
-No special environment setup is required for Agent3D itself, but for language-specific development:
+Since Agent3D is a documentation-only framework, there's no code to set up or deploy. Instead, LLM agents should be instructed to:
 
-### Python Projects
+1. Reference the Agent3D guidelines remotely
+2. Follow the documented DDD passes
+3. Adhere to the language-specific rules
 
-```bash
-# Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate  # Unix/MacOS
-# or
-venv\Scripts\activate     # Windows
+### Example Agent Instructions
 
-# Install dependencies
-pip install -r requirements.txt
+Here's an example of how to instruct an LLM agent to use Agent3D:
+
+```
+As an AI coding assistant, you should follow the Agent3D Documentation-Driven Development guidelines:
+
+1. Always retrieve and reference the latest guidelines from:
+   https://raw.githubusercontent.com/ningsuhen/agent3d/main/AGENT-GUIDELINES.md
+
+2. Follow the DDD passes in sequence:
+   - Foundation Pass
+   - Documentation Pass
+   - Implementation Pass
+   - Testing Pass
+   - Refactoring Pass
+   - Code Review Pass
+   - Synchronization Pass
+   - Quality Pass
+   - Prune Pass
+
+3. Adhere to the language-specific rules for the project's programming language.
+
+4. Remember the core principle: "Write the docs, then write the code—keep it lean, test it for real."
 ```
 
-### JavaScript Projects
+### Language-Specific Rules
 
-```bash
-# Install dependencies
-npm install
-# or
-yarn install
+The Agent3D guidelines include rules for several programming languages. When instructing an LLM agent, you should direct it to follow the appropriate language-specific rules based on your project:
 
-# Run linting
-npm run lint
-```
-
-### Java Projects
-
-```bash
-# Build with Maven
-./mvnw clean install
-
-# or with Gradle
-./gradlew build
-```
-
-### Go Projects
-
-```bash
-# Initialize module
-go mod init github.com/username/project
-
-# Install dependencies
-go mod tidy
-
-# Build
-go build
-```
+- Python: https://raw.githubusercontent.com/ningsuhen/agent3d/main/rules/python.md
+- JavaScript: https://raw.githubusercontent.com/ningsuhen/agent3d/main/rules/javascript.md
+- Java: https://raw.githubusercontent.com/ningsuhen/agent3d/main/rules/java.md
+- Go: https://raw.githubusercontent.com/ningsuhen/agent3d/main/rules/go.md
 
 ## Monitoring and Logging
 
