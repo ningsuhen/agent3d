@@ -1,5 +1,5 @@
 # Documentation-Driven Development (DDD) for LLM Coding Agents
-*“Write the docs, then write the code—keep it lean, test it for real.”*
+*"Write the docs, then write the code—keep it lean, test it for real."*
 
 ---
 
@@ -21,7 +21,6 @@
 > **DDD Pass** – When instructed, perform **Scan → Draft → Ask → Sync**, then commit
 > `DDD: <summary>` (or tag `docs-n/a` if no drift).
 
-
 ### DDD Passes
 
 - [Full Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/full_pass.md) - Comprehensive pass encompassing all aspects
@@ -30,11 +29,6 @@
 - [Synchronization Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/synchronization_pass.md) - Aligning documentation with code at any scale
 - [Quality Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/quality_pass.md) - Verifying and improving documentation quality
 - [Prune Pass](https://raw.githubusercontent.com/ningsuhen/agent3d/main/passes/simplified/prune_pass.md) - Removing outdated or redundant content
-
-### DDD Rules
-
-- [Python Rules](https://raw.githubusercontent.com/ningsuhen/agent3d/main/rules/python.md) - Rules for Python development
-- [JavaScript Rules](https://raw.githubusercontent.com/ningsuhen/agent3d/main/rules/javascript.md) - Rules for JavaScript development
 
 ---
 
