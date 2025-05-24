@@ -75,7 +75,7 @@ For detailed implementation specifications of individual components, refer to th
 These detailed designs provide implementation details, API specifications, and technical constraints that complement this high-level architectural overview.
 </template>
 
-**EXAMPLE:** See the actual HIGH-LEVEL-DESIGN.md file in this project: [docs/HIGH-LEVEL-DESIGN.md]({{DDD_REMOTE_BASE}}/docs/HIGH-LEVEL-DESIGN.md)
+**EXAMPLE:** See the actual HIGH-LEVEL-DESIGN.md file in the local repository: `~/.agent3d/docs/HIGH-LEVEL-DESIGN.md`
 
 **VALIDATION CHECKLIST:**
 - [ ] System overview clearly explains the architecture approach
