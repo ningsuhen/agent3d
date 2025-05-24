@@ -11,10 +11,15 @@
 
 **REQUIRED SECTIONS:**
 1. Summary - Overall statistics
-2. Metrics Calculation Guide - How to calculate Drift and Alignment
+2. Pass Status Sections - Explanation of the repeating structure
 3. Individual pass entries (Full Pass + 9 numbered passes)
 4. Drift Indicators section
 5. Metrics section
+
+**PASS STRUCTURE:** Each DDD pass gets its own section following the same format. The document includes:
+- Full Pass (comprehensive pass)
+- 9 numbered passes (Foundation through Prune)
+- Each pass section repeats the same status tracking format
 
 **METRICS CALCULATION:**
 
@@ -46,6 +51,24 @@
 - **Last Full Pass:** {{last_full_pass_date}}
 - **Last Sync Check:** {{last_sync_date}}
 
+## � Pass Status Sections
+
+**NOTE:** The following sections repeat for each DDD pass (Full Pass + 9 numbered passes). Each pass has its own dedicated section with status tracking, progress indicators, drift measurements, and execution artifacts.
+
+**Pass Structure:**
+- **🔄 Full Pass** - Comprehensive pass encompassing all aspects
+- **1️⃣ Foundation Pass** - Creating foundational documentation and architecture
+- **2️⃣ Documentation Pass** - Documenting features, requirements, and priorities
+- **3️⃣ Implementation Pass** - Implementing features with basic test coverage
+- **4️⃣ Testing Pass** - Adding comprehensive tests and verifying edge cases
+- **5️⃣ Refactoring Pass** - Cleaning up code without changing functionality
+- **6️⃣ Code Review Pass** - Reviewing PR changes and providing feedback
+- **7️⃣ Synchronization Pass** - Aligning documentation with code at any scale
+- **8️⃣ Quality Pass** - Verifying and improving documentation quality
+- **9️⃣ Prune Pass** - Removing outdated or redundant content
+
+---
+
 ## 🔄 Full Pass
 - **Status:** {{status}} {{status_icon}}
 - **Alignment:** {{alignment_percentage}}% {{progress_bar}} ({{alignment_description}})
@@ -54,7 +77,9 @@
 - **Priority:** {{priority_level}}
 - **Notes:** {{status_notes}}
 
-## 1️⃣ Foundation Pass
+*Note: Following section will repeat for each pass included in the DDD.*
+
+## {{Pass Number Icon}} {{Pass Name}}
 - **Status:** {{status}} {{status_icon}}
 - **Alignment:** {{alignment_percentage}}% {{progress_bar}} ({{alignment_description}})
 - **Drift:** {{drift_level}} {{drift_icon}} ({{drift_explanation}})

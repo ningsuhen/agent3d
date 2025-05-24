@@ -11,6 +11,24 @@ This document tracks the status and progress of each DDD pass, including documen
 - **Last Full Pass:** 2024-01-16
 - **Last Sync Check:** 2024-01-16
 
+## 📋 Pass Status Sections
+
+**NOTE:** The following sections repeat for each DDD pass (Full Pass + 9 numbered passes). Each pass has its own dedicated section with status tracking, progress indicators, drift measurements, and execution artifacts.
+
+**Pass Structure:**
+- **🔄 Full Pass** - Comprehensive pass encompassing all aspects
+- **1️⃣ Foundation Pass** - Creating foundational documentation and architecture
+- **2️⃣ Documentation Pass** - Documenting features, requirements, and priorities
+- **3️⃣ Implementation Pass** - Implementing features with basic test coverage
+- **4️⃣ Testing Pass** - Adding comprehensive tests and verifying edge cases
+- **5️⃣ Refactoring Pass** - Cleaning up code without changing functionality
+- **6️⃣ Code Review Pass** - Reviewing PR changes and providing feedback
+- **7️⃣ Synchronization Pass** - Aligning documentation with code at any scale
+- **8️⃣ Quality Pass** - Verifying and improving documentation quality
+- **9️⃣ Prune Pass** - Removing outdated or redundant content
+
+---
+
 ## 🔄 Full Pass
 - **Status:** Completed ✅
 - **Progress:** 100% ██████████ (10/10 phases completed)
