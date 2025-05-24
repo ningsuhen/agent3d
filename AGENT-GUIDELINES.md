@@ -2,9 +2,9 @@
 *"Write the docs, then write the code—keep it lean, test it for real."*
 
 ## Configuration
-**DDD_REMOTE_BASE**: `https://raw.githubusercontent.com/ningsuhen/agent3d/main`
+**AGENT3D_LOCAL_REPO**: `~/.agent3d` (Local clone of Agent3D repository)
 
-*Note: When fetching remote resources, replace `{{DDD_REMOTE_BASE}}` with the actual URL base above.*
+*Note: All Agent3D resources are accessed from the local repository clone. Agents should clone `git@github.com:ningsuhen/agent3d.git` to `~/.agent3d` and update regularly with `git pull`.*
 
 ## Prime Directive
 **Documentation leads, code follows.** Always update docs before implementing code. Documentation is the single source of truth.
@@ -57,17 +57,17 @@
 
 ## Required Documentation
 
-| File | Purpose | Template |
+| File | Purpose | Local Template Path |
 |------|---------|----------|
-| `README.md` | Project overview | [README Template]({{DDD_REMOTE_BASE}}/templates/README.template.md) |
-| `docs/FEATURES.md` | Feature checklist with acceptance criteria | [FEATURES Template]({{DDD_REMOTE_BASE}}/templates/FEATURES.template.md) |
-| `docs/HIGH-LEVEL-DESIGN.md` | System design with diagrams and decisions | [HIGH-LEVEL-DESIGN Template]({{DDD_REMOTE_BASE}}/templates/HIGH-LEVEL-DESIGN.template.md) |
-| `docs/TASKS.md` | Work backlog organized by priority | [TASKS Template]({{DDD_REMOTE_BASE}}/templates/TASKS.template.md) |
-| `docs/TEST-CASES.md` | Test specifications with TC-#### format | [TEST-CASES Template]({{DDD_REMOTE_BASE}}/templates/TEST-CASES.template.md) |
-| `docs/DDD-STATUS.md` | DDD pass status and alignment tracking | [DDD-STATUS Template]({{DDD_REMOTE_BASE}}/templates/DDD-STATUS.template.md) |
-| `docs/designs/*.md` | Component design specifications | [DETAILED-DESIGN Template]({{DDD_REMOTE_BASE}}/templates/DETAILED-DESIGN.template.md) |
-| `docs/proposals/*.md` | Design proposals for unimplemented features | [PROPOSAL Template]({{DDD_REMOTE_BASE}}/templates/PROPOSAL.template.md) |
-| `CHANGELOG.md` | Chronological record of all project changes | [CHANGELOG Template]({{DDD_REMOTE_BASE}}/templates/CHANGELOG.template.md) |
+| `README.md` | Project overview | `~/.agent3d/templates/README.template.md` |
+| `docs/FEATURES.md` | Feature checklist with acceptance criteria | `~/.agent3d/templates/FEATURES.template.md` |
+| `docs/HIGH-LEVEL-DESIGN.md` | System design with diagrams and decisions | `~/.agent3d/templates/HIGH-LEVEL-DESIGN.template.md` |
+| `docs/TASKS.md` | Work backlog organized by priority | `~/.agent3d/templates/TASKS.template.md` |
+| `docs/TEST-CASES.md` | Test specifications with TC-#### format | `~/.agent3d/templates/TEST-CASES.template.md` |
+| `docs/DDD-STATUS.md` | DDD pass status and alignment tracking | `~/.agent3d/templates/DDD-STATUS.template.md` |
+| `docs/designs/*.md` | Component design specifications | `~/.agent3d/templates/DETAILED-DESIGN.template.md` |
+| `docs/proposals/*.md` | Design proposals for unimplemented features | `~/.agent3d/templates/PROPOSAL.template.md` |
+| `CHANGELOG.md` | Chronological record of all project changes | `~/.agent3d/templates/CHANGELOG.template.md` |
 
 **Missing Documentation**: Always create complete content using the provided templates before coding. Templates contain format specifications, placeholder structures, and examples - do NOT include the `<template>` or `<example>` tags in actual documentation files.
 
@@ -81,10 +81,10 @@
 ## Task Formatting Guidelines
 
 **For Documentation:**
-- **Features**: Follow [FEATURES Template]({{DDD_REMOTE_BASE}}/templates/FEATURES.template.md) - must include acceptance criteria in `(Criteria: <...>)` format
-- **Tasks**: Follow [TASKS Template]({{DDD_REMOTE_BASE}}/templates/TASKS.template.md) - organize by priority levels
-- **Test Cases**: Follow [TEST-CASES Template]({{DDD_REMOTE_BASE}}/templates/TEST-CASES.template.md) - use TC-#### format with execution types
-- **DDD Status**: Follow [DDD-STATUS Template]({{DDD_REMOTE_BASE}}/templates/DDD-STATUS.template.md) - track alignment and drift metrics
+- **Features**: Follow `~/.agent3d/templates/FEATURES.template.md` - must include acceptance criteria in `(Criteria: <...>)` format
+- **Tasks**: Follow `~/.agent3d/templates/TASKS.template.md` - organize by priority levels
+- **Test Cases**: Follow `~/.agent3d/templates/TEST-CASES.template.md` - use TC-#### format with execution types
+- **DDD Status**: Follow `~/.agent3d/templates/DDD-STATUS.template.md` - track alignment and drift metrics
 
 **CRITICAL - Documentation Structure:**
 - **Use proper heading hierarchy**: `## Groups (Modules)` and `### Sub-Groups (Sub-modules)` for organization
@@ -111,17 +111,56 @@ Follow `.agent-guidelines.md`. When documentation is missing or outdated, run a 
 - Update any references from `ARCHITECTURE.md` to `HIGH-LEVEL-DESIGN.md` in documentation, code comments, and configuration files
 - Update any references from "architecture" to "high-level design" in documentation contexts
 - Create `docs/designs/` directory for component design documents if it doesn't exist
-- Use the [DETAILED-DESIGN Template]({{DDD_REMOTE_BASE}}/templates/DETAILED-DESIGN.template.md) for component-specific documentation
+- Use `~/.agent3d/templates/DETAILED-DESIGN.template.md` for component-specific documentation
 - **Naming Convention**: Use `{COMPONENT}.md` for design files and CAPS for all documentation files
 - **Folder Structure**: Use `docs/designs/` (not `docs/modules/`) for component designs
 
-**Template Usage**: When creating foundation documentation, always fetch and use the provided templates from the Required Documentation section. Follow these steps:
-1. Fetch the appropriate template using the provided links
-2. Follow the format specification exactly as described in the template
-3. Replace all {{placeholders}} with actual project content
-4. Do NOT include `<template>` or `<example>` tags in actual documentation files
-5. Ensure all validation checklist items are met before considering documentation complete
+**Template Usage**: When creating foundation documentation, use templates from the local Agent3D repository. Follow these steps:
+1. Ensure `~/.agent3d` repository is cloned and up-to-date (`git pull`)
+2. Load the appropriate template from `~/.agent3d/templates/`
+3. Follow the format specification exactly as described in the template
+4. Replace all {{placeholders}} with actual project content
+5. Do NOT include `<template>` or `<example>` tags in actual documentation files
+6. Ensure all validation checklist items are met before considering documentation complete
 
-**DDD Status Tracking**: After completing any DDD pass, update `docs/DDD-STATUS.md` using the [DDD-STATUS Template]({{DDD_REMOTE_BASE}}/templates/DDD-STATUS.template.md).
+**Enhanced Template System**: The Agent3D framework includes an intelligent template system with context-aware features. **RECOMMENDED APPROACH**: Clone the Agent3D repository locally for secure, reliable template access.
 
-**Language-Specific Rules**: At the start of each project, identify the programming language(s) and fetch the corresponding language-specific rules using the links provided in the Language-Specific Rules section. These rules are stored remotely and must be retrieved via web-fetch. Memorize these rules and apply them consistently throughout all development activities including implementation, refactoring, and code review.
+**Git-Based Implementation**:
+1. **Repository Setup**: Clone `git@github.com:ningsuhen/agent3d.git` to `~/.agent3d` for local template access
+2. **Template Selection**: Access all templates directly from `~/.agent3d/templates/`
+3. **Automatic Updates**: Pull latest templates with `git -C ~/.agent3d pull origin main`
+4. **Regular Sync**: Update repository daily or before major operations
+
+**Implementation Benefits**:
+- **Security**: No remote code execution risks, all templates are local files
+- **Reliability**: Works offline once repository is cloned
+- **Performance**: Fast access to templates and rules without network requests
+- **Completeness**: Access to all Agent3D resources (templates, docs, passes, rules)
+- **Version Control**: Git history provides template evolution and rollback capability
+
+**Quick Start**:
+```bash
+# 1. Clone/update repository
+git clone git@github.com:ningsuhen/agent3d.git ~/.agent3d
+git -C ~/.agent3d pull origin main
+
+# 2. Templates are now available at:
+ls ~/.agent3d/templates/
+
+# 3. Agents should:
+#    - Read template files from ~/.agent3d/templates/
+#    - Replace {{placeholders}} with actual values
+#    - Remove template sections
+#    - Write processed content to project files
+```
+
+**DDD Status Tracking**: After completing any DDD pass, update `docs/DDD-STATUS.md` using the DDD-STATUS template from `~/.agent3d/templates/DDD-STATUS.template.md`.
+
+**Language-Specific Rules**: At the start of each project, identify the programming language(s) and load the corresponding language-specific rules from `~/.agent3d/language-rules/`. These rules are available locally in the cloned repository. Memorize these rules and apply them consistently throughout all development activities including implementation, refactoring, and code review.
+
+**Repository Maintenance**: Keep the local Agent3D repository current:
+- **Daily Updates**: Run `git -C ~/.agent3d pull origin main` at the start of each work session
+- **Before Major Operations**: Update repository before Foundation Pass or significant documentation work
+- **Version Checking**: Use `git -C ~/.agent3d log --oneline -5` to see recent changes
+- **Rollback Capability**: Use `git -C ~/.agent3d checkout <commit-hash>` if newer templates cause issues
+- **Status Verification**: Use `git -C ~/.agent3d status` to ensure repository is clean and up-to-date

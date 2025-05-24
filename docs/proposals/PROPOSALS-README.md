@@ -34,6 +34,7 @@ The proposals directory serves as:
 ### 4. Implementation Phase
 - Approved proposals move into active development
 - Status: `Implemented` once complete
+- **Proposal moves to `docs/designs/` as a design document**
 - Content is integrated into main DDD documentation structure
 
 ## Integration Workflow
@@ -46,10 +47,10 @@ When a proposal is **approved and implemented**, its content should be integrate
 - Document integration points with existing systems
 
 ### Component Design Creation
-- Create component design documents in `docs/designs/` using the [DETAILED-DESIGN Template](../../templates/DETAILED-DESIGN.template.md)
+- **Move implemented proposal to `docs/designs/`** using the [DETAILED-DESIGN Template](../../templates/DETAILED-DESIGN.template.md)
 - Use `{COMPONENT}.md` naming convention (e.g., `USER-AUTH.md`)
 - Include API specifications, data flows, and implementation details
-- Reference the original proposal for historical context
+- Update status from "Proposal" to "Design Document"
 
 ### Feature Documentation Update
 - Add new features to `docs/FEATURES.md` with acceptance criteria
@@ -61,23 +62,24 @@ When a proposal is **approved and implemented**, its content should be integrate
 - Define test cases in `docs/TEST-CASES.md`
 - Update `docs/DDD-STATUS.md` to track implementation progress
 
-### Proposal Archival
-- Move implemented proposals to `docs/proposals/archive/`
-- Maintain links between archived proposals and implemented features
-- Preserve decision history for future reference
+### Proposal to Design Transition
+- Move implemented proposals directly to `docs/designs/`
+- Update document type from "Proposal" to "Design Document"
+- Maintain implementation history within the design document
 
 ## Directory Structure
 
 ```
 docs/proposals/
 ├── PROPOSALS-README.md          # This file
-├── active/                      # Proposals under active consideration
-│   ├── FEATURE-NAME.md         # Individual proposal files
-│   └── MODULE-NAME.md
-├── archive/                     # Implemented or rejected proposals
-│   ├── implemented/            # Successfully implemented proposals
-│   └── rejected/               # Rejected proposals with rationale
-└── templates/                   # Proposal-specific templates (if needed)
+└── active/                      # Proposals under active consideration
+    ├── FEATURE-NAME.md         # Individual proposal files
+    └── MODULE-NAME.md
+
+# When implemented, proposals move to:
+docs/designs/
+├── COMPONENT-NAME.md           # Implemented proposals become design documents
+└── FEATURE-NAME.md
 ```
 
 ## Naming Conventions
@@ -93,8 +95,8 @@ Proposals must maintain status in their front matter:
 - `Draft` - Initial proposal creation
 - `Under Review` - Formal review process
 - `Approved` - Approved for implementation
-- `Rejected` - Rejected with documented reasons
-- `Implemented` - Successfully implemented and integrated
+- `Rejected` - Rejected with documented reasons (remains in proposals/)
+- `Implemented` - **Moved to `docs/designs/` as design document**
 
 ## Review Process
 
@@ -125,13 +127,13 @@ Proposals must maintain status in their front matter:
 1. **Keep Status Current**: Update status as proposals progress
 2. **Document Decisions**: Record why proposals were approved or rejected
 3. **Link to Implementation**: Connect proposals to actual implementation work
-4. **Archive Appropriately**: Move completed proposals to preserve history
+4. **Move When Implemented**: Transfer completed proposals to `docs/designs/`
 
 ### Integration Guidelines
-1. **Gradual Integration**: Move content to main docs as implementation progresses
-2. **Maintain Traceability**: Keep links between proposals and implemented features
+1. **Direct Transition**: Move implemented proposals directly to `docs/designs/`
+2. **Maintain Traceability**: Keep links between original proposals and design documents
 3. **Update Cross-References**: Ensure all documentation stays consistent
-4. **Preserve History**: Archive proposals for future reference
+4. **Preserve History**: Maintain implementation history within design documents
 
 ## Common Proposal Types
 

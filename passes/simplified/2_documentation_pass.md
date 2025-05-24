@@ -24,7 +24,7 @@
    - Document technical requirements and integration points
    - Update priorities, timelines, and dependencies
    - Prepare questions for unclear areas
-   - **Complex Features**: Create proposals using [PROPOSAL Template]({{DDD_REMOTE_BASE}}/templates/PROPOSAL.template.md) for features requiring detailed design
+   - **Complex Features**: Create proposals using `~/.agent3d/templates/PROPOSAL.template.md` for features requiring detailed design
 
 3. **Ask:**
    - Clarify feature scope, priorities, and edge cases

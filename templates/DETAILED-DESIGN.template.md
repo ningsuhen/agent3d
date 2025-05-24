@@ -191,7 +191,7 @@ This document provides the design specifications for the {{component_name}}, whi
 - {{debt_item}}: {{debt_description}}
 </template>
 
-**EXAMPLE:** See the actual component design files in this project: [docs/designs/]({{DDD_REMOTE_BASE}}/docs/designs/)
+**EXAMPLE:** See the actual component design files in the local repository: `~/.agent3d/docs/designs/`
 
 **MIGRATION CHECKLIST (for existing projects):**
 - [ ] Check if project has `ARCHITECTURE.md` that should be renamed to `HIGH-LEVEL-DESIGN.md`

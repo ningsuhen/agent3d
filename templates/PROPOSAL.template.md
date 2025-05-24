@@ -273,7 +273,7 @@
 {{appendix_content}}
 </template>
 
-**EXAMPLE:** See proposal examples in this project: [docs/proposals/]({{DDD_REMOTE_BASE}}/docs/proposals/)
+**EXAMPLE:** See proposal examples in the local repository: `~/.agent3d/docs/proposals/`
 
 **PROPOSAL LIFECYCLE:**
 1. **Draft**: Initial proposal creation using this template

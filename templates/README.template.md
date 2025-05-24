@@ -1,5 +1,18 @@
 # [Project Name] - [Brief Project Description]
 
+**TEMPLATE METADATA:**
+```yaml
+template:
+  id: "readme-template"
+  version: "1.0"
+  type: "specialized"
+  extends: "base-documentation"
+  description: "README template for project overview and getting started"
+  author: "Agent3D Team"
+  created: "2024-01-17"
+  updated: "2024-01-17"
+```
+
 **FORMAT SPECIFICATION:** This document must serve as the main entry point for the project. It must include:
 - Clear project title and one-line description
 - Project overview explaining what the project does
@@ -57,7 +70,26 @@
 {{license_info}}
 </template>
 
-**EXAMPLE:** See the actual README.md file in this project: [README.md]({{DDD_REMOTE_BASE}}/README.md)
+**EXAMPLE:** See the actual README.md file in the local repository: `~/.agent3d/README.md`
+
+**CONTEXT-AWARE FEATURES:**
+- **Language Detection**: Automatically includes language-specific installation commands
+- **Framework Integration**: Adds framework-specific setup instructions when detected
+- **Project Type Adaptation**: Adjusts sections based on project type (library, application, documentation)
+- **Dependency Management**: Includes appropriate package manager commands
+
+**DYNAMIC CONTENT GENERATION:**
+- **Auto-Detection Variables**:
+  - `{{detected_language}}` - Primary programming language
+  - `{{package_manager}}` - Detected package manager (npm, pip, maven, etc.)
+  - `{{framework_name}}` - Main framework if detected
+  - `{{project_type}}` - Type of project (library, cli, web-app, etc.)
+
+**INTELLIGENT SUGGESTIONS:**
+- Installation commands based on detected package manager
+- Usage examples appropriate for project type
+- Documentation links relevant to detected technologies
+- Contributing guidelines adapted to project structure
 
 **VALIDATION CHECKLIST:**
 - [ ] Project name and description are clear and accurate
@@ -67,3 +99,5 @@
 - [ ] All documentation links are valid
 - [ ] Contributing guidelines are clear
 - [ ] License information is accurate
+- [ ] Context-aware content is relevant and accurate
+- [ ] Auto-generated sections are properly customized
