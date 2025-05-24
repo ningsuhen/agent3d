@@ -60,6 +60,8 @@
 - Interface simplification
 - Error handling consistency
 - Documentation clarity
+- Language-specific guideline compliance
+- Consistency across codebase
 
 ## Verification Approach
 - Run all existing tests to ensure functionality is preserved
@@ -75,4 +77,6 @@
 - Don't add new features during refactoring
 - Keep changes reversible when possible
 - Document architectural decisions
-- Follow language-specific best practices
+- Follow language-specific rules (fetch from agent guidelines links)
+- Ensure consistency with existing codebase patterns
+- Apply language-specific best practices consistently
