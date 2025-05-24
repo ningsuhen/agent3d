@@ -7,9 +7,9 @@ This document outlines the test cases for the Agent3D framework.
 - **Completed:** 5 ✅
 - **Pending:** 25 ⏸️
 - **Skipped:** 0 ⏭️
-- **Automated:** 3 (10%)
-- **Partial:** 8 (27%)
-- **Manual:** 19 (63%)
+- **Automated:** 8 (27%)
+- **Partial:** 12 (40%)
+- **Manual:** 10 (33%)
 
 ## 🔧 Test Execution Framework
 
@@ -74,9 +74,9 @@ This document outlines the test cases for the Agent3D framework.
 - [ ] **TC-0223** - Thread safety considerations (Manual, High)
 
 ### Go Development
-- [ ] **TC-0231** - Go code follows standard formatting (Automated, High)
-- [ ] **TC-0232** - Proper package organization (Manual, Medium)
-- [ ] **TC-0233** - Error handling patterns (Manual, High)
+- [x] **TC-0231** - Go code follows standard formatting (Automated, High)
+- [ ] **TC-0232** - Proper package organization (Partial, Medium)
+- [ ] **TC-0233** - Error handling patterns (Partial, High)
 
 ## 🧪 Testing & Validation
 
@@ -93,9 +93,9 @@ This document outlines the test cases for the Agent3D framework.
 ## 🔄 Integration & Workflow
 
 ### CI/CD Integration
-- [ ] **TC-0401** - Documentation validation in CI pipeline (Manual, Medium)
-- [ ] **TC-0402** - Language-specific linting in CI (Partial, Medium)
-- [ ] **TC-0403** - Test execution in CI pipeline (Automated, High)
+- [ ] **TC-0401** - Documentation validation in CI pipeline (Automated, Medium)
+- [ ] **TC-0402** - Language-specific linting in CI (Automated, Medium)
+- [x] **TC-0403** - Test execution in CI pipeline (Automated, High)
 
 ### Agent Workflow
 - [ ] **TC-0411** - Agent follows Scan → Draft → Ask → Sync workflow (Manual, High)
