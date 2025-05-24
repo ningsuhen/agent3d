@@ -286,7 +286,7 @@
 - **Approved Proposals**: Move detailed design content to `docs/designs/` using DETAILED-DESIGN template with {COMPONENT}.md naming
 - **Architecture Changes**: Update `docs/HIGH-LEVEL-DESIGN.md` with new components and relationships
 - **Feature Implementation**: Update `docs/FEATURES.md` with new features and acceptance criteria
-- **Archive Proposals**: Move implemented proposals to `docs/proposals/archive/` for historical reference
+- **Implemented Proposals**: Move directly to `docs/designs/` as design documents
 
 **VALIDATION CHECKLIST:**
 - [ ] Problem statement clearly defines the issue being solved

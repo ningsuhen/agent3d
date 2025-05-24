@@ -83,7 +83,7 @@
 - [x] {{completed_task_name}} - {{completion_description}}
 </template>
 
-**EXAMPLE:** See the actual TASKS.md file in this project: [docs/TASKS.md]({{DDD_REMOTE_BASE}}/docs/TASKS.md)
+**EXAMPLE:** See the actual TASKS.md file in the local repository: `~/.agent3d/docs/TASKS.md`
 
 **VALIDATION CHECKLIST:**
 - [ ] Tasks are prioritized correctly based on impact and urgency

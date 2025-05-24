@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Context Analysis Rules**: Removed complex context analysis rules file to keep implementation simple
 - **Proposal Archive System**: Removed archive directories - implemented proposals now move directly to `docs/designs/`
 - **YAML Configuration**: Removed all YAML logic and configuration files - pure markdown and shell approach only
+- **Template Metadata**: Removed all **TEMPLATE METADATA:** sections from templates for cleaner, simpler templates
 
 ### Implemented
 - **Enhanced Template System Proposal**: Successfully moved from proposal to implementation with complete feature set
