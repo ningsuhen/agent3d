@@ -80,6 +80,7 @@
 **For Process Execution:**
 - Use ✅ symbol to mark completed steps during DDD pass execution
 - Add ✅ next to steps as you complete them for real-time progress tracking
+- Update `docs/DDD-STATUS.md` after each pass with phase-specific progress/drift
 
 **Examples:**
 - `- [ ] Implement user authentication` (pending task)
@@ -98,7 +99,19 @@
 - [ ] **Item-ID** - Description (Type, Priority)
 ```
 
+**DDD Status Format (for docs/DDD-STATUS.md updates):**
+```
+## 1️⃣ Pass Name
+- **Status:** Completed ✅ / In Progress ⏸️ / Pending ⏸️
+- **Progress:** XX% ████████░░ (phase-specific completion)
+- **Drift:** None 🟢 / Low 🟡 / Medium 🟡 / High 🔴 (domain-specific gaps)
+- **Priority:** High/Medium/Low
+- **Notes:** Context about current state
+```
+
 ## Agent Instructions
 Follow `.agent-guidelines.md`. When documentation is missing or outdated, run a DDD pass (update docs, ask questions, then sync code/tests/deploy). Keep code lean and favor integration/end-to-end tests over mocks unless external APIs require them. Format all tasks as single-line markdown tasks and mark execution progress with ✅.
+
+**DDD Status Tracking**: After completing any DDD pass, update `docs/DDD-STATUS.md` with phase-specific progress and drift indicators. Follow the [DDD-STATUS.md format](https://raw.githubusercontent.com/ningsuhen/agent3d/main/docs/DDD-STATUS.md) for consistent tracking.
 
 **Language-Specific Rules**: At the start of each project, identify the programming language(s) and fetch the corresponding language-specific rules using the links provided in the Language-Specific Rules section below. These rules are stored remotely and must be retrieved via web-fetch. Memorize these rules and apply them consistently throughout all development activities including implementation, refactoring, and code review.
