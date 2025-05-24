@@ -129,3 +129,42 @@ gh pr review [PR_NUMBER] --approve -b "LGTM!"
 - Code quality tools can be run automatically
 - Test coverage reports can inform the review
 - Security scanning tools can identify vulnerabilities
+
+## Automated Review Checklist
+- [ ] **Code Quality:** Linting and style checks pass
+- [ ] **Test Coverage:** Minimum coverage thresholds met
+- [ ] **Security:** No high-severity vulnerabilities detected
+- [ ] **Performance:** No significant performance regressions
+- [ ] **Documentation:** Code changes include documentation updates
+- [ ] **Dependencies:** No vulnerable or outdated dependencies introduced
+- [ ] **Breaking Changes:** Breaking changes are documented and justified
+
+## Review Templates
+
+### Standard Review Template
+```markdown
+## Code Review Summary
+- **Overall Assessment:** [Approve/Request Changes/Comment]
+- **Key Issues:** [List major concerns]
+- **Suggestions:** [List improvement suggestions]
+- **Documentation:** [Note any documentation needs]
+
+## Detailed Comments
+[Specific line-by-line feedback]
+
+## Next Steps
+[Required actions before approval]
+```
+
+### Security Review Template
+```markdown
+## Security Review
+- **Authentication:** [Assessment]
+- **Authorization:** [Assessment]
+- **Input Validation:** [Assessment]
+- **Data Protection:** [Assessment]
+- **Vulnerabilities:** [List any found]
+
+## Security Recommendations
+[Specific security improvements needed]
+```
