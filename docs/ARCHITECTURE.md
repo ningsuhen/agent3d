@@ -132,6 +132,7 @@ agent3d/
 │   ├── ARCHITECTURE.md    # This document
 │   ├── TASKS.md           # Project backlog
 │   ├── TEST-CASES.md      # Test case specifications
+│   ├── DDD-STATUS.md      # DDD pass status tracking
 │   └── DEPLOYMENT.md      # Deployment instructions
 ├── passes/                # DDD passes documentation
 │   └── simplified/        # Simplified pass definitions
