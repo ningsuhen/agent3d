@@ -12,9 +12,21 @@ This document outlines the test cases for the Agent3D framework.
 - **Manual:** 19 (63%)
 
 ## 🔧 Test Execution Framework
-- **Manual Testing:** Documentation review and validation procedures
-- **Automated Testing:** CI/CD integration for documentation validation
-- **Integration Testing:** End-to-end workflow validation with LLM agents
+
+### Manual Testing Procedures
+- **Documentation Review:** Systematic validation of documentation completeness and accuracy
+- **Workflow Validation:** Step-by-step verification of DDD pass execution
+- **Cross-Reference Checking:** Validation of links and references between documents
+
+### Automated Testing Integration
+- **CI/CD Validation:** Automated checks for documentation-code alignment
+- **Link Validation:** Automated verification of internal and external links
+- **Format Validation:** Automated checking of markdown formatting and structure
+
+### Integration Testing with LLM Agents
+- **End-to-End Workflow:** Complete DDD pass execution with real agents
+- **Guideline Compliance:** Verification that agents follow documented procedures
+- **Output Validation:** Checking that agent outputs match expected documentation standards
 
 ## 🤖 Agent Guideline Protocol
 - [x] **TC-0001** - Agent retrieves and caches guidelines (Manual, High)
