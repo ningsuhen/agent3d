@@ -1,25 +1,19 @@
 # Documentation-Driven Development (DDD) for LLM Coding Agents
 *"Write the docs, then write the code—keep it lean, test it for real."*
 
----
+## Prime Directive
+**Documentation leads, code follows.** Always update docs before implementing code. Documentation is the single source of truth.
 
-## 0  Prime Directive
-**Update Docs → Iterate with User → Implement → Validate.** Docs are the single source of truth; code, tests, and deployment scripts must never outpace them.
+## Core Workflow
 
----
+| Phase | Action | Human Role |
+|-------|--------|-----------|
+| **Scan** | Detect missing/outdated docs | — |
+| **Draft** | Create/update documentation | — |
+| **Ask** | Clarify gaps and decisions | Provide input |
+| **Sync** | Implement code matching docs | Review & approve |
 
-## 1  Agent Workflow
-
-| Phase | Agent Action | Human Role |
-|-------|--------------|-----------|
-| **Scan** | Detect drift or missing docs by parsing repo. | — |
-| **Draft** | Generate/refresh docs (§3) with full content. | — |
-| **Ask** | Surface gaps, design options, or clarifications. | Supply answers / edits. |
-| **Sync** | Finalize docs, then produce matching code, tests, CI, deploy scripts. | Review & approve. |
-| **Guard** | Refuse or fail if docs & code diverge. | — |
-
-> **DDD Pass** – When instructed, perform **Scan → Draft → Ask → Sync**, then commit
-> `DDD: <summary>` (or tag `docs-n/a` if no drift).
+**DDD Pass**: Execute Scan → Draft → Ask → Sync, then commit with `DDD: <description>`
 
 ### DDD Passes
 
@@ -36,15 +30,15 @@
 
 ---
 
-## 2  Lean-Code & Testing Principles
+## Development Principles
 
-| Principle | Agent Rule |
-|-----------|-----------|
-| **Keep Code Lean** | Implement only what the current docs require; avoid speculative abstractions. |
-| **Real Tests Over Mocks** | Prefer integration & end-to-end tests that exercise concrete components. Use mocks/stubs only when external calls (e.g., payment gateways) make them unavoidable. |
-| **Traceability** | Each test references its `TC-####` in `docs/TEST-CASES.md`. |
-| **Fast Feedback** | Critical end-to-end paths run in CI; heavier suites may run nightly. |
-| **Language-Specific Rules** | Follow the language-specific rules defined in the rules directory. |
+| Principle | Rule |
+|-----------|------|
+| **Lean Code** | Implement only documented requirements |
+| **Real Tests** | Use integration tests; avoid mocks except for external APIs |
+| **Traceability** | Reference test cases as `TC-####` from `docs/TEST-CASES.md` |
+| **Fast Feedback** | Run critical tests in CI |
+| **Language Rules** | Follow language-specific rules from `/rules/` directory |
 
 ### Language-Specific Rules
 
@@ -55,45 +49,41 @@
 
 ---
 
-## 3  Primary Docs & Generation Rules
+## Required Documentation
 
-| File | Purpose | Full content if **missing** |
-|------|---------|-----------------------------|
-| `README.md` | Vision & quick-start | Goal, tech stack, install steps, example commands, demo, contributors, license |
-| `docs/FEATURES.md` | Checklist | `- [ ] Feature-Slug — scope`, grouped by module |
-| `docs/ARCHITECTURE.md` | Design & decisions | Mermaid diagrams, data-flow, trade-offs |
-| `docs/TASKS.md` | Backlog | `- [ ] Task — link/source`, priority from TODOs/issues |
-| `docs/TEST-CASES.md` | Canonical tests | `TC-####`, feature, preconditions, steps, expected result, **Automated?** |
-| `docs/DEPLOYMENT.md` | Ops runbook | Envs, build scripts, IaC, containers, secrets, health checks, CI/CD, rollback |
+| File | Purpose | Content When Missing |
+|------|---------|---------------------|
+| `README.md` | Project overview | Goal, tech stack, setup, examples |
+| `docs/FEATURES.md` | Feature checklist | `- [ ] Feature-Name — description` |
+| `docs/ARCHITECTURE.md` | System design | Diagrams, data flow, decisions |
+| `docs/TASKS.md` | Work backlog | `- [ ] Task — priority/source` |
+| `docs/TEST-CASES.md` | Test specifications | `TC-####`, steps, expected results |
+| `docs/DEPLOYMENT.md` | Operations guide | Environments, CI/CD, monitoring |
 
-**Missing-Doc Protocol** – Generate a full, content-rich version (no placeholders) before coding.
-
----
-
-## 4  Drift Enforcement
-* Each commit updates a doc file **or** tags `docs-n/a`.
-* CI fails on doc↔code mismatch or missing artifacts.
-* Agent rejects tasks that violate DDD or Lean-Code/Test rules.
+**Missing Documentation**: Always create complete content before coding.
 
 ---
 
-### Markdown Task Formatting
+## Documentation Enforcement
+- Each commit must update documentation OR include `docs-n/a` tag
+- CI/CD pipelines must validate documentation-code alignment
+- Agents must reject tasks that violate DDD principles
 
-* Use markdown task lists (`- [ ]`) for all **features, tasks, and test cases**.
-* Prefer **single-line entries** for clarity and brevity.
-* **Mark completion** using **tick** (`- [x]`) for completed items in markdown task lists.
-* **Use ✅ symbol** specifically to indicate **step execution** during actual process execution.
-* **Task Status Examples**:
-  - `- [ ] Pending task` (not started)
-  - `- [x] Completed task` (finished)
-  - `✅ Step executed` (mark steps as completed during execution)
-* **Step Execution Tracking**: When executing DDD passes, add ✅ next to completed steps to track progress in real-time.
+## Task Formatting Guidelines
 
----
+**For Features, Tasks, and Test Cases:**
+- Use markdown task lists: `- [ ]` for pending, `- [x]` for completed
+- Keep entries single-line for clarity
+- Group related items logically
 
-### Minimal Guideline Prompt (embed in each agent)
+**For Process Execution:**
+- Use ✅ symbol to mark completed steps during DDD pass execution
+- Add ✅ next to steps as you complete them for real-time progress tracking
 
-> *Follow `.agent-guidelines.md`.
-> If docs drift or a primary doc is missing, run a DDD pass (update docs, ask questions, then sync code/tests/deploy).
-> Keep code lean; favor integration/end-to-end tests, avoid mocks unless absolutely necessary.
-> **Format all features, tasks, and test cases as single-line markdown tasks (`- [ ]`) and tick them when completed. During process execution, use ✅ to mark completed steps for progress tracking.***
+**Examples:**
+- `- [ ] Implement user authentication` (pending task)
+- `- [x] Add login validation` (completed task)
+- `✅ Review feature documentation` (step completed during execution)
+
+## Agent Instructions
+Follow `.agent-guidelines.md`. When documentation is missing or outdated, run a DDD pass (update docs, ask questions, then sync code/tests/deploy). Keep code lean and favor integration/end-to-end tests over mocks unless external APIs require them. Format all tasks as single-line markdown tasks and mark execution progress with ✅.

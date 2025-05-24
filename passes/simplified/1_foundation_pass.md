@@ -1,13 +1,11 @@
 # Foundation Pass
 
-**Purpose:** Creating or establishing foundational documentation, including architecture, technical decisions, and core documentation structure.
-
-**Equivalent to:** Previous Foundation Pass
+**Purpose:** Establish core project documentation including architecture, technical decisions, and documentation structure.
 
 ## When to Use
-- Starting a new project or feature with no existing documentation
+- Starting new projects or major features without existing documentation
 - Making significant architectural changes to existing systems
-- Establishing the foundational documentation structure
+- Establishing or restructuring documentation framework
 - Documenting major technical decisions and their rationales
 
 ## Process
