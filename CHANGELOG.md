@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Template Implementation**: Simplified to basic git commands and file operations
 - **Agent Guidelines**: Updated to use pure shell-based approach without programming dependencies
 - **DDD Passes**: Updated to include repository update steps and local template paths
+- **DDD Pass Clarity**: Clarified Synchronization Pass (forward alignment) and Reverse Pass (backward alignment) purposes
 - Enhanced proposal-to-design integration workflow documentation
 
 ### Removed
