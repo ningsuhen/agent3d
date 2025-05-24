@@ -15,30 +15,14 @@
    - Check foundation documents needed
    - **Structure Check**: Verify `docs/designs/` directory exists
 2. **Draft:**
-   - Create foundation documents from `~/.agent3d/templates/`:
-     - `README.md`
-     - `docs/HIGH-LEVEL-DESIGN.md`
-     - `docs/FEATURES.md`
-     - `docs/TASKS.md`
-     - `docs/TEST-CASES.md`
-     - `docs/DDD-STATUS.md`
+   - Create foundation documents from `~/.agent3d/templates/`: README, HIGH-LEVEL-DESIGN, FEATURES, TASKS, TEST-CASES, DDD-STATUS
    - Follow template format specifications exactly, replacing {{placeholders}} with actual content
-   - Do NOT include `<template>` or `<example>` tags in actual documentation files
    - **CRITICAL**: Use `## Groups` and `### Sub-Groups` heading structure
    - **CRITICAL**: Mark features as `[x]` completed ONLY when verifiable evidence exists
+   - Do NOT include `<template>` or `<example>` tags in actual documentation files
    - Create `docs/designs/` directory for component design documents
-   - Develop architectural diagrams using Mermaid syntax as shown in templates
-   - Document technical decisions and trade-offs following template structure
-3. **Ask:**
-   - Clarify project scope, architecture, or requirements
-   - Discuss technical constraints, integration points, or design alternatives
-   - Verify template usage and content accuracy
-4. **Sync:**
-   - Ensure all foundation documentation follows template formats exactly
-   - Verify architectural documentation is complete and accurate
-   - Validate that all {{placeholders}} have been replaced with actual content
-   - Update `CHANGELOG.md` with foundation changes (Added: new documentation files, architectural decisions)
-   - Update `DDD-STATUS.md` with Foundation Pass completion
+3. **Ask:** Clarify project scope, architectural decisions, feature priorities
+4. **Sync:** Ensure document consistency, validate cross-references, update CHANGELOG and DDD-STATUS
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
@@ -54,6 +38,11 @@
 - Architectural diagrams using proper Mermaid syntax
 - No `<template>` or `<example>` tags in actual documentation files
 - Comprehensive foundation for subsequent DDD passes
+
+## Related Passes
+- **Next:** [Documentation Pass](2_documentation_pass.md) - Document features and requirements
+- **Templates:** See `~/.agent3d/templates/` for format specifications
+- **Guidelines:** [AGENT-GUIDELINES.md](../../AGENT-GUIDELINES.md) for complete instructions
 
 ## Example Commit Message
 `DDD: Foundation Pass - Created initial documentation and architecture for payment processing system`

@@ -19,7 +19,8 @@
 2. **Draft:**
    - Document discrepancies and required updates
    - **CRITICAL**: Verify `## Groups` and `### Sub-Groups` heading structure
-   - **CRITICAL**: Validate that features marked `[x]` have verifiable evidence
+   - **CRITICAL**: Validate that features marked `[x]` have verifiable evidence (tests or manual verification)
+   - **CRITICAL**: Ensure no features marked `[x]` based solely on interface definitions or prototypes
    - Enhance formatting, examples, and explanations
    - Mark sections for removal or archiving
    - Improve diagrams and visual aids
@@ -48,6 +49,11 @@
 - Consistent formatting and terminology
 - Enhanced diagrams and visual aids
 - Better examples and explanations
+
+## Related Passes
+- **Follows:** [Reverse Pass](10_reverse_pass.md) - Ensures all content exists before quality validation
+- **Follows:** [Synchronization Pass](7_synchronization_pass.md) - Ensures alignment before quality checks
+- **Precedes:** [Prune Pass](9_prune_pass.md) - Quality validation before content cleanup
 
 ## Example Commit Message
 `DDD: Quality Pass - Verified documentation accuracy, improved API examples, and removed deprecated features`

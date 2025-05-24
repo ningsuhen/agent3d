@@ -69,14 +69,29 @@ Additionally, a **Full Pass** encompasses all of the above passes for comprehens
 
 ## Documentation Structure
 
-This repository contains only documentation files:
+### 📋 Core Documents
+- **[AGENT-GUIDELINES.md](AGENT-GUIDELINES.md)**: Main guidelines for agents
+- **[docs/HIGH-LEVEL-DESIGN.md](docs/HIGH-LEVEL-DESIGN.md)**: System architecture overview
+- **[docs/DDD-STATUS.md](docs/DDD-STATUS.md)**: Pass status and project health
 
-- **AGENT-GUIDELINES.md**: The main guidelines document that agents should reference
-- **docs/**: Core documentation including HIGH-LEVEL-DESIGN.md and component designs
-- **docs/proposals/**: Design proposals for unimplemented features and components
-- **passes/simplified/**: Detailed descriptions of each DDD pass
-- **rules/**: Language-specific development rules
-- **templates/**: Documentation templates including DETAILED-DESIGN and PROPOSAL templates
+### 🔄 DDD Passes
+- **[Full Pass](passes/simplified/full_pass.md)**: Comprehensive project update
+- **[Foundation Pass](passes/simplified/1_foundation_pass.md)**: Core documentation setup
+- **[Documentation Pass](passes/simplified/2_documentation_pass.md)**: Feature documentation
+- **[Implementation Pass](passes/simplified/3_implementation_pass.md)**: Code development
+- **[Testing Pass](passes/simplified/4_testing_pass.md)**: Test coverage
+- **[Refactoring Pass](passes/simplified/5_refactoring_pass.md)**: Code cleanup
+- **[Code Review Pass](passes/simplified/6_code_review_pass.md)**: PR reviews
+- **[Synchronization Pass](passes/simplified/7_synchronization_pass.md)**: Doc-code alignment
+- **[Quality Pass](passes/simplified/8_quality_pass.md)**: Documentation quality
+- **[Prune Pass](passes/simplified/9_prune_pass.md)**: Content cleanup
+- **[Reverse Pass](passes/simplified/10_reverse_pass.md)**: Reverse drift detection
+
+### 📁 Supporting Files
+- **docs/designs/**: Component specifications ([Agent Protocol](docs/designs/AGENT-PROTOCOL.md), [DDD Passes](docs/designs/DDD-PASSES.md), [Language Rules](docs/designs/LANGUAGE-RULES.md))
+- **docs/proposals/**: Unimplemented feature designs
+- **rules/**: Language-specific development rules ([Python](rules/python.md), [JavaScript](rules/javascript.md), [Java](rules/java.md), [Go](rules/go.md))
+- **templates/**: Documentation format specifications
 
 
 

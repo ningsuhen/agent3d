@@ -14,39 +14,19 @@
 
 ## Process
 1. **Scan:**
-   - **Repository Update**: Ensure `~/.agent3d` repository is current with `git -C ~/.agent3d pull origin main`
+   - **Repository Update**: `git -C ~/.agent3d pull origin main`
    - **Code Discovery**: Analyze codebase for implemented functionality not reflected in documentation
    - **Feature Status Audit**: Find features marked as `[ ]` or `[~]` that are actually working and complete
-   - **API Discovery**: Locate API endpoints, database schemas, or components without documentation
    - **Implementation Hunt**: Search for working code that lacks corresponding documentation
-   - **Test Coverage Analysis**: Detect test coverage gaps for existing functionality
-   - **Configuration Audit**: Check for configuration changes not reflected in setup documentation
 
 2. **Draft:**
    - **🔍 CRITICAL**: Systematically compare implementation against FEATURES.md status
    - **🔍 CRITICAL**: Identify features marked incomplete that have verifiable working implementations
-   - **Discovery Documentation**: Document all discovered undocumented functionality
-   - **Status Corrections**: Create list of features that should be marked `[x]` completed
-   - **Gap Analysis**: Prepare documentation updates for undocumented implementations
-   - **Test Case Planning**: Plan test case additions for uncovered functionality
-   - **Implementation Inventory**: Catalog all working code that lacks documentation
+   - Document all discovered undocumented functionality
+   - Create list of features that should be marked `[x]` completed
 
-3. **Ask:**
-   - **Discovery Validation**: Clarify whether undocumented functionality is intentional or oversight
-   - **Status Confirmation**: Confirm which implemented features should be marked as completed
-   - **Acceptance Verification**: Verify that discovered functionality meets acceptance criteria
-   - **Implementation Classification**: Discuss whether some implementations should be considered experimental
-   - **Design Clarification**: Clarify complex implementation details or design decisions
-   - **Behavior Confirmation**: Confirm intended behavior for ambiguous implementations
-
-4. **Sync:**
-   - **Status Updates**: Update FEATURES.md to mark verified complete features as `[x]`
-   - **Documentation Creation**: Add documentation for all confirmed undocumented functionality
-   - **Architecture Updates**: Update HIGH-LEVEL-DESIGN.md with any undocumented components or changes
-   - **Test Documentation**: Create or update test cases for uncovered implementations
-   - **Acceptance Validation**: Ensure all working features have proper acceptance criteria validation
-   - **Cross-Reference Updates**: Update all documentation files to reflect discovered implementations
-   - **Completeness Verification**: Validate that all code now has corresponding documentation
+3. **Ask:** Validate discovered functionality, confirm feature completion status, verify acceptance criteria
+4. **Sync:** Update FEATURES.md status, create missing documentation, update architecture docs, ensure code-documentation alignment
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
@@ -92,11 +72,11 @@
 - Accurate project status in DDD-STATUS.md
 - Comprehensive feature documentation with verified acceptance criteria
 
-## Integration with Other Passes
-- **Complements Synchronization Pass:** While Sync focuses on forward alignment, Reverse focuses on backward alignment
-- **Precedes Quality Pass:** Ensures all content exists before quality validation
-- **Follows Implementation Pass:** Catches documentation gaps after development work
-- **Informs Documentation Pass:** Identifies what documentation needs to be created or updated
+## Related Passes
+- **Complements:** [Synchronization Pass](7_synchronization_pass.md) - Forward alignment (docs→code)
+- **Precedes:** [Quality Pass](8_quality_pass.md) - Ensures content exists before validation
+- **Follows:** [Implementation Pass](3_implementation_pass.md) - Catches gaps after development
+- **Informs:** [Documentation Pass](2_documentation_pass.md) - Identifies missing documentation
 
 ## Example Commit Message
 `DDD: Reverse Pass - Updated documentation for payment processing features, marked 5 completed features as [x], added missing API documentation`

@@ -11,27 +11,10 @@
 - **Legacy documentation refactoring** (e.g., updating `ARCHITECTURE.md` references to `HIGH-LEVEL-DESIGN.md`)
 
 ## Process
-1. **Scan:**
-   - Identify discrepancies between code and documentation
-   - Review areas where implementation has diverged from specs
-   - Note specific changes that need documentation
-
-
-2. **Draft:**
-   - Update documentation to match current implementation
-   - Revise affected documentation sections
-   - Document any new implementation details
-
-
-3. **Ask:**
-   - Clarify complex implementation details or design decisions
-   - Confirm intended behavior for ambiguous implementations
-   - Verify technical constraints and dependencies
-
-4. **Sync:**
-   - Ensure documentation accurately reflects current code
-   - Update architectural diagrams and specifications
-   - Validate alignment across all documentation
+1. **Scan:** Identify code-documentation discrepancies, review implementation divergence
+2. **Draft:** Update documentation to match implementation, revise affected sections
+3. **Ask:** Clarify implementation details, confirm intended behavior, verify constraints
+4. **Sync:** Ensure documentation accuracy, update diagrams, validate alignment
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
@@ -43,6 +26,11 @@
 - Updated architectural diagrams reflecting current structure
 - Comprehensive feature documentation matching implementation
 - Aligned test cases and deployment documentation
+
+## Related Passes
+- **Complements:** [Reverse Pass](10_reverse_pass.md) - Backward alignment (code→docs)
+- **Follows:** [Implementation Pass](3_implementation_pass.md) - After code changes
+- **Precedes:** [Quality Pass](8_quality_pass.md) - Before quality validation
 
 ## Example Commit Message
 `DDD: Synchronization Pass - Updated API documentation to match current implementation and reconciled database schema changes`

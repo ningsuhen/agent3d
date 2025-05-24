@@ -166,13 +166,15 @@ agent3d/
 
 ## Component Designs
 
-For detailed implementation specifications of individual components, refer to the component design documents:
+**Detailed Specifications:**
+- **[Agent Protocol](designs/AGENT-PROTOCOL.md)** - Guideline acquisition and caching
+- **[DDD Passes](designs/DDD-PASSES.md)** - Pass workflows and dependencies
+- **[Language Rules](designs/LANGUAGE-RULES.md)** - Language-specific development rules
 
-- **[Agent Guideline Protocol](designs/AGENT-PROTOCOL.md)** - Detailed specification of how agents acquire, cache, and synchronize guidelines
-- **[DDD Pass System](designs/DDD-PASSES.md)** - In-depth documentation of each pass workflow, dependencies, and execution patterns
-- **[Language Rules System](designs/LANGUAGE-RULES.md)** - Comprehensive language-specific rule definitions and application patterns
-
-These component designs provide implementation details, API specifications, and technical constraints that complement this high-level architectural overview.
+**Related Documentation:**
+- **[DDD Status](DDD-STATUS.md)** - Current pass status and project health
+- **[Features](FEATURES.md)** - Feature documentation and acceptance criteria
+- **[Tasks](TASKS.md)** - Work backlog and priorities
 
 ## Proposal-to-Implementation Workflow
 

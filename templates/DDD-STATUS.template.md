@@ -1,20 +1,8 @@
 # DDD Status
 
-**FORMAT SPECIFICATION:** This document must track the status and alignment of each DDD pass with drift indicators. Each pass entry must include:
-- Status: Completed ✅, In Progress ⏸️, Pending ⏸️, Not Applicable 🚫, Ready ⏸️
-- Alignment: Percentage with progress bar (e.g., 85% ████████░░)
-- Drift: None 🟢, Low 🟡, Medium 🟠, High 🔴 with explanation
-- Last Execution: Date when pass was last run
-- Priority: High, Medium, Low based on current needs
-- Notes: Brief explanation of current state
-- Artifacts: List of deliverables with status indicators
+**FORMAT SPECIFICATION:** Tracks DDD pass status, alignment, and project health. Each pass includes status, alignment %, drift level, execution date, priority, and artifacts.
 
-**REQUIRED SECTIONS:**
-1. Summary - Overall statistics
-2. Pass Status Sections - Explanation of the repeating structure
-3. Individual pass entries (Full Pass + 10 numbered passes)
-4. Drift Indicators section
-5. Metrics section
+**REQUIRED SECTIONS:** Summary, Pass Status, Individual Passes (Full + 10 numbered), Health Indicators
 
 **PASS STRUCTURE:** Each DDD pass gets its own section following the same format. The document includes:
 - Full Pass (comprehensive pass)
@@ -51,22 +39,15 @@
 - **Last Full Pass:** {{last_full_pass_date}}
 - **Last Sync Check:** {{last_sync_date}}
 
-## 📋 Pass Status Sections
+## 📋 Pass Status
 
-**NOTE:** The following sections repeat for each DDD pass (Full Pass + 10 numbered passes). Each pass has its own dedicated section with status tracking, progress indicators, drift measurements, and execution artifacts.
+**Structure:** Full Pass + 10 numbered passes (Foundation → Documentation → Implementation → Testing → Refactoring → Code Review → Synchronization → Quality → Prune → Reverse)
 
-**Pass Structure:**
-- **🔄 Full Pass** - Comprehensive pass encompassing all aspects
-- **1️⃣ Foundation Pass** - Creating foundational documentation and architecture
-- **2️⃣ Documentation Pass** - Documenting features, requirements, and priorities
-- **3️⃣ Implementation Pass** - Implementing features with basic test coverage
-- **4️⃣ Testing Pass** - Adding comprehensive tests and verifying edge cases
-- **5️⃣ Refactoring Pass** - Cleaning up code without changing functionality
-- **6️⃣ Code Review Pass** - Reviewing PR changes and providing feedback
-- **7️⃣ Synchronization Pass** - Aligning documentation with code at any scale
-- **8️⃣ Quality Pass** - Verifying and improving documentation quality
-- **9️⃣ Prune Pass** - Removing outdated or redundant content
-- **🔟 Reverse Pass** - Detecting and addressing reverse drift (implementation without documentation)
+## 🏥 Health Indicators
+- **Critical Issues:** {{critical_count}} 🚨
+- **Documentation Gaps:** {{doc_gaps}} 📝
+- **Implementation Drift:** {{impl_drift}} ⚠️
+- **Quality Score:** {{quality_score}}/100 📊
 
 ---
 
@@ -100,4 +81,6 @@
 - [ ] Drift levels are justified with explanations
 - [ ] Artifacts list is complete and up-to-date
 - [ ] Summary statistics match individual pass data
+- [ ] Health indicators reflect current project state
+- [ ] Each pass section follows the same format structure
 
