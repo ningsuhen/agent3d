@@ -8,12 +8,14 @@
 - When documentation contains ambiguities or inconsistencies
 - Before implementing complex features with unclear requirements
 - When exploring unfamiliar technical domains
+- **Creating design proposals** for complex features that need detailed planning
 
 ## Process
 1. **Scan:**
    - Review existing documentation for gaps and inconsistencies
    - Identify where new features fit within current structure
    - Note ambiguities or unclear requirements
+   - **Proposal Check**: Review `docs/proposals/active/` for relevant design proposals
 
 2. **Draft:**
    - Create detailed feature specifications with acceptance criteria
@@ -22,6 +24,7 @@
    - Document technical requirements and integration points
    - Update priorities, timelines, and dependencies
    - Prepare questions for unclear areas
+   - **Complex Features**: Create proposals using [PROPOSAL Template]({{DDD_REMOTE_BASE}}/templates/PROPOSAL.template.md) for features requiring detailed design
 
 3. **Ask:**
    - Clarify feature scope, priorities, and edge cases

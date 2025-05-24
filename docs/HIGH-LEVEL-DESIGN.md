@@ -136,10 +136,16 @@ agent3d/
 │   ├── TEST-CASES.md      # Test case specifications
 │   ├── DDD-STATUS.md      # DDD pass status tracking
 │   ├── DEPLOYMENT.md      # Deployment instructions
-│   └── modules/           # Module detailed designs
-│       ├── agent-protocol.md    # Agent Guideline Protocol detailed design
-│       ├── ddd-passes.md        # DDD Pass System detailed design
-│       └── language-rules.md    # Language Rules System detailed design
+│   ├── modules/           # Module detailed designs
+│   │   ├── agent-protocol.md    # Agent Guideline Protocol detailed design
+│   │   ├── ddd-passes.md        # DDD Pass System detailed design
+│   │   └── language-rules.md    # Language Rules System detailed design
+│   └── proposals/         # Design proposals for unimplemented features
+│       ├── README.md            # Proposal process documentation
+│       ├── active/              # Proposals under consideration
+│       └── archive/             # Implemented or rejected proposals
+│           ├── implemented/     # Successfully implemented proposals
+│           └── rejected/        # Rejected proposals with rationale
 ├── passes/                # DDD passes documentation
 │   └── simplified/        # Simplified pass definitions
 │       ├── full_pass.md   # Full pass documentation
@@ -167,5 +173,40 @@ For detailed implementation specifications of individual components, refer to th
 - **[Language Rules System](modules/language-rules.md)** - Comprehensive language-specific rule definitions and application patterns
 
 These detailed designs provide implementation details, API specifications, and technical constraints that complement this high-level architectural overview.
+
+## Proposal-to-Implementation Workflow
+
+Agent3D includes a structured proposal system for managing unimplemented features and modules:
+
+```mermaid
+graph LR
+    A[Proposal Creation] --> B[Review Process]
+    B --> C{Decision}
+    C -->|Approved| D[Implementation]
+    C -->|Rejected| E[Archive/Rejected]
+    D --> F[Integration to Main Docs]
+    F --> G[Archive/Implemented]
+
+    D --> H[Update HLD]
+    D --> I[Create Module Docs]
+    D --> J[Update Features]
+    D --> K[Add Test Cases]
+```
+
+### Proposal Lifecycle
+1. **Draft**: Create proposal using [PROPOSAL Template](../templates/PROPOSAL.template.md) in `docs/proposals/active/`
+2. **Review**: Stakeholder evaluation and feedback collection
+3. **Decision**: Approval or rejection with documented rationale
+4. **Implementation**: Development work based on approved proposal
+5. **Integration**: Move content from proposal to main DDD documentation structure
+6. **Archive**: Preserve proposal history in `docs/proposals/archive/`
+
+### Integration Process
+When proposals are implemented, their content flows into the main documentation:
+- **Architecture changes** → Update this HIGH-LEVEL-DESIGN.md
+- **Module specifications** → Create detailed designs in `docs/modules/`
+- **Feature definitions** → Update `docs/FEATURES.md`
+- **Implementation tasks** → Add to `docs/TASKS.md`
+- **Test specifications** → Define in `docs/TEST-CASES.md`
 
 **Note:** This repository contains only documentation files. There are no implementation files, libraries, or executable code. All examples are provided as documentation examples only and are not meant to be functional.
