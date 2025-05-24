@@ -1,25 +1,10 @@
 # Base Template
 
-**FORMAT SPECIFICATION:** This is the base template that provides common structure and validation rules for all Agent3D documentation templates. It defines:
-- Standard document structure with header, overview, content, and validation sections
-- Common variables and placeholders used across templates
-- Base validation rules that all templates must follow
-- Inheritance patterns for specialized templates
+**FORMAT SPECIFICATION:** Common structure for Agent3D documentation templates.
 
-**REQUIRED SECTIONS:**
-1. Header - Document title and metadata
-2. Overview - Purpose and scope description
-3. Content - Main document content (varies by template type)
-4. Validation - Quality checks and compliance verification
+**REQUIRED SECTIONS:** Header, Overview, Content, Validation
 
-**COMMON VARIABLES:**
-- `{{document_title}}` - The title of the document
-- `{{document_purpose}}` - Brief description of document purpose
-- `{{project_name}}` - Name of the project
-- `{{author}}` - Document author
-- `{{creation_date}}` - Document creation date
-- `{{last_updated}}` - Last modification date
-- `{{version}}` - Document version
+**COMMON VARIABLES:** {{document_title}}, {{document_purpose}}, {{project_name}}, {{author}}, {{creation_date}}, {{last_updated}}, {{version}}
 
 **BASE VALIDATION RULES:**
 - All required sections must be present
@@ -27,13 +12,6 @@
 - No `<template>` or `<example>` tags in final documentation
 - Document must follow CAPS naming convention for files
 - Links must be functional and point to existing resources
-
-**TEMPLATE INHERITANCE:**
-Templates can extend this base template by:
-1. Specifying `extends: "base-documentation"` in metadata
-2. Adding specialized sections to the base structure
-3. Defining additional variables specific to the template type
-4. Adding custom validation rules beyond the base requirements
 
 **TEMPLATE:** (Do NOT include `<template>` tags in actual documentation)
 <template>

@@ -1,38 +1,15 @@
 # Tasks
 
-**FORMAT SPECIFICATION:** This document must organize all project tasks by priority levels. Each task must include:
-- Checkbox status: `[x]` for completed, `[ ]` for pending, `[~]` for in progress
-- Task description: Clear, actionable description
-- Context: Brief explanation of why the task matters (optional)
+**FORMAT SPECIFICATION:** Tasks organized by priority (High/Medium/Low/Completed) with status `[x]`/`[ ]`/`[~]` and actionable descriptions. Use `## Groups`/`### Sub-Groups` structure.
 
-**SUB-TASKS:** Complex tasks can have sub-tasks using indented bullets (2 spaces):
-- Main task with multiple components can be broken down
-  - Sub-task 1 - Specific component or step
-  - Sub-task 2 - Another component or step
-
-**REQUIRED SECTIONS:**
-1. High Priority - Critical tasks that block other work
-2. Medium Priority - Important tasks that improve the project
-3. Low Priority - Nice-to-have tasks for future consideration
-4. Completed - Archive of finished tasks for reference
+**SUB-TASKS:** Complex tasks can have sub-tasks using indented bullets (2 spaces).
 
 **PRIORITY GUIDELINES:**
 - **High Priority:** Tasks that block other work, critical bugs, security issues
 - **Medium Priority:** Feature improvements, performance optimizations, documentation updates
 - **Low Priority:** Nice-to-have features, experimental ideas, long-term goals
 
-**🔗 CRITICAL - Documentation Structure:**
-- **ALWAYS use `## Groups (Priority Levels)` for High, Medium, Low, Completed**
-- **ALWAYS use `### Sub-Groups (Functional Areas)` for specific work areas within each priority**
-
-**GROUPING STRATEGY:** Use a two-level hierarchy within each priority level to organize tasks:
-- **## Groups (Priority Levels):** High, Medium, Low, Completed
-- **### Sub-Groups (Functional Areas):** Specific work areas within each priority
-- **By Feature Area:** Group tasks related to the same feature or functionality
-- **By Component:** Group tasks that affect the same system component
-- **By Skill/Team:** Group tasks that require similar expertise or team assignment
-- **By Dependencies:** Group tasks that have dependencies on each other
-- **By Timeline:** Group tasks that should be completed in the same timeframe
+**🔗 CRITICAL:** Use `## Groups (Priority Levels)` for High/Medium/Low/Completed and `### Sub-Groups (Functional Areas)` for specific work areas within each priority.
 
 **TEMPLATE:** (Do NOT include `<template>` tags in actual documentation)
 <template>
@@ -81,14 +58,9 @@
 
 **VALIDATION CHECKLIST:**
 - [ ] Tasks are prioritized correctly based on impact and urgency
-- [ ] Each task and sub-task has a clear, actionable description
+- [ ] Each task has a clear, actionable description
 - [ ] Sub-tasks use 2-space indentation and are logically related to parent tasks
 - [ ] **CRITICAL**: Uses `## Groups (Priority Levels)` and `### Sub-Groups (Functional Areas)` heading structure
 - [ ] Tasks are grouped by functional area within each priority level
-- [ ] Functional area headers clearly indicate the type of work
-- [ ] Related tasks are grouped together for easy identification
-- [ ] No duplicate tasks across priority levels or functional areas
 - [ ] Completed tasks are moved to the Completed section with appropriate grouping
 - [ ] Task descriptions are specific enough to be actionable
-- [ ] Complex tasks are appropriately broken down into sub-tasks
-- [ ] Each functional area has 2-8 tasks for optimal readability

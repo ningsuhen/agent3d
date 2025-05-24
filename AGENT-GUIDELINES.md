@@ -65,13 +65,18 @@
 | `docs/HIGH-LEVEL-DESIGN.md` | System design with diagrams and decisions | `~/.agent3d/templates/HIGH-LEVEL-DESIGN.template.md` |
 | `docs/TASKS.md` | Work backlog organized by priority | `~/.agent3d/templates/TASKS.template.md` |
 | `docs/TEST-CASES.md` | Test specifications with TC-#### format | `~/.agent3d/templates/TEST-CASES.template.md` |
-| `docs/DDD-STATUS.md` | DDD pass status and alignment tracking | `~/.agent3d/templates/DDD-STATUS.template.md` |
+| `docs/DDD-STATUS.md` | DDD Pass Status, Drift and Health tracking | `~/.agent3d/templates/DDD-STATUS.template.md` |
 | `docs/designs/*.md` | Component design specifications | `~/.agent3d/templates/DETAILED-DESIGN.template.md` |
 | `docs/proposals/*.md` | Design proposals for unimplemented features | `~/.agent3d/templates/PROPOSAL.template.md` |
-| `docs/DRIFT-TRACKER.md` | Project drift monitoring between docs and implementation | `~/.agent3d/templates/DRIFT-TRACKER.template.md` |
 | `CHANGELOG.md` | Chronological record of all project changes | `~/.agent3d/templates/CHANGELOG.template.md` |
 
 **Missing Documentation**: Always create complete content using the provided templates before coding. Templates contain format specifications, placeholder structures, and examples - do NOT include the `<template>` or `<example>` tags in actual documentation files.
+
+**🚨 CRITICAL REQUIREMENTS:**
+- **Feature Completion**: NEVER mark features as `[x]` completed based solely on interface definitions, prototypes, or documentation. ONLY mark `[x]` when verifiable evidence exists (tests pass, manual verification).
+- **Document Structure**: ALWAYS use `## Groups` and `### Sub-Groups` heading structure in all documentation.
+- **Template Compliance**: Replace ALL {{placeholders}} with actual content and remove template tags.
+- **Repository Updates**: Always run `git -C ~/.agent3d pull origin main` before starting any DDD pass.
 
 ---
 
@@ -83,10 +88,10 @@
 ## Task Formatting Guidelines
 
 **For Documentation:**
-- **Features**: Follow `~/.agent3d/templates/FEATURES.template.md` - must include acceptance criteria in `(Criteria: <...>)` format
-- **Tasks**: Follow `~/.agent3d/templates/TASKS.template.md` - organize by priority levels
-- **Test Cases**: Follow `~/.agent3d/templates/TEST-CASES.template.md` - use TC-#### format with execution types
-- **DDD Status**: Follow `~/.agent3d/templates/DDD-STATUS.template.md` - track alignment and drift metrics
+- **Features**: Follow `~/.agent3d/templates/FEATURES.template.md` - must include acceptance criteria in `(Criteria: <...>)` format. Single-line entries only. Mark `[x]` ONLY with verifiable evidence.
+- **Tasks**: Follow `~/.agent3d/templates/TASKS.template.md` - organize by priority levels (High/Medium/Low/Completed) with functional area sub-groups
+- **Test Cases**: Follow `~/.agent3d/templates/TEST-CASES.template.md` - use TC-#### format with execution types (Manual/Automated/Partial) and priority
+- **DDD Status**: Follow `~/.agent3d/templates/DDD-STATUS.template.md` - track alignment and drift metrics with health indicators
 
 **CRITICAL - Documentation Structure:**
 - **Use proper heading hierarchy**: `## Groups` and `### Sub-Groups` for organization
