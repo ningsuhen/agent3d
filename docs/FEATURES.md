@@ -8,17 +8,17 @@ This document outlines the features of the Agent3D documentation framework, grou
 
 ## Core Documentation Framework
 
-- [x] Agent Guideline Protocol - Guidelines for agents to retrieve and follow DDD principles
-- [x] DDD Pass System - Structured approach to documentation-driven development
-- [x] Documentation Standards - Guidelines for documentation completeness and accuracy
+- [x] Agent Guideline Protocol - Guidelines for agents to retrieve and follow DDD principles (Criteria: Agents can fetch, cache, and follow remote guidelines automatically)
+- [x] DDD Pass System - Structured approach to documentation-driven development (Criteria: All 9 numbered passes plus Full Pass are documented and executable)
+- [x] Documentation Standards - Guidelines for documentation completeness and accuracy (Criteria: All required documentation files have templates and validation criteria)
 
 ## Documentation Passes
 
-- [x] Foundation Pass - Creating foundational documentation and architecture
-- [x] Documentation Pass - Documenting features, requirements, and priorities
-- [x] Synchronization Pass - Aligning documentation with code at any scale
-- [x] Quality Pass - Verifying and improving documentation quality
-- [x] Prune Pass - Removing outdated or redundant content
+- [x] Foundation Pass - Creating foundational documentation and architecture (Criteria: All 6 required documentation files are created and complete)
+- [x] Documentation Pass - Documenting features, requirements, and priorities (Criteria: All features have acceptance criteria and test cases are documented)
+- [x] Synchronization Pass - Aligning documentation with code at any scale (Criteria: Documentation matches implementation with zero drift indicators)
+- [x] Quality Pass - Verifying and improving documentation quality (Criteria: All documentation meets clarity and consistency standards)
+- [x] Prune Pass - Removing outdated or redundant content (Criteria: No duplicate or obsolete content remains in documentation)
 
 ## Implementation Passes
 
