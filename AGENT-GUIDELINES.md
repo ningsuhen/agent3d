@@ -75,6 +75,7 @@
 - Use markdown task lists: `- [ ]` for pending, `- [x]` for completed
 - Keep entries single-line for clarity
 - Group related items logically
+- **Follow TEST-CASES.md structure**: Start with a Summary section containing statistics and overview, then organize content into logical sections with bullet points
 
 **For Process Execution:**
 - Use ✅ symbol to mark completed steps during DDD pass execution
@@ -84,6 +85,17 @@
 - `- [ ] Implement user authentication` (pending task)
 - `- [x] Add login validation` (completed task)
 - `✅ Review feature documentation` (step completed during execution)
+
+**Document Structure Example (following TEST-CASES.md pattern):**
+```
+## 📊 Summary
+- **Total Items:** X
+- **Completed:** Y ✅
+- **Pending:** Z ⏸️
+
+## 📚 Section Name
+- [ ] **Item-ID** - Description (Type, Priority)
+```
 
 ## Agent Instructions
 Follow `.agent-guidelines.md`. When documentation is missing or outdated, run a DDD pass (update docs, ask questions, then sync code/tests/deploy). Keep code lean and favor integration/end-to-end tests over mocks unless external APIs require them. Format all tasks as single-line markdown tasks and mark execution progress with ✅.
