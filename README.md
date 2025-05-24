@@ -25,9 +25,10 @@ The core principle is simple: **"Write the docs, then write the code—keep it l
 
 To use Agent3D in your LLM agent:
 
-1. Implement the Agent Guideline Protocol (see below) to reference these guidelines remotely
-2. Instruct your agent to follow the DDD passes in sequence for each development task
-3. Direct your agent to adhere to the language-specific rules for your project
+1. **Establish Project Root**: Find or create `.agent3d` file to mark the project root directory
+2. Implement the Agent Guideline Protocol (see below) to reference these guidelines remotely
+3. Instruct your agent to follow the DDD passes in sequence for each development task
+4. Direct your agent to adhere to the language-specific rules for your project
 
 ## Agent Guideline Protocol
 

@@ -10,6 +10,7 @@
 
 ## Process
 1. **Scan:**
+   - **Project Root**: Find or create `.agent3d` file to establish project root
    - **Repository Update**: `git -C ~/.agent3d pull origin main`
    - Identify missing/outdated documentation
    - Check foundation documents needed

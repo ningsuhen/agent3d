@@ -3,8 +3,32 @@
 
 ## Configuration
 **AGENT3D_LOCAL_REPO**: `~/.agent3d` (Local clone of Agent3D repository)
+**PROJECT_ROOT**: Determined by `.agent3d` file location or current working directory
 
 *Note: All Agent3D resources are accessed from the local repository clone. Agents should clone `git@github.com:ningsuhen/agent3d.git` to `~/.agent3d` and update regularly with `git pull`.*
+
+## Project Root Detection
+**CRITICAL**: Before starting any DDD work, establish the project root:
+
+1. **Search for `.agent3d` file**: Look for `.agent3d` file starting from current directory, traversing up parent directories
+2. **If found**: Use the directory containing `.agent3d` as project root
+3. **If not found**: Create `.agent3d` file in current working directory to establish project root
+4. **Project Structure**: All DDD documentation should be relative to the directory containing `.agent3d`
+
+**Example Project Structure**:
+```
+/path/to/project/           # Contains .agent3d file (PROJECT_ROOT)
+├── .agent3d                # Project marker file
+├── README.md               # Project overview
+├── docs/                   # Documentation directory
+│   ├── FEATURES.md         # Feature documentation
+│   ├── HIGH-LEVEL-DESIGN.md # System architecture
+│   ├── TASKS.md            # Work backlog
+│   ├── TEST-CASES.md       # Test specifications
+│   ├── DDD-STATUS.md       # Pass status tracking
+│   └── designs/            # Component designs
+└── src/                    # Source code (if applicable)
+```
 
 ## Prime Directive
 **Documentation leads, code follows.** Always update docs before implementing code. Documentation is the single source of truth.
@@ -18,6 +42,7 @@
 | **Ask** | Clarify gaps and decisions | Provide input |
 | **Sync** | Implement code matching docs | Review & approve |
 
+**Project Setup**: Establish project root by finding or creating `.agent3d` file
 **DDD Pass**: Execute Scan → Draft → Ask → Sync, then commit with `DDD: <description>`
 
 ### DDD Passes
@@ -73,6 +98,7 @@
 **Missing Documentation**: Always create complete content using the provided templates before coding. Templates contain format specifications, placeholder structures, and examples - do NOT include the `<template>` or `<example>` tags in actual documentation files.
 
 **🚨 CRITICAL REQUIREMENTS:**
+- **Project Root**: ALWAYS establish project root by finding or creating `.agent3d` file before any DDD work.
 - **Feature Completion**: NEVER mark features as `[x]` completed based solely on interface definitions, prototypes, or documentation. ONLY mark `[x]` when verifiable evidence exists (tests pass, manual verification).
 - **Document Structure**: ALWAYS use `## Groups` and `### Sub-Groups` heading structure in all documentation.
 - **Template Compliance**: Replace ALL {{placeholders}} with actual content and remove template tags.
@@ -112,7 +138,7 @@
 - Update `CHANGELOG.md` after significant changes or pass completions with appropriate categorization
 
 ## Agent Instructions
-Follow `.agent-guidelines.md`. When documentation is missing or outdated, run a DDD pass (update docs, ask questions, then sync code/tests/deploy). Keep code lean and favor integration/end-to-end tests over mocks unless external APIs require them. Format all tasks as single-line markdown tasks and mark execution progress with ✅.
+**FIRST**: Establish project root by finding or creating `.agent3d` file. Follow `.agent-guidelines.md`. When documentation is missing or outdated, run a DDD pass (update docs, ask questions, then sync code/tests/deploy). Keep code lean and favor integration/end-to-end tests over mocks unless external APIs require them. Format all tasks as single-line markdown tasks and mark execution progress with ✅.
 
 **LLM-Friendly Documentation**: All project documentation must be optimized for LLM processing:
 - Use clear, concise language without verbose explanations
@@ -152,18 +178,29 @@ Follow `.agent-guidelines.md`. When documentation is missing or outdated, run a 
 
 **Quick Start**:
 ```bash
-# 1. Clone/update repository
+# 1. Clone/update Agent3D repository
 git clone git@github.com:ningsuhen/agent3d.git ~/.agent3d
 git -C ~/.agent3d pull origin main
 
-# 2. Templates are now available at:
+# 2. Establish project root
+# Search for .agent3d file starting from current directory
+find . -name ".agent3d" -type f 2>/dev/null | head -1
+# If not found, create it in current directory
+if [ ! -f ".agent3d" ]; then
+    echo "# Agent3D Project Root Marker" > .agent3d
+    echo "# This file marks the root directory for DDD documentation" >> .agent3d
+    echo "# All documentation paths are relative to this directory" >> .agent3d
+fi
+
+# 3. Templates are now available at:
 ls ~/.agent3d/templates/
 
-# 3. Agents should:
+# 4. Agents should:
+#    - Establish project root with .agent3d file
 #    - Read template files from ~/.agent3d/templates/
 #    - Replace {{placeholders}} with actual values
 #    - Remove template sections
-#    - Write processed content to project files
+#    - Write processed content to project files relative to .agent3d location
 ```
 
 **DDD Status Tracking**: After completing any DDD pass, update `docs/DDD-STATUS.md` using the DDD-STATUS template from `~/.agent3d/templates/DDD-STATUS.template.md`.
