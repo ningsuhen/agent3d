@@ -2,63 +2,63 @@
 
 ## Environment Setup
 
-1. **JDK Version**
-   - Use LTS (Long Term Support) versions of Java when possible
-   - Document the required Java version in build files
-   - Use a consistent JDK version across development, CI/CD, and production
+**JDK Version:**
+- Use LTS (Long Term Support) versions of Java when possible
+- Document required Java version in build files
+- Use consistent JDK version across development, CI/CD, and production
 
-2. **Build Tools**
-   - Prefer Gradle or Maven for build automation
-   - Include wrapper scripts (gradlew/mvnw) in the repository
-   - Define all dependencies in the build file, not in the IDE
-   - Use dependency locking to ensure reproducible builds
+**Build Tools:**
+- Use Gradle or Maven for build automation
+- Include wrapper scripts (gradlew/mvnw) in the repository
+- Define all dependencies in build file, not in IDE
+- Use dependency locking to ensure reproducible builds
 
 ## Code Style
 
-1. **Formatting**
-   - Follow Google Java Style Guide or a similar established style
-   - Use 4 spaces for indentation, not tabs
-   - Limit line length to 100-120 characters
-   - Use tools like Checkstyle, PMD, or SpotBugs for static analysis
+**Formatting:**
+- Follow Google Java Style Guide or similar established style
+- Use 4 spaces for indentation, not tabs
+- Limit line length to 100-120 characters
+- Use tools like Checkstyle, PMD, or SpotBugs for static analysis
 
-2. **Naming Conventions**
-   - Use camelCase for variables, methods, and parameters
-   - Use PascalCase for classes and interfaces
-   - Use UPPER_SNAKE_CASE for constants
-   - Use descriptive names that reflect purpose
-   - Prefix interfaces with 'I' only when there's both an interface and implementation class
+**Naming Conventions:**
+- `camelCase` for variables, methods, parameters
+- `PascalCase` for classes and interfaces
+- `UPPER_SNAKE_CASE` for constants
+- Use descriptive names that reflect purpose
+- Prefix interfaces with 'I' only when both interface and implementation exist
 
-3. **Organization**
-   - One top-level class per file
-   - Group related classes in packages
-   - Follow standard package naming conventions (com.company.project.module)
-   - Order class members logically (constants, fields, constructors, methods)
+**Organization:**
+- One top-level class per file
+- Group related classes in packages
+- Follow standard package naming conventions (com.company.project.module)
+- Order class members logically (constants, fields, constructors, methods)
 
 ## Best Practices
 
-1. **Object-Oriented Design**
-   - Follow SOLID principles
-   - Prefer composition over inheritance
-   - Design for extension but restrict subclassing when appropriate
-   - Make fields private and provide getters/setters only when necessary
+**Object-Oriented Design:**
+- Follow SOLID principles
+- Prefer composition over inheritance
+- Design for extension but restrict subclassing when appropriate
+- Make fields private and provide getters/setters only when necessary
 
-2. **Immutability**
-   - Make classes immutable when possible
-   - Use final for fields that shouldn't change after initialization
-   - Use defensive copying for mutable parameters and return values
-   - Use immutable collections when appropriate
+**Immutability:**
+- Make classes immutable when possible
+- Use final for fields that shouldn't change after initialization
+- Use defensive copying for mutable parameters and return values
+- Use immutable collections when appropriate
 
-3. **Exception Handling**
-   - Use checked exceptions for recoverable conditions
-   - Use unchecked exceptions for programming errors
-   - Include meaningful error messages
-   - Clean up resources in finally blocks or use try-with-resources
+**Exception Handling:**
+- Use checked exceptions for recoverable conditions
+- Use unchecked exceptions for programming errors
+- Include meaningful error messages
+- Clean up resources in finally blocks or use try-with-resources
 
-4. **Concurrency**
-   - Prefer higher-level concurrency utilities over raw threads
-   - Use thread pools for managing worker threads
-   - Make classes thread-safe or clearly document thread safety guarantees
-   - Be cautious with synchronization to avoid deadlocks
+**Concurrency:**
+- Prefer higher-level concurrency utilities over raw threads
+- Use thread pools for managing worker threads
+- Make classes thread-safe or clearly document thread safety guarantees
+- Be cautious with synchronization to avoid deadlocks
 
 ## Documentation
 

@@ -11,30 +11,32 @@
 - When preparing for a major release
 
 ## Process
-1. **Scan:** 
+1. **Scan:**
    - Identify code smells and technical debt
    - Review code for maintainability issues
    - Look for performance bottlenecks
    - Analyze code complexity and duplication
    - Review architectural alignment
 
-2. **Draft:** 
+2. **Draft:**
    - Plan refactoring approach and priorities
    - Document expected improvements
    - Identify potential risks and mitigation strategies
    - Plan verification approach to ensure functionality is preserved
 
-3. **Ask:** 
+3. **Ask:**
    - Confirm refactoring priorities
    - Discuss potential architectural improvements
    - Verify that proposed changes align with project direction
    - Clarify performance expectations
 
-4. **Sync:** 
+4. **Sync:**
    - Implement refactoring changes incrementally
    - Run existing tests to verify functionality is preserved
    - Measure performance improvements
    - Update documentation to reflect architectural changes
+
+**Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
 - Improved code quality and maintainability

@@ -2,38 +2,38 @@
 
 ## Environment Setup
 
-1. **Go Version**
-   - Use the latest stable version of Go
-   - Document the required Go version in go.mod
-   - Use Go modules for dependency management
-   - Initialize modules with `go mod init github.com/organization/project`
+**Go Version:**
+- Use latest stable version of Go
+- Document required Go version in go.mod
+- Use Go modules for dependency management
+- Initialize modules with `go mod init github.com/organization/project`
 
-2. **Project Structure**
-   - Follow the standard Go project layout
-   - Use cmd/ directory for main applications
-   - Use pkg/ directory for library code
-   - Use internal/ directory for private application and library code
+**Project Structure:**
+- Follow standard Go project layout
+- Use cmd/ directory for main applications
+- Use pkg/ directory for library code
+- Use internal/ directory for private application and library code
 
 ## Code Style
 
-1. **Formatting**
-   - Use `gofmt` or `go fmt` to format code
-   - Run `go vet` and `golint` regularly
-   - Follow the style recommendations in Effective Go
-   - Use `golangci-lint` for comprehensive linting
+**Formatting:**
+- Use `gofmt` or `go fmt` to format code
+- Run `go vet` and `golint` regularly
+- Follow style recommendations in Effective Go
+- Use `golangci-lint` for comprehensive linting
 
-2. **Naming Conventions**
-   - Use MixedCaps (camelCase or PascalCase) for multi-word names
-   - Use PascalCase for exported names (public)
-   - Use camelCase for unexported names (private)
-   - Use short, concise variable names in small scopes
-   - Use descriptive names for package-level declarations
+**Naming Conventions:**
+- Use MixedCaps (camelCase or PascalCase) for multi-word names
+- Use PascalCase for exported names (public)
+- Use camelCase for unexported names (private)
+- Use short, concise variable names in small scopes
+- Use descriptive names for package-level declarations
 
-3. **Package Organization**
-   - Keep packages focused on a single responsibility
-   - Avoid package names like "util" or "common"
-   - Organize code by domain, not by layer
-   - Avoid circular dependencies between packages
+**Package Organization:**
+- Keep packages focused on single responsibility
+- Avoid package names like "util" or "common"
+- Organize code by domain, not by layer
+- Avoid circular dependencies between packages
 
 ## Best Practices
 

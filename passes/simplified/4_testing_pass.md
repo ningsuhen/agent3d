@@ -10,29 +10,31 @@
 - As part of regular quality assurance cycles
 
 ## Process
-1. **Scan:** 
+1. **Scan:**
    - Review existing test coverage and identify gaps
    - Analyze `TEST-CASES.md` for untested scenarios
    - Identify edge cases and error conditions
    - Review bug reports or quality concerns
 
-2. **Draft:** 
+2. **Draft:**
    - Plan comprehensive test strategy
    - Document additional test cases for edge conditions
    - Identify integration test scenarios
    - Plan performance or stress tests if applicable
 
-3. **Ask:** 
+3. **Ask:**
    - Clarify expected behavior for edge cases
    - Confirm test priorities and coverage goals
    - Discuss complex test scenarios or setup requirements
    - Verify acceptance criteria for tests
 
-4. **Sync:** 
+4. **Sync:**
    - Implement comprehensive test suite
    - Add tests for edge cases and error conditions
    - Create integration tests for component interactions
    - Update `TEST-CASES.md` with test status
+
+**Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
 - Comprehensive test coverage for features

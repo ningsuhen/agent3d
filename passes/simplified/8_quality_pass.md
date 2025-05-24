@@ -1,42 +1,38 @@
 # Quality Pass
 
-**Purpose:** Verifying documentation accuracy and completeness while improving quality by enhancing clarity and removing outdated content.
-
-**Combines:** Validation Pass + Refinement Pass
+**Purpose:** Verify documentation accuracy and improve quality through enhanced clarity, formatting, and content refinement.
 
 ## When to Use
 - Before major releases or milestones
 - During periodic quality assurance reviews
-- As part of continuous integration processes
-- After feature deprecation or removal
-- During documentation cleanup initiatives
-- When documentation has grown unwieldy
-- When documentation is functionally complete but needs refinement
+- When documentation needs refinement for clarity
 - Before sharing documentation with new stakeholders
+- As part of continuous integration processes
 
 ## Process
-1. **Scan:** 
-   - Systematically review all documentation against code
-   - Automatically detect inconsistencies between code and documentation
-   - Identify outdated, redundant, or irrelevant documentation
-   - Identify areas where documentation clarity can be improved
+1. **Scan:**
+   - Review all documentation against current code
+   - Identify inconsistencies between code and documentation
+   - Note areas where clarity can be improved
+   - Find outdated or redundant content
 
-2. **Draft:** 
-   - Document all discrepancies and required updates
-   - Generate reports of detected discrepancies
+2. **Draft:**
+   - Document discrepancies and required updates
+   - Enhance formatting, examples, and explanations
    - Mark sections for removal or archiving
-   - Enhance formatting, examples, diagrams, and explanations
+   - Improve diagrams and visual aids
 
-3. **Ask:** 
-   - Clarify any uncertainties about implementation or requirements
+3. **Ask:**
+   - Clarify uncertainties about implementation or requirements
    - Confirm which documentation is safe to remove
    - Seek feedback on clarity and readability
 
-4. **Sync:** 
-   - Update all documentation to ensure complete accuracy
-   - Flag issues for resolution before proceeding
-   - Remove or archive unnecessary documentation
-   - Update documentation with improved presentation
+4. **Sync:**
+   - Apply all approved improvements and corrections
+   - Remove or archive outdated content
+   - Ensure consistent formatting and terminology
+
+**Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
 - Verified consistency across all documentation

@@ -1,38 +1,36 @@
 # Synchronization Pass
 
-**Purpose:** Aligning documentation with code at any scale, from minor updates to major reconciliations, ensuring consistency between implementation and documentation.
-
-**Combines:** Alignment Pass + Reconciliation Pass
+**Purpose:** Align documentation with code implementation, ensuring consistency between documentation and current codebase.
 
 ## When to Use
-- After code changes that weren't documented (small or large)
-- When implementing features or bug fixes of any size
+- After code changes without corresponding documentation updates
 - When documentation needs updates to match implementation
 - After major refactoring without documentation updates
-- When significant undocumented features have been implemented
 - During technical debt reduction efforts
-- When preparing for a release
+- When preparing for releases
 
 ## Process
-1. **Scan:** 
-   - Identify discrepancies between code and documentation (of any scale)
-   - Comprehensively identify all areas of divergence
-   - Identify specific changes that need documentation
+1. **Scan:**
+   - Identify discrepancies between code and documentation
+   - Review areas where implementation has diverged from specs
+   - Note specific changes that need documentation
 
-2. **Draft:** 
-   - Make targeted updates to documentation
-   - Create detailed updates to bring documentation in line with code
-   - Update affected documentation sections
+2. **Draft:**
+   - Update documentation to match current implementation
+   - Revise affected documentation sections
+   - Document any new implementation details
 
-3. **Ask:** 
-   - Clarify uncertainties about implementation details
+3. **Ask:**
    - Clarify complex implementation details or design decisions
-   - Clarify details about specific changes
+   - Confirm intended behavior for ambiguous implementations
+   - Verify technical constraints and dependencies
 
-4. **Sync:** 
+4. **Sync:**
    - Ensure documentation accurately reflects current code
-   - Ensure documentation fully reflects the current implementation
-   - Ensure specific changes are accurately documented
+   - Update architectural diagrams and specifications
+   - Validate alignment across all documentation
+
+**Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
 - Documentation that accurately reflects current implementation
