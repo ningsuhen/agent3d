@@ -92,6 +92,7 @@
 - **Total Items:** X
 - **Completed:** Y ✅
 - **Pending:** Z ⏸️
+- **Skipped:** W ⏭️
 
 ## 📚 Section Name
 - [ ] **Item-ID** - Description (Type, Priority)

@@ -6,6 +6,7 @@ This document outlines the test cases for the Agent3D framework.
 - **Total Test Cases:** 30
 - **Completed:** 0 ✅
 - **Pending:** 30 ⏸️
+- **Skipped:** 0 ⏭️
 - **Automated:** 3 (10%)
 - **Partial:** 8 (27%)
 - **Manual:** 19 (63%)
