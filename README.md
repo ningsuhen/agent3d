@@ -63,6 +63,7 @@ Agent3D defines a series of passes that guide the development process:
 7. **Synchronization Pass**: Aligning documentation with code at any scale
 8. **Quality Pass**: Verifying and improving documentation quality
 9. **Prune Pass**: Removing outdated or redundant content
+10. **Reverse Pass**: Detecting and addressing reverse drift (implementation without documentation)
 
 Additionally, a **Full Pass** encompasses all of the above passes for comprehensive project updates.
 

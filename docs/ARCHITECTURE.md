@@ -55,6 +55,7 @@ graph LR
     F --> G[Synchronization Pass]
     G --> H[Quality Pass]
     H --> I[Prune Pass]
+    I --> K[Reverse Pass]
 
     J[Full Pass] -.-> A
     J -.-> B
@@ -65,6 +66,7 @@ graph LR
     J -.-> G
     J -.-> H
     J -.-> I
+    J -.-> K
 ```
 
 Each pass follows the Scan → Draft → Ask → Sync workflow:
@@ -139,7 +141,8 @@ agent3d/
 │       ├── full_pass.md   # Full pass documentation
 │       ├── 1_foundation_pass.md
 │       ├── 2_documentation_pass.md
-│       └── ...            # Other numbered passes
+│       ├── ...            # Passes 3-9
+│       └── 10_reverse_pass.md  # Reverse pass for drift detection
 └── rules/                 # Language-specific rules documentation
     ├── python.md          # Python rules
     ├── javascript.md      # JavaScript rules
