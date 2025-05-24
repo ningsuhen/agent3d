@@ -10,28 +10,19 @@
 
 ## Process
 1. **Scan:**
+   - **Repository Update**: `git -C ~/.agent3d pull origin main`
    - Review feature documentation and requirements
    - Identify implementation priorities and dependencies
-   - Understand the architectural context for the implementation
-   - Review existing test cases in `TEST-CASES.md`
+   - Review existing test cases in TEST-CASES.md
 
 2. **Draft:**
    - Create implementation plan with component breakdown
    - Identify key test scenarios for basic validation
-   - Determine integration points with existing code
    - Plan for basic error handling and edge cases
 
-3. **Ask:**
-   - Clarify any ambiguities in the requirements
-   - Confirm technical approach and design decisions
-   - Verify assumptions about dependencies and interfaces
-   - Discuss any potential technical challenges
+3. **Ask:** Clarify requirements, confirm technical approach, verify dependencies
 
-4. **Sync:**
-   - Implement the feature according to documentation
-   - Write basic tests to verify core functionality
-   - Ensure code meets project standards and conventions
-   - Update documentation with any implementation details
+4. **Sync:** Implement features, write basic tests, ensure code standards compliance
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
@@ -41,6 +32,11 @@
 - Passing tests for the happy path scenarios
 - Code that follows project standards and conventions
 - Updated documentation reflecting implementation details
+
+## Related Passes
+- **Follows:** [Documentation Pass](2_documentation_pass.md) - After feature documentation is complete
+- **Precedes:** [Testing Pass](4_testing_pass.md) - Before comprehensive testing
+- **Language Rules:** See `rules/` directory for language-specific development guidelines
 
 ## Example Commit Message
 `DDD: Implementation Pass - Implemented user authentication feature with basic test coverage`

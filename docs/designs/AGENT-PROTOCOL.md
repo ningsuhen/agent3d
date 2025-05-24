@@ -96,7 +96,7 @@ class LocalCacheManager:
 - **Cache Location**: `./.agent-guidelines.md`
 
 ### Environment Variables
-- `DDD_REMOTE_BASE`: Base URL for remote guidelines
+- `AGENT3D_LOCAL_REPO`: Local path to Agent3D repository (default: `~/.agent3d`)
 - `DDD_UPDATE_INTERVAL`: Override default update interval
 - `DDD_CACHE_PATH`: Override default cache location
 

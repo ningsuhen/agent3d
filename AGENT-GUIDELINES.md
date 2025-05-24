@@ -22,17 +22,17 @@
 
 ### DDD Passes
 
-- [Full Pass]({{DDD_REMOTE_BASE}}/passes/simplified/full_pass.md) - Comprehensive pass encompassing all aspects
-- [1. Foundation Pass]({{DDD_REMOTE_BASE}}/passes/simplified/1_foundation_pass.md) - Creating foundational documentation and architecture
-- [2. Documentation Pass]({{DDD_REMOTE_BASE}}/passes/simplified/2_documentation_pass.md) - Documenting features, requirements, and priorities
-- [3. Implementation Pass]({{DDD_REMOTE_BASE}}/passes/simplified/3_implementation_pass.md) - Implementing features with basic test coverage
-- [4. Testing Pass]({{DDD_REMOTE_BASE}}/passes/simplified/4_testing_pass.md) - Adding comprehensive tests and verifying edge cases
-- [5. Refactoring Pass]({{DDD_REMOTE_BASE}}/passes/simplified/5_refactoring_pass.md) - Cleaning up code without changing functionality
-- [6. Code Review Pass]({{DDD_REMOTE_BASE}}/passes/simplified/6_code_review_pass.md) - Reviewing PR changes and providing feedback
-- [7. Synchronization Pass]({{DDD_REMOTE_BASE}}/passes/simplified/7_synchronization_pass.md) - Aligning documentation with code at any scale
-- [8. Quality Pass]({{DDD_REMOTE_BASE}}/passes/simplified/8_quality_pass.md) - Verifying and improving documentation quality
-- [9. Prune Pass]({{DDD_REMOTE_BASE}}/passes/simplified/9_prune_pass.md) - Removing outdated or redundant content
-- [10. Reverse Pass]({{DDD_REMOTE_BASE}}/passes/simplified/10_reverse_pass.md) - Detecting and addressing reverse drift (implementation without documentation)
+- [Full Pass](~/.agent3d/passes/simplified/full_pass.md) - Comprehensive pass encompassing all aspects
+- [1. Foundation Pass](~/.agent3d/passes/simplified/1_foundation_pass.md) - Creating foundational documentation and architecture
+- [2. Documentation Pass](~/.agent3d/passes/simplified/2_documentation_pass.md) - Documenting features, requirements, and priorities
+- [3. Implementation Pass](~/.agent3d/passes/simplified/3_implementation_pass.md) - Implementing features with basic test coverage
+- [4. Testing Pass](~/.agent3d/passes/simplified/4_testing_pass.md) - Adding comprehensive tests and verifying edge cases
+- [5. Refactoring Pass](~/.agent3d/passes/simplified/5_refactoring_pass.md) - Cleaning up code without changing functionality
+- [6. Code Review Pass](~/.agent3d/passes/simplified/6_code_review_pass.md) - Reviewing PR changes and providing feedback
+- [7. Synchronization Pass](~/.agent3d/passes/simplified/7_synchronization_pass.md) - Aligning documentation with code at any scale
+- [8. Quality Pass](~/.agent3d/passes/simplified/8_quality_pass.md) - Verifying and improving documentation quality
+- [9. Prune Pass](~/.agent3d/passes/simplified/9_prune_pass.md) - Removing outdated or redundant content
+- [10. Reverse Pass](~/.agent3d/passes/simplified/10_reverse_pass.md) - Detecting and addressing reverse drift (implementation without documentation)
 
 ---
 
@@ -49,10 +49,10 @@
 
 ### Language-Specific Rules
 
-- [Python]({{DDD_REMOTE_BASE}}/rules/python.md) - Rules for Python development
-- [JavaScript]({{DDD_REMOTE_BASE}}/rules/javascript.md) - Rules for JavaScript development
-- [Java]({{DDD_REMOTE_BASE}}/rules/java.md) - Rules for Java development
-- [Go]({{DDD_REMOTE_BASE}}/rules/go.md) - Rules for Go development
+- [Python](~/.agent3d/rules/python.md) - Rules for Python development
+- [JavaScript](~/.agent3d/rules/javascript.md) - Rules for JavaScript development
+- [Java](~/.agent3d/rules/java.md) - Rules for Java development
+- [Go](~/.agent3d/rules/go.md) - Rules for Go development
 
 ---
 
@@ -168,7 +168,7 @@ ls ~/.agent3d/templates/
 
 **DDD Status Tracking**: After completing any DDD pass, update `docs/DDD-STATUS.md` using the DDD-STATUS template from `~/.agent3d/templates/DDD-STATUS.template.md`.
 
-**Language-Specific Rules**: At the start of each project, identify the programming language(s) and load the corresponding language-specific rules from `~/.agent3d/language-rules/`. These rules are available locally in the cloned repository. Memorize these rules and apply them consistently throughout all development activities including implementation, refactoring, and code review.
+**Language-Specific Rules**: At the start of each project, identify the programming language(s) and load the corresponding language-specific rules from `~/.agent3d/rules/`. These rules are available locally in the cloned repository. Memorize these rules and apply them consistently throughout all development activities including implementation, refactoring, and code review.
 
 **Repository Maintenance**: Keep the local Agent3D repository current:
 - **Daily Updates**: Run `git -C ~/.agent3d pull origin main` at the start of each work session
