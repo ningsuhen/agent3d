@@ -32,6 +32,7 @@
 - [7. Synchronization Pass]({{DDD_REMOTE_BASE}}/passes/simplified/7_synchronization_pass.md) - Aligning documentation with code at any scale
 - [8. Quality Pass]({{DDD_REMOTE_BASE}}/passes/simplified/8_quality_pass.md) - Verifying and improving documentation quality
 - [9. Prune Pass]({{DDD_REMOTE_BASE}}/passes/simplified/9_prune_pass.md) - Removing outdated or redundant content
+- [10. Reverse Pass]({{DDD_REMOTE_BASE}}/passes/simplified/10_reverse_pass.md) - Detecting and addressing reverse drift (implementation without documentation)
 
 ---
 
