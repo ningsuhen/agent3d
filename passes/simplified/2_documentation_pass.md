@@ -17,6 +17,8 @@
 
 2. **Draft:**
    - Create detailed feature specifications with acceptance criteria
+   - **🔗 CRITICAL**: Use `## Groups (Modules)` and `### Sub-Groups (Sub-modules)` heading structure
+   - **🚨 CRITICAL**: Mark features as `[x]` completed ONLY when verifiable evidence exists (tests or manual verification)
    - Document technical requirements and integration points
    - Update priorities, timelines, and dependencies
    - Prepare questions for unclear areas

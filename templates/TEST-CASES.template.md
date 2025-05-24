@@ -19,6 +19,10 @@
 4. Each test case must follow the format: `- [status] **TC-NNNN** - Test description (Execution Type, Priority)`
 5. Sub-test cases use 2-space indentation and follow the same format with unique TC-NNNN IDs
 
+**🔗 CRITICAL - Documentation Structure:**
+- **ALWAYS use `## Groups (Modules)` for main functional areas or test categories**
+- **ALWAYS use `### Sub-Groups (Sub-modules)` for specific test scenarios within each module**
+
 **GROUPING STRATEGY:** Use a two-level hierarchy to organize test cases by logical modules and functional areas:
 - **## Groups (Modules):** Main functional areas or test categories
 - **### Sub-Groups (Sub-modules):** Specific test scenarios within each module
@@ -79,6 +83,7 @@
 
 **VALIDATION CHECKLIST:**
 - [ ] All test cases and sub-test cases have unique TC-NNNN identifiers
+- [ ] **CRITICAL**: Uses `## Groups (Modules)` and `### Sub-Groups (Sub-modules)` heading structure
 - [ ] Test cases are grouped logically by module/feature with clear section headers
 - [ ] Sub-modules within each main module group related test scenarios
 - [ ] Sub-test cases use 2-space indentation and are logically related to parent test cases
