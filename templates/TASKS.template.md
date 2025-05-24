@@ -37,27 +37,7 @@
 - [x] {{completed_task_name}} - {{completion_description}}
 </template>
 
-**EXAMPLE:** (Do NOT include `<example>` tags in actual documentation)
-<example>
-# Tasks
-
-## High Priority
-- [ ] Fix Authentication Bug - Users cannot login after password reset (blocks user access)
-- [~] Database Migration - Upgrade to PostgreSQL 15 for performance improvements
-- [ ] Security Audit - Complete penetration testing before production release
-
-## Medium Priority
-- [ ] Add Dark Mode - Implement dark theme for better user experience
-- [ ] API Documentation - Update OpenAPI specs for new endpoints
-
-## Low Priority
-- [ ] Mobile App - Create native iOS and Android applications
-- [ ] Advanced Analytics - Implement user behavior tracking dashboard
-
-## Completed
-- [x] User Registration - Implemented email verification system (completed 2024-01-15)
-- [x] Payment Integration - Added Stripe payment processing (completed 2024-01-10)
-</example>
+**EXAMPLE:** See the actual TASKS.md file in this project: [docs/TASKS.md]({{DDD_REMOTE_BASE}}/docs/TASKS.md)
 
 **VALIDATION CHECKLIST:**
 - [ ] Tasks are prioritized correctly based on impact and urgency

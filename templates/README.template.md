@@ -57,46 +57,7 @@
 {{license_info}}
 </template>
 
-**EXAMPLE:** (Do NOT include `<example>` tags in actual documentation)
-<example>
-# Agent3D - Documentation-Driven Development Guidelines for LLM Coding Agents
-
-## Overview
-Agent3D is a documentation-only framework that defines Documentation-Driven Development (DDD) principles specifically for Large Language Model (LLM) coding agents. It provides a structured approach to ensure documentation remains the single source of truth throughout the development process.
-
-## Key Features
-- **Remote Guideline Reference** - Designed to be referenced by LLM agents during coding tasks
-- **Structured Development Process** - Clear, numbered passes from foundation to maintenance
-- **Documentation as Source of Truth** - Ensures code never outpaces documentation
-
-## Installation
-This is a documentation-only project. No installation required.
-```bash
-# Reference the guidelines remotely
-curl https://raw.githubusercontent.com/ningsuhen/agent3d/main/AGENT-GUIDELINES.md
-```
-
-## Quick Start
-Implement the Agent Guideline Protocol to reference these guidelines remotely.
-```markdown
-**Agent Guideline Protocol**
-1. Retrieve guidelines from remote URL
-2. Cache locally as .agent-guidelines.md
-3. Follow DDD passes in sequence
-```
-
-## Documentation
-- [Agent Guidelines](AGENT-GUIDELINES.md)
-- [DDD Passes](passes/simplified/)
-- [Architecture](docs/ARCHITECTURE.md)
-- [Contributing](CONTRIBUTING.md)
-
-## Contributing
-Contributions to improve the documentation are welcome! Please submit a Pull Request.
-
-## License
-MIT License
-</example>
+**EXAMPLE:** See the actual README.md file in this project: [README.md]({{DDD_REMOTE_BASE}}/README.md)
 
 **VALIDATION CHECKLIST:**
 - [ ] Project name and description are clear and accurate

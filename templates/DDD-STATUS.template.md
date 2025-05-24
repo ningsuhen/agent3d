@@ -64,40 +64,9 @@
 - **Artifacts:**
   - {{artifact_status}} {{artifact_name}} - {{artifact_description}}
   - {{artifact_status}} {{artifact_name}} - {{artifact_description}}
-</code>
+</template>
 
-**EXAMPLE:**
-<code>
-# DDD Status
-
-## 📊 Summary
-- **Total Passes:** 10
-- **Completed:** 7 ✅
-- **Pending:** 3 ⏸️
-- **Skipped:** 0 ⏭️
-- **Documentation Drift:** Low 🟡
-- **Last Full Pass:** 2024-01-15
-- **Last Sync Check:** 2024-01-20
-
-## 🔄 Full Pass
-- **Status:** Completed ✅
-- **Alignment:** 95% █████████░ (9/10 phases completed successfully)
-- **Drift:** Low 🟡 (Minor documentation updates needed)
-- **Last Execution:** 2024-01-15
-- **Priority:** Medium
-- **Notes:** Comprehensive pass completed with minor follow-up items
-
-## 1️⃣ Foundation Pass
-- **Status:** Completed ✅
-- **Alignment:** 100% ██████████ (All foundational docs complete)
-- **Drift:** None 🟢 (Architecture stable, no changes needed)
-- **Last Execution:** 2024-01-10
-- **Priority:** Low
-- **Notes:** Core documentation structure established and stable
-- **Artifacts:**
-  - ✅ README.md - Project overview complete
-  - ✅ docs/ARCHITECTURE.md - System design documented
-</code>
+**EXAMPLE:** See the actual DDD-STATUS.md file in this project: [docs/DDD-STATUS.md]({{DDD_REMOTE_BASE}}/docs/DDD-STATUS.md)
 
 **VALIDATION CHECKLIST:**
 - [ ] All passes have status, alignment, drift, execution date, and priority

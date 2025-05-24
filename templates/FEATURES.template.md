@@ -31,22 +31,7 @@
 - {{status}} {{feature_name}} - {{brief_description}} (Criteria: {{acceptance_criteria}})
 </template>
 
-**EXAMPLE:** (Do NOT include `<example>` tags in actual documentation)
-<example>
-# Features
-
-## Important Note
-**Agent3D is a documentation-only framework.** It does not contain any implementations, libraries, or code to import.
-
-## Core Authentication
-- [x] User Registration - Allow new users to create accounts with email verification (Criteria: Users can register with email/password and receive verification email within 30 seconds)
-- [ ] Password Reset - Enable users to reset forgotten passwords securely (Criteria: Users receive reset link via email and can set new password within 24 hours)
-- [~] Multi-Factor Authentication - Add SMS and authenticator app support (Criteria: Users can enable 2FA with 99.9% success rate for authentication)
-
-## Payment Processing
-- [ ] Credit Card Integration - Process payments through Stripe API (Criteria: Handle payments with 99.9% uptime and full PCI compliance)
-- [ ] Subscription Management - Manage recurring billing cycles (Criteria: Automatically charge subscriptions with 95% success rate and handle failed payments)
-</example>
+**EXAMPLE:** See the actual FEATURES.md file in this project: [docs/FEATURES.md]({{DDD_REMOTE_BASE}}/docs/FEATURES.md)
 
 **VALIDATION CHECKLIST:**
 - [ ] All features are on a SINGLE LINE (no multi-line entries)
