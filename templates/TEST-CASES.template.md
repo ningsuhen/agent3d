@@ -19,7 +19,9 @@
 4. Each test case must follow the format: `- [status] **TC-NNNN** - Test description (Execution Type, Priority)`
 5. Sub-test cases use 2-space indentation and follow the same format with unique TC-NNNN IDs
 
-**GROUPING STRATEGY:** Organize test cases by logical modules or functional areas to make them easy to spot and manage:
+**GROUPING STRATEGY:** Use a two-level hierarchy to organize test cases by logical modules and functional areas:
+- **## Groups (Modules):** Main functional areas or test categories
+- **### Sub-Groups (Sub-modules):** Specific test scenarios within each module
 - **By Feature Area:** Group tests that validate the same feature or functionality
 - **By Component:** Group tests that target the same system component
 - **By User Journey:** Group tests that validate the same user workflow or use case
@@ -27,12 +29,12 @@
 - **By Priority/Risk:** Group tests by business priority or risk level
 
 **EXAMPLES OF GOOD GROUPING:**
-- Authentication & Security Tests
-- User Interface Tests
-- API & Integration Tests
-- Data Validation Tests
-- Performance & Load Tests
-- Error Handling & Edge Cases
+- **## Authentication & Security Tests** → ### Login & Authentication, ### Authorization & Permissions
+- **## User Interface Tests** → ### Form Validation, ### Navigation & Layout
+- **## API & Integration Tests** → ### External APIs, ### Internal Services
+- **## Data Validation Tests** → ### Input Validation, ### Data Processing
+- **## Performance & Load Tests** → ### Response Time, ### Scalability
+- **## Error Handling & Edge Cases** → ### Error Conditions, ### Boundary Testing
 
 **TEMPLATE:** (Do NOT include `<template>` tags in actual documentation)
 <template>
