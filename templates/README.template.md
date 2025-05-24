@@ -1,18 +1,5 @@
 # [Project Name] - [Brief Project Description]
 
-**TEMPLATE METADATA:**
-```yaml
-template:
-  id: "readme-template"
-  version: "1.0"
-  type: "specialized"
-  extends: "base-documentation"
-  description: "README template for project overview and getting started"
-  author: "Agent3D Team"
-  created: "2024-01-17"
-  updated: "2024-01-17"
-```
-
 **FORMAT SPECIFICATION:** This document must serve as the main entry point for the project. It must include:
 - Clear project title and one-line description
 - Project overview explaining what the project does

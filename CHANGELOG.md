@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Repository Management**: Basic git commands for cloning and updating templates
 - **Clean Implementation Guide**: Pure shell/git approach without any programming language dependencies
 - **BASE Template**: Foundation template with inheritance support for all specialized templates
-- **Template Registry**: Centralized template management with metadata and selection algorithms
+- **Simple Template Access**: Direct file access to templates from local repository
 - **Template Selection Guide**: Comprehensive guide for agents to use the enhanced template system
 
 ### Changed
@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - **Context Analysis Rules**: Removed complex context analysis rules file to keep implementation simple
 - **Proposal Archive System**: Removed archive directories - implemented proposals now move directly to `docs/designs/`
+- **YAML Configuration**: Removed all YAML logic and configuration files - pure markdown and shell approach only
 
 ### Implemented
 - **Enhanced Template System Proposal**: Successfully moved from proposal to implementation with complete feature set
