@@ -45,8 +45,9 @@ When a proposal is **approved and implemented**, its content should be integrate
 - Add architectural diagrams showing new modules and their relationships
 - Document integration points with existing systems
 
-### Module Detailed Design Creation
-- Create detailed design documents in `docs/modules/` using the [DETAILED-DESIGN Template](../../templates/DETAILED-DESIGN.template.md)
+### Component Design Creation
+- Create component design documents in `docs/designs/` using the [DETAILED-DESIGN Template](../../templates/DETAILED-DESIGN.template.md)
+- Use `{COMPONENT}.md` naming convention (e.g., `USER-AUTH.md`)
 - Include API specifications, data flows, and implementation details
 - Reference the original proposal for historical context
 
@@ -69,10 +70,10 @@ When a proposal is **approved and implemented**, its content should be integrate
 
 ```
 docs/proposals/
-├── README.md                    # This file
+├── PROPOSALS-README.md          # This file
 ├── active/                      # Proposals under active consideration
-│   ├── feature-name.md         # Individual proposal files
-│   └── module-name.md
+│   ├── FEATURE-NAME.md         # Individual proposal files
+│   └── MODULE-NAME.md
 ├── archive/                     # Implemented or rejected proposals
 │   ├── implemented/            # Successfully implemented proposals
 │   └── rejected/               # Rejected proposals with rationale
@@ -82,9 +83,10 @@ docs/proposals/
 ## Naming Conventions
 
 ### Proposal Files
-- Use kebab-case for file names: `user-authentication-system.md`
-- Include proposal type prefix if helpful: `feature-advanced-search.md`, `module-payment-gateway.md`
+- Use CAPS with hyphens for file names: `USER-AUTHENTICATION-SYSTEM.md`
+- Include proposal type prefix if helpful: `FEATURE-ADVANCED-SEARCH.md`, `MODULE-PAYMENT-GATEWAY.md`
 - Keep names descriptive but concise
+- Follow the same naming convention as other documentation files
 
 ### Status Tracking
 Proposals must maintain status in their front matter:

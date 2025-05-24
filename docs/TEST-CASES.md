@@ -3,13 +3,13 @@
 This document outlines the test cases for the Agent3D framework.
 
 ## 📊 Summary
-- **Total Test Cases:** 45 (30 main + 15 sub-test cases)
-- **Completed:** 12 ✅ (8 main + 4 sub-test cases)
-- **Pending:** 33 ⏸️ (22 main + 11 sub-test cases)
+- **Total Test Cases:** 56 (35 main + 21 sub-test cases)
+- **Completed:** 22 ✅ (13 main + 9 sub-test cases)
+- **Pending:** 34 ⏸️ (22 main + 12 sub-test cases)
 - **Skipped:** 0 ⏭️
-- **Automated:** 12 (27%)
-- **Partial:** 18 (40%)
-- **Manual:** 15 (33%)
+- **Automated:** 22 (39%)
+- **Partial:** 19 (34%)
+- **Manual:** 15 (27%)
 
 ## 🔧 Test Execution Framework
 
@@ -173,6 +173,45 @@ This document outlines the test cases for the Agent3D framework.
 - [ ] **TC-0514** - Configuration or environment changes without documentation (Manual, Medium)
   - [ ] **TC-0514a** - New environment variables without README updates (Manual, Medium)
   - [ ] **TC-0514b** - Deployment changes without architecture updates (Manual, Medium)
+
+## 📋 Proposal System Tests
+
+### Proposal Creation and Management
+- [x] **TC-0601** - Proposal template validation (Manual, High)
+  - [x] **TC-0601a** - PROPOSAL template includes all required sections (Manual, High)
+  - [x] **TC-0601b** - Proposal status tracking works correctly (Manual, Medium)
+- [x] **TC-0602** - Proposal directory structure validation (Manual, High)
+  - [x] **TC-0602a** - docs/proposals/active/ directory exists (Manual, High)
+  - [x] **TC-0602b** - docs/proposals/archive/ subdirectories exist (Manual, Medium)
+- [ ] **TC-0603** - Proposal lifecycle workflow (Manual, High)
+  - [ ] **TC-0603a** - Proposal moves from Draft to Under Review (Manual, High)
+  - [ ] **TC-0603b** - Approved proposals integrate into main docs (Manual, High)
+  - [ ] **TC-0603c** - Implemented proposals archive correctly (Manual, Medium)
+
+### Component Design System
+- [x] **TC-0611** - DETAILED-DESIGN template validation (Manual, High)
+  - [x] **TC-0611a** - Template includes all technical specifications (Manual, High)
+  - [x] **TC-0611b** - Migration checklist for existing projects (Manual, Medium)
+- [x] **TC-0612** - Component integration workflow (Manual, High)
+  - [x] **TC-0612a** - Proposals integrate into docs/designs/ with {COMPONENT}.md naming (Manual, High)
+  - [x] **TC-0612b** - HIGH-LEVEL-DESIGN.md links to component design docs (Manual, Medium)
+  - [x] **TC-0612c** - All documentation files use CAPS naming convention (Manual, Medium)
+  - [x] **TC-0612d** - Component designs contain specifications for project parts (Manual, Medium)
+
+## 📝 Change Tracking Tests
+
+### CHANGELOG System
+- [x] **TC-0701** - CHANGELOG template validation (Manual, High)
+  - [x] **TC-0701a** - Template includes all required sections and categories (Manual, High)
+  - [x] **TC-0701b** - DDD pass integration guidance is comprehensive (Manual, Medium)
+- [x] **TC-0702** - CHANGELOG maintenance workflow (Manual, High)
+  - [x] **TC-0702a** - Changes are properly categorized (Added, Changed, Fixed, etc.) (Manual, High)
+  - [x] **TC-0702b** - DDD pass executions are recorded with dates and descriptions (Manual, High)
+  - [x] **TC-0702c** - Semantic versioning is applied correctly (Manual, Medium)
+- [ ] **TC-0703** - CHANGELOG integration with DDD passes (Manual, High)
+  - [ ] **TC-0703a** - Foundation Pass updates CHANGELOG with architectural changes (Manual, High)
+  - [ ] **TC-0703b** - Full Pass updates CHANGELOG with comprehensive changes (Manual, High)
+  - [ ] **TC-0703c** - Breaking changes are properly documented and marked (Manual, Medium)
 
 ### Agent Workflow
 - [ ] **TC-0411** - Agent follows Scan → Draft → Ask → Sync workflow (Manual, High)

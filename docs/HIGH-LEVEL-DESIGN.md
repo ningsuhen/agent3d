@@ -136,12 +136,12 @@ agent3d/
 │   ├── TEST-CASES.md      # Test case specifications
 │   ├── DDD-STATUS.md      # DDD pass status tracking
 │   ├── DEPLOYMENT.md      # Deployment instructions
-│   ├── modules/           # Module detailed designs
-│   │   ├── agent-protocol.md    # Agent Guideline Protocol detailed design
-│   │   ├── ddd-passes.md        # DDD Pass System detailed design
-│   │   └── language-rules.md    # Language Rules System detailed design
+│   ├── designs/           # Component designs and specifications
+│   │   ├── AGENT-PROTOCOL.md    # Agent Guideline Protocol design
+│   │   ├── DDD-PASSES.md        # DDD Pass System design
+│   │   └── LANGUAGE-RULES.md    # Language Rules System design
 │   └── proposals/         # Design proposals for unimplemented features
-│       ├── README.md            # Proposal process documentation
+│       ├── PROPOSALS-README.md  # Proposal process documentation
 │       ├── active/              # Proposals under consideration
 │       └── archive/             # Implemented or rejected proposals
 │           ├── implemented/     # Successfully implemented proposals
@@ -164,15 +164,15 @@ agent3d/
     └── ...                # Other templates
 ```
 
-## Module Detailed Designs
+## Component Designs
 
-For detailed implementation specifications of individual components, refer to the module detailed design documents:
+For detailed implementation specifications of individual components, refer to the component design documents:
 
-- **[Agent Guideline Protocol](modules/agent-protocol.md)** - Detailed specification of how agents acquire, cache, and synchronize guidelines
-- **[DDD Pass System](modules/ddd-passes.md)** - In-depth documentation of each pass workflow, dependencies, and execution patterns
-- **[Language Rules System](modules/language-rules.md)** - Comprehensive language-specific rule definitions and application patterns
+- **[Agent Guideline Protocol](designs/AGENT-PROTOCOL.md)** - Detailed specification of how agents acquire, cache, and synchronize guidelines
+- **[DDD Pass System](designs/DDD-PASSES.md)** - In-depth documentation of each pass workflow, dependencies, and execution patterns
+- **[Language Rules System](designs/LANGUAGE-RULES.md)** - Comprehensive language-specific rule definitions and application patterns
 
-These detailed designs provide implementation details, API specifications, and technical constraints that complement this high-level architectural overview.
+These component designs provide implementation details, API specifications, and technical constraints that complement this high-level architectural overview.
 
 ## Proposal-to-Implementation Workflow
 
@@ -194,7 +194,7 @@ graph LR
 ```
 
 ### Proposal Lifecycle
-1. **Draft**: Create proposal using [PROPOSAL Template](../templates/PROPOSAL.template.md) in `docs/proposals/active/`
+1. **Draft**: Create proposal using [PROPOSAL Template](../templates/PROPOSAL.template.md) in `docs/proposals/active/` with {PROPOSAL-NAME}.md naming
 2. **Review**: Stakeholder evaluation and feedback collection
 3. **Decision**: Approval or rejection with documented rationale
 4. **Implementation**: Development work based on approved proposal
@@ -204,9 +204,15 @@ graph LR
 ### Integration Process
 When proposals are implemented, their content flows into the main documentation:
 - **Architecture changes** → Update this HIGH-LEVEL-DESIGN.md
-- **Module specifications** → Create detailed designs in `docs/modules/`
+- **Component specifications** → Create component designs in `docs/designs/`
 - **Feature definitions** → Update `docs/FEATURES.md`
 - **Implementation tasks** → Add to `docs/TASKS.md`
 - **Test specifications** → Define in `docs/TEST-CASES.md`
+
+### Proposal-to-Design Flow
+As proposals get implemented, they become integrated into the component designs:
+- **Approved proposals** → Detailed specifications move to `docs/designs/{COMPONENT}.md`
+- **Design evolution** → Existing designs are updated with new capabilities
+- **Historical tracking** → Original proposals are archived for reference
 
 **Note:** This repository contains only documentation files. There are no implementation files, libraries, or executable code. All examples are provided as documentation examples only and are not meant to be functional.

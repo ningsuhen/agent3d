@@ -24,6 +24,7 @@ This document outlines the tasks for the Agent3D project, prioritized by importa
   - [ ] Python project example with Agent3D integration
   - [ ] JavaScript project example with DDD workflow
   - [ ] Documentation-only project template
+  - [ ] Create example project proposals in docs/proposals/active/
 
 ## Medium Priority
 
@@ -93,3 +94,20 @@ This document outlines the tasks for the Agent3D project, prioritized by importa
   - [x] Add sub-features support to FEATURES template
   - [x] Add sub-tasks support to TASKS template
   - [x] Add sub-test cases support to TEST-CASES template
+- [x] Create proposals system for unimplemented features and modules
+  - [x] Add docs/proposals/ directory structure
+  - [x] Create PROPOSAL template for design proposals
+  - [x] Create DETAILED-DESIGN template for module specifications
+  - [x] Document proposal-to-implementation workflow
+  - [x] Add agent refactoring hints for ARCHITECTURE.md → HIGH-LEVEL-DESIGN.md
+  - [x] Implement {MODULE}-DETAILED-DESIGN.md naming convention for module files
+  - [x] Ensure all documentation files use CAPS naming convention
+  - [x] Rename modules folder to designs for clarity of purpose
+  - [x] Remove DETAILED-DESIGN suffix from component design files
+  - [x] Update all references to use docs/designs/ and {COMPONENT}.md naming
+- [x] Create CHANGELOG system for systematic change tracking
+  - [x] Create CHANGELOG template with DDD pass integration
+  - [x] Implement semantic versioning guidelines
+  - [x] Add change categorization system (Added, Changed, Fixed, etc.)
+  - [x] Document DDD pass change tracking workflow
+  - [x] Create initial CHANGELOG.md with project history

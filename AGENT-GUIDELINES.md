@@ -65,8 +65,9 @@
 | `docs/TASKS.md` | Work backlog organized by priority | [TASKS Template]({{DDD_REMOTE_BASE}}/templates/TASKS.template.md) |
 | `docs/TEST-CASES.md` | Test specifications with TC-#### format | [TEST-CASES Template]({{DDD_REMOTE_BASE}}/templates/TEST-CASES.template.md) |
 | `docs/DDD-STATUS.md` | DDD pass status and alignment tracking | [DDD-STATUS Template]({{DDD_REMOTE_BASE}}/templates/DDD-STATUS.template.md) |
-| `docs/modules/*.md` | Module detailed design specifications | [DETAILED-DESIGN Template]({{DDD_REMOTE_BASE}}/templates/DETAILED-DESIGN.template.md) |
+| `docs/designs/*.md` | Component design specifications | [DETAILED-DESIGN Template]({{DDD_REMOTE_BASE}}/templates/DETAILED-DESIGN.template.md) |
 | `docs/proposals/*.md` | Design proposals for unimplemented features | [PROPOSAL Template]({{DDD_REMOTE_BASE}}/templates/PROPOSAL.template.md) |
+| `CHANGELOG.md` | Chronological record of all project changes | [CHANGELOG Template]({{DDD_REMOTE_BASE}}/templates/CHANGELOG.template.md) |
 
 **Missing Documentation**: Always create complete content using the provided templates before coding. Templates contain format specifications, placeholder structures, and examples - do NOT include the `<template>` or `<example>` tags in actual documentation files.
 
@@ -101,6 +102,7 @@
 - Use ✅ symbol to mark completed steps during DDD pass execution
 - Add ✅ next to steps as you complete them for real-time progress tracking
 - Update `docs/DDD-STATUS.md` after each pass with phase-specific alignment/drift
+- Update `CHANGELOG.md` after significant changes or pass completions with appropriate categorization
 
 ## Agent Instructions
 Follow `.agent-guidelines.md`. When documentation is missing or outdated, run a DDD pass (update docs, ask questions, then sync code/tests/deploy). Keep code lean and favor integration/end-to-end tests over mocks unless external APIs require them. Format all tasks as single-line markdown tasks and mark execution progress with ✅.
@@ -108,8 +110,10 @@ Follow `.agent-guidelines.md`. When documentation is missing or outdated, run a 
 **IMPORTANT - Documentation Refactoring**: `ARCHITECTURE.md` has been renamed to `HIGH-LEVEL-DESIGN.md`. When working on existing projects, agents should:
 - Update any references from `ARCHITECTURE.md` to `HIGH-LEVEL-DESIGN.md` in documentation, code comments, and configuration files
 - Update any references from "architecture" to "high-level design" in documentation contexts
-- Create `docs/modules/` directory for detailed design documents if it doesn't exist
-- Use the [DETAILED-DESIGN Template]({{DDD_REMOTE_BASE}}/templates/DETAILED-DESIGN.template.md) for module-specific documentation
+- Create `docs/designs/` directory for component design documents if it doesn't exist
+- Use the [DETAILED-DESIGN Template]({{DDD_REMOTE_BASE}}/templates/DETAILED-DESIGN.template.md) for component-specific documentation
+- **Naming Convention**: Use `{COMPONENT}.md` for design files and CAPS for all documentation files
+- **Folder Structure**: Use `docs/designs/` (not `docs/modules/`) for component designs
 
 **Template Usage**: When creating foundation documentation, always fetch and use the provided templates from the Required Documentation section. Follow these steps:
 1. Fetch the appropriate template using the provided links
