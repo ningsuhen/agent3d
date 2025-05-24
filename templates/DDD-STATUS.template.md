@@ -51,7 +51,7 @@
 - **Last Full Pass:** {{last_full_pass_date}}
 - **Last Sync Check:** {{last_sync_date}}
 
-## � Pass Status Sections
+## 📋 Pass Status Sections
 
 **NOTE:** The following sections repeat for each DDD pass (Full Pass + 10 numbered passes). Each pass has its own dedicated section with status tracking, progress indicators, drift measurements, and execution artifacts.
 
