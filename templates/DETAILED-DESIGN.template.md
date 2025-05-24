@@ -193,17 +193,6 @@ This document provides the design specifications for the {{component_name}}, whi
 
 **EXAMPLE:** See the actual component design files in the local repository: `~/.agent3d/docs/designs/`
 
-**MIGRATION CHECKLIST (for existing projects):**
-- [ ] Check if project has `ARCHITECTURE.md` that should be renamed to `HIGH-LEVEL-DESIGN.md`
-- [ ] Search codebase for references to `ARCHITECTURE.md` and update to `HIGH-LEVEL-DESIGN.md`
-- [ ] Update any documentation links pointing to architecture documentation
-- [ ] Create `docs/designs/` directory if it doesn't exist (not `docs/modules/`)
-- [ ] Move detailed component specifications from high-level design to component designs using {COMPONENT}.md naming
-- [ ] Ensure all documentation files use CAPS naming convention
-- [ ] Update build scripts, CI/CD configurations that reference architecture documentation
-- [ ] Update README and other documentation that mentions architecture files
-- [ ] Update any references from "modules" to "designs" for component documentation
-
 **VALIDATION CHECKLIST:**
 - [ ] Module overview clearly explains purpose and scope
 - [ ] All major components are documented with detailed specifications

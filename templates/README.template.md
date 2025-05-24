@@ -59,25 +59,6 @@
 
 **EXAMPLE:** See the actual README.md file in the local repository: `~/.agent3d/README.md`
 
-**CONTEXT-AWARE FEATURES:**
-- **Language Detection**: Automatically includes language-specific installation commands
-- **Framework Integration**: Adds framework-specific setup instructions when detected
-- **Project Type Adaptation**: Adjusts sections based on project type (library, application, documentation)
-- **Dependency Management**: Includes appropriate package manager commands
-
-**DYNAMIC CONTENT GENERATION:**
-- **Auto-Detection Variables**:
-  - `{{detected_language}}` - Primary programming language
-  - `{{package_manager}}` - Detected package manager (npm, pip, maven, etc.)
-  - `{{framework_name}}` - Main framework if detected
-  - `{{project_type}}` - Type of project (library, cli, web-app, etc.)
-
-**INTELLIGENT SUGGESTIONS:**
-- Installation commands based on detected package manager
-- Usage examples appropriate for project type
-- Documentation links relevant to detected technologies
-- Contributing guidelines adapted to project structure
-
 **VALIDATION CHECKLIST:**
 - [ ] Project name and description are clear and accurate
 - [ ] Overview explains the project's purpose and target audience

@@ -69,49 +69,6 @@ Templates can extend this base template by:
 {{additional_validation_rules}}
 </template>
 
-**CONTEXT-AWARE FEATURES:**
-- **Project Type Detection**: Automatically suggests appropriate specialized templates
-- **Language Integration**: Includes language-specific sections when relevant
-- **Framework Awareness**: Adapts content based on detected frameworks
-- **Validation Intelligence**: Applies context-specific validation rules
-
-**INHERITANCE EXAMPLES:**
-
-### README Template Inheritance
-- **Specialized Sections**: Installation, usage, examples, contributing
-- **Additional Variables**: installation_command, usage_example
-- **Base Structure**: Inherits document metadata and validation checklist
-
-### FEATURES Template Inheritance
-- **Specialized Sections**: Feature groups, acceptance criteria, status tracking
-- **Additional Variables**: feature_categories, completion_status
-- **Base Structure**: Inherits document metadata and validation checklist
-
-**DYNAMIC CONTENT GENERATION:**
-- **Smart Placeholders**: Variables that adapt based on project context
-- **Conditional Sections**: Sections that appear only when relevant
-- **Auto-Population**: Common fields filled automatically when possible
-- **Suggestion Engine**: Provides content suggestions based on project analysis
-
-**QUALITY ASSURANCE:**
-- **Automated Validation**: Real-time checking during template generation
-- **Consistency Checks**: Ensures consistency across related documents
-- **Best Practice Enforcement**: Applies Agent3D documentation standards
-- **Error Prevention**: Catches common mistakes before document creation
-
-**INTEGRATION POINTS:**
-- **DDD Pass System**: Templates integrate with pass execution workflow
-- **Version Control**: Template changes tracked and versioned
-- **Agent Workflow**: Seamless integration with agent development process
-- **Validation Framework**: Comprehensive quality checking system
-
-**USAGE GUIDELINES:**
-1. **Template Selection**: Use context analyzer to recommend appropriate templates
-2. **Customization**: Modify templates based on project-specific requirements
-3. **Validation**: Always run validation checks before finalizing documents
-4. **Inheritance**: Leverage template inheritance to reduce duplication
-5. **Evolution**: Update templates based on usage patterns and feedback
-
 **EXAMPLE:** See specialized templates that extend this base in the local repository: `~/.agent3d/templates/`
 
 **VALIDATION CHECKLIST:**
