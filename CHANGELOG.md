@@ -36,6 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Template Noise**: Removed verbose explanations, migration hints, legacy references, and redundant examples from all templates
 - **Migration Checklists**: Removed all migration hints and legacy system handling from templates
 - **Context-Aware Features**: Removed verbose context-aware feature descriptions to focus on essential template content
+- **Legacy References**: Removed all ARCHITECTURE.md references and migration checks from DDD passes
+- **Excessive Icons**: Reduced icon usage to essential visual markers only
 
 ### Implemented
 - **Enhanced Template System Proposal**: Successfully moved from proposal to implementation with complete feature set

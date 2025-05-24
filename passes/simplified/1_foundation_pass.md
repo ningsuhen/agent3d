@@ -3,33 +3,30 @@
 **Purpose:** Establish core project documentation including architecture, technical decisions, and documentation structure.
 
 ## When to Use
-- Starting new projects or major features without existing documentation
-- Making significant architectural changes to existing systems
-- Establishing or restructuring documentation framework
-- Documenting major technical decisions and their rationales
-- **Refactoring existing projects** that still use `ARCHITECTURE.md` (should be renamed to `HIGH-LEVEL-DESIGN.md`)
+- Starting new projects or major features
+- Making significant architectural changes
+- Establishing documentation framework
+- Documenting major technical decisions
 
 ## Process
 1. **Scan:**
-   - **Repository Update**: Ensure `~/.agent3d` repository is current with `git -C ~/.agent3d pull origin main`
-   - Identify what documentation is missing or needs architectural updates
-   - Check which foundation documents need to be created or updated
-   - **Legacy Check**: Look for `ARCHITECTURE.md` files that need to be renamed to `HIGH-LEVEL-DESIGN.md`
-   - **Module Structure Check**: Verify if `docs/designs/` directory exists for component designs
+   - **Repository Update**: `git -C ~/.agent3d pull origin main`
+   - Identify missing/outdated documentation
+   - Check foundation documents needed
+   - **Structure Check**: Verify `docs/designs/` directory exists
 2. **Draft:**
-   - Create foundation documents using local templates from `~/.agent3d/templates/`:
-     - `README.md` using `~/.agent3d/templates/README.template.md`
-     - `docs/HIGH-LEVEL-DESIGN.md` using `~/.agent3d/templates/HIGH-LEVEL-DESIGN.template.md`
-     - `docs/FEATURES.md` using `~/.agent3d/templates/FEATURES.template.md`
-     - `docs/TASKS.md` using `~/.agent3d/templates/TASKS.template.md`
-     - `docs/TEST-CASES.md` using `~/.agent3d/templates/TEST-CASES.template.md`
-     - `docs/DDD-STATUS.md` using `~/.agent3d/templates/DDD-STATUS.template.md`
+   - Create foundation documents from `~/.agent3d/templates/`:
+     - `README.md`
+     - `docs/HIGH-LEVEL-DESIGN.md`
+     - `docs/FEATURES.md`
+     - `docs/TASKS.md`
+     - `docs/TEST-CASES.md`
+     - `docs/DDD-STATUS.md`
    - Follow template format specifications exactly, replacing {{placeholders}} with actual content
    - Do NOT include `<template>` or `<example>` tags in actual documentation files
-   - **🔗 CRITICAL**: Use `## Groups (Modules)` and `### Sub-Groups (Sub-modules)` heading structure
-   - **🚨 CRITICAL**: Mark features as `[x]` completed ONLY when verifiable evidence exists (tests or manual verification)
-   - **📁 REFACTORING**: If `ARCHITECTURE.md` exists, rename to `HIGH-LEVEL-DESIGN.md` and update all references
-   - **📁 MODULE STRUCTURE**: Create `docs/modules/` directory for detailed design documents
+   - **CRITICAL**: Use `## Groups` and `### Sub-Groups` heading structure
+   - **CRITICAL**: Mark features as `[x]` completed ONLY when verifiable evidence exists
+   - Create `docs/designs/` directory for component design documents
    - Develop architectural diagrams using Mermaid syntax as shown in templates
    - Document technical decisions and trade-offs following template structure
 3. **Ask:**
