@@ -81,7 +81,12 @@
 
 * Use markdown task lists (`- [ ]`) for all **features, tasks, and test cases**.
 * Prefer **single-line entries** for clarity and brevity.
-* **Tick** (`- [x]`) completed items to mark their status.
+* **Mark completion** using **tick** (`- [x]`) for completed items in markdown task lists.
+* **Use ✅ symbol** specifically to indicate **step execution** in processes, workflows, or procedures.
+* **Task Status Examples**:
+  - `- [ ] Pending task` (not started)
+  - `- [x] Completed task` (finished)
+  - `✅ Step executed` (indicates a process step has been performed)
 
 ---
 
@@ -90,4 +95,4 @@
 > *Follow `.agent-guidelines.md`.
 > If docs drift or a primary doc is missing, run a DDD pass (update docs, ask questions, then sync code/tests/deploy).
 > Keep code lean; favor integration/end-to-end tests, avoid mocks unless absolutely necessary.
-> **Format all features, tasks, and test cases as single-line markdown tasks (`- [ ]`) and tick them when completed.***
+> **Format all features, tasks, and test cases as single-line markdown tasks (`- [ ]`) and tick them when completed. Use ✅ to indicate step execution in processes.***
