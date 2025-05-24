@@ -66,6 +66,7 @@
 | `docs/TEST-CASES.md` | Test specifications with TC-#### format | [TEST-CASES Template]({{DDD_REMOTE_BASE}}/templates/TEST-CASES.template.md) |
 | `docs/DDD-STATUS.md` | DDD pass status and alignment tracking | [DDD-STATUS Template]({{DDD_REMOTE_BASE}}/templates/DDD-STATUS.template.md) |
 | `docs/modules/*.md` | Module detailed design specifications | [DETAILED-DESIGN Template]({{DDD_REMOTE_BASE}}/templates/DETAILED-DESIGN.template.md) |
+| `docs/proposals/*.md` | Design proposals for unimplemented features | [PROPOSAL Template]({{DDD_REMOTE_BASE}}/templates/PROPOSAL.template.md) |
 
 **Missing Documentation**: Always create complete content using the provided templates before coding. Templates contain format specifications, placeholder structures, and examples - do NOT include the `<template>` or `<example>` tags in actual documentation files.
 

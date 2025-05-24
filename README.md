@@ -73,9 +73,10 @@ This repository contains only documentation files:
 
 - **AGENT-GUIDELINES.md**: The main guidelines document that agents should reference
 - **docs/**: Core documentation including HIGH-LEVEL-DESIGN.md and module detailed designs
+- **docs/proposals/**: Design proposals for unimplemented features and modules
 - **passes/simplified/**: Detailed descriptions of each DDD pass
 - **rules/**: Language-specific development rules
-- **templates/**: Documentation templates including DETAILED-DESIGN template
+- **templates/**: Documentation templates including DETAILED-DESIGN and PROPOSAL templates
 
 **Important Note**: `ARCHITECTURE.md` has been renamed to `HIGH-LEVEL-DESIGN.md` to better distinguish between high-level system architecture and detailed module designs. Agents working on existing projects should update any references accordingly.
 
