@@ -9,29 +9,31 @@
 - When converting a proof of concept into production code
 
 ## Process
-1. **Scan:** 
+1. **Scan:**
    - Review feature documentation and requirements
    - Identify implementation priorities and dependencies
    - Understand the architectural context for the implementation
    - Review existing test cases in `TEST-CASES.md`
 
-2. **Draft:** 
+2. **Draft:**
    - Create implementation plan with component breakdown
    - Identify key test scenarios for basic validation
    - Determine integration points with existing code
    - Plan for basic error handling and edge cases
 
-3. **Ask:** 
+3. **Ask:**
    - Clarify any ambiguities in the requirements
    - Confirm technical approach and design decisions
    - Verify assumptions about dependencies and interfaces
    - Discuss any potential technical challenges
 
-4. **Sync:** 
+4. **Sync:**
    - Implement the feature according to documentation
    - Write basic tests to verify core functionality
    - Ensure code meets project standards and conventions
    - Update documentation with any implementation details
+
+**Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
 - Working implementation of the documented feature
