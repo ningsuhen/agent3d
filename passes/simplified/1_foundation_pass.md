@@ -22,6 +22,8 @@
      - `docs/DDD-STATUS.md` using [DDD-STATUS Template]({{DDD_REMOTE_BASE}}/templates/DDD-STATUS.template.md)
    - Follow template format specifications exactly, replacing {{placeholders}} with actual content
    - Do NOT include `<template>` or `<example>` tags in actual documentation files
+   - **🔗 CRITICAL**: Use `## Groups (Modules)` and `### Sub-Groups (Sub-modules)` heading structure
+   - **🚨 CRITICAL**: Mark features as `[x]` completed ONLY when verifiable evidence exists (tests or manual verification)
    - Develop architectural diagrams using Mermaid syntax as shown in templates
    - Document technical decisions and trade-offs following template structure
 3. **Ask:**

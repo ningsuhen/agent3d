@@ -82,6 +82,18 @@
 - **Test Cases**: Follow [TEST-CASES Template]({{DDD_REMOTE_BASE}}/templates/TEST-CASES.template.md) - use TC-#### format with execution types
 - **DDD Status**: Follow [DDD-STATUS Template]({{DDD_REMOTE_BASE}}/templates/DDD-STATUS.template.md) - track alignment and drift metrics
 
+**CRITICAL - Documentation Structure:**
+- **Use proper heading hierarchy**: `## Groups (Modules)` and `### Sub-Groups (Sub-modules)` for organization
+- **Group related items** within appropriate sections for easy identification and navigation
+
+**CRITICAL - Feature Completion Criteria:**
+- **NEVER mark features as `[x]` completed** based solely on interface definitions, prototypes, or documentation
+- **ONLY mark features as `[x]` completed** when there is verifiable evidence the feature works properly:
+  - Automated tests that pass and validate the feature functionality
+  - Manual testing results that confirm the feature meets acceptance criteria
+  - Demonstrable working implementation that fulfills the specified criteria
+- **Use `[~]` for in-progress features** that have partial implementation but lack verification
+
 **For Process Execution:**
 - Use ✅ symbol to mark completed steps during DDD pass execution
 - Add ✅ next to steps as you complete them for real-time progress tracking

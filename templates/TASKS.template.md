@@ -21,6 +21,10 @@
 - **Medium Priority:** Feature improvements, performance optimizations, documentation updates
 - **Low Priority:** Nice-to-have features, experimental ideas, long-term goals
 
+**🔗 CRITICAL - Documentation Structure:**
+- **ALWAYS use `## Groups (Priority Levels)` for High, Medium, Low, Completed**
+- **ALWAYS use `### Sub-Groups (Functional Areas)` for specific work areas within each priority**
+
 **GROUPING STRATEGY:** Use a two-level hierarchy within each priority level to organize tasks:
 - **## Groups (Priority Levels):** High, Medium, Low, Completed
 - **### Sub-Groups (Functional Areas):** Specific work areas within each priority
@@ -85,6 +89,7 @@
 - [ ] Tasks are prioritized correctly based on impact and urgency
 - [ ] Each task and sub-task has a clear, actionable description
 - [ ] Sub-tasks use 2-space indentation and are logically related to parent tasks
+- [ ] **CRITICAL**: Uses `## Groups (Priority Levels)` and `### Sub-Groups (Functional Areas)` heading structure
 - [ ] Tasks are grouped by functional area within each priority level
 - [ ] Functional area headers clearly indicate the type of work
 - [ ] Related tasks are grouped together for easy identification
