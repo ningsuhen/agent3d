@@ -19,6 +19,21 @@
 4. Each test case must follow the format: `- [status] **TC-NNNN** - Test description (Execution Type, Priority)`
 5. Sub-test cases use 2-space indentation and follow the same format with unique TC-NNNN IDs
 
+**GROUPING STRATEGY:** Organize test cases by logical modules or functional areas to make them easy to spot and manage:
+- **By Feature Area:** Group tests that validate the same feature or functionality
+- **By Component:** Group tests that target the same system component
+- **By User Journey:** Group tests that validate the same user workflow or use case
+- **By Test Type:** Group tests by type (unit, integration, end-to-end, performance)
+- **By Priority/Risk:** Group tests by business priority or risk level
+
+**EXAMPLES OF GOOD GROUPING:**
+- Authentication & Security Tests
+- User Interface Tests
+- API & Integration Tests
+- Data Validation Tests
+- Performance & Load Tests
+- Error Handling & Edge Cases
+
 **TEMPLATE:** (Do NOT include `<template>` tags in actual documentation)
 <template>
 # Test Cases
@@ -38,21 +53,37 @@
 - **Automated Testing:** {{automated_testing_description}}
 - **Integration Testing:** {{integration_testing_description}}
 
-## {{module_name}}
+## {{module_name}} (e.g., Authentication & Security Tests)
+
+### {{sub_module_name}} (e.g., Login & Authentication)
 - {{status}} **{{test_id}}** - {{test_description}} ({{execution_type}}, {{priority}})
 - {{status}} **{{test_id}}** - {{test_description}} ({{execution_type}}, {{priority}})
   - {{status}} **{{sub_test_id}}** - {{sub_test_description}} ({{execution_type}}, {{priority}})
   - {{status}} **{{sub_test_id}}** - {{sub_test_description}} ({{execution_type}}, {{priority}})
+
+### {{sub_module_name}} (e.g., Authorization & Permissions)
 - {{status}} **{{test_id}}** - {{test_description}} ({{execution_type}}, {{priority}})
+- {{status}} **{{test_id}}** - {{test_description}} ({{execution_type}}, {{priority}})
+
+## {{module_name}} (e.g., User Interface Tests)
+
+### {{sub_module_name}} (e.g., Form Validation)
+- {{status}} **{{test_id}}** - {{test_description}} ({{execution_type}}, {{priority}})
+- {{status}} **{{test_id}}** - {{test_description}} ({{execution_type}}, {{priority}})
+  - {{status}} **{{sub_test_id}}** - {{sub_test_description}} ({{execution_type}}, {{priority}})
 </template>
 
 **EXAMPLE:** See the actual TEST-CASES.md file in this project: [docs/TEST-CASES.md]({{DDD_REMOTE_BASE}}/docs/TEST-CASES.md)
 
 **VALIDATION CHECKLIST:**
 - [ ] All test cases and sub-test cases have unique TC-NNNN identifiers
-- [ ] Test cases are grouped logically by module/feature
+- [ ] Test cases are grouped logically by module/feature with clear section headers
+- [ ] Sub-modules within each main module group related test scenarios
 - [ ] Sub-test cases use 2-space indentation and are logically related to parent test cases
 - [ ] Each test case and sub-test case specifies execution type and priority
 - [ ] Summary statistics match the actual test case counts (including sub-test cases)
 - [ ] Test execution framework is clearly defined
 - [ ] Complex test scenarios are appropriately broken down into sub-test cases
+- [ ] Related test cases are grouped together for easy identification
+- [ ] Module and sub-module names clearly indicate the functional area being tested
+- [ ] Each sub-module has 2-8 test cases for optimal readability
