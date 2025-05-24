@@ -25,6 +25,7 @@ This document outlines the features of the Agent3D documentation framework, grou
 - [x] Synchronization Pass - Aligning documentation with code at any scale (Criteria: Documentation matches implementation with zero drift indicators)
 - [x] Quality Pass - Verifying and improving documentation quality (Criteria: All documentation meets clarity and consistency standards)
 - [x] Prune Pass - Removing outdated or redundant content (Criteria: No duplicate or obsolete content remains in documentation)
+- [x] Reverse Pass - Detecting and addressing reverse drift (Criteria: Implementation without documentation is systematically identified and resolved)
 
 ## Implementation Passes
 

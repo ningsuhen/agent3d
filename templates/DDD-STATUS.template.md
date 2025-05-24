@@ -12,13 +12,13 @@
 **REQUIRED SECTIONS:**
 1. Summary - Overall statistics
 2. Pass Status Sections - Explanation of the repeating structure
-3. Individual pass entries (Full Pass + 9 numbered passes)
+3. Individual pass entries (Full Pass + 10 numbered passes)
 4. Drift Indicators section
 5. Metrics section
 
 **PASS STRUCTURE:** Each DDD pass gets its own section following the same format. The document includes:
 - Full Pass (comprehensive pass)
-- 9 numbered passes (Foundation through Prune)
+- 10 numbered passes (Foundation through Reverse)
 - Each pass section repeats the same status tracking format
 
 **METRICS CALCULATION:**
@@ -53,7 +53,7 @@
 
 ## � Pass Status Sections
 
-**NOTE:** The following sections repeat for each DDD pass (Full Pass + 9 numbered passes). Each pass has its own dedicated section with status tracking, progress indicators, drift measurements, and execution artifacts.
+**NOTE:** The following sections repeat for each DDD pass (Full Pass + 10 numbered passes). Each pass has its own dedicated section with status tracking, progress indicators, drift measurements, and execution artifacts.
 
 **Pass Structure:**
 - **🔄 Full Pass** - Comprehensive pass encompassing all aspects
@@ -66,6 +66,7 @@
 - **7️⃣ Synchronization Pass** - Aligning documentation with code at any scale
 - **8️⃣ Quality Pass** - Verifying and improving documentation quality
 - **9️⃣ Prune Pass** - Removing outdated or redundant content
+- **🔟 Reverse Pass** - Detecting and addressing reverse drift (implementation without documentation)
 
 ---
 
