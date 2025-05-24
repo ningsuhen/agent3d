@@ -2,7 +2,7 @@
 
 This document outlines the test cases for the Agent3D framework.
 
-## � Summary
+## 📊 Summary
 - **Total Test Cases:** 30
 - **Completed:** 0 ✅
 - **Pending:** 30 ⏸️
@@ -10,7 +10,7 @@ This document outlines the test cases for the Agent3D framework.
 - **Partial:** 8 (27%)
 - **Manual:** 19 (63%)
 
-## �🔧 Agent Guideline Protocol
+## 🤖 Agent Guideline Protocol
 - [ ] **TC-0001** - Agent retrieves and caches guidelines (Manual, High)
 - [ ] **TC-0002** - Agent updates cached guidelines when remote changes (Manual, High)
 - [ ] **TC-0003** - Agent follows cached guidelines for decisions (Manual, High)
