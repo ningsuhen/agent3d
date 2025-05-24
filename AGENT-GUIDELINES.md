@@ -45,6 +45,7 @@
 | **Traceability** | Reference test cases as `TC-####` from `docs/TEST-CASES.md` |
 | **Fast Feedback** | Run critical tests in CI |
 | **Language Rules** | Fetch and memorize language-specific rules from links below, apply consistently |
+| **LLM-Friendly Docs** | Use clear, concise language; consistent structure; minimal icons; no legacy references |
 
 ### Language-Specific Rules
 
@@ -87,7 +88,7 @@
 - **DDD Status**: Follow `~/.agent3d/templates/DDD-STATUS.template.md` - track alignment and drift metrics
 
 **CRITICAL - Documentation Structure:**
-- **Use proper heading hierarchy**: `## Groups (Modules)` and `### Sub-Groups (Sub-modules)` for organization
+- **Use proper heading hierarchy**: `## Groups` and `### Sub-Groups` for organization
 - **Group related items** within appropriate sections for easy identification and navigation
 
 **CRITICAL - Feature Completion Criteria:**
@@ -107,13 +108,19 @@
 ## Agent Instructions
 Follow `.agent-guidelines.md`. When documentation is missing or outdated, run a DDD pass (update docs, ask questions, then sync code/tests/deploy). Keep code lean and favor integration/end-to-end tests over mocks unless external APIs require them. Format all tasks as single-line markdown tasks and mark execution progress with ✅.
 
-**IMPORTANT - Documentation Refactoring**: `ARCHITECTURE.md` has been renamed to `HIGH-LEVEL-DESIGN.md`. When working on existing projects, agents should:
-- Update any references from `ARCHITECTURE.md` to `HIGH-LEVEL-DESIGN.md` in documentation, code comments, and configuration files
-- Update any references from "architecture" to "high-level design" in documentation contexts
-- Create `docs/designs/` directory for component design documents if it doesn't exist
+**LLM-Friendly Documentation**: All project documentation must be optimized for LLM processing:
+- Use clear, concise language without verbose explanations
+- Maintain consistent structure and formatting across all documents
+- Use minimal, strategic icons (✅ for completion tracking only)
+- Avoid legacy references or migration hints
+- Focus on actionable, current information only
+- Structure content for easy scanning and parsing by LLMs
+
+**Template Usage Guidelines**:
+- Create `docs/designs/` directory for component design documents
 - Use `~/.agent3d/templates/DETAILED-DESIGN.template.md` for component-specific documentation
 - **Naming Convention**: Use `{COMPONENT}.md` for design files and CAPS for all documentation files
-- **Folder Structure**: Use `docs/designs/` (not `docs/modules/`) for component designs
+- **Folder Structure**: Use `docs/designs/` for component designs
 
 **Template Usage**: When creating foundation documentation, use templates from the local Agent3D repository. Follow these steps:
 1. Ensure `~/.agent3d` repository is cloned and up-to-date (`git pull`)
