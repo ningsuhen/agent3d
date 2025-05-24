@@ -1,7 +1,7 @@
-# {{module_name}} - Detailed Design
+# {{component_name}} - Design
 
-**FORMAT SPECIFICATION:** This document must provide comprehensive detailed design specifications for a specific module or component. It must include:
-- Module overview and purpose
+**FORMAT SPECIFICATION:** This document must provide comprehensive design specifications for a specific component or system part. It must include:
+- Component overview and purpose
 - Component architecture with detailed specifications
 - API specifications and interfaces
 - Data flow diagrams and sequence diagrams
@@ -10,12 +10,12 @@
 - Performance requirements and constraints
 - Security considerations
 - Testing strategy and validation
-- Integration points with other modules
+- Integration points with other components
 - Monitoring and logging specifications
 - Future enhancements and scalability considerations
 
 **REQUIRED SECTIONS:**
-1. Overview - Module purpose and scope
+1. Overview - Component purpose and scope
 2. Component Architecture - Detailed component breakdown
 3. API Specifications - Interfaces, methods, and data structures
 4. Data Flow - Detailed data movement and processing
@@ -24,17 +24,17 @@
 7. Performance Requirements - Response times, throughput, resource usage
 8. Security Considerations - Security measures and validation
 9. Testing Strategy - Unit, integration, and performance testing
-10. Integration Points - Connections with other modules/systems
+10. Integration Points - Connections with other components/systems
 11. Monitoring and Logging - Observability and diagnostics
 12. Future Enhancements - Planned features and scalability
 
 **TEMPLATE:** (Do NOT include `<template>` tags in actual documentation)
 <template>
-# {{module_name}} - Detailed Design
+# {{component_name}} - Design
 
 ## Overview
 
-This document provides the detailed design specifications for the {{module_name}}, which {{module_purpose}}.
+This document provides the design specifications for the {{component_name}}, which {{component_purpose}}.
 
 ## Component Architecture
 
@@ -191,16 +191,18 @@ This document provides the detailed design specifications for the {{module_name}
 - {{debt_item}}: {{debt_description}}
 </template>
 
-**EXAMPLE:** See the actual detailed design files in this project: [docs/modules/]({{DDD_REMOTE_BASE}}/docs/modules/)
+**EXAMPLE:** See the actual component design files in this project: [docs/designs/]({{DDD_REMOTE_BASE}}/docs/designs/)
 
 **MIGRATION CHECKLIST (for existing projects):**
 - [ ] Check if project has `ARCHITECTURE.md` that should be renamed to `HIGH-LEVEL-DESIGN.md`
 - [ ] Search codebase for references to `ARCHITECTURE.md` and update to `HIGH-LEVEL-DESIGN.md`
 - [ ] Update any documentation links pointing to architecture documentation
-- [ ] Create `docs/modules/` directory if it doesn't exist
-- [ ] Move detailed component specifications from high-level design to module detailed designs
+- [ ] Create `docs/designs/` directory if it doesn't exist (not `docs/modules/`)
+- [ ] Move detailed component specifications from high-level design to component designs using {COMPONENT}.md naming
+- [ ] Ensure all documentation files use CAPS naming convention
 - [ ] Update build scripts, CI/CD configurations that reference architecture documentation
 - [ ] Update README and other documentation that mentions architecture files
+- [ ] Update any references from "modules" to "designs" for component documentation
 
 **VALIDATION CHECKLIST:**
 - [ ] Module overview clearly explains purpose and scope

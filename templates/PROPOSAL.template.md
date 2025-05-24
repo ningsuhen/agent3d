@@ -283,7 +283,7 @@
 5. **Implemented**: Proposal has been implemented and integrated into main documentation
 
 **INTEGRATION WORKFLOW:**
-- **Approved Proposals**: Move detailed design content to `docs/modules/` using DETAILED-DESIGN template
+- **Approved Proposals**: Move detailed design content to `docs/designs/` using DETAILED-DESIGN template with {COMPONENT}.md naming
 - **Architecture Changes**: Update `docs/HIGH-LEVEL-DESIGN.md` with new components and relationships
 - **Feature Implementation**: Update `docs/FEATURES.md` with new features and acceptance criteria
 - **Archive Proposals**: Move implemented proposals to `docs/proposals/archive/` for historical reference

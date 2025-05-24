@@ -43,6 +43,21 @@ This document outlines the features of the Agent3D documentation framework, grou
   - [x] Review Process - Structured code review workflow (Criteria: All PRs follow documented review process)
   - [x] Feedback Templates - Standardized review feedback formats (Criteria: Reviews use consistent templates and checklists)
   - [x] Automation Integration - CI/CD review automation (Criteria: Automated checks supplement manual reviews)
+- [x] Synchronization Pass - Aligning documentation with code at any scale (Criteria: Zero drift between documentation and implementation)
+  - [x] Drift Detection - Identification of documentation-code misalignment (Criteria: All drift sources are identified and categorized)
+  - [x] Alignment Restoration - Process for bringing documentation and code into sync (Criteria: Systematic approach to eliminate drift)
+- [x] Quality Pass - Verifying and improving documentation quality (Criteria: All documentation meets clarity and consistency standards)
+  - [x] Quality Standards - Defined criteria for documentation quality (Criteria: Clear quality metrics and validation criteria)
+  - [x] Consistency Validation - Cross-document consistency checking (Criteria: Consistent terminology and formatting across all documents)
+- [x] Prune Pass - Removing outdated or redundant content (Criteria: No duplicate or obsolete content remains in documentation)
+  - [x] Content Audit - Systematic review of all documentation (Criteria: All content is reviewed for relevance and accuracy)
+  - [x] Redundancy Elimination - Removal of duplicate information (Criteria: No duplicate content exists across documentation)
+- [x] Reverse Pass - Detecting and addressing reverse drift (implementation without documentation) (Criteria: All undocumented features are identified and documented)
+  - [x] Reverse Drift Detection - Identification of undocumented implementations (Criteria: All implemented features without documentation are found)
+  - [x] Documentation Backfill - Creating documentation for existing implementations (Criteria: All undocumented features receive proper documentation)
+- [x] Full Pass - Comprehensive pass encompassing all aspects (Criteria: All passes executed with balanced alignment levels and minimized drift)
+  - [x] Complete Workflow - Execution of all numbered passes in sequence (Criteria: All 10 numbered passes are executed successfully)
+  - [x] Balanced Alignment - Achievement of consistent alignment across all passes (Criteria: All passes achieve 90%+ alignment levels)
 
 ## Language-Specific Rules
 
@@ -50,6 +65,17 @@ This document outlines the features of the Agent3D documentation framework, grou
 - [x] JavaScript Rules - Development guidelines for JavaScript projects (Criteria: Complete rules covering environment, style, and testing for JavaScript)
 - [x] Java Rules - Development guidelines for Java projects (Criteria: Complete rules covering environment, style, and testing for Java)
 - [x] Go Rules - Development guidelines for Go projects (Criteria: Complete rules covering environment, style, and testing for Go)
+
+## Proposal System
+
+- [x] Proposal Framework - Structured system for managing unimplemented features and modules (Criteria: Complete proposal lifecycle from draft to implementation)
+  - [x] Proposal Templates - Standardized format for design proposals (Criteria: PROPOSAL template covers all required sections)
+  - [x] Proposal Workflow - Clear process from creation to implementation (Criteria: Documented lifecycle with integration into main DDD docs)
+  - [x] Proposal Directory Structure - Organized storage for active and archived proposals (Criteria: docs/proposals/ with active and archive subdirectories)
+- [x] Component Design System - Design specifications for individual project components (Criteria: DETAILED-DESIGN template supports comprehensive component documentation)
+  - [x] Component Design Templates - Standardized format for component designs (Criteria: Template includes all technical specifications)
+  - [x] Integration Workflow - Process for moving from proposals to main documentation (Criteria: Clear path from proposal to HLD/designs integration)
+  - [x] Proposal-to-Design Flow - Clear integration path from proposals to designs (Criteria: Approved proposals become integrated into component designs)
 
 ## Integration Guidelines
 
@@ -63,6 +89,10 @@ This document outlines the features of the Agent3D documentation framework, grou
   - [x] Pass Status Monitoring - Individual pass progress tracking (Criteria: Each pass has status, progress, and drift indicators)
   - [x] Alignment Metrics - Quantitative alignment measurement (Criteria: Numerical alignment percentages for all passes)
   - [x] Drift Indicators - Documentation-code misalignment detection (Criteria: Color-coded drift levels with severity indicators)
+- [x] Change Tracking - Systematic recording of all project changes (Criteria: Comprehensive changelog with DDD pass integration)
+  - [x] CHANGELOG System - Chronological change documentation (Criteria: All changes categorized and tracked with dates)
+  - [x] DDD Pass Integration - Automatic change logging during pass execution (Criteria: Each pass type records appropriate changes)
+  - [x] Semantic Versioning - Structured version management (Criteria: Clear versioning scheme with breaking change identification)
 - [x] Progress Indicators - Visual progress bars and completion tracking (Criteria: Visual progress representation for all passes with percentage completion)
   - [x] Visual Progress Bars - Graphical completion representation (Criteria: Progress bars show completion percentage visually)
   - [x] Completion Statistics - Numerical progress tracking (Criteria: Exact completion counts and percentages)

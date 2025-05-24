@@ -1,10 +1,10 @@
 # Enhanced Template System - Proposal
 
-**STATUS:** Draft
+**STATUS:** Under Review
 **CREATED:** 2024-01-15
-**LAST UPDATED:** 2024-01-15
+**LAST UPDATED:** 2024-01-17
 **AUTHOR(S):** Agent3D Team
-**REVIEWERS:** TBD
+**REVIEWERS:** Agent3D Core Team
 
 ## Problem Statement
 

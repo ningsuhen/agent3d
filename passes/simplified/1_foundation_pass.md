@@ -39,6 +39,8 @@
    - Ensure all foundation documentation follows template formats exactly
    - Verify architectural documentation is complete and accurate
    - Validate that all {{placeholders}} have been replaced with actual content
+   - Update `CHANGELOG.md` with foundation changes (Added: new documentation files, architectural decisions)
+   - Update `DDD-STATUS.md` with Foundation Pass completion
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 

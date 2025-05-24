@@ -46,6 +46,8 @@
    - Remove outdated content
    - Verify that all passes achieve similar alignment levels (target: 90%+)
    - Confirm overall drift reduction across the project
+   - Update `CHANGELOG.md` with comprehensive Full Pass changes across all categories
+   - Update `DDD-STATUS.md` with Full Pass completion and final metrics
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
