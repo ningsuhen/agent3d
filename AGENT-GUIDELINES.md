@@ -68,6 +68,7 @@
 | `docs/DDD-STATUS.md` | DDD pass status and alignment tracking | `~/.agent3d/templates/DDD-STATUS.template.md` |
 | `docs/designs/*.md` | Component design specifications | `~/.agent3d/templates/DETAILED-DESIGN.template.md` |
 | `docs/proposals/*.md` | Design proposals for unimplemented features | `~/.agent3d/templates/PROPOSAL.template.md` |
+| `docs/DRIFT-TRACKER.md` | Project drift monitoring between docs and implementation | `~/.agent3d/templates/DRIFT-TRACKER.template.md` |
 | `CHANGELOG.md` | Chronological record of all project changes | `~/.agent3d/templates/CHANGELOG.template.md` |
 
 **Missing Documentation**: Always create complete content using the provided templates before coding. Templates contain format specifications, placeholder structures, and examples - do NOT include the `<template>` or `<example>` tags in actual documentation files.
