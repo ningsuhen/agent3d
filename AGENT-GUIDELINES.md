@@ -61,10 +61,11 @@
 |------|---------|----------|
 | `README.md` | Project overview | [README Template]({{DDD_REMOTE_BASE}}/templates/README.template.md) |
 | `docs/FEATURES.md` | Feature checklist with acceptance criteria | [FEATURES Template]({{DDD_REMOTE_BASE}}/templates/FEATURES.template.md) |
-| `docs/ARCHITECTURE.md` | System design with diagrams and decisions | [ARCHITECTURE Template]({{DDD_REMOTE_BASE}}/templates/ARCHITECTURE.template.md) |
+| `docs/HIGH-LEVEL-DESIGN.md` | System design with diagrams and decisions | [HIGH-LEVEL-DESIGN Template]({{DDD_REMOTE_BASE}}/templates/HIGH-LEVEL-DESIGN.template.md) |
 | `docs/TASKS.md` | Work backlog organized by priority | [TASKS Template]({{DDD_REMOTE_BASE}}/templates/TASKS.template.md) |
 | `docs/TEST-CASES.md` | Test specifications with TC-#### format | [TEST-CASES Template]({{DDD_REMOTE_BASE}}/templates/TEST-CASES.template.md) |
 | `docs/DDD-STATUS.md` | DDD pass status and alignment tracking | [DDD-STATUS Template]({{DDD_REMOTE_BASE}}/templates/DDD-STATUS.template.md) |
+| `docs/modules/*.md` | Module detailed design specifications | [DETAILED-DESIGN Template]({{DDD_REMOTE_BASE}}/templates/DETAILED-DESIGN.template.md) |
 
 **Missing Documentation**: Always create complete content using the provided templates before coding. Templates contain format specifications, placeholder structures, and examples - do NOT include the `<template>` or `<example>` tags in actual documentation files.
 
@@ -102,6 +103,12 @@
 
 ## Agent Instructions
 Follow `.agent-guidelines.md`. When documentation is missing or outdated, run a DDD pass (update docs, ask questions, then sync code/tests/deploy). Keep code lean and favor integration/end-to-end tests over mocks unless external APIs require them. Format all tasks as single-line markdown tasks and mark execution progress with ✅.
+
+**IMPORTANT - Documentation Refactoring**: `ARCHITECTURE.md` has been renamed to `HIGH-LEVEL-DESIGN.md`. When working on existing projects, agents should:
+- Update any references from `ARCHITECTURE.md` to `HIGH-LEVEL-DESIGN.md` in documentation, code comments, and configuration files
+- Update any references from "architecture" to "high-level design" in documentation contexts
+- Create `docs/modules/` directory for detailed design documents if it doesn't exist
+- Use the [DETAILED-DESIGN Template]({{DDD_REMOTE_BASE}}/templates/DETAILED-DESIGN.template.md) for module-specific documentation
 
 **Template Usage**: When creating foundation documentation, always fetch and use the provided templates from the Required Documentation section. Follow these steps:
 1. Fetch the appropriate template using the provided links

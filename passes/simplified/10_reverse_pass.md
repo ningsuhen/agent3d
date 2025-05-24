@@ -36,7 +36,7 @@
    - Update FEATURES.md to mark verified complete features as `[x]`
    - Add documentation for all confirmed undocumented functionality
    - Create or update test cases for uncovered implementations
-   - Update ARCHITECTURE.md with any undocumented components or changes
+   - Update HIGH-LEVEL-DESIGN.md with any undocumented components or changes
    - Ensure all working features have proper acceptance criteria validation
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
@@ -61,7 +61,7 @@
 - [x] ✅ Integration points without documented test procedures
 
 ### Architecture Drift
-- [x] ✅ New components not reflected in ARCHITECTURE.md
+- [x] ✅ New components not reflected in HIGH-LEVEL-DESIGN.md
 - [x] ✅ Changed data flows not updated in architectural diagrams
 - [x] ✅ Modified system boundaries without documentation updates
 
@@ -70,7 +70,7 @@
 - Features marked as `[x]` completed accurately reflect working implementations
 - No working features remain marked as `[ ]` pending or `[~]` in-progress
 - Complete test case coverage documentation for all implementations
-- Updated ARCHITECTURE.md reflecting actual system state
+- Updated HIGH-LEVEL-DESIGN.md reflecting actual system state
 - Eliminated reverse drift between code and documentation
 - Accurate project status in DDD-STATUS.md
 - Comprehensive feature documentation with verified acceptance criteria

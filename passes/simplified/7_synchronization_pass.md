@@ -8,17 +8,20 @@
 - After major refactoring without documentation updates
 - During technical debt reduction efforts
 - When preparing for releases
+- **Legacy documentation refactoring** (e.g., updating `ARCHITECTURE.md` references to `HIGH-LEVEL-DESIGN.md`)
 
 ## Process
 1. **Scan:**
    - Identify discrepancies between code and documentation
    - Review areas where implementation has diverged from specs
    - Note specific changes that need documentation
+   - **Legacy Check**: Search for `ARCHITECTURE.md` references in code, comments, and configuration files
 
 2. **Draft:**
    - Update documentation to match current implementation
    - Revise affected documentation sections
    - Document any new implementation details
+   - **Legacy Refactoring**: Update all `ARCHITECTURE.md` references to `HIGH-LEVEL-DESIGN.md`
 
 3. **Ask:**
    - Clarify complex implementation details or design decisions

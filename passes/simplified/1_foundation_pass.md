@@ -7,15 +7,18 @@
 - Making significant architectural changes to existing systems
 - Establishing or restructuring documentation framework
 - Documenting major technical decisions and their rationales
+- **Refactoring existing projects** that still use `ARCHITECTURE.md` (should be renamed to `HIGH-LEVEL-DESIGN.md`)
 
 ## Process
 1. **Scan:**
    - Identify what documentation is missing or needs architectural updates
    - Check which foundation documents need to be created or updated
+   - **Legacy Check**: Look for `ARCHITECTURE.md` files that need to be renamed to `HIGH-LEVEL-DESIGN.md`
+   - **Module Structure Check**: Verify if `docs/modules/` directory exists for detailed designs
 2. **Draft:**
    - Create foundation documents using the provided templates:
      - `README.md` using [README Template]({{DDD_REMOTE_BASE}}/templates/README.template.md)
-     - `docs/ARCHITECTURE.md` using [ARCHITECTURE Template]({{DDD_REMOTE_BASE}}/templates/ARCHITECTURE.template.md)
+     - `docs/HIGH-LEVEL-DESIGN.md` using [HIGH-LEVEL-DESIGN Template]({{DDD_REMOTE_BASE}}/templates/HIGH-LEVEL-DESIGN.template.md)
      - `docs/FEATURES.md` using [FEATURES Template]({{DDD_REMOTE_BASE}}/templates/FEATURES.template.md)
      - `docs/TASKS.md` using [TASKS Template]({{DDD_REMOTE_BASE}}/templates/TASKS.template.md)
      - `docs/TEST-CASES.md` using [TEST-CASES Template]({{DDD_REMOTE_BASE}}/templates/TEST-CASES.template.md)
@@ -24,6 +27,8 @@
    - Do NOT include `<template>` or `<example>` tags in actual documentation files
    - **🔗 CRITICAL**: Use `## Groups (Modules)` and `### Sub-Groups (Sub-modules)` heading structure
    - **🚨 CRITICAL**: Mark features as `[x]` completed ONLY when verifiable evidence exists (tests or manual verification)
+   - **📁 REFACTORING**: If `ARCHITECTURE.md` exists, rename to `HIGH-LEVEL-DESIGN.md` and update all references
+   - **📁 MODULE STRUCTURE**: Create `docs/modules/` directory for detailed design documents
    - Develop architectural diagrams using Mermaid syntax as shown in templates
    - Document technical decisions and trade-offs following template structure
 3. **Ask:**
@@ -40,7 +45,7 @@
 ## Expected Outcomes
 - Complete set of foundation documentation files following template formats:
   - `README.md` with project overview, features, installation, and usage
-  - `docs/ARCHITECTURE.md` with system overview, components, data flow, and technical decisions
+  - `docs/HIGH-LEVEL-DESIGN.md` with system overview, components, data flow, and technical decisions
   - `docs/FEATURES.md` with feature list including acceptance criteria in (Criteria: <>) format
   - `docs/TASKS.md` with prioritized work backlog
   - `docs/TEST-CASES.md` with test specifications using TC-#### format and execution framework

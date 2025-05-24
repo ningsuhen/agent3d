@@ -47,7 +47,7 @@
 ## Documentation
 - [{{doc_name}}]({{doc_link}})
 - [{{doc_name}}]({{doc_link}})
-- [Architecture](docs/ARCHITECTURE.md)
+- [High-Level Design](docs/HIGH-LEVEL-DESIGN.md)
 - [Contributing](CONTRIBUTING.md)
 
 ## Contributing
