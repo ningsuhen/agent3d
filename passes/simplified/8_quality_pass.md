@@ -10,45 +10,21 @@
 - As part of continuous integration processes
 
 ## Process
-1. **Scan:**
-   - Review all documentation against current code
-   - Identify inconsistencies between code and documentation
-   - Note areas where clarity can be improved
-   - Find outdated or redundant content
-
+1. **Scan:** Review documentation accuracy, identify clarity improvements, find outdated content
 2. **Draft:**
-   - Document discrepancies and required updates
-   - **CRITICAL**: Verify `## Groups` and `### Sub-Groups` heading structure
-   - **CRITICAL**: Validate that features marked `[x]` have verifiable evidence (tests or manual verification)
-   - **CRITICAL**: Ensure no features marked `[x]` based solely on interface definitions or prototypes
+   - **CRITICAL**: Verify `## Groups`/`### Sub-Groups` structure and feature completion evidence
    - Enhance formatting, examples, and explanations
-   - Mark sections for removal or archiving
-   - Improve diagrams and visual aids
-
-3. **Ask:**
-   - Clarify uncertainties about implementation or requirements
-   - Confirm which documentation is safe to remove
-   - Seek feedback on clarity and readability
-
-4. **Sync:**
-   - Apply all approved improvements and corrections
-   - Remove or archive outdated content
-   - Ensure consistent formatting and terminology
+   - Mark content for removal or archiving
+3. **Ask:** Clarify requirements, confirm removal decisions, seek readability feedback
+4. **Sync:** Apply improvements, remove outdated content, ensure consistent formatting
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
-- Verified consistency across all documentation
-- Identified and resolved documentation gaps
-- Updated status of all features and tasks
-- Early detection of documentation drift
-- Streamlined, relevant documentation
-- Removed references to deprecated features
-- Improved documentation maintainability
-- Improved readability and clarity
-- Consistent formatting and terminology
-- Enhanced diagrams and visual aids
-- Better examples and explanations
+- Verified consistency and resolved documentation gaps
+- Improved readability, clarity, and formatting
+- Enhanced examples, diagrams, and explanations
+- Streamlined, relevant documentation with deprecated content removed
 
 ## Related Passes
 - **Follows:** [Reverse Pass](10_reverse_pass.md) - Ensures all content exists before quality validation

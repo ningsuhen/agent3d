@@ -12,29 +12,20 @@
 
 ## Process
 1. **Scan:**
+   - **Repository Update**: `git -C ~/.agent3d pull origin main`
    - Review existing documentation for gaps and inconsistencies
    - Identify where new features fit within current structure
-   - Note ambiguities or unclear requirements
    - **Proposal Check**: Review `docs/proposals/active/` for relevant design proposals
 
 2. **Draft:**
+   - **CRITICAL**: Use `## Groups`/`### Sub-Groups` structure and mark `[x]` only with verifiable evidence
    - Create detailed feature specifications with acceptance criteria
-   - **CRITICAL**: Use `## Groups` and `### Sub-Groups` heading structure
-   - **CRITICAL**: Mark features as `[x]` completed ONLY when verifiable evidence exists
    - Document technical requirements and integration points
-   - Update priorities, timelines, and dependencies
-   - Prepare questions for unclear areas
-   - **Complex Features**: Create proposals using `~/.agent3d/templates/PROPOSAL.template.md` for features requiring detailed design
+   - Create proposals using templates for complex features
 
-3. **Ask:**
-   - Clarify feature scope, priorities, and edge cases
-   - Resolve ambiguities through stakeholder discussion
-   - Confirm technical constraints and dependencies
+3. **Ask:** Clarify feature scope, priorities, edge cases, and technical constraints
 
-4. **Sync:**
-   - Update `FEATURES.md` and relevant documentation
-   - Ensure documentation reflects current project roadmap
-   - Document all clarified information and decisions
+4. **Sync:** Update FEATURES.md and documentation, ensure roadmap alignment
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
@@ -47,6 +38,11 @@
 - Resolved ambiguities in documentation
 - Consistent terminology and specifications
 - Clear acceptance criteria for features
+
+## Related Passes
+- **Follows:** [Foundation Pass](1_foundation_pass.md) - After foundation documents are established
+- **Precedes:** [Implementation Pass](3_implementation_pass.md) - Before feature implementation
+- **Templates:** See `~/.agent3d/templates/` for FEATURES, PROPOSAL format specifications
 
 ## Example Commit Message
 `DDD: Documentation Pass - Documented payment gateway integration requirements and updated Q3 priorities`

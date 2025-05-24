@@ -68,46 +68,7 @@ jobs:
 
 ## Implementation in LLM Agents
 
-Since Agent3D is a documentation-only framework, there's no code to set up or deploy. Instead, LLM agents should be instructed to:
-
-1. Reference the Agent3D guidelines remotely
-2. Follow the documented DDD passes
-3. Adhere to the language-specific rules
-
-### Example Agent Instructions
-
-Here's an example of how to instruct an LLM agent to use Agent3D:
-
-```
-As an AI coding assistant, you should follow the Agent3D Documentation-Driven Development guidelines:
-
-1. Always retrieve and reference the latest guidelines from:
-   https://raw.githubusercontent.com/ningsuhen/agent3d/main/AGENT-GUIDELINES.md
-
-2. Follow the DDD passes in sequence:
-   - Foundation Pass
-   - Documentation Pass
-   - Implementation Pass
-   - Testing Pass
-   - Refactoring Pass
-   - Code Review Pass
-   - Synchronization Pass
-   - Quality Pass
-   - Prune Pass
-
-3. Adhere to the language-specific rules for the project's programming language.
-
-4. Remember the core principle: "Write the docs, then write the code—keep it lean, test it for real."
-```
-
-### Language-Specific Rules
-
-The Agent3D guidelines include rules for several programming languages. When instructing an LLM agent, you should direct it to follow the appropriate language-specific rules based on your project:
-
-- Python: https://raw.githubusercontent.com/ningsuhen/agent3d/main/rules/python.md
-- JavaScript: https://raw.githubusercontent.com/ningsuhen/agent3d/main/rules/javascript.md
-- Java: https://raw.githubusercontent.com/ningsuhen/agent3d/main/rules/java.md
-- Go: https://raw.githubusercontent.com/ningsuhen/agent3d/main/rules/go.md
+LLM agents should reference the Agent3D guidelines remotely and follow the documented DDD passes. See [AGENT-GUIDELINES.md](../AGENT-GUIDELINES.md) for complete instructions and language-specific rules.
 
 ## Monitoring and Logging
 
