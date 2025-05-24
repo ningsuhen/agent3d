@@ -18,8 +18,8 @@
 
 2. **Draft:**
    - Document discrepancies and required updates
-   - **🔗 CRITICAL**: Verify `## Groups (Modules)` and `### Sub-Groups (Sub-modules)` heading structure
-   - **🚨 CRITICAL**: Validate that features marked `[x]` have verifiable evidence (tests or manual verification)
+   - **CRITICAL**: Verify `## Groups` and `### Sub-Groups` heading structure
+   - **CRITICAL**: Validate that features marked `[x]` have verifiable evidence
    - Enhance formatting, examples, and explanations
    - Mark sections for removal or archiving
    - Improve diagrams and visual aids
