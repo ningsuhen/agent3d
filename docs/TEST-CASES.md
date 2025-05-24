@@ -147,6 +147,33 @@ This document outlines the test cases for the Agent3D framework.
 - [ ] **TC-0402** - Language-specific linting in CI (Automated, Medium)
 - [x] **TC-0403** - Test execution in CI pipeline (Automated, High)
 
+## 🔄 Drift Detection Tests
+
+### Forward Drift Detection
+- [ ] **TC-0501** - Documentation exists without corresponding implementation (Automated, High)
+  - [ ] **TC-0501a** - Features documented but not implemented (Automated, High)
+  - [ ] **TC-0501b** - API documentation without actual endpoints (Automated, High)
+  - [ ] **TC-0501c** - Test cases without corresponding feature code (Manual, Medium)
+- [ ] **TC-0502** - Features marked complete without verifiable tests (Automated, High)
+  - [ ] **TC-0502a** - Features marked [x] without passing tests (Automated, High)
+  - [ ] **TC-0502b** - Features marked [x] without manual verification (Manual, High)
+- [ ] **TC-0503** - Documentation references non-existent code components (Automated, Medium)
+
+### Reverse Drift Detection
+- [ ] **TC-0511** - Implementation exists without corresponding documentation (Automated, High)
+  - [ ] **TC-0511a** - Code features not documented in FEATURES.md (Automated, High)
+  - [ ] **TC-0511b** - API endpoints without documentation (Automated, High)
+  - [ ] **TC-0511c** - Database schema without architecture docs (Manual, Medium)
+- [ ] **TC-0512** - Features implemented but marked as pending in FEATURES.md (Automated, High)
+  - [ ] **TC-0512a** - Working features still marked [ ] or [~] (Automated, High)
+  - [ ] **TC-0512b** - Deployed features not reflected in documentation (Manual, High)
+- [ ] **TC-0513** - Code functionality exists without test case coverage (Automated, Medium)
+  - [ ] **TC-0513a** - Functions/methods without corresponding test cases (Automated, Medium)
+  - [ ] **TC-0513b** - Business logic without validation tests (Manual, Medium)
+- [ ] **TC-0514** - Configuration or environment changes without documentation (Manual, Medium)
+  - [ ] **TC-0514a** - New environment variables without README updates (Manual, Medium)
+  - [ ] **TC-0514b** - Deployment changes without architecture updates (Manual, Medium)
+
 ### Agent Workflow
 - [ ] **TC-0411** - Agent follows Scan → Draft → Ask → Sync workflow (Manual, High)
 - [ ] **TC-0412** - Agent marks progress with ✅ during execution (Manual, Medium)

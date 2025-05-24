@@ -26,6 +26,7 @@ This document tracks the status and progress of each DDD pass, including documen
 - **7️⃣ Synchronization Pass** - Aligning documentation with code at any scale
 - **8️⃣ Quality Pass** - Verifying and improving documentation quality
 - **9️⃣ Prune Pass** - Removing outdated or redundant content
+- **🔟 Reverse Pass** - Detecting and addressing reverse drift (implementation without documentation)
 
 ---
 
