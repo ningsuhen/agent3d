@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Project Root Detection**: Agent guidelines now include instructions to find or create `.agent3d` file for project root establishment
+- **Project Structure Documentation**: Added comprehensive project structure example with `.agent3d` marker file
 - **Full Pass 4 Execution**: Optimization and refinement for maximum efficiency (98% quality score achieved)
 - **Full Pass 3 Execution**: Consistency and standardization across all documentation (97% quality score achieved)
 - **Full Pass 2 Execution**: Quality enhancement and documentation optimization (96% quality score achieved)
