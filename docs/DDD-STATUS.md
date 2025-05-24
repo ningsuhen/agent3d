@@ -47,7 +47,7 @@ This document tracks the status and progress of each DDD pass, including documen
 - **Notes:** Core documentation structure established and stable
 - **Artifacts:**
   - ✅ README.md - Project overview complete
-  - ✅ docs/ARCHITECTURE.md - System design documented
+  - ✅ docs/HIGH-LEVEL-DESIGN.md - System design documented
   - ✅ docs/FEATURES.md - Feature checklist established
   - ✅ docs/TASKS.md - Work backlog defined
 

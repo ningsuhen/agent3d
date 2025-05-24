@@ -1,6 +1,6 @@
-# Architecture
+# High-Level Design
 
-**FORMAT SPECIFICATION:** This document must provide a comprehensive technical overview of the system architecture. It must include:
+**FORMAT SPECIFICATION:** This document must provide a comprehensive technical overview of the system high-level architecture. It must include:
 - System overview with high-level description
 - Core components and their responsibilities
 - Data flow diagrams (using Mermaid syntax)
@@ -8,6 +8,7 @@
 - Directory/file structure
 - Technical decisions and rationale
 - Integration points and dependencies
+- Links to module detailed designs
 
 **REQUIRED SECTIONS:**
 1. System Overview - High-level description
@@ -17,10 +18,11 @@
 5. Directory Structure - File organization
 6. Technical Decisions - Key architectural choices
 7. Dependencies - External systems and libraries
+8. Module Detailed Designs - Links to detailed component specifications
 
 **TEMPLATE:** (Do NOT include `<template>` tags in actual documentation)
 <template>
-# Architecture
+# High-Level Design
 
 ## System Overview
 {{system_description}}
@@ -62,9 +64,18 @@
 ## Dependencies
 - **{{dependency_name}}** - {{dependency_description}}
 - **{{dependency_name}}** - {{dependency_description}}
+
+## Module Detailed Designs
+
+For detailed implementation specifications of individual components, refer to the module detailed design documents:
+
+- **[{{module_name}}](modules/{{module_file}}.md)** - {{module_description}}
+- **[{{module_name}}](modules/{{module_file}}.md)** - {{module_description}}
+
+These detailed designs provide implementation details, API specifications, and technical constraints that complement this high-level architectural overview.
 </template>
 
-**EXAMPLE:** See the actual ARCHITECTURE.md file in this project: [docs/ARCHITECTURE.md]({{DDD_REMOTE_BASE}}/docs/ARCHITECTURE.md)
+**EXAMPLE:** See the actual HIGH-LEVEL-DESIGN.md file in this project: [docs/HIGH-LEVEL-DESIGN.md]({{DDD_REMOTE_BASE}}/docs/HIGH-LEVEL-DESIGN.md)
 
 **VALIDATION CHECKLIST:**
 - [ ] System overview clearly explains the architecture approach
@@ -74,3 +85,4 @@
 - [ ] Technical decisions include rationale and trade-offs
 - [ ] All external dependencies are documented
 - [ ] Diagrams use proper Mermaid syntax and render correctly
+- [ ] Links to module detailed designs are provided and functional

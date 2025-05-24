@@ -1,6 +1,6 @@
-# Architecture
+# High-Level Design
 
-This document outlines the architecture of the Agent3D documentation framework.
+This document outlines the high-level architecture of the Agent3D documentation framework.
 
 ## System Overview
 
@@ -131,11 +131,15 @@ agent3d/
 ├── CONTRIBUTING.md        # Contribution guidelines
 ├── docs/                  # Documentation directory
 │   ├── FEATURES.md        # Feature specifications
-│   ├── ARCHITECTURE.md    # This document
+│   ├── HIGH-LEVEL-DESIGN.md # This document - system architecture
 │   ├── TASKS.md           # Project backlog
 │   ├── TEST-CASES.md      # Test case specifications
 │   ├── DDD-STATUS.md      # DDD pass status tracking
-│   └── DEPLOYMENT.md      # Deployment instructions
+│   ├── DEPLOYMENT.md      # Deployment instructions
+│   └── modules/           # Module detailed designs
+│       ├── agent-protocol.md    # Agent Guideline Protocol detailed design
+│       ├── ddd-passes.md        # DDD Pass System detailed design
+│       └── language-rules.md    # Language Rules System detailed design
 ├── passes/                # DDD passes documentation
 │   └── simplified/        # Simplified pass definitions
 │       ├── full_pass.md   # Full pass documentation
@@ -143,11 +147,25 @@ agent3d/
 │       ├── 2_documentation_pass.md
 │       ├── ...            # Passes 3-9
 │       └── 10_reverse_pass.md  # Reverse pass for drift detection
-└── rules/                 # Language-specific rules documentation
-    ├── python.md          # Python rules
-    ├── javascript.md      # JavaScript rules
-    ├── java.md            # Java rules
-    └── go.md              # Go rules
+├── rules/                 # Language-specific rules documentation
+│   ├── python.md          # Python rules
+│   ├── javascript.md      # JavaScript rules
+│   ├── java.md            # Java rules
+│   └── go.md              # Go rules
+└── templates/             # Documentation templates
+    ├── HIGH-LEVEL-DESIGN.template.md
+    ├── FEATURES.template.md
+    └── ...                # Other templates
 ```
+
+## Module Detailed Designs
+
+For detailed implementation specifications of individual components, refer to the module detailed design documents:
+
+- **[Agent Guideline Protocol](modules/agent-protocol.md)** - Detailed specification of how agents acquire, cache, and synchronize guidelines
+- **[DDD Pass System](modules/ddd-passes.md)** - In-depth documentation of each pass workflow, dependencies, and execution patterns
+- **[Language Rules System](modules/language-rules.md)** - Comprehensive language-specific rule definitions and application patterns
+
+These detailed designs provide implementation details, API specifications, and technical constraints that complement this high-level architectural overview.
 
 **Note:** This repository contains only documentation files. There are no implementation files, libraries, or executable code. All examples are provided as documentation examples only and are not meant to be functional.

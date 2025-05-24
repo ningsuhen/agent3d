@@ -46,7 +46,7 @@ This document outlines the test cases for the Agent3D framework.
 ### Foundation & Documentation
 - [x] **TC-0101** - Foundation Pass creates architecture docs (Manual, High)
   - [x] **TC-0101a** - README.md creation and validation (Manual, High)
-  - [x] **TC-0101b** - ARCHITECTURE.md documentation (Manual, High)
+  - [x] **TC-0101b** - HIGH-LEVEL-DESIGN.md documentation (Manual, High)
   - [x] **TC-0101c** - FEATURES.md with acceptance criteria (Manual, High)
   - [x] **TC-0101d** - TASKS.md prioritization and structure (Manual, Medium)
 - [x] **TC-0102** - Documentation Pass resolves ambiguities (Manual, High)
