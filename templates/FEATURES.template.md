@@ -39,13 +39,6 @@
 - **By Technical Layer:** Group features by architectural layer (UI, API, Database, etc.)
 - **By Priority/Phase:** Group features by development priority or release phase
 
-**EXAMPLES OF GOOD GROUPING:**
-- **## Authentication & Security** → ### User Authentication, ### Security & Permissions
-- **## User Interface Components** → ### Forms & Input, ### Navigation & Layout
-- **## Data Management** → ### Data Storage, ### Data Processing
-- **## Integration & APIs** → ### External APIs, ### Internal Services
-- **## Monitoring & Analytics** → ### Performance Monitoring, ### User Analytics
-
 **TEMPLATE:** (Do NOT include `<template>` tags in actual documentation)
 <template>
 # Features

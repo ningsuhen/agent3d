@@ -65,14 +65,12 @@
 - **{{dependency_name}}** - {{dependency_description}}
 - **{{dependency_name}}** - {{dependency_description}}
 
-## Module Detailed Designs
+## Component Designs
 
-For detailed implementation specifications of individual components, refer to the module detailed design documents:
+For detailed implementation specifications of individual components, refer to the component design documents:
 
-- **[{{module_name}}](modules/{{module_file}}.md)** - {{module_description}}
-- **[{{module_name}}](modules/{{module_file}}.md)** - {{module_description}}
-
-These detailed designs provide implementation details, API specifications, and technical constraints that complement this high-level architectural overview.
+- **[{{component_name}}](designs/{{component_file}}.md)** - {{component_description}}
+- **[{{component_name}}](designs/{{component_file}}.md)** - {{component_description}}
 </template>
 
 **EXAMPLE:** See the actual HIGH-LEVEL-DESIGN.md file in the local repository: `~/.agent3d/docs/HIGH-LEVEL-DESIGN.md`

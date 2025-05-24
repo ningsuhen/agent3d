@@ -34,12 +34,6 @@
 - **By Dependencies:** Group tasks that have dependencies on each other
 - **By Timeline:** Group tasks that should be completed in the same timeframe
 
-**EXAMPLES OF GOOD GROUPING:**
-- **## High Priority** → ### Documentation & Guidelines, ### Infrastructure & Tooling
-- **## Medium Priority** → ### Feature Development, ### Quality & Testing
-- **## Low Priority** → ### Future Enhancements, ### Research & Planning
-- **## Completed** → ### Documentation & Guidelines, ### Infrastructure & Tooling
-
 **TEMPLATE:** (Do NOT include `<template>` tags in actual documentation)
 <template>
 # Tasks
