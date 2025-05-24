@@ -76,45 +76,16 @@
 
 ## Task Formatting Guidelines
 
-**For Features, Tasks, and Test Cases:**
-- Use markdown task lists: `- [ ]` for pending, `- [x]` for completed
-- Keep entries single-line for clarity
-- Group related items logically
-- **Features must include acceptance criteria**: Use format `(Criteria: <specific measurable criteria>)` as specified in [FEATURES Template]({{DDD_REMOTE_BASE}}/templates/FEATURES.template.md)
-- **Follow template structures**: Use [TASKS Template]({{DDD_REMOTE_BASE}}/templates/TASKS.template.md) and [TEST-CASES Template]({{DDD_REMOTE_BASE}}/templates/TEST-CASES.template.md) for proper formatting
+**For Documentation:**
+- **Features**: Follow [FEATURES Template]({{DDD_REMOTE_BASE}}/templates/FEATURES.template.md) - must include acceptance criteria in `(Criteria: <...>)` format
+- **Tasks**: Follow [TASKS Template]({{DDD_REMOTE_BASE}}/templates/TASKS.template.md) - organize by priority levels
+- **Test Cases**: Follow [TEST-CASES Template]({{DDD_REMOTE_BASE}}/templates/TEST-CASES.template.md) - use TC-#### format with execution types
+- **DDD Status**: Follow [DDD-STATUS Template]({{DDD_REMOTE_BASE}}/templates/DDD-STATUS.template.md) - track alignment and drift metrics
 
 **For Process Execution:**
 - Use ✅ symbol to mark completed steps during DDD pass execution
 - Add ✅ next to steps as you complete them for real-time progress tracking
-- Update `docs/DDD-STATUS.md` after each pass with phase-specific progress/drift
-
-**Examples:**
-- `- [ ] Implement user authentication` (pending task)
-- `- [x] Add login validation` (completed task)
-- `✅ Review feature documentation` (step completed during execution)
-
-**Document Structure Example (following TEST-CASES.md pattern):**
-```
-## 📊 Summary
-- **Total Items:** X
-- **Completed:** Y ✅
-- **Pending:** Z ⏸️
-- **Skipped:** W ⏭️
-
-## 📚 Section Name
-- [ ] **Item-ID** - Description (Type, Priority)
-```
-
-**DDD Status Format (for docs/DDD-STATUS.md updates):**
-Follow the [DDD-STATUS Template]({{DDD_REMOTE_BASE}}/templates/DDD-STATUS.template.md) format:
-```
-## 1️⃣ Pass Name
-- **Status:** Completed ✅ / In Progress ⏸️ / Pending ⏸️
-- **Alignment:** XX% ████████░░ (phase-specific completion)
-- **Drift:** None 🟢 / Low 🟡 / Medium 🟠 / High 🔴 (domain-specific gaps)
-- **Priority:** High/Medium/Low
-- **Notes:** Context about current state
-```
+- Update `docs/DDD-STATUS.md` after each pass with phase-specific alignment/drift
 
 ## Agent Instructions
 Follow `.agent-guidelines.md`. When documentation is missing or outdated, run a DDD pass (update docs, ask questions, then sync code/tests/deploy). Keep code lean and favor integration/end-to-end tests over mocks unless external APIs require them. Format all tasks as single-line markdown tasks and mark execution progress with ✅.
@@ -126,6 +97,6 @@ Follow `.agent-guidelines.md`. When documentation is missing or outdated, run a 
 4. Do NOT include `<template>` or `<example>` tags in actual documentation files
 5. Ensure all validation checklist items are met before considering documentation complete
 
-**DDD Status Tracking**: After completing any DDD pass, update `docs/DDD-STATUS.md` with phase-specific alignment and drift indicators. Use the [DDD-STATUS Template]({{DDD_REMOTE_BASE}}/templates/DDD-STATUS.template.md) for consistent tracking.
+**DDD Status Tracking**: After completing any DDD pass, update `docs/DDD-STATUS.md` using the [DDD-STATUS Template]({{DDD_REMOTE_BASE}}/templates/DDD-STATUS.template.md).
 
 **Language-Specific Rules**: At the start of each project, identify the programming language(s) and fetch the corresponding language-specific rules using the links provided in the Language-Specific Rules section. These rules are stored remotely and must be retrieved via web-fetch. Memorize these rules and apply them consistently throughout all development activities including implementation, refactoring, and code review.

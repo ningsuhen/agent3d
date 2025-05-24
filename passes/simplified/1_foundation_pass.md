@@ -18,6 +18,8 @@
      - `docs/ARCHITECTURE.md` using [ARCHITECTURE Template]({{DDD_REMOTE_BASE}}/templates/ARCHITECTURE.template.md)
      - `docs/FEATURES.md` using [FEATURES Template]({{DDD_REMOTE_BASE}}/templates/FEATURES.template.md)
      - `docs/TASKS.md` using [TASKS Template]({{DDD_REMOTE_BASE}}/templates/TASKS.template.md)
+     - `docs/TEST-CASES.md` using [TEST-CASES Template]({{DDD_REMOTE_BASE}}/templates/TEST-CASES.template.md)
+     - `docs/DDD-STATUS.md` using [DDD-STATUS Template]({{DDD_REMOTE_BASE}}/templates/DDD-STATUS.template.md)
    - Follow template format specifications exactly, replacing {{placeholders}} with actual content
    - Do NOT include `<template>` or `<example>` tags in actual documentation files
    - Develop architectural diagrams using Mermaid syntax as shown in templates
@@ -39,6 +41,8 @@
   - `docs/ARCHITECTURE.md` with system overview, components, data flow, and technical decisions
   - `docs/FEATURES.md` with feature list including acceptance criteria in (Criteria: <>) format
   - `docs/TASKS.md` with prioritized work backlog
+  - `docs/TEST-CASES.md` with test specifications using TC-#### format and execution framework
+  - `docs/DDD-STATUS.md` with pass status tracking, alignment metrics, and drift indicators
 - All documentation follows exact template specifications with {{placeholders}} replaced
 - Architectural diagrams using proper Mermaid syntax
 - No `<template>` or `<example>` tags in actual documentation files

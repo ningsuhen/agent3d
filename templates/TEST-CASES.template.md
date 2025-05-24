@@ -38,31 +38,7 @@
 - {{status}} **{{test_id}}** - {{test_description}} ({{execution_type}}, {{priority}})
 </template>
 
-**EXAMPLE:** (Do NOT include `<example>` tags in actual documentation)
-<example>
-# Test Cases
-
-## 📊 Summary
-- **Total Test Cases:** 25
-- **Completed:** 8 ✅
-- **Pending:** 15 ⏸️
-- **In Progress:** 2 🔄
-- **Skipped:** 0 ⏭️
-- **Automated:** 5 (20%)
-- **Partial:** 8 (32%)
-- **Manual:** 12 (48%)
-
-## 🔧 Test Execution Framework
-- **Manual Testing:** Documentation review and validation procedures
-- **Automated Testing:** CI/CD integration for documentation validation
-- **Integration Testing:** End-to-end workflow validation with LLM agents
-
-## Authentication Module
-- [x] **TC-0001** - User can register with valid email and password (Manual, High)
-- [ ] **TC-0002** - Password reset email is sent within 30 seconds (Automated, Medium)
-- [~] **TC-0003** - Multi-factor authentication setup process (Partial, High)
-- [s] **TC-0004** - Social login integration testing (Manual, Low)
-</example>
+**EXAMPLE:** See the actual TEST-CASES.md file in this project: [docs/TEST-CASES.md]({{DDD_REMOTE_BASE}}/docs/TEST-CASES.md)
 
 **VALIDATION CHECKLIST:**
 - [ ] All test cases have unique TC-NNNN identifiers
