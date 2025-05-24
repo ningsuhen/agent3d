@@ -11,30 +11,32 @@
 - When validating that code changes align with documentation
 
 ## Process
-1. **Scan:** 
+1. **Scan:**
    - Examine the diff between the base branch and the PR
    - Identify potential issues, bugs, or code quality concerns
    - Check for alignment with documentation and requirements
    - Verify test coverage for the changes
    - Look for security vulnerabilities or performance issues
 
-2. **Draft:** 
+2. **Draft:**
    - Prepare detailed review comments for each issue
    - Document suggestions for improvements
    - Note any documentation updates needed
    - Prepare summary of overall review findings
 
-3. **Ask:** 
+3. **Ask:**
    - Seek clarification on implementation decisions if needed
    - Discuss alternative approaches for complex issues
    - Verify requirements understanding with stakeholders
    - Confirm security or performance considerations
 
-4. **Sync:** 
+4. **Sync:**
    - Submit review comments on the GitHub PR
    - Set PR review status to "Pending" until issues are addressed
    - Follow up on comment resolutions
    - Approve PR once all issues are resolved
+
+**Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
 - Detailed review comments on the GitHub PR

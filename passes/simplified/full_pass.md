@@ -37,6 +37,8 @@
    - Validate all documentation against implementation
    - Remove outdated content
 
+**Note:** During execution, mark completed steps with ✅ to track progress.
+
 ## Expected Outcomes
 - Fully aligned documentation and code
 - Complete and accurate architectural documentation

@@ -11,17 +11,20 @@
 - Documenting major technical decisions and their rationales
 
 ## Process
-1. **Scan:** Identify what documentation is missing or needs architectural updates
-2. **Draft:** 
+1. **Scan:**
+   - Identify what documentation is missing or needs architectural updates
+2. **Draft:**
    - Create full versions of all required primary documentation
    - Develop architectural diagrams, data flows, and design decisions
    - Document technical decisions and trade-offs
-3. **Ask:** 
+3. **Ask:**
    - Clarify project scope, architecture, or requirements
    - Discuss technical constraints, integration points, or design alternatives
-4. **Sync:** 
+4. **Sync:**
    - Ensure documentation is comprehensive before code implementation
    - Verify architectural documentation is complete and accurate
+
+**Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
 - Complete set of primary documentation files

@@ -60,9 +60,9 @@
 | File | Purpose | Full content if **missing** |
 |------|---------|-----------------------------|
 | `README.md` | Vision & quick-start | Goal, tech stack, install steps, example commands, demo, contributors, license |
-| `docs/FEATURES.md` | Checklist | `[ ] Feature-Slug — scope`, grouped by module |
+| `docs/FEATURES.md` | Checklist | `- [ ] Feature-Slug — scope`, grouped by module |
 | `docs/ARCHITECTURE.md` | Design & decisions | Mermaid diagrams, data-flow, trade-offs |
-| `docs/TASKS.md` | Backlog | `[ ] Task — link/source`, priority from TODOs/issues |
+| `docs/TASKS.md` | Backlog | `- [ ] Task — link/source`, priority from TODOs/issues |
 | `docs/TEST-CASES.md` | Canonical tests | `TC-####`, feature, preconditions, steps, expected result, **Automated?** |
 | `docs/DEPLOYMENT.md` | Ops runbook | Envs, build scripts, IaC, containers, secrets, health checks, CI/CD, rollback |
 
@@ -82,11 +82,12 @@
 * Use markdown task lists (`- [ ]`) for all **features, tasks, and test cases**.
 * Prefer **single-line entries** for clarity and brevity.
 * **Mark completion** using **tick** (`- [x]`) for completed items in markdown task lists.
-* **Use ✅ symbol** specifically to indicate **step execution** in processes, workflows, or procedures.
+* **Use ✅ symbol** specifically to indicate **step execution** during actual process execution.
 * **Task Status Examples**:
   - `- [ ] Pending task` (not started)
   - `- [x] Completed task` (finished)
-  - `✅ Step executed` (indicates a process step has been performed)
+  - `✅ Step executed` (mark steps as completed during execution)
+* **Step Execution Tracking**: When executing DDD passes, add ✅ next to completed steps to track progress in real-time.
 
 ---
 
@@ -95,4 +96,4 @@
 > *Follow `.agent-guidelines.md`.
 > If docs drift or a primary doc is missing, run a DDD pass (update docs, ask questions, then sync code/tests/deploy).
 > Keep code lean; favor integration/end-to-end tests, avoid mocks unless absolutely necessary.
-> **Format all features, tasks, and test cases as single-line markdown tasks (`- [ ]`) and tick them when completed. Use ✅ to indicate step execution in processes.***
+> **Format all features, tasks, and test cases as single-line markdown tasks (`- [ ]`) and tick them when completed. During process execution, use ✅ to mark completed steps for progress tracking.***
