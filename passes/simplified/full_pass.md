@@ -2,7 +2,7 @@
 
 **Purpose:** Comprehensive documentation-driven development pass that reduces overall project drift and brings all passes to a similar alignment level, ensuring complete consistency across all project aspects.
 
-**Includes:** All numbered passes (Foundation → Documentation → Implementation → Testing → Refactoring → Code Review → Synchronization → Quality → Prune)
+**Includes:** All numbered passes (Foundation → Documentation → Implementation → Testing → Refactoring → Code Review → Synchronization → Quality → Prune → Reverse)
 
 **Goal:** Minimize drift indicators across all passes and achieve balanced alignment levels (ideally 90%+ for all passes) to maintain project health and consistency.
 
@@ -109,5 +109,10 @@ A Full Pass is extensive and may be executed in phases, focusing on different as
 9. **Prune Phase**
    - Remove outdated or redundant content
    - Archive historical information when appropriate
+
+10. **Reverse Phase**
+   - Detect and address reverse drift (implementation without documentation)
+   - Identify features marked incomplete despite being implemented
+   - Update documentation for undocumented functionality
 
 Each phase follows the Scan → Draft → Ask → Sync workflow, building upon the previous phase. **The goal is to achieve consistent alignment levels (90%+) across all passes and minimize drift indicators throughout the project.**
