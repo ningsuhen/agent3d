@@ -38,7 +38,7 @@
 | **Real Tests** | Use integration tests; avoid mocks except for external APIs |
 | **Traceability** | Reference test cases as `TC-####` from `docs/TEST-CASES.md` |
 | **Fast Feedback** | Run critical tests in CI |
-| **Language Rules** | Follow language-specific rules from `/rules/` directory |
+| **Language Rules** | Fetch and memorize language-specific rules from links below, apply consistently |
 
 ### Language-Specific Rules
 
@@ -87,3 +87,5 @@
 
 ## Agent Instructions
 Follow `.agent-guidelines.md`. When documentation is missing or outdated, run a DDD pass (update docs, ask questions, then sync code/tests/deploy). Keep code lean and favor integration/end-to-end tests over mocks unless external APIs require them. Format all tasks as single-line markdown tasks and mark execution progress with ✅.
+
+**Language-Specific Rules**: At the start of each project, identify the programming language(s) and fetch the corresponding language-specific rules using the links provided in the Language-Specific Rules section below. These rules are stored remotely and must be retrieved via web-fetch. Memorize these rules and apply them consistently throughout all development activities including implementation, refactoring, and code review.

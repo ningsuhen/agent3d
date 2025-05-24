@@ -30,6 +30,32 @@
 - `_private_var` for private attributes
 - `__special__` for dunder methods
 
+**Data Structures:**
+- Prefer using static types or references rather than strings
+- Prefer using dataclass or typed objects rather than dict objects which need key access by strings
+- Use Enum for constants instead of string literals
+- Use NamedTuple or dataclass for structured data
+
+**Examples:**
+```python
+# Prefer this:
+@dataclass
+class User:
+    name: str
+    email: str
+
+# Over this:
+user = {"name": "John", "email": "john@example.com"}
+
+# Prefer this:
+class Status(Enum):
+    ACTIVE = "active"
+    INACTIVE = "inactive"
+
+# Over this:
+status = "active"
+```
+
 **Imports:**
 - Group in order: standard library → third-party → local
 - Use absolute imports over relative imports
@@ -42,6 +68,12 @@
 - Follow Google or NumPy style consistently
 - Include type hints in function signatures (PEP 484)
 - Document parameters, return values, and exceptions
+
+**Type Hints:**
+- Prefer adding type hints where ambiguous like function args and return types
+- Use type hints for complex data structures and class attributes
+- Import types from `typing` module when needed
+- Use `Optional[Type]` for nullable parameters
 
 **Comments:**
 - Explain complex logic that isn't immediately obvious
