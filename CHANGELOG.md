@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **BASE Template**: Foundation template with inheritance support for all specialized templates
 - **Simple Template Access**: Direct file access to templates from local repository
 - **Template Selection Guide**: Comprehensive guide for agents to use the enhanced template system
-- **LLM-Friendly Documentation Guideline**: Added explicit requirement for LLM-optimized documentation throughout projects
+- **LLM-Friendly Documentation Guideline**: Added explicit requirement for LLM-optimized documentation throughout projects (clear language, consistent structure, no legacy references)
 
 ### Changed
 - **BREAKING**: All template references updated to use local `~/.agent3d` repository instead of remote URLs

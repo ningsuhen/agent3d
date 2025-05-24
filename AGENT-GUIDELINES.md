@@ -45,7 +45,7 @@
 | **Traceability** | Reference test cases as `TC-####` from `docs/TEST-CASES.md` |
 | **Fast Feedback** | Run critical tests in CI |
 | **Language Rules** | Fetch and memorize language-specific rules from links below, apply consistently |
-| **LLM-Friendly Docs** | Use clear, concise language; consistent structure; minimal icons; no legacy references |
+| **LLM-Friendly Docs** | Use clear, concise language; consistent structure; no legacy references |
 
 ### Language-Specific Rules
 
@@ -111,7 +111,6 @@ Follow `.agent-guidelines.md`. When documentation is missing or outdated, run a 
 **LLM-Friendly Documentation**: All project documentation must be optimized for LLM processing:
 - Use clear, concise language without verbose explanations
 - Maintain consistent structure and formatting across all documents
-- Use minimal, strategic icons (✅ for completion tracking only)
 - Avoid legacy references or migration hints
 - Focus on actionable, current information only
 - Structure content for easy scanning and parsing by LLMs
