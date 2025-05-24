@@ -11,18 +11,19 @@
 
 ## Process
 1. **Scan:**
+   - **Repository Update**: Ensure `~/.agent3d` repository is current with `git -C ~/.agent3d pull origin main`
    - Identify what documentation is missing or needs architectural updates
    - Check which foundation documents need to be created or updated
    - **Legacy Check**: Look for `ARCHITECTURE.md` files that need to be renamed to `HIGH-LEVEL-DESIGN.md`
-   - **Module Structure Check**: Verify if `docs/modules/` directory exists for detailed designs
+   - **Module Structure Check**: Verify if `docs/designs/` directory exists for component designs
 2. **Draft:**
-   - Create foundation documents using the provided templates:
-     - `README.md` using [README Template]({{DDD_REMOTE_BASE}}/templates/README.template.md)
-     - `docs/HIGH-LEVEL-DESIGN.md` using [HIGH-LEVEL-DESIGN Template]({{DDD_REMOTE_BASE}}/templates/HIGH-LEVEL-DESIGN.template.md)
-     - `docs/FEATURES.md` using [FEATURES Template]({{DDD_REMOTE_BASE}}/templates/FEATURES.template.md)
-     - `docs/TASKS.md` using [TASKS Template]({{DDD_REMOTE_BASE}}/templates/TASKS.template.md)
-     - `docs/TEST-CASES.md` using [TEST-CASES Template]({{DDD_REMOTE_BASE}}/templates/TEST-CASES.template.md)
-     - `docs/DDD-STATUS.md` using [DDD-STATUS Template]({{DDD_REMOTE_BASE}}/templates/DDD-STATUS.template.md)
+   - Create foundation documents using local templates from `~/.agent3d/templates/`:
+     - `README.md` using `~/.agent3d/templates/README.template.md`
+     - `docs/HIGH-LEVEL-DESIGN.md` using `~/.agent3d/templates/HIGH-LEVEL-DESIGN.template.md`
+     - `docs/FEATURES.md` using `~/.agent3d/templates/FEATURES.template.md`
+     - `docs/TASKS.md` using `~/.agent3d/templates/TASKS.template.md`
+     - `docs/TEST-CASES.md` using `~/.agent3d/templates/TEST-CASES.template.md`
+     - `docs/DDD-STATUS.md` using `~/.agent3d/templates/DDD-STATUS.template.md`
    - Follow template format specifications exactly, replacing {{placeholders}} with actual content
    - Do NOT include `<template>` or `<example>` tags in actual documentation files
    - **🔗 CRITICAL**: Use `## Groups (Modules)` and `### Sub-Groups (Sub-modules)` heading structure

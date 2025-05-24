@@ -81,7 +81,7 @@
 - {{status}} {{feature_name}} - {{brief_description}} (Criteria: {{acceptance_criteria}})
 </template>
 
-**EXAMPLE:** See the actual FEATURES.md file in this project: [docs/FEATURES.md]({{DDD_REMOTE_BASE}}/docs/FEATURES.md)
+**EXAMPLE:** See the actual FEATURES.md file in the local repository: `~/.agent3d/docs/FEATURES.md`
 
 **VALIDATION CHECKLIST:**
 - [ ] All features and sub-features are on a SINGLE LINE (no multi-line entries)

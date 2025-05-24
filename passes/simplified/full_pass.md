@@ -17,6 +17,7 @@
 
 ## Process
 1. **Scan:**
+   - **Repository Update**: Ensure `~/.agent3d` repository is current with `git -C ~/.agent3d pull origin main`
    - Comprehensively review the entire codebase and documentation
    - Identify all gaps, inconsistencies, and areas for improvement
    - Map the current state of documentation against code

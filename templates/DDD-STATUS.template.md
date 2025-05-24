@@ -92,7 +92,7 @@
   - {{artifact_status}} {{artifact_name}} - {{artifact_description}}
 </template>
 
-**EXAMPLE:** See the actual DDD-STATUS.md file in this project: [docs/DDD-STATUS.md]({{DDD_REMOTE_BASE}}/docs/DDD-STATUS.md)
+**EXAMPLE:** See the actual DDD-STATUS.md file in the local repository: `~/.agent3d/docs/DDD-STATUS.md`
 
 **VALIDATION CHECKLIST:**
 - [ ] All passes have status, alignment, drift, execution date, and priority

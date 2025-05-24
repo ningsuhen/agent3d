@@ -79,7 +79,7 @@
   - {{status}} **{{sub_test_id}}** - {{sub_test_description}} ({{execution_type}}, {{priority}})
 </template>
 
-**EXAMPLE:** See the actual TEST-CASES.md file in this project: [docs/TEST-CASES.md]({{DDD_REMOTE_BASE}}/docs/TEST-CASES.md)
+**EXAMPLE:** See the actual TEST-CASES.md file in the local repository: `~/.agent3d/docs/TEST-CASES.md`
 
 **VALIDATION CHECKLIST:**
 - [ ] All test cases and sub-test cases have unique TC-NNNN identifiers

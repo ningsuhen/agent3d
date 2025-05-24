@@ -192,7 +192,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Minor (0.X.0)**: New features, significant improvements, backward-compatible changes
 - **Patch (0.0.X)**: Bug fixes, minor improvements, documentation updates
 
-**EXAMPLE:** See the actual CHANGELOG.md file in this project: [CHANGELOG.md]({{DDD_REMOTE_BASE}}/CHANGELOG.md)
+**EXAMPLE:** See the actual CHANGELOG.md file in the local repository: `~/.agent3d/CHANGELOG.md`
 
 **VALIDATION CHECKLIST:**
 - [ ] All changes are categorized appropriately (Added, Changed, Fixed, etc.)
