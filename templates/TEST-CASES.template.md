@@ -83,7 +83,7 @@
 
 **VALIDATION CHECKLIST:**
 - [ ] All test cases and sub-test cases have unique TC-NNNN identifiers
-- [ ] **CRITICAL**: Uses `## Groups (Modules)` and `### Sub-Groups (Sub-modules)` heading structure
+- [ ] **CRITICAL**: Uses `## Groups` and `### Sub-Groups` heading structure
 - [ ] Test cases are grouped logically by module/feature with clear section headers
 - [ ] Sub-modules within each main module group related test scenarios
 - [ ] Sub-test cases use 2-space indentation and are logically related to parent test cases

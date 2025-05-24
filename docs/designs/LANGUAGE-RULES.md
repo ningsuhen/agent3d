@@ -290,22 +290,10 @@ sequenceDiagram
 
 ### Compliance Reporting
 
-**Compliance Report Example**:
-- **Language**: python
-- **Timestamp**: 2024-01-15T10:30:00Z
-- **Overall Score**: 85%
-
-**Category Scores**:
-- **Environment**: 100%
-- **Code Style**: 80%
-- **Testing**: 75%
-- **Documentation**: 90%
-
-**Violations**:
-- **Rule**: test_coverage_threshold
-- **Severity**: warning
-- **Message**: Coverage 75% below threshold 80%
-- **File**: src/utils.py
+**Compliance Report Format**:
+- Language, timestamp, overall score
+- Category scores (Environment, Code Style, Testing, Documentation)
+- Violations with rule, severity, message, and file location
 
 ## Extensibility and Customization
 
@@ -379,14 +367,7 @@ def apply_implementation_rules(language: str, files: List[str]):
 
 ## Monitoring and Analytics
 
-### Rule Usage Metrics
-- Rule application frequency
-- Compliance rates by language
-- Common violation patterns
-- Performance impact measurements
-
-### Quality Trends
-- Compliance improvement over time
-- Rule effectiveness analysis
-- Language adoption patterns
-- Tool usage statistics
+### Metrics and Analytics
+- Rule usage frequency and compliance rates
+- Quality trends and effectiveness analysis
+- Performance impact and adoption patterns
