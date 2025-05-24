@@ -1,17 +1,5 @@
 # Base Template
 
-**TEMPLATE METADATA:**
-```yaml
-template:
-  id: "base-documentation"
-  version: "1.0"
-  type: "base"
-  description: "Base template for all Agent3D documentation"
-  author: "Agent3D Team"
-  created: "2024-01-17"
-  updated: "2024-01-17"
-```
-
 **FORMAT SPECIFICATION:** This is the base template that provides common structure and validation rules for all Agent3D documentation templates. It defines:
 - Standard document structure with header, overview, content, and validation sections
 - Common variables and placeholders used across templates
@@ -90,33 +78,14 @@ Templates can extend this base template by:
 **INHERITANCE EXAMPLES:**
 
 ### README Template Inheritance
-```yaml
-template:
-  id: "readme-template"
-  extends: "base-documentation"
-  specialized_sections:
-    - installation
-    - usage
-    - examples
-    - contributing
-  additional_variables:
-    - installation_command
-    - usage_example
-```
+- **Specialized Sections**: Installation, usage, examples, contributing
+- **Additional Variables**: installation_command, usage_example
+- **Base Structure**: Inherits document metadata and validation checklist
 
 ### FEATURES Template Inheritance
-```yaml
-template:
-  id: "features-template"
-  extends: "base-documentation"
-  specialized_sections:
-    - feature_groups
-    - acceptance_criteria
-    - status_tracking
-  additional_variables:
-    - feature_categories
-    - completion_status
-```
+- **Specialized Sections**: Feature groups, acceptance criteria, status tracking
+- **Additional Variables**: feature_categories, completion_status
+- **Base Structure**: Inherits document metadata and validation checklist
 
 **DYNAMIC CONTENT GENERATION:**
 - **Smart Placeholders**: Variables that adapt based on project context

@@ -27,37 +27,36 @@ This document provides the detailed design specifications for the Language Rules
 
 ### Standard Rule Format
 
-```yaml
-language: python
-version: "1.0"
-environment:
-  setup:
-    - "Source virtualenv at project root"
-    - "Install dependencies from requirements.txt"
-  validation:
-    - "Check Python version >= 3.8"
-    - "Verify virtual environment activation"
+**Language**: Python
+**Version**: 1.0
 
-code_style:
-  formatter: "black"
-  linter: "flake8"
-  import_style: "absolute imports preferred"
-  naming_conventions:
-    - "snake_case for functions and variables"
-    - "PascalCase for classes"
-    - "UPPER_CASE for constants"
+**Environment Setup**:
+- Source virtualenv at project root
+- Install dependencies from requirements.txt
 
-testing:
-  framework: "pytest"
-  structure: "tests/ directory parallel to src/"
-  coverage_threshold: 80
-  test_naming: "test_*.py files, test_* functions"
+**Environment Validation**:
+- Check Python version >= 3.8
+- Verify virtual environment activation
 
-dependencies:
-  management: "pip with requirements.txt"
-  virtual_env: "required for all projects"
-  lock_file: "requirements-lock.txt for reproducible builds"
-```
+**Code Style**:
+- **Formatter**: black
+- **Linter**: flake8
+- **Import Style**: absolute imports preferred
+- **Naming Conventions**:
+  - snake_case for functions and variables
+  - PascalCase for classes
+  - UPPER_CASE for constants
+
+**Testing**:
+- **Framework**: pytest
+- **Structure**: tests/ directory parallel to src/
+- **Coverage Threshold**: 80%
+- **Test Naming**: test_*.py files, test_* functions
+
+**Dependencies**:
+- **Management**: pip with requirements.txt
+- **Virtual Environment**: Required for all projects
+- **Lock File**: requirements-lock.txt for reproducible builds
 
 ### Rule Categories
 
@@ -291,22 +290,22 @@ sequenceDiagram
 
 ### Compliance Reporting
 
-```yaml
-compliance_report:
-  language: python
-  timestamp: "2024-01-15T10:30:00Z"
-  overall_score: 85
-  categories:
-    environment: 100
-    code_style: 80
-    testing: 75
-    documentation: 90
-  violations:
-    - rule: "test_coverage_threshold"
-      severity: "warning"
-      message: "Coverage 75% below threshold 80%"
-      file: "src/utils.py"
-```
+**Compliance Report Example**:
+- **Language**: python
+- **Timestamp**: 2024-01-15T10:30:00Z
+- **Overall Score**: 85%
+
+**Category Scores**:
+- **Environment**: 100%
+- **Code Style**: 80%
+- **Testing**: 75%
+- **Documentation**: 90%
+
+**Violations**:
+- **Rule**: test_coverage_threshold
+- **Severity**: warning
+- **Message**: Coverage 75% below threshold 80%
+- **File**: src/utils.py
 
 ## Extensibility and Customization
 

@@ -217,33 +217,23 @@ alignment = (completed_tasks + passing_tests + documented_features) / total_expe
 
 ### Pass Configuration
 
-```yaml
-passes:
-  foundation:
-    enabled: true
-    templates:
-      - README.template.md
-      - FEATURES.template.md
-    validation:
-      strict: true
+**Foundation Pass**:
+- **Enabled**: true
+- **Templates**: README.template.md, FEATURES.template.md
+- **Validation**: strict mode
 
-  implementation:
-    enabled: true
-    test_coverage_threshold: 80
-    quality_gates:
-      - lint_score: 8.0
-      - complexity: low
-```
+**Implementation Pass**:
+- **Enabled**: true
+- **Test Coverage Threshold**: 80%
+- **Quality Gates**: lint_score 8.0, complexity low
 
 ### Project-Specific Overrides
 
-```yaml
-project_overrides:
-  skip_passes: []
-  custom_templates: {}
-  validation_rules: {}
-  metrics_thresholds: {}
-```
+**Available Overrides**:
+- **Skip Passes**: List of passes to skip
+- **Custom Templates**: Project-specific template overrides
+- **Validation Rules**: Custom validation configurations
+- **Metrics Thresholds**: Adjusted threshold values
 
 ## Integration Points
 
