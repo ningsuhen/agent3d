@@ -1,8 +1,8 @@
 # Full Pass
 
-**Purpose:** A comprehensive pass that encompasses all aspects of documentation-driven development, from foundation to quality assurance, ensuring complete alignment between documentation and code.
+**Purpose:** Comprehensive documentation-driven development pass that ensures complete alignment between documentation and code across all project aspects.
 
-**Encompasses:** All other passes (1. Foundation, 2. Documentation, 3. Implementation, 4. Testing, 5. Refactoring, 6. Code Review, 7. Synchronization, 8. Quality, 9. Prune)
+**Includes:** All numbered passes (Foundation → Documentation → Implementation → Testing → Refactoring → Code Review → Synchronization → Quality → Prune)
 
 ## When to Use
 - For major project milestones or releases

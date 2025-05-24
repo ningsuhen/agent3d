@@ -1,43 +1,37 @@
 # Documentation Pass
 
-**Purpose:** Documenting features, requirements, priorities, and clarifying existing documentation to ensure completeness and clarity.
-
-**Combines:** Feature Documentation Pass + Roadmap Pass + Clarity Pass
+**Purpose:** Document features, requirements, and priorities while clarifying existing documentation for completeness and clarity.
 
 ## When to Use
-- Adding a new feature to the project
-- Exploring unfamiliar technical domains
-- After project planning meetings or sprint planning
-- When priorities or project scope changes
+- Adding new features to the project
+- After planning meetings or scope changes
 - When documentation contains ambiguities or inconsistencies
-- When requirements are unclear or contradictory
-- Before implementation of complex features with unclear documentation
+- Before implementing complex features with unclear requirements
+- When exploring unfamiliar technical domains
 
 ## Process
-1. **Scan:** 
-   - Identify where new features fit in existing documentation
-   - Review current task and feature documentation
-   - Identify ambiguities, inconsistencies, or gaps in documentation
-   - Identify knowledge gaps in current documentation
+1. **Scan:**
+   - Review existing documentation for gaps and inconsistencies
+   - Identify where new features fit within current structure
+   - Note ambiguities or unclear requirements
 
-2. **Draft:** 
-   - Create detailed feature specifications including user stories, acceptance criteria
-   - Document findings, constraints, and alternatives
-   - Update priorities, timelines, and feature statuses
-   - Document questions and potential interpretations for unclear areas
+2. **Draft:**
+   - Create detailed feature specifications with acceptance criteria
    - Document technical requirements and integration points
+   - Update priorities, timelines, and dependencies
+   - Prepare questions for unclear areas
 
-3. **Ask:** 
+3. **Ask:**
    - Clarify feature scope, priorities, and edge cases
-   - Clarify new priorities, dependencies, or strategic changes
-   - Engage in detailed discussion to resolve ambiguities
-   - Seek clarification on technical uncertainties or domain-specific questions
+   - Resolve ambiguities through stakeholder discussion
+   - Confirm technical constraints and dependencies
 
-4. **Sync:** 
-   - Update `FEATURES.md` and other relevant documentation
-   - Document newly discovered information and constraints
-   - Ensure documentation reflects the current project roadmap
-   - Update documentation with clarified information
+4. **Sync:**
+   - Update `FEATURES.md` and relevant documentation
+   - Ensure documentation reflects current project roadmap
+   - Document all clarified information and decisions
+
+**Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
 - Detailed feature entries in `FEATURES.md`
