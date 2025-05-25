@@ -2,10 +2,13 @@
 *"Write the docs, then write the code—keep it lean, test it for real."*
 
 ## Configuration
+
+### Repository Configuration
+**AGENT3D_REPO**: `git@github.com:ningsuhen/agent3d.git` (Repository URL - can be SSH or HTTPS)
 **AGENT3D_LOCAL_REPO**: `~/.agent3d` (Local clone of Agent3D repository)
 **PROJECT_ROOT**: Determined by `.agent3d` file location or current working directory
 
-*Note: All Agent3D resources are accessed from the local repository clone. Agents should clone `git@github.com:ningsuhen/agent3d.git` to `~/.agent3d` and update regularly with `git pull`.*
+*Note: All Agent3D resources are accessed from the local repository clone. Agents should clone the repository using AGENT3D_REPO to `~/.agent3d` and update regularly with `git pull`. To change repository source, update the URL above - all other documentation references this centralized value.*
 
 ## Project Root Detection
 **CRITICAL**: Before starting any DDD work, establish the project root. See [Common Procedures - Project Root Establishment](docs/COMMON-PROCEDURES.md#project-root-establishment) for complete instructions.
