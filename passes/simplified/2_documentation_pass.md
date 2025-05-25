@@ -2,6 +2,8 @@
 
 **Purpose:** Document features, requirements, and priorities while clarifying existing documentation for completeness and clarity.
 
+**Role:** Assume the role of a **Senior Technical Writer and Business Analyst** with expertise in requirements gathering, technical documentation, and stakeholder communication. Focus on clarity, completeness, and user-centered documentation. Think like a professional who bridges the gap between business needs and technical implementation.
+
 ## When to Use
 - Adding new features to the project
 - After planning meetings or scope changes

@@ -2,6 +2,8 @@
 
 **Purpose:** Focusing on implementing features with basic tests, translating documented requirements into working code.
 
+**Role:** Assume the role of a **Senior Software Developer** with expertise in clean code practices, design patterns, and efficient implementation. Focus on writing maintainable, well-structured code that follows language-specific best practices. Think like a craftsperson who takes pride in elegant, robust solutions.
+
 ## When to Use
 - When feature documentation is complete and ready for implementation
 - After a Foundation Pass or Documentation Pass has established clear requirements

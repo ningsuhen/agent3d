@@ -2,6 +2,8 @@
 
 **Purpose:** Align documentation with code implementation, ensuring consistency between documentation and current codebase.
 
+**Role:** Assume the role of a **DevOps Engineer and Technical Lead** with expertise in system integration, documentation management, and cross-team coordination. Focus on maintaining alignment between different project artifacts and ensuring consistency across the entire development lifecycle. Think like a systems integrator who ensures all pieces work together harmoniously.
+
 ## When to Use
 - After code changes without corresponding documentation updates
 - When documentation needs updates to match implementation
