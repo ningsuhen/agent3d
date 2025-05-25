@@ -2,24 +2,19 @@
 
 ## Overview
 
-This document provides the detailed design specifications for the Agent Guideline Protocol, which enables LLM agents to acquire, cache, and synchronize DDD guidelines from remote repositories.
+This document provides the detailed design specifications for the Agent Guideline Protocol, which enables LLM agents to acquire and synchronize DDD guidelines from remote repositories.
 
 ## Component Architecture
 
 ### Core Components
 
-#### 1. Guideline Fetcher
-- **Purpose**: Retrieves guidelines from remote repository
-- **Interface**: HTTP client with retry logic
-- **Error Handling**: Network timeouts, 404 errors, rate limiting
+#### 1. Repository Manager
+- **Purpose**: Manages local `~/.agent3d` repository clone
+- **Interface**: Git operations (clone, pull, status)
+- **Error Handling**: Network timeouts, authentication, merge conflicts
 
-#### 2. Local Cache Manager
-- **Purpose**: Manages local `.agent-guidelines.md` file
-- **Operations**: Read, write, compare, backup
-- **Storage**: File system with atomic writes
-
-#### 3. Synchronization Scheduler
-- **Purpose**: Manages periodic updates (6-hour intervals)
+#### 2. Synchronization Scheduler
+- **Purpose**: Manages periodic updates via git pull
 - **Implementation**: Background process with configurable intervals
 - **Logging**: Update success/failure tracking
 
@@ -90,15 +85,12 @@ class LocalCacheManager:
 ## Configuration
 
 ### Default Settings
-- **Update Interval**: 6 hours
-- **Retry Attempts**: 3
-- **Timeout**: 30 seconds
-- **Cache Location**: `./.agent-guidelines.md`
+- **Update Interval**: As needed or regular intervals
+- **Repository Location**: `~/.agent3d`
+- **Entry Point**: `~/.agent3d/AGENT-GUIDELINES.md`
 
 ### Environment Variables
-- `AGENT3D_LOCAL_REPO`: Local path to Agent3D repository (default: `~/.agent3d`)
-- `DDD_UPDATE_INTERVAL`: Override default update interval
-- `DDD_CACHE_PATH`: Override default cache location
+- `DDD_UPDATE_INTERVAL`: Override default update interval (optional)
 
 ## Security Considerations
 

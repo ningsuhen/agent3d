@@ -29,7 +29,7 @@ This document centralizes all common procedures used across DDD passes to elimin
 
 ### Template Access
 **Location:** `~/.agent3d/templates/`
-**Setup:** Clone repository to `~/.agent3d` (see AGENT3D_REPO in [AGENT-GUIDELINES.md](../AGENT-GUIDELINES.md#repository-configuration) for repository URL)
+**Setup:** Clone repository to `~/.agent3d` (see repository URL in README.md Agent Guideline Protocol)
 
 ### Template Usage Process
 1. Update repository: `git -C ~/.agent3d pull origin main`
