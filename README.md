@@ -55,6 +55,7 @@ As an agent, your foundational operational principles are derived from the DDD R
 
 Agent3D defines a series of passes that guide the development process:
 
+0. **Requirements Pass**: Documenting comprehensive requirements and business objectives
 1. **Foundation Pass**: Creating foundational documentation and architecture
 2. **Documentation Pass**: Documenting features, requirements, and priorities
 3. **Implementation Pass**: Implementing features with basic test coverage
@@ -72,11 +73,16 @@ Additionally, a **Full Pass** encompasses all of the above passes for comprehens
 
 ### 📋 Core Documents
 - **[AGENT-GUIDELINES.md](AGENT-GUIDELINES.md)**: Main guidelines for agents
+- **[docs/BUSINESS-OBJECTIVES.md](docs/BUSINESS-OBJECTIVES.md)**: Business goals and success metrics
+- **[docs/REQUIREMENTS.md](docs/REQUIREMENTS.md)**: Functional and non-functional requirements
+- **[docs/USER-STORIES.md](docs/USER-STORIES.md)**: User personas and story mapping
+- **[docs/ACCEPTANCE-CRITERIA.md](docs/ACCEPTANCE-CRITERIA.md)**: Testable acceptance criteria
 - **[docs/HIGH-LEVEL-DESIGN.md](docs/HIGH-LEVEL-DESIGN.md)**: System architecture overview
 - **[docs/DDD-STATUS.md](docs/DDD-STATUS.md)**: Pass status and project health
 
 ### 🔄 DDD Passes
 - **[Full Pass](passes/simplified/full_pass.md)**: Comprehensive project update
+- **[Requirements Pass](passes/simplified/0_requirements_pass.md)**: Business requirements and objectives
 - **[Foundation Pass](passes/simplified/1_foundation_pass.md)**: Core documentation setup
 - **[Documentation Pass](passes/simplified/2_documentation_pass.md)**: Feature documentation
 - **[Implementation Pass](passes/simplified/3_implementation_pass.md)**: Code development
