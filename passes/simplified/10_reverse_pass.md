@@ -75,6 +75,7 @@
 - Comprehensive feature documentation with verified acceptance criteria
 
 ## Related Passes
+- **Validates:** [Requirements Pass](0_requirements_pass.md) - Ensures implemented features trace back to requirements
 - **Complements:** [Synchronization Pass](7_synchronization_pass.md) - Forward alignment (docs→code)
 - **Precedes:** [Quality Pass](8_quality_pass.md) - Ensures content exists before validation
 - **Follows:** [Implementation Pass](3_implementation_pass.md) - Catches gaps after development

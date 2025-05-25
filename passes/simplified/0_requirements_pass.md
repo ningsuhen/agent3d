@@ -66,7 +66,11 @@
 ## Related Passes
 - **Precedes:** [Foundation Pass](1_foundation_pass.md) - Requirements inform architectural decisions
 - **Informs:** [Documentation Pass](2_documentation_pass.md) - Requirements drive feature documentation
-- **Templates:** See `~/.agent3d/templates/` for requirements format specifications
+- **Templates:**
+  - `~/.agent3d/templates/REQUIREMENTS.template.md` - Main requirements documentation
+  - `~/.agent3d/templates/USER-STORIES.template.md` - User stories and personas
+  - `~/.agent3d/templates/ACCEPTANCE-CRITERIA.template.md` - Acceptance criteria
+  - `~/.agent3d/templates/BUSINESS-OBJECTIVES.template.md` - Business objectives and KPIs
 
 ## Example Commit Message
 `DDD: Requirements Pass - Documented comprehensive requirements for user authentication system with stakeholder approval`

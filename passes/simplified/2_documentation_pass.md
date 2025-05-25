@@ -42,6 +42,7 @@
 - Clear acceptance criteria for features
 
 ## Related Passes
+- **Builds on:** [Requirements Pass](0_requirements_pass.md) - Uses established requirements for feature documentation
 - **Follows:** [Foundation Pass](1_foundation_pass.md) - After foundation documents are established
 - **Precedes:** [Implementation Pass](3_implementation_pass.md) - Before feature implementation
 - **Templates:** See `~/.agent3d/templates/` for FEATURES, PROPOSAL format specifications

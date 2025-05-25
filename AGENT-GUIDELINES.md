@@ -48,6 +48,7 @@
 ### DDD Passes
 
 - [Full Pass](~/.agent3d/passes/simplified/full_pass.md) - Comprehensive pass encompassing all aspects
+- [0. Requirements Pass](~/.agent3d/passes/simplified/0_requirements_pass.md) - Documenting comprehensive requirements and business objectives
 - [1. Foundation Pass](~/.agent3d/passes/simplified/1_foundation_pass.md) - Creating foundational documentation and architecture
 - [2. Documentation Pass](~/.agent3d/passes/simplified/2_documentation_pass.md) - Documenting features, requirements, and priorities
 - [3. Implementation Pass](~/.agent3d/passes/simplified/3_implementation_pass.md) - Implementing features with basic test coverage
