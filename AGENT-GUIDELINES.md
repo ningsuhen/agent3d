@@ -66,9 +66,11 @@
 
 | Principle | Rule |
 |-----------|------|
-| **Lean Code** | Implement only documented requirements |
+| **Requirements-Driven** | Implement only documented requirements from `docs/REQUIREMENTS.md` |
+| **Lean Code** | Build only what is specified in requirements and acceptance criteria |
 | **Real Tests** | Use integration tests; avoid mocks except for external APIs |
-| **Traceability** | Reference test cases as `TC-####` from `docs/TEST-CASES.md` |
+| **Full Traceability** | Link requirements (`REQ-####`) to features to test cases (`TC-####`) |
+| **Requirements Validation** | Ensure all features trace back to business objectives |
 | **Fast Feedback** | Run critical tests in CI |
 | **Language Rules** | Fetch and memorize language-specific rules from links below, apply consistently |
 | **LLM-Friendly Docs** | Use clear, concise language; consistent structure; no legacy references |
@@ -87,6 +89,10 @@
 | File | Purpose | Local Template Path |
 |------|---------|----------|
 | `README.md` | Project overview | `~/.agent3d/templates/README.template.md` |
+| `docs/BUSINESS-OBJECTIVES.md` | Business goals, metrics, and success criteria | `~/.agent3d/templates/BUSINESS-OBJECTIVES.template.md` |
+| `docs/REQUIREMENTS.md` | Comprehensive functional and non-functional requirements | `~/.agent3d/templates/REQUIREMENTS.template.md` |
+| `docs/USER-STORIES.md` | User personas, stories, and use cases | `~/.agent3d/templates/USER-STORIES.template.md` |
+| `docs/ACCEPTANCE-CRITERIA.md` | Testable acceptance criteria for all requirements | `~/.agent3d/templates/ACCEPTANCE-CRITERIA.template.md` |
 | `docs/FEATURES.md` | Feature checklist with acceptance criteria | `~/.agent3d/templates/FEATURES.template.md` |
 | `docs/HIGH-LEVEL-DESIGN.md` | System design with diagrams and decisions | `~/.agent3d/templates/HIGH-LEVEL-DESIGN.template.md` |
 | `docs/TASKS.md` | Work backlog organized by priority | `~/.agent3d/templates/TASKS.template.md` |
