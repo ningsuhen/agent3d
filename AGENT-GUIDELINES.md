@@ -102,13 +102,13 @@
 
 ## Agent Instructions
 
-**Primary Workflow:**
-1. Establish project root by finding or creating `.agent3d` file
-2. Follow `.agent-guidelines.md` for all operations
-3. When documentation is missing/outdated, run appropriate DDD pass
-4. Keep code lean and favor integration tests over mocks (except for external APIs)
+**Workflow:**
+1. Establish project root (`.agent3d` file)
+2. Follow `.agent-guidelines.md`
+3. Run DDD pass for missing/outdated documentation
+4. Favor integration tests over mocks
 
-**Key References:**
-- **All Procedures**: [Common Procedures](docs/COMMON-PROCEDURES.md) - Repository management, templates, standards
-- **Language Rules**: `~/.agent3d/rules/[language].md` - Load and apply consistently across all development activities
-- **Templates**: `~/.agent3d/templates/` - Use for all documentation creation
+**References:**
+- [Common Procedures](docs/COMMON-PROCEDURES.md) - All standards and procedures
+- `~/.agent3d/rules/[language].md` - Language-specific rules
+- `~/.agent3d/templates/` - Documentation templates

@@ -1,10 +1,8 @@
 # Features
 
-**FORMAT SPECIFICATION:** Single-line features with status `[x]`/`[ ]`/`[~]`, description, and (Criteria: <>) format. Use `## Groups`/`### Sub-Groups` structure.
+**FORMAT:** `- [status] feature_name - description (Criteria: <criteria>)`
 
-**🚨 CRITICAL:** Follow feature completion criteria from [Common Procedures](../docs/COMMON-PROCEDURES.md#feature-completion-criteria).
-
-**SUB-FEATURES:** Use indented bullets (2 spaces) for sub-components. Both features and sub-features must NEVER span multiple lines.
+**CRITICAL:** Follow completion criteria from [Common Procedures](../docs/COMMON-PROCEDURES.md#feature-completion-criteria).
 
 **TEMPLATE:** (Do NOT include `<template>` tags in actual documentation)
 <template>
@@ -43,8 +41,7 @@
 
 **EXAMPLE:** See the actual FEATURES.md file in the local repository: `~/.agent3d/docs/FEATURES.md`
 
-**VALIDATION CHECKLIST:**
-- [ ] All universal validation rules from [Common Procedures](../docs/COMMON-PROCEDURES.md#common-validation-checklist) are met
-- [ ] All features follow format: `- [status] feature_name - description (Criteria: <criteria>)`
-- [ ] Each feature includes acceptance criteria in (Criteria: <>) format
-- [ ] Sub-features are logically related to parent feature
+**VALIDATION:**
+- [ ] Universal rules from [Common Procedures](../docs/COMMON-PROCEDURES.md#common-validation-checklist)
+- [ ] Format: `- [status] feature_name - description (Criteria: <criteria>)`
+- [ ] Acceptance criteria included for all features

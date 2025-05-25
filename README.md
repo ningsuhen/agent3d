@@ -59,28 +59,13 @@ As an agent, your foundational operational principles are derived from the DDD R
 
 ### Repository Access Process
 
-The Agent3D system follows a three-stage access pattern:
+Three-stage access pattern:
 
-1. **Agent Guideline Protocol** (Entry Point)
-   - Located in README.md and user instructions
-   - Contains direct raw URL: `https://raw.githubusercontent.com/ningsuhen/agent3d/refs/heads/main/AGENT-GUIDELINES.md`
-   - This is the only hardcoded URL in the system (required as entry point)
-   - Downloads AGENT-GUIDELINES.md to local `.agent-guidelines.md` cache
+1. **Agent Guideline Protocol** - Entry point with hardcoded raw URL
+2. **Local Guidelines Cache** (`.agent-guidelines.md`) - Centralized configuration
+3. **Local Repository Clone** (`~/.agent3d`) - Full repository with templates/rules
 
-2. **Local Guidelines Cache** (`.agent-guidelines.md`)
-   - Contains AGENT-GUIDELINES.md content with centralized repository configuration
-   - Provides AGENT3D_REPO variable for all repository operations
-   - Used for all subsequent repository operations
-
-3. **Local Repository Clone** (`~/.agent3d`)
-   - Full repository clone using AGENT3D_REPO from guidelines cache
-   - Contains templates, rules, and all supporting documentation
-   - Updated via `git pull` using centralized configuration
-
-**To Change Repository Source:**
-1. Update the raw URL in Agent Guideline Protocol (above)
-2. Update the AGENT3D_REPO URL in AGENT-GUIDELINES.md configuration section
-3. All other files automatically reference the centralized value
+**To Change Repository Source:** Update raw URL above and AGENT3D_REPO in AGENT-GUIDELINES.md
 
 ## DDD Passes
 

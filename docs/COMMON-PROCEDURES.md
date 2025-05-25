@@ -71,28 +71,24 @@ All DDD passes follow the same 4-step workflow:
 ### Documentation Standards
 
 #### Structure Requirements
-- **Heading Hierarchy:** Use `## Groups` and `### Sub-Groups` format for all documentation
-- **Single-Line Entries:** Features, tasks, and test cases must be single-line entries
-- **Sub-Items:** Use 2-space indentation for sub-components
+- Use `## Groups` and `### Sub-Groups` heading hierarchy
+- Single-line entries for features, tasks, test cases
+- 2-space indentation for sub-items
 
 #### Feature Completion Criteria
-- **NEVER mark `[x]` completed** based solely on interface definitions, prototypes, or documentation
-- **ONLY mark `[x]` completed** when verifiable evidence exists:
-  - Automated tests that pass and validate functionality
-  - Manual testing results confirming acceptance criteria
-  - Demonstrable working implementation
-- **Use `[~]` for in-progress** features with partial implementation but lacking verification
+- Mark `[x]` ONLY with verifiable evidence (tests pass, manual verification)
+- Use `[~]` for in-progress features
+- NEVER mark complete based on interfaces/prototypes alone
 
 #### Template Compliance
 - Replace ALL {{placeholders}} with actual content
-- Remove all `<template>` and `<example>` tags from final documentation
-- Follow format specifications exactly as defined in templates
-- Ensure all required sections are present and complete
+- Remove `<template>` and `<example>` tags
+- Include all required sections
 
 #### Quality Standards
-- **Cross-References:** Ensure all links are functional and current
-- **LLM-Friendly:** Use clear, concise language; consistent structure; no legacy references
-- **Traceability:** Link requirements (REQ-####) to features to test cases (TC-####)
+- Functional links and cross-references
+- Concise, LLM-friendly language
+- Requirements-to-features-to-tests traceability
 
 #### Universal Code Quality Standards
 - **Exception Handling:** Proper exception handling throughout
@@ -106,15 +102,13 @@ All DDD passes follow the same 4-step workflow:
 ### Common Validation Checklist
 
 **All Documentation Must:**
-- [ ] Follow `## Groups` and `### Sub-Groups` heading structure
-- [ ] Replace all {{placeholders}} with actual content
-- [ ] Remove all `<template>` and `<example>` tags
-- [ ] Ensure all links are functional and point to existing resources
-- [ ] Use single-line entries for features, tasks, and test cases
-- [ ] Mark `[x]` completed ONLY with verifiable evidence
-- [ ] Use 2-space indentation for sub-items
-- [ ] Maintain clear, concise, LLM-friendly language
-- [ ] Include proper traceability links where applicable
+- [ ] Use `## Groups` / `### Sub-Groups` structure
+- [ ] Replace {{placeholders}} and remove template tags
+- [ ] Functional links and single-line entries
+- [ ] Mark `[x]` only with verifiable evidence
+- [ ] 2-space indentation for sub-items
+- [ ] Concise, LLM-friendly language
+- [ ] Proper traceability links
 
 ## Language-Specific Rules
 
