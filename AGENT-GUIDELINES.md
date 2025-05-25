@@ -5,6 +5,8 @@
 
 All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGENT-GUIDELINES.md`) is the main entry point for all operations.
 
+**Project Configuration:** Each project uses `.agent3d-config.yml` in the project root to define project-specific settings, enabled passes, and quality standards.
+
 ## Project Root Detection
 **CRITICAL**: Before starting any DDD work, establish the project root. See [Common Procedures - Project Root Establishment](docs/COMMON-PROCEDURES.md#project-root-establishment) for complete instructions.
 
@@ -20,14 +22,14 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 | **Ask** | Clarify gaps and decisions | Provide input |
 | **Sync** | Implement code matching docs | Review & approve |
 
-**Project Setup**: Establish project root by finding or creating `.agent3d` file
+**Project Setup**: Establish project root by finding or creating `.agent3d` file, configure project with `.agent3d-config.yml`
 **DDD Pass**: Execute Scan → Draft → Ask → Sync, then commit with `DDD: <description>`
 
 ### DDD Passes
 
 - [Full Pass](~/.agent3d/passes/simplified/full_pass.md) - Comprehensive pass encompassing all aspects
 - [0. Requirements Pass](~/.agent3d/passes/simplified/0_requirements_pass.md) - Documenting comprehensive requirements and business objectives
-- [1. Foundation Pass](~/.agent3d/passes/simplified/1_foundation_pass.md) - Creating foundational documentation and architecture
+- [1. Foundation Pass](~/.agent3d/passes/simplified/1_foundation_pass.md) - Project configuration and foundational setup
 - [2. Documentation Pass](~/.agent3d/passes/simplified/2_documentation_pass.md) - Documenting features, requirements, and priorities
 - [3. Implementation Pass](~/.agent3d/passes/simplified/3_implementation_pass.md) - Implementing features with basic test coverage
 - [4. Testing Pass](~/.agent3d/passes/simplified/4_testing_pass.md) - Adding comprehensive tests and verifying edge cases
@@ -99,11 +101,20 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 
 **Workflow:**
 1. Establish project root (`.agent3d` file)
-2. Follow `~/.agent3d/AGENT-GUIDELINES.md` (this file)
-3. Run DDD pass for missing/outdated documentation
-4. Favor integration tests over mocks
+2. Configure project (`.agent3d-config.yml` file)
+3. Follow `~/.agent3d/AGENT-GUIDELINES.md` (this file)
+4. Run DDD pass for missing/outdated documentation
+5. Favor integration tests over mocks
+
+**Question Protocol:**
+- **CRITICAL**: When asking user questions, ask ONE question at a time
+- Wait for user response before asking the next question
+- Do not present multiple questions in a single interaction
+- This applies to all passes, especially Foundation Pass configuration
 
 **References:**
 - [Common Procedures](docs/COMMON-PROCEDURES.md) - All standards and procedures
+- [Advanced Features Guide](docs/ADVANCED-FEATURES.md) - Sophisticated capabilities and power-user features
+- [Configuration Guide](docs/CONFIGURATION-GUIDE.md) - Customization and project-specific settings
 - `~/.agent3d/rules/[language].md` - Language-specific rules
 - `~/.agent3d/templates/` - Documentation templates

@@ -15,6 +15,7 @@
 ## Process
 1. **Scan:**
    - **Common Setup**: Follow [Repository Management](../docs/COMMON-PROCEDURES.md#repository-management)
+   - Review `.agent3d-config.yml` for project configuration and enabled passes
    - Review existing documentation for gaps and inconsistencies
    - Identify where new features fit within current structure
    - **Proposal Check**: Review `docs/proposals/active/` for relevant design proposals
@@ -42,8 +43,8 @@
 - Clear acceptance criteria for features
 
 ## Related Passes
-- **Builds on:** [Requirements Pass](0_requirements_pass.md) - Uses established requirements for feature documentation
-- **Follows:** [Foundation Pass](1_foundation_pass.md) - After foundation documents are established
+- **Builds on:** [Requirements Pass](0_requirements_pass.md) - Uses business requirements for documentation scope
+- **Follows:** [Foundation Pass](1_foundation_pass.md) - After project configuration is established
 - **Precedes:** [Implementation Pass](3_implementation_pass.md) - Before feature implementation
 - **Templates:** See `~/.agent3d/templates/` for FEATURES, PROPOSAL format specifications
 
