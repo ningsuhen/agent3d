@@ -334,6 +334,51 @@ custom_validation:
       max_length: 120
 ```
 
+## LLM-Specific Configuration
+
+### Documentation Compression for LLMs
+Configure refactoring pass to compress documentation for LLM consumption:
+
+```yaml
+refactoring:
+  type: "documentation"
+  scope: "markdown_only"
+  focus:
+    - structure_optimization
+    - content_consolidation
+    - duplicate_removal
+    - clarity_improvement
+    - llm_focused_compression  # Remove verbose explanations of basic tasks
+
+llm_compression:
+  enabled: true
+  compression_level: "aggressive"  # or "moderate", "conservative"
+  preserve_commands: true
+  preserve_project_specifics: true
+  remove_basic_explanations: true
+
+  # Tasks to compress (remove verbose explanations)
+  compress_tasks:
+    - git_operations
+    - github_cli_usage
+    - package_management
+    - file_operations
+    - standard_development_tools
+```
+
+### LLM Compression Examples
+```yaml
+# Example compression rules
+compression_rules:
+  github_cli:
+    before: "To leave a PR comment using GitHub CLI, first install gh, then authenticate, then use gh pr comment"
+    after: "Leave PR comment with gh pr comment"
+
+  git_operations:
+    before: "Create a new branch by running git checkout -b feature-name where feature-name should be descriptive"
+    after: "Create feature branch with git checkout -b feature-name"
+```
+
 ## Advanced Configuration
 
 ### Multi-Language Projects
