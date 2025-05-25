@@ -173,6 +173,22 @@ All DDD passes follow the same 4-step workflow:
 - Complete placeholder replacement
 - Proper heading hierarchy
 
+## GitHub Integration
+
+### Pull Request Operations
+**For comprehensive GitHub CLI integration instructions, see [GitHub CLI Integration Guide](GITHUB-CLI-INTEGRATION.md).**
+
+**Key Capabilities:**
+- Automated PR detection and context awareness
+- Pending mode review comment submission
+- Human-agent collaborative review workflow
+- Fallback support for manual processes
+
+**Usage in DDD Passes:**
+- Code Review Pass: Automated review comment submission
+- Other passes: PR status updates and notifications
+- All passes: Context-aware behavior when on PR branches
+
 ---
 
 **Usage:** Reference this document from all DDD passes to eliminate duplication and ensure consistency.
