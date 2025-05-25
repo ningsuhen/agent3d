@@ -23,64 +23,53 @@ This document provides the detailed design specifications for the Agent Guidelin
 ```mermaid
 sequenceDiagram
     participant A as Agent
-    participant LCM as Local Cache Manager
-    participant GF as Guideline Fetcher
+    participant RM as Repository Manager
     participant RR as Remote Repository
 
-    A->>LCM: Initialize
-    LCM->>LCM: Check for existing cache
-    alt No cache exists
-        LCM->>GF: Fetch initial guidelines
-        GF->>RR: GET AGENT-GUIDELINES.md
-        RR-->>GF: Guidelines content
-        GF-->>LCM: Store as .agent-guidelines.md
+    A->>RM: Initialize
+    RM->>RM: Check for existing repository
+    alt No repository exists
+        RM->>RR: git clone
+        RR-->>RM: Repository content
+        RM->>A: Repository ready at ~/.agent3d
     end
 
-    loop Every 6 hours
-        LCM->>GF: Check for updates
-        GF->>RR: GET AGENT-GUIDELINES.md
-        RR-->>GF: Latest content
-        GF->>LCM: Compare with cache
-        alt Content changed
-            LCM->>LCM: Backup current cache
-            LCM->>LCM: Update cache
-            LCM->>A: Log update
-        end
+    loop As needed
+        A->>RM: Update guidelines
+        RM->>RR: git pull
+        RR-->>RM: Latest changes
+        RM->>A: Repository updated
     end
+
+    A->>RM: Access guidelines
+    RM-->>A: ~/.agent3d/AGENT-GUIDELINES.md
 ```
 
 ## API Specifications
 
-### Guideline Fetcher API
+### Repository Manager API
 
 ```
-class GuidelineFetcher:
-    def fetch_guidelines(url: str) -> Result[str, Error]
-    def validate_content(content: str) -> bool
-    def handle_network_error(error: NetworkError) -> RetryStrategy
-```
-
-### Local Cache Manager API
-
-```
-class LocalCacheManager:
-    def read_cache() -> Optional[str]
-    def write_cache(content: str) -> Result[None, Error]
-    def compare_content(new: str, existing: str) -> bool
-    def backup_cache() -> Result[None, Error]
+class RepositoryManager:
+    def clone_repository(url: str, path: str) -> Result[None, Error]
+    def update_repository(path: str) -> Result[None, Error]
+    def check_repository_exists(path: str) -> bool
+    def get_guidelines_path(path: str) -> str
+    def handle_git_error(error: GitError) -> RetryStrategy
 ```
 
 ## Error Handling
 
-### Network Errors
-- **Connection Timeout**: Retry with exponential backoff (max 3 attempts)
-- **404 Not Found**: Log error, continue with existing cache
-- **Rate Limiting**: Respect retry-after headers
+### Git Operation Errors
+- **Clone Failure**: Retry with exponential backoff (max 3 attempts)
+- **Authentication Error**: Log error, prompt for credentials
+- **Network Timeout**: Retry with different timeout values
+- **Merge Conflicts**: Log error, continue with existing repository
 
 ### File System Errors
 - **Permission Denied**: Log error, attempt alternative location
-- **Disk Full**: Log critical error, maintain existing cache
-- **Corruption**: Restore from backup if available
+- **Disk Full**: Log critical error, maintain existing repository
+- **Repository Corruption**: Re-clone repository if possible
 
 ## Configuration
 
@@ -107,55 +96,55 @@ class LocalCacheManager:
 ## Performance Requirements
 
 ### Response Times
-- Cache read: < 10ms
-- Remote fetch: < 5 seconds
-- Cache write: < 100ms
+- File read: < 10ms
+- Git pull: < 30 seconds
+- Git clone: < 60 seconds
 
 ### Resource Usage
-- Memory: < 10MB for cache operations
-- Disk: < 1MB for cache storage
-- Network: Minimal bandwidth usage
+- Memory: < 50MB for git operations
+- Disk: < 10MB for repository storage
+- Network: Minimal bandwidth for incremental updates
 
 ## Testing Strategy
 
 ### Unit Tests
-- Guideline fetcher with mocked HTTP responses
-- Cache manager with temporary file system
+- Repository manager with mocked git operations
+- File system operations with temporary directories
 - Synchronization scheduler with time mocking
 
 ### Integration Tests
-- End-to-end protocol execution
-- Network failure scenarios
+- End-to-end repository cloning and updates
+- Git authentication scenarios
 - File system permission issues
 
 ### Performance Tests
-- Large guideline document handling
-- Concurrent access scenarios
-- Long-running synchronization cycles
+- Large repository handling
+- Concurrent git operations
+- Network interruption recovery
 
 ## Monitoring and Logging
 
 ### Log Levels
-- **INFO**: Successful updates, initialization
+- **INFO**: Successful git operations, initialization
 - **WARN**: Network timeouts, retry attempts
-- **ERROR**: Cache corruption, permission issues
-- **DEBUG**: Detailed operation traces
+- **ERROR**: Repository corruption, permission issues
+- **DEBUG**: Detailed git operation traces
 
 ### Metrics
-- Update success rate
-- Average fetch time
-- Cache hit ratio
+- Git operation success rate
+- Average pull/clone time
+- Repository health status
 - Error frequency by type
 
 ## Future Enhancements
 
 ### Planned Features
-- Differential updates (only changed sections)
-- Multiple remote source support
-- Encrypted cache storage
-- Webhook-based updates
+- Multiple remote repository support
+- Branch-specific guideline versions
+- Webhook-based automatic updates
+- Repository mirroring for reliability
 
 ### Scalability Considerations
-- Distributed cache for multi-agent environments
-- Load balancing for high-frequency updates
-- Content delivery network integration
+- Shared repository cache for multi-agent environments
+- Load balancing for git operations
+- Content delivery network for repository hosting
