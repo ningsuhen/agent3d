@@ -160,63 +160,17 @@
 - **Naming Convention**: Use `{COMPONENT}.md` for design files and CAPS for all documentation files
 - **Folder Structure**: Use `docs/designs/` for component designs
 
-**Template Usage**: When creating foundation documentation, use templates from the local Agent3D repository. Follow these steps:
-1. Ensure `~/.agent3d` repository is cloned and up-to-date (`git pull`)
-2. Load the appropriate template from `~/.agent3d/templates/`
-3. Follow the format specification exactly as described in the template
-4. Replace all {{placeholders}} with actual project content
-5. Do NOT include `<template>` or `<example>` tags in actual documentation files
-6. Ensure all validation checklist items are met before considering documentation complete
+**Template System**: Agent3D provides comprehensive templates for all documentation types. **SETUP**: Clone `git@github.com:ningsuhen/agent3d.git` to `~/.agent3d` for local access.
 
-**Enhanced Template System**: The Agent3D framework includes an intelligent template system with context-aware features. **RECOMMENDED APPROACH**: Clone the Agent3D repository locally for secure, reliable template access.
+**Usage Process**:
+1. Update repository: `git -C ~/.agent3d pull origin main`
+2. Access templates from `~/.agent3d/templates/`
+3. Replace all {{placeholders}} with actual content
+4. Remove template tags before finalizing documentation
+5. Validate against template checklist requirements
 
-**Git-Based Implementation**:
-1. **Repository Setup**: Clone `git@github.com:ningsuhen/agent3d.git` to `~/.agent3d` for local template access
-2. **Template Selection**: Access all templates directly from `~/.agent3d/templates/`
-3. **Automatic Updates**: Pull latest templates with `git -C ~/.agent3d pull origin main`
-4. **Regular Sync**: Update repository daily or before major operations
-
-**Implementation Benefits**:
-- **Security**: No remote code execution risks, all templates are local files
-- **Reliability**: Works offline once repository is cloned
-- **Performance**: Fast access to templates and rules without network requests
-- **Completeness**: Access to all Agent3D resources (templates, docs, passes, rules)
-- **Version Control**: Git history provides template evolution and rollback capability
-
-**Quick Start**:
-```bash
-# 1. Clone/update Agent3D repository
-git clone git@github.com:ningsuhen/agent3d.git ~/.agent3d
-git -C ~/.agent3d pull origin main
-
-# 2. Establish project root
-# Search for .agent3d file starting from current directory
-find . -name ".agent3d" -type f 2>/dev/null | head -1
-# If not found, create it in current directory
-if [ ! -f ".agent3d" ]; then
-    echo "# Agent3D Project Root Marker" > .agent3d
-    echo "# This file marks the root directory for DDD documentation" >> .agent3d
-    echo "# All documentation paths are relative to this directory" >> .agent3d
-fi
-
-# 3. Templates are now available at:
-ls ~/.agent3d/templates/
-
-# 4. Agents should:
-#    - Establish project root with .agent3d file
-#    - Read template files from ~/.agent3d/templates/
-#    - Replace {{placeholders}} with actual values
-#    - Remove template sections
-#    - Write processed content to project files relative to .agent3d location
-```
+**Benefits**: Offline access, version control, complete resource availability, no remote execution risks.
 
 **DDD Status Tracking**: After completing any DDD pass, update `docs/DDD-STATUS.md` using the DDD-STATUS template from `~/.agent3d/templates/DDD-STATUS.template.md`.
 
 **Language-Specific Rules**: At the start of each project, identify the programming language(s) and load the corresponding language-specific rules from `~/.agent3d/rules/`. These rules are available locally in the cloned repository. Memorize these rules and apply them consistently throughout all development activities including implementation, refactoring, and code review.
-
-**Repository Maintenance**: Keep the local Agent3D repository current:
-- **Daily Updates**: Run `git -C ~/.agent3d pull origin main` at the start of each work session
-- **Before Major Operations**: Update repository before Foundation Pass or significant documentation work
-- **Version Checking**: Use `git -C ~/.agent3d log --oneline -5` to see recent changes
-- **Rollback Capability**: Use `git -C ~/.agent3d checkout <commit-hash>` if newer templates cause issues
-- **Status Verification**: Use `git -C ~/.agent3d status` to ensure repository is clean and up-to-date
