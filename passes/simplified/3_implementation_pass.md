@@ -12,7 +12,7 @@
 
 ## Process
 1. **Scan:**
-   - **Repository Update**: `git -C ~/.agent3d pull origin main`
+   - **Common Setup**: Follow [Repository Management](../docs/COMMON-PROCEDURES.md#repository-management)
    - Review feature documentation and requirements
    - Identify implementation priorities and dependencies
    - Review existing test cases in TEST-CASES.md

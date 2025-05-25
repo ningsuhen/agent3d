@@ -12,14 +12,13 @@
 
 ## Process
 1. **Scan:**
-   - **Project Root**: Find or create `.agent3d` file to establish project root
-   - **Repository Update**: `git -C ~/.agent3d pull origin main`
+   - **Common Setup**: Follow [Repository Management](../docs/COMMON-PROCEDURES.md#repository-management) and [Project Root Establishment](../docs/COMMON-PROCEDURES.md#project-root-establishment)
    - Identify missing/outdated documentation
    - Check foundation documents needed
    - **Structure Check**: Verify `docs/designs/` directory exists
 2. **Draft:**
-   - Create foundation documents from `~/.agent3d/templates/`: README, HIGH-LEVEL-DESIGN, FEATURES, TASKS, TEST-CASES, DDD-STATUS
-   - Follow template format specifications exactly, replacing {{placeholders}} with actual content
+   - Create foundation documents using [Template System](../docs/COMMON-PROCEDURES.md#template-system): README, HIGH-LEVEL-DESIGN, FEATURES, TASKS, TEST-CASES, DDD-STATUS
+   - Follow [Documentation Standards](../docs/COMMON-PROCEDURES.md#documentation-standards)
    - **CRITICAL**: Use `## Groups` and `### Sub-Groups` heading structure
    - **CRITICAL**: Mark features as `[x]` completed ONLY when verifiable evidence exists
    - Do NOT include `<template>` or `<example>` tags in actual documentation files

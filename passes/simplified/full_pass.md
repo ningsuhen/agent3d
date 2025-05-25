@@ -19,7 +19,7 @@
 
 ## Process
 1. **Scan (Project Manager Assessment):**
-   - **Repository Update**: Ensure `~/.agent3d` repository is current with `git -C ~/.agent3d pull origin main`
+   - **Common Setup**: Follow [Repository Management](../docs/COMMON-PROCEDURES.md#repository-management)
    - Assess overall project health and identify which passes need attention
    - Review drift levels and alignment percentages across all passes
    - Identify passes with significantly lower alignment levels

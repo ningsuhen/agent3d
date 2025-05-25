@@ -8,27 +8,7 @@
 *Note: All Agent3D resources are accessed from the local repository clone. Agents should clone `git@github.com:ningsuhen/agent3d.git` to `~/.agent3d` and update regularly with `git pull`.*
 
 ## Project Root Detection
-**CRITICAL**: Before starting any DDD work, establish the project root:
-
-1. **Search for `.agent3d` file**: Look for `.agent3d` file starting from current directory, traversing up parent directories
-2. **If found**: Use the directory containing `.agent3d` as project root
-3. **If not found**: Create `.agent3d` file in current working directory to establish project root
-4. **Project Structure**: All DDD documentation should be relative to the directory containing `.agent3d`
-
-**Example Project Structure**:
-```
-/path/to/project/           # Contains .agent3d file (PROJECT_ROOT)
-├── .agent3d                # Project marker file
-├── README.md               # Project overview
-├── docs/                   # Documentation directory
-│   ├── FEATURES.md         # Feature documentation
-│   ├── HIGH-LEVEL-DESIGN.md # System architecture
-│   ├── TASKS.md            # Work backlog
-│   ├── TEST-CASES.md       # Test specifications
-│   ├── DDD-STATUS.md       # Pass status tracking
-│   └── designs/            # Component designs
-└── src/                    # Source code (if applicable)
-```
+**CRITICAL**: Before starting any DDD work, establish the project root. See [Common Procedures - Project Root Establishment](docs/COMMON-PROCEDURES.md#project-root-establishment) for complete instructions.
 
 ## Prime Directive
 **Documentation leads, code follows.** Always update docs before implementing code. Documentation is the single source of truth.
@@ -105,11 +85,10 @@
 **Missing Documentation**: Always create complete content using the provided templates before coding. Templates contain format specifications, placeholder structures, and examples - do NOT include the `<template>` or `<example>` tags in actual documentation files.
 
 **🚨 CRITICAL REQUIREMENTS:**
-- **Project Root**: ALWAYS establish project root by finding or creating `.agent3d` file before any DDD work.
+- **Common Procedures**: ALWAYS follow [Common Procedures](docs/COMMON-PROCEDURES.md) for repository management, project root establishment, and template usage.
 - **Feature Completion**: NEVER mark features as `[x]` completed based solely on interface definitions, prototypes, or documentation. ONLY mark `[x]` when verifiable evidence exists (tests pass, manual verification).
 - **Document Structure**: ALWAYS use `## Groups` and `### Sub-Groups` heading structure in all documentation.
 - **Template Compliance**: Replace ALL {{placeholders}} with actual content and remove template tags.
-- **Repository Updates**: Always run `git -C ~/.agent3d pull origin main` before starting any DDD pass.
 
 ---
 
@@ -160,17 +139,8 @@
 - **Naming Convention**: Use `{COMPONENT}.md` for design files and CAPS for all documentation files
 - **Folder Structure**: Use `docs/designs/` for component designs
 
-**Template System**: Agent3D provides comprehensive templates for all documentation types. **SETUP**: Clone `git@github.com:ningsuhen/agent3d.git` to `~/.agent3d` for local access.
+**Template System**: Agent3D provides comprehensive templates for all documentation types. See [Common Procedures](docs/COMMON-PROCEDURES.md#template-system) for complete setup and usage instructions.
 
-**Usage Process**:
-1. Update repository: `git -C ~/.agent3d pull origin main`
-2. Access templates from `~/.agent3d/templates/`
-3. Replace all {{placeholders}} with actual content
-4. Remove template tags before finalizing documentation
-5. Validate against template checklist requirements
-
-**Benefits**: Offline access, version control, complete resource availability, no remote execution risks.
-
-**DDD Status Tracking**: After completing any DDD pass, update `docs/DDD-STATUS.md` using the DDD-STATUS template from `~/.agent3d/templates/DDD-STATUS.template.md`.
+**DDD Status Tracking**: After completing any DDD pass, update `docs/DDD-STATUS.md` using procedures from [Common Procedures](docs/COMMON-PROCEDURES.md#ddd-status-management).
 
 **Language-Specific Rules**: At the start of each project, identify the programming language(s) and load the corresponding language-specific rules from `~/.agent3d/rules/`. These rules are available locally in the cloned repository. Memorize these rules and apply them consistently throughout all development activities including implementation, refactoring, and code review.

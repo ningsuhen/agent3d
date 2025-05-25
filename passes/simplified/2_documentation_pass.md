@@ -14,7 +14,7 @@
 
 ## Process
 1. **Scan:**
-   - **Repository Update**: `git -C ~/.agent3d pull origin main`
+   - **Common Setup**: Follow [Repository Management](../docs/COMMON-PROCEDURES.md#repository-management)
    - Review existing documentation for gaps and inconsistencies
    - Identify where new features fit within current structure
    - **Proposal Check**: Review `docs/proposals/active/` for relevant design proposals

@@ -1,0 +1,136 @@
+# Common DDD Procedures
+
+This document centralizes all common procedures used across DDD passes to eliminate duplication and ensure consistency.
+
+## Repository Management
+
+### Repository Update
+**Command:** `git -C ~/.agent3d pull origin main`
+**Purpose:** Ensure local Agent3D repository is current before any DDD work
+**Usage:** Execute at the start of every DDD pass
+
+### Project Root Establishment
+**Purpose:** Establish project root directory for all DDD documentation
+
+**Process:**
+1. **Search for `.agent3d` file**: Look for `.agent3d` file starting from current directory, traversing up parent directories
+2. **If found**: Use the directory containing `.agent3d` as project root
+3. **If not found**: Create `.agent3d` file in current working directory to establish project root
+4. **Project Structure**: All DDD documentation should be relative to the directory containing `.agent3d`
+
+**Example `.agent3d` file content:**
+```
+# Agent3D Project Root Marker
+# This file marks the root directory for DDD documentation
+# All documentation paths are relative to this directory
+```
+
+## Template System
+
+### Template Access
+**Location:** `~/.agent3d/templates/`
+**Setup:** Clone `git@github.com:ningsuhen/agent3d.git` to `~/.agent3d`
+
+### Template Usage Process
+1. Update repository: `git -C ~/.agent3d pull origin main`
+2. Access templates from `~/.agent3d/templates/`
+3. Replace all {{placeholders}} with actual content
+4. Remove template tags (`<template>`, `<example>`) before finalizing documentation
+5. Validate against template checklist requirements
+
+### Template Paths Reference
+| Document | Template Path |
+|----------|---------------|
+| README.md | `~/.agent3d/templates/README.template.md` |
+| docs/BUSINESS-OBJECTIVES.md | `~/.agent3d/templates/BUSINESS-OBJECTIVES.template.md` |
+| docs/REQUIREMENTS.md | `~/.agent3d/templates/REQUIREMENTS.template.md` |
+| docs/USER-STORIES.md | `~/.agent3d/templates/USER-STORIES.template.md` |
+| docs/ACCEPTANCE-CRITERIA.md | `~/.agent3d/templates/ACCEPTANCE-CRITERIA.template.md` |
+| docs/FEATURES.md | `~/.agent3d/templates/FEATURES.template.md` |
+| docs/HIGH-LEVEL-DESIGN.md | `~/.agent3d/templates/HIGH-LEVEL-DESIGN.template.md` |
+| docs/TASKS.md | `~/.agent3d/templates/TASKS.template.md` |
+| docs/TEST-CASES.md | `~/.agent3d/templates/TEST-CASES.template.md` |
+| docs/DDD-STATUS.md | `~/.agent3d/templates/DDD-STATUS.template.md` |
+| docs/designs/*.md | `~/.agent3d/templates/DETAILED-DESIGN.template.md` |
+| docs/proposals/*.md | `~/.agent3d/templates/PROPOSAL.template.md` |
+| CHANGELOG.md | `~/.agent3d/templates/CHANGELOG.template.md` |
+
+## Standard DDD Workflow
+
+### Process Structure
+All DDD passes follow the same 4-step workflow:
+
+1. **Scan:** Assess current state and identify needs
+2. **Draft:** Plan and prepare changes
+3. **Ask:** Validate with stakeholders and clarify requirements
+4. **Sync:** Implement changes and update documentation
+
+### Progress Tracking
+**Convention:** Mark completed steps with ✅ during execution
+
+### Documentation Standards
+- **Heading Structure:** Use `## Groups` and `### Sub-Groups` format
+- **Feature Completion:** Mark `[x]` ONLY when verifiable evidence exists
+- **Template Compliance:** Replace ALL {{placeholders}} with actual content
+- **Cross-References:** Ensure all links are functional
+
+## Language-Specific Rules
+
+### Rule Access
+**Location:** `~/.agent3d/rules/`
+**Available Languages:** Python, JavaScript, Java, Go
+**Review Guidelines:** Each language has corresponding `-review-guidelines.md` file
+
+### Rule Application
+1. Identify project programming language(s)
+2. Load corresponding rules from `~/.agent3d/rules/[language].md`
+3. Apply rules consistently throughout development activities
+4. Reference review guidelines during code review processes
+
+## DDD Status Management
+
+### Status Updates
+**File:** `docs/DDD-STATUS.md`
+**Template:** `~/.agent3d/templates/DDD-STATUS.template.md`
+**Frequency:** After completing any DDD pass
+
+### Status Tracking Elements
+- **Pass Status:** Completed ✅, Pending ⏸️, In Progress 🔄, Skipped ⏭️
+- **Alignment Percentage:** 0-100% with progress bar visualization
+- **Drift Level:** None 🟢, Low 🟡, Medium 🟠, High 🔴
+- **Health Indicators:** Critical issues, documentation gaps, implementation drift
+
+## Directory Structure Standards
+
+### Required Directories
+- `docs/` - Main documentation directory
+- `docs/designs/` - Component design specifications
+- `docs/proposals/` - Design proposals for unimplemented features
+
+### File Organization
+- Core documentation in `docs/` root
+- Specialized designs in `docs/designs/`
+- Future proposals in `docs/proposals/`
+- Pass documentation in `passes/simplified/`
+- Templates in `templates/`
+- Language rules in `rules/`
+
+## Quality Standards
+
+### Documentation Quality
+- **Clarity:** Use simple, direct language
+- **Completeness:** Cover all requirements and edge cases
+- **Consistency:** Follow established patterns and naming
+- **Traceability:** Link requirements to features to test cases
+- **Maintainability:** Keep docs current with changes
+
+### Validation Requirements
+- All links functional and current
+- No template tags in final documentation
+- Consistent formatting and structure
+- Complete placeholder replacement
+- Proper heading hierarchy
+
+---
+
+**Usage:** Reference this document from all DDD passes to eliminate duplication and ensure consistency.
