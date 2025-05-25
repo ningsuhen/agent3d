@@ -7,7 +7,7 @@ project:
   language: "markdown"
   description: "Documentation-Driven Development Guidelines for LLM Coding Agents"
   quality_level: "strict"
-  
+
 # DDD Pass Configuration
 enabled_passes:
   - requirements      # Business requirements and objectives
@@ -34,7 +34,7 @@ pass_config:
       - template_verification
       - documentation_completeness
     coverage_threshold: 95
-    
+
   refactoring:
     type: "documentation"
     scope: "markdown_only"
@@ -43,7 +43,8 @@ pass_config:
       - content_consolidation
       - duplicate_removal
       - clarity_improvement
-      
+      - llm_focused_compression
+
   code_review:
     type: "documentation"
     scope: "markdown_only"
@@ -78,7 +79,7 @@ documentation:
   line_length: 120
   heading_structure: "hierarchical"
   link_style: "reference"
-  
+
 # Template Configuration
 templates:
   base_path: "templates/"
@@ -92,7 +93,7 @@ structure:
   templates_directory: "templates/"
   passes_directory: "passes/simplified/"
   rules_directory: "rules/"
-  
+
 # Metadata
 metadata:
   created_by: "Foundation Pass"

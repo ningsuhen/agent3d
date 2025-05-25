@@ -50,6 +50,13 @@
 - **Development Rules:** `~/.agent3d/rules/[language].md`
 - **Review Guidelines:** `~/.agent3d/rules/[language]-review-guidelines.md`
 
+### Supported Languages
+- **Markdown:** `~/.agent3d/rules/markdown.md` and `~/.agent3d/rules/markdown-review-guidelines.md`
+- **Python:** `~/.agent3d/rules/python.md` and `~/.agent3d/rules/python-review-guidelines.md`
+- **JavaScript:** `~/.agent3d/rules/javascript.md` and `~/.agent3d/rules/javascript-review-guidelines.md`
+- **Java:** `~/.agent3d/rules/java.md` and `~/.agent3d/rules/java-review-guidelines.md`
+- **Go:** `~/.agent3d/rules/go.md` and `~/.agent3d/rules/go-review-guidelines.md`
+
 
 
 ## Example Commit Message

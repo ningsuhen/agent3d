@@ -57,6 +57,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 
 ### Language-Specific Rules
 
+- [Markdown](~/.agent3d/rules/markdown.md) - Rules for Markdown documentation and LLM optimization
 - [Python](~/.agent3d/rules/python.md) - Rules for Python development
 - [JavaScript](~/.agent3d/rules/javascript.md) - Rules for JavaScript development
 - [Java](~/.agent3d/rules/java.md) - Rules for Java development
