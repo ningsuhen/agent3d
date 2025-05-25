@@ -106,13 +106,16 @@
 - Inefficient string concatenation
 
 ## Quality Gates
+**Go-Specific:**
 - [ ] All errors are explicitly handled
 - [ ] Proper concurrency patterns used
 - [ ] Interfaces are small and focused
-- [ ] Memory efficient patterns implemented
 - [ ] Idiomatic Go conventions followed
-- [ ] Packages are well-organized and documented
-- [ ] Comprehensive test coverage
 - [ ] No race conditions or goroutine leaks
 - [ ] Context used for cancellation
+
+**Universal (see [Common Procedures](../docs/COMMON-PROCEDURES.md#quality-standards)):**
+- [ ] Memory efficient patterns implemented
+- [ ] Packages are well-organized and documented
+- [ ] Comprehensive test coverage
 - [ ] Performance considerations addressed

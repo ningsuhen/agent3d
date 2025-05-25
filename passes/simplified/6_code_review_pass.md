@@ -202,10 +202,8 @@ gh pr review [PR_NUMBER] --approve -b "LGTM!"
 - [ ] Resolve all security concerns
 
 ## Standards Enforced
-- Language-specific rules from ~/.agent3d/rules/[language].md
-- Zero tolerance for technical debt introduction
-- Comprehensive test coverage required
-- Documentation must be updated with code changes
+**Language-Specific:** Rules from `~/.agent3d/rules/[language].md` and `[language]-review-guidelines.md`
+**Universal:** Quality standards from [Common Procedures](../../docs/COMMON-PROCEDURES.md#quality-standards)
 ```
 
 ### Language-Specific Review Template

@@ -6,12 +6,16 @@
 
 **COMMON VARIABLES:** {{document_title}}, {{document_purpose}}, {{project_name}}, {{author}}, {{creation_date}}, {{last_updated}}, {{version}}
 
-**BASE VALIDATION RULES:**
-- All required sections must be present
-- All variables must be replaced with actual values
-- No `<template>` or `<example>` tags in final documentation
-- Document must follow CAPS naming convention for files
-- Links must be functional and point to existing resources
+**UNIVERSAL VALIDATION RULES:**
+All templates inherit these base requirements from [Common Procedures](../docs/COMMON-PROCEDURES.md#common-validation-checklist):
+- Follow `## Groups` and `### Sub-Groups` heading structure
+- Replace all {{placeholders}} with actual content
+- Remove all `<template>` and `<example>` tags
+- Ensure all links are functional and point to existing resources
+- Use single-line entries for features, tasks, and test cases
+- Mark `[x]` completed ONLY with verifiable evidence
+- Use 2-space indentation for sub-items
+- Maintain clear, concise, LLM-friendly language
 
 **TEMPLATE:** (Do NOT include `<template>` tags in actual documentation)
 <template>
@@ -34,13 +38,10 @@
 
 ## Validation Checklist
 
-**Base Requirements:**
+**Validation:**
+- [ ] All universal validation rules from [Common Procedures](../docs/COMMON-PROCEDURES.md#common-validation-checklist) are met
 - [ ] Document title is descriptive and follows naming conventions
 - [ ] All required sections are present and complete
-- [ ] All template variables have been replaced with actual values
-- [ ] No template tags (`<template>`, `<example>`) remain in final document
-- [ ] Document follows CAPS naming convention if it's a documentation file
-- [ ] All links are functional and point to existing resources
 - [ ] Content is clear, concise, and serves the document purpose
 
 **Template-Specific Requirements:**

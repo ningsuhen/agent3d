@@ -106,13 +106,16 @@
 - Creating unnecessary objects in loops
 
 ## Quality Gates
+**Java-Specific:**
 - [ ] All classes follow SOLID principles
-- [ ] Proper exception handling throughout
 - [ ] Thread-safe where concurrency is expected
-- [ ] Memory efficient patterns used
 - [ ] Modern Java features leveraged
 - [ ] Dependency injection properly implemented
-- [ ] Comprehensive test coverage
 - [ ] No resource leaks
+
+**Universal (see [Common Procedures](../docs/COMMON-PROCEDURES.md#quality-standards)):**
+- [ ] Proper exception handling throughout
+- [ ] Memory efficient patterns used
+- [ ] Comprehensive test coverage
 - [ ] Security best practices followed
 - [ ] Performance considerations addressed

@@ -57,10 +57,8 @@
 **EXAMPLE:** See the actual TASKS.md file in the local repository: `~/.agent3d/docs/TASKS.md`
 
 **VALIDATION CHECKLIST:**
+- [ ] All universal validation rules from [Common Procedures](../docs/COMMON-PROCEDURES.md#common-validation-checklist) are met
 - [ ] Tasks are prioritized correctly based on impact and urgency
 - [ ] Each task has a clear, actionable description
-- [ ] Sub-tasks use 2-space indentation and are logically related to parent tasks
-- [ ] **CRITICAL**: Uses `## Groups (Priority Levels)` and `### Sub-Groups (Functional Areas)` heading structure
 - [ ] Tasks are grouped by functional area within each priority level
 - [ ] Completed tasks are moved to the Completed section with appropriate grouping
-- [ ] Task descriptions are specific enough to be actionable

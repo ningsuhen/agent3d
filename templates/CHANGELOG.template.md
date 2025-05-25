@@ -101,15 +101,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **EXAMPLE:** See the actual CHANGELOG.md file in the local repository: `~/.agent3d/CHANGELOG.md`
 
 **VALIDATION CHECKLIST:**
+- [ ] All universal validation rules from [Common Procedures](../docs/COMMON-PROCEDURES.md#common-validation-checklist) are met
 - [ ] All changes are categorized appropriately (Added, Changed, Fixed, etc.)
 - [ ] DDD pass executions are recorded with dates and descriptions
 - [ ] Breaking changes are clearly marked and explained
 - [ ] Version numbers follow semantic versioning
-- [ ] Release dates are accurate and consistent
-- [ ] Links to issues and pull requests are functional
-- [ ] Migration notes are provided for significant changes
 - [ ] Most recent changes appear first
-- [ ] Each entry provides sufficient detail for understanding impact
-- [ ] Security-related changes are properly categorized
-- [ ] Deprecated features include timeline for removal
-- [ ] Unreleased section is maintained for ongoing work

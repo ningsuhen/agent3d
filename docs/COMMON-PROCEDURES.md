@@ -69,10 +69,52 @@ All DDD passes follow the same 4-step workflow:
 **Convention:** Mark completed steps with ✅ during execution
 
 ### Documentation Standards
-- **Heading Structure:** Use `## Groups` and `### Sub-Groups` format
-- **Feature Completion:** Mark `[x]` ONLY when verifiable evidence exists
-- **Template Compliance:** Replace ALL {{placeholders}} with actual content
-- **Cross-References:** Ensure all links are functional
+
+#### Structure Requirements
+- **Heading Hierarchy:** Use `## Groups` and `### Sub-Groups` format for all documentation
+- **Single-Line Entries:** Features, tasks, and test cases must be single-line entries
+- **Sub-Items:** Use 2-space indentation for sub-components
+
+#### Feature Completion Criteria
+- **NEVER mark `[x]` completed** based solely on interface definitions, prototypes, or documentation
+- **ONLY mark `[x]` completed** when verifiable evidence exists:
+  - Automated tests that pass and validate functionality
+  - Manual testing results confirming acceptance criteria
+  - Demonstrable working implementation
+- **Use `[~]` for in-progress** features with partial implementation but lacking verification
+
+#### Template Compliance
+- Replace ALL {{placeholders}} with actual content
+- Remove all `<template>` and `<example>` tags from final documentation
+- Follow format specifications exactly as defined in templates
+- Ensure all required sections are present and complete
+
+#### Quality Standards
+- **Cross-References:** Ensure all links are functional and current
+- **LLM-Friendly:** Use clear, concise language; consistent structure; no legacy references
+- **Traceability:** Link requirements (REQ-####) to features to test cases (TC-####)
+
+#### Universal Code Quality Standards
+- **Exception Handling:** Proper exception handling throughout
+- **Memory Efficiency:** Memory efficient patterns used
+- **Test Coverage:** Comprehensive test coverage required
+- **Security:** Security best practices followed
+- **Performance:** Performance considerations addressed
+- **Documentation:** Documentation must be updated with code changes
+- **Technical Debt:** Zero tolerance for technical debt introduction
+
+### Common Validation Checklist
+
+**All Documentation Must:**
+- [ ] Follow `## Groups` and `### Sub-Groups` heading structure
+- [ ] Replace all {{placeholders}} with actual content
+- [ ] Remove all `<template>` and `<example>` tags
+- [ ] Ensure all links are functional and point to existing resources
+- [ ] Use single-line entries for features, tasks, and test cases
+- [ ] Mark `[x]` completed ONLY with verifiable evidence
+- [ ] Use 2-space indentation for sub-items
+- [ ] Maintain clear, concise, LLM-friendly language
+- [ ] Include proper traceability links where applicable
 
 ## Language-Specific Rules
 

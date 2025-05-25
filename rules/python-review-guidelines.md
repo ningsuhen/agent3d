@@ -106,13 +106,15 @@
 - Not using list/dict comprehensions appropriately
 
 ## Quality Gates
+**Python-Specific:**
 - [ ] All public functions have type hints
-- [ ] No string-based data access patterns
 - [ ] pytest used for all tests
 - [ ] pyproject.toml used for configuration
-- [ ] Specific exception handling throughout
 - [ ] Appropriate data structures chosen
-- [ ] Memory-efficient patterns for large data
 - [ ] Proper import organization
+
+**Universal (see [Common Procedures](../docs/COMMON-PROCEDURES.md#quality-standards)):**
+- [ ] Specific exception handling throughout
+- [ ] Memory-efficient patterns
 - [ ] No security anti-patterns
 - [ ] Comprehensive test coverage
