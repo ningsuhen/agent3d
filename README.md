@@ -26,9 +26,10 @@ The core principle is simple: **"Write the docs, then write the code—keep it l
 To use Agent3D in your LLM agent:
 
 1. **Establish Project Root**: Find or create `.agent3d` file to mark the project root directory
-2. Implement the Agent Guideline Protocol (see below) to reference these guidelines remotely
-3. Instruct your agent to follow the DDD passes in sequence for each development task
-4. Direct your agent to adhere to the language-specific rules for your project
+2. **Configure Project**: Run Foundation Pass to create `.agent3d-config.yml` with project-specific settings
+3. Implement the Agent Guideline Protocol (see below) to reference these guidelines remotely
+4. Instruct your agent to follow the DDD passes in sequence for each development task
+5. Direct your agent to adhere to the language-specific rules for your project
 
 ## Agent Guideline Protocol
 
@@ -68,7 +69,7 @@ Simplified two-stage access pattern:
 Agent3D defines a series of passes that guide the development process:
 
 0. **Requirements Pass**: Documenting comprehensive requirements and business objectives
-1. **Foundation Pass**: Creating foundational documentation and architecture
+1. **Foundation Pass**: Project configuration and foundational setup
 2. **Documentation Pass**: Documenting features, requirements, and priorities
 3. **Implementation Pass**: Implementing features with basic test coverage
 4. **Testing Pass**: Adding comprehensive tests and verifying edge cases
@@ -95,7 +96,7 @@ Additionally, a **Full Pass** encompasses all of the above passes for comprehens
 ### 🔄 DDD Passes
 - **[Full Pass](passes/simplified/full_pass.md)**: Comprehensive project update
 - **[Requirements Pass](passes/simplified/0_requirements_pass.md)**: Business requirements and objectives
-- **[Foundation Pass](passes/simplified/1_foundation_pass.md)**: Core documentation setup
+- **[Foundation Pass](passes/simplified/1_foundation_pass.md)**: Project configuration and setup
 - **[Documentation Pass](passes/simplified/2_documentation_pass.md)**: Feature documentation
 - **[Implementation Pass](passes/simplified/3_implementation_pass.md)**: Code development
 - **[Testing Pass](passes/simplified/4_testing_pass.md)**: Test coverage
@@ -111,6 +112,11 @@ Additionally, a **Full Pass** encompasses all of the above passes for comprehens
 - **docs/proposals/**: Unimplemented feature designs
 - **rules/**: Language-specific development rules ([Python](rules/python.md), [JavaScript](rules/javascript.md), [Java](rules/java.md), [Go](rules/go.md))
 - **templates/**: Documentation format specifications
+
+### 🚀 Advanced Features
+- **[Advanced Features Guide](docs/ADVANCED-FEATURES.md)**: Sophisticated capabilities and power-user features
+- **[Configuration Guide](docs/CONFIGURATION-GUIDE.md)**: Customization and project-specific settings
+- **[GitHub CLI Integration](docs/GITHUB-CLI-INTEGRATION.md)**: Automated PR review workflows
 
 
 

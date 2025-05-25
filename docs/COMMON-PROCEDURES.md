@@ -25,6 +25,17 @@ This document centralizes all common procedures used across DDD passes to elimin
 # All documentation paths are relative to this directory
 ```
 
+### Project Configuration Management
+**Purpose:** Manage project-specific configuration and pass settings
+
+**Configuration File:** `.agent3d-config.yml` in project root (same directory as `.agent3d`)
+
+**Process:**
+1. **Check for existing config**: Look for `.agent3d-config.yml` in project root
+2. **If not found**: Run Foundation Pass to create configuration through interactive setup
+3. **Configuration scope**: Project type, language, enabled passes, quality standards
+4. **Usage**: All DDD passes reference this configuration for project-specific behavior
+
 ## Template System
 
 ### Template Access

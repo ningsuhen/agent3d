@@ -1,17 +1,17 @@
 # Requirements Pass
 
-**Purpose:** Establish clear, comprehensive requirements and business objectives before any technical implementation begins. Document stakeholder needs, business goals, and success criteria.
+**Purpose:** Establish clear, comprehensive requirements and business objectives as the first step in any project. Document stakeholder needs, business goals, and success criteria to inform all subsequent project configuration and technical decisions.
 
-**Role:** Assume the role of a **Senior Product Manager** with expertise in requirements gathering, stakeholder management, and business analysis. Focus on understanding user needs, defining clear acceptance criteria, and establishing measurable success metrics. Think like a product professional who bridges business objectives with technical implementation.
+**Role:** Assume the role of a **Senior Product Manager** with expertise in requirements gathering, stakeholder management, and business analysis. Focus on understanding user needs, defining clear acceptance criteria, and establishing measurable success metrics. Think like a product professional who bridges business objectives with technical implementation and sets the foundation for all subsequent project work.
 
 ## When to Use
-- Starting new projects or major features
+- Starting any new project or major initiative (first pass)
 - When business requirements are unclear or undocumented
-- Before architectural decisions are made
+- Before any technical configuration or architectural decisions
 - When stakeholder alignment is needed
 - During product discovery phases
 - When pivoting or changing project direction
-- Before major feature development cycles
+- Before any development or technical work begins
 
 ## Process
 1. **Scan:**
@@ -20,6 +20,7 @@
    - Review any existing business documentation
    - Assess stakeholder alignment on project goals
    - Identify missing or unclear requirements
+   - Understand the business context and problem space
 
 2. **Draft:**
    - Document business objectives and success metrics
@@ -63,8 +64,9 @@
   - Requirements-to-features mapping framework
 
 ## Related Passes
-- **Precedes:** [Foundation Pass](1_foundation_pass.md) - Requirements inform architectural decisions
-- **Informs:** [Documentation Pass](2_documentation_pass.md) - Requirements drive feature documentation
+- **First Pass:** This is the initial pass that establishes business requirements
+- **Next:** [Foundation Pass](1_foundation_pass.md) - Project configuration follows requirements
+- **Informs:** All subsequent DDD passes based on requirements scope
 - **Templates:**
   - `~/.agent3d/templates/REQUIREMENTS.template.md` - Main requirements documentation
   - `~/.agent3d/templates/USER-STORIES.template.md` - User stories and personas
@@ -73,77 +75,3 @@
 
 ## Example Commit Message
 `DDD: Requirements Pass - Documented comprehensive requirements for user authentication system with stakeholder approval`
-
-## Requirements Documentation Structure
-
-### Business Requirements
-- **Business Objectives**: Clear goals and expected outcomes
-- **Success Metrics**: Measurable KPIs and success criteria
-- **Stakeholder Needs**: Identified stakeholder groups and their needs
-- **Business Constraints**: Budget, timeline, regulatory requirements
-
-### Functional Requirements
-- **User Stories**: As a [user type], I want [functionality] so that [benefit]
-- **Use Cases**: Detailed scenarios of system interactions
-- **Feature Requirements**: Specific functionality the system must provide
-- **Integration Requirements**: External system interactions
-
-### Non-Functional Requirements
-- **Performance**: Response times, throughput, scalability requirements
-- **Security**: Authentication, authorization, data protection requirements
-- **Usability**: User experience and accessibility requirements
-- **Reliability**: Availability, fault tolerance, recovery requirements
-
-### Acceptance Criteria
-- **Testable Conditions**: Clear pass/fail criteria for each requirement
-- **Definition of Done**: Completion criteria for features
-- **Quality Gates**: Standards that must be met before delivery
-
-## Requirements Quality Standards
-- **Clear and Unambiguous**: Each requirement has single interpretation
-- **Testable and Verifiable**: Can be validated through testing
-- **Traceable**: Linked to business objectives and design decisions
-- **Prioritized**: Ranked by business value and urgency
-- **Feasible**: Technically and economically achievable
-- **Complete**: All necessary requirements captured
-
-## Stakeholder Management
-- **Identification**: Map all stakeholders and their interests
-- **Communication Plan**: Regular updates and feedback loops
-- **Conflict Resolution**: Process for resolving requirement conflicts
-- **Change Management**: Controlled process for requirement changes
-- **Sign-off Process**: Formal approval of requirements baseline
-
-## Requirements Traceability
-- **REQ-####**: Unique identifiers for each requirement
-- **Business-to-Technical Mapping**: Link business needs to technical features
-- **Requirements-to-Test Mapping**: Ensure all requirements are testable
-- **Change Impact Analysis**: Track effects of requirement changes
-
-## Validation Techniques
-- **Stakeholder Reviews**: Regular validation with business stakeholders
-- **User Feedback**: Direct input from end users
-- **Prototyping**: Early validation through mockups or prototypes
-- **Requirements Walkthrough**: Systematic review of all requirements
-- **Acceptance Testing**: Validation through acceptance criteria testing
-
-## Common Requirements Anti-Patterns to Avoid
-- **Vague Language**: "User-friendly," "fast," "secure" without specifics
-- **Solution-Focused**: Describing how instead of what
-- **Untestable Requirements**: Cannot be verified objectively
-- **Conflicting Requirements**: Contradictory or incompatible needs
-- **Missing Stakeholders**: Not involving all affected parties
-- **Scope Creep**: Uncontrolled expansion of requirements
-- **Gold Plating**: Adding unnecessary features beyond requirements
-
-## Quality Gates
-- [ ] All business objectives clearly documented
-- [ ] Functional requirements complete and unambiguous
-- [ ] Non-functional requirements specified with metrics
-- [ ] Acceptance criteria defined for all requirements
-- [ ] Stakeholder sign-off obtained
-- [ ] Requirements traceability established
-- [ ] Change management process defined
-- [ ] Success metrics and KPIs agreed upon
-- [ ] User personas and use cases validated
-- [ ] Requirements baseline established
