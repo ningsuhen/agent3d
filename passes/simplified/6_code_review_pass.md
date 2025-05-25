@@ -14,6 +14,7 @@
 
 ## Process
 1. **Scan:**
+   - **PR Detection**: Check if current branch is associated with a PR using `gh pr status`
    - **Rigorously examine** the diff between the base branch and the PR
    - Apply **language-specific rules** from `~/.agent3d/rules/[language].md`
    - Identify potential issues, bugs, or code quality concerns with **zero tolerance**
@@ -24,6 +25,7 @@
 
 2. **Draft:**
    - Prepare **detailed, specific review comments** for each issue found
+   - **Generate structured review comments** for automated submission if on PR branch
    - **Demand explanations** for any deviations from best practices
    - Document concrete suggestions for improvements with examples
    - Note any documentation updates needed
@@ -31,6 +33,7 @@
    - **Be uncompromising** on code quality standards
 
 3. **Ask:**
+   - **PR Context**: If on PR branch, submit pending review comments using GitHub CLI
    - **Challenge implementation decisions** that don't follow best practices
    - Discuss alternative approaches for complex issues with language-specific solutions
    - Verify requirements understanding with stakeholders
@@ -38,22 +41,25 @@
    - **Question any shortcuts** or technical debt introduced
 
 4. **Sync:**
+   - **Automated PR Comments**: Submit review comments in **pending mode** for human completion
    - Submit **thorough review comments** on the GitHub PR
    - Set PR review status to **"Request Changes"** for any quality issues
    - **Do not approve** until ALL issues are resolved to high standards
+   - **Human Handoff**: Allow human reviewer to complete the PR review process
    - Follow up persistently on comment resolutions
-   - Approve PR only when code meets **strict quality criteria**
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
+- **Automated PR review comments** submitted in pending mode when on PR branch
 - **Comprehensive review comments** on the GitHub PR with specific, actionable feedback
-- PR review status set to **"Request Changes"** until ALL issues are resolved to high standards
+- **Human-agent collaboration** where agent provides detailed analysis and human completes review
 - **Significantly improved code quality** through rigorous feedback
 - **Strict verification** that code changes align with documentation and language best practices
 - **Proactive identification** of potential bugs, security issues, and maintainability problems
 - **Uncompromising enforcement** of software engineering standards
 - Knowledge transfer of language-specific best practices and patterns
+- **Seamless handoff** to human reviewer for final approval/rejection decision
 
 ## Language-Specific Review Criteria
 
@@ -103,32 +109,24 @@
   - Updated requirements or specifications
   - Release notes or changelog updates
 
-## Using GitHub CLI
+## GitHub CLI Integration
 
-The Code Review Pass can utilize the GitHub CLI (`gh`) to interact with pull requests:
+**For detailed GitHub CLI integration instructions, see [GitHub CLI Integration Guide](../../docs/GITHUB-CLI-INTEGRATION.md).**
 
-```bash
-# List open pull requests
-gh pr list
+### PR-Aware Review Process
 
-# View a specific pull request
-gh pr view [PR_NUMBER]
+When the local project is on a PR branch:
 
-# Check out a pull request locally
-gh pr checkout [PR_NUMBER]
+1. **Automatic PR Detection** - Uses GitHub CLI to detect if current branch is associated with a PR
+2. **Automated Comment Submission** - Submits review comments in **pending mode** for human completion
+3. **Human Review Completion** - Human reviewer completes the review process with final approval/rejection
 
-# View changes in a pull request
-gh pr diff [PR_NUMBER]
+### Key Benefits
 
-# Add a review comment to a pull request
-gh pr review [PR_NUMBER] --comment -b "Your comment here"
-
-# Request changes on a pull request
-gh pr review [PR_NUMBER] --request-changes -b "Changes needed: ..."
-
-# Approve a pull request
-gh pr review [PR_NUMBER] --approve -b "LGTM!"
-```
+- **Automated Analysis** - Agent performs detailed code analysis using language-specific rules
+- **Pending Mode Comments** - Comments submitted but review not finalized until human approval
+- **Human Control** - Human maintains final decision authority over PR approval/rejection
+- **Fallback Support** - Works with or without GitHub CLI availability
 
 ## Review Comment Guidelines
 
