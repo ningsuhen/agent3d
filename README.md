@@ -34,38 +34,34 @@ To use Agent3D in your LLM agent:
 
 The Agent Guideline Protocol is the **entry point** for the Agent3D system. It contains the only hardcoded repository URL in the system, which is necessary since agents start without any repository access.
 
-**Repository Access Flow:** `Agent Guideline Protocol` → `.agent-guidelines.md` → `~/.agent3d`
+**Repository Access Flow:** `Agent Guideline Protocol` → `~/.agent3d`
 
 ```
 **Agent Guideline Protocol**
 
-As an agent, your foundational operational principles are derived from the DDD Remote Guideline.
+Agent operational principles derived from the DDD Remote Repository.
 
-1.  **Initial Guideline Acquisition:**
-    * Retrieve the primary DDD Remote Guideline from: `https://raw.githubusercontent.com/ningsuhen/agent3d/refs/heads/main/AGENT-GUIDELINES.md`.
-    * Store this content immediately as your local, authoritative `.agent-guidelines.md` file.
+1.  **Repository Setup:**
+    * Clone repository: `git@github.com:ningsuhen/agent3d.git` to `~/.agent3d`
+    * Use `~/.agent3d/AGENT-GUIDELINES.md` as main entry point
 
-2.  **Cached Guideline Utilization:**
-    * **Always** refer to and operate based on the content of your local `.agent-guidelines.md` file. This is your immediate reference for all decisions and actions.
-    * Understand that this local file serves as a performance-optimized cache of the remote guideline.
+2.  **Guideline Operations:**
+    * **Always** refer to `~/.agent3d/AGENT-GUIDELINES.md` for all decisions and actions
+    * Update regularly with `git pull` in `~/.agent3d` directory
 
-3.  **Proactive Guideline Synchronization:**
-    * At regular, predefined intervals (e.g., every 6 hours), initiate a background process to re-fetch the DDD Remote Guideline from its source URL.
-    * If the newly retrieved content differs from the current `.agent-guidelines.md`, overwrite the local file to reflect the most recent version.
-    * Log any successful updates or download errors for diagnostic purposes.
+3.  **Synchronization:**
+    * Pull latest changes: `cd ~/.agent3d && git pull`
+    * Frequency: As needed or at regular intervals
 ```
-
-**Note:** Once the guidelines are cached locally, all subsequent repository operations use the centralized configuration within AGENT-GUIDELINES.md.
 
 ### Repository Access Process
 
-Three-stage access pattern:
+Simplified two-stage access pattern:
 
-1. **Agent Guideline Protocol** - Entry point with hardcoded raw URL
-2. **Local Guidelines Cache** (`.agent-guidelines.md`) - Centralized configuration
-3. **Local Repository Clone** (`~/.agent3d`) - Full repository with templates/rules
+1. **Agent Guideline Protocol** - Entry point with repository URL
+2. **Local Repository Clone** (`~/.agent3d`) - Full repository with AGENT-GUIDELINES.md, templates, and rules
 
-**To Change Repository Source:** Update raw URL above and AGENT3D_REPO in AGENT-GUIDELINES.md
+**To Change Repository Source:** Update repository URL in Agent Guideline Protocol above
 
 ## DDD Passes
 

@@ -16,7 +16,7 @@ Please be respectful and considerate of others when contributing to this project
 
 If you find an issue with the documentation or have a suggestion for improvement:
 
-1. Check if the issue already exists in the GitHub Issues (see AGENT3D_REPO in [AGENT-GUIDELINES.md](AGENT-GUIDELINES.md#repository-configuration) for repository URL)
+1. Check if the issue already exists in the GitHub Issues
 2. If not, create a new issue with a clear description of the documentation problem or enhancement
 
 ### Submitting Changes
