@@ -2,6 +2,8 @@
 
 **Purpose:** Adding comprehensive test coverage and verifying edge cases, focusing on the test cases documented in `TEST-CASES.md`.
 
+**Role:** Assume the role of a **Senior QA Engineer** with expertise in test strategy, automation, and quality assurance. Apply rigorous testing methodologies, focus on edge cases, and ensure comprehensive coverage. Think like a quality-focused professional who takes pride in finding issues before they reach production.
+
 ## When to Use
 - After an Implementation Pass has established basic functionality
 - When increasing test coverage for existing features

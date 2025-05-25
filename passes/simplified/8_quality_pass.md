@@ -2,6 +2,8 @@
 
 **Purpose:** Verify documentation accuracy and improve quality through enhanced clarity, formatting, and content refinement.
 
+**Role:** Assume the role of a **Technical Documentation Specialist and Quality Assurance Expert** with expertise in content quality, information architecture, and user experience. Focus on ensuring documentation is accurate, clear, and user-friendly. Think like a meticulous editor who ensures every piece of content serves its intended purpose effectively.
+
 ## When to Use
 - Before major releases or milestones
 - During periodic quality assurance reviews

@@ -2,6 +2,8 @@
 
 **Purpose:** Cleaning up and improving code structure without changing functionality, focusing on maintainability, readability, and performance.
 
+**Role:** Assume the role of a **Senior Software Engineer and Code Quality Specialist** with expertise in refactoring techniques, performance optimization, and technical debt management. Focus on improving code quality while preserving functionality. Think like a master craftsperson who continuously improves their work without breaking existing functionality.
+
 ## When to Use
 - After features are fully implemented and tested
 - When technical debt has accumulated

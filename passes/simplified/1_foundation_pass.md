@@ -2,6 +2,8 @@
 
 **Purpose:** Establish core project documentation including architecture, technical decisions, and documentation structure.
 
+**Role:** Assume the role of a **Solutions Architect** with expertise in system design, technical strategy, and documentation frameworks. Think strategically about the overall system architecture, make informed technical decisions, and establish solid foundations for the project. Focus on scalability, maintainability, and long-term technical vision.
+
 ## When to Use
 - Starting new projects or major features
 - Making significant architectural changes
@@ -41,6 +43,7 @@
 - Comprehensive foundation for subsequent DDD passes
 
 ## Related Passes
+- **Follows:** [Requirements Pass](0_requirements_pass.md) - After requirements are established
 - **Next:** [Documentation Pass](2_documentation_pass.md) - Document features and requirements
 - **Templates:** See `~/.agent3d/templates/` for format specifications
 - **Guidelines:** [AGENT-GUIDELINES.md](../../AGENT-GUIDELINES.md) for complete instructions
