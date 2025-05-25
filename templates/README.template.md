@@ -60,12 +60,8 @@
 **EXAMPLE:** See the actual README.md file in the local repository: `~/.agent3d/README.md`
 
 **VALIDATION CHECKLIST:**
+- [ ] All universal validation rules from [Common Procedures](../docs/COMMON-PROCEDURES.md#common-validation-checklist) are met
 - [ ] Project name and description are clear and accurate
-- [ ] Overview explains the project's purpose and target audience
 - [ ] Installation instructions are complete and tested
 - [ ] Usage examples are functional and helpful
-- [ ] All documentation links are valid
 - [ ] Contributing guidelines are clear
-- [ ] License information is accurate
-- [ ] Context-aware content is relevant and accurate
-- [ ] Auto-generated sections are properly customized

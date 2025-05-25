@@ -325,39 +325,22 @@ project_overrides:
       line_length: 120        # Override default 88
 ```
 
-## Performance and Caching
+## Performance Considerations
 
-### Rule Caching Strategy
-- **Local Cache**: File-based cache with TTL
-- **Memory Cache**: In-memory cache for active rules
-- **Invalidation**: Time-based and content-based invalidation
-
-### Performance Optimization
-- **Lazy Loading**: Load rules only when needed
-- **Parallel Validation**: Run compliance checks in parallel
-- **Incremental Checking**: Check only changed files
+**Rule Access Optimization:**
+- Local file access from `~/.agent3d/rules/` for fast retrieval
+- Language rules loaded once per project session
+- Incremental validation for changed files only
 
 ## Integration with DDD Passes
 
 ### Pass-Specific Rule Application
 
-#### Foundation Pass Integration
-```python
-def apply_foundation_rules(language: str, project_path: str):
-    rules = load_language_rules(language)
-    setup_environment(rules.environment)
-    configure_project_structure(rules.structure)
-    initialize_build_tools(rules.build)
-```
-
-#### Implementation Pass Integration
-```python
-def apply_implementation_rules(language: str, files: List[str]):
-    rules = load_language_rules(language)
-    validate_code_style(files, rules.code_style)
-    check_naming_conventions(files, rules.naming)
-    verify_import_patterns(files, rules.imports)
-```
+#### Pass Integration
+**Foundation Pass:** Apply environment setup, project structure, and build tool rules
+**Implementation Pass:** Validate code style, naming conventions, and import patterns
+**Testing Pass:** Enforce testing framework and coverage requirements
+**Quality Pass:** Run language-specific quality tools and compliance validation
 
 ### Rule Enforcement Points
 - **Pre-commit Hooks**: Validate rules before commits
@@ -365,9 +348,4 @@ def apply_implementation_rules(language: str, files: List[str]):
 - **IDE Integration**: Real-time rule validation during development
 - **Code Review**: Automated rule checking in PRs
 
-## Monitoring and Analytics
 
-### Metrics and Analytics
-- Rule usage frequency and compliance rates
-- Quality trends and effectiveness analysis
-- Performance impact and adoption patterns

@@ -2,13 +2,7 @@
 
 **FORMAT SPECIFICATION:** Single-line features with status `[x]`/`[ ]`/`[~]`, description, and (Criteria: <>) format. Use `## Groups`/`### Sub-Groups` structure.
 
-**🚨 CRITICAL - Feature Completion Criteria:**
-- **NEVER mark features as `[x]` completed** based solely on interface definitions, prototypes, or documentation
-- **ONLY mark features as `[x]` completed** when there is verifiable evidence the feature works properly:
-  - Automated tests that pass and validate the feature functionality
-  - Manual testing results that confirm the feature meets acceptance criteria
-  - Demonstrable working implementation that fulfills the specified criteria
-- **Use `[~]` for in-progress features** that have partial implementation but lack verification
+**🚨 CRITICAL:** Follow feature completion criteria from [Common Procedures](../docs/COMMON-PROCEDURES.md#feature-completion-criteria).
 
 **SUB-FEATURES:** Use indented bullets (2 spaces) for sub-components. Both features and sub-features must NEVER span multiple lines.
 
@@ -50,10 +44,7 @@
 **EXAMPLE:** See the actual FEATURES.md file in the local repository: `~/.agent3d/docs/FEATURES.md`
 
 **VALIDATION CHECKLIST:**
-- [ ] All features and sub-features are on a SINGLE LINE (no multi-line entries)
+- [ ] All universal validation rules from [Common Procedures](../docs/COMMON-PROCEDURES.md#common-validation-checklist) are met
 - [ ] All features follow format: `- [status] feature_name - description (Criteria: <criteria>)`
 - [ ] Each feature includes acceptance criteria in (Criteria: <>) format
-- [ ] **CRITICAL**: Uses `## Groups (Modules)` and `### Sub-Groups (Sub-modules)` heading structure
-- [ ] **CRITICAL**: Features marked `[x]` have verifiable evidence of working implementation
-- [ ] **CRITICAL**: No features marked `[x]` based solely on interface definitions or prototypes
-- [ ] Sub-features use 2-space indentation and are logically related to parent feature
+- [ ] Sub-features are logically related to parent feature

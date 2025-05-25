@@ -10,7 +10,7 @@
 
 **SUB-TEST CASES:** Use indented bullets (2 spaces) with unique TC-NNNN IDs.
 
-**🔗 CRITICAL:** Use `## Groups (Modules)` for main functional areas and `### Sub-Groups (Sub-modules)` for specific test scenarios.
+**🔗 CRITICAL:** Follow documentation structure from [Common Procedures](../docs/COMMON-PROCEDURES.md#structure-requirements).
 
 **TEMPLATE:** (Do NOT include `<template>` tags in actual documentation)
 <template>
@@ -54,10 +54,8 @@
 **EXAMPLE:** See the actual TEST-CASES.md file in the local repository: `~/.agent3d/docs/TEST-CASES.md`
 
 **VALIDATION CHECKLIST:**
+- [ ] All universal validation rules from [Common Procedures](../docs/COMMON-PROCEDURES.md#common-validation-checklist) are met
 - [ ] All test cases and sub-test cases have unique TC-NNNN identifiers
-- [ ] **CRITICAL**: Uses `## Groups (Modules)` and `### Sub-Groups (Sub-modules)` heading structure
-- [ ] Test cases are grouped logically by module/feature with clear section headers
-- [ ] Sub-test cases use 2-space indentation and are logically related to parent test cases
 - [ ] Each test case specifies execution type (Manual/Automated/Partial) and priority (High/Medium/Low)
 - [ ] Summary statistics match the actual test case counts (including sub-test cases)
 - [ ] Test execution framework is clearly defined
