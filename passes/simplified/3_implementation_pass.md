@@ -36,6 +36,7 @@
 - Updated documentation reflecting implementation details
 
 ## Related Passes
+- **Implements:** [Requirements Pass](0_requirements_pass.md) - Builds features according to documented requirements
 - **Follows:** [Documentation Pass](2_documentation_pass.md) - After feature documentation is complete
 - **Precedes:** [Testing Pass](4_testing_pass.md) - Before comprehensive testing
 - **Language Rules:** See `rules/` directory for language-specific development guidelines

@@ -45,6 +45,11 @@
 - Updated test documentation with status
 - Increased confidence in code quality and reliability
 
+## Related Passes
+- **Validates:** [Requirements Pass](0_requirements_pass.md) - Tests verify requirements are met
+- **Follows:** [Implementation Pass](3_implementation_pass.md) - After basic functionality is implemented
+- **Precedes:** [Refactoring Pass](5_refactoring_pass.md) - Before code cleanup and optimization
+
 ## Example Commit Message
 `DDD: Testing Pass - Added comprehensive test coverage for payment processing including edge cases`
 

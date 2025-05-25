@@ -30,6 +30,7 @@
 - Aligned test cases and deployment documentation
 
 ## Related Passes
+- **Aligns with:** [Requirements Pass](0_requirements_pass.md) - Ensures implementation matches requirements
 - **Complements:** [Reverse Pass](10_reverse_pass.md) - Backward alignment (code→docs)
 - **Follows:** [Implementation Pass](3_implementation_pass.md) - After code changes
 - **Precedes:** [Quality Pass](8_quality_pass.md) - Before quality validation
