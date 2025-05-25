@@ -15,8 +15,7 @@
 
 ## Process
 1. **Scan:**
-   - **Repository Update**: `git -C ~/.agent3d pull origin main`
-   - **Project Root**: Find or create `.agent3d` file to establish project root
+   - **Common Setup**: Follow [Repository Management](../docs/COMMON-PROCEDURES.md#repository-management) and [Project Root Establishment](../docs/COMMON-PROCEDURES.md#project-root-establishment)
    - Identify existing requirements documentation gaps
    - Review any existing business documentation
    - Assess stakeholder alignment on project goals

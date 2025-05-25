@@ -16,7 +16,7 @@
 
 ## Process
 1. **Scan:**
-   - **Repository Update**: `git -C ~/.agent3d pull origin main`
+   - **Common Setup**: Follow [Repository Management](../docs/COMMON-PROCEDURES.md#repository-management)
    - **Code Discovery**: Analyze codebase for implemented functionality not reflected in documentation
    - **Feature Status Audit**: Find features marked as `[ ]` or `[~]` that are actually working and complete
    - **Implementation Hunt**: Search for working code that lacks corresponding documentation
