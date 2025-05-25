@@ -1,6 +1,6 @@
 # Refactoring Pass
 
-**Purpose:** Cleaning up and improving code structure without changing functionality, focusing on maintainability, readability, and performance.
+**Purpose:** Cleaning up and improving code structure without changing functionality, focusing on maintainability, readability, and performance. For documentation projects, includes LLM-focused compression to remove verbose explanations of tasks that LLMs inherently understand.
 
 **Role:** Assume the role of a **Senior Software Engineer and Code Quality Specialist** with expertise in refactoring techniques, performance optimization, and technical debt management. Focus on improving code quality while preserving functionality. Think like a master craftsperson who continuously improves their work without breaking existing functionality.
 
@@ -26,6 +26,7 @@
    - **Consolidation Plan:** Document which files/modules can be combined for clarity and brevity
    - **Modularization Strategy:** Plan how to restructure components for better organization
    - **DRY Implementation:** Design approach to eliminate duplication across code and documentation
+   - **LLM Compression Strategy:** Identify verbose explanations of basic tasks that can be compressed for LLM consumption
    - **Refactoring Priorities:** Rank improvements by impact and risk
    - **Verification Approach:** Plan how to ensure functionality is preserved during changes
    - **Documentation Streamlining:** Identify redundant documentation sections to merge or remove
@@ -40,6 +41,7 @@
 4. **Sync:**
    - **Incremental Implementation:** Apply refactoring changes in small, testable increments
    - **DRY Enforcement:** Eliminate identified duplication across code and documentation
+   - **LLM Compression Implementation:** Remove verbose explanations, keeping only essential commands and concepts
    - **Modular Restructuring:** Implement planned consolidation and modularization
    - **Testing Verification:** Run all tests to ensure functionality is preserved
    - **Documentation Updates:** Update all affected documentation to reflect changes
@@ -50,6 +52,7 @@
 ## Expected Outcomes
 - **Repository Optimization:** Streamlined repository structure with improved organization
 - **Documentation Clarity:** Consolidated and modularized documentation with eliminated redundancy
+- **LLM-Optimized Content:** Compressed documentation focused on essential information for LLM consumption
 - **DRY Compliance:** Zero duplication across code, documentation, and configuration
 - **Improved Maintainability:** Enhanced code quality and reduced technical debt
 - **Modular Architecture:** Better organized components with clear separation of concerns
@@ -88,9 +91,17 @@
 
 ### Documentation and Testing
 - **Documentation Clarity:** Improve readability and eliminate redundancy
+- **LLM-Focused Compression:** Remove verbose explanations of basic tasks that LLMs inherently understand
 - **Test Consolidation:** Combine overlapping test cases
 - **Language-Specific Compliance:** Follow language-specific guidelines consistently
 - **Cross-Reference Optimization:** Ensure all links and references are efficient
+
+### LLM-Focused Documentation Compression
+- **Language-Specific Rules:** Apply compression rules from `~/.agent3d/rules/markdown.md`
+- **Review Guidelines:** Follow `~/.agent3d/rules/markdown-review-guidelines.md` for optimization criteria
+- **Basic Task Compression:** Remove detailed explanations of standard development tasks
+- **Command Simplification:** Replace verbose command explanations with concise references
+- **Essential Information Only:** Keep only commands, parameters, and project-specific details
 
 ## Verification Approach
 - Run all existing tests to ensure functionality is preserved
@@ -126,3 +137,25 @@
 - **Performance Measurement:** Track performance metrics before and after changes
 - **Documentation Accuracy:** Ensure all documentation reflects actual implementation
 - **Cross-Reference Integrity:** Validate that all links and references remain functional
+
+## LLM Documentation Compression Guidelines
+
+### Language-Specific Compression Rules
+For detailed compression guidelines and examples, refer to language-specific rules:
+
+- **Markdown Projects:** See `~/.agent3d/rules/markdown.md` for comprehensive LLM optimization rules
+- **Python Projects:** See `~/.agent3d/rules/python.md` for Python-specific compression guidelines
+- **JavaScript Projects:** See `~/.agent3d/rules/javascript.md` for JS/TS compression rules
+- **Other Languages:** Apply general principles with language-appropriate adaptations
+
+### General Compression Principles
+- **Assume LLM Competency:** LLMs understand standard development tools and practices
+- **Focus on Specifics:** Keep project-specific details, remove generic explanations
+- **Command-Centric:** Provide commands and parameters, not installation or basic usage instructions
+- **Context-Aware:** Maintain enough context for task completion without verbose explanations
+
+### Compression Application
+1. **Review Current Content:** Identify verbose explanations of standard tasks
+2. **Apply Language Rules:** Use appropriate language-specific compression guidelines
+3. **Preserve Essentials:** Keep commands, project-specific details, and critical warnings
+4. **Validate Functionality:** Ensure compressed content remains actionable and complete
