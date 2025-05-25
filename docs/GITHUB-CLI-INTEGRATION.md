@@ -1,64 +1,35 @@
 # GitHub CLI Integration for DDD Passes
 
-This document provides comprehensive instructions for integrating GitHub CLI with DDD passes, particularly for automated PR review workflows.
+GitHub CLI integration for automated PR review workflows.
 
 ## Prerequisites
 
-- **GitHub CLI (`gh`)** installed and authenticated
-- **Repository Access** with appropriate permissions for PR operations
-- **Git Branch** associated with an open pull request
+- GitHub CLI (`gh`) installed and authenticated
+- Repository access with PR permissions
+- Git branch associated with open PR
 
-### Installation and Setup
+### Setup
 
-```bash
-# Install GitHub CLI (macOS)
-brew install gh
-
-# Install GitHub CLI (Linux)
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-sudo apt update
-sudo apt install gh
-
-# Authenticate with GitHub
-gh auth login
-```
+Install GitHub CLI and authenticate: `gh auth login`
 
 ## PR Detection and Context
 
 ### Check PR Status
 
 ```bash
-# Check if current branch is associated with a PR
+# Detect PR context
 gh pr status
-
-# Get PR number for current branch
 CURRENT_BRANCH=$(git branch --show-current)
 PR_NUMBER=$(gh pr list --head "$CURRENT_BRANCH" --json number --jq '.[0].number')
-
-# Verify PR context
-if [ -n "$PR_NUMBER" ]; then
-  echo "On PR branch #$PR_NUMBER - automated review available"
-  gh pr view "$PR_NUMBER" --json title,url,state
-else
-  echo "Not on PR branch - manual review process"
-fi
 ```
 
-### PR Information Retrieval
+### PR Operations
 
 ```bash
-# List all open PRs
-gh pr list
-
-# View specific PR details
-gh pr view [PR_NUMBER]
-
-# Get PR diff
-gh pr diff [PR_NUMBER]
-
-# Check PR status and checks
-gh pr checks [PR_NUMBER]
+gh pr list                    # List PRs
+gh pr view [PR_NUMBER]        # View PR details
+gh pr diff [PR_NUMBER]        # Get diff
+gh pr checks [PR_NUMBER]      # Check status
 ```
 
 ## Automated Review Workflow
@@ -72,7 +43,7 @@ gh pr checks [PR_NUMBER]
 detect_pr_context() {
   local current_branch=$(git branch --show-current)
   local pr_number=$(gh pr list --head "$current_branch" --json number --jq '.[0].number' 2>/dev/null)
-  
+
   if [ -n "$pr_number" ] && [ "$pr_number" != "null" ]; then
     echo "PR_DETECTED=true"
     echo "PR_NUMBER=$pr_number"

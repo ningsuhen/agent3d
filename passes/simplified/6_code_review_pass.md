@@ -14,52 +14,35 @@
 
 ## Process
 1. **Scan:**
-   - **PR Detection**: Check if current branch is associated with a PR using `gh pr status`
-   - **Rigorously examine** the diff between the base branch and the PR
-   - Apply **language-specific rules** from `~/.agent3d/rules/[language].md`
-   - Identify potential issues, bugs, or code quality concerns with **zero tolerance**
-   - Check for strict alignment with documentation and requirements
-   - Verify comprehensive test coverage for the changes
-   - Look for security vulnerabilities, performance issues, and maintainability concerns
-   - **Scrutinize** adherence to language idioms and best practices
+   - PR Detection: `gh pr status`
+   - Apply language rules from `~/.agent3d/rules/[language].md`
+   - Identify issues: bugs, quality, security, performance, maintainability
+   - Verify test coverage and documentation alignment
 
 2. **Draft:**
-   - Prepare **detailed, specific review comments** for each issue found
-   - **Generate structured review comments** for automated submission if on PR branch
-   - **Demand explanations** for any deviations from best practices
-   - Document concrete suggestions for improvements with examples
-   - Note any documentation updates needed
-   - Prepare comprehensive summary of overall review findings
-   - **Be uncompromising** on code quality standards
+   - Generate structured review comments for each issue
+   - Include concrete solutions with examples
+   - Note required documentation updates
 
 3. **Ask:**
-   - **PR Context**: If on PR branch, submit pending review comments using GitHub CLI
-   - **Challenge implementation decisions** that don't follow best practices
-   - Discuss alternative approaches for complex issues with language-specific solutions
-   - Verify requirements understanding with stakeholders
-   - Confirm security, performance, and maintainability considerations
-   - **Question any shortcuts** or technical debt introduced
+   - Submit pending PR comments via GitHub CLI if on PR branch
+   - Verify requirements with stakeholders
+   - Challenge non-compliant implementation decisions
 
 4. **Sync:**
-   - **Automated PR Comments**: Submit review comments in **pending mode** for human completion
-   - Submit **thorough review comments** on the GitHub PR
-   - Set PR review status to **"Request Changes"** for any quality issues
-   - **Do not approve** until ALL issues are resolved to high standards
-   - **Human Handoff**: Allow human reviewer to complete the PR review process
-   - Follow up persistently on comment resolutions
+   - Submit automated PR comments in pending mode
+   - Request changes for quality issues
+   - Hand off to human for final review completion
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
-- **Automated PR review comments** submitted in pending mode when on PR branch
-- **Comprehensive review comments** on the GitHub PR with specific, actionable feedback
-- **Human-agent collaboration** where agent provides detailed analysis and human completes review
-- **Significantly improved code quality** through rigorous feedback
-- **Strict verification** that code changes align with documentation and language best practices
-- **Proactive identification** of potential bugs, security issues, and maintainability problems
-- **Uncompromising enforcement** of software engineering standards
-- Knowledge transfer of language-specific best practices and patterns
-- **Seamless handoff** to human reviewer for final approval/rejection decision
+- Automated PR comments in pending mode
+- Actionable feedback with specific solutions
+- Human-agent collaborative review workflow
+- Improved code quality through strict standards enforcement
+- Proactive issue identification and resolution
+- Language-specific best practice compliance
 
 ## Language-Specific Review Criteria
 
