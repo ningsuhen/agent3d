@@ -13,36 +13,19 @@
 - When validating that code changes align with documentation
 
 ## Process
-1. **Scan:**
-   - PR Detection: `gh pr status`
-   - Apply language rules from `~/.agent3d/rules/[language].md`
-   - Identify issues: bugs, quality, security, performance, maintainability
-   - Verify test coverage and documentation alignment
-
-2. **Draft:**
-   - Generate structured review comments for each issue
-   - Include concrete solutions with examples
-   - Note required documentation updates
-
-3. **Ask:**
-   - Submit pending PR comments via GitHub CLI if on PR branch
-   - Verify requirements with stakeholders
-   - Challenge non-compliant implementation decisions
-
-4. **Sync:**
-   - Submit automated PR comments in pending mode
-   - Request changes for quality issues
-   - Hand off to human for final review completion
+1. **Scan:** `gh pr status`, apply language rules, identify issues, verify coverage
+2. **Draft:** Generate review comments, include solutions, note documentation updates
+3. **Ask:** Submit pending PR comments, verify requirements, challenge decisions
+4. **Sync:** Submit automated comments, request changes, hand off to human
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
 - Automated PR comments in pending mode
-- Actionable feedback with specific solutions
-- Human-agent collaborative review workflow
-- Improved code quality through strict standards enforcement
-- Proactive issue identification and resolution
-- Language-specific best practice compliance
+- Actionable feedback with solutions
+- Human-agent collaborative workflow
+- Strict standards enforcement
+- Language-specific compliance
 
 ## Language-Specific Review Criteria
 

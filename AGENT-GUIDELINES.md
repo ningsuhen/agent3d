@@ -94,16 +94,16 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 - CI/CD pipelines must validate documentation-code alignment
 - Agents must reject tasks that violate DDD principles
 
-**All procedures defined in [Common Procedures](docs/COMMON-PROCEDURES.md):**
-- Repository management, template usage, documentation standards
-- Feature completion criteria, progress tracking, status updates
+**All procedures in [Common Procedures](docs/COMMON-PROCEDURES.md):**
+- Repository management, templates, documentation standards
+- Feature completion, progress tracking, status updates
 
 ## Agent Instructions
 
 **Workflow:**
-1. **Create Mental Memory Map:** Build comprehensive understanding of Agent3D framework and project structure
-2. Configure project (`.agent3d-config.yml` file in project root)
-3. Follow `~/.agent3d/AGENT-GUIDELINES.md` (this file)
+1. **Create Mental Memory Map:** Build comprehensive understanding of Agent3D framework
+2. Configure project (`.agent3d-config.yml` in project root)
+3. Follow `~/.agent3d/AGENT-GUIDELINES.md`
 4. Run DDD pass for missing/outdated documentation
 5. Favor integration tests over mocks
 

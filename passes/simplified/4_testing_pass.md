@@ -12,66 +12,45 @@
 - As part of regular quality assurance cycles
 
 ## Process
-1. **Scan:**
-   - Review existing test coverage and identify gaps
-   - Analyze `TEST-CASES.md` for untested scenarios
-   - Identify edge cases and error conditions
-   - Review bug reports or quality concerns
-
-2. **Draft:**
-   - Plan comprehensive test strategy
-   - Document additional test cases for edge conditions
-   - Identify integration test scenarios
-   - Plan performance or stress tests if applicable
-
-3. **Ask:**
-   - Clarify expected behavior for edge cases
-   - Confirm test priorities and coverage goals
-   - Discuss complex test scenarios or setup requirements
-   - Verify acceptance criteria for tests
-
-4. **Sync:**
-   - Implement comprehensive test suite
-   - Add tests for edge cases and error conditions
-   - Create integration tests for component interactions
-   - Update `TEST-CASES.md` with test status
+1. **Scan:** Review coverage gaps, analyze `TEST-CASES.md`, identify edge cases, check bug reports
+2. **Draft:** Plan test strategy, document edge cases, identify integration scenarios, plan performance tests
+3. **Ask:** Clarify edge case behavior, confirm priorities, verify acceptance criteria
+4. **Sync:** Implement test suite, add edge case tests, create integration tests, update `TEST-CASES.md`
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
-- Comprehensive test coverage for features
-- Tests for edge cases and error conditions
-- Integration tests for component interactions
-- Updated test documentation with status
-- Increased confidence in code quality and reliability
+- Comprehensive test coverage
+- Edge case and error tests
+- Integration tests
+- Updated test documentation
+- Increased quality confidence
 
 ## Related Passes
-- **Validates:** [Requirements Pass](0_requirements_pass.md) - Tests verify requirements are met
-- **Follows:** [Implementation Pass](3_implementation_pass.md) - After basic functionality is implemented
-- **Precedes:** [Refactoring Pass](5_refactoring_pass.md) - Before code cleanup and optimization
+Implementation → **Testing** → Refactoring
 
 ## Example Commit Message
-`DDD: Testing Pass - Added comprehensive test coverage for payment processing including edge cases`
+`DDD: Testing Pass - Added comprehensive test coverage for payment processing`
 
 ## Testing Focus
-- Expand beyond "happy path" to edge cases
-- Test error handling and recovery
-- Verify boundary conditions and input validation
-- Create integration tests for component interactions
-- Test performance under various conditions
-- Verify security constraints and access controls
+- Edge cases beyond happy path
+- Error handling and recovery
+- Boundary conditions
+- Integration tests
+- Performance testing
+- Security constraints
 
-## Test Types to Consider
-- Unit tests for individual components
-- Integration tests for component interactions
-- End-to-end tests for critical user flows
-- Performance tests for response time and throughput
-- Security tests for access controls and data protection
-- Stress tests for system behavior under load
-- Regression tests to prevent regressions
+## Test Types
+- Unit tests
+- Integration tests
+- End-to-end tests
+- Performance tests
+- Security tests
+- Stress tests
+- Regression tests
 
 ## Documentation Updates
-- Mark test cases as automated in `TEST-CASES.md`
-- Document test coverage metrics
-- Update test documentation with new scenarios
-- Document any discovered issues or limitations
+- Mark automated tests in `TEST-CASES.md`
+- Document coverage metrics
+- Update test scenarios
+- Document issues/limitations

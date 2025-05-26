@@ -62,11 +62,11 @@ This document centralizes all common procedures used across DDD passes to elimin
 **Setup:** Clone repository to `~/.agent3d` (see repository URL in README.md Agent Guideline Protocol)
 
 ### Template Usage Process
-1. Update repository: `git -C ~/.agent3d pull origin main`
-2. Access templates from `~/.agent3d/templates/`
-3. Replace all {{placeholders}} with actual content
-4. Remove template tags (`<template>`, `<example>`) before finalizing documentation
-5. Validate against template checklist requirements
+1. `git -C ~/.agent3d pull origin main`
+2. Access `~/.agent3d/templates/`
+3. Replace {{placeholders}}
+4. Remove template tags
+5. Validate against checklist
 
 ### Template Path Pattern
 **Location:** `~/.agent3d/templates/`
@@ -109,13 +109,13 @@ All DDD passes follow the same 4-step workflow:
 - Requirements-to-features-to-tests traceability
 
 #### Universal Code Quality Standards
-- **Exception Handling:** Proper exception handling throughout
-- **Memory Efficiency:** Memory efficient patterns used
-- **Test Coverage:** Comprehensive test coverage required
-- **Security:** Security best practices followed
-- **Performance:** Performance considerations addressed
-- **Documentation:** Documentation must be updated with code changes
-- **Technical Debt:** Zero tolerance for technical debt introduction
+- **Exception Handling:** Proper handling throughout
+- **Memory Efficiency:** Efficient patterns used
+- **Test Coverage:** Comprehensive coverage required
+- **Security:** Best practices followed
+- **Performance:** Considerations addressed
+- **Documentation:** Updated with code changes
+- **Technical Debt:** Zero tolerance
 
 ### Common Validation Checklist
 
@@ -180,11 +180,11 @@ All DDD passes follow the same 4-step workflow:
 ## Quality Standards
 
 ### Documentation Quality
-- **Clarity:** Use simple, direct language
-- **Completeness:** Cover all requirements and edge cases
-- **Consistency:** Follow established patterns and naming
-- **Traceability:** Link requirements to features to test cases
-- **Maintainability:** Keep docs current with changes
+- **Clarity:** Simple, direct language
+- **Completeness:** Cover requirements and edge cases
+- **Consistency:** Follow established patterns
+- **Traceability:** Link requirements → features → tests
+- **Maintainability:** Keep docs current
 
 ### Validation Requirements
 - All links functional and current
@@ -196,18 +196,18 @@ All DDD passes follow the same 4-step workflow:
 ## GitHub Integration
 
 ### Pull Request Operations
-**For comprehensive GitHub CLI integration instructions, see [GitHub CLI Integration Guide](GITHUB-CLI-INTEGRATION.md).**
+**See [GitHub CLI Integration Guide](GITHUB-CLI-INTEGRATION.md).**
 
 **Key Capabilities:**
-- Automated PR detection and context awareness
-- Pending mode review comment submission
-- Human-agent collaborative review workflow
-- Fallback support for manual processes
+- Automated PR detection
+- Pending mode review comments
+- Human-agent collaborative workflow
+- Fallback support
 
 **Usage in DDD Passes:**
-- Code Review Pass: Automated review comment submission
-- Other passes: PR status updates and notifications
-- All passes: Context-aware behavior when on PR branches
+- Code Review Pass: Automated comments
+- Other passes: PR status updates
+- All passes: Context-aware behavior
 
 ---
 

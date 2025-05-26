@@ -23,12 +23,10 @@ The core principle is simple: **"Write the docs, then write the code—keep it l
 
 ## How to Use
 
-To use Agent3D in your LLM agent:
-
-1. **Memorize Core Patterns**: Cache SCAN→DRAFT→ASK→SYNC execution pattern and language rules in memory
-2. **Configure Project**: Run Foundation Pass to create `.agent3d-config.yml` with project-specific settings
-3. **Speed Execution**: Use memory-cached patterns to minimize file lookups during pass execution
-4. Follow the DDD passes in sequence for each development task
+1. **Memorize Core Patterns**: Cache SCAN→DRAFT→ASK→SYNC and language rules
+2. **Configure Project**: Run Foundation Pass to create `.agent3d-config.yml`
+3. **Speed Execution**: Use memory-cached patterns to minimize file lookups
+4. Follow DDD passes in sequence
 
 ## Agent Guideline Protocol
 

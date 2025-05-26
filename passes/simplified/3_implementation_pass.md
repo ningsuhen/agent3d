@@ -11,49 +11,35 @@
 - When converting a proof of concept into production code
 
 ## Process
-1. **Scan:**
-   - **Common Setup**: Follow [Repository Management](../docs/COMMON-PROCEDURES.md#repository-management)
-   - Review feature documentation and requirements
-   - Identify implementation priorities and dependencies
-   - Review existing test cases in TEST-CASES.md
-
-2. **Draft:**
-   - Create implementation plan with component breakdown
-   - Identify key test scenarios for basic validation
-   - Plan for basic error handling and edge cases
-
-3. **Ask:** Clarify requirements, confirm technical approach, verify dependencies
-
-4. **Sync:** Implement features, write basic tests, ensure code standards compliance
+1. **Scan:** [Repository Management](../docs/COMMON-PROCEDURES.md#repository-management), review documentation, identify priorities, check TEST-CASES.md
+2. **Draft:** Create implementation plan, identify test scenarios, plan error handling
+3. **Ask:** Clarify requirements, confirm approach, verify dependencies
+4. **Sync:** Implement features, write tests, ensure standards compliance
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
-- Working implementation of the documented feature
-- Basic test coverage for core functionality
-- Passing tests for the happy path scenarios
-- Code that follows project standards and conventions
-- Updated documentation reflecting implementation details
+- Working implementation
+- Basic test coverage
+- Passing tests
+- Standards compliance
+- Updated documentation
 
 ## Related Passes
-- **Implements:** [Requirements Pass](0_requirements_pass.md) - Builds features according to documented requirements
-- **Follows:** [Documentation Pass](2_documentation_pass.md) - After feature documentation is complete
-- **Precedes:** [Testing Pass](4_testing_pass.md) - Before comprehensive testing
-- **Language Rules:** See `rules/` directory for language-specific development guidelines
+Requirements → Documentation → **Implementation** → Testing
 
 ## Example Commit Message
-`DDD: Implementation Pass - Implemented user authentication feature with basic test coverage`
+`DDD: Implementation Pass - Implemented user authentication`
 
 ## Testing Focus
-- Focus on "happy path" test cases
-- Implement basic validation tests
-- Cover core functionality and main use cases
-- Establish foundation for more comprehensive testing
-- Ensure all implemented code has at least basic test coverage
+- Happy path test cases
+- Basic validation tests
+- Core functionality coverage
+- Foundation for comprehensive testing
 
 ## Implementation Guidelines
-- Follow language-specific rules from the rules directory
-- Implement only what is documented in the requirements
-- Keep code lean and avoid speculative abstractions
-- Document any technical decisions made during implementation
-- Ensure code is readable and maintainable
+- Follow language-specific rules
+- Implement documented requirements only
+- Keep code lean
+- Document technical decisions
+- Ensure readability

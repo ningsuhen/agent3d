@@ -13,38 +13,23 @@
 - **Creating design proposals** for complex features that need detailed planning
 
 ## Process
-1. **Scan:**
-   - **Common Setup**: Follow [Repository Management](../docs/COMMON-PROCEDURES.md#repository-management)
-   - Review `.agent3d-config.yml` for project configuration and enabled passes
-   - Review existing documentation for gaps and inconsistencies
-   - Identify where new features fit within current structure
-   - **Proposal Check**: Review `docs/proposals/active/` for relevant design proposals
-
-2. **Draft:**
-   - **CRITICAL**: Use `## Groups`/`### Sub-Groups` structure and mark `[x]` only with verifiable evidence
-   - Create detailed feature specifications with acceptance criteria
-   - Document technical requirements and integration points
-   - Create proposals using templates for complex features
-
-3. **Ask:** Clarify feature scope, priorities, edge cases, and technical constraints
-
-4. **Sync:** Update FEATURES.md and documentation, ensure roadmap alignment
+1. **Scan:** [Repository Management](../docs/COMMON-PROCEDURES.md#repository-management), review `.agent3d-config.yml`, identify gaps, check `docs/proposals/active/`
+2. **Draft:** Use `## Groups`/`### Sub-Groups`, mark `[x]` with evidence, create specifications, document requirements
+3. **Ask:** Clarify scope, priorities, constraints
+4. **Sync:** Update FEATURES.md, align roadmap
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
-- Detailed feature entries in `FEATURES.md`
-- Associated test cases in `TEST-CASES.md`
-- Documented technical constraints and limitations
-- Updated `TASKS.md` with current priorities
-- Revised feature documentation reflecting scope changes
-- Resolved ambiguities in documentation
-- Consistent terminology and specifications
-- Clear acceptance criteria for features
+- Feature entries in `FEATURES.md`
+- Test cases in `TEST-CASES.md`
+- Technical constraints documented
+- Updated `TASKS.md` priorities
+- Resolved ambiguities
+- Clear acceptance criteria
 
 ## Related Passes
-**Sequence:** Requirements → Foundation → **Documentation** → Implementation
-**Templates:** `~/.agent3d/templates/` (FEATURES, PROPOSAL)
+Requirements → Foundation → **Documentation** → Implementation
 
 ## Example Commit Message
-`DDD: Documentation Pass - Documented payment gateway integration requirements and updated Q3 priorities`
+`DDD: Documentation Pass - Documented payment gateway requirements`

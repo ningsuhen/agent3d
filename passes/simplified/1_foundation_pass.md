@@ -14,75 +14,23 @@
 - Before technical stakeholder engagement begins
 
 ## Process
-1. **Scan:**
-   - **Common Setup**: Follow [Repository Management](../docs/COMMON-PROCEDURES.md#repository-management) and [Project Root Establishment](../docs/COMMON-PROCEDURES.md#project-root-establishment)
-   - Review requirements documentation from Requirements Pass
-   - Check for existing `.agent3d-config.yml` configuration file in project root
-   - Identify project type, language, and technology stack based on requirements
-   - Assess current project structure and existing documentation
-   - Determine which Agent3D features are needed based on requirements scope
-
-2. **Draft:**
-   - **Configuration Discovery**: Ask user questions one by one to determine:
-     - Project type (web app, API, library, CLI tool, etc.)
-     - Primary programming language and framework
-     - Development methodology (agile, waterfall, etc.)
-     - Team size and structure
-     - Quality requirements and standards
-   - **Feature Selection**: Configure which DDD passes to enable:
-     - Skip coding passes for documentation-only projects
-     - Skip testing passes for proof-of-concept work
-     - Enable/disable specific language rules
-     - Configure quality thresholds and validation levels
-   - **Foundation Setup**: Create basic project structure:
-     - Create `.agent3d-config.yml` with selected configuration in project root
-     - Establish `docs/` directory structure
-     - Set up basic project foundation files
-
-3. **Ask:**
-   - **Interactive Configuration**: Present configuration options one question at a time:
-     - "What type of project is this? (web app/API/library/CLI/other)"
-     - "What is the primary programming language?"
-     - "Do you want to enable automated testing passes? (y/n)"
-     - "Do you want to enable code implementation passes? (y/n)"
-     - "What quality level do you prefer? (strict/balanced/relaxed)"
-     - "Are there specific DDD passes you want to skip?"
-   - Validate configuration choices with user
-   - Confirm project scope and boundaries
-
-4. **Sync:**
-   - Save final configuration to `.agent3d-config.yml` in project root
-   - Create initial project structure based on configuration
-   - Establish basic documentation framework
-   - Create initial `DDD-STATUS.md` with Foundation Pass completion
-   - Validate project setup and configuration consistency
-   - Prepare handoff to subsequent passes with clear project scope
+1. **Scan:** [Repository Management](../docs/COMMON-PROCEDURES.md#repository-management), review requirements, check `.agent3d-config.yml`, identify project type
+2. **Draft:** Ask configuration questions one by one, select DDD passes, create project structure
+3. **Ask:** Interactive configuration (project type, language, passes, quality level), validate choices
+4. **Sync:** Save `.agent3d-config.yml`, create structure, establish docs framework, create DDD-STATUS.md
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
-- **Project Configuration:**
-  - `.agent3d-config.yml` file with complete project configuration in project root
-  - Enabled/disabled DDD passes based on project needs
-  - Language-specific rules and quality thresholds configured
-  - Project type and methodology documented
-- **Foundation Structure:**
-  - Initial project directory structure established
-  - Agent3D features configured for project context
-  - Quality gates and validation levels set appropriately
-- **Configuration Documentation:**
-  - Clear record of configuration decisions and rationale in `.agent3d-config.yml`
-  - Project scope and boundaries established
-  - Foundation for all subsequent DDD passes prepared
+- Project configuration (`.agent3d-config.yml` with passes, rules, quality thresholds)
+- Foundation structure (directory structure, Agent3D features configured)
+- Configuration documentation (decisions recorded, scope established)
 
 ## Related Passes
-- **Follows:** [Requirements Pass](0_requirements_pass.md) - After business requirements are established
-- **Next:** [Documentation Pass](2_documentation_pass.md) - Feature documentation follows foundation setup
-- **Informs:** All subsequent DDD passes based on configuration choices
-- **Configuration:** See [Configuration Guide](../../docs/CONFIGURATION-GUIDE.md) for detailed configuration options
+Requirements → **Foundation** → Documentation
 
 ## Example Commit Message
-`DDD: Foundation Pass - Configured Agent3D for Python web application with testing and code review enabled`
+`DDD: Foundation Pass - Configured Agent3D for Python web application`
 
 ## Configuration Questions Framework
 

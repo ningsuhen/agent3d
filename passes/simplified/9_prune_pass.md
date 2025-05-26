@@ -13,9 +13,6 @@
 - Before major releases to ensure documentation is lean and relevant
 
 ## Process
-**STANDARD WORKFLOW:** Follow [Common Procedures - Standard DDD Workflow](../docs/COMMON-PROCEDURES.md#standard-ddd-workflow)
-
-**PRUNE-SPECIFIC FOCUS:**
 1. **Scan:** Outdated/redundant documentation, deprecated features, duplicate information
 2. **Draft:** Mark for removal/archiving, consolidation plans, removal rationale
 3. **Ask:** Confirm safe removal, verify obsolescence, clarify historical value
@@ -24,12 +21,12 @@
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
-- Streamlined, relevant documentation
-- Removed references to deprecated features
-- Archived historical information when appropriate
-- Improved documentation maintainability
-- Reduced cognitive load for documentation readers
-- Clearer focus on current functionality and architecture
+- Streamlined relevant documentation
+- Removed deprecated references
+- Archived historical information
+- Improved maintainability
+- Reduced cognitive load
+- Clearer focus on current functionality
 
 ## Example Commit Message
-`DDD: Prune Pass - Removed documentation for deprecated legacy authentication system and consolidated redundant API descriptions`
+`DDD: Prune Pass - Removed deprecated authentication docs and consolidated API descriptions`

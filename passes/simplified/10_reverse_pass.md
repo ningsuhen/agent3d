@@ -17,20 +17,10 @@
 
 ## Process
 
-1. **Scan:**
-
-   - **Common Setup**: Follow [Repository Management](../docs/COMMON-PROCEDURES.md#repository-management)
-   - **Code Discovery**: Analyze codebase for implemented functionality not reflected in documentation
-   - **Feature Status Audit**: Find features marked as `[ ]` or `[~]` that are actually working and complete
-   - **Implementation Hunt**: Search for working code that lacks corresponding documentation
-1. **Draft:**
-
-   - **🔍 CRITICAL**: Systematically compare implementation against FEATURES.md status
-   - **🔍 CRITICAL**: Identify features marked incomplete that have verifiable working implementations
-   - Document all discovered undocumented functionality
-   - Create list of features that should be marked `[x]` completed
-1. **Ask:** Validate discovered functionality, confirm feature completion status, verify acceptance criteria
-1. **Sync:** Update FEATURES.md status, create missing documentation, update architecture docs, ensure code-documentation alignment
+1. **Scan:** [Repository Management](../docs/COMMON-PROCEDURES.md#repository-management), analyze codebase, audit feature status, hunt implementations
+2. **Draft:** Compare implementation vs FEATURES.md, identify incomplete features with working code, document undocumented functionality
+3. **Ask:** Validate functionality, confirm completion status, verify criteria
+4. **Sync:** Update FEATURES.md status, create missing docs, update architecture, ensure alignment
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
@@ -70,27 +60,19 @@
 - [ ] Modified system boundaries without documentation updates
 
 ## Expected Outcomes
-
-- All implemented functionality is properly documented
-- Features marked as `[x]` completed accurately reflect working implementations
-- No working features remain marked as `[ ]` pending or `[~]` in-progress
-- Complete test case coverage documentation for all implementations
-- Updated HIGH-LEVEL-DESIGN.md reflecting actual system state
-- Eliminated reverse drift between code and documentation
-- Accurate project status in DDD-STATUS.md
-- Comprehensive feature documentation with verified acceptance criteria
+- All functionality documented
+- Accurate `[x]` completion markers
+- No working features marked incomplete
+- Complete test coverage documentation
+- Updated architecture docs
+- Eliminated reverse drift
+- Accurate project status
 
 ## Related Passes
-
-- **Validates:** [Requirements Pass](0_requirements_pass.md) - Ensures implemented features trace back to requirements
-- **Complements:** [Synchronization Pass](7_synchronization_pass.md) - Forward alignment (docs→code)
-- **Precedes:** [Quality Pass](8_quality_pass.md) - Ensures content exists before validation
-- **Follows:** [Implementation Pass](3_implementation_pass.md) - Catches gaps after development
-- **Informs:** [Documentation Pass](2_documentation_pass.md) - Identifies missing documentation
+Implementation → **Reverse** → Quality
 
 ## Example Commit Message
-
-`DDD: Reverse Pass - Updated documentation for payment processing features, marked 5 completed features as [x], added missing API documentation`
+`DDD: Reverse Pass - Updated payment processing docs, marked 5 features complete`
 
 ## Automation Opportunities
 

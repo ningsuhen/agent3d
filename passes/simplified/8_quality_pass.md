@@ -12,26 +12,21 @@
 - As part of continuous integration processes
 
 ## Process
-1. **Scan:** Review documentation accuracy, identify clarity improvements, find outdated content
-2. **Draft:**
-   - **CRITICAL**: Verify `## Groups`/`### Sub-Groups` structure and feature completion evidence
-   - Enhance formatting, examples, and explanations
-   - Mark content for removal or archiving
-3. **Ask:** Clarify requirements, confirm removal decisions, seek readability feedback
-4. **Sync:** Apply improvements, remove outdated content, ensure consistent formatting
+1. **Scan:** Review accuracy, identify improvements, find outdated content
+2. **Draft:** Verify `## Groups`/`### Sub-Groups`, enhance formatting, mark for removal
+3. **Ask:** Clarify requirements, confirm decisions, seek feedback
+4. **Sync:** Apply improvements, remove outdated content, ensure formatting
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
-- Verified consistency and resolved documentation gaps
-- Improved readability, clarity, and formatting
-- Enhanced examples, diagrams, and explanations
-- Streamlined, relevant documentation with deprecated content removed
+- Verified consistency, resolved gaps
+- Improved readability and formatting
+- Enhanced examples and explanations
+- Streamlined relevant documentation
 
 ## Related Passes
-- **Follows:** [Reverse Pass](10_reverse_pass.md) - Ensures all content exists before quality validation
-- **Follows:** [Synchronization Pass](7_synchronization_pass.md) - Ensures alignment before quality checks
-- **Precedes:** [Prune Pass](9_prune_pass.md) - Quality validation before content cleanup
+Synchronization → **Quality** → Prune
 
 ## Example Commit Message
-`DDD: Quality Pass - Verified documentation accuracy, improved API examples, and removed deprecated features`
+`DDD: Quality Pass - Verified documentation accuracy and improved examples`
