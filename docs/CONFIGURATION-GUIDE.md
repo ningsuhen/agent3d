@@ -366,69 +366,30 @@ llm_compression:
     - standard_development_tools
 ```
 
-### LLM Compression Examples
-```yaml
-# Example compression rules
-compression_rules:
-  github_cli:
-    before: "To leave a PR comment using GitHub CLI, first install gh, then authenticate, then use gh pr comment"
-    after: "Leave PR comment with gh pr comment"
-
-  git_operations:
-    before: "Create a new branch by running git checkout -b feature-name where feature-name should be descriptive"
-    after: "Create feature branch with git checkout -b feature-name"
-```
-
 ## Advanced Configuration
 
 ### Multi-Language Projects
-Configure for projects using multiple languages:
-
 ```yaml
 multi_language:
   primary: "python"
-  secondary:
-    - "javascript"
-    - "go"
-
-  language_specific_rules:
-    apply_all: true
-    merge_conflicts: "primary_wins"
+  secondary: ["javascript", "go"]
 ```
 
 ### Monorepo Configuration
-Configure for monorepo structures:
-
 ```yaml
 monorepo:
   enabled: true
   subprojects:
     - path: "backend/"
       language: "python"
-      config: "backend/.agent3d-config.yml"
-    - path: "frontend/"
-      language: "javascript"
-      config: "frontend/.agent3d-config.yml"
 ```
 
 ### CI/CD Integration
-Configure for automated pipeline integration:
-
 ```yaml
 cicd:
   enabled: true
-  trigger_on:
-    - "pull_request"
-    - "push_to_main"
-
-  pipeline_steps:
-    - "foundation_pass"
-    - "documentation_pass"
-    - "quality_pass"
-
-  failure_handling:
-    mode: "fail_fast"  # or "continue", "warn"
-    notify: true
+  trigger_on: ["pull_request", "push_to_main"]
+  pipeline_steps: ["foundation_pass", "documentation_pass", "quality_pass"]
 ```
 
 ---

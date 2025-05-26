@@ -105,35 +105,24 @@ Human-agent collaborative review process:
 - Context-aware rule enforcement
 
 ### Fallback Manual Process
-Complete fallback when GitHub CLI unavailable:
-
 **Manual Review Report Generation:**
 - Structured review report template
 - File-specific comment organization
-- Manual copy-paste workflow
 
 ## Language Rules Advanced Features
 
 ### Rule Loading Optimization
-Performance-optimized rule access:
-
-**Optimization Features:**
 - Local file access from `~/.agent3d/rules/`
 - Language rules loaded once per session
 - Incremental validation for changed files only
 
 ### Pass-Specific Rule Application
-Different rules applied at different stages:
-
-**Foundation Pass:** Environment setup, project structure, build tools
-**Implementation Pass:** Code style, naming conventions, import patterns
-**Testing Pass:** Testing frameworks, coverage requirements
-**Quality Pass:** Language-specific quality tools, compliance validation
+- **Foundation Pass:** Environment setup, project structure
+- **Implementation Pass:** Code style, naming conventions
+- **Testing Pass:** Testing frameworks, coverage requirements
+- **Quality Pass:** Language-specific quality tools
 
 ### Custom Rule Overrides
-Project-specific rule customization:
-
-**Override Capabilities:**
 - Custom validation thresholds
 - Project-specific style preferences
 - Framework-specific adaptations
@@ -141,8 +130,6 @@ Project-specific rule customization:
 ## Sophisticated Status Tracking
 
 ### Drift Calculation Algorithms
-Complex formulas for measuring documentation drift:
-
 **Drift Formula:**
 ```
 drift = (undocumented_features + outdated_docs + missing_tests) / total_project_elements
@@ -154,27 +141,19 @@ alignment = (completed_tasks + passing_tests + documented_features) / total_expe
 ```
 
 ### Health Indicator System
-Multi-dimensional project health assessment:
-
-**Health Dimensions:**
 - **Critical Issues**: 🚨 Blocking problems
 - **Documentation Gaps**: 📝 Missing documentation
 - **Implementation Drift**: ⚠️ Code-documentation misalignment
 - **Quality Score**: 📊 Overall project quality (0-100)
 
 ### Progress Bar Visualization
-Visual representation of alignment percentages:
-
 **Progress Bar Format:**
 ```
 Alignment: 85% ████████▌░ (8.5/10 blocks filled)
 ```
 
 **Drift Level Indicators:**
-- None 🟢 (0-10%)
-- Low 🟡 (11-25%)
-- Medium 🟠 (26-50%)
-- High 🔴 (51%+)
+- None 🟢 (0-10%), Low 🟡 (11-25%), Medium 🟠 (26-50%), High 🔴 (51%+)
 
 ## Advanced Template Variables
 

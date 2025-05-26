@@ -43,10 +43,8 @@
 - Clear acceptance criteria for features
 
 ## Related Passes
-- **Builds on:** [Requirements Pass](0_requirements_pass.md) - Uses business requirements for documentation scope
-- **Follows:** [Foundation Pass](1_foundation_pass.md) - After project configuration is established
-- **Precedes:** [Implementation Pass](3_implementation_pass.md) - Before feature implementation
-- **Templates:** See `~/.agent3d/templates/` for FEATURES, PROPOSAL format specifications
+**Sequence:** Requirements → Foundation → **Documentation** → Implementation
+**Templates:** `~/.agent3d/templates/` (FEATURES, PROPOSAL)
 
 ## Example Commit Message
 `DDD: Documentation Pass - Documented payment gateway integration requirements and updated Q3 priorities`

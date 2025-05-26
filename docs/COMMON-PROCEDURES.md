@@ -68,22 +68,10 @@ This document centralizes all common procedures used across DDD passes to elimin
 4. Remove template tags (`<template>`, `<example>`) before finalizing documentation
 5. Validate against template checklist requirements
 
-### Template Paths Reference
-| Document | Template Path |
-|----------|---------------|
-| README.md | `~/.agent3d/templates/README.template.md` |
-| docs/BUSINESS-OBJECTIVES.md | `~/.agent3d/templates/BUSINESS-OBJECTIVES.template.md` |
-| docs/REQUIREMENTS.md | `~/.agent3d/templates/REQUIREMENTS.template.md` |
-| docs/USER-STORIES.md | `~/.agent3d/templates/USER-STORIES.template.md` |
-| docs/ACCEPTANCE-CRITERIA.md | `~/.agent3d/templates/ACCEPTANCE-CRITERIA.template.md` |
-| docs/FEATURES.md | `~/.agent3d/templates/FEATURES.template.md` |
-| docs/HIGH-LEVEL-DESIGN.md | `~/.agent3d/templates/HIGH-LEVEL-DESIGN.template.md` |
-| docs/TASKS.md | `~/.agent3d/templates/TASKS.template.md` |
-| docs/TEST-CASES.md | `~/.agent3d/templates/TEST-CASES.template.md` |
-| docs/DDD-STATUS.md | `~/.agent3d/templates/DDD-STATUS.template.md` |
-| docs/designs/*.md | `~/.agent3d/templates/DETAILED-DESIGN.template.md` |
-| docs/proposals/*.md | `~/.agent3d/templates/PROPOSAL.template.md` |
-| CHANGELOG.md | `~/.agent3d/templates/CHANGELOG.template.md` |
+### Template Path Pattern
+**Location:** `~/.agent3d/templates/`
+**Pattern:** `{DOCUMENT-NAME}.template.md`
+**Examples:** `FEATURES.template.md`, `HIGH-LEVEL-DESIGN.template.md`
 
 ## Standard DDD Workflow
 
