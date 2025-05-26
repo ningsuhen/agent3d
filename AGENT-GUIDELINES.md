@@ -24,6 +24,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 
 **Project Setup**: Configure project with `.agent3d-config.yml` in project root
 **DDD Pass**: Execute Scan → Draft → Ask → Sync, then commit with `DDD: <description>`
+**Getting Started**: New users can follow the [Quick Start Guide](docs/QUICK-START.md) for a short introduction.
 
 ### DDD Passes
 
@@ -106,6 +107,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 3. Follow `~/.agent3d/AGENT-GUIDELINES.md` (this file)
 4. Run DDD pass for missing/outdated documentation
 5. Favor integration tests over mocks
+6. **Update Guidelines Regularly:** Run `git -C ~/.agent3d pull origin main` to keep cached rules and templates current
 
 **Mental Memory Map Creation:**
 - **CRITICAL**: Before starting any work, create a comprehensive mental map of the Agent3D framework and project structure
