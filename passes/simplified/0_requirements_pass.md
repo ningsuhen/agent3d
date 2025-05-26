@@ -64,14 +64,8 @@
   - Requirements-to-features mapping framework
 
 ## Related Passes
-- **First Pass:** This is the initial pass that establishes business requirements
-- **Next:** [Foundation Pass](1_foundation_pass.md) - Project configuration follows requirements
-- **Informs:** All subsequent DDD passes based on requirements scope
-- **Templates:**
-  - `~/.agent3d/templates/REQUIREMENTS.template.md` - Main requirements documentation
-  - `~/.agent3d/templates/USER-STORIES.template.md` - User stories and personas
-  - `~/.agent3d/templates/ACCEPTANCE-CRITERIA.template.md` - Acceptance criteria
-  - `~/.agent3d/templates/BUSINESS-OBJECTIVES.template.md` - Business objectives and KPIs
+**Sequence:** Requirements → Foundation → Documentation → Implementation
+**Templates:** `~/.agent3d/templates/` (REQUIREMENTS, USER-STORIES, ACCEPTANCE-CRITERIA, BUSINESS-OBJECTIVES)
 
 ## Example Commit Message
 `DDD: Requirements Pass - Documented comprehensive requirements for user authentication system with stakeholder approval`

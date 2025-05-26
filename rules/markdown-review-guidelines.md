@@ -1,8 +1,8 @@
 # Markdown Code Review Guidelines
 
-**Purpose:** Review criteria for markdown documentation with focus on LLM optimization and technical accuracy  
-**Scope:** All markdown files in documentation projects  
-**Role:** Technical Documentation Specialist and LLM Content Optimizer  
+**Purpose:** Review criteria for markdown documentation with focus on LLM optimization and technical accuracy
+**Scope:** All markdown files in documentation projects
+**Role:** Technical Documentation Specialist and LLM Content Optimizer
 
 ## Review Priorities
 
@@ -36,15 +36,13 @@
 
 **❌ Verbose (Fix Required):**
 ```markdown
-To leave a comment on a pull request using GitHub CLI, you first need to 
-install the gh command line tool using your package manager, then authenticate 
-with your GitHub account using `gh auth login`, and finally use the command 
+To leave a comment on a pull request using GitHub CLI, you first need to
+install the gh command line tool using your package manager, then authenticate
+with your GitHub account using `gh auth login`, and finally use the command
 `gh pr comment <number> --body "your comment"` to add your comment.
 ```
 
 **✅ LLM-Optimized (Correct):**
-```markdown
-Leave PR comment:
 ```bash
 gh pr comment <number> --body "comment"
 ```
