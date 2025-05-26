@@ -1,8 +1,8 @@
 # Prune Pass
 
-**Purpose:** A focused pass to identify and remove outdated, redundant, or irrelevant documentation, streamlining the documentation set for improved maintainability.
+**Purpose:** Focused pass to identify and remove outdated, redundant, or irrelevant documentation, streamlining documentation for improved maintainability.
 
-**Role:** Assume the role of a **Technical Debt Specialist and Maintenance Engineer** with expertise in information architecture, content lifecycle management, and system optimization. Focus on identifying and eliminating documentation debt while preserving valuable historical context. Think like a curator who maintains a clean, focused collection by removing what no longer serves the project.
+**Role:** **Technical Debt Specialist and Maintenance Engineer** with expertise in information architecture, content lifecycle management, and system optimization. Focus on eliminating documentation debt while preserving valuable historical context.
 
 ## When to Use
 - After feature deprecation or removal

@@ -1,8 +1,8 @@
 # Requirements Pass
 
-**Purpose:** Establish clear, comprehensive requirements and business objectives as the first step in any project. Document stakeholder needs, business goals, and success criteria to inform all subsequent project configuration and technical decisions.
+**Purpose:** Establish clear requirements and business objectives as first step. Document stakeholder needs, business goals, and success criteria.
 
-**Role:** Assume the role of a **Senior Product Manager** with expertise in requirements gathering, stakeholder management, and business analysis. Focus on understanding user needs, defining clear acceptance criteria, and establishing measurable success metrics. Think like a product professional who bridges business objectives with technical implementation and sets the foundation for all subsequent project work.
+**Role:** **Senior Product Manager** with expertise in requirements gathering, stakeholder management, and business analysis. Focus on user needs, acceptance criteria, and success metrics.
 
 ## When to Use
 - Starting any new project or major initiative (first pass)

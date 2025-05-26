@@ -10,7 +10,7 @@ GitHub CLI integration for automated PR review workflows.
 
 ### Setup
 
-Install GitHub CLI and authenticate: `gh auth login`
+`gh auth login`
 
 ## PR Detection and Context
 
@@ -94,7 +94,7 @@ tests/test_auth.py:10:Add test case for invalid input handling
 
 ### Human Review Completion
 
-After automated comments are submitted in pending mode:
+After automated comments submitted in pending mode:
 
 ```bash
 # View pending review
@@ -106,7 +106,7 @@ gh pr review "$PR_NUMBER" --approve -b "LGTM after addressing automated comments
 # Complete review with changes requested
 gh pr review "$PR_NUMBER" --request-changes -b "Please address the issues noted in comments"
 
-# Add additional comments during review
+# Add additional comments
 gh pr review "$PR_NUMBER" --comment -b "Additional feedback after manual review"
 ```
 
@@ -125,7 +125,7 @@ gh pr view "$PR_NUMBER" --json mergeable,mergeStateStatus
 
 ## Fallback: No GitHub CLI Available
 
-When GitHub CLI is not available or not authenticated:
+When GitHub CLI not available or not authenticated:
 
 ### 1. Generate Review Report
 
@@ -163,9 +163,9 @@ EOF
 
 ### 2. Manual Review Process
 
-1. **Generate Report**: Create detailed review report using template above
+1. **Generate Report**: Create review report using template
 2. **Copy Comments**: Manually copy comments to GitHub PR interface
-3. **Submit Review**: Use GitHub web interface to submit review decision
+3. **Submit Review**: Use GitHub web interface to submit review
 
 ## Error Handling and Troubleshooting
 

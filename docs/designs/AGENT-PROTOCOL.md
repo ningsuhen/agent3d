@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document provides the detailed design specifications for the Agent Guideline Protocol, which enables LLM agents to acquire and synchronize DDD guidelines from remote repositories.
+Detailed design specifications for Agent Guideline Protocol enabling LLM agents to acquire and synchronize DDD guidelines from remote repositories.
 
 ## Component Architecture
 

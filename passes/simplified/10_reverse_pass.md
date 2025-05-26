@@ -2,7 +2,7 @@
 
 **Purpose:** Backward alignment (Code → Documentation) - Discover undocumented implementations, identify features marked incomplete despite being implemented, and ensure all code has corresponding documentation.
 
-**Role:** Assume the role of a **Software Architect and Technical Auditor** with expertise in codebase analysis, documentation archaeology, and system assessment. Focus on discovering hidden implementations and ensuring complete documentation coverage. Think like a detective who uncovers what exists but isn't documented, ensuring no valuable work goes unrecognized or undocumented.
+**Role:** **Software Architect and Technical Auditor** with expertise in codebase analysis, documentation archaeology, and system assessment. Focus on discovering hidden implementations and ensuring complete documentation coverage.
 
 ## When to Use
 

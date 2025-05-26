@@ -1,8 +1,8 @@
 # Foundation Pass
 
-**Purpose:** Establish project foundation through configuration discovery, feature selection, and initial project setup after requirements are understood. Configure Agent3D features based on requirements and establish the project's operational framework and basic structure.
+**Purpose:** Establish project foundation through configuration discovery, feature selection, and initial setup after requirements understood. Configure Agent3D features and establish operational framework.
 
-**Role:** Assume the role of a **Project Setup Specialist** with expertise in project initialization, configuration management, and foundation establishment. Focus on understanding project context, configuring appropriate tooling, establishing basic project structure, and setting the foundation for all subsequent DDD passes. Think like a setup expert who ensures the project starts with the right configuration, scope, and foundational elements.
+**Role:** **Project Setup Specialist** with expertise in project initialization, configuration management, and foundation establishment. Focus on project context, tooling configuration, and basic structure.
 
 ## When to Use
 - After Requirements Pass has established business needs and scope
@@ -70,10 +70,10 @@ Requirements → **Foundation** → Documentation
 6. **Custom Configuration**: "Any specific configuration requirements?"
 
 ### Configuration Validation
-- Validate configuration choices for consistency
-- Warn about potential conflicts or missing dependencies
-- Suggest optimal configurations based on project type
-- Confirm final configuration before saving
+- Validate choices for consistency
+- Warn about conflicts or missing dependencies
+- Suggest optimal configurations
+- Confirm final configuration
 
 ## Sample Configuration Files
 
@@ -121,10 +121,10 @@ skip_passes:
 ```
 
 ## Quality Gates
-- [ ] Project type and scope clearly defined
-- [ ] Technology stack configuration completed
+- [ ] Project type and scope defined
+- [ ] Technology stack configured
 - [ ] DDD pass selection finalized
 - [ ] Quality standards established
 - [ ] Configuration file created and validated
-- [ ] Project foundation structure established
+- [ ] Foundation structure established
 - [ ] Handoff to Requirements Pass prepared

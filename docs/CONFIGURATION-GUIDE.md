@@ -1,12 +1,12 @@
 # Configuration Guide
 
-This document explains how to configure and customize Agent3D for specific project needs using `.agent3d-config.yml` as the primary configuration file.
+Configure Agent3D for specific project needs using `.agent3d-config.yml`.
 
 ## Pass Configuration
 
 ### Default Pass Settings
 
-Each DDD pass has configurable settings that can be customized:
+DDD pass configurable settings:
 
 **Foundation Pass:**
 ```yaml
