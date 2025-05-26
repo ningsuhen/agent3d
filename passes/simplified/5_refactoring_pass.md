@@ -13,39 +13,13 @@
 - When preparing for a major release
 
 ## Process
-1. **Scan:**
-   - **Repository-Wide Review:** Examine entire repository structure for optimization opportunities
-   - **Documentation Analysis:** Review all documentation for redundancy, overlap, and clarity issues
-   - **Code Quality Assessment:** Identify code smells, technical debt, and maintainability issues
-   - **DRY Principle Audit:** Find duplicated code, documentation, and configuration patterns
-   - **Modularization Opportunities:** Identify components that can be combined or split for better organization
-   - **Performance Bottlenecks:** Analyze code and documentation for performance issues
-   - **Architectural Alignment:** Review overall structure and design consistency
+**STANDARD WORKFLOW:** Follow [Common Procedures - Standard DDD Workflow](../docs/COMMON-PROCEDURES.md#standard-ddd-workflow)
 
-2. **Draft:**
-   - **Consolidation Plan:** Document which files/modules can be combined for clarity and brevity
-   - **Modularization Strategy:** Plan how to restructure components for better organization
-   - **DRY Implementation:** Design approach to eliminate duplication across code and documentation
-   - **LLM Compression Strategy:** Identify verbose explanations of basic tasks that can be compressed for LLM consumption
-   - **Refactoring Priorities:** Rank improvements by impact and risk
-   - **Verification Approach:** Plan how to ensure functionality is preserved during changes
-   - **Documentation Streamlining:** Identify redundant documentation sections to merge or remove
-
-3. **Ask:**
-   - **Consolidation Approval:** Confirm which files/modules should be combined
-   - **Structural Changes:** Verify proposed modularization and reorganization
-   - **DRY Implementation:** Validate approach to eliminate duplication
-   - **Priority Alignment:** Ensure refactoring priorities match project goals
-   - **Breaking Changes:** Discuss any changes that might affect existing workflows
-
-4. **Sync:**
-   - **Incremental Implementation:** Apply refactoring changes in small, testable increments
-   - **DRY Enforcement:** Eliminate identified duplication across code and documentation
-   - **LLM Compression Implementation:** Remove verbose explanations, keeping only essential commands and concepts
-   - **Modular Restructuring:** Implement planned consolidation and modularization
-   - **Testing Verification:** Run all tests to ensure functionality is preserved
-   - **Documentation Updates:** Update all affected documentation to reflect changes
-   - **Cross-Reference Validation:** Ensure all links and references remain functional
+**REFACTORING-SPECIFIC FOCUS:**
+1. **Scan:** Repository-wide DRY audit, modularization opportunities, LLM compression targets
+2. **Draft:** Consolidation plan, DRY implementation strategy, compression approach
+3. **Ask:** Structural changes approval, priority alignment, breaking change discussion
+4. **Sync:** Incremental implementation, duplication elimination, testing verification
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
@@ -103,59 +77,21 @@
 - **Command Simplification:** Replace verbose command explanations with concise references
 - **Essential Information Only:** Keep only commands, parameters, and project-specific details
 
-## Verification Approach
-- Run all existing tests to ensure functionality is preserved
-- Verify performance metrics before and after changes
-- Review changes with team members
-- Ensure documentation remains accurate
-- Validate that all requirements are still met
-
 ## Guidelines
+**UNIVERSAL STANDARDS:** Follow [Common Procedures - Quality Standards](../docs/COMMON-PROCEDURES.md#quality-standards)
 
-### Repository Review Principles
-- **Comprehensive Audit:** Review every file in the repository for optimization opportunities
-- **DRY Enforcement:** Eliminate all forms of duplication (code, documentation, configuration)
-- **Modular Thinking:** Always consider if components can be combined or split for better clarity
-- **Brevity Focus:** Prioritize concise, clear communication over verbose explanations
-
-### Implementation Approach
-- **Incremental Changes:** Make small, testable changes with frequent verification
-- **One Area at a Time:** Focus on specific components to avoid overwhelming changes
-- **Backward Compatibility:** Maintain existing functionality and interfaces
-- **No Feature Addition:** Strictly refactor without adding new functionality
-- **Reversible Changes:** Keep changes easily reversible when possible
-
-### Quality Standards
-- **Documentation Consistency:** Ensure uniform style and structure across all documentation
-- **Code Standards:** Follow language-specific rules and best practices consistently
-- **Architectural Alignment:** Maintain consistency with overall system design
-- **Performance Mindset:** Always consider performance implications of changes
-- **Testing Preservation:** Ensure all existing tests continue to pass
-
-### Validation Requirements
-- **Functionality Verification:** All existing functionality must remain intact
-- **Performance Measurement:** Track performance metrics before and after changes
-- **Documentation Accuracy:** Ensure all documentation reflects actual implementation
-- **Cross-Reference Integrity:** Validate that all links and references remain functional
+**REFACTORING PRINCIPLES:**
+- **DRY Enforcement:** Eliminate all duplication (code, documentation, configuration)
+- **Incremental Changes:** Small, testable changes with frequent verification
+- **Functionality Preservation:** All existing functionality must remain intact
+- **Performance Mindset:** Consider performance implications of all changes
 
 ## LLM Documentation Compression Guidelines
 
 ### Language-Specific Compression Rules
-For detailed compression guidelines and examples, refer to language-specific rules:
+**REFERENCE:** See [Language-Specific Rules](../../AGENT-GUIDELINES.md#language-specific-rules) for compression guidelines
 
-- **Markdown Projects:** See `~/.agent3d/rules/markdown.md` for comprehensive LLM optimization rules
-- **Python Projects:** See `~/.agent3d/rules/python.md` for Python-specific compression guidelines
-- **JavaScript Projects:** See `~/.agent3d/rules/javascript.md` for JS/TS compression rules
-- **Other Languages:** Apply general principles with language-appropriate adaptations
-
-### General Compression Principles
-- **Assume LLM Competency:** LLMs understand standard development tools and practices
-- **Focus on Specifics:** Keep project-specific details, remove generic explanations
-- **Command-Centric:** Provide commands and parameters, not installation or basic usage instructions
-- **Context-Aware:** Maintain enough context for task completion without verbose explanations
-
-### Compression Application
-1. **Review Current Content:** Identify verbose explanations of standard tasks
-2. **Apply Language Rules:** Use appropriate language-specific compression guidelines
-3. **Preserve Essentials:** Keep commands, project-specific details, and critical warnings
-4. **Validate Functionality:** Ensure compressed content remains actionable and complete
+**COMPRESSION PRINCIPLES:**
+- **Assume LLM Competency:** Remove explanations of standard development tools
+- **Command-Centric:** Provide commands/parameters, not installation instructions
+- **Project-Specific Focus:** Keep project details, remove generic explanations

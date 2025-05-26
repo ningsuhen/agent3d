@@ -122,101 +122,38 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 
 ## LLM Memory Optimization Framework
 
-### Core Memory Map (Memorize These)
-**CRITICAL: Internalize these patterns to avoid file lookups during execution**
+### Core Memory Map (MEMORIZE)
+**CRITICAL:** Internalize these patterns to avoid file lookups during execution
 
-**1. Pass Execution Pattern (Universal):**
-```
-SCAN → DRAFT → ASK → SYNC
-```
+| Component | Pattern |
+|-----------|---------|
+| **Execution** | SCAN → DRAFT → ASK → SYNC |
+| **Sequence** | REQ → FOUND → DOC → IMPL → TEST → REFACT → REVIEW → SYNC → QUAL → PRUNE → REV |
+| **Files** | CONFIG(.agent3d-config.yml), DOCS(docs/), RULES(~/.agent3d/rules/), TEMPLATES(~/.agent3d/templates/) |
+| **Quality Gates** | Requirements(objectives), Foundation(config), Documentation(criteria), Implementation(matches), Testing(passes), Review(rules) |
 
-**2. Pass Sequence (0-10):**
-```
-REQ → FOUND → DOC → IMPL → TEST → REFACT → REVIEW → SYNC → QUAL → PRUNE → REV
-```
+**DETAILED PROCEDURES:** See [Common Procedures](docs/COMMON-PROCEDURES.md) for all standards and workflows
 
-**3. File Locations (Memorize):**
-```
-CONFIG: .agent3d-config.yml (project root)
-DOCS: docs/REQUIREMENTS.md, docs/FEATURES.md, docs/TASKS.md, docs/DDD-STATUS.md
-RULES: ~/.agent3d/rules/[language].md
-TEMPLATES: ~/.agent3d/templates/[document].template.md
-```
+### Speed Optimization (MEMORIZE)
 
-**4. Pass Relationships (Memorize):**
-- **Sequential**: REQ→FOUND→DOC→IMPL (must follow order)
-- **Iterative**: TEST↔REFACT↔REVIEW (can repeat)
-- **Maintenance**: SYNC→QUAL→PRUNE→REV (cleanup cycle)
-
-**5. Quality Gates (Memorize):**
-- Requirements: Business objectives documented
-- Foundation: Configuration complete
-- Documentation: Features with acceptance criteria
-- Implementation: Code matches documentation
-- Testing: All tests pass
-- Review: Language rules enforced
-
-### Speed Optimization Patterns (Memorize)
-
-**1. Configuration Quick Check:**
+**CONFIGURATION STRUCTURE:**
 ```yaml
-# .agent3d-config.yml structure (memorize)
 project: {type, language, quality_level}
 enabled_passes: [list]
 pass_config: {specific settings}
 ```
 
-**2. Document Status Patterns:**
-```
-[x] = Complete with evidence
-[~] = In progress
-[ ] = Not started
-```
+**STATUS PATTERNS:** `[x]` = Complete, `[~]` = In progress, `[ ]` = Not started
 
-**3. Language Rule Shortcuts:**
-- **Markdown**: LLM compression, command-first, no verbose explanations
-- **Python**: Type hints, docstrings, pytest, black formatting
-- **JavaScript**: ESLint, TypeScript preferred, Jest testing
-- **Java**: Spring patterns, JUnit, Maven/Gradle
-- **Go**: gofmt, standard library preferred, table tests
+**LANGUAGE SHORTCUTS:** See [Common Procedures - Language Rules](docs/COMMON-PROCEDURES.md#language-specific-rules-speed-optimized)
 
-### Execution Speed Optimizations
-
-**1. Memory-First Approach:**
+**EXECUTION RULES:**
 - **NEVER** look up pass definitions during execution
-- **MEMORIZE** SCAN→DRAFT→ASK→SYNC pattern
-- **INTERNALIZE** quality gates and completion criteria
 - **CACHE** language rules in working memory
+- **MINIMIZE** template/rule file access
+- **FIRST** check .agent3d-config.yml, **THEN** target documents
 
-**2. File Access Patterns (Minimize Lookups):**
-```
-FIRST: Check .agent3d-config.yml (project context)
-THEN: Read target documents (REQUIREMENTS.md, FEATURES.md, etc.)
-AVOID: Repeated template/rule file access
-CACHE: Language-specific patterns in memory
-```
-
-**3. Decision Trees (Memorize):**
-```
-Pass Selection:
-- Missing requirements? → Requirements Pass
-- No config? → Foundation Pass
-- Features unclear? → Documentation Pass
-- Code needed? → Implementation Pass
-- Tests failing? → Testing Pass
-- Code messy? → Refactoring Pass
-- Quality issues? → Code Review Pass
-```
-
-**4. Quick Validation Patterns:**
-```
-Requirements: Business objectives exist?
-Foundation: .agent3d-config.yml complete?
-Documentation: Features have acceptance criteria?
-Implementation: Code matches docs?
-Testing: All tests pass?
-Review: Language rules followed?
-```
+**DECISION TREE:** Missing requirements→Requirements Pass, No config→Foundation Pass, Features unclear→Documentation Pass, etc.
 
 **References:**
 - [Common Procedures](docs/COMMON-PROCEDURES.md) - All standards and procedures

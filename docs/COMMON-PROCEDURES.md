@@ -142,20 +142,24 @@ All DDD passes follow the same 4-step workflow:
 
 ## Language-Specific Rules (Speed Optimized)
 
-### Memory-Cached Rules
-**MEMORIZE these patterns instead of file lookups:**
+### Memory-Cached Patterns
+**CRITICAL:** MEMORIZE these core patterns to avoid file lookups:
 
-- **Markdown:** LLM compression, command-first, no verbose explanations
-- **Python:** Type hints, docstrings, pytest, black formatting
-- **JavaScript:** ESLint, TypeScript preferred, Jest testing
-- **Java:** Spring patterns, JUnit, Maven/Gradle
-- **Go:** gofmt, standard library preferred, table tests
+| Language | Key Patterns |
+|----------|-------------|
+| **Markdown** | LLM compression, command-first, no verbose explanations |
+| **Python** | Type hints, docstrings, pytest, pyproject.toml, black formatting |
+| **JavaScript** | ESLint, TypeScript preferred, Jest testing, modern ES6+ |
+| **Java** | Spring patterns, JUnit, Maven/Gradle, SOLID principles |
+| **Go** | gofmt, standard library preferred, table tests, idioms |
 
-### Rule Application (Fast)
-1. **Cache on First Use**: Load language rules once per session
-2. **Memory Application**: Apply cached patterns without file access
-3. **Quick Validation**: Use memorized quality gates
-4. **No Repeated Lookups**: Store language patterns in working memory
+### Speed Optimization Rules
+1. **Cache on First Use:** Load language rules once per session
+2. **Memory Application:** Apply cached patterns without file access
+3. **Quick Validation:** Use memorized quality gates
+4. **No Repeated Lookups:** Store language patterns in working memory
+
+**REFERENCE:** Full rules at [Language-Specific Rules](../AGENT-GUIDELINES.md#language-specific-rules)
 
 ## DDD Status Management
 

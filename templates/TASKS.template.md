@@ -54,11 +54,4 @@
 - [x] {{completed_task_name}} - {{completion_description}}
 </template>
 
-**EXAMPLE:** See the actual TASKS.md file in the local repository: `~/.agent3d/docs/TASKS.md`
-
-**VALIDATION CHECKLIST:**
-- [ ] All universal validation rules from [Common Procedures](../docs/COMMON-PROCEDURES.md#common-validation-checklist) are met
-- [ ] Tasks are prioritized correctly based on impact and urgency
-- [ ] Each task has a clear, actionable description
-- [ ] Tasks are grouped by functional area within each priority level
-- [ ] Completed tasks are moved to the Completed section with appropriate grouping
+**VALIDATION:** See [Base Template System](BASE.template.md#universal-validation-rules) + Correct prioritization + Clear descriptions + Functional grouping + Completed tasks properly moved

@@ -39,9 +39,4 @@
 - {{status}} {{feature_name}} - {{brief_description}} (Criteria: {{acceptance_criteria}})
 </template>
 
-**EXAMPLE:** See the actual FEATURES.md file in the local repository: `~/.agent3d/docs/FEATURES.md`
-
-**VALIDATION:**
-- [ ] Universal rules from [Common Procedures](../docs/COMMON-PROCEDURES.md#common-validation-checklist)
-- [ ] Format: `- [status] feature_name - description (Criteria: <criteria>)`
-- [ ] Acceptance criteria included for all features
+**VALIDATION:** See [Base Template System](BASE.template.md#universal-validation-rules) + Format: `- [status] feature_name - description (Criteria: <criteria>)` + Acceptance criteria for all features
