@@ -22,7 +22,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 | **Ask** | Clarify gaps and decisions | Provide input |
 | **Sync** | Implement code matching docs | Review & approve |
 
-**Project Setup**: Establish project root by finding or creating `.agent3d` file, configure project with `.agent3d-config.yml`
+**Project Setup**: Configure project with `.agent3d-config.yml` in project root
 **DDD Pass**: Execute Scan → Draft → Ask → Sync, then commit with `DDD: <description>`
 
 ### DDD Passes
@@ -101,17 +101,122 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 ## Agent Instructions
 
 **Workflow:**
-1. Establish project root (`.agent3d` file)
-2. Configure project (`.agent3d-config.yml` file)
+1. **Create Mental Memory Map:** Build comprehensive understanding of Agent3D framework and project structure
+2. Configure project (`.agent3d-config.yml` file in project root)
 3. Follow `~/.agent3d/AGENT-GUIDELINES.md` (this file)
 4. Run DDD pass for missing/outdated documentation
 5. Favor integration tests over mocks
+
+**Mental Memory Map Creation:**
+- **CRITICAL**: Before starting any work, create a comprehensive mental map of the Agent3D framework and project structure
+- **Framework Understanding**: Map out DDD passes, their relationships, and when to use each
+- **Project Context**: Understand project type, configuration, enabled passes, and documentation structure
+- **Resource Mapping**: Know locations of templates, rules, procedures, and key documentation
+- **Workflow Integration**: Understand how framework components work together for effective project execution
 
 **Question Protocol:**
 - **CRITICAL**: When asking user questions, ask ONE question at a time
 - Wait for user response before asking the next question
 - Do not present multiple questions in a single interaction
 - This applies to all passes, especially Foundation Pass configuration
+
+## LLM Memory Optimization Framework
+
+### Core Memory Map (Memorize These)
+**CRITICAL: Internalize these patterns to avoid file lookups during execution**
+
+**1. Pass Execution Pattern (Universal):**
+```
+SCAN → DRAFT → ASK → SYNC
+```
+
+**2. Pass Sequence (0-10):**
+```
+REQ → FOUND → DOC → IMPL → TEST → REFACT → REVIEW → SYNC → QUAL → PRUNE → REV
+```
+
+**3. File Locations (Memorize):**
+```
+CONFIG: .agent3d-config.yml (project root)
+DOCS: docs/REQUIREMENTS.md, docs/FEATURES.md, docs/TASKS.md, docs/DDD-STATUS.md
+RULES: ~/.agent3d/rules/[language].md
+TEMPLATES: ~/.agent3d/templates/[document].template.md
+```
+
+**4. Pass Relationships (Memorize):**
+- **Sequential**: REQ→FOUND→DOC→IMPL (must follow order)
+- **Iterative**: TEST↔REFACT↔REVIEW (can repeat)
+- **Maintenance**: SYNC→QUAL→PRUNE→REV (cleanup cycle)
+
+**5. Quality Gates (Memorize):**
+- Requirements: Business objectives documented
+- Foundation: Configuration complete
+- Documentation: Features with acceptance criteria
+- Implementation: Code matches documentation
+- Testing: All tests pass
+- Review: Language rules enforced
+
+### Speed Optimization Patterns (Memorize)
+
+**1. Configuration Quick Check:**
+```yaml
+# .agent3d-config.yml structure (memorize)
+project: {type, language, quality_level}
+enabled_passes: [list]
+pass_config: {specific settings}
+```
+
+**2. Document Status Patterns:**
+```
+[x] = Complete with evidence
+[~] = In progress
+[ ] = Not started
+```
+
+**3. Language Rule Shortcuts:**
+- **Markdown**: LLM compression, command-first, no verbose explanations
+- **Python**: Type hints, docstrings, pytest, black formatting
+- **JavaScript**: ESLint, TypeScript preferred, Jest testing
+- **Java**: Spring patterns, JUnit, Maven/Gradle
+- **Go**: gofmt, standard library preferred, table tests
+
+### Execution Speed Optimizations
+
+**1. Memory-First Approach:**
+- **NEVER** look up pass definitions during execution
+- **MEMORIZE** SCAN→DRAFT→ASK→SYNC pattern
+- **INTERNALIZE** quality gates and completion criteria
+- **CACHE** language rules in working memory
+
+**2. File Access Patterns (Minimize Lookups):**
+```
+FIRST: Check .agent3d-config.yml (project context)
+THEN: Read target documents (REQUIREMENTS.md, FEATURES.md, etc.)
+AVOID: Repeated template/rule file access
+CACHE: Language-specific patterns in memory
+```
+
+**3. Decision Trees (Memorize):**
+```
+Pass Selection:
+- Missing requirements? → Requirements Pass
+- No config? → Foundation Pass
+- Features unclear? → Documentation Pass
+- Code needed? → Implementation Pass
+- Tests failing? → Testing Pass
+- Code messy? → Refactoring Pass
+- Quality issues? → Code Review Pass
+```
+
+**4. Quick Validation Patterns:**
+```
+Requirements: Business objectives exist?
+Foundation: .agent3d-config.yml complete?
+Documentation: Features have acceptance criteria?
+Implementation: Code matches docs?
+Testing: All tests pass?
+Review: Language rules followed?
+```
 
 **References:**
 - [Common Procedures](docs/COMMON-PROCEDURES.md) - All standards and procedures
