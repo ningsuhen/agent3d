@@ -1,8 +1,8 @@
 # Markdown Development Rules
 
-**Language:** Markdown  
-**Purpose:** Documentation-focused development with LLM optimization  
-**Scope:** Documentation projects, technical writing, and LLM-consumed content  
+**Language:** Markdown
+**Purpose:** Documentation-focused development with LLM optimization
+**Scope:** Documentation projects, technical writing, and LLM-consumed content
 
 ## Core Principles
 
@@ -77,8 +77,8 @@ Every markdown file should start with:
 ### Examples of Compression
 **Before (Verbose):**
 ```markdown
-To create a new branch, you need to use git checkout with the -b flag. 
-This will create and switch to a new branch. Run the following command 
+To create a new branch, you need to use git checkout with the -b flag.
+This will create and switch to a new branch. Run the following command
 where feature-name should be descriptive of your changes:
 ```
 
@@ -171,12 +171,136 @@ Common variables across markdown documents:
 - Link validation
 - Spell checking
 - Template compliance
+- Mermaid diagram syntax validation
+- Code block language specification
+- Heading hierarchy validation
 
 ### Manual Review
 - Content accuracy verification
 - LLM optimization review
 - Cross-reference validation
 - Consistency checking
+
+## Markdown Rendering Validation
+
+### Critical Rendering Issues (Must Fix)
+
+#### Mermaid Diagram Validation
+- [ ] **Syntax Correctness:** All mermaid diagrams use valid syntax
+- [ ] **Proper Fencing:** Mermaid blocks use ````mermaid` with language specification
+- [ ] **Node Naming:** Use consistent node naming (A, B, C... or descriptive names)
+- [ ] **Arrow Syntax:** Use correct arrow syntax (`-->`, `-.->`, `==>`)
+- [ ] **Diagram Types:** Verify diagram type matches content (graph, sequenceDiagram, etc.)
+
+#### Code Block Validation
+- [ ] **Language Specification:** All code blocks specify language (````bash`, ````yaml`, etc.)
+- [ ] **Consistent Fencing:** Use triple backticks (````), not single or double
+- [ ] **Proper Indentation:** Code blocks maintain consistent indentation
+- [ ] **Syntax Highlighting:** Language tags enable proper syntax highlighting
+
+#### Link Validation
+- [ ] **Relative Path Accuracy:** Internal links use correct relative paths
+- [ ] **Anchor Link Format:** Section links use proper `#heading-format`
+- [ ] **External Link Validity:** All external URLs are accessible
+- [ ] **Reference Link Format:** Reference-style links properly formatted
+
+#### Table Validation
+- [ ] **Pipe Alignment:** Table pipes (`|`) properly aligned
+- [ ] **Header Separation:** Tables include header separator row
+- [ ] **Cell Content:** No empty cells without explicit spacing
+- [ ] **Consistent Columns:** All rows have same number of columns
+
+### High Priority Rendering Issues
+
+#### Heading Structure
+- [ ] **Hierarchy Compliance:** No skipped heading levels (H1 → H2 → H3)
+- [ ] **Unique Anchors:** Heading text creates unique anchor links
+- [ ] **Navigation Clarity:** Headings work as standalone navigation
+- [ ] **Length Limits:** Headings under 60 characters for readability
+
+#### List Formatting
+- [ ] **Consistent Bullets:** Use `-` for unordered lists throughout
+- [ ] **Proper Nesting:** Nested lists use 2-space indentation
+- [ ] **Task List Format:** Checkboxes use `- [ ]` and `- [x]` format
+- [ ] **Mixed List Avoidance:** Don't mix ordered and unordered in same context
+
+#### Special Characters
+- [ ] **HTML Entity Usage:** Use HTML entities for special characters when needed
+- [ ] **Escape Characters:** Properly escape markdown special characters
+- [ ] **Unicode Handling:** Ensure unicode characters render correctly
+- [ ] **Emoji Consistency:** Use consistent emoji format (unicode vs shortcodes)
+
+### Medium Priority Rendering Issues
+
+#### Emphasis and Formatting
+- [ ] **Bold/Italic Syntax:** Use `**bold**` and `*italic*` consistently
+- [ ] **Inline Code Format:** Use single backticks for inline code
+- [ ] **Strikethrough Format:** Use `~~text~~` for strikethrough
+- [ ] **Consistent Emphasis:** Apply emphasis consistently across documents
+
+#### Image and Media
+- [ ] **Alt Text Presence:** All images include descriptive alt text
+- [ ] **Path Accuracy:** Image paths are correct and accessible
+- [ ] **Size Considerations:** Images are appropriately sized for context
+- [ ] **Format Support:** Use widely supported image formats (PNG, JPG, SVG)
+
+#### Blockquotes and Callouts
+- [ ] **Quote Formatting:** Use `>` for blockquotes consistently
+- [ ] **Nested Quotes:** Properly format nested blockquotes
+- [ ] **Callout Syntax:** Use consistent callout formatting if supported
+- [ ] **Attribution Format:** Properly attribute quoted content
+
+### Rendering Compatibility
+
+#### GitHub Flavored Markdown
+- [ ] **GFM Compliance:** Follow GitHub Flavored Markdown specifications
+- [ ] **Table Support:** Use GFM table syntax
+- [ ] **Task List Support:** Use GFM task list format
+- [ ] **Syntax Highlighting:** Use GFM supported language identifiers
+
+#### Cross-Platform Compatibility
+- [ ] **Standard Compliance:** Follow CommonMark specification
+- [ ] **Parser Compatibility:** Test with multiple markdown parsers
+- [ ] **Mobile Rendering:** Ensure content renders well on mobile devices
+- [ ] **Accessibility:** Follow accessibility guidelines for markdown content
+
+### Mermaid Diagram Best Practices
+
+#### Diagram Syntax Rules
+```markdown
+# Correct Mermaid Syntax Examples
+
+## Graph Diagrams
+```mermaid
+graph TD
+    A[Start] --> B{Decision}
+    B -->|Yes| C[Action 1]
+    B -->|No| D[Action 2]
+```
+
+## Sequence Diagrams
+```mermaid
+sequenceDiagram
+    participant A as Actor
+    participant B as System
+    A->>B: Request
+    B-->>A: Response
+```
+
+## Flowcharts
+```mermaid
+flowchart LR
+    A[Input] --> B[Process]
+    B --> C[Output]
+```
+```
+
+#### Common Mermaid Errors to Avoid
+- **Missing Language Tag:** Always use ````mermaid`
+- **Invalid Node Names:** Use alphanumeric characters for node IDs
+- **Incorrect Arrow Syntax:** Use `-->` for solid, `-.->` for dashed arrows
+- **Malformed Participant Names:** Use valid identifiers in sequence diagrams
+- **Syntax Mixing:** Don't mix different diagram syntaxes in one block
 
 ## Common Anti-Patterns
 
@@ -193,6 +317,45 @@ Common variables across markdown documents:
 - **Assumed Knowledge:** Build on standard development knowledge
 - **Consistent Patterns:** Follow established documentation structure
 
+## Rendering Validation Checklist
+
+### Pre-Commit Validation
+Before committing any markdown changes, verify:
+
+- [ ] **Mermaid Diagrams Render:** All diagrams display correctly in GitHub preview
+- [ ] **Code Blocks Highlight:** All code blocks show proper syntax highlighting
+- [ ] **Links Function:** All internal and external links work correctly
+- [ ] **Tables Display:** All tables render with proper alignment
+- [ ] **Headings Navigate:** All headings create proper anchor links
+- [ ] **Lists Format:** All lists display with consistent formatting
+- [ ] **Images Load:** All images display with proper alt text
+- [ ] **Special Characters:** All special characters render correctly
+
+### Cross-Platform Testing
+Test markdown rendering across:
+
+- [ ] **GitHub Web Interface:** Primary rendering target
+- [ ] **GitHub Mobile App:** Mobile compatibility
+- [ ] **VS Code Preview:** Development environment preview
+- [ ] **Common Markdown Parsers:** Pandoc, CommonMark, etc.
+
+### Accessibility Validation
+Ensure markdown content is accessible:
+
+- [ ] **Alt Text Present:** All images have descriptive alt text
+- [ ] **Heading Structure:** Logical heading hierarchy for screen readers
+- [ ] **Link Context:** Link text is descriptive and meaningful
+- [ ] **Color Independence:** Information not conveyed by color alone
+- [ ] **Keyboard Navigation:** All interactive elements are keyboard accessible
+
+### Performance Considerations
+Optimize markdown for performance:
+
+- [ ] **Image Optimization:** Images are appropriately sized and compressed
+- [ ] **Diagram Complexity:** Mermaid diagrams are not overly complex
+- [ ] **File Size:** Markdown files are reasonably sized for quick loading
+- [ ] **External Dependencies:** Minimize external resource dependencies
+
 ---
 
-**Usage:** Apply these rules during Documentation Pass, Refactoring Pass, and Code Review Pass for all markdown content.
+**Usage:** Apply these rules during Documentation Pass, Refactoring Pass, and Code Review Pass for all markdown content. Use the rendering validation checklist before committing any markdown changes to ensure proper display across all platforms.
