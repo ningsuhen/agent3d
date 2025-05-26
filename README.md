@@ -28,6 +28,10 @@ The core principle is simple: **"Write the docs, then write the code—keep it l
 3. **Speed Execution**: Use memory-cached patterns to minimize file lookups
 4. Follow DDD passes in sequence
 
+## Quick Start
+
+If you are new to Agent3D, the [Quick Start Guide](docs/QUICK-START.md) provides a short walkthrough of the essential steps: cloning the repository, configuring your project, running the core workflow, and keeping your guidelines synchronized.
+
 ## Agent Guideline Protocol
 
 The Agent Guideline Protocol is the **entry point** for the Agent3D system. It contains the only hardcoded repository URL in the system, which is necessary since agents start without any repository access.
@@ -114,6 +118,8 @@ Additionally, a **Full Pass** encompasses all of the above passes for comprehens
 - **[Advanced Features Guide](docs/ADVANCED-FEATURES.md)**: Sophisticated capabilities and power-user features
 - **[Configuration Guide](docs/CONFIGURATION-GUIDE.md)**: Customization and project-specific settings
 - **[GitHub CLI Integration](docs/GITHUB-CLI-INTEGRATION.md)**: Automated PR review workflows
+- **[Alternative Platform Integration](docs/OTHER-PLATFORMS-INTEGRATION.md)**: Tips for GitLab and Bitbucket users
+- **[Rapid Prototyping Workflow](docs/RAPID-PROTOTYPING.md)**: Experimental features with retroactive documentation
 
 
 
