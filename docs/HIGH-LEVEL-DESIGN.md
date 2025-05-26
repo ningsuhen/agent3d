@@ -47,26 +47,28 @@ The DDD Pass System provides a structured approach to documentation-driven devel
 
 ```mermaid
 graph LR
-    A[Foundation Pass] --> B[Documentation Pass]
-    B --> C[Implementation Pass]
-    C --> D[Testing Pass]
-    D --> E[Refactoring Pass]
-    E --> F[Code Review Pass]
-    F --> G[Synchronization Pass]
-    G --> H[Quality Pass]
-    H --> I[Prune Pass]
-    I --> K[Reverse Pass]
+    A[Requirements Pass] --> B[Foundation Pass]
+    B --> C[Documentation Pass]
+    C --> D[Implementation Pass]
+    D --> E[Testing Pass]
+    E --> F[Refactoring Pass]
+    F --> G[Code Review Pass]
+    G --> H[Synchronization Pass]
+    H --> I[Quality Pass]
+    I --> J[Prune Pass]
+    J --> K[Reverse Pass]
 
-    J[Full Pass] -.-> A
-    J -.-> B
-    J -.-> C
-    J -.-> D
-    J -.-> E
-    J -.-> F
-    J -.-> G
-    J -.-> H
-    J -.-> I
-    J -.-> K
+    L[Full Pass] -.-> A
+    L -.-> B
+    L -.-> C
+    L -.-> D
+    L -.-> E
+    L -.-> F
+    L -.-> G
+    L -.-> H
+    L -.-> I
+    L -.-> J
+    L -.-> K
 ```
 
 Each pass follows the Scan → Draft → Ask → Sync workflow:
