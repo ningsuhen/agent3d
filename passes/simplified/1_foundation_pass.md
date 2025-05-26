@@ -35,9 +35,8 @@
      - Enable/disable specific language rules
      - Configure quality thresholds and validation levels
    - **Foundation Setup**: Create basic project structure:
-     - Create `.agent3d-config.yml` with selected configuration
+     - Create `.agent3d-config.yml` with selected configuration in project root
      - Establish `docs/` directory structure
-     - Create initial `.agent3d` project marker file
      - Set up basic project foundation files
 
 3. **Ask:**

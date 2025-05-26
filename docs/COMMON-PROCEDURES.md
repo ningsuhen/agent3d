@@ -2,6 +2,32 @@
 
 This document centralizes all common procedures used across DDD passes to eliminate duplication and ensure consistency.
 
+## LLM Speed Optimization
+
+### Memory-First Execution
+**Purpose:** Minimize file lookups by memorizing critical patterns and structures
+
+**Critical Requirement:** MEMORIZE these patterns to avoid repeated file access during execution
+
+**Core Memory Patterns:**
+1. **Pass Execution (Universal):** SCAN → DRAFT → ASK → SYNC
+2. **Pass Sequence:** REQ → FOUND → DOC → IMPL → TEST → REFACT → REVIEW → SYNC → QUAL → PRUNE → REV
+3. **File Locations:** CONFIG(.agent3d-config.yml), DOCS(docs/), RULES(~/.agent3d/rules/), TEMPLATES(~/.agent3d/templates/)
+4. **Quality Gates:** Requirements(objectives), Foundation(config), Documentation(criteria), Implementation(matches), Testing(passes), Review(rules)
+
+**Speed Optimization Rules:**
+- **NEVER** look up pass definitions during execution
+- **CACHE** language rules in working memory
+- **MINIMIZE** template file access
+- **INTERNALIZE** validation patterns
+- **MEMORIZE** decision trees for pass selection
+
+**File Access Priority:**
+1. **FIRST:** .agent3d-config.yml (project context)
+2. **THEN:** Target documents (REQUIREMENTS.md, FEATURES.md, etc.)
+3. **AVOID:** Repeated rule/template lookups
+4. **CACHE:** Language patterns in memory
+
 ## Repository Management
 
 ### Repository Update
@@ -9,26 +35,19 @@ This document centralizes all common procedures used across DDD passes to elimin
 **Purpose:** Ensure local Agent3D repository is current before any DDD work
 **Usage:** Execute at the start of every DDD pass
 
-### Project Root Establishment
-**Purpose:** Establish project root directory for all DDD documentation
+### Project Root Establishment (Speed Optimized)
+**Purpose:** Quickly identify project root and cache context
 
-**Process:**
-1. **Search for `.agent3d` file**: Look for `.agent3d` file starting from current directory, traversing up parent directories
-2. **If found**: Use the directory containing `.agent3d` as project root
-3. **If not found**: Create `.agent3d` file in current working directory to establish project root
-4. **Project Structure**: All DDD documentation should be relative to the directory containing `.agent3d`
-
-**Example `.agent3d` file content:**
-```
-# Agent3D Project Root Marker
-# This file marks the root directory for DDD documentation
-# All documentation paths are relative to this directory
-```
+**Fast Process:**
+1. **Quick Search**: Look for `.agent3d-config.yml` in current directory, then parent directories
+2. **Cache Location**: Store project root path in memory for session
+3. **Load Config**: Read `.agent3d-config.yml` once and cache project context
+4. **No Fallback**: If no config found, run Foundation Pass immediately
 
 ### Project Configuration Management
 **Purpose:** Manage project-specific configuration and pass settings
 
-**Configuration File:** `.agent3d-config.yml` in project root (same directory as `.agent3d`)
+**Configuration File:** `.agent3d-config.yml` in project root
 
 **Process:**
 1. **Check for existing config**: Look for `.agent3d-config.yml` in project root
@@ -121,18 +140,22 @@ All DDD passes follow the same 4-step workflow:
 - [ ] Concise, LLM-friendly language
 - [ ] Proper traceability links
 
-## Language-Specific Rules
+## Language-Specific Rules (Speed Optimized)
 
-### Rule Access
-**Location:** `~/.agent3d/rules/`
-**Available Languages:** Python, JavaScript, Java, Go
-**Review Guidelines:** Each language has corresponding `-review-guidelines.md` file
+### Memory-Cached Rules
+**MEMORIZE these patterns instead of file lookups:**
 
-### Rule Application
-1. Identify project programming language(s)
-2. Load corresponding rules from `~/.agent3d/rules/[language].md`
-3. Apply rules consistently throughout development activities
-4. Reference review guidelines during code review processes
+- **Markdown:** LLM compression, command-first, no verbose explanations
+- **Python:** Type hints, docstrings, pytest, black formatting
+- **JavaScript:** ESLint, TypeScript preferred, Jest testing
+- **Java:** Spring patterns, JUnit, Maven/Gradle
+- **Go:** gofmt, standard library preferred, table tests
+
+### Rule Application (Fast)
+1. **Cache on First Use**: Load language rules once per session
+2. **Memory Application**: Apply cached patterns without file access
+3. **Quick Validation**: Use memorized quality gates
+4. **No Repeated Lookups**: Store language patterns in working memory
 
 ## DDD Status Management
 

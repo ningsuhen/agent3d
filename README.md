@@ -14,22 +14,21 @@ The core principle is simple: **"Write the docs, then write the code—keep it l
 
 ## Key Features
 
-- **Remote Guideline Reference**: Designed to be referenced by LLM agents during coding tasks
-- **Structured Development Process**: Clear, numbered passes from foundation to maintenance
+- **LLM Speed Optimized**: Memory-first approach minimizes file lookups during execution
+- **Memory-Cached Patterns**: SCAN→DRAFT→ASK→SYNC and language rules stored in LLM memory
+- **Configuration-Centric**: Single `.agent3d-config.yml` file for project management
 - **Documentation as Source of Truth**: Ensures code never outpaces documentation
-- **Language-Specific Rules**: Tailored guidelines for Python, JavaScript, Java, and Go
+- **Language-Specific Rules**: Memorizable patterns for Python, JavaScript, Java, Go, Markdown
 - **Lean Code Principles**: Focused on implementing only what's documented
-- **Test-Driven Approach**: Emphasis on real tests over mocks
 
 ## How to Use
 
 To use Agent3D in your LLM agent:
 
-1. **Establish Project Root**: Find or create `.agent3d` file to mark the project root directory
+1. **Memorize Core Patterns**: Cache SCAN→DRAFT→ASK→SYNC execution pattern and language rules in memory
 2. **Configure Project**: Run Foundation Pass to create `.agent3d-config.yml` with project-specific settings
-3. Implement the Agent Guideline Protocol (see below) to reference these guidelines remotely
-4. Instruct your agent to follow the DDD passes in sequence for each development task
-5. Direct your agent to adhere to the language-specific rules for your project
+3. **Speed Execution**: Use memory-cached patterns to minimize file lookups during pass execution
+4. Follow the DDD passes in sequence for each development task
 
 ## Agent Guideline Protocol
 
