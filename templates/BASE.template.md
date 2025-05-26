@@ -1,42 +1,33 @@
-# Base Template
+# Base Template System
 
-**FORMAT:** Common structure for Agent3D documentation templates.
+**PURPOSE:** Unified template structure and validation system for Agent3D documentation.
 
-**SECTIONS:** Header, Overview, Content, Validation
+## Common Template Structure
 
-**VARIABLES:** {{document_title}}, {{document_purpose}}, {{project_name}}, {{author}}, {{creation_date}}, {{last_updated}}, {{version}}
+**STANDARD SECTIONS:**
+1. **Format Specification** - Document purpose and requirements
+2. **Template Content** - Placeholder structure with {{variables}}
+3. **Validation** - Universal + template-specific rules
 
-**VALIDATION:** All templates inherit base requirements from [Common Procedures](../docs/COMMON-PROCEDURES.md#common-validation-checklist)
+**UNIVERSAL VARIABLES:**
+- `{{document_title}}`, `{{document_purpose}}`, `{{project_name}}`
+- `{{author}}`, `{{creation_date}}`, `{{last_updated}}`, `{{version}}`
 
-**TEMPLATE:** (Do NOT include `<template>` tags in actual documentation)
-<template>
-# {{document_title}}
+## Universal Validation Rules
 
-**DOCUMENT METADATA:**
-- **Purpose**: {{document_purpose}}
-- **Author**: {{author}}
-- **Created**: {{creation_date}}
-- **Last Updated**: {{last_updated}}
-- **Version**: {{version}}
+**ALL TEMPLATES MUST:**
+- [ ] Follow [Common Procedures](../docs/COMMON-PROCEDURES.md#common-validation-checklist)
+- [ ] Replace ALL {{placeholders}} with actual content
+- [ ] Remove `<template>` and `<example>` tags
+- [ ] Use `## Groups` / `### Sub-Groups` structure
+- [ ] Include functional links and single-line entries
+- [ ] Mark `[x]` only with verifiable evidence
 
-## Overview
+## Template Usage Process
 
-{{overview_content}}
+1. **Access**: Templates from `~/.agent3d/templates/`
+2. **Replace**: All {{placeholders}} with actual content
+3. **Remove**: Template tags before finalizing
+4. **Validate**: Against universal + specific rules
 
-## {{content_section_title}}
-
-{{main_content}}
-
-## Validation Checklist
-
-**Validation:**
-- [ ] Universal rules from [Common Procedures](../docs/COMMON-PROCEDURES.md#common-validation-checklist)
-- [ ] Descriptive title and complete sections
-- [ ] Clear, concise content
-
-**Template-Specific:** {{additional_validation_rules}}
-</template>
-
-**EXAMPLE:** See specialized templates that extend this base in the local repository: `~/.agent3d/templates/`
-
-**VALIDATION:** Template metadata complete, base sections defined, inheritance clear, variables documented, rules enforceable
+**REFERENCE:** See [Common Procedures - Template System](../docs/COMMON-PROCEDURES.md#template-system) for complete usage instructions.

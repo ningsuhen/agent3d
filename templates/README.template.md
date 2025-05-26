@@ -57,11 +57,4 @@
 {{license_info}}
 </template>
 
-**EXAMPLE:** See the actual README.md file in the local repository: `~/.agent3d/README.md`
-
-**VALIDATION CHECKLIST:**
-- [ ] All universal validation rules from [Common Procedures](../docs/COMMON-PROCEDURES.md#common-validation-checklist) are met
-- [ ] Project name and description are clear and accurate
-- [ ] Installation instructions are complete and tested
-- [ ] Usage examples are functional and helpful
-- [ ] Contributing guidelines are clear
+**VALIDATION:** See [Base Template System](BASE.template.md#universal-validation-rules) + Clear project name/description + Complete installation + Functional examples + Clear contributing guidelines
