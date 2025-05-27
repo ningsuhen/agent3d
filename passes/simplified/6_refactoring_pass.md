@@ -26,6 +26,7 @@ After implementation/testing, technical debt accumulation, before new features, 
 ## Focus Areas
 
 **Repository-Wide:** File consolidation, directory structure optimization, cross-repository consistency
+**Horizontal Compression:** Scan repository for file overlaps, identify consolidation opportunities, merge files when logical and beneficial, preserve code readability and clarity, avoid compromising maintainability
 **DRY Implementation:** Code/documentation/configuration deduplication, template optimization
 **Modularization:** Component separation, logical grouping, interface simplification, dependency optimization
 **Code Quality:** Complexity reduction, performance optimization, naming improvements, error handling consistency
@@ -36,4 +37,5 @@ After implementation/testing, technical debt accumulation, before new features, 
 
 **Standards:** Follow [Common Procedures - Quality Standards](../docs/COMMON-PROCEDURES.md#quality-standards)
 **Principles:** DRY enforcement, incremental changes, functionality preservation, performance mindset
+**Horizontal Compression:** Only merge files with related functionality, maintain logical separation, preserve naming clarity, ensure no loss of context or readability
 **LLM Compression:** See [Language-Specific Rules](../../AGENT-GUIDELINES.md#language-specific-rules) - assume LLM competency, command-centric, project-specific focus
