@@ -29,16 +29,14 @@
 
 ## Language-Specific Review Criteria
 
-**CRITICAL:** Always consult and strictly enforce the language-specific rules from:
-- **Development Rules:** `~/.agent3d/rules/[language].md`
-- **Review Guidelines:** `~/.agent3d/rules/[language]-review-guidelines.md`
+**CRITICAL:** Always consult and strictly enforce the language-specific rules from `~/.agent3d/rules/[language].md` (includes both development rules and review standards).
 
 ### Supported Languages
-- **Markdown:** `~/.agent3d/rules/markdown.md` and `~/.agent3d/rules/markdown-review-guidelines.md`
-- **Python:** `~/.agent3d/rules/python.md` and `~/.agent3d/rules/python-review-guidelines.md`
-- **JavaScript:** `~/.agent3d/rules/javascript.md` and `~/.agent3d/rules/javascript-review-guidelines.md`
-- **Java:** `~/.agent3d/rules/java.md` and `~/.agent3d/rules/java-review-guidelines.md`
-- **Go:** `~/.agent3d/rules/go.md` and `~/.agent3d/rules/go-review-guidelines.md`
+- **Markdown:** `~/.agent3d/rules/markdown.md`
+- **Python:** `~/.agent3d/rules/python.md`
+- **JavaScript:** `~/.agent3d/rules/javascript.md`
+- **Java:** `~/.agent3d/rules/java.md`
+- **Go:** `~/.agent3d/rules/go.md`
 
 
 
@@ -117,18 +115,12 @@ When the local project is on a PR branch:
 **Issue:** [Specific problem with the code]
 **Why:** [Explanation of why this violates best practices]
 **Fix:** [Concrete solution with code example]
-**Reference:** ~/.agent3d/rules/[language]-review-guidelines.md - [specific section]
+**Reference:** ~/.agent3d/rules/[language].md - [specific section]
 **Severity:** [Critical/High/Medium/Low]
 ```
 
-
-
 ## Integration with CI/CD
-- The Code Review Pass can be integrated with CI/CD pipelines
-- Automated checks can supplement manual review
-- Code quality tools can be run automatically
-- Test coverage reports can inform the review
-- Security scanning tools can identify vulnerabilities
+See [Common Procedures](../docs/COMMON-PROCEDURES.md#quality--github) for CI/CD integration patterns.
 
 ## Automated Review Checklist
 - [ ] **Code Quality:** Linting and style checks pass
