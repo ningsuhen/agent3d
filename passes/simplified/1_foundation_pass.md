@@ -80,50 +80,7 @@ Requirements → **Foundation** → Documentation
 
 ## Sample Configuration Files
 
-### Web Application Example
-```yaml
-project:
-  type: "web_application"
-  language: "python"
-  framework: "django"
-  quality_level: "balanced"
-
-enabled_passes:
-  - foundation
-  - requirements
-  - documentation
-  - planning
-  - implementation
-  - testing
-  - code_review
-  - synchronization
-  - quality
-
-skip_passes:
-  - prune
-  - reverse
-```
-
-### Documentation Project Example
-```yaml
-project:
-  type: "documentation"
-  language: "markdown"
-  quality_level: "strict"
-
-enabled_passes:
-  - foundation
-  - requirements
-  - documentation
-  - quality
-
-skip_passes:
-  - planning
-  - implementation
-  - testing
-  - code_review
-  - refactoring
-```
+See [Common Procedures - Project Type Examples](../docs/COMMON-PROCEDURES.md#project-type-examples) for complete configuration examples.
 
 ## Quality Gates
 - [ ] Project type and scope defined

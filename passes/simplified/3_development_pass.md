@@ -59,17 +59,7 @@
 
 ## Configuration & Management
 
-```yaml
-development_pass:
-  enabled: true
-  selection_mode: "auto"  # "auto" | "picker"
-  runs_directory: "docs/runs/"
-  auto_selection: {priority_threshold: "high", max_features_per_run: 3, include_drift_fixes: true, include_blockers: true, respect_dependencies: true, max_estimated_effort: "3 days"}
-  execution_settings: {checkpoint_frequency: 3, auto_test_after_step: true, archive_completed_plans: true}
-  auto_trigger_thresholds: {file_count: 3, estimated_effort_hours: 8, risk_level: "medium", complexity: "high"}
-  required_for: [migrations, refactoring, breaking_changes]
-  optional_for: [bug_fixes, documentation]
-```
+See [Common Procedures - Development Pass Configuration](../docs/COMMON-PROCEDURES.md#development-pass-configuration) for complete configuration options.
 
 **Checkpoint Management:**
 - Before: Validate criteria, run tests, verify no regressions, update status

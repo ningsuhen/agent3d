@@ -103,22 +103,4 @@ The Planning Pass creates the roadmap that the Implementation Pass follows:
 
 ## Configuration Options
 
-Planning Pass can be configured in `.agent3d-config.yml`:
-
-```yaml
-planning_pass:
-  enabled: true
-  auto_trigger_thresholds:
-    file_count: 3
-    estimated_effort_hours: 8
-    risk_level: "medium"
-    complexity: "high"
-  required_for:
-    - migrations
-    - refactoring
-    - breaking_changes
-  optional_for:
-    - bug_fixes
-    - documentation
-  checkpoint_frequency: 3  # steps between checkpoints
-```
+See [Common Procedures - Planning Pass Configuration](../docs/COMMON-PROCEDURES.md#planning-pass-configuration) for complete configuration options.
