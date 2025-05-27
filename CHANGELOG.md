@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **DDD Framework Restoration**: Restored original Agent3D DDD framework configuration from commit 1ed3e05
+- **Enhanced Prune Pass**: Preserved and enhanced historical content removal capabilities for migration notes, legacy references, and outdated artifacts
 - **Deep Reverse Pass Completion**: Comprehensive analysis and documentation of all undocumented features
 - **docs/ADVANCED-FEATURES.md**: Complete guide to sophisticated Agent3D capabilities including template inheritance, pass configuration, GitHub CLI integration, and advanced metrics
 - **docs/CONFIGURATION-GUIDE.md**: Comprehensive configuration and customization reference with project-specific overrides, language settings, and environment variables
