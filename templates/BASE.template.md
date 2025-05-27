@@ -13,6 +13,33 @@
 - `{{document_title}}`, `{{document_purpose}}`, `{{project_name}}`
 - `{{author}}`, `{{creation_date}}`, `{{last_updated}}`, `{{version}}`
 
+## Template Variable Reference
+
+### Core Document Variables
+- `{{document_title}}` - Document title
+- `{{document_purpose}}` - Purpose statement
+- `{{project_name}}` - Project name
+- `{{author}}` - Document author
+- `{{creation_date}}` - Creation timestamp
+- `{{last_updated}}` - Last update timestamp
+- `{{version}}` - Document version
+
+### Content Structure Variables
+- `{{module_name}}`, `{{sub_module_name}}` - Organizational structure
+- `{{content_section_title}}` - Dynamic section naming
+- `{{main_content}}` - Primary content area
+- `{{additional_validation_rules}}` - Template-specific validation
+
+### Language-Specific Variables
+- `{{language}}` - Programming language for code blocks
+- `{{installation_commands}}` - Language-specific installation
+- `{{code_example}}` - Language-specific code examples
+
+### Project-Specific Variables
+- `{{feature_name}}`, `{{feature_description}}` - Feature documentation
+- `{{status}}` - Status indicators (`[x]`/`[ ]`/`[~]`)
+- `{{acceptance_criteria}}` - Testable acceptance criteria
+
 ## Universal Validation Rules
 
 **ALL TEMPLATES MUST:**

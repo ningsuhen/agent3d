@@ -5,21 +5,13 @@ Sophisticated Agent3D features and capabilities.
 ## Template System Advanced Capabilities
 
 ### Template Inheritance System
-Template inheritance system based on BASE.template.md:
+Template inheritance system based on [BASE.template.md](../templates/BASE.template.md):
 
-**Base Template Variables:**
-- `{{document_title}}` - Document title
-- `{{document_purpose}}` - Purpose statement
-- `{{project_name}}` - Project name
-- `{{author}}` - Document author
-- `{{creation_date}}` - Creation timestamp
-- `{{last_updated}}` - Last update timestamp
-- `{{version}}` - Document version
-
-**Specialized Template Extensions:**
+**Inheritance Features:**
 - Templates inherit base validation rules
 - Template-specific variables extend base variables
 - Automatic validation checklist inheritance
+- See [Template Variable Reference](../templates/BASE.template.md#template-variable-reference) for complete variable list
 
 ### Dynamic Content Generation
 Context-aware content generation:
@@ -155,25 +147,13 @@ Alignment: 85% ████████▌░ (8.5/10 blocks filled)
 **Drift Level Indicators:**
 - None 🟢 (0-10%), Low 🟡 (11-25%), Medium 🟠 (26-50%), High 🔴 (51%+)
 
-## Advanced Template Variables
+## Advanced Template Features
 
 ### Document Metadata System
-Comprehensive document tracking:
-
-**Metadata Variables:**
-- **Purpose**: Document purpose statement
-- **Author**: Document author
-- **Created**: Creation timestamp
-- **Last Updated**: Last modification timestamp
-- **Version**: Document version number
+Comprehensive document tracking integrated with [BASE.template.md](../templates/BASE.template.md#template-variable-reference).
 
 ### Dynamic Content Sections
-Configurable content organization:
-
-**Section Variables:**
-- `{{content_section_title}}` - Dynamic section naming
-- `{{main_content}}` - Primary content area
-- `{{additional_validation_rules}}` - Template-specific validation
+Configurable content organization using template variables - see [Template Variable Reference](../templates/BASE.template.md#template-variable-reference) for complete list.
 
 ## Design Proposal System
 
