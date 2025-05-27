@@ -14,6 +14,7 @@ enabled_passes:
   - requirements      # Business requirements and objectives
   - foundation       # Project configuration and setup
   - documentation    # Feature and requirement documentation
+  - development      # Documentation development with step-by-step execution plans
   - testing          # Documentation testing (markdown linting, link checking)
   - refactoring      # Markdown documentation refactoring and cleanup
   - code_review      # Markdown documentation review and quality checks
@@ -22,11 +23,30 @@ enabled_passes:
   - reverse         # Detect documentation drift
 
 disabled_passes:
-  - planning         # No implementation planning needed for documentation-only project
-  - implementation   # No code implementation needed
+  - planning         # Replaced by Development Pass planning sub-pass
+  - implementation   # Replaced by Development Pass implementation sub-pass
 
 # Pass-Specific Configuration
 pass_config:
+  development:
+    type: "documentation_development"
+    scope: "markdown_framework"
+    selection_mode: "auto"
+    runs_directory: "docs/runs/"
+    focus:
+      - framework_enhancement
+      - documentation_implementation
+      - template_development
+      - guideline_creation
+    auto_selection:
+      priority_threshold: "medium"
+      max_features_per_run: 2
+      include_drift_fixes: true
+      respect_dependencies: true
+    execution_settings:
+      checkpoint_frequency: 3
+      archive_completed_plans: true
+
   testing:
     type: "documentation"
     checks:
