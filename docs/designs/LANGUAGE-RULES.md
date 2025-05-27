@@ -113,117 +113,16 @@ mypy src/
 ```
 
 #### Testing
-```python
-# Test execution
-pytest tests/ -v --cov=src --cov-report=html
-
-# Test structure
-tests/
-├── unit/
-├── integration/
-└── conftest.py
-```
+Standard pytest framework with coverage reporting.
 
 ### JavaScript Rules
-
-#### Environment Setup
-```javascript
-// Package management
-npm install
-npm ci  // For CI environments
-
-// Environment configuration
-node --version  // >= 16.0.0
-npm --version
-```
-
-#### Code Quality
-```javascript
-// Formatting
-prettier --write src/ tests/
-
-// Linting
-eslint src/ tests/
-```
-
-#### Testing
-```javascript
-// Test execution
-npm test
-npm run test:coverage
-
-// Test frameworks
-jest  // Unit testing
-cypress  // E2E testing
-```
+Modern ES6+ patterns with ESLint and Prettier formatting.
 
 ### Java Rules
-
-#### Environment Setup
-```java
-// Build tool
-./gradlew build  // Gradle
-mvn compile      // Maven
-
-// Java version
-java -version  // >= 11
-```
-
-#### Code Quality
-```java
-// Formatting
-./gradlew spotlessApply
-
-// Static analysis
-./gradlew checkstyleMain
-./gradlew pmdMain
-```
-
-#### Testing
-```java
-// Test execution
-./gradlew test
-./gradlew jacocoTestReport  // Coverage
-
-// Test structure
-src/
-├── main/java/
-└── test/java/
-```
+Spring patterns with JUnit testing and Gradle/Maven build tools.
 
 ### Go Rules
-
-#### Environment Setup
-```go
-// Module management
-go mod init
-go mod tidy
-go mod download
-
-// Go version
-go version  // >= 1.19
-```
-
-#### Code Quality
-```go
-// Formatting
-go fmt ./...
-goimports -w .
-
-// Linting
-golangci-lint run
-```
-
-#### Testing
-```go
-// Test execution
-go test ./...
-go test -race ./...
-go test -cover ./...
-
-// Benchmark testing
-go test -bench=.
-```
+Standard library preferred with gofmt formatting and table tests.
 
 ## Rule Application Workflow
 

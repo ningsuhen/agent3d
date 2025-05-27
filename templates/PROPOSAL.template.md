@@ -275,18 +275,8 @@
 
 **EXAMPLE:** See proposal examples in the local repository: `~/.agent3d/docs/proposals/`
 
-**PROPOSAL LIFECYCLE:**
-1. **Draft**: Initial proposal creation using this template
-2. **Under Review**: Proposal is being evaluated by stakeholders
-3. **Approved**: Proposal has been approved for implementation
-4. **Rejected**: Proposal has been rejected with documented reasons
-5. **Implemented**: Proposal has been implemented and integrated into main documentation
-
-**INTEGRATION WORKFLOW:**
-- **Approved Proposals**: Move detailed design content to `docs/designs/` using DETAILED-DESIGN template with {COMPONENT}.md naming
-- **Architecture Changes**: Update `docs/HIGH-LEVEL-DESIGN.md` with new components and relationships
-- **Feature Implementation**: Update `docs/FEATURES.md` with new features and acceptance criteria
-- **Implemented Proposals**: Move directly to `docs/designs/` as design documents
+**LIFECYCLE:** Draft → Under Review → Approved/Rejected → Implemented
+**INTEGRATION:** Approved proposals move to `docs/designs/` using DETAILED-DESIGN template
 
 **VALIDATION CHECKLIST:**
 - [ ] Problem statement clearly defines the issue being solved

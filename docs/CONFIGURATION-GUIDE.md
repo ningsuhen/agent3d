@@ -134,35 +134,6 @@ cicd: {enabled: true, trigger_on: ["pull_request", "push_to_main"], pipeline_ste
 
 **CRITICAL FOR LLM AGENTS:** When updating .agent3d-config.yml, ALWAYS refresh memorized configuration.
 
-```bash
-# Configuration Update Process
-1. Modify .agent3d-config.yml settings
-2. Save changes to file
-3. IMMEDIATELY re-load and memorize ENTIRE updated configuration
-4. Replace old memorized config with new config in working memory
-5. Verify memory update by checking key changed settings
-6. Apply new memorized config to all subsequent operations
-
-# Example: Changing git workflow settings
-# OLD MEMORY: git_workflow.require_commit_confirmation = true
-# UPDATE FILE: Change to require_commit_confirmation = false
-# NEW MEMORY: git_workflow.require_commit_confirmation = false
-# VERIFY: Check memorized setting matches file setting
-```
-
-**Memory Refresh Triggers:**
-- Foundation Pass creates new configuration
-- Manual configuration file edits
-- Pass configuration updates
-- Git workflow setting changes
-- Validation mode changes
-- Language configuration updates
-
-**Verification Steps:**
-- Compare memorized config with file contents
-- Test key settings (git_workflow, enabled_passes, validation)
-- Ensure no stale configuration in memory
-
 ---
 
 **Usage:** Place `.agent3d-config.yml` in project root. Use Foundation Pass to create initial configuration. ALWAYS refresh memory when config is updated.
