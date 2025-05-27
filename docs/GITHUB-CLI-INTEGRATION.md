@@ -8,16 +8,13 @@ CURRENT_BRANCH=$(git branch --show-current)
 PR_NUMBER=$(gh pr list --head "$CURRENT_BRANCH" --json number --jq '.[0].number')
 
 # PR Operations
-gh pr list
-gh pr view [PR_NUMBER]
-gh pr diff [PR_NUMBER]
-gh pr checks [PR_NUMBER]
+gh pr list; gh pr view [PR_NUMBER]; gh pr diff [PR_NUMBER]; gh pr checks [PR_NUMBER]
 ```
 
 ## Review Workflow
 
 ```bash
-# PR Detection Script
+# PR Detection
 detect_pr_context() {
   local current_branch=$(git branch --show-current)
   local pr_number=$(gh pr list --head "$current_branch" --json number --jq '.[0].number' 2>/dev/null)
@@ -32,8 +29,6 @@ detect_pr_context() {
 gh pr review "$PR_NUMBER" --comment -b "$(cat review_summary.md)"
 gh pr review "$PR_NUMBER" --comment -f "src/auth.py:15:Use specific exception types"
 while IFS= read -r comment; do gh pr review "$PR_NUMBER" --comment -f "$comment"; done < file_comments.txt
-
-# Comment Format: path/to/file.py:line_number:Comment text
 ```
 
 ## Review Completion

@@ -34,37 +34,7 @@ Templates automatically generate links between related documents using consisten
 
 ## DDD Pass Configuration System
 
-### Pass-Specific Configuration
-Each pass supports advanced configuration options:
-
-**Foundation Pass Configuration:**
-- **Enabled**: true/false
-- **Templates**: List of required templates
-- **Validation**: strict/relaxed mode
-
-**Implementation Pass Configuration:**
-- **Test Coverage Threshold**: 80% (configurable)
-- **Quality Gates**: lint_score 8.0, complexity low
-- **Language Rules**: Automatic application
-
-### Project-Specific Overrides
-Customize pass behavior for specific projects:
-
-**Available Override Categories:**
-- **Skip Passes**: List of passes to skip
-- **Custom Templates**: Project-specific template overrides
-- **Validation Rules**: Custom validation configurations
-- **Metrics Thresholds**: Adjusted threshold values
-
-**Example Override Configuration:**
-```yaml
-project_overrides:
-  python:
-    testing:
-      coverage_threshold: 90  # Override default 80%
-    code_style:
-      line_length: 120        # Override default 88
-```
+See [Configuration Guide](CONFIGURATION-GUIDE.md) for comprehensive pass configuration options, project-specific overrides, and advanced configuration examples.
 
 ## Advanced GitHub CLI Integration
 
@@ -146,13 +116,7 @@ Alignment: 85% ████████▌░ (8.5/10 blocks filled)
 **Drift Level Indicators:**
 - None 🟢 (0-10%), Low 🟡 (11-25%), Medium 🟠 (26-50%), High 🔴 (51%+)
 
-## Advanced Template Features
 
-### Document Metadata System
-Comprehensive document tracking integrated with [BASE.template.md](../templates/BASE.template.md#template-variable-reference).
-
-### Dynamic Content Sections
-Configurable content organization using template variables - see [Template Variable Reference](../templates/BASE.template.md#template-variable-reference) for complete list.
 
 ## Design Proposal System
 
