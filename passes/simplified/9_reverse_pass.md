@@ -69,7 +69,7 @@
 - Accurate project status
 
 ## Related Passes
-Implementation → **Reverse** → Quality
+Implementation → **Reverse** → Prune
 
 ## Example Commit Message
 `DDD: Reverse Pass - Updated payment processing docs, marked 5 features complete`

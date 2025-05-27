@@ -71,55 +71,43 @@ interface PassState {
 - **Dependencies**: Foundation Pass
 - **Validation**: Acceptance criteria completeness, test case coverage
 
-### 3. Planning Pass
-- **Input**: Complete documentation, change requirements
-- **Output**: Step-by-step implementation plan with checkpoints
+### 3. Development Pass
+- **Input**: Complete documentation, change requirements, feature discovery from docs/
+- **Output**: Step-by-step execution plan with checkpoints, working code, basic tests
 - **Dependencies**: Documentation Pass
-- **Validation**: Plan completeness, checkpoint strategy, rollback procedures
+- **Validation**: Plan completeness, checkpoint strategy, feature implementation, test execution
 
-### 4. Implementation Pass
-- **Input**: Implementation plan, complete documentation, test cases
-- **Output**: Working code, basic tests
-- **Dependencies**: Planning Pass (for major changes), Documentation Pass
-- **Validation**: Feature implementation, test execution, plan adherence
-
-### 5. Testing Pass
+### 4. Testing Pass
 - **Input**: Implemented features, test specifications
 - **Output**: Comprehensive test suite, edge case coverage
-- **Dependencies**: Implementation Pass
+- **Dependencies**: Development Pass
 - **Validation**: Test coverage metrics, all tests passing
 
-### 6. Refactoring Pass
+### 5. Refactoring Pass
 - **Input**: Working implementation, code quality metrics
 - **Output**: Optimized code, improved maintainability
 - **Dependencies**: Testing Pass
 - **Validation**: No feature regression, quality improvements
 
-### 7. Code Review Pass
+### 6. Code Review Pass
 - **Input**: Complete implementation, PR context
 - **Output**: Review comments, approval status
 - **Dependencies**: Refactoring Pass
 - **Validation**: Review completion, issue resolution
 
-### 8. Synchronization Pass
+### 7. Synchronization Pass
 - **Input**: All project artifacts
-- **Output**: Aligned documentation and code
+- **Output**: Aligned documentation and code, quality validation
 - **Dependencies**: Code Review Pass
-- **Validation**: Consistency checks, drift elimination
+- **Validation**: Consistency checks, drift elimination, quality verification
 
-### 9. Quality Pass
-- **Input**: Synchronized project state
-- **Output**: Quality validation report
-- **Dependencies**: Synchronization Pass
-- **Validation**: Quality gates, compliance checks
-
-### 10. Prune Pass
+### 8. Prune Pass
 - **Input**: Complete project state
-- **Output**: Cleaned artifacts, removed redundancy
-- **Dependencies**: Quality Pass
-- **Validation**: No functional impact, improved clarity
+- **Output**: Cleaned artifacts, removed redundancy, quality-validated content
+- **Dependencies**: Synchronization Pass
+- **Validation**: No functional impact, improved clarity, quality standards maintained
 
-### 11. Reverse Pass
+### 9. Reverse Pass
 - **Input**: Implementation state, documentation state
 - **Output**: Updated documentation for undocumented features
 - **Dependencies**: Can run independently
@@ -130,29 +118,24 @@ interface PassState {
 ```mermaid
 graph TD
     F[Foundation] --> D[Documentation]
-    D --> PL[Planning]
-    PL --> I[Implementation]
-    I --> T[Testing]
+    D --> DEV[Development]
+    DEV --> T[Testing]
     T --> R[Refactoring]
     R --> CR[Code Review]
     CR --> S[Synchronization]
-    S --> Q[Quality]
-    Q --> P[Prune]
+    S --> P[Prune]
 
     Rev[Reverse] -.-> F
     Rev -.-> D
-    Rev -.-> PL
-    Rev -.-> I
+    Rev -.-> DEV
 
     Full[Full Pass] --> F
     Full --> D
-    Full --> PL
-    Full --> I
+    Full --> DEV
     Full --> T
     Full --> R
     Full --> CR
     Full --> S
-    Full --> Q
     Full --> P
     Full --> Rev
 ```
@@ -178,10 +161,11 @@ alignment = (completed_tasks + passing_tests + documented_features) / total_expe
 - Template compliance: % of templates properly followed
 - Structural integrity: Presence of required sections
 
-#### Implementation Pass
+#### Development Pass
 - Feature completion: % of documented features implemented
 - Test coverage: % of features with basic tests
 - Code quality: Static analysis scores
+- Execution plan adherence: % of planned steps completed
 
 #### Testing Pass
 - Test coverage: % of code covered by tests
@@ -231,10 +215,12 @@ alignment = (completed_tasks + passing_tests + documented_features) / total_expe
 - **Templates**: README.template.md, FEATURES.template.md
 - **Validation**: strict mode
 
-**Implementation Pass**:
+**Development Pass**:
 - **Enabled**: true
+- **Selection Mode**: auto
 - **Test Coverage Threshold**: 80%
 - **Quality Gates**: lint_score 8.0, complexity low
+- **Checkpoint Frequency**: 3
 
 ### Project-Specific Overrides
 
