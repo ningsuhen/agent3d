@@ -3,12 +3,55 @@
 ## LLM Speed Optimization
 
 **MEMORIZE Core Patterns:**
-1. **Pass Execution:** SCAN → DRAFT → ASK → SYNC
+1. **Pass Execution:** SCAN → DRAFT → ASK → SYNC → CONFIRM (if required by config)
 2. **Pass Sequence:** REQ → FOUND → DOC → DEV → TEST → REFACT → REVIEW → SYNC → PRUNE → REV
 3. **File Locations:** CONFIG(.agent3d-config.yml), DOCS(docs/), RULES(~/.agent3d/rules/), TEMPLATES(~/.agent3d/templates/)
 4. **Quality Gates:** Requirements(objectives), Foundation(config), Documentation(criteria), Implementation(matches), Testing(passes), Review(rules)
+5. **COMPLETE CONFIG:** ALWAYS load and memorize ENTIRE .agent3d-config.yml at session start
 
-**Speed Rules:** Cache language rules, minimize file access, internalize validation patterns, memorize decision trees.
+**Speed Rules:** Cache language rules, minimize file access, internalize validation patterns, memorize decision trees, **MEMORIZE ENTIRE .agent3d-config.yml**.
+
+## Configuration Memorization (CRITICAL)
+
+**STEP 1: ALWAYS MEMORIZE ENTIRE .agent3d-config.yml AT SESSION START**
+
+```bash
+# Configuration Loading Process (MEMORIZE THIS PATTERN)
+1. git -C ~/.agent3d pull origin main
+2. Locate .agent3d-config.yml in project root
+3. LOAD AND MEMORIZE ENTIRE configuration file contents
+4. Cache ALL settings in working memory for session duration
+5. Apply memorized config throughout all passes
+
+# MEMORIZE ALL THESE SECTIONS:
+# - project: {name, type, description, language, quality_level}
+# - enabled_passes: [list of enabled passes]
+# - disabled_passes: [list of disabled passes]
+# - pass_config: {pass-specific configurations}
+# - git_workflow: {commit confirmation settings}
+# - validation: {validation mode and rules}
+# - documentation: {format and standards}
+# - quality_gates: {thresholds and weights}
+# - template_overrides: {custom template paths}
+# - language_config: {language-specific settings}
+```
+
+**MEMORIZATION RULES:**
+- Load config ONCE per session, use from memory thereafter
+- NEVER re-read .agent3d-config.yml during pass execution
+- Apply memorized settings consistently across all operations
+- Check memorized config before every major decision (commits, pass selection, validation)
+- **CRITICAL:** When config is updated, IMMEDIATELY refresh memory with new config
+
+**CONFIG UPDATE PROTOCOL:**
+```bash
+# When .agent3d-config.yml is modified:
+1. Save changes to .agent3d-config.yml
+2. IMMEDIATELY re-load and memorize ENTIRE updated configuration
+3. Replace old memorized config with new config in working memory
+4. Apply new memorized config to all subsequent operations
+5. Verify memory update by checking key settings (git_workflow, enabled_passes, etc.)
+```
 
 ## Repository Management
 
@@ -16,7 +59,7 @@
 # Repository Update (start of every pass)
 git -C ~/.agent3d pull origin main
 
-# Project Root: Look for .agent3d-config.yml, cache location, load config once
+# Project Root: Look for .agent3d-config.yml, MEMORIZE entire config, cache location
 # If no config: Run Foundation Pass immediately
 ```
 
@@ -59,30 +102,84 @@ git -C ~/.agent3d pull origin main
 
 ## Git Workflow & Commit Confirmation
 
-**CRITICAL REQUIREMENT:** Always confirm before committing any changes.
+**CRITICAL REQUIREMENT:** Use memorized git_workflow configuration for all commit operations.
 
+### Execution Plan Branch Workflow (USE MEMORIZED CONFIG)
 ```bash
-# Commit Confirmation Process
-1. Complete all DDD pass steps (SCAN → DRAFT → ASK → SYNC)
-2. Review all changes with git status and git diff
-3. ASK human for explicit commit approval
-4. Only commit after receiving human confirmation
-5. Use format: "DDD: {Pass Name} - {Description}"
+# STEP 1: Check current branch and memorized exec_plan_branches config
+CURRENT_BRANCH=$(git branch --show-current)
+EXEC_PLAN_ENABLED=$(MEMORIZED_CONFIG.git_workflow.exec_plan_branches.enabled)
 
-# Example Confirmation
-echo "Ready to commit changes. Please review:"
-git status
-git diff --name-only
-echo "Proceed with commit? (y/n)"
-read confirmation
-if [ "$confirmation" = "y" ]; then
-  git commit -m "DDD: Development Pass - Implemented user authentication features"
-else
-  echo "Commit cancelled by user"
+# STEP 2: Apply branch-specific commit behavior
+if [[ "$CURRENT_BRANCH" == exec-plan/* ]] && [[ "$EXEC_PLAN_ENABLED" == "true" ]]; then
+  # ON EXECUTION PLAN BRANCH: Auto-commit allowed during execution
+  git add .
+  git commit -m "EXEC: Step {step_number} - {step_description}"
+
+  # Tag checkpoints
+  if [[ "$IS_CHECKPOINT" == "true" ]]; then
+    git tag "checkpoint-{checkpoint_number}-$(date +%Y%m%d-%H%M%S)"
+    git commit -m "CHECKPOINT: {checkpoint_number} - {checkpoint_description}"
+  fi
+
+elif [[ "$CURRENT_BRANCH" == exec-plan/* ]] && [[ "$ACTION" == "merge" ]]; then
+  # MERGING EXECUTION PLAN: Require confirmation
+  echo "Ready to merge exec plan branch to main. Please review:"
+  git log --oneline main..HEAD
+  echo "Proceed with merge? (y/n)"
+  read confirmation
+  if [ "$confirmation" = "y" ]; then
+    git checkout main
+    git merge "$CURRENT_BRANCH"
+    git branch -d "$CURRENT_BRANCH"
+  else
+    echo "Merge cancelled by user"
+  fi
+
+else:
+  # REGULAR BRANCH: Use standard confirmation behavior
+  if MEMORIZED_CONFIG.git_workflow.require_commit_confirmation=true:
+    echo "Ready to commit changes. Please review:"
+    git status
+    echo "Proceed with commit? (y/n)"
+    read confirmation
+    if [ "$confirmation" = "y" ]; then
+      git commit -m "DDD: {Pass Name} - {Description}"
+    fi
+  else:
+    git commit -m "DDD: {Pass Name} - {Description}"
+  fi
 fi
 ```
 
-**Never commit without explicit human approval.**
+### Execution Plan Branch Examples
+```bash
+# Create execution plan branch
+git checkout -b exec-plan/horizontal-compression-pass
+
+# During execution: Auto-commit steps
+git add .
+git commit -m "EXEC: Step 1 - Compress Configuration Guide"
+git commit -m "EXEC: Step 2 - Compress GitHub CLI Integration"
+
+# Tag checkpoints
+git tag "checkpoint-1-20250127-1430"
+git commit -m "CHECKPOINT: 1 - Core Documentation Compressed"
+
+# Complete execution and merge (requires confirmation)
+git checkout main
+echo "Ready to merge exec-plan/horizontal-compression-pass. Proceed? (y/n)"
+git merge exec-plan/horizontal-compression-pass
+git branch -d exec-plan/horizontal-compression-pass
+```
+
+### Configuration Examples (MEMORIZE THESE PATTERNS)
+- **Exec Plan Branch** (exec-plan/*): Auto-commit during execution, confirm for merge
+- **Regular Branch** (main, feature/*): Use standard confirmation behavior
+- **Strict Mode** (require_commit_confirmation=true): Always ask human before committing
+- **Automated Mode** (require_commit_confirmation=false): Auto-commit allowed
+
+**MEMORIZATION RULE:** Use memorized config throughout session, check branch type for commit behavior.
 
 ## Planning & Status
 

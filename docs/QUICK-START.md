@@ -22,6 +22,7 @@ Execute DDD workflow for each development task:
 2. **Draft** – Update or create necessary docs.
 3. **Ask** – Clarify open questions with stakeholders.
 4. **Sync** – Implement code that matches documentation.
+5. **Confirm** – **ALWAYS CONFIRM BEFORE COMMITTING** - Get human approval for all commits.
 
 Commit documentation and code together. If commit does not update docs, include `docs-n/a` tag.
 

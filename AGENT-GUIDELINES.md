@@ -23,7 +23,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 | **Sync** | Implement code matching docs | Review & approve |
 
 **Project Setup**: Configure project with `.agent3d-config.yml` in project root
-**DDD Pass**: Execute Scan → Draft → Ask → Sync, then commit with `DDD: <description>`
+**DDD Pass**: Execute Scan → Draft → Ask → Sync → Confirm (if git_workflow.require_commit_confirmation=true), commit with `DDD: <description>`
 **Getting Started**: New users can follow the [Quick Start Guide](docs/QUICK-START.md) for a short introduction.
 
 ### DDD Passes
@@ -95,6 +95,8 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 
 **Documentation-Code Alignment:**
 - Each commit must update documentation OR include `docs-n/a` tag
+- **MEMORIZE ENTIRE .agent3d-config.yml** at session start, refresh when config updated
+- **Use memorized git_workflow settings** for commit confirmation behavior
 - CI/CD pipelines must validate documentation-code alignment
 - Agents must reject tasks that violate DDD principles
 

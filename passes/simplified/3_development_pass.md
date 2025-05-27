@@ -13,9 +13,10 @@
 ## Process
 
 1. **Scan:** Repository update, scan docs/, identify features/drift needing development
-2. **Draft:** Feature selection (AUTO/PICKER mode), create EXEC-PLAN-{change-name}.md with documented steps
+2. **Draft:** Feature selection (AUTO/PICKER mode), create EXEC-PLAN-{change-name}.md with documented steps, create exec-plan/{change-name} branch
 3. **Ask:** Validate selection and execution plan, confirm approach/priorities
-4. **Sync:** Execute steps in loop until complete, update progress, respect checkpoints (mark ✅)
+4. **Sync:** Execute steps in loop on exec-plan branch, auto-commit steps/checkpoints, update progress (mark ✅)
+5. **Merge:** Complete execution, confirm merge to main branch, delete exec-plan branch
 
 ## Feature Discovery & Selection
 

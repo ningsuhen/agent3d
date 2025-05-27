@@ -17,7 +17,10 @@
 1. **Scan:** [Repository Management](../docs/COMMON-PROCEDURES.md#repository-management), review requirements, check `.agent3d-config.yml`, identify project type
 2. **Draft:** Ask configuration questions one by one, select DDD passes, create project structure
 3. **Ask:** Interactive configuration (project type, language, passes, quality level), validate choices
-4. **Sync:** Save `.agent3d-config.yml`, create structure, establish docs framework, create DDD-STATUS.md
+4. **Sync:** Save `.agent3d-config.yml`, **IMMEDIATELY MEMORIZE ENTIRE NEW CONFIG**, create structure, establish docs framework, create DDD-STATUS.md
+5. **Confirm:** Check memorized git_workflow settings, confirm before committing if required
+
+**CRITICAL:** After creating/updating .agent3d-config.yml, IMMEDIATELY refresh memorized configuration.
 
 **Note:** During execution, mark completed steps with ✅ to track progress.
 

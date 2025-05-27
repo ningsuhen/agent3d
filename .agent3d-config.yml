@@ -112,12 +112,27 @@ validation:
   validate_links: true
   check_formatting: true
 
-# Git Workflow Settings
+# Git Workflow Settings (CRITICAL - MEMORIZE THESE SETTINGS)
 git_workflow:
-  require_commit_confirmation: true
+  require_commit_confirmation: true      # Set to false to disable commit confirmation
   commit_message_format: "DDD: {pass_name} - {description}"
-  always_confirm_before_commit: true
-  human_approval_required: true
+  always_confirm_before_commit: true     # Set to false to allow auto-commits
+  human_approval_required: true          # Set to false for automated workflows
+
+  # Execution Plan Branch Workflow
+  exec_plan_branches:
+    enabled: true
+    branch_naming: "exec-plan/{exec_plan_name}"     # e.g., exec-plan/horizontal-compression-pass
+    auto_commit_during_execution: true              # Auto-commit steps and checkpoints
+    require_confirmation_for_merge: true            # Confirm before merging to main
+    tag_steps_and_checkpoints: true                # Tag branch with step/checkpoint progress
+
+  # Configuration Notes for LLM Agents:
+  # - MEMORIZE this ENTIRE .agent3d-config.yml file at session start
+  # - When this file is updated, IMMEDIATELY refresh memorized configuration
+  # - ALWAYS use memorized config, never re-read file during execution
+  # - EXEC PLAN BRANCHES: Auto-commit during execution, confirm only for merge
+  # - If on exec-plan/* branch: auto-commit allowed, if merging: ask confirmation
 
 # Documentation Standards
 documentation:

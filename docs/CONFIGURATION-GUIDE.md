@@ -2,6 +2,8 @@
 
 Configure Agent3D using `.agent3d-config.yml` in project root.
 
+**CRITICAL FOR LLM AGENTS:** MEMORIZE the ENTIRE .agent3d-config.yml file at session start. Load once, use from memory throughout all passes.
+
 ## Pass Configuration
 
 ```yaml
@@ -100,6 +102,19 @@ validation:
   strict: {mode: "strict", enforce_all_rules: true, fail_on_warnings: true, require_all_sections: true, validate_links: true}
   relaxed: {mode: "relaxed", enforce_critical_only: true, allow_warnings: true, optional_sections: true, skip_link_validation: true}
 
+# Git Workflow (CRITICAL - MEMORIZE THESE SETTINGS)
+git_workflow:
+  require_commit_confirmation: true      # true=ask before commit, false=no confirmation
+  always_confirm_before_commit: true     # true=always ask, false=auto-commit allowed
+  human_approval_required: true          # true=human approval needed, false=automated OK
+  commit_message_format: "DDD: {pass_name} - {description}"
+
+# Git Workflow Examples
+git_workflow_examples:
+  strict_mode: {require_commit_confirmation: true, always_confirm_before_commit: true, human_approval_required: true}
+  automated_mode: {require_commit_confirmation: false, always_confirm_before_commit: false, human_approval_required: false}
+  hybrid_mode: {require_commit_confirmation: true, always_confirm_before_commit: false, human_approval_required: true}
+
 # Custom Validation
 custom_validation:
   required_sections: ["Overview", "Installation", "Usage"]
@@ -115,6 +130,39 @@ monorepo: {enabled: true, subprojects: [{path: "backend/", language: "python"}]}
 cicd: {enabled: true, trigger_on: ["pull_request", "push_to_main"], pipeline_steps: ["foundation_pass", "documentation_pass", "quality_pass"]}
 ```
 
+## Configuration Update Protocol
+
+**CRITICAL FOR LLM AGENTS:** When updating .agent3d-config.yml, ALWAYS refresh memorized configuration.
+
+```bash
+# Configuration Update Process
+1. Modify .agent3d-config.yml settings
+2. Save changes to file
+3. IMMEDIATELY re-load and memorize ENTIRE updated configuration
+4. Replace old memorized config with new config in working memory
+5. Verify memory update by checking key changed settings
+6. Apply new memorized config to all subsequent operations
+
+# Example: Changing git workflow settings
+# OLD MEMORY: git_workflow.require_commit_confirmation = true
+# UPDATE FILE: Change to require_commit_confirmation = false
+# NEW MEMORY: git_workflow.require_commit_confirmation = false
+# VERIFY: Check memorized setting matches file setting
+```
+
+**Memory Refresh Triggers:**
+- Foundation Pass creates new configuration
+- Manual configuration file edits
+- Pass configuration updates
+- Git workflow setting changes
+- Validation mode changes
+- Language configuration updates
+
+**Verification Steps:**
+- Compare memorized config with file contents
+- Test key settings (git_workflow, enabled_passes, validation)
+- Ensure no stale configuration in memory
+
 ---
 
-**Usage:** Place `.agent3d-config.yml` in project root. Use Foundation Pass to create initial configuration.
+**Usage:** Place `.agent3d-config.yml` in project root. Use Foundation Pass to create initial configuration. ALWAYS refresh memory when config is updated.
