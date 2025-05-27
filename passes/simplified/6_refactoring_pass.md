@@ -1,97 +1,39 @@
 # Refactoring Pass
 
-**Purpose:** Cleaning up and improving code structure without changing functionality, focusing on maintainability, readability, and performance. For documentation projects, includes LLM-focused compression to remove verbose explanations of tasks that LLMs inherently understand.
+**Purpose:** Code structure improvement without changing functionality, LLM-focused compression, DRY compliance.
 
-**Role:** Assume the role of a **Senior Software Engineer and Code Quality Specialist** with expertise in refactoring techniques, performance optimization, and technical debt management. Focus on improving code quality while preserving functionality. Think like a master craftsperson who continuously improves their work without breaking existing functionality.
+**Role:** **Senior Software Engineer** - refactoring techniques, performance optimization, technical debt management.
 
 ## When to Use
-- After features are fully implemented and tested
-- When technical debt has accumulated
-- Before adding new features to existing code
-- When performance improvements are needed
-- During regular maintenance cycles
-- When preparing for a major release
+
+After implementation/testing, technical debt accumulation, before new features, performance needs, maintenance cycles, major releases.
 
 ## Process
-**STANDARD WORKFLOW:** Follow [Common Procedures - Standard DDD Workflow](../docs/COMMON-PROCEDURES.md#standard-ddd-workflow)
 
-**REFACTORING-SPECIFIC FOCUS:**
 1. **Scan:** Repository-wide DRY audit, modularization opportunities, LLM compression targets
 2. **Draft:** Consolidation plan, DRY implementation strategy, compression approach
 3. **Ask:** Structural changes approval, priority alignment, breaking change discussion
-4. **Sync:** Incremental implementation, duplication elimination, testing verification
+4. **Sync:** Incremental implementation, duplication elimination, testing verification (mark ✅)
 
-**Note:** During execution, mark completed steps with ✅ to track progress.
+## Outcomes
 
-## Expected Outcomes
-- **Repository Optimization:** Streamlined repository structure with improved organization
-- **Documentation Clarity:** Consolidated and modularized documentation with eliminated redundancy
-- **LLM-Optimized Content:** Compressed documentation focused on essential information for LLM consumption
-- **DRY Compliance:** Zero duplication across code, documentation, and configuration
-- **Improved Maintainability:** Enhanced code quality and reduced technical debt
-- **Modular Architecture:** Better organized components with clear separation of concerns
-- **Performance Improvements:** Optimized code and documentation for better performance
-- **Preserved Functionality:** All existing functionality maintained with passing tests
-- **Enhanced Clarity:** Improved readability and understanding across all repository content
-- **Consistent Structure:** Unified patterns and conventions throughout the codebase
+- Repository optimization, documentation clarity, LLM-optimized content
+- DRY compliance, improved maintainability, modular architecture
+- Performance improvements, preserved functionality, enhanced clarity, consistent structure
 
-## Example Commit Message
-`DDD: Refactoring Pass - Improved authentication service performance and reduced code complexity`
+**Commit:** `DDD: Refactoring Pass - Improved authentication service performance and reduced code complexity`
 
-## Refactoring Focus Areas
+## Focus Areas
 
-### Repository-Wide Optimization
-- **File Consolidation:** Combine related files for clarity and brevity
-- **Directory Structure:** Optimize folder organization for logical grouping
-- **Cross-Repository Consistency:** Ensure uniform patterns across all components
-
-### DRY Principle Implementation
-- **Code Duplication Elimination:** Remove all duplicated code patterns
-- **Documentation Deduplication:** Merge redundant documentation sections
-- **Configuration Consolidation:** Combine similar configuration patterns
-- **Template Optimization:** Eliminate overlapping template functionality
-
-### Modularization and Organization
-- **Component Separation:** Split large components into focused modules
-- **Logical Grouping:** Organize related functionality together
-- **Interface Simplification:** Reduce complexity in public interfaces
-- **Dependency Management:** Optimize component dependencies
-
-### Code Quality Enhancement
-- **Complexity Reduction:** Simplify overly complex code structures
-- **Performance Optimization:** Improve execution speed and resource usage
-- **Naming Improvements:** Enhance variable, function, and class names
-- **Error Handling Consistency:** Standardize error handling patterns
-
-### Documentation and Testing
-- **Documentation Clarity:** Improve readability and eliminate redundancy
-- **LLM-Focused Compression:** Remove verbose explanations of basic tasks that LLMs inherently understand
-- **Test Consolidation:** Combine overlapping test cases
-- **Language-Specific Compliance:** Follow language-specific guidelines consistently
-- **Cross-Reference Optimization:** Ensure all links and references are efficient
-
-### LLM-Focused Documentation Compression
-- **Language-Specific Rules:** Apply compression rules from `~/.agent3d/rules/markdown.md`
-- **Review Guidelines:** Follow `~/.agent3d/rules/markdown-review-guidelines.md` for optimization criteria
-- **Basic Task Compression:** Remove detailed explanations of standard development tasks
-- **Command Simplification:** Replace verbose command explanations with concise references
-- **Essential Information Only:** Keep only commands, parameters, and project-specific details
+**Repository-Wide:** File consolidation, directory structure optimization, cross-repository consistency
+**DRY Implementation:** Code/documentation/configuration deduplication, template optimization
+**Modularization:** Component separation, logical grouping, interface simplification, dependency optimization
+**Code Quality:** Complexity reduction, performance optimization, naming improvements, error handling consistency
+**Documentation:** Clarity improvement, LLM-focused compression, test consolidation, language compliance, cross-reference optimization
+**LLM Compression:** Apply rules from `~/.agent3d/rules/markdown.md`, remove basic task explanations, command simplification, essential information only
 
 ## Guidelines
-**UNIVERSAL STANDARDS:** Follow [Common Procedures - Quality Standards](../docs/COMMON-PROCEDURES.md#quality-standards)
 
-**REFACTORING PRINCIPLES:**
-- **DRY Enforcement:** Eliminate all duplication (code, documentation, configuration)
-- **Incremental Changes:** Small, testable changes with frequent verification
-- **Functionality Preservation:** All existing functionality must remain intact
-- **Performance Mindset:** Consider performance implications of all changes
-
-## LLM Documentation Compression Guidelines
-
-### Language-Specific Compression Rules
-**REFERENCE:** See [Language-Specific Rules](../../AGENT-GUIDELINES.md#language-specific-rules) for compression guidelines
-
-**COMPRESSION PRINCIPLES:**
-- **Assume LLM Competency:** Remove explanations of standard development tools
-- **Command-Centric:** Provide commands/parameters, not installation instructions
-- **Project-Specific Focus:** Keep project details, remove generic explanations
+**Standards:** Follow [Common Procedures - Quality Standards](../docs/COMMON-PROCEDURES.md#quality-standards)
+**Principles:** DRY enforcement, incremental changes, functionality preservation, performance mindset
+**LLM Compression:** See [Language-Specific Rules](../../AGENT-GUIDELINES.md#language-specific-rules) - assume LLM competency, command-centric, project-specific focus
