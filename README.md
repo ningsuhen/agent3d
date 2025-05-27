@@ -72,14 +72,15 @@ Agent3D defines a series of passes that guide the development process:
 0. **Requirements Pass**: Documenting comprehensive requirements and business objectives
 1. **Foundation Pass**: Project configuration and foundational setup
 2. **Documentation Pass**: Documenting features, requirements, and priorities
-3. **Implementation Pass**: Implementing features with basic test coverage
-4. **Testing Pass**: Adding comprehensive tests and verifying edge cases
-5. **Refactoring Pass**: Cleaning up code without changing functionality
-6. **Code Review Pass**: Reviewing PR changes and providing feedback
-7. **Synchronization Pass**: Aligning documentation with code at any scale
-8. **Quality Pass**: Verifying and improving documentation quality
-9. **Prune Pass**: Removing outdated or redundant content
-10. **Reverse Pass**: Detecting and addressing reverse drift (implementation without documentation)
+3. **Planning Pass**: Creating step-by-step implementation plans with checkpoints for major changes
+4. **Implementation Pass**: Implementing features with basic test coverage
+5. **Testing Pass**: Adding comprehensive tests and verifying edge cases
+6. **Refactoring Pass**: Cleaning up code without changing functionality
+7. **Code Review Pass**: Reviewing PR changes and providing feedback
+8. **Synchronization Pass**: Aligning documentation with code at any scale
+9. **Quality Pass**: Verifying and improving documentation quality
+10. **Prune Pass**: Removing outdated or redundant content
+11. **Reverse Pass**: Detecting and addressing reverse drift (implementation without documentation)
 
 Additionally, a **Full Pass** encompasses all of the above passes for comprehensive project updates.
 
@@ -99,14 +100,15 @@ Additionally, a **Full Pass** encompasses all of the above passes for comprehens
 - **[Requirements Pass](passes/simplified/0_requirements_pass.md)**: Business requirements and objectives
 - **[Foundation Pass](passes/simplified/1_foundation_pass.md)**: Project configuration and setup
 - **[Documentation Pass](passes/simplified/2_documentation_pass.md)**: Feature documentation
-- **[Implementation Pass](passes/simplified/3_implementation_pass.md)**: Code development
-- **[Testing Pass](passes/simplified/4_testing_pass.md)**: Test coverage
-- **[Refactoring Pass](passes/simplified/5_refactoring_pass.md)**: Code cleanup
-- **[Code Review Pass](passes/simplified/6_code_review_pass.md)**: PR reviews
-- **[Synchronization Pass](passes/simplified/7_synchronization_pass.md)**: Doc-code alignment
-- **[Quality Pass](passes/simplified/8_quality_pass.md)**: Documentation quality
-- **[Prune Pass](passes/simplified/9_prune_pass.md)**: Content cleanup
-- **[Reverse Pass](passes/simplified/10_reverse_pass.md)**: Reverse drift detection
+- **[Planning Pass](passes/simplified/3_planning_pass.md)**: Step-by-step implementation plans with checkpoints
+- **[Implementation Pass](passes/simplified/4_implementation_pass.md)**: Code development
+- **[Testing Pass](passes/simplified/5_testing_pass.md)**: Test coverage
+- **[Refactoring Pass](passes/simplified/6_refactoring_pass.md)**: Code cleanup
+- **[Code Review Pass](passes/simplified/7_code_review_pass.md)**: PR reviews
+- **[Synchronization Pass](passes/simplified/8_synchronization_pass.md)**: Doc-code alignment
+- **[Quality Pass](passes/simplified/9_quality_pass.md)**: Documentation quality
+- **[Prune Pass](passes/simplified/10_prune_pass.md)**: Content cleanup
+- **[Reverse Pass](passes/simplified/11_reverse_pass.md)**: Reverse drift detection
 
 ### 📁 Supporting Files
 - **docs/designs/**: Component specifications ([Agent Protocol](docs/designs/AGENT-PROTOCOL.md), [DDD Passes](docs/designs/DDD-PASSES.md), [Language Rules](docs/designs/LANGUAGE-RULES.md))

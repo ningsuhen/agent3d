@@ -29,7 +29,9 @@
 - Clear acceptance criteria
 
 ## Related Passes
-Requirements → Foundation → **Documentation** → Implementation
+Requirements → Foundation → **Documentation** → Planning → Implementation
+
+**Note:** For major changes (migrations, refactoring, complex features), Documentation Pass should trigger Planning Pass before Implementation.
 
 ## Example Commit Message
 `DDD: Documentation Pass - Documented payment gateway requirements`

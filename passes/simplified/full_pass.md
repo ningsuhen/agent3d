@@ -4,7 +4,7 @@
 
 **Role:** **Technical Project Manager** coordinating domain experts. Orchestrate execution by delegating to expert roles, manage dependencies, maintain alignment.
 
-**Includes:** All numbered passes (Requirements → Foundation → Documentation → Implementation → Testing → Refactoring → Code Review → Synchronization → Quality → Prune → Reverse)
+**Includes:** All numbered passes (Requirements → Foundation → Documentation → Planning → Implementation → Testing → Refactoring → Code Review → Synchronization → Quality → Prune → Reverse)
 
 **Goal:** Minimize drift indicators across all passes and achieve balanced alignment levels (ideally 90%+ for all passes) to maintain project health and consistency.
 

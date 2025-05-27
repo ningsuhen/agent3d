@@ -11,9 +11,9 @@ This document centralizes all common procedures used across DDD passes to elimin
 
 **Core Memory Patterns:**
 1. **Pass Execution (Universal):** SCAN → DRAFT → ASK → SYNC
-2. **Pass Sequence:** REQ → FOUND → DOC → IMPL → TEST → REFACT → REVIEW → SYNC → QUAL → PRUNE → REV
-3. **File Locations:** CONFIG(.agent3d-config.yml), DOCS(docs/), RULES(~/.agent3d/rules/), TEMPLATES(~/.agent3d/templates/)
-4. **Quality Gates:** Requirements(objectives), Foundation(config), Documentation(criteria), Implementation(matches), Testing(passes), Review(rules)
+2. **Pass Sequence:** REQ → FOUND → DOC → PLAN → IMPL → TEST → REFACT → REVIEW → SYNC → QUAL → PRUNE → REV
+3. **File Locations:** CONFIG(.agent3d-config.yml), DOCS(docs/), PLANS(docs/plans/), RULES(~/.agent3d/rules/), TEMPLATES(~/.agent3d/templates/)
+4. **Quality Gates:** Requirements(objectives), Foundation(config), Documentation(criteria), Planning(checkpoints), Implementation(matches), Testing(passes), Review(rules)
 
 **Speed Optimization Rules:**
 - **NEVER** look up pass definitions during execution
@@ -149,6 +149,34 @@ All DDD passes follow the same 4-step workflow:
 
 **REFERENCE:** Full rules at [Language-Specific Rules](../AGENT-GUIDELINES.md#language-specific-rules)
 
+## Planning Document Management
+
+### Implementation Plan Creation
+**Location:** `docs/plans/`
+**Template:** `~/.agent3d/templates/IMPLEMENTATION-PLAN.template.md`
+**Naming Convention:** `IMPLEMENTATION-PLAN-{feature-name}.md`
+
+### Planning Document Lifecycle
+1. **Creation:** Planning Pass creates detailed implementation plan
+2. **Validation:** Plan reviewed and approved before Implementation Pass
+3. **Execution:** Implementation Pass follows plan steps and updates progress
+4. **Completion:** Plan marked as completed when all steps finished
+5. **Archive:** Completed plans moved to `docs/plans/completed/` for reference
+
+### Checkpoint Management
+- **Checkpoint Frequency:** Every 2-4 implementation steps
+- **Progress Tracking:** Mark steps as `[x]` completed, `[~]` in progress, `[ ]` not started
+- **Rollback Points:** Clear instructions for reverting to previous checkpoint
+- **Resumability:** Use checkpoint status to resume work after interruption
+
+### Planning Triggers
+**Automatic triggers for Planning Pass:**
+- Changes affecting >3 components/files
+- Estimated effort >8 hours
+- Risk level "Medium" or "High"
+- Dependencies on external systems
+- Breaking changes or migrations
+
 ## DDD Status Management
 
 ### Status Updates
@@ -168,11 +196,13 @@ All DDD passes follow the same 4-step workflow:
 - `docs/` - Main documentation directory
 - `docs/designs/` - Component design specifications
 - `docs/proposals/` - Design proposals for unimplemented features
+- `docs/plans/` - Implementation plans for major changes
 
 ### File Organization
 - Core documentation in `docs/` root
 - Specialized designs in `docs/designs/`
 - Future proposals in `docs/proposals/`
+- Implementation plans in `docs/plans/`
 - Pass documentation in `passes/simplified/`
 - Templates in `templates/`
 - Language rules in `rules/`

@@ -49,7 +49,8 @@ The DDD Pass System provides a structured approach to documentation-driven devel
 graph LR
     A[Requirements Pass] --> B[Foundation Pass]
     B --> C[Documentation Pass]
-    C --> D[Implementation Pass]
+    C --> CP[Planning Pass]
+    CP --> D[Implementation Pass]
     D --> E[Testing Pass]
     E --> F[Refactoring Pass]
     F --> G[Code Review Pass]
@@ -61,6 +62,7 @@ graph LR
     L[Full Pass] -.-> A
     L -.-> B
     L -.-> C
+    L -.-> CP
     L -.-> D
     L -.-> E
     L -.-> F
@@ -142,6 +144,9 @@ agent3d/
 │   │   ├── AGENT-PROTOCOL.md    # Agent Guideline Protocol design
 │   │   ├── DDD-PASSES.md        # DDD Pass System design
 │   │   └── LANGUAGE-RULES.md    # Language Rules System design
+│   ├── plans/             # Implementation plans for major changes
+│   │   ├── completed/     # Archived completed implementation plans
+│   │   └── IMPLEMENTATION-PLAN-{feature}.md # Active implementation plans
 │   └── proposals/         # Design proposals for unimplemented features
 │       ├── PROPOSALS-README.md  # Proposal process documentation
 │       ├── active/              # Proposals under consideration
@@ -153,8 +158,9 @@ agent3d/
 │       ├── full_pass.md   # Full pass documentation
 │       ├── 1_foundation_pass.md
 │       ├── 2_documentation_pass.md
-│       ├── ...            # Passes 3-9
-│       └── 10_reverse_pass.md  # Reverse pass for drift detection
+│       ├── 3_planning_pass.md  # Planning pass for major changes
+│       ├── ...            # Passes 4-10
+│       └── 11_reverse_pass.md  # Reverse pass for drift detection
 ├── rules/                 # Language-specific rules documentation
 │   ├── python.md          # Python rules
 │   ├── javascript.md      # JavaScript rules

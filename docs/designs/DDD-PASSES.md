@@ -71,49 +71,55 @@ interface PassState {
 - **Dependencies**: Foundation Pass
 - **Validation**: Acceptance criteria completeness, test case coverage
 
-### 3. Implementation Pass
-- **Input**: Complete documentation, test cases
-- **Output**: Working code, basic tests
+### 3. Planning Pass
+- **Input**: Complete documentation, change requirements
+- **Output**: Step-by-step implementation plan with checkpoints
 - **Dependencies**: Documentation Pass
-- **Validation**: Feature implementation, test execution
+- **Validation**: Plan completeness, checkpoint strategy, rollback procedures
 
-### 4. Testing Pass
+### 4. Implementation Pass
+- **Input**: Implementation plan, complete documentation, test cases
+- **Output**: Working code, basic tests
+- **Dependencies**: Planning Pass (for major changes), Documentation Pass
+- **Validation**: Feature implementation, test execution, plan adherence
+
+### 5. Testing Pass
 - **Input**: Implemented features, test specifications
 - **Output**: Comprehensive test suite, edge case coverage
 - **Dependencies**: Implementation Pass
 - **Validation**: Test coverage metrics, all tests passing
 
-### 5. Refactoring Pass
+### 6. Refactoring Pass
 - **Input**: Working implementation, code quality metrics
 - **Output**: Optimized code, improved maintainability
 - **Dependencies**: Testing Pass
 - **Validation**: No feature regression, quality improvements
 
-### 6. Code Review Pass
+### 7. Code Review Pass
 - **Input**: Complete implementation, PR context
 - **Output**: Review comments, approval status
 - **Dependencies**: Refactoring Pass
 - **Validation**: Review completion, issue resolution
 
-### 7. Synchronization Pass
+### 8. Synchronization Pass
 - **Input**: All project artifacts
 - **Output**: Aligned documentation and code
 - **Dependencies**: Code Review Pass
 - **Validation**: Consistency checks, drift elimination
 
-### 8. Quality Pass
+### 9. Quality Pass
 - **Input**: Synchronized project state
 - **Output**: Quality validation report
 - **Dependencies**: Synchronization Pass
 - **Validation**: Quality gates, compliance checks
 
-### 9. Prune Pass
+### 10. Prune Pass
 - **Input**: Complete project state
 - **Output**: Cleaned artifacts, removed redundancy
 - **Dependencies**: Quality Pass
 - **Validation**: No functional impact, improved clarity
 
-### 10. Reverse Pass
+### 11. Reverse Pass
 - **Input**: Implementation state, documentation state
 - **Output**: Updated documentation for undocumented features
 - **Dependencies**: Can run independently
@@ -124,7 +130,8 @@ interface PassState {
 ```mermaid
 graph TD
     F[Foundation] --> D[Documentation]
-    D --> I[Implementation]
+    D --> PL[Planning]
+    PL --> I[Implementation]
     I --> T[Testing]
     T --> R[Refactoring]
     R --> CR[Code Review]
@@ -134,10 +141,12 @@ graph TD
 
     Rev[Reverse] -.-> F
     Rev -.-> D
+    Rev -.-> PL
     Rev -.-> I
 
     Full[Full Pass] --> F
     Full --> D
+    Full --> PL
     Full --> I
     Full --> T
     Full --> R

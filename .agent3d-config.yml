@@ -22,6 +22,7 @@ enabled_passes:
   - reverse         # Detect documentation drift
 
 disabled_passes:
+  - planning         # No implementation planning needed for documentation-only project
   - implementation   # No code implementation needed
 
 # Pass-Specific Configuration

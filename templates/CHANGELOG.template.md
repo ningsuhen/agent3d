@@ -70,6 +70,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **{{pass_date}}**: Full Pass - {{comprehensive_update_description}}
 - **{{pass_date}}**: Foundation Pass - {{foundation_changes}}
 - **{{pass_date}}**: Documentation Pass - {{documentation_updates}}
+- **{{pass_date}}**: Planning Pass - {{planning_activities}}
 - **{{pass_date}}**: Implementation Pass - {{implementation_changes}}
 - **{{pass_date}}**: Testing Pass - {{testing_improvements}}
 - **{{pass_date}}**: Refactoring Pass - {{refactoring_changes}}

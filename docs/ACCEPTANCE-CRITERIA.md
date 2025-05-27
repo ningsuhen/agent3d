@@ -20,7 +20,7 @@ This document defines the acceptance criteria for all requirements and user stor
 **Then:** The pass completes successfully with documented outcomes
 
 **Acceptance Criteria:**
-- [ ] All 11 passes (0-10) are documented with clear objectives
+- [ ] All 12 passes (0-11) are documented with clear objectives
 - [ ] Each pass follows Scan → Draft → Ask → Sync workflow
 - [ ] Each pass produces expected documentation artifacts
 - [ ] Pass execution can be tracked and validated
@@ -33,7 +33,8 @@ This document defines the acceptance criteria for all requirements and user stor
 **Acceptance Criteria:**
 - [ ] Requirements Pass precedes Foundation Pass
 - [ ] Foundation Pass precedes Documentation Pass
-- [ ] Documentation Pass precedes Implementation Pass
+- [ ] Documentation Pass precedes Planning Pass
+- [ ] Planning Pass precedes Implementation Pass
 - [ ] Each pass builds on previous pass outputs
 
 ### Feature 2: Agent Guideline Protocol
@@ -135,7 +136,7 @@ This document defines the acceptance criteria for all requirements and user stor
 ## Quality Gates
 
 ### Framework Level
-- [ ] All 11 passes are documented and tested
+- [ ] All 12 passes are documented and tested
 - [ ] All language rules are complete
 - [ ] All templates are usable
 - [ ] All review guidelines are actionable
@@ -224,7 +225,7 @@ This document defines the acceptance criteria for all requirements and user stor
 
 ### Quantitative Metrics
 - Documentation quality score ≥ 95%
-- All 11 passes documented and functional
+- All 12 passes documented and functional
 - 4 programming languages fully supported
 - Zero broken links or references
 - 100% template coverage
