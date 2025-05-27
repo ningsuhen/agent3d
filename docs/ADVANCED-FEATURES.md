@@ -92,8 +92,7 @@ Human-agent collaborative review process:
 4. Human completes final review
 
 **Language-Specific Integration:**
-- Automatic application of `~/.agent3d/rules/[language].md`
-- Integration with `[language]-review-guidelines.md`
+- Automatic application of `~/.agent3d/rules/[language].md` (includes development rules and review standards)
 - Context-aware rule enforcement
 
 ### Fallback Manual Process

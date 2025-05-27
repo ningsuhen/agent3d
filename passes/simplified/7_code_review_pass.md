@@ -137,7 +137,7 @@ See [Common Procedures](../docs/COMMON-PROCEDURES.md#quality--github) for CI/CD 
 ```markdown
 ## Code Review Summary - STRICT STANDARDS APPLIED
 - **Overall Assessment:** [Request Changes/Approve] - NO COMPROMISES ON QUALITY
-- **Language Rules Applied:** [Reference to ~/.agent3d/rules/[language].md and [language]-review-guidelines.md]
+- **Language Rules Applied:** [Reference to ~/.agent3d/rules/[language].md]
 - **Critical Issues:** [Must fix before approval - list with severity]
 - **High Priority Issues:** [Should fix for maintainability]
 - **Best Practice Violations:** [Language-specific concerns]
@@ -165,7 +165,7 @@ See [Common Procedures](../docs/COMMON-PROCEDURES.md#quality--github) for CI/CD 
 - [ ] Resolve all security concerns
 
 ## Standards Enforced
-**Language-Specific:** Rules from `~/.agent3d/rules/[language].md` and `[language]-review-guidelines.md`
+**Language-Specific:** Rules from `~/.agent3d/rules/[language].md`
 **Universal:** Quality standards from [Common Procedures](../../docs/COMMON-PROCEDURES.md#quality-standards)
 ```
 
@@ -187,8 +187,7 @@ See [Common Procedures](../docs/COMMON-PROCEDURES.md#quality--github) for CI/CD 
 [Specific improvements to achieve language mastery]
 
 ### References
-- Language Rules: ~/.agent3d/rules/[language].md
-- Review Guidelines: ~/.agent3d/rules/[language]-review-guidelines.md
+- Language Rules: ~/.agent3d/rules/[language].md (includes development rules and review standards)
 - Best Practices Documentation: [relevant links]
 ```
 
