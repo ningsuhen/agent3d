@@ -5,21 +5,13 @@ Sophisticated Agent3D features and capabilities.
 ## Template System Advanced Capabilities
 
 ### Template Inheritance System
-Template inheritance system based on BASE.template.md:
+Template inheritance system based on [BASE.template.md](../templates/BASE.template.md):
 
-**Base Template Variables:**
-- `{{document_title}}` - Document title
-- `{{document_purpose}}` - Purpose statement
-- `{{project_name}}` - Project name
-- `{{author}}` - Document author
-- `{{creation_date}}` - Creation timestamp
-- `{{last_updated}}` - Last update timestamp
-- `{{version}}` - Document version
-
-**Specialized Template Extensions:**
+**Inheritance Features:**
 - Templates inherit base validation rules
 - Template-specific variables extend base variables
 - Automatic validation checklist inheritance
+- See [Template Variable Reference](../templates/BASE.template.md#template-variable-reference) for complete variable list
 
 ### Dynamic Content Generation
 Context-aware content generation:
@@ -42,37 +34,7 @@ Templates automatically generate links between related documents using consisten
 
 ## DDD Pass Configuration System
 
-### Pass-Specific Configuration
-Each pass supports advanced configuration options:
-
-**Foundation Pass Configuration:**
-- **Enabled**: true/false
-- **Templates**: List of required templates
-- **Validation**: strict/relaxed mode
-
-**Implementation Pass Configuration:**
-- **Test Coverage Threshold**: 80% (configurable)
-- **Quality Gates**: lint_score 8.0, complexity low
-- **Language Rules**: Automatic application
-
-### Project-Specific Overrides
-Customize pass behavior for specific projects:
-
-**Available Override Categories:**
-- **Skip Passes**: List of passes to skip
-- **Custom Templates**: Project-specific template overrides
-- **Validation Rules**: Custom validation configurations
-- **Metrics Thresholds**: Adjusted threshold values
-
-**Example Override Configuration:**
-```yaml
-project_overrides:
-  python:
-    testing:
-      coverage_threshold: 90  # Override default 80%
-    code_style:
-      line_length: 120        # Override default 88
-```
+See [Configuration Guide](CONFIGURATION-GUIDE.md) for comprehensive pass configuration options, project-specific overrides, and advanced configuration examples.
 
 ## Advanced GitHub CLI Integration
 
@@ -100,8 +62,7 @@ Human-agent collaborative review process:
 4. Human completes final review
 
 **Language-Specific Integration:**
-- Automatic application of `~/.agent3d/rules/[language].md`
-- Integration with `[language]-review-guidelines.md`
+- Automatic application of `~/.agent3d/rules/[language].md` (includes development rules and review standards)
 - Context-aware rule enforcement
 
 ### Fallback Manual Process
@@ -155,25 +116,7 @@ Alignment: 85% ████████▌░ (8.5/10 blocks filled)
 **Drift Level Indicators:**
 - None 🟢 (0-10%), Low 🟡 (11-25%), Medium 🟠 (26-50%), High 🔴 (51%+)
 
-## Advanced Template Variables
 
-### Document Metadata System
-Comprehensive document tracking:
-
-**Metadata Variables:**
-- **Purpose**: Document purpose statement
-- **Author**: Document author
-- **Created**: Creation timestamp
-- **Last Updated**: Last modification timestamp
-- **Version**: Document version number
-
-### Dynamic Content Sections
-Configurable content organization:
-
-**Section Variables:**
-- `{{content_section_title}}` - Dynamic section naming
-- `{{main_content}}` - Primary content area
-- `{{additional_validation_rules}}` - Template-specific validation
 
 ## Design Proposal System
 

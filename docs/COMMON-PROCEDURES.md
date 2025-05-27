@@ -181,6 +181,72 @@ git branch -d exec-plan/horizontal-compression-pass
 
 **MEMORIZATION RULE:** Use memorized config throughout session, check branch type for commit behavior.
 
+## Pass Configuration Examples
+
+### Foundation Pass Configuration
+```yaml
+foundation_pass:
+  enabled: true
+  templates: [README.template.md, FEATURES.template.md, HIGH-LEVEL-DESIGN.template.md]
+  validation: strict
+```
+
+### Development Pass Configuration
+```yaml
+development_pass:
+  enabled: true
+  selection_mode: "auto"  # "auto" | "picker"
+  runs_directory: "docs/runs/"
+  auto_selection: {priority_threshold: "high", max_features_per_run: 3, include_drift_fixes: true, include_blockers: true, respect_dependencies: true, max_estimated_effort: "3 days"}
+  execution_settings: {checkpoint_frequency: 3, auto_test_after_step: true, archive_completed_plans: true}
+  auto_trigger_thresholds: {file_count: 3, estimated_effort_hours: 8, risk_level: "medium", complexity: "high"}
+  required_for: [migrations, refactoring, breaking_changes]
+  optional_for: [bug_fixes, documentation]
+```
+
+### Planning Pass Configuration
+```yaml
+planning_pass:
+  enabled: true
+  auto_trigger_thresholds:
+    file_count: 3
+    estimated_effort_hours: 8
+    risk_level: "medium"
+    complexity: "high"
+  required_for: [migrations, refactoring, breaking_changes]
+  optional_for: [bug_fixes, documentation]
+  checkpoint_frequency: 3  # steps between checkpoints
+```
+
+### Testing Pass Configuration
+```yaml
+testing_pass:
+  enabled: true
+  coverage_threshold: 80
+  test_types: [unit, integration, edge_cases]
+  framework_compliance: strict
+```
+
+### Project Type Examples
+```yaml
+# Web Application Example
+project:
+  type: "web_application"
+  language: "python"
+  framework: "django"
+  quality_level: "balanced"
+enabled_passes: [foundation, requirements, documentation, planning, implementation, testing, code_review, synchronization, quality]
+skip_passes: [prune, reverse]
+
+# Documentation Project Example
+project:
+  type: "documentation"
+  language: "markdown"
+  quality_level: "strict"
+enabled_passes: [foundation, requirements, documentation, quality]
+skip_passes: [planning, implementation, testing, code_review, refactoring]
+```
+
 ## Planning & Status
 
 ```bash

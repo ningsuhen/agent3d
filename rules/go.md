@@ -144,3 +144,86 @@
    - Use `go mod vendor` to create the vendor directory
    - Include vendor directory in version control for deployment stability
    - Document vendoring strategy in the project README
+
+## Code Review Standards
+
+**Role:** Senior Go Engineer with expertise in idiomatic Go, concurrency patterns, and performance optimization.
+
+### Critical Review Areas
+
+#### 1. Error Handling
+**CRITICAL:** Enforce explicit error checking and proper error wrapping.
+- Never ignore errors; always check and handle them explicitly
+- Use error wrapping with fmt.Errorf and %w verb
+- Create custom error types for domain-specific errors
+- Return errors as the last return value
+
+#### 2. Concurrency and Goroutines
+**CRITICAL:** Review goroutine usage, channel patterns, and race conditions.
+- Use sync.Mutex or sync.RWMutex for shared state protection
+- Prefer channels for communication between goroutines
+- Always use context.Context for cancellation and timeouts
+- Close channels when done sending
+
+#### 3. Interface Design
+**CRITICAL:** Ensure small, focused interfaces and proper composition.
+- Keep interfaces small and focused on single responsibilities
+- Use interface composition instead of large interfaces
+- Accept interfaces, return concrete types
+- Define interfaces at the point of use
+
+#### 4. Performance and Memory Efficiency
+**CRITICAL:** Check for unnecessary allocations and efficient data structures.
+- Use strings.Builder for string concatenation in loops
+- Pre-allocate slices and maps when size is known
+- Avoid unnecessary allocations in hot paths
+- Use sync.Pool for frequently allocated objects
+
+#### 5. Idiomatic Go Patterns
+**CRITICAL:** Enforce Go idioms and conventions.
+- Use receiver methods instead of functions with struct parameters
+- Design structs with useful zero values
+- Use functional options for complex constructors
+- Follow Go naming conventions (camelCase, not snake_case)
+
+#### 6. Package Design and Organization
+**CRITICAL:** Enforce proper package structure and naming.
+- Use descriptive package names, avoid generic names like 'utils'
+- Keep packages focused on single domain
+- Document packages with clear purpose statements
+- Avoid circular dependencies between packages
+
+#### 7. Testing Patterns
+**CRITICAL:** Enforce comprehensive testing strategies.
+- Use table-driven tests for multiple test cases
+- Test both success and error cases
+- Use descriptive test names
+- Use testify/assert for cleaner assertions
+
+### Severity Classification
+
+**Critical:** Ignored errors or improper error handling, race conditions or unsafe concurrent access, memory leaks or resource leaks, security vulnerabilities, panic-inducing code without recovery
+**High:** Non-idiomatic Go patterns, performance inefficiencies, poor interface design, missing context usage, inadequate test coverage
+**Medium:** Missing package documentation, inconsistent naming conventions, suboptimal data structure usage, missing error wrapping
+**Low:** Code style improvements, additional test cases, performance micro-optimizations, documentation enhancements
+
+### Anti-Patterns to Reject
+- Ignoring errors with _, using panic for normal error conditions
+- Not using context.Context for cancellation, large interfaces with many methods
+- Goroutine leaks without proper cleanup, using channels for simple synchronization
+- Not closing channels when done, inefficient string concatenation
+
+### Quality Gates
+**Go-Specific:**
+- [ ] All errors are explicitly handled
+- [ ] Proper concurrency patterns used
+- [ ] Interfaces are small and focused
+- [ ] Idiomatic Go conventions followed
+- [ ] No race conditions or goroutine leaks
+- [ ] Context used for cancellation
+
+**Universal (see [Common Procedures](../docs/COMMON-PROCEDURES.md#quality-standards)):**
+- [ ] Memory efficient patterns implemented
+- [ ] Packages are well-organized and documented
+- [ ] Comprehensive test coverage
+- [ ] Performance considerations addressed

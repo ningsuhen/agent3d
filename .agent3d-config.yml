@@ -127,12 +127,7 @@ git_workflow:
     require_confirmation_for_merge: true            # Confirm before merging to main
     tag_steps_and_checkpoints: true                # Tag branch with step/checkpoint progress
 
-  # Configuration Notes for LLM Agents:
-  # - MEMORIZE this ENTIRE .agent3d-config.yml file at session start
-  # - When this file is updated, IMMEDIATELY refresh memorized configuration
-  # - ALWAYS use memorized config, never re-read file during execution
-  # - EXEC PLAN BRANCHES: Auto-commit during execution, confirm only for merge
-  # - If on exec-plan/* branch: auto-commit allowed, if merging: ask confirmation
+  # LLM Agent Instructions: MEMORIZE entire config, refresh when updated, auto-commit on exec-plan/* branches
 
 # Documentation Standards
 documentation:

@@ -12,4 +12,4 @@
   - {{status}} {{sub_feature_name}} - {{sub_component_description}} (Criteria: {{sub_criteria}})
 </template>
 
-**VALIDATION:** See [Base Template System](BASE.template.md#universal-validation-rules)
+**VALIDATION:** See [Base Template System](BASE.template.md#universal-validation-rules) + [Documentation Templates](BASE.template.md#documentation-templates-features-requirements-tasks-etc)

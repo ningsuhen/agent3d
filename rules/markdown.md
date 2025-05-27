@@ -358,4 +358,70 @@ Optimize markdown for performance:
 
 ---
 
+## Code Review Standards
+
+**Purpose:** Review criteria for markdown documentation with focus on LLM optimization and technical accuracy
+**Scope:** All markdown files in documentation projects
+**Role:** Technical Documentation Specialist and LLM Content Optimizer
+
+### Review Priorities
+
+#### Critical Issues (Must Fix)
+1. **Broken Links:** All internal and external links must be functional
+2. **Template Compliance:** Documents must follow template structure exactly
+3. **Command Accuracy:** All commands and code examples must be tested and functional
+4. **Structural Consistency:** Heading hierarchy and organization must be correct
+
+#### High Priority Issues
+1. **LLM Optimization:** Remove verbose explanations of standard development tasks
+2. **Content Redundancy:** Eliminate duplicate information across documents
+3. **Missing Context:** Ensure sufficient context for task completion
+4. **Inconsistent Terminology:** Use consistent terms throughout documentation
+
+#### Medium Priority Issues
+1. **Formatting Consistency:** Standardize code blocks, lists, and emphasis
+2. **Link Organization:** Optimize internal linking and cross-references
+3. **Content Organization:** Improve information hierarchy and flow
+4. **Language Clarity:** Enhance readability and precision
+
+### LLM Optimization Review
+
+#### Content Compression Checklist
+- [ ] **Basic Tool Explanations:** Remove installation and basic usage instructions for standard tools
+- [ ] **Verbose Command Descriptions:** Replace with concise command-first format
+- [ ] **Redundant Context:** Eliminate unnecessary background information
+- [ ] **Standard Procedures:** Compress to essential commands and parameters
+
+#### What to Preserve vs Remove
+**Preserve:** Exact commands, project-specific details, critical warnings, file paths
+**Remove:** Installation instructions for standard tools, basic explanations of widely-known concepts, step-by-step breakdowns of common operations, verbose descriptions of standard tool functionality
+
+### Technical Accuracy Review
+
+#### Command and Link Validation
+- [ ] **Syntax Accuracy:** All commands use correct syntax and parameters
+- [ ] **Path Validity:** File paths and references are accurate
+- [ ] **Internal Links:** All relative links resolve correctly
+- [ ] **External Links:** All external URLs are accessible and current
+
+### Quality Assurance Checklist
+
+#### Pre-Review Validation
+- [ ] **Markdown Linting:** Document passes markdownlint validation
+- [ ] **Spell Check:** No spelling errors or typos
+- [ ] **Link Check:** All links validated and functional
+- [ ] **Template Compliance:** All required sections present, placeholders replaced
+
+#### Content Review
+- [ ] **Accuracy Verification:** All information is current and correct
+- [ ] **Completeness Check:** All necessary information included
+- [ ] **Redundancy Elimination:** No duplicate information
+- [ ] **LLM Optimization:** Verbose explanations removed appropriately
+
+### Common Review Patterns
+**Frequent Issues:** Over-explanation of basic tools, broken internal links, inconsistent code block language specification, template placeholders not replaced, redundant information across documents
+**Quick Fixes:** Command compression, link updates, language specification, placeholder replacement, cross-reference cleanup
+
+---
+
 **Usage:** Apply these rules during Documentation Pass, Refactoring Pass, and Code Review Pass for all markdown content. Use the rendering validation checklist before committing any markdown changes to ensure proper display across all platforms.
