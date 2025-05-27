@@ -27,7 +27,7 @@
 - Requirements baseline with traceability
 
 ## Related Passes
-Requirements → Foundation → Documentation → Implementation
+**Requirements** → Foundation → Documentation → Planning → Implementation
 
 ## Example Commit Message
 `DDD: Requirements Pass - Documented user authentication requirements`

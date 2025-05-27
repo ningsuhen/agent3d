@@ -2,11 +2,11 @@
 
 **FORMAT SPECIFICATION:** Tracks DDD pass status, alignment, and project health. Each pass includes status, alignment %, drift level, execution date, priority, and artifacts.
 
-**REQUIRED SECTIONS:** Summary, Pass Status, Individual Passes (Full + 10 numbered), Health Indicators
+**REQUIRED SECTIONS:** Summary, Pass Status, Individual Passes (Full + 12 numbered), Health Indicators
 
 **PASS STRUCTURE:** Each DDD pass gets its own section following the same format. The document includes:
 - Full Pass (comprehensive pass)
-- 10 numbered passes (Foundation through Reverse)
+- 12 numbered passes (Requirements through Reverse)
 - Each pass section repeats the same status tracking format
 
 **METRICS CALCULATION:**
@@ -41,7 +41,7 @@
 
 ## 📋 Pass Status
 
-**Structure:** Full Pass + 10 numbered passes (Foundation → Documentation → Implementation → Testing → Refactoring → Code Review → Synchronization → Quality → Prune → Reverse)
+**Structure:** Full Pass + 12 numbered passes (Requirements → Foundation → Documentation → Planning → Implementation → Testing → Refactoring → Code Review → Synchronization → Quality → Prune → Reverse)
 
 ## 🏥 Health Indicators
 - **Critical Issues:** {{critical_count}} 🚨

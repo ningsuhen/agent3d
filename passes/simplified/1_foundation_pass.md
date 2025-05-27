@@ -89,6 +89,7 @@ enabled_passes:
   - foundation
   - requirements
   - documentation
+  - planning
   - implementation
   - testing
   - code_review
@@ -114,6 +115,7 @@ enabled_passes:
   - quality
 
 skip_passes:
+  - planning
   - implementation
   - testing
   - code_review

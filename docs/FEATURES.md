@@ -9,7 +9,7 @@ This document outlines the features of the Agent3D documentation framework, grou
 ## Core Documentation Framework
 
 - [x] Agent Guideline Protocol - Guidelines for agents to retrieve and follow DDD principles (Criteria: Agents can fetch, cache, and follow remote guidelines automatically)
-- [x] DDD Pass System - Structured approach to documentation-driven development (Criteria: All 9 numbered passes plus Full Pass are documented and executable)
+- [x] DDD Pass System - Structured approach to documentation-driven development (Criteria: All 12 numbered passes plus Full Pass are documented and executable)
 - [x] Documentation Standards - Guidelines for documentation completeness and accuracy (Criteria: All required documentation files have templates and validation criteria)
 
 ## Documentation Passes
