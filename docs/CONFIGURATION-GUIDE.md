@@ -1,397 +1,120 @@
 # Configuration Guide
 
-Configure Agent3D for specific project needs using `.agent3d-config.yml`.
+Configure Agent3D using `.agent3d-config.yml` in project root.
 
 ## Pass Configuration
 
-### Default Pass Settings
-
-DDD pass configurable settings:
-
-**Foundation Pass:**
 ```yaml
+# Foundation Pass
 foundation_pass:
   enabled: true
-  templates:
-    - README.template.md
-    - FEATURES.template.md
-    - HIGH-LEVEL-DESIGN.template.md
+  templates: [README.template.md, FEATURES.template.md, HIGH-LEVEL-DESIGN.template.md]
   validation: strict
-  required_sections: all
-```
 
-**Implementation Pass:**
-```yaml
+# Implementation Pass
 implementation_pass:
   enabled: true
   test_coverage_threshold: 80
-  quality_gates:
-    lint_score: 8.0
-    complexity: low
-    security_scan: required
-```
+  quality_gates: {lint_score: 8.0, complexity: low, security_scan: required}
 
-**Testing Pass:**
-```yaml
+# Testing Pass
 testing_pass:
   enabled: true
   coverage_threshold: 80
-  test_types:
-    - unit
-    - integration
-    - edge_cases
+  test_types: [unit, integration, edge_cases]
   framework_compliance: strict
 ```
 
-### Project-Specific Configuration
-
-Each project uses `.agent3d-config.yml` in the project root as the primary configuration file:
-
-**Configuration File Location:**
-- **Primary:** `.agent3d-config.yml` in project root (same directory as `.agent3d` file)
-- **Alternative:** `docs/.agent3d-config.yml` for documentation-specific settings (legacy)
-
-**Example Configuration:**
+## Project Configuration
 ```yaml
 # .agent3d-config.yml
-project:
-  name: "MyProject"
-  type: "web_application"
-  language: "python"
+project: {name: "MyProject", type: "web_application", language: "python"}
 
 pass_overrides:
-  implementation:
-    test_coverage_threshold: 90
-    quality_gates:
-      lint_score: 9.0
-      complexity: very_low
+  implementation: {test_coverage_threshold: 90, quality_gates: {lint_score: 9.0, complexity: very_low}}
+  testing: {coverage_threshold: 95, additional_test_types: [performance, security]}
 
-  testing:
-    coverage_threshold: 95
-    additional_test_types:
-      - performance
-      - security
-
-skip_passes:
-  - prune  # Skip prune pass for this project
-
-custom_templates:
-  README: "custom/README.template.md"
-  FEATURES: "custom/FEATURES.template.md"
+skip_passes: [prune]
+custom_templates: {README: "custom/README.template.md", FEATURES: "custom/FEATURES.template.md"}
 ```
 
-## Language-Specific Configuration
+## Language Configuration
 
-### Python Configuration
 ```yaml
-python:
-  version: ">=3.8"
-  package_manager: "pip"  # or "poetry", "pipenv"
-  testing:
-    framework: "pytest"
-    coverage_threshold: 85
-  code_style:
-    formatter: "black"
-    line_length: 88
-    linter: "flake8"
-  dependencies:
-    management: "pyproject.toml"
-    lock_file: "requirements-lock.txt"
+# Python
+python: {version: ">=3.8", package_manager: "pip", testing: {framework: "pytest", coverage_threshold: 85}, code_style: {formatter: "black", line_length: 88, linter: "flake8"}}
+
+# JavaScript
+javascript: {version: ">=16.0.0", package_manager: "npm", testing: {framework: "jest", coverage_threshold: 80}, code_style: {formatter: "prettier", linter: "eslint", typescript: true}}
+
+# Java
+java: {version: ">=11", build_tool: "gradle", testing: {framework: "junit5", coverage_threshold: 75}, code_style: {formatter: "spotless", static_analysis: [checkstyle, pmd, spotbugs]}}
+
+# Go
+go: {version: ">=1.19", testing: {coverage_threshold: 80, race_detection: true}, code_style: {formatter: "gofmt", linter: "golangci-lint"}}
 ```
 
-### JavaScript Configuration
-```yaml
-javascript:
-  version: ">=16.0.0"
-  package_manager: "npm"  # or "yarn", "pnpm"
-  testing:
-    framework: "jest"
-    coverage_threshold: 80
-  code_style:
-    formatter: "prettier"
-    linter: "eslint"
-    typescript: true
-```
-
-### Java Configuration
-```yaml
-java:
-  version: ">=11"
-  build_tool: "gradle"  # or "maven"
-  testing:
-    framework: "junit5"
-    coverage_threshold: 75
-  code_style:
-    formatter: "spotless"
-    static_analysis:
-      - checkstyle
-      - pmd
-      - spotbugs
-```
-
-### Go Configuration
-```yaml
-go:
-  version: ">=1.19"
-  testing:
-    coverage_threshold: 80
-    race_detection: true
-  code_style:
-    formatter: "gofmt"
-    linter: "golangci-lint"
-```
-
-## Template Configuration
-
-### Custom Template Paths
-Override default templates with project-specific versions:
+## Templates & Thresholds
 
 ```yaml
-template_overrides:
-  base_path: "custom/templates/"
-  templates:
-    README: "custom-readme.template.md"
-    FEATURES: "enhanced-features.template.md"
-    TASKS: "agile-tasks.template.md"
-```
+# Template Configuration
+template_overrides: {base_path: "custom/templates/", templates: {README: "custom-readme.template.md", FEATURES: "enhanced-features.template.md"}}
+template_defaults: {author: "Development Team", license: "MIT", documentation_style: "google"}
+template_validation: {mode: "strict", required_sections: "all", allow_empty_sections: false}
 
-### Template Variables
-Configure default values for template variables:
+# Alignment Thresholds
+alignment_thresholds: {excellent: 95, good: 85, acceptable: 70, poor: 50, critical: 0}
+drift_thresholds: {none: 10, low: 25, medium: 50, high: 100}
 
-```yaml
-template_defaults:
-  author: "Development Team"
-  license: "MIT"
-  contributing_guidelines: "See CONTRIBUTING.md"
-  documentation_style: "google"  # or "numpy", "sphinx"
-```
-
-### Template Validation
-Configure validation strictness:
-
-```yaml
-template_validation:
-  mode: "strict"  # or "relaxed", "custom"
-  required_sections: "all"  # or list of specific sections
-  allow_empty_sections: false
-  enforce_format_compliance: true
-```
-
-## Metrics and Thresholds
-
-### Alignment Thresholds
-Configure when passes are considered complete:
-
-```yaml
-alignment_thresholds:
-  excellent: 95  # 95%+ alignment
-  good: 85       # 85-94% alignment
-  acceptable: 70 # 70-84% alignment
-  poor: 50       # 50-69% alignment
-  critical: 0    # <50% alignment
-```
-
-### Drift Indicators
-Configure drift level calculations:
-
-```yaml
-drift_thresholds:
-  none: 10       # 0-10% drift
-  low: 25        # 11-25% drift
-  medium: 50     # 26-50% drift
-  high: 100      # 51%+ drift
-```
-
-### Quality Gates
-Configure quality score calculations:
-
-```yaml
+# Quality Gates
 quality_gates:
-  documentation_completeness: 30  # 30% weight
-  test_coverage: 25               # 25% weight
-  code_quality: 25                # 25% weight
-  alignment_consistency: 20       # 20% weight
-
-  minimum_scores:
-    documentation: 80
-    testing: 75
-    implementation: 85
-    overall: 80
+  weights: {documentation_completeness: 30, test_coverage: 25, code_quality: 25, alignment_consistency: 20}
+  minimum_scores: {documentation: 80, testing: 75, implementation: 85, overall: 80}
 ```
 
-## GitHub Integration Configuration
-
-### PR Review Settings
-Configure automated PR review behavior:
+## GitHub & Environment
 
 ```yaml
+# GitHub Integration
 github_integration:
-  pr_review:
-    enabled: true
-    mode: "pending"  # Submit reviews in pending mode
-    language_rules: true
-    fallback_manual: true
-
-  comment_format:
-    severity_levels:
-      - critical
-      - high
-      - medium
-      - low
-    include_line_numbers: true
-    include_suggestions: true
+  pr_review: {enabled: true, mode: "pending", language_rules: true, fallback_manual: true}
+  comment_format: {severity_levels: [critical, high, medium, low], include_line_numbers: true, include_suggestions: true}
+  auth: {method: "token", token_env_var: "GITHUB_TOKEN", fallback_manual: true}
 ```
 
-### Authentication
-Configure GitHub CLI authentication:
-
-```yaml
-github_auth:
-  method: "token"  # or "oauth", "ssh"
-  token_env_var: "GITHUB_TOKEN"
-  fallback_manual: true
-```
-
-## Environment Variables
-
-### Core Configuration
 ```bash
-# Repository configuration
+# Environment Variables
 AGENT3D_REPO="git@github.com:ningsuhen/agent3d.git"
 AGENT3D_LOCAL_PATH="~/.agent3d"
-
-# Pass configuration
-DDD_UPDATE_INTERVAL="6h"  # Update interval
-DDD_CONFIG_PATH=".agent3d-config.yml"
-
-# GitHub integration
+DDD_UPDATE_INTERVAL="6h"
 GITHUB_TOKEN="your_token_here"
-GH_DEBUG="1"  # Enable debug mode
-
-# Language-specific
-PYTHON_VERSION="3.9"
-NODE_VERSION="16.0.0"
-JAVA_VERSION="11"
-GO_VERSION="1.19"
-```
-
-### Performance Tuning
-```bash
-# Performance optimization
 DDD_CACHE_ENABLED="true"
-DDD_PARALLEL_PROCESSING="true"
 DDD_MAX_WORKERS="4"
-
-# Resource limits
-DDD_MAX_MEMORY="512MB"
-DDD_TIMEOUT="300s"
 ```
 
-## Validation Configuration
-
-### Strict Mode
-Maximum validation and compliance checking:
+## Validation & Advanced
 
 ```yaml
+# Validation Modes
 validation:
-  mode: "strict"
-  enforce_all_rules: true
-  fail_on_warnings: true
-  require_all_sections: true
-  validate_links: true
-  check_formatting: true
-```
+  strict: {mode: "strict", enforce_all_rules: true, fail_on_warnings: true, require_all_sections: true, validate_links: true}
+  relaxed: {mode: "relaxed", enforce_critical_only: true, allow_warnings: true, optional_sections: true, skip_link_validation: true}
 
-### Relaxed Mode
-Flexible validation for rapid development:
-
-```yaml
-validation:
-  mode: "relaxed"
-  enforce_critical_only: true
-  allow_warnings: true
-  optional_sections: true
-  skip_link_validation: true
-```
-
-### Custom Validation Rules
-Define project-specific validation:
-
-```yaml
+# Custom Validation
 custom_validation:
-  required_sections:
-    - "Overview"
-    - "Installation"
-    - "Usage"
-  optional_sections:
-    - "Contributing"
-    - "License"
-  custom_rules:
-    - name: "require_examples"
-      pattern: "## Examples"
-      required: true
-    - name: "limit_line_length"
-      max_length: 120
-```
+  required_sections: ["Overview", "Installation", "Usage"]
+  optional_sections: ["Contributing", "License"]
+  custom_rules: [{name: "require_examples", pattern: "## Examples", required: true}, {name: "limit_line_length", max_length: 120}]
 
-## LLM-Specific Configuration
+# LLM Compression
+llm_compression: {enabled: true, compression_level: "aggressive", preserve_commands: true, preserve_project_specifics: true, remove_basic_explanations: true, compress_tasks: [git_operations, github_cli_usage, package_management, file_operations, standard_development_tools]}
 
-### Documentation Compression for LLMs
-Configure refactoring pass to compress documentation for LLM consumption:
-
-```yaml
-refactoring:
-  type: "documentation"
-  scope: "markdown_only"
-  focus:
-    - structure_optimization
-    - content_consolidation
-    - duplicate_removal
-    - clarity_improvement
-    - llm_focused_compression  # Remove verbose explanations of basic tasks
-
-llm_compression:
-  enabled: true
-  compression_level: "aggressive"  # or "moderate", "conservative"
-  preserve_commands: true
-  preserve_project_specifics: true
-  remove_basic_explanations: true
-
-  # Tasks to compress (remove verbose explanations)
-  compress_tasks:
-    - git_operations
-    - github_cli_usage
-    - package_management
-    - file_operations
-    - standard_development_tools
-```
-
-## Advanced Configuration
-
-### Multi-Language Projects
-```yaml
-multi_language:
-  primary: "python"
-  secondary: ["javascript", "go"]
-```
-
-### Monorepo Configuration
-```yaml
-monorepo:
-  enabled: true
-  subprojects:
-    - path: "backend/"
-      language: "python"
-```
-
-### CI/CD Integration
-```yaml
-cicd:
-  enabled: true
-  trigger_on: ["pull_request", "push_to_main"]
-  pipeline_steps: ["foundation_pass", "documentation_pass", "quality_pass"]
+# Advanced
+multi_language: {primary: "python", secondary: ["javascript", "go"]}
+monorepo: {enabled: true, subprojects: [{path: "backend/", language: "python"}]}
+cicd: {enabled: true, trigger_on: ["pull_request", "push_to_main"], pipeline_steps: ["foundation_pass", "documentation_pass", "quality_pass"]}
 ```
 
 ---
 
-**Usage:** Place `.agent3d-config.yml` in project root (same directory as `.agent3d` file). Configuration is loaded automatically when running DDD passes. Use Foundation Pass to create initial configuration through interactive setup.
+**Usage:** Place `.agent3d-config.yml` in project root. Use Foundation Pass to create initial configuration.

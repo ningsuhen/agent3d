@@ -112,6 +112,13 @@ validation:
   validate_links: true
   check_formatting: true
 
+# Git Workflow Settings
+git_workflow:
+  require_commit_confirmation: true
+  commit_message_format: "DDD: {pass_name} - {description}"
+  always_confirm_before_commit: true
+  human_approval_required: true
+
 # Documentation Standards
 documentation:
   format: "markdown"
