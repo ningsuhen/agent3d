@@ -23,6 +23,33 @@
 - [ ] Include functional links and single-line entries
 - [ ] Mark `[x]` only with verifiable evidence
 
+## Template-Specific Validation
+
+### Documentation Templates (FEATURES, REQUIREMENTS, TASKS, etc.)
+- [ ] **Format Compliance:** Follow specified format patterns exactly
+- [ ] **Priority Organization:** Use High/Medium/Low/Completed structure where applicable
+- [ ] **Status Indicators:** Use `[x]`/`[ ]`/`[~]` consistently
+- [ ] **Functional Grouping:** Organize content by logical functional areas
+- [ ] **Completion Criteria:** Include clear acceptance criteria for each item
+
+### Design Templates (HIGH-LEVEL-DESIGN, DETAILED-DESIGN, etc.)
+- [ ] **Architecture Clarity:** Clear system architecture and component relationships
+- [ ] **Technical Accuracy:** All technical specifications are accurate and testable
+- [ ] **Diagram Validation:** All diagrams render correctly and support the text
+- [ ] **Interface Documentation:** All APIs and interfaces properly documented
+
+### Process Templates (EXEC-PLAN, IMPLEMENTATION-PLAN, etc.)
+- [ ] **Step Sequencing:** Logical step-by-step progression
+- [ ] **Checkpoint Definition:** Clear checkpoints and verification criteria
+- [ ] **Risk Assessment:** Identified risks with mitigation strategies
+- [ ] **Resource Planning:** Required resources and dependencies identified
+
+### User-Focused Templates (USER-STORIES, USER-JOURNEY-MAP, etc.)
+- [ ] **User Perspective:** Written from user's point of view
+- [ ] **Acceptance Criteria:** Clear, testable acceptance criteria
+- [ ] **Journey Mapping:** Logical user flow and interaction patterns
+- [ ] **Persona Alignment:** Content aligns with defined user personas
+
 ## Template Usage Process
 
 1. **Access**: Templates from `~/.agent3d/templates/`

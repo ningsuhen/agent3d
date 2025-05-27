@@ -54,4 +54,4 @@
 - [x] {{completed_task_name}} - {{completion_description}}
 </template>
 
-**VALIDATION:** See [Base Template System](BASE.template.md#universal-validation-rules) + Correct prioritization + Clear descriptions + Functional grouping + Completed tasks properly moved
+**VALIDATION:** See [Base Template System](BASE.template.md#universal-validation-rules) + [Documentation Templates](BASE.template.md#documentation-templates-features-requirements-tasks-etc)
