@@ -23,6 +23,7 @@
 
 ## Expected Outcomes
 - Requirements documentation (REQUIREMENTS.md, USER-STORIES.md, ACCEPTANCE-CRITERIA.md, BUSINESS-OBJECTIVES.md)
+- **UX Requirements** (for UI projects: USER-PERSONAS.md, UX-PRINCIPLES.md, USER-JOURNEY-MAPS.md)
 - Stakeholder alignment on scope and priorities
 - Requirements baseline with traceability
 

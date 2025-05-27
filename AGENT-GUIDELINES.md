@@ -84,6 +84,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 | `docs/designs/*.md` | Component design specifications | `~/.agent3d/templates/DETAILED-DESIGN.template.md` |
 | `docs/proposals/*.md` | Design proposals for unimplemented features | `~/.agent3d/templates/PROPOSAL.template.md` |
 | `docs/plans/*.md` | Step-by-step implementation plans for major changes | `~/.agent3d/templates/IMPLEMENTATION-PLAN.template.md` |
+| `docs/ux/*.md` | UI/UX specifications, wireframes, and user flows (for UI projects) | `~/.agent3d/templates/UX-SPECIFICATIONS.template.md` |
 | `CHANGELOG.md` | Chronological record of all project changes | `~/.agent3d/templates/CHANGELOG.template.md` |
 
 **🚨 CRITICAL**: All documentation creation and standards are defined in [Common Procedures](docs/COMMON-PROCEDURES.md). Follow these procedures for all DDD activities.

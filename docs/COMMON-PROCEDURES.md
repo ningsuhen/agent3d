@@ -197,12 +197,14 @@ All DDD passes follow the same 4-step workflow:
 - `docs/designs/` - Component design specifications
 - `docs/proposals/` - Design proposals for unimplemented features
 - `docs/plans/` - Implementation plans for major changes
+- `docs/ux/` - UI/UX specifications, wireframes, and user flows (for UI projects)
 
 ### File Organization
 - Core documentation in `docs/` root
 - Specialized designs in `docs/designs/`
 - Future proposals in `docs/proposals/`
 - Implementation plans in `docs/plans/`
+- UI/UX documentation in `docs/ux/`
 - Pass documentation in `passes/simplified/`
 - Templates in `templates/`
 - Language rules in `rules/`
