@@ -3,13 +3,13 @@
 This document outlines the test cases for the Agent3D framework, organized by features using FT-* identifiers for traceability.
 
 ## 📊 Summary
-- **Total Test Cases:** 76 (45 main + 31 sub-test cases)
-- **Completed:** 31 ✅ (19 main + 12 sub-test cases)
+- **Total Test Cases:** 106 (61 main + 45 sub-test cases)
+- **Completed:** 61 ✅ (35 main + 26 sub-test cases)
 - **Pending:** 45 ⏸️ (26 main + 19 sub-test cases)
 - **Skipped:** 0 ⏭️
-- **Automated:** 39 (51%)
-- **Partial:** 22 (29%)
-- **Manual:** 15 (20%)
+- **Automated:** 54 (51%)
+- **Partial:** 22 (21%)
+- **Manual:** 30 (28%)
 
 ## 🔧 Test Execution Framework
 
@@ -211,6 +211,50 @@ This document outlines the test cases for the Agent3D framework, organized by fe
 - [ ] **TC-0421** - Documentation changes tracked in version control (Manual, High)
 - [ ] **TC-0422** - Version control validation prevents drift (Manual, Medium)
 - [ ] **TC-0423** - Documentation branching strategy (Manual, Medium)
+
+### **FT-INTG-004** VSCode DDD Navigator Extension
+- [x] **TC-0431** - VSCode extension installation and activation (Manual, High)
+  - [x] **TC-0431a** - Extension builds and packages successfully (Automated, High)
+  - [x] **TC-0431b** - Extension installs via install.sh script (Manual, High)
+  - [x] **TC-0431c** - Extension activates in VSCode without errors (Manual, High)
+- [x] **TC-0432** - Identifier navigation functionality (Manual, High)
+  - [x] **TC-0432a** - Cmd+Click navigation works for TC-* identifiers (Manual, High)
+  - [x] **TC-0432b** - Cmd+Click navigation works for REQ-* identifiers (Manual, High)
+  - [x] **TC-0432c** - Cmd+Click navigation works for FT-* identifiers (Manual, High)
+- [x] **TC-0433** - Quick pick navigation commands (Manual, High)
+  - [x] **TC-0433a** - Ctrl+Shift+T opens test case picker (Manual, High)
+  - [x] **TC-0433b** - Ctrl+Shift+R opens requirement picker (Manual, High)
+  - [x] **TC-0433c** - Ctrl+Shift+F opens feature picker (Manual, High)
+- [x] **TC-0434** - Real-time indexing and file watching (Manual, Medium)
+  - [x] **TC-0434a** - Index updates when markdown files change (Manual, Medium)
+  - [x] **TC-0434b** - Index updates when code files change (Manual, Medium)
+  - [x] **TC-0434c** - File system watcher handles file creation/deletion (Manual, Medium)
+- [x] **TC-0435** - Hover providers and rich preview (Manual, Medium)
+  - [x] **TC-0435a** - Hover shows identifier status and description (Manual, Medium)
+  - [x] **TC-0435b** - Hover shows related items and cross-references (Manual, Medium)
+- [x] **TC-0436** - Configurable patterns and settings (Manual, Medium)
+  - [x] **TC-0436a** - Custom identifier patterns work correctly (Manual, Medium)
+  - [x] **TC-0436b** - Custom file locations are respected (Manual, Medium)
+  - [x] **TC-0436c** - Extension settings persist across sessions (Manual, Low)
+
+### **FT-INTG-005** MCP Server Integration
+- [x] **TC-0441** - MCP server initialization and protocol (Automated, High)
+  - [x] **TC-0441a** - MCP server starts and responds to initialize request (Automated, High)
+  - [x] **TC-0441b** - JSON-RPC protocol compliance validation (Automated, High)
+  - [x] **TC-0441c** - Error handling for malformed requests (Automated, Medium)
+- [x] **TC-0442** - Multi-mode drift analysis via MCP (Automated, High)
+  - [x] **TC-0442a** - tc-mapping mode works via MCP interface (Automated, High)
+  - [x] **TC-0442b** - ft-mapping mode works via MCP interface (Automated, High)
+  - [x] **TC-0442c** - code-coverage mode works via MCP interface (Automated, High)
+  - [x] **TC-0442d** - all modes work via MCP interface (Automated, High)
+- [x] **TC-0443** - Virtual environment integration (Manual, High)
+  - [x] **TC-0443a** - Shell wrapper activates Python venv correctly (Manual, High)
+  - [x] **TC-0443b** - PyYAML dependency is installed automatically (Manual, High)
+  - [x] **TC-0443c** - MCP server works without system-wide Python packages (Manual, Medium)
+- [x] **TC-0444** - Fresh scan mode validation (Automated, Medium)
+  - [x] **TC-0444a** - Each MCP request performs fresh analysis (Automated, Medium)
+  - [x] **TC-0444b** - No caching between MCP requests (Automated, Medium)
+  - [x] **TC-0444c** - Real-time repository state reflection (Manual, Medium)
 
 ## 📊 Status Tracking
 

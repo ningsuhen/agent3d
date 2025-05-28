@@ -111,6 +111,18 @@ This document outlines the features of the Agent3D documentation framework, grou
 - [x] **FT-INTG-001** LLM Agent Integration - Guidelines for instructing LLM coding agents to follow Agent3D principles (Criteria: Agents can automatically fetch, cache, and follow DDD guidelines)
 - [x] **FT-INTG-002** CI/CD Integration - Documentation for validating documentation-code alignment in CI/CD pipelines (Criteria: Automated validation prevents documentation-code drift)
 - [x] **FT-INTG-003** Version Control Integration - Best practices for documentation in version control systems (Criteria: Documentation changes are tracked and validated in version control)
+- [x] **FT-INTG-004** VSCode DDD Navigator Extension - Complete IDE integration for seamless navigation between test cases, features, and requirements (Criteria: Full TypeScript extension with definition providers, hover support, and quick navigation)
+  - [x] **FT-INTG-004a** Identifier Navigation - Cmd+Click navigation for TC-*, REQ-*, and FT-* identifiers (Criteria: Definition and reference providers for all identifier types)
+  - [x] **FT-INTG-004b** Quick Pick Navigation - Keyboard shortcuts for rapid navigation (Criteria: Ctrl+Shift+T/R/F for test cases, requirements, and features)
+  - [x] **FT-INTG-004c** Real-time Indexing - Automatic file watching and index updates (Criteria: Live updates when markdown or code files change)
+  - [x] **FT-INTG-004d** Hover Providers - Rich preview information on identifier hover (Criteria: Status, description, and related items shown on hover)
+  - [x] **FT-INTG-004e** Configurable Patterns - Customizable identifier patterns and file locations (Criteria: User-configurable regex patterns and search paths)
+  - [x] **FT-INTG-004f** Automated Installation - Complete installation scripts for easy setup (Criteria: Shell scripts for building and installing extension)
+- [x] **FT-INTG-005** MCP Server Integration - Model Context Protocol server for drift analysis integration with AI tools (Criteria: Complete JSON-RPC server with comprehensive drift detection capabilities)
+  - [x] **FT-INTG-005a** JSON-RPC Protocol - Full MCP protocol implementation for AI tool integration (Criteria: Standards-compliant JSON-RPC server with proper error handling)
+  - [x] **FT-INTG-005b** Multi-mode Analysis - Support for all drift detection modes via MCP interface (Criteria: tc-mapping, ft-mapping, code-coverage, and all other modes accessible)
+  - [x] **FT-INTG-005c** Virtual Environment Integration - Automatic Python environment setup and dependency management (Criteria: Shell wrapper with venv activation and PyYAML installation)
+  - [x] **FT-INTG-005d** Fresh Scan Mode - Real-time drift analysis without caching for accurate results (Criteria: Every MCP request performs fresh analysis of current repository state)
 
 ## Status Tracking
 
@@ -130,3 +142,8 @@ This document outlines the features of the Agent3D documentation framework, grou
   - [x] **FT-STAT-004b** Alert System - Drift notification mechanism (Criteria: Alerts trigger when drift exceeds thresholds)
   - [x] **FT-STAT-004c** FT-TC Relationship Mapping - Feature-to-test case cross-reference validation (Criteria: Comprehensive FT-* ↔ TC-* relationship analysis with orphaned identifier detection)
   - [x] **FT-STAT-004d** Identifier Pattern Configuration - Configurable identifier patterns for comprehensive drift detection (Criteria: All identifier patterns configurable via .agent3d-config.yml with flexible and strict pattern support)
+  - [x] **FT-STAT-004e** Multi-mode Drift Analysis - Comprehensive drift detection across multiple analysis modes (Criteria: tc-mapping, ft-mapping, ft-tc-mapping, code-coverage, feature-impl, and all modes supported)
+  - [x] **FT-STAT-004f** Language-Specific Detection - Multi-language drift detection with language-aware patterns (Criteria: Python, JavaScript, Java, Go, and Rust language detection with specific test patterns)
+  - [x] **FT-STAT-004g** Advanced Pattern Recognition - Support for 10+ identifier patterns beyond basic TC-* and FT-* (Criteria: REQ-*, US-*, AC-*, BUG-*, DOC-*, API-*, PERF-*, SEC-* patterns supported)
+  - [x] **FT-STAT-004h** Configuration Drift Detection - Detection of configuration file changes and dependency drift (Criteria: Package.json, requirements.txt, and other config file drift detection)
+  - [x] **FT-STAT-004i** Git Change Integration - Optimized drift detection for changed files only (Criteria: 10x+ faster scanning by analyzing only modified files since last commit)

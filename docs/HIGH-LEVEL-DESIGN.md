@@ -14,6 +14,12 @@ graph TD
     C -->|Creates/Updates| E[Code]
     D -->|Guides| E
     F[Language Rules] -->|Informs| E
+    G[VSCode Extension] -->|Navigates| D
+    H[MCP Server] -->|Analyzes| D
+    H -->|Analyzes| E
+    I[Drift Scanner] -->|Detects Drift| D
+    I -->|Detects Drift| E
+    H -->|Provides| I
 ```
 
 ## Core Components
@@ -108,6 +114,35 @@ graph TD
     E --> E3[Testing]
 ```
 
+### Integration Tools
+
+Agent3D includes several integration tools that enhance the development experience:
+
+```mermaid
+graph TD
+    A[VSCode DDD Navigator] --> A1[Identifier Navigation]
+    A --> A2[Quick Pick Commands]
+    A --> A3[Real-time Indexing]
+    A --> A4[Hover Providers]
+
+    B[MCP Server] --> B1[JSON-RPC Protocol]
+    B --> B2[Multi-mode Analysis]
+    B --> B3[Virtual Environment]
+    B --> B4[Fresh Scan Mode]
+
+    C[Drift Scanner] --> C1[TC-FT Mapping]
+    C --> C2[Code Coverage]
+    C --> C3[Language Detection]
+    C --> C4[Git Integration]
+
+    A1 --> D[Documentation Files]
+    A2 --> D
+    B2 --> C
+    B4 --> C
+    C1 --> E[Drift Reports]
+    C2 --> E
+```
+
 ## Data Flow
 
 The following diagram illustrates the data flow in the Agent3D framework:
@@ -163,10 +198,25 @@ agent3d/
 │   ├── javascript.md      # JavaScript rules
 │   ├── java.md            # Java rules
 │   └── go.md              # Go rules
-└── templates/             # Documentation templates
-    ├── HIGH-LEVEL-DESIGN.template.md
-    ├── FEATURES.template.md
-    └── ...                # Other templates
+├── templates/             # Documentation templates
+│   ├── HIGH-LEVEL-DESIGN.template.md
+│   ├── FEATURES.template.md
+│   └── ...                # Other templates
+├── tools/                 # Integration tools and utilities
+│   ├── drift_scanner.py   # Comprehensive drift detection tool
+│   ├── drift_scanner_mcp_server.py # MCP server for AI tool integration
+│   ├── drift_scanner_mcp_server.sh # Shell wrapper with venv activation
+│   └── test_drift_scanner.py # Test suite for drift scanner
+├── vscode-ddd-navigator/  # VSCode extension for DDD navigation
+│   ├── src/               # TypeScript source code
+│   │   └── extension.ts   # Main extension implementation
+│   ├── package.json       # Extension configuration and dependencies
+│   ├── install.sh         # Automated installation script
+│   └── tsconfig.json      # TypeScript configuration
+└── venv/                  # Python virtual environment
+    ├── bin/               # Virtual environment binaries
+    ├── lib/               # Python packages (PyYAML, etc.)
+    └── pyvenv.cfg         # Virtual environment configuration
 ```
 
 ## Component Designs
