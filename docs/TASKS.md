@@ -53,7 +53,7 @@ This document outlines the tasks for the Agent3D project, prioritized by importa
   - [ ] Online template editor
   - [ ] Interactive pass execution tracker
 - [ ] Develop plugins for popular IDEs
-  - [ ] VS Code extension for Agent3D
+  - [x] VS Code extension for Agent3D (DDD Navigator - completed 2025-05-28)
   - [ ] IntelliJ plugin for DDD workflow
   - [ ] Vim/Neovim plugin for documentation integration
 - [ ] Create training materials for teams adopting Agent3D

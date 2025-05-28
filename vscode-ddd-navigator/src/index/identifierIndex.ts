@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 
 export interface Identifier {
-    type: 'test-case' | 'requirement' | 'feature';
+    type: 'test-case' | 'requirement' | 'feature' | 'file-reference';
     id: string;
     location: vscode.Location;
     status?: 'complete' | 'pending' | 'skipped';
@@ -10,13 +10,21 @@ export interface Identifier {
     relatedIds?: string[];
 }
 
+export interface FileReference {
+    filePath: string;
+    referencedIn: vscode.Location[];
+    actualFile?: vscode.Uri;
+}
+
 export class IdentifierIndex {
     private identifiers: Map<string, Identifier> = new Map();
     private references: Map<string, vscode.Location[]> = new Map();
+    private fileReferences: Map<string, FileReference> = new Map();
 
     async buildIndex(workspaceFolder: vscode.WorkspaceFolder): Promise<void> {
         this.identifiers.clear();
         this.references.clear();
+        this.fileReferences.clear();
 
         const config = vscode.workspace.getConfiguration('dddNavigator');
 
@@ -54,6 +62,9 @@ export class IdentifierIndex {
 
             // Parse references
             this.parseReferences(document, text);
+
+            // Parse file references (programming files mentioned in markdown)
+            this.parseFileReferences(document, text, fileUri);
 
         } catch (error) {
             console.error(`Error indexing file ${fileUri.fsPath}:`, error);
@@ -233,5 +244,78 @@ export class IdentifierIndex {
             id.id.toLowerCase().includes(lowerQuery) ||
             (id.description && id.description.toLowerCase().includes(lowerQuery))
         );
+    }
+
+    private parseFileReferences(document: vscode.TextDocument, text: string, fileUri: vscode.Uri): void {
+        const fileName = path.basename(fileUri.fsPath);
+
+        // Only parse file references in markdown files
+        if (!fileName.endsWith('.md')) {
+            return;
+        }
+
+        // Pattern to match file paths in markdown (code blocks, inline code, links)
+        // Matches: `src/file.js`, `./path/file.py`, `/absolute/path/file.ts`, etc.
+        const filePathPattern = /(?:`([^`]+\.[a-zA-Z0-9]+)`|```[a-zA-Z]*\n([^`]+)```|\[([^\]]+)\]\(([^)]+\.[a-zA-Z0-9]+)\)|(\S+\.[a-zA-Z0-9]+))/g;
+
+        let match;
+        while ((match = filePathPattern.exec(text)) !== null) {
+            // Extract the file path from different capture groups
+            const filePath = match[1] || match[4] || match[5];
+
+            if (filePath && this.isValidFilePath(filePath)) {
+                const position = document.positionAt(match.index);
+                this.addFileReference(filePath, new vscode.Location(document.uri, position));
+            }
+        }
+    }
+
+    private isValidFilePath(filePath: string): boolean {
+        // Check if it looks like a programming file
+        const programmingExtensions = [
+            '.js', '.ts', '.jsx', '.tsx', '.py', '.java', '.go', '.c', '.cpp', '.h', '.hpp',
+            '.cs', '.php', '.rb', '.rs', '.swift', '.kt', '.scala', '.clj', '.hs', '.ml',
+            '.fs', '.elm', '.dart', '.lua', '.r', '.m', '.pl', '.sh', '.bat', '.ps1'
+        ];
+
+        return programmingExtensions.some(ext => filePath.toLowerCase().endsWith(ext)) &&
+               !filePath.includes('node_modules') &&
+               !filePath.includes('.git') &&
+               filePath.length > 3 &&
+               filePath.length < 200; // Reasonable length limits
+    }
+
+    private addFileReference(filePath: string, location: vscode.Location): void {
+        if (!this.fileReferences.has(filePath)) {
+            this.fileReferences.set(filePath, {
+                filePath,
+                referencedIn: []
+            });
+        }
+        this.fileReferences.get(filePath)!.referencedIn.push(location);
+    }
+
+    findFileReference(filePath: string): FileReference | undefined {
+        return this.fileReferences.get(filePath);
+    }
+
+    findFileReferencesForCurrentFile(currentFileUri: vscode.Uri): vscode.Location[] {
+        const currentFileName = path.basename(currentFileUri.fsPath);
+        const currentFilePath = vscode.workspace.asRelativePath(currentFileUri);
+
+        // Look for references to this file by name or relative path
+        for (const [refPath, fileRef] of this.fileReferences) {
+            if (refPath.endsWith(currentFileName) ||
+                refPath === currentFilePath ||
+                refPath.endsWith('/' + currentFileName)) {
+                return fileRef.referencedIn;
+            }
+        }
+
+        return [];
+    }
+
+    getAllFileReferences(): Map<string, FileReference> {
+        return new Map(this.fileReferences);
     }
 }

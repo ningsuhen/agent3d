@@ -57,12 +57,18 @@ export function activate(context: vscode.ExtensionContext) {
     // Build initial index
     buildIndex();
 
-    // Watch for file changes
-    const watcher = vscode.workspace.createFileSystemWatcher('**/*.md');
-    watcher.onDidChange(() => buildIndex());
-    watcher.onDidCreate(() => buildIndex());
-    watcher.onDidDelete(() => buildIndex());
-    context.subscriptions.push(watcher);
+    // Watch for file changes (markdown and programming files)
+    const markdownWatcher = vscode.workspace.createFileSystemWatcher('**/*.md');
+    markdownWatcher.onDidChange(() => buildIndex());
+    markdownWatcher.onDidCreate(() => buildIndex());
+    markdownWatcher.onDidDelete(() => buildIndex());
+    context.subscriptions.push(markdownWatcher);
+
+    // Watch for programming file changes to update file references
+    const codeWatcher = vscode.workspace.createFileSystemWatcher('**/*.{js,ts,jsx,tsx,py,java,go,c,cpp,h,hpp,cs,php,rb,rs,swift,kt,scala,clj,hs,ml,fs,elm,dart,lua,r,m,pl,sh,bat,ps1}');
+    codeWatcher.onDidCreate(() => buildIndex());
+    codeWatcher.onDidDelete(() => buildIndex());
+    context.subscriptions.push(codeWatcher);
 }
 
 async function buildIndex() {

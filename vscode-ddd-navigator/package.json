@@ -2,7 +2,7 @@
   "name": "ddd-navigator",
   "displayName": "DDD Navigator",
   "description": "Navigate between Test Cases, Features, and Requirements in documentation-driven development",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "publisher": "agent3d",
   "repository": {
     "type": "git",
@@ -90,17 +90,26 @@
         },
         "dddNavigator.featureFiles": {
           "type": "array",
-          "default": ["FEATURES.md", "docs/FEATURES.md"],
+          "default": [
+            "FEATURES.md",
+            "docs/FEATURES.md"
+          ],
           "description": "Files to search for feature definitions"
         },
         "dddNavigator.testCaseFiles": {
           "type": "array",
-          "default": ["TEST-CASES.md", "docs/TEST-CASES.md"],
+          "default": [
+            "TEST-CASES.md",
+            "docs/TEST-CASES.md"
+          ],
           "description": "Files to search for test case definitions"
         },
         "dddNavigator.requirementFiles": {
           "type": "array",
-          "default": ["REQUIREMENTS.md", "docs/REQUIREMENTS.md"],
+          "default": [
+            "REQUIREMENTS.md",
+            "docs/REQUIREMENTS.md"
+          ],
           "description": "Files to search for requirement definitions"
         }
       }
@@ -132,19 +141,20 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package"
   },
   "devDependencies": {
-    "@types/vscode": "^1.60.0",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.10",
     "@types/node": "16.x",
-    "@types/mocha": "^10.0.1",
+    "@types/vscode": "^1.60.0",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
-    "@vscode/test-electron": "^2.2.0",
+    "@vscode/test-electron": "^2.5.2",
     "eslint": "^8.28.0",
-    "glob": "^8.0.3",
-    "mocha": "^10.1.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.8.2",
     "typescript": "^4.9.4"
-  },
-  "dependencies": {}
+  }
 }

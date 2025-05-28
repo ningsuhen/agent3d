@@ -6,6 +6,9 @@ Navigate seamlessly between Test Cases, Features, and Requirements in documentat
 
 ### 🔍 Smart Navigation
 - **Go to Definition**: Ctrl+Click on any `TC-####` or `REQ-###` identifier to jump to its definition
+- **Bidirectional File Navigation**:
+  - **Programming File → Markdown**: Cmd+Click anywhere in a programming file to navigate to markdown files that reference it (single occurrence) or show options (multiple occurrences)
+  - **Markdown → Programming File**: Cmd+Click on file paths in markdown (like `src/app.js` or `[API](routes/api.js)`) to navigate directly to the actual files
 - **Find All References**: Right-click → "Find All References" to see all mentions
 - **Quick Navigation**: Use Command Palette to quickly jump to any test case, requirement, or feature
 
@@ -17,7 +20,7 @@ Navigate seamlessly between Test Cases, Features, and Requirements in documentat
 
 ### ⚡ Quick Commands
 - `Ctrl+Shift+T` (Cmd+Shift+T on Mac): Go to Test Case
-- `Ctrl+Shift+R` (Cmd+Shift+R on Mac): Go to Requirement  
+- `Ctrl+Shift+R` (Cmd+Shift+R on Mac): Go to Requirement
 - `Ctrl+Shift+F` (Cmd+Shift+F on Mac): Go to Feature
 
 ### 🎯 Supported Patterns
@@ -72,6 +75,15 @@ Customize the patterns used to recognize identifiers:
 ```
 
 ## Usage Examples
+
+### Bidirectional File Navigation
+```markdown
+<!-- In documentation.md -->
+The main application logic is in `src/app.js` and the user model is defined in `models/user.ts`.
+
+<!-- Cmd+Click on src/app.js navigates directly to the file -->
+<!-- Cmd+Click anywhere in src/app.js navigates back to documentation.md -->
+```
 
 ### Test Case Navigation
 ```markdown
@@ -178,6 +190,13 @@ The login form implements REQ-001 requirements.
 MIT License - see LICENSE file for details.
 
 ## Changelog
+
+### 1.1.0
+- **NEW**: Bidirectional file navigation between programming files and markdown documentation
+- **NEW**: Cmd+Click on programming files navigates to referencing markdown files
+- **NEW**: Cmd+Click on file paths in markdown navigates to actual files
+- Enhanced file reference detection in markdown (inline code, code blocks, links)
+- Improved workspace file watching for better performance
 
 ### 1.0.0
 - Initial release
