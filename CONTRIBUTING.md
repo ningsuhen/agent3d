@@ -53,12 +53,14 @@ This project defines Documentation-Driven Development (DDD) principles. All cont
 ### Guidelines for Specific Documentation Types
 
 #### Pass Documentation
+
 - Maintain the numbered structure (1. Foundation Pass, 2. Documentation Pass, etc.)
 - Include clear "When to Use" sections
 - Ensure the "Process" sections follow the Scan → Draft → Ask → Sync workflow
 - Include clear "Expected Outcomes" sections
 
 #### Language-Specific Rules
+
 - Keep rules organized by category (Environment Setup, Code Style, etc.)
 - Ensure rules are specific and actionable
 - Avoid ambiguous language that could be misinterpreted by LLM agents

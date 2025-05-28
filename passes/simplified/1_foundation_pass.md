@@ -5,6 +5,7 @@
 **Role:** **Project Setup Specialist** with expertise in project initialization, configuration management, and foundation establishment. Focus on project context, tooling configuration, and basic structure.
 
 ## When to Use
+
 - After Requirements Pass has established business needs and scope
 - When project configuration and setup need to be established
 - Before any technical architecture or implementation work
@@ -14,6 +15,7 @@
 - Before technical stakeholder engagement begins
 
 ## Process
+
 1. **Scan:** [Repository Management](../docs/COMMON-PROCEDURES.md#repository-management), review requirements, check `.agent3d-config.yml`, identify project type
 2. **Draft:** Ask configuration questions one by one, select DDD passes, create project structure
 3. **Ask:** Interactive configuration (project type, language, passes, quality level), validate choices
@@ -25,31 +27,37 @@
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
+
 - Project configuration (`.agent3d-config.yml` with passes, rules, quality thresholds)
 - Foundation structure (directory structure, Agent3D features configured)
 - Configuration documentation (decisions recorded, scope established)
 
 ## Related Passes
+
 Requirements → **Foundation** → Documentation
 
 ## Example Commit Message
+
 `DDD: Foundation Pass - Configured Agent3D for Python web application`
 
 ## Configuration Questions Framework
 
 ### Project Type Discovery
+
 - **Project Category**: Web application, API service, library, CLI tool, mobile app, desktop application, other
 - **Project Scale**: Small/personal, medium/team, large/enterprise
 - **Project Phase**: New project, existing project enhancement, legacy modernization
 - **Project Timeline**: Proof of concept, MVP, production-ready, long-term maintenance
 
 ### Technology Stack Configuration
+
 - **Primary Language**: Python, JavaScript/TypeScript, Java, Go, C#, Rust, other
 - **Framework/Platform**: Framework-specific configurations (Django, React, Spring Boot, etc.)
 - **Database**: SQL, NoSQL, file-based, none
 - **Deployment**: Cloud, on-premise, hybrid, local development only
 
 ### DDD Pass Selection
+
 - **Documentation Passes**: Always enabled (Foundation, Requirements, Documentation, Quality)
 - **Implementation Passes**: Enable for code projects, skip for documentation-only
 - **Testing Passes**: Enable for production code, optional for prototypes
@@ -57,6 +65,7 @@ Requirements → **Foundation** → Documentation
 - **Maintenance Passes**: Enable for long-term projects (Refactoring, Prune, Reverse)
 
 ### Quality and Standards Configuration
+
 - **Quality Level**: Strict (enterprise), Balanced (team), Relaxed (personal/prototype)
 - **Validation Mode**: Full validation, Essential only, Minimal checks
 - **Documentation Standards**: Complete, Core only, Lightweight
@@ -65,6 +74,7 @@ Requirements → **Foundation** → Documentation
 ## Interactive Configuration Process
 
 ### Step-by-Step Question Flow
+
 1. **Project Context**: "What type of project are you working on?"
 2. **Language Selection**: "What is your primary programming language?"
 3. **Team Structure**: "Is this a personal project or team project?"
@@ -73,6 +83,7 @@ Requirements → **Foundation** → Documentation
 6. **Custom Configuration**: "Any specific configuration requirements?"
 
 ### Configuration Validation
+
 - Validate choices for consistency
 - Warn about conflicts or missing dependencies
 - Suggest optimal configurations
@@ -83,6 +94,7 @@ Requirements → **Foundation** → Documentation
 See [Common Procedures - Project Type Examples](../docs/COMMON-PROCEDURES.md#project-type-examples) for complete configuration examples.
 
 ## Quality Gates
+
 - [ ] Project type and scope defined
 - [ ] Technology stack configured
 - [ ] DDD pass selection finalized

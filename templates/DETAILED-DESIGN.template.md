@@ -1,6 +1,7 @@
 # {{component_name}} - Design
 
 **FORMAT SPECIFICATION:** This document must provide comprehensive design specifications for a specific component or system part. It must include:
+
 - Component overview and purpose
 - Component architecture with detailed specifications
 - API specifications and interfaces
@@ -15,6 +16,7 @@
 - Future enhancements and scalability considerations
 
 **REQUIRED SECTIONS:**
+
 1. Overview - Component purpose and scope
 2. Component Architecture - Detailed component breakdown
 3. API Specifications - Interfaces, methods, and data structures
@@ -30,6 +32,7 @@
 
 **TEMPLATE:** (Do NOT include `<template>` tags in actual documentation)
 <template>
+
 # {{component_name}} - Design
 
 ## Overview
@@ -41,11 +44,13 @@ This document provides the design specifications for the {{component_name}}, whi
 ### Core Components
 
 #### 1. {{component_name}}
+
 - **Purpose**: {{component_purpose}}
 - **Interface**: {{component_interface}}
 - **Responsibilities**: {{component_responsibilities}}
 
 #### 2. {{component_name}}
+
 - **Purpose**: {{component_purpose}}
 - **Interface**: {{component_interface}}
 - **Responsibilities**: {{component_responsibilities}}
@@ -100,10 +105,12 @@ This document provides the design specifications for the {{component_name}}, whi
 ## Configuration
 
 ### Default Settings
+
 - **{{setting_name}}**: {{setting_value}} - {{setting_description}}
 - **{{setting_name}}**: {{setting_value}} - {{setting_description}}
 
 ### Environment Variables
+
 - `{{ENV_VAR_NAME}}`: {{env_var_description}}
 - `{{ENV_VAR_NAME}}`: {{env_var_description}}
 
@@ -116,77 +123,93 @@ This document provides the design specifications for the {{component_name}}, whi
 ## Performance Requirements
 
 ### Response Times
+
 - {{operation_name}}: < {{time_limit}}
 - {{operation_name}}: < {{time_limit}}
 
 ### Resource Usage
+
 - Memory: < {{memory_limit}}
 - CPU: < {{cpu_limit}}
 - Network: {{network_requirements}}
 
 ### Throughput
+
 - {{metric_name}}: {{throughput_requirement}}
 - {{metric_name}}: {{throughput_requirement}}
 
 ## Security Considerations
 
 ### {{security_aspect}}
+
 - {{security_requirement}}
 - {{security_implementation}}
 
 ### {{security_aspect}}
+
 - {{security_requirement}}
 - {{security_implementation}}
 
 ## Testing Strategy
 
 ### Unit Tests
+
 - {{test_category}}: {{test_description}}
 - {{test_category}}: {{test_description}}
 
 ### Integration Tests
+
 - {{integration_scenario}}: {{test_description}}
 - {{integration_scenario}}: {{test_description}}
 
 ### Performance Tests
+
 - {{performance_scenario}}: {{test_description}}
 - {{performance_scenario}}: {{test_description}}
 
 ## Integration Points
 
 ### External Dependencies
+
 - **{{dependency_name}}**: {{dependency_description}}
 - **{{dependency_name}}**: {{dependency_description}}
 
 ### Internal Module Connections
+
 - **{{module_name}}**: {{connection_description}}
 - **{{module_name}}**: {{connection_description}}
 
 ## Monitoring and Logging
 
 ### Log Levels
+
 - **{{log_level}}**: {{log_description}}
 - **{{log_level}}**: {{log_description}}
 
 ### Metrics
+
 - {{metric_name}}: {{metric_description}}
 - {{metric_name}}: {{metric_description}}
 
 ### Health Checks
+
 - {{health_check_name}}: {{health_check_description}}
 - {{health_check_name}}: {{health_check_description}}
 
 ## Future Enhancements
 
 ### Planned Features
+
 - {{feature_name}}: {{feature_description}}
 - {{feature_name}}: {{feature_description}}
 
 ### Scalability Considerations
+
 - {{scalability_aspect}}: {{scalability_plan}}
 - {{scalability_aspect}}: {{scalability_plan}}
 
 ### Technical Debt
+
 - {{debt_item}}: {{debt_description}}
 - {{debt_item}}: {{debt_description}}
 </template>
@@ -194,6 +217,7 @@ This document provides the design specifications for the {{component_name}}, whi
 **EXAMPLE:** See the actual component design files in the local repository: `~/.agent3d/docs/designs/`
 
 **VALIDATION CHECKLIST:**
+
 - [ ] Module overview clearly explains purpose and scope
 - [ ] All major components are documented with detailed specifications
 - [ ] API specifications include complete interface definitions

@@ -12,12 +12,14 @@
 ## Design Principles
 
 ### **1. {{PRIMARY_USER}}-Centric Design Philosophy**
+
 - **{{PRINCIPLE_1}}:** {{PRINCIPLE_1_DESCRIPTION}}
 - **{{PRINCIPLE_2}}:** {{PRINCIPLE_2_DESCRIPTION}}
 - **{{PRINCIPLE_3}}:** {{PRINCIPLE_3_DESCRIPTION}}
 - **{{PRINCIPLE_4}}:** {{PRINCIPLE_4_DESCRIPTION}}
 
 ### **2. Core User Experience Principles**
+
 - **{{UX_PRINCIPLE_1}}:** {{UX_PRINCIPLE_1_DESCRIPTION}}
 - **{{UX_PRINCIPLE_2}}:** {{UX_PRINCIPLE_2_DESCRIPTION}}
 - **{{UX_PRINCIPLE_3}}:** {{UX_PRINCIPLE_3_DESCRIPTION}}
@@ -34,12 +36,14 @@
 ### **Component Specifications**
 
 #### **{{COMPONENT_1_NAME}}**
+
 - **Purpose:** {{COMPONENT_1_PURPOSE}}
 - **Location:** {{COMPONENT_1_LOCATION}}
 - **Behavior:** {{COMPONENT_1_BEHAVIOR}}
 - **Responsive:** {{COMPONENT_1_RESPONSIVE_BEHAVIOR}}
 
 #### **{{COMPONENT_2_NAME}}**
+
 - **Purpose:** {{COMPONENT_2_PURPOSE}}
 - **Location:** {{COMPONENT_2_LOCATION}}
 - **Behavior:** {{COMPONENT_2_BEHAVIOR}}
@@ -48,12 +52,14 @@
 ## Interaction Patterns
 
 ### **{{INTERACTION_PATTERN_1}}**
+
 - **Trigger:** {{TRIGGER_DESCRIPTION}}
 - **Flow:** {{INTERACTION_FLOW}}
 - **Feedback:** {{USER_FEEDBACK}}
 - **Shortcuts:** {{KEYBOARD_SHORTCUTS}}
 
 ### **{{INTERACTION_PATTERN_2}}**
+
 - **Trigger:** {{TRIGGER_DESCRIPTION}}
 - **Flow:** {{INTERACTION_FLOW}}
 - **Feedback:** {{USER_FEEDBACK}}
@@ -62,12 +68,15 @@
 ## Responsive Design
 
 ### **Desktop (1200px+)**
+
 {{DESKTOP_SPECIFICATIONS}}
 
 ### **Tablet (768px - 1199px)**
+
 {{TABLET_SPECIFICATIONS}}
 
 ### **Mobile (320px - 767px)**
+
 {{MOBILE_SPECIFICATIONS}}
 
 ## Accessibility Requirements
@@ -81,17 +90,20 @@
 ## Visual Design System
 
 ### **Color Palette**
+
 - **Primary:** {{PRIMARY_COLOR}} - {{PRIMARY_COLOR_USAGE}}
 - **Secondary:** {{SECONDARY_COLOR}} - {{SECONDARY_COLOR_USAGE}}
 - **Accent:** {{ACCENT_COLOR}} - {{ACCENT_COLOR_USAGE}}
 - **Neutral:** {{NEUTRAL_COLORS}} - {{NEUTRAL_USAGE}}
 
 ### **Typography**
+
 - **Headings:** {{HEADING_FONT}} - {{HEADING_SIZES}}
 - **Body Text:** {{BODY_FONT}} - {{BODY_SIZES}}
 - **Code/Monospace:** {{CODE_FONT}} - {{CODE_USAGE}}
 
 ### **Spacing System**
+
 - **Base Unit:** {{BASE_SPACING_UNIT}}
 - **Component Spacing:** {{COMPONENT_SPACING_RULES}}
 - **Layout Spacing:** {{LAYOUT_SPACING_RULES}}
@@ -99,16 +111,19 @@
 ## Component Library
 
 ### **Buttons**
+
 - **Primary Button:** {{PRIMARY_BUTTON_SPECS}}
 - **Secondary Button:** {{SECONDARY_BUTTON_SPECS}}
 - **Icon Button:** {{ICON_BUTTON_SPECS}}
 
 ### **Forms**
+
 - **Input Fields:** {{INPUT_FIELD_SPECS}}
 - **Dropdowns:** {{DROPDOWN_SPECS}}
 - **Checkboxes/Radio:** {{CHECKBOX_RADIO_SPECS}}
 
 ### **Navigation**
+
 - **Main Navigation:** {{MAIN_NAV_SPECS}}
 - **Breadcrumbs:** {{BREADCRUMB_SPECS}}
 - **Pagination:** {{PAGINATION_SPECS}}
@@ -116,6 +131,7 @@
 ## User Flows
 
 ### **{{PRIMARY_USER_FLOW}}**
+
 1. {{FLOW_STEP_1}}
 2. {{FLOW_STEP_2}}
 3. {{FLOW_STEP_3}}
@@ -125,6 +141,7 @@
 **Error Handling:** {{FLOW_ERROR_HANDLING}}
 
 ### **{{SECONDARY_USER_FLOW}}**
+
 1. {{FLOW_STEP_1}}
 2. {{FLOW_STEP_2}}
 3. {{FLOW_STEP_3}}
@@ -142,11 +159,13 @@
 ## Testing Requirements
 
 ### **Usability Testing**
+
 - **Test Scenarios:** {{USABILITY_TEST_SCENARIOS}}
 - **Success Metrics:** {{USABILITY_SUCCESS_METRICS}}
 - **User Groups:** {{TARGET_USER_GROUPS}}
 
 ### **A/B Testing**
+
 - **Test Elements:** {{AB_TEST_ELEMENTS}}
 - **Metrics to Track:** {{AB_TEST_METRICS}}
 - **Test Duration:** {{AB_TEST_DURATION}}
@@ -154,16 +173,19 @@
 ## Implementation Notes
 
 ### **Technical Constraints**
+
 - {{TECHNICAL_CONSTRAINT_1}}
 - {{TECHNICAL_CONSTRAINT_2}}
 - {{TECHNICAL_CONSTRAINT_3}}
 
 ### **Browser Support**
+
 - **Primary:** {{PRIMARY_BROWSER_SUPPORT}}
 - **Secondary:** {{SECONDARY_BROWSER_SUPPORT}}
 - **Fallbacks:** {{FALLBACK_STRATEGIES}}
 
 ### **Framework Integration**
+
 - **UI Framework:** {{UI_FRAMEWORK}}
 - **Component Library:** {{COMPONENT_LIBRARY}}
 - **State Management:** {{STATE_MANAGEMENT_APPROACH}}
@@ -171,11 +193,13 @@
 ## Wireframes and Mockups
 
 ### **Wireframe Files**
+
 - **Desktop Wireframes:** `docs/ux/wireframes/{{DESKTOP_WIREFRAME_FILE}}`
 - **Mobile Wireframes:** `docs/ux/wireframes/{{MOBILE_WIREFRAME_FILE}}`
 - **Interactive Prototype:** {{PROTOTYPE_LINK_OR_FILE}}
 
 ### **Design Assets**
+
 - **Design System:** `docs/ux/design-system/{{DESIGN_SYSTEM_FILE}}`
 - **Component Specs:** `docs/ux/components/{{COMPONENT_SPECS_FILE}}`
 - **Icon Library:** `docs/ux/icons/{{ICON_LIBRARY_FILE}}`
@@ -194,6 +218,7 @@
 ---
 
 **Related Documentation:**
+
 - [User Journey Maps](user-flows/{{USER_JOURNEY_FILE}})
 - [Wireframe Documentation](wireframes/{{WIREFRAME_DOC_FILE}})
 - [Interaction Patterns](interaction-patterns/{{INTERACTION_PATTERNS_FILE}})
@@ -201,6 +226,7 @@
 - [Features](../FEATURES.md)
 
 **Template Usage:**
+
 1. Replace all {{PLACEHOLDER}} values with actual content
 2. Create supporting wireframe and flow documentation
 3. Validate against user requirements and technical constraints

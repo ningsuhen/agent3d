@@ -7,7 +7,9 @@
 # Features
 
 ## {{module_name}}
+
 ### {{sub_module_name}}
+
 - {{status}} {{feature_name}} - {{brief_description}} (Criteria: {{acceptance_criteria}})
   - {{status}} {{sub_feature_name}} - {{sub_component_description}} (Criteria: {{sub_criteria}})
 </template>

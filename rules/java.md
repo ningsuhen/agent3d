@@ -3,11 +3,13 @@
 ## Environment Setup
 
 **JDK Version:**
+
 - Use LTS (Long Term Support) versions of Java when possible
 - Document required Java version in build files
 - Use consistent JDK version across development, CI/CD, and production
 
 **Build Tools:**
+
 - Use Gradle or Maven for build automation
 - Include wrapper scripts (gradlew/mvnw) in the repository
 - Define all dependencies in build file, not in IDE
@@ -16,12 +18,14 @@
 ## Code Style
 
 **Formatting:**
+
 - Follow Google Java Style Guide or similar established style
 - Use 4 spaces for indentation, not tabs
 - Limit line length to 100-120 characters
 - Use tools like Checkstyle, PMD, or SpotBugs for static analysis
 
 **Naming Conventions:**
+
 - `camelCase` for variables, methods, parameters
 - `PascalCase` for classes and interfaces
 - `UPPER_SNAKE_CASE` for constants
@@ -29,6 +33,7 @@
 - Prefix interfaces with 'I' only when both interface and implementation exist
 
 **Organization:**
+
 - One top-level class per file
 - Group related classes in packages
 - Follow standard package naming conventions (com.company.project.module)
@@ -37,24 +42,28 @@
 ## Best Practices
 
 **Object-Oriented Design:**
+
 - Follow SOLID principles
 - Prefer composition over inheritance
 - Design for extension but restrict subclassing when appropriate
 - Make fields private and provide getters/setters only when necessary
 
 **Immutability:**
+
 - Make classes immutable when possible
 - Use final for fields that shouldn't change after initialization
 - Use defensive copying for mutable parameters and return values
 - Use immutable collections when appropriate
 
 **Exception Handling:**
+
 - Use checked exceptions for recoverable conditions
 - Use unchecked exceptions for programming errors
 - Include meaningful error messages
 - Clean up resources in finally blocks or use try-with-resources
 
 **Concurrency:**
+
 - Prefer higher-level concurrency utilities over raw threads
 - Use thread pools for managing worker threads
 - Make classes thread-safe or clearly document thread safety guarantees
@@ -137,49 +146,63 @@
 ### Critical Review Areas
 
 #### 1. Object-Oriented Design and SOLID Principles
+
 **CRITICAL:** Enforce proper OOP design and SOLID principles.
+
 - Split class responsibilities according to Single Responsibility Principle
 - Use dependency injection instead of direct instantiation
 - Apply Interface Segregation Principle for better testability
 - Enforce proper encapsulation and abstraction
 
 #### 2. Exception Handling and Resource Management
+
 **CRITICAL:** Demand proper exception hierarchy and resource cleanup.
+
 - Use try-with-resources for automatic resource management
 - Create specific exception types instead of catching Exception
 - Never return null on error; throw meaningful exceptions
 - Use proper logging instead of silent failures
 
 #### 3. Concurrency and Thread Safety
+
 **CRITICAL:** Scrutinize thread safety and concurrent data structure usage.
+
 - Use AtomicInteger/AtomicReference for simple thread-safe operations
 - Implement proper synchronization for compound operations
 - Use concurrent collections from java.util.concurrent
 - Avoid synchronized methods; prefer synchronized blocks
 
 #### 4. Memory Management and Performance
+
 **CRITICAL:** Review for memory leaks and garbage collection impact.
+
 - Use streams for lazy evaluation of large datasets
 - Pre-size collections when size is known
 - Avoid creating unnecessary temporary objects
 - Use StringBuilder for string concatenation in loops
 
 #### 5. Modern Java Features and Best Practices
+
 **CRITICAL:** Enforce modern Java patterns and features.
+
 - Use Optional instead of null checks
 - Use records for immutable data classes
 - Leverage modern switch expressions
 - Use method references where appropriate
 
 #### 6. Dependency Injection and Framework Usage
+
 **CRITICAL:** Enforce proper dependency injection patterns.
+
 - Use constructor injection instead of field injection
 - Make dependencies final for immutability
 - Use proper transaction boundaries
 - Validate inputs at service boundaries
 
 #### 7. Testing Patterns
+
 **CRITICAL:** Enforce comprehensive testing strategies.
+
 - Use proper mocking frameworks for unit tests
 - Write descriptive test names and use @DisplayName
 - Follow Given-When-Then pattern
@@ -193,13 +216,16 @@
 **Low:** Code style improvements, additional modern Java features, performance micro-optimizations, documentation enhancements
 
 ### Anti-Patterns to Reject
+
 - Using raw types instead of generics, catching Exception instead of specific exceptions
 - Not using try-with-resources, synchronizing on public objects
 - Using == for object comparison, not overriding equals() and hashCode() together
 - Using Vector or Hashtable, creating unnecessary objects in loops
 
 ### Quality Gates
+
 **Java-Specific:**
+
 - [ ] All classes follow SOLID principles
 - [ ] Thread-safe where concurrency is expected
 - [ ] Modern Java features leveraged
@@ -207,6 +233,7 @@
 - [ ] No resource leaks
 
 **Universal (see [Common Procedures](../docs/COMMON-PROCEDURES.md#quality-standards)):**
+
 - [ ] Proper exception handling throughout
 - [ ] Memory efficient patterns used
 - [ ] Comprehensive test coverage

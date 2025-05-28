@@ -60,6 +60,7 @@
 - [ ] Modified system boundaries without documentation updates
 
 ## Expected Outcomes
+
 - All functionality documented
 - Accurate `[x]` completion markers
 - No working features marked incomplete
@@ -69,9 +70,11 @@
 - Accurate project status
 
 ## Related Passes
+
 Implementation → **Reverse** → Prune
 
 ## Example Commit Message
+
 `DDD: Reverse Pass - Updated payment processing docs, marked 5 features complete`
 
 ## Automation Opportunities

@@ -44,6 +44,7 @@
 **Checkpoints:** Every 2-4 steps, rollback points, validation gates, progress tracking
 
 **Loop Model:**
+
 ```
 1. Create execution plan with documented steps
 2. While (incomplete steps exist): Read step → Execute → Update status → Verify checkpoints → Continue
@@ -51,6 +52,7 @@
 ```
 
 **Quality Standards:**
+
 - Plan: Step-by-step sequence, checkpoint markers, rollback instructions, risk assessment, dependencies, validation criteria, LLM instructions, success criteria
 - Implementation: Language-specific rules, documented requirements only, lean/maintainable code, technical decisions documented, readability/standards compliance, basic tests
 - Validation: Dependencies documented, rollback strategy tested, atomic steps, safe resumption, actionable mitigation, realistic timelines, measurable criteria
@@ -62,6 +64,7 @@
 See [Common Procedures - Development Pass Configuration](../docs/COMMON-PROCEDURES.md#development-pass-configuration) for complete configuration options.
 
 **Checkpoint Management:**
+
 - Before: Validate criteria, run tests, verify no regressions, update status
 - Failure: Follow rollback instructions, document issues/blockers, assess continue/abort, update risk assessment
 - Progress: Mark [x] completed, update percentage, track time estimates vs actual, document deviations

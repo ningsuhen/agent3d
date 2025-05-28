@@ -9,6 +9,7 @@
 **Goal:** Minimize drift indicators across all passes and achieve balanced alignment levels (ideally 90%+ for all passes) to maintain project health and consistency.
 
 ## When to Use
+
 - For major project milestones or releases
 - When onboarding a new codebase or project
 - During significant overhauls of existing systems
@@ -18,6 +19,7 @@
 - When multiple passes have alignment levels below 85%
 
 ## Process
+
 1. **Scan:** [Repository Management](../docs/COMMON-PROCEDURES.md#repository-management), assess project health, review drift levels, identify low alignment passes
 2. **Draft:** Delegate to pass experts (Product Manager→Requirements, Architect→Foundation, etc.), coordinate handoffs, monitor progress
 3. **Ask:** Facilitate expert-stakeholder communication, escalate decisions, coordinate conflict resolution, ensure alignment
@@ -26,6 +28,7 @@
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
+
 - Coordinated execution by domain experts
 - Balanced alignment levels (90%+ target)
 - Minimized drift indicators
@@ -35,6 +38,7 @@
 - Clear specialist accountability
 
 ## Example Commit Message
+
 `DDD: Full Pass - Balanced alignment across all passes`
 
 ## Execution Strategy
@@ -43,6 +47,7 @@
 
 **Expert Delegation Sequence:**
 0. **Senior Product Manager** → Requirements Pass
+
 1. **Solutions Architect** → Foundation Pass
 2. **Technical Writer & Business Analyst** → Documentation Pass
 3. **Senior Software Developer** → Development Pass
@@ -55,6 +60,7 @@
 10. **Software Architect & Technical Auditor** → Reverse Pass
 
 **Management Focus Areas:**
+
 - **Expert Coordination:** Ensure each specialist has clear scope and context
 - **Dependency Management:** Coordinate handoffs between interdependent passes
 - **Alignment Balancing:** Monitor that all passes achieve 90%+ alignment

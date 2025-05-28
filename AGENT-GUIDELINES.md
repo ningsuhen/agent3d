@@ -1,4 +1,5 @@
 # Documentation-Driven Development (DDD) for LLM Coding Agents
+
 *"Write the docs, then write the code—keep it lean, test it for real."*
 
 ## Configuration
@@ -8,9 +9,11 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 **Project Configuration:** Each project uses `.agent3d-config.yml` in the project root to define project-specific settings, enabled passes, and quality standards.
 
 ## Project Root Detection
+
 **CRITICAL**: Before starting any DDD work, establish the project root. See [Common Procedures - Project Root Establishment](docs/COMMON-PROCEDURES.md#project-root-establishment) for complete instructions.
 
 ## Prime Directive
+
 **Documentation leads, code follows.** Always update docs before implementing code. Documentation is the single source of truth.
 
 ## Core Workflow
@@ -92,6 +95,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 ## Operational Standards
 
 **Documentation-Code Alignment:**
+
 - Each commit must update documentation OR include `docs-n/a` tag
 - **MEMORIZE ENTIRE .agent3d-config.yml** at session start, refresh when config updated
 - **Use memorized git_workflow settings** for commit confirmation behavior
@@ -99,12 +103,14 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 - Agents must reject tasks that violate DDD principles
 
 **All procedures in [Common Procedures](docs/COMMON-PROCEDURES.md):**
+
 - Repository management, templates, documentation standards
 - Feature completion, progress tracking, status updates
 
 ## Agent Instructions
 
 **Workflow:**
+
 1. **Create Mental Memory Map:** Build comprehensive understanding of Agent3D framework
 2. Configure project (`.agent3d-config.yml` in project root)
 3. Follow `~/.agent3d/AGENT-GUIDELINES.md`
@@ -114,6 +120,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 7. **Use System Date Commands:** Always use `date +%Y-%m-%d` or `date +%Y-%m-%d\ %H:%M:%S` for timestamps instead of LLM knowledge
 
 **Mental Memory Map Creation:**
+
 - **CRITICAL**: Before starting any work, create a comprehensive mental map of the Agent3D framework and project structure
 - **Framework Understanding**: Map out DDD passes, their relationships, and when to use each
 - **Project Context**: Understand project type, configuration, enabled passes, and documentation structure
@@ -121,6 +128,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 - **Workflow Integration**: Understand how framework components work together for effective project execution
 
 **Question Protocol:**
+
 - **CRITICAL**: When asking user questions, ask ONE question at a time
 - Wait for user response before asking the next question
 - Do not present multiple questions in a single interaction
@@ -129,6 +137,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 ## LLM Memory Optimization Framework
 
 ### Core Memory Map (MEMORIZE)
+
 **CRITICAL:** Internalize these patterns to avoid file lookups during execution
 
 | Component | Pattern |
@@ -143,6 +152,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 ### Speed Optimization (MEMORIZE)
 
 **CONFIGURATION STRUCTURE:**
+
 ```yaml
 project: {type, language, quality_level}
 enabled_passes: [list]
@@ -154,6 +164,7 @@ pass_config: {specific settings}
 **LANGUAGE SHORTCUTS:** See [Common Procedures - Language Rules](docs/COMMON-PROCEDURES.md#language-specific-rules-speed-optimized)
 
 **EXECUTION RULES:**
+
 - **NEVER** look up pass definitions during execution
 - **CACHE** language rules in working memory
 - **MINIMIZE** template/rule file access
@@ -162,6 +173,7 @@ pass_config: {specific settings}
 **DECISION TREE:** Missing requirements→Requirements Pass, No config→Foundation Pass, Features unclear→Documentation Pass, etc.
 
 **References:**
+
 - [Common Procedures](docs/COMMON-PROCEDURES.md) - All standards and procedures
 - [Advanced Features Guide](docs/ADVANCED-FEATURES.md) - Sophisticated capabilities and power-user features
 - [Configuration Guide](docs/CONFIGURATION-GUIDE.md) - Customization and project-specific settings

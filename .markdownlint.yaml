@@ -1,0 +1,7 @@
+# .markdownlint.yaml
+MD013: false  # Line length
+MD024: false  # Allow duplicate headings (common in templates and documentation)
+MD033:
+  allowed_elements: ['details', 'summary', 'template', 'code']
+MD036: false  # Allow emphasis as heading (used in templates)
+MD041: false  # Allow documents without top-level heading

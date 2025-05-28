@@ -5,6 +5,7 @@
 **Reviewer Role:** Assume the role of a **very strict Senior Software Engineer** with deep expertise in the target programming language. Apply rigorous software engineering standards and language-specific best practices. Be thorough, uncompromising on quality, and focused on long-term maintainability.
 
 ## When to Use
+
 - When a pull request has been submitted
 - Before merging code changes into the main branch
 - As part of the continuous integration process
@@ -13,6 +14,7 @@
 - When validating that code changes align with documentation
 
 ## Process
+
 1. **Scan:** `gh pr status`, apply language rules, identify issues, verify coverage
 2. **Draft:** Generate review comments, include solutions, note documentation updates
 3. **Ask:** Submit pending PR comments, verify requirements, challenge decisions
@@ -21,6 +23,7 @@
 **Note:** During execution, mark completed steps with ✅ to track progress.
 
 ## Expected Outcomes
+
 - Automated PR comments in pending mode
 - Actionable feedback with solutions
 - Human-agent collaborative workflow
@@ -32,18 +35,19 @@
 **CRITICAL:** Always consult and strictly enforce the language-specific rules from `~/.agent3d/rules/[language].md` (includes both development rules and review standards).
 
 ### Supported Languages
+
 - **Markdown:** `~/.agent3d/rules/markdown.md`
 - **Python:** `~/.agent3d/rules/python.md`
 - **JavaScript:** `~/.agent3d/rules/javascript.md`
 - **Java:** `~/.agent3d/rules/java.md`
 - **Go:** `~/.agent3d/rules/go.md`
 
-
-
 ## Example Commit Message
+
 `DDD: Code Review Pass - Reviewed authentication feature PR with security recommendations`
 
 ## Review Focus Areas
+
 - **Code Quality**
   - Adherence to coding standards and best practices
   - Proper error handling
@@ -102,6 +106,7 @@ When the local project is on a PR branch:
 ## Review Comment Guidelines
 
 ### Strict Review Standards
+
 - **Be uncompromisingly specific** about every issue found
 - **Demand explanations** for any deviations from language best practices
 - **Provide concrete solutions** with code examples, not just suggestions
@@ -111,6 +116,7 @@ When the local project is on a PR branch:
 - **Acknowledge good practices** but don't lower standards for other areas
 
 ### Comment Structure
+
 ```markdown
 **Issue:** [Specific problem with the code]
 **Why:** [Explanation of why this violates best practices]
@@ -120,9 +126,11 @@ When the local project is on a PR branch:
 ```
 
 ## Integration with CI/CD
+
 See [Common Procedures](../docs/COMMON-PROCEDURES.md#quality--github) for CI/CD integration patterns.
 
 ## Automated Review Checklist
+
 - [ ] **Code Quality:** Linting and style checks pass
 - [ ] **Test Coverage:** Minimum coverage thresholds met
 - [ ] **Security:** No high-severity vulnerabilities detected
@@ -134,6 +142,7 @@ See [Common Procedures](../docs/COMMON-PROCEDURES.md#quality--github) for CI/CD 
 ## Review Templates
 
 ### Strict Review Template
+
 ```markdown
 ## Code Review Summary - STRICT STANDARDS APPLIED
 - **Overall Assessment:** [Request Changes/Approve] - NO COMPROMISES ON QUALITY
@@ -170,6 +179,7 @@ See [Common Procedures](../docs/COMMON-PROCEDURES.md#quality--github) for CI/CD 
 ```
 
 ### Language-Specific Review Template
+
 ```markdown
 ## [LANGUAGE] Code Review - EXPERT LEVEL STANDARDS
 
@@ -192,6 +202,7 @@ See [Common Procedures](../docs/COMMON-PROCEDURES.md#quality--github) for CI/CD 
 ```
 
 ### Security Review Template
+
 ```markdown
 ## Security Review - ZERO TOLERANCE FOR VULNERABILITIES
 - **Authentication:** [Rigorous assessment]

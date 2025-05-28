@@ -16,6 +16,7 @@
 ## Feature Discovery Results
 
 ### Analyzed Documents
+
 - [ ] docs/FEATURES.md - {{FEATURES_FOUND}} features found, {{INCOMPLETE_COUNT}} incomplete
 - [ ] docs/TASKS.md - {{TASKS_FOUND}} tasks identified
 - [ ] docs/DDD-STATUS.md - {{DRIFT_COUNT}} drift indicators found
@@ -23,9 +24,11 @@
 - [ ] Other relevant docs: {{OTHER_DOCS}}
 
 ### Selected Features for Implementation
+
 {{SELECTION_MODE}} <!-- AUTO MODE | PICKER MODE -->
 
 #### Selected Items
+
 1. **{{FEATURE_1}}** ({{REQ_ID_1}})
    - Priority: {{PRIORITY_1}}
    - Estimated Effort: {{EFFORT_1}}
@@ -39,10 +42,12 @@
 ## Step-by-Step Execution Plan
 
 ### Step 1: {{STEP_1_DESCRIPTION}}
+
 **Status**: [ ] Not Started | [~] In Progress | [x] Complete
 **Feature**: {{RELATED_FEATURE_1}}
 **Description**: {{DETAILED_STEP_DESCRIPTION}}
-**LLM Instructions**: 
+**LLM Instructions**:
+
 - {{SPECIFIC_INSTRUCTION_1}}
 - {{SPECIFIC_INSTRUCTION_2}}
 - {{SPECIFIC_INSTRUCTION_3}}
@@ -53,10 +58,12 @@
 **Estimated Time**: {{TIME_ESTIMATE}}
 
 ### Step 2: {{STEP_2_DESCRIPTION}}
+
 **Status**: [ ] Not Started
 **Feature**: {{RELATED_FEATURE_2}}
 **Description**: {{DETAILED_STEP_DESCRIPTION}}
-**LLM Instructions**: 
+**LLM Instructions**:
+
 - {{SPECIFIC_INSTRUCTION_1}}
 - {{SPECIFIC_INSTRUCTION_2}}
 - {{SPECIFIC_INSTRUCTION_3}}
@@ -67,10 +74,12 @@
 **Estimated Time**: {{TIME_ESTIMATE}}
 
 ### Step 3: {{STEP_3_DESCRIPTION}}
+
 **Status**: [ ] Not Started
 **Feature**: {{RELATED_FEATURE_3}}
 **Description**: {{DETAILED_STEP_DESCRIPTION}}
-**LLM Instructions**: 
+**LLM Instructions**:
+
 - {{SPECIFIC_INSTRUCTION_1}}
 - {{SPECIFIC_INSTRUCTION_2}}
 - {{SPECIFIC_INSTRUCTION_3}}
@@ -81,19 +90,23 @@
 **Estimated Time**: {{TIME_ESTIMATE}}
 
 ### Checkpoint 1: {{CHECKPOINT_1_NAME}}
+
 **Steps Included**: 1-3
 **Status**: [ ] Pending | [x] Passed | [!] Failed
-**Verification**: 
+**Verification**:
+
 - [ ] {{CHECKPOINT_VERIFICATION_1}}
 - [ ] {{CHECKPOINT_VERIFICATION_2}}
 - [ ] {{CHECKPOINT_VERIFICATION_3}}
 **Rollback Instructions**: {{ROLLBACK_INSTRUCTIONS_1}}
 
 ### Step 4: {{STEP_4_DESCRIPTION}}
+
 **Status**: [ ] Not Started
 **Feature**: {{RELATED_FEATURE_4}}
 **Description**: {{DETAILED_STEP_DESCRIPTION}}
-**LLM Instructions**: 
+**LLM Instructions**:
+
 - {{SPECIFIC_INSTRUCTION_1}}
 - {{SPECIFIC_INSTRUCTION_2}}
 **Verification Criteria**:
@@ -102,10 +115,12 @@
 **Estimated Time**: {{TIME_ESTIMATE}}
 
 ### Step 5: {{STEP_5_DESCRIPTION}}
+
 **Status**: [ ] Not Started
 **Feature**: {{RELATED_FEATURE_5}}
 **Description**: {{DETAILED_STEP_DESCRIPTION}}
-**LLM Instructions**: 
+**LLM Instructions**:
+
 - {{SPECIFIC_INSTRUCTION_1}}
 - {{SPECIFIC_INSTRUCTION_2}}
 **Verification Criteria**:
@@ -114,9 +129,11 @@
 **Estimated Time**: {{TIME_ESTIMATE}}
 
 ### Checkpoint 2: {{CHECKPOINT_2_NAME}}
+
 **Steps Included**: 4-5
 **Status**: [ ] Pending
-**Verification**: 
+**Verification**:
+
 - [ ] {{CHECKPOINT_VERIFICATION_1}}
 - [ ] {{CHECKPOINT_VERIFICATION_2}}
 **Rollback Instructions**: {{ROLLBACK_INSTRUCTIONS_2}}
@@ -131,14 +148,17 @@
 ## Dependencies
 
 ### Internal Dependencies
+
 - {{INTERNAL_DEPENDENCY_1}}
 - {{INTERNAL_DEPENDENCY_2}}
 
 ### External Dependencies
+
 - {{EXTERNAL_DEPENDENCY_1}}
 - {{EXTERNAL_DEPENDENCY_2}}
 
 ### Prerequisites
+
 - {{PREREQUISITE_1}}
 - {{PREREQUISITE_2}}
 
@@ -171,6 +191,7 @@
 ---
 
 **Template Usage:**
+
 1. Replace all {{PLACEHOLDER}} values with actual content
 2. Add or remove steps as needed for your specific change
 3. Update status markers as work progresses: [ ] → [~] → [x]

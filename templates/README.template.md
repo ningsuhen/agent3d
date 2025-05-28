@@ -1,6 +1,7 @@
 # [Project Name] - [Brief Project Description]
 
 **FORMAT SPECIFICATION:** This document must serve as the main entry point for the project. It must include:
+
 - Clear project title and one-line description
 - Project overview explaining what the project does
 - Key features or benefits
@@ -11,6 +12,7 @@
 - License information
 
 **REQUIRED SECTIONS:**
+
 1. Project title and description
 2. Overview/What it does
 3. Key features or benefits
@@ -22,38 +24,48 @@
 
 **TEMPLATE:** (Do NOT include `<template>` tags in actual documentation)
 <template>
+
 # {{project_name}} - {{project_description}}
 
 ## Overview
+
 {{project_overview}}
 
 ## Key Features
+
 - **{{feature_name}}** - {{feature_description}}
 - **{{feature_name}}** - {{feature_description}}
 - **{{feature_name}}** - {{feature_description}}
 
 ## Installation
+
 {{installation_instructions}}
+
 ```{{language}}
 {{installation_commands}}
 ```
 
 ## Quick Start
+
 {{usage_instructions}}
+
 ```{{language}}
 {{code_example}}
 ```
 
 ## Documentation
+
 - [{{doc_name}}]({{doc_link}})
 - [{{doc_name}}]({{doc_link}})
 - [High-Level Design](docs/HIGH-LEVEL-DESIGN.md)
 - [Contributing](CONTRIBUTING.md)
 
 ## Contributing
+
 {{contributing_instructions}}
 
 ## License
+
 {{license_info}}
 </template>
 

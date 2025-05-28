@@ -60,54 +60,63 @@ interface PassState {
 ## Individual Pass Specifications
 
 ### 1. Foundation Pass
+
 - **Input**: Project requirements, existing documentation
 - **Output**: Core documentation files (README, FEATURES, TASKS, TEST-CASES, DDD-STATUS)
 - **Dependencies**: None
 - **Validation**: Template compliance, content completeness
 
 ### 2. Documentation Pass
+
 - **Input**: Foundation documents, feature requirements
 - **Output**: Detailed specifications, resolved ambiguities
 - **Dependencies**: Foundation Pass
 - **Validation**: Acceptance criteria completeness, test case coverage
 
 ### 3. Development Pass
+
 - **Input**: Complete documentation, change requirements, feature discovery from docs/
 - **Output**: Step-by-step execution plan with checkpoints, working code, basic tests
 - **Dependencies**: Documentation Pass
 - **Validation**: Plan completeness, checkpoint strategy, feature implementation, test execution
 
 ### 4. Testing Pass
+
 - **Input**: Implemented features, test specifications
 - **Output**: Comprehensive test suite, edge case coverage
 - **Dependencies**: Development Pass
 - **Validation**: Test coverage metrics, all tests passing
 
 ### 5. Refactoring Pass
+
 - **Input**: Working implementation, code quality metrics
 - **Output**: Optimized code, improved maintainability
 - **Dependencies**: Testing Pass
 - **Validation**: No feature regression, quality improvements
 
 ### 6. Code Review Pass
+
 - **Input**: Complete implementation, PR context
 - **Output**: Review comments, approval status
 - **Dependencies**: Refactoring Pass
 - **Validation**: Review completion, issue resolution
 
 ### 7. Synchronization Pass
+
 - **Input**: All project artifacts
 - **Output**: Aligned documentation and code, quality validation
 - **Dependencies**: Code Review Pass
 - **Validation**: Consistency checks, drift elimination, quality verification
 
 ### 8. Prune Pass
+
 - **Input**: Complete project state
 - **Output**: Cleaned artifacts, removed redundancy, quality-validated content
 - **Dependencies**: Synchronization Pass
 - **Validation**: No functional impact, improved clarity, quality standards maintained
 
 ### 9. Reverse Pass
+
 - **Input**: Implementation state, documentation state
 - **Output**: Updated documentation for undocumented features
 - **Dependencies**: Can run independently
@@ -157,17 +166,20 @@ alignment = (completed_tasks + passing_tests + documented_features) / total_expe
 ### Pass-Specific Metrics
 
 #### Foundation Pass
+
 - Documentation completeness: % of required files created
 - Template compliance: % of templates properly followed
 - Structural integrity: Presence of required sections
 
 #### Development Pass
+
 - Feature completion: % of documented features implemented
 - Test coverage: % of features with basic tests
 - Code quality: Static analysis scores
 - Execution plan adherence: % of planned steps completed
 
 #### Testing Pass
+
 - Test coverage: % of code covered by tests
 - Test quality: % of edge cases covered
 - Test reliability: % of tests passing consistently
@@ -211,11 +223,13 @@ alignment = (completed_tasks + passing_tests + documented_features) / total_expe
 ### Pass Configuration
 
 **Foundation Pass**:
+
 - **Enabled**: true
 - **Templates**: README.template.md, FEATURES.template.md
 - **Validation**: strict mode
 
 **Development Pass**:
+
 - **Enabled**: true
 - **Selection Mode**: auto
 - **Test Coverage Threshold**: 80%
@@ -225,6 +239,7 @@ alignment = (completed_tasks + passing_tests + documented_features) / total_expe
 ### Project-Specific Overrides
 
 **Available Overrides**:
+
 - **Skip Passes**: List of passes to skip
 - **Custom Templates**: Project-specific template overrides
 - **Validation Rules**: Custom validation configurations
@@ -233,17 +248,20 @@ alignment = (completed_tasks + passing_tests + documented_features) / total_expe
 ## Integration Points
 
 ### External Tools
+
 - **Version Control**: Git integration for commits and PRs
 - **CI/CD**: Pipeline integration for automated validation
 - **Code Quality**: Integration with linters, formatters, analyzers
 - **Testing**: Integration with test frameworks and coverage tools
 
 ### Template System
+
 - Dynamic template loading from remote sources
 - Template validation and preprocessing
 - Variable substitution and customization
 
 ### Status Reporting
+
 - Real-time progress updates
 - Historical trend analysis
 - Dashboard integration
@@ -252,16 +270,19 @@ alignment = (completed_tasks + passing_tests + documented_features) / total_expe
 ## Performance Considerations
 
 ### Execution Time Optimization
+
 - Parallel execution where dependencies allow
 - Incremental processing for large projects
 - Caching of intermediate results
 
 ### Resource Management
+
 - Memory usage monitoring
 - Disk space management
 - Network bandwidth optimization
 
 ### Scalability
+
 - Multi-project support
 - Distributed execution
 - Load balancing across agents
