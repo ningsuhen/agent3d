@@ -19,18 +19,18 @@ export function activate(context: vscode.ExtensionContext) {
     const hoverProvider = new IdentifierHoverProvider(identifierIndex);
     const quickPickProvider = new QuickPickProvider(identifierIndex);
 
-    // Register language providers for markdown files
+    // Register language providers for all file types
     context.subscriptions.push(
         vscode.languages.registerDefinitionProvider(
-            { scheme: 'file', language: 'markdown' },
+            { scheme: 'file' },
             definitionProvider
         ),
         vscode.languages.registerReferenceProvider(
-            { scheme: 'file', language: 'markdown' },
+            { scheme: 'file' },
             referenceProvider
         ),
         vscode.languages.registerHoverProvider(
-            { scheme: 'file', language: 'markdown' },
+            { scheme: 'file' },
             hoverProvider
         )
     );
@@ -86,8 +86,8 @@ async function showRelatedItems() {
     }
 
     const position = editor.selection.active;
-    const wordRange = editor.document.getWordRangeAtPosition(position, /\b(TC-\d{4}[a-z]*|REQ-[A-Z]*-?\d{3})\b/);
-    
+    const wordRange = editor.document.getWordRangeAtPosition(position, /\b(TC-[A-Z0-9]+-[A-Z0-9]+|REQ-[A-Z0-9]+-[A-Z0-9]+)\b/);
+
     if (!wordRange) {
         vscode.window.showInformationMessage('No identifier found at cursor position');
         return;

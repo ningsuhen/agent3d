@@ -19,14 +19,14 @@ export class IdentifierIndex {
         this.references.clear();
 
         const config = vscode.workspace.getConfiguration('dddNavigator');
-        
-        // Find all markdown files
-        const markdownFiles = await vscode.workspace.findFiles(
-            new vscode.RelativePattern(workspaceFolder, '**/*.md'),
+
+        // Find all text-based files (markdown, text, code files)
+        const textFiles = await vscode.workspace.findFiles(
+            new vscode.RelativePattern(workspaceFolder, '**/*.{md,txt,js,ts,py,java,go,c,cpp,h,hpp,cs,php,rb,rs,swift,kt,scala,clj,hs,ml,fs,elm,dart,lua,r,m,pl,sh,bat,ps1,yaml,yml,json,xml,html,css,scss,less,sql}'),
             '**/node_modules/**'
         );
 
-        for (const fileUri of markdownFiles) {
+        for (const fileUri of textFiles) {
             await this.indexFile(fileUri, config);
         }
     }
@@ -62,22 +62,22 @@ export class IdentifierIndex {
 
     private parseTestCases(document: vscode.TextDocument, text: string, fileName: string, config: vscode.WorkspaceConfiguration): void {
         const testCaseFiles = config.get<string[]>('testCaseFiles', ['TEST-CASES.md', 'docs/TEST-CASES.md']);
-        const pattern = new RegExp(config.get('testCasePattern', 'TC-\\d{4}[a-z]*'), 'g');
-        
+        const pattern = new RegExp(config.get('testCasePattern', 'TC-[A-Z0-9]+-[A-Z0-9]+'), 'g');
+
         let match;
         while ((match = pattern.exec(text)) !== null) {
             const id = match[0];
             const position = document.positionAt(match.index);
             const line = document.lineAt(position.line);
-            
+
             // Check if this is a definition (in test case files) or reference
             const isDefinition = testCaseFiles.some(file => fileName.endsWith(file));
-            
+
             if (isDefinition) {
                 // Extract status and description
                 const status = this.extractStatus(line.text);
                 const description = this.extractDescription(line.text, id);
-                
+
                 const identifier: Identifier = {
                     type: 'test-case',
                     id,
@@ -85,7 +85,7 @@ export class IdentifierIndex {
                     status,
                     description
                 };
-                
+
                 this.identifiers.set(id, identifier);
             } else {
                 // This is a reference
@@ -97,19 +97,19 @@ export class IdentifierIndex {
     private parseRequirements(document: vscode.TextDocument, text: string, fileName: string, config: vscode.WorkspaceConfiguration): void {
         const requirementFiles = config.get<string[]>('requirementFiles', ['REQUIREMENTS.md', 'docs/REQUIREMENTS.md']);
         const pattern = new RegExp(config.get('requirementPattern', 'REQ-[A-Z]*-?\\d{3}'), 'g');
-        
+
         let match;
         while ((match = pattern.exec(text)) !== null) {
             const id = match[0];
             const position = document.positionAt(match.index);
             const line = document.lineAt(position.line);
-            
+
             const isDefinition = requirementFiles.some(file => fileName.endsWith(file));
-            
+
             if (isDefinition) {
                 const status = this.extractStatus(line.text);
                 const description = this.extractDescription(line.text, id);
-                
+
                 const identifier: Identifier = {
                     type: 'requirement',
                     id,
@@ -117,7 +117,7 @@ export class IdentifierIndex {
                     status,
                     description
                 };
-                
+
                 this.identifiers.set(id, identifier);
             } else {
                 this.addReference(id, new vscode.Location(document.uri, position));
@@ -128,7 +128,7 @@ export class IdentifierIndex {
     private parseFeatures(document: vscode.TextDocument, text: string, fileName: string, config: vscode.WorkspaceConfiguration): void {
         const featureFiles = config.get<string[]>('featureFiles', ['FEATURES.md', 'docs/FEATURES.md']);
         const isFeatureFile = featureFiles.some(file => fileName.endsWith(file));
-        
+
         if (!isFeatureFile) {
             return;
         }
@@ -137,12 +137,12 @@ export class IdentifierIndex {
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i];
             const featureMatch = line.match(/^- \[([ x])\] (.+?) - (.+?)(?:\s+\(Criteria:|$)/);
-            
+
             if (featureMatch) {
                 const [, statusChar, featureName, description] = featureMatch;
                 const status = statusChar === 'x' ? 'complete' : 'pending';
                 const position = new vscode.Position(i, 0);
-                
+
                 const identifier: Identifier = {
                     type: 'feature',
                     id: featureName.trim(),
@@ -150,7 +150,7 @@ export class IdentifierIndex {
                     status,
                     description: description.trim()
                 };
-                
+
                 this.identifiers.set(featureName.trim(), identifier);
             }
         }
@@ -158,9 +158,9 @@ export class IdentifierIndex {
 
     private parseReferences(document: vscode.TextDocument, text: string): void {
         // Find all TC-#### and REQ-### references
-        const tcPattern = /\b(TC-\d{4}[a-z]*)\b/g;
-        const reqPattern = /\b(REQ-[A-Z]*-?\d{3})\b/g;
-        
+        const tcPattern = /\b(TC-[A-Z0-9]+-[A-Z0-9]+)\b/g;
+        const reqPattern = /\b(REQ-[A-Z0-9]+-[A-Z0-9]+)\b/g;
+
         [tcPattern, reqPattern].forEach(pattern => {
             let match;
             while ((match = pattern.exec(text)) !== null) {
@@ -189,7 +189,7 @@ export class IdentifierIndex {
             .replace(/[✅⏸️⏭️\[\]x]/g, '')
             .replace(/^[-*]\s*/, '')
             .trim();
-        
+
         return cleaned || undefined;
     }
 
@@ -212,14 +212,14 @@ export class IdentifierIndex {
         // Find items that reference this ID or are referenced by this ID
         const related: Identifier[] = [];
         const refs = this.findReferences(id);
-        
+
         // Add items that reference this ID
         for (const [otherId, otherIdentifier] of this.identifiers) {
             if (otherId !== id && refs.some(ref => ref.uri.toString() === otherIdentifier.location.uri.toString())) {
                 related.push(otherIdentifier);
             }
         }
-        
+
         return related;
     }
 
@@ -229,7 +229,7 @@ export class IdentifierIndex {
 
     search(query: string): Identifier[] {
         const lowerQuery = query.toLowerCase();
-        return Array.from(this.identifiers.values()).filter(id => 
+        return Array.from(this.identifiers.values()).filter(id =>
             id.id.toLowerCase().includes(lowerQuery) ||
             (id.description && id.description.toLowerCase().includes(lowerQuery))
         );

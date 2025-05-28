@@ -10,20 +10,20 @@ export class IdentifierReferenceProvider implements vscode.ReferenceProvider {
         context: vscode.ReferenceContext,
         token: vscode.CancellationToken
     ): vscode.ProviderResult<vscode.Location[]> {
-        
+
         // Get the word at the current position
         const wordRange = document.getWordRangeAtPosition(
-            position, 
-            /\b(TC-\d{4}[a-z]*|REQ-[A-Z]*-?\d{3})\b/
+            position,
+            /\b(TC-[A-Z0-9]+-[A-Z0-9]+|REQ-[A-Z0-9]+-[A-Z0-9]+)\b/
         );
-        
+
         if (!wordRange) {
             return [];
         }
 
         const identifier = document.getText(wordRange);
         const references = this.index.findReferences(identifier);
-        
+
         // Include the definition if requested
         if (context.includeDeclaration) {
             const definition = this.index.findDefinition(identifier);
@@ -31,7 +31,7 @@ export class IdentifierReferenceProvider implements vscode.ReferenceProvider {
                 references.unshift(definition.location);
             }
         }
-        
+
         return references;
     }
 }

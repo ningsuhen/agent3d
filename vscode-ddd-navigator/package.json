@@ -24,7 +24,7 @@
     "agent3d"
   ],
   "activationEvents": [
-    "onLanguage:markdown"
+    "onStartupFinished"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -75,7 +75,7 @@
         },
         "dddNavigator.testCasePattern": {
           "type": "string",
-          "default": "TC-\\d{4}[a-z]*",
+          "default": "TC-[A-Z0-9]+-[A-Z0-9]+",
           "description": "Regular expression pattern for test case identifiers"
         },
         "dddNavigator.requirementPattern": {
