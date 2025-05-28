@@ -52,7 +52,9 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 |-----------|------|
 | **Requirements-Driven** | Implement only documented requirements from `docs/REQUIREMENTS.md` |
 | **Lean Code** | Build only what is specified in requirements and acceptance criteria |
-| **Real Tests** | Use integration tests; avoid mocks except for external APIs |
+| **Real Tests** | **CRITICAL**: Tests MUST import and call actual project code - never test only mock data |
+| **Project Code Testing** | **CRITICAL**: Every test must import from project source and call project functions |
+| **Integration Focus** | Prefer integration tests over pure unit tests; avoid mocks except for external APIs |
 | **Full Traceability** | Link requirements (`REQ-####`) to features to test cases (`TC-####`) |
 | **Requirements Validation** | Ensure all features trace back to business objectives |
 | **Fast Feedback** | Run critical tests in CI |
@@ -116,9 +118,25 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 2. Configure project (`.agent3d-config.yml` in project root)
 3. Follow `~/.agent3d/AGENT-GUIDELINES.md`
 4. Run DDD pass for missing/outdated documentation
-5. Favor integration tests over mocks
+5. **Write Real Tests:** Every test MUST import project code and call project functions
 6. **Update Guidelines Regularly:** Run `git -C ~/.agent3d pull origin main` to keep cached rules and templates current
 7. **Use System Date Commands:** Always use `date +%Y-%m-%d` or `date +%Y-%m-%d\ %H:%M:%S` for timestamps instead of LLM knowledge
+
+**Test Quality Requirements:**
+
+**CRITICAL**: All tests must meet these quality standards:
+
+1. **Import Project Code**: Every test file MUST import modules/classes/functions from the actual project source code
+2. **Call Project Functions**: Tests MUST call actual project functions, not just assert against hardcoded values
+3. **Meaningful Assertions**: Tests MUST validate actual behavior, not trivial comparisons like `assert 1 == 1`
+4. **Integration Focus**: Prefer testing real data flows over pure mock scenarios
+5. **TC ID Mapping**: Include TC-NNNN identifier in test function name or docstring for traceability
+
+**Prohibited Test Patterns:**
+- Tests that only use mock data without calling project code
+- Tests that only assert against hardcoded expected values
+- Tests that import only test libraries (pytest, unittest, mock) without project imports
+- Tests with trivial assertions like `assert True` or `assert "expected" == "expected"`
 
 **Mental Memory Map Creation:**
 

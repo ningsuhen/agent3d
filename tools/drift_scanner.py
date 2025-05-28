@@ -8,6 +8,7 @@ Supported drift detection modes:
 - ft-mapping: FT ID mapping between FEATURES.md and test implementations
 - ft-tc-mapping: FT-* ↔ TC-* relationship mapping and validation
 - code-coverage: Test coverage analysis and missing test detection
+- test-quality: Test quality validation to ensure tests actually test project code
 - doc-code: Documentation-code signature drift detection
 - feature-impl: Feature implementation status drift
 - requirements: Requirements traceability drift
@@ -297,10 +298,18 @@ class TestFunction:
     class_name: Optional[str] = None
     tc_ids: List[str] = None
     line_number: Optional[int] = None
+    # Test quality validation fields
+    imports_project_code: bool = False
+    calls_project_functions: bool = False
+    uses_only_mocks: bool = False
+    test_quality_score: float = 0.0
+    quality_issues: List[str] = None
 
     def __post_init__(self):
         if self.tc_ids is None:
             self.tc_ids = []
+        if self.quality_issues is None:
+            self.quality_issues = []
 
 @dataclass
 class TestCase:
@@ -364,6 +373,17 @@ class FeatureIssue:
     actual_status: str  # implemented, missing, partial
     issue_type: str  # status_mismatch, missing_implementation, undocumented_feature
 
+@dataclass
+class TestQualityIssue:
+    """Represents a test quality issue."""
+    test_file: str
+    test_function: str
+    issue_type: str  # 'no_project_imports', 'only_mock_data', 'no_function_calls', 'poor_coverage'
+    severity: str  # 'critical', 'high', 'medium', 'low'
+    description: str
+    suggestion: str
+    line_number: Optional[int] = None
+
 
 
 @dataclass
@@ -419,6 +439,10 @@ class DriftReport:
     documentation_issues: List[DocumentationIssue] = None
     # Feature Implementation Drift
     feature_issues: List[FeatureIssue] = None
+    # Test Quality Validation
+    test_quality_issues: List[TestQualityIssue] = None
+    low_quality_tests: List[TestFunction] = None
+    test_quality_score: float = None
     # Enhanced Drift Issues (with severity and suggestions)
     drift_issues: List[DriftIssue] = None
     # General
@@ -451,6 +475,11 @@ class DriftReport:
             self.documentation_issues = []
         if self.feature_issues is None:
             self.feature_issues = []
+        # Test Quality fields
+        if self.test_quality_issues is None:
+            self.test_quality_issues = []
+        if self.low_quality_tests is None:
+            self.low_quality_tests = []
         if self.drift_issues is None:
             self.drift_issues = []
         if self.metadata is None:
@@ -1365,6 +1394,220 @@ class CodeCoverageScanner:
 
         return False
 
+class TestQualityValidator:
+    """Validates test quality to ensure tests actually test project code."""
+
+    def __init__(self, root_dir: str = '.'):
+        self.root_dir = Path(root_dir)
+        self.detector = LanguageDetector()
+
+    def validate_test_quality(self, test_functions: List[TestFunction]) -> Tuple[List[TestQualityIssue], float]:
+        """Validate test quality and return issues and overall score."""
+        quality_issues = []
+        total_tests = len(test_functions)
+        high_quality_tests = 0
+
+        print(f"🔍 Validating quality of {total_tests} test functions...")
+
+        for test_func in test_functions:
+            issues, quality_score = self._analyze_test_function_quality(test_func)
+            quality_issues.extend(issues)
+
+            # Update test function with quality metrics
+            test_func.test_quality_score = quality_score
+            test_func.quality_issues = [issue.description for issue in issues]
+
+            if quality_score >= 0.7:  # 70% threshold for high quality
+                high_quality_tests += 1
+
+        overall_score = (high_quality_tests / total_tests) if total_tests > 0 else 0.0
+        print(f"📊 Test Quality Score: {overall_score:.1%} ({high_quality_tests}/{total_tests} high-quality tests)")
+
+        return quality_issues, overall_score
+
+    def _analyze_test_function_quality(self, test_func: TestFunction) -> Tuple[List[TestQualityIssue], float]:
+        """Analyze a single test function for quality issues."""
+        issues = []
+        quality_score = 1.0  # Start with perfect score, deduct for issues
+
+        try:
+            with open(test_func.file, 'r', encoding='utf-8') as f:
+                content = f.read()
+        except Exception:
+            issues.append(TestQualityIssue(
+                test_file=test_func.file,
+                test_function=test_func.function,
+                issue_type='file_read_error',
+                severity='high',
+                description=f"Cannot read test file {test_func.file}",
+                suggestion="Ensure test file is accessible and properly formatted",
+                line_number=test_func.line_number
+            ))
+            return issues, 0.0
+
+        # Check 1: Does the test import project code?
+        project_imports = self._find_project_imports(content, test_func)
+        if not project_imports:
+            issues.append(TestQualityIssue(
+                test_file=test_func.file,
+                test_function=test_func.function,
+                issue_type='no_project_imports',
+                severity='critical',
+                description="Test does not import any project code - likely testing only mock data",
+                suggestion="Import and test actual project modules, classes, or functions",
+                line_number=test_func.line_number
+            ))
+            quality_score -= 0.4
+            test_func.imports_project_code = False
+        else:
+            test_func.imports_project_code = True
+
+        # Check 2: Does the test call actual project functions?
+        function_calls = self._find_project_function_calls(content, test_func, project_imports)
+        if not function_calls:
+            issues.append(TestQualityIssue(
+                test_file=test_func.file,
+                test_function=test_func.function,
+                issue_type='no_function_calls',
+                severity='high',
+                description="Test does not call any project functions - may only assert against hardcoded values",
+                suggestion="Call actual project functions and validate their behavior",
+                line_number=test_func.line_number
+            ))
+            quality_score -= 0.3
+            test_func.calls_project_functions = False
+        else:
+            test_func.calls_project_functions = True
+
+        # Check 3: Does the test use only mock data?
+        if self._uses_only_mock_data(content, test_func):
+            issues.append(TestQualityIssue(
+                test_file=test_func.file,
+                test_function=test_func.function,
+                issue_type='only_mock_data',
+                severity='medium',
+                description="Test appears to use only mock/hardcoded data without real integration",
+                suggestion="Include integration testing with real data flows where appropriate",
+                line_number=test_func.line_number
+            ))
+            quality_score -= 0.2
+            test_func.uses_only_mocks = True
+
+        # Check 4: Does the test have meaningful assertions?
+        if not self._has_meaningful_assertions(content, test_func):
+            issues.append(TestQualityIssue(
+                test_file=test_func.file,
+                test_function=test_func.function,
+                issue_type='weak_assertions',
+                severity='medium',
+                description="Test has weak or trivial assertions",
+                suggestion="Add assertions that validate actual business logic and edge cases",
+                line_number=test_func.line_number
+            ))
+            quality_score -= 0.1
+
+        return issues, max(0.0, quality_score)
+
+    def _find_project_imports(self, content: str, test_func: TestFunction) -> List[str]:
+        """Find imports that reference project code (not test libraries)."""
+        project_imports = []
+
+        # Common test library patterns to exclude
+        test_libraries = {
+            'pytest', 'unittest', 'mock', 'MagicMock', 'Mock', 'patch',
+            'json', 're', 'os', 'sys', 'pathlib', 'typing', 'dataclasses'
+        }
+
+        # Find import statements
+        import_patterns = [
+            r'from\s+([a-zA-Z_][a-zA-Z0-9_.]*)\s+import',
+            r'import\s+([a-zA-Z_][a-zA-Z0-9_.]*)',
+        ]
+
+        for pattern in import_patterns:
+            matches = re.findall(pattern, content)
+            for match in matches:
+                # Skip test libraries and standard library
+                if not any(lib in match for lib in test_libraries):
+                    # Check if it looks like a project import (not standard library)
+                    if '.' in match or not match.islower():
+                        project_imports.append(match)
+
+        return project_imports
+
+    def _find_project_function_calls(self, content: str, test_func: TestFunction, project_imports: List[str]) -> List[str]:
+        """Find calls to project functions within the test."""
+        function_calls = []
+
+        # Look for function calls that use imported modules
+        for import_name in project_imports:
+            # Pattern for module.function() calls
+            call_pattern = rf'{import_name}\.([a-zA-Z_][a-zA-Z0-9_]*)\s*\('
+            calls = re.findall(call_pattern, content)
+            function_calls.extend([f"{import_name}.{call}" for call in calls])
+
+        # Look for direct function calls (imported with 'from module import function')
+        function_pattern = r'([a-zA-Z_][a-zA-Z0-9_]*)\s*\([^)]*\)'
+        potential_calls = re.findall(function_pattern, content)
+
+        # Filter out obvious test framework calls
+        test_framework_calls = {'assert', 'assertEqual', 'assertTrue', 'assertFalse', 'pytest', 'test'}
+        for call in potential_calls:
+            if call not in test_framework_calls and not call.startswith('test_'):
+                function_calls.append(call)
+
+        return function_calls
+
+    def _uses_only_mock_data(self, content: str, test_func: TestFunction) -> bool:
+        """Check if test uses only mock/hardcoded data."""
+        # Look for patterns that suggest only mock data usage
+        mock_indicators = [
+            r'Mock\(',
+            r'MagicMock\(',
+            r'@patch',
+            r'test_data\s*=\s*{',
+            r'expected\s*=\s*["\'{]',
+            r'assert.*==.*["\'{]'
+        ]
+
+        mock_count = 0
+        for pattern in mock_indicators:
+            if re.search(pattern, content):
+                mock_count += 1
+
+        # If many mock indicators and no real data processing, likely only mock data
+        return mock_count >= 3
+
+    def _has_meaningful_assertions(self, content: str, test_func: TestFunction) -> bool:
+        """Check if test has meaningful assertions beyond trivial checks."""
+        # Look for assertion patterns
+        assertion_patterns = [
+            r'assert\s+',
+            r'assertEqual\(',
+            r'assertTrue\(',
+            r'assertFalse\(',
+            r'assertIn\(',
+            r'assertRaises\('
+        ]
+
+        assertion_count = 0
+        for pattern in assertion_patterns:
+            assertion_count += len(re.findall(pattern, content))
+
+        # Trivial assertion patterns that suggest weak testing
+        trivial_patterns = [
+            r'assert\s+True',
+            r'assert\s+1\s*==\s*1',
+            r'assert\s+".*"\s*==\s*".*"',  # Hardcoded string comparison
+        ]
+
+        trivial_count = 0
+        for pattern in trivial_patterns:
+            trivial_count += len(re.findall(pattern, content))
+
+        # Meaningful if has assertions and not mostly trivial
+        return assertion_count > 0 and (trivial_count / assertion_count if assertion_count > 0 else 1) < 0.5
+
 class FeatureImplementationScanner:
     """Scans for feature implementation drift between FEATURES.md and actual implementation."""
 
@@ -1693,8 +1936,9 @@ class MultiModeDriftAnalyzer:
         self.tc_analyzer = TCDriftAnalyzer(root_dir, test_cases_file, change_detector, self.config_manager)
         self.ft_analyzer = FTDriftAnalyzer(root_dir, 'docs/FEATURES.md', test_cases_file, self.config_manager)
         self.coverage_scanner = CodeCoverageScanner(root_dir)
-        self.feature_scanner = FeatureImplementationScanner(root_dir, self.config_manager)
+        self.feature_scanner = FeatureImplementationScanner(root_dir, 'docs/FEATURES.md')
         self.comprehensive_detector = ComprehensiveDriftDetector(root_dir)
+        self.test_quality_validator = TestQualityValidator(root_dir)
 
     def analyze_drift(self, mode: str = 'tc-mapping', changed_files: Optional[Set[Path]] = None) -> DriftReport:
         """Analyze drift based on the specified mode, optionally filtered by changed files."""
@@ -1708,6 +1952,8 @@ class MultiModeDriftAnalyzer:
             return self._analyze_code_coverage(changed_files)
         elif mode == 'feature-impl':
             return self._analyze_feature_implementation(changed_files)
+        elif mode == 'test-quality':
+            return self._analyze_test_quality(changed_files)
         elif mode == 'all':
             return self._analyze_all_modes(changed_files)
         else:
@@ -1833,6 +2079,42 @@ class MultiModeDriftAnalyzer:
             metadata=metadata
         )
 
+    def _analyze_test_quality(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
+        """Analyze test quality to ensure tests actually test project code."""
+        if changed_files is not None:
+            print("🔍 Starting test quality analysis (change-based)...\n")
+        else:
+            print("🔍 Starting test quality analysis...\n")
+
+        # Get test functions first
+        test_functions = self.tc_analyzer.implementation_scanner.scan_all_tests(changed_files)
+
+        # Validate test quality
+        quality_issues, overall_score = self.test_quality_validator.validate_test_quality(test_functions)
+
+        # Identify low-quality tests
+        low_quality_tests = [func for func in test_functions if func.test_quality_score < 0.7]
+
+        metadata = {
+            'total_test_functions': len(test_functions),
+            'test_quality_score': round(overall_score, 3),
+            'high_quality_tests': len([func for func in test_functions if func.test_quality_score >= 0.7]),
+            'low_quality_tests': len(low_quality_tests),
+            'quality_issues_count': len(quality_issues),
+            'critical_quality_issues': len([issue for issue in quality_issues if issue.severity == 'critical']),
+            'tests_without_project_imports': len([func for func in test_functions if not func.imports_project_code]),
+            'tests_without_function_calls': len([func for func in test_functions if not func.calls_project_functions]),
+            'tests_using_only_mocks': len([func for func in test_functions if func.uses_only_mocks])
+        }
+
+        return DriftReport(
+            mode='test-quality',
+            test_quality_issues=quality_issues,
+            low_quality_tests=low_quality_tests,
+            test_quality_score=overall_score,
+            metadata=metadata
+        )
+
     def _analyze_all_modes(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
         """Analyze all drift modes and combine results."""
         if changed_files is not None:
@@ -1846,6 +2128,7 @@ class MultiModeDriftAnalyzer:
         ft_tc_report = self._analyze_ft_tc_mapping(changed_files)
         coverage_report = self._analyze_code_coverage(changed_files)
         feature_report = self._analyze_feature_implementation(changed_files)
+        quality_report = self._analyze_test_quality(changed_files)
 
         # Run comprehensive drift detection
         print("🔍 Running comprehensive drift detection strategies...\n")
@@ -1857,6 +2140,7 @@ class MultiModeDriftAnalyzer:
             **ft_tc_report.metadata,  # This includes both FT and TC metadata
             **coverage_report.metadata,
             **feature_report.metadata,
+            **quality_report.metadata,
             'comprehensive_issues_count': len(comprehensive_issues),
             'critical_issues': len([i for i in comprehensive_issues if i.severity == 'critical']),
             'warning_issues': len([i for i in comprehensive_issues if i.severity == 'warning']),
@@ -1880,6 +2164,10 @@ class MultiModeDriftAnalyzer:
             coverage_issues=coverage_report.coverage_issues,
             coverage_percentage=coverage_report.coverage_percentage,
             feature_issues=feature_report.feature_issues,
+            # Test Quality data
+            test_quality_issues=quality_report.test_quality_issues,
+            low_quality_tests=quality_report.low_quality_tests,
+            test_quality_score=quality_report.test_quality_score,
             drift_issues=comprehensive_issues,
             metadata=combined_metadata
         )
@@ -2135,6 +2423,17 @@ def generate_multi_mode_report(report: DriftReport, output_file: str = 'drift-re
             'feature_issues': [asdict(issue) for issue in (report.feature_issues or [])]
         })
 
+    if report.mode in ['test-quality', 'all']:
+        report_dict.update({
+            'test_quality_summary': {
+                'test_quality_score': report.test_quality_score or 0.0,
+                'quality_issues_count': len(report.test_quality_issues or []),
+                'low_quality_tests_count': len(report.low_quality_tests or [])
+            },
+            'test_quality_issues': [asdict(issue) for issue in (report.test_quality_issues or [])],
+            'low_quality_tests': [asdict(func) for func in (report.low_quality_tests or [])]
+        })
+
     # Add comprehensive drift issues for 'all' mode
     if report.mode == 'all' and report.drift_issues:
         report_dict.update({
@@ -2170,11 +2469,14 @@ def print_multi_mode_summary(report: DriftReport) -> None:
         print_coverage_summary(report)
     elif report.mode == 'feature-impl':
         print_feature_summary(report)
+    elif report.mode == 'test-quality':
+        print_test_quality_summary(report)
     elif report.mode == 'all':
         print_tc_mapping_summary(report)
         print_ft_mapping_summary(report)
         print_coverage_summary(report)
         print_feature_summary(report)
+        print_test_quality_summary(report)
         print_comprehensive_drift_summary(report)
 
     print("\n" + "="*80)
@@ -2224,6 +2526,38 @@ def print_feature_summary(report: DriftReport) -> None:
 
     print(f"\n📊 FEATURE IMPLEMENTATION OVERVIEW:")
     print(f"  Feature Issues: {len(report.feature_issues or [])}")
+
+def print_test_quality_summary(report: DriftReport) -> None:
+    """Print test quality specific summary."""
+    if not report.test_quality_issues and not report.low_quality_tests:
+        return
+
+    print(f"\n📊 TEST QUALITY OVERVIEW:")
+    print(f"  Test Quality Score: {(report.test_quality_score or 0) * 100:.1f}%")
+    print(f"  Quality Issues: {len(report.test_quality_issues or [])}")
+    print(f"  Low Quality Tests: {len(report.low_quality_tests or [])}")
+
+    # Group issues by severity
+    if report.test_quality_issues:
+        issue_severities = defaultdict(int)
+        for issue in report.test_quality_issues:
+            issue_severities[issue.severity] += 1
+
+        for severity, count in issue_severities.items():
+            print(f"    {severity.title()} Issues: {count}")
+
+    # Show critical quality issues
+    if report.test_quality_issues:
+        critical_issues = [issue for issue in report.test_quality_issues if issue.severity == 'critical']
+        if critical_issues:
+            print(f"\n❌ CRITICAL TEST QUALITY ISSUES:")
+            for issue in critical_issues[:3]:  # Show first 3 critical issues
+                print(f"  - {issue.test_function} in {issue.test_file}")
+                print(f"    Issue: {issue.description}")
+                print(f"    Suggestion: {issue.suggestion}")
+
+            if len(critical_issues) > 3:
+                print(f"  ... and {len(critical_issues) - 3} more critical issues")
 
 def print_comprehensive_drift_summary(report: DriftReport) -> None:
     """Print comprehensive drift detection summary."""
@@ -2294,6 +2628,15 @@ def calculate_exit_code(report: DriftReport) -> int:
             return 1
         else:
             return 2
+    elif report.mode == 'test-quality':
+        quality_score = report.test_quality_score or 0
+        critical_issues = len([issue for issue in (report.test_quality_issues or []) if issue.severity == 'critical'])
+        if quality_score >= 0.8 and critical_issues == 0:
+            return 0
+        elif quality_score >= 0.6 and critical_issues <= 2:
+            return 1
+        else:
+            return 2
     elif report.mode == 'all':
         # Return highest exit code from all modes
         tc_code = calculate_exit_code(DriftReport(mode='tc-mapping',
@@ -2305,7 +2648,10 @@ def calculate_exit_code(report: DriftReport) -> int:
                                                       coverage_issues=report.coverage_issues))
         feature_code = calculate_exit_code(DriftReport(mode='feature-impl',
                                                      feature_issues=report.feature_issues))
-        return max(tc_code, coverage_code, feature_code)
+        quality_code = calculate_exit_code(DriftReport(mode='test-quality',
+                                                     test_quality_score=report.test_quality_score,
+                                                     test_quality_issues=report.test_quality_issues))
+        return max(tc_code, coverage_code, feature_code, quality_code)
 
     return 0
 
@@ -2315,7 +2661,7 @@ def main():
 
     parser = argparse.ArgumentParser(description='Multi-mode drift scanner for Agent3D framework')
     parser.add_argument('--mode', default='tc-mapping',
-                       choices=['tc-mapping', 'ft-mapping', 'ft-tc-mapping', 'code-coverage', 'feature-impl', 'all'],
+                       choices=['tc-mapping', 'ft-mapping', 'ft-tc-mapping', 'code-coverage', 'feature-impl', 'test-quality', 'all'],
                        help='Drift analysis mode (default: tc-mapping)')
     parser.add_argument('--root-dir', default='.', help='Root directory to scan (default: current directory)')
     parser.add_argument('--test-cases-file', default='docs/TEST-CASES.md',

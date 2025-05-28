@@ -230,7 +230,7 @@ class DriftScannerMCPServer:
                 "tools": [
                     {
                         "name": "drift_scanner",
-                        "description": "Agent3D Drift Scanner - Multi-mode drift detection with TC mapping, FT mapping, FT-TC relationships, code coverage, and feature implementation analysis. ALWAYS performs fresh scan on every request with automatic cleanup of previous reports of the same type.",
+                        "description": "Agent3D Drift Scanner - Multi-mode drift detection with TC mapping, FT mapping, FT-TC relationships, code coverage, test quality validation, and feature implementation analysis. ALWAYS performs fresh scan on every request with automatic cleanup of previous reports of the same type.",
                         "inputSchema": {
                             "type": "object",
                             "properties": {
@@ -240,7 +240,7 @@ class DriftScannerMCPServer:
                                 },
                                 "mode": {
                                     "type": "string",
-                                    "enum": ["tc-mapping", "ft-mapping", "ft-tc-mapping", "code-coverage", "feature-impl", "all"],
+                                    "enum": ["tc-mapping", "ft-mapping", "ft-tc-mapping", "code-coverage", "feature-impl", "test-quality", "all"],
                                     "default": "tc-mapping",
                                     "description": "Drift analysis mode"
                                 },

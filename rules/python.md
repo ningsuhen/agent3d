@@ -22,6 +22,8 @@
 **Testing:** **Prefer pytest**, mirror app structure, `test_` prefix, 80% coverage minimum, fixtures for setup
 **Golden Tests:** Use `pytest-goldie` for complex output/regression testing, `pytest --goldie-update` to update
 **TC ID Mapping:** **CRITICAL** - Each test function MUST include TC-NNNN in name or docstring for 1:1 traceability
+**Test Quality:** **CRITICAL** - Every test MUST import project code and call project functions, never test only mock data
+**Real Testing:** **CRITICAL** - Tests must validate actual project behavior, not just assert against hardcoded values
 
 ## Error Handling, Performance & Security
 
@@ -60,6 +62,8 @@
 - pytest-goldie for complex output validation
 - Fixtures for test setup
 - **TC ID Mapping:** Each test function MUST include TC-NNNN in name or docstring
+- **Test Quality:** Every test MUST import project code and call project functions
+- **Real Testing:** Tests must validate actual behavior, not just hardcoded assertions
 
 #### 4. Configuration Management
 
@@ -95,10 +99,10 @@
 
 ### Severity Classification
 
-**Critical:** Missing type hints, string-based data access, catch-all exceptions, manual dependency editing, security issues
-**High:** Inefficient data structures, missing tests, poor error messages, memory issues, import problems
-**Medium:** Missing docstrings, long functions, naming inconsistencies
-**Low:** Style improvements, performance micro-optimizations
+**Critical:** Missing type hints, string-based data access, catch-all exceptions, manual dependency editing, security issues, tests without project imports
+**High:** Inefficient data structures, missing tests, poor error messages, memory issues, import problems, tests without function calls
+**Medium:** Missing docstrings, long functions, naming inconsistencies, tests with only mock data
+**Low:** Style improvements, performance micro-optimizations, weak test assertions
 
 ### Anti-Patterns to Reject
 
@@ -115,6 +119,9 @@
 - [ ] pyproject.toml used for configuration
 - [ ] Appropriate data structures chosen
 - [ ] Proper import organization
+- [ ] All tests import project code
+- [ ] All tests call project functions
+- [ ] Tests validate actual behavior, not just hardcoded values
 
 **Universal (see [Common Procedures](../docs/COMMON-PROCEDURES.md#quality-standards)):**
 
