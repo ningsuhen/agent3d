@@ -1,0 +1,132 @@
+{
+  "name": "ddd-navigator",
+  "displayName": "DDD Navigator",
+  "description": "Navigate between Test Cases, Features, and Requirements in documentation-driven development",
+  "version": "1.0.0",
+  "publisher": "agent3d",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Other",
+    "Navigation"
+  ],
+  "keywords": [
+    "documentation",
+    "test-cases",
+    "requirements",
+    "features",
+    "navigation",
+    "ddd",
+    "agent3d"
+  ],
+  "activationEvents": [
+    "onLanguage:markdown"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "dddNavigator.goToTestCase",
+        "title": "Go to Test Case",
+        "category": "DDD Navigator"
+      },
+      {
+        "command": "dddNavigator.goToRequirement",
+        "title": "Go to Requirement",
+        "category": "DDD Navigator"
+      },
+      {
+        "command": "dddNavigator.goToFeature",
+        "title": "Go to Feature",
+        "category": "DDD Navigator"
+      },
+      {
+        "command": "dddNavigator.showRelated",
+        "title": "Show Related Items",
+        "category": "DDD Navigator"
+      },
+      {
+        "command": "dddNavigator.refreshIndex",
+        "title": "Refresh Index",
+        "category": "DDD Navigator"
+      }
+    ],
+    "configuration": {
+      "title": "DDD Navigator",
+      "properties": {
+        "dddNavigator.enableTestCases": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable test case navigation (TC-####)"
+        },
+        "dddNavigator.enableRequirements": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable requirement navigation (REQ-###)"
+        },
+        "dddNavigator.enableFeatures": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable feature navigation"
+        },
+        "dddNavigator.testCasePattern": {
+          "type": "string",
+          "default": "TC-\\d{4}[a-z]*",
+          "description": "Regular expression pattern for test case identifiers"
+        },
+        "dddNavigator.requirementPattern": {
+          "type": "string",
+          "default": "REQ-[A-Z]*-?\\d{3}",
+          "description": "Regular expression pattern for requirement identifiers"
+        },
+        "dddNavigator.featureFiles": {
+          "type": "array",
+          "default": ["FEATURES.md", "docs/FEATURES.md"],
+          "description": "Files to search for feature definitions"
+        },
+        "dddNavigator.testCaseFiles": {
+          "type": "array",
+          "default": ["TEST-CASES.md", "docs/TEST-CASES.md"],
+          "description": "Files to search for test case definitions"
+        },
+        "dddNavigator.requirementFiles": {
+          "type": "array",
+          "default": ["REQUIREMENTS.md", "docs/REQUIREMENTS.md"],
+          "description": "Files to search for requirement definitions"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "dddNavigator.goToTestCase",
+        "key": "ctrl+shift+t",
+        "mac": "cmd+shift+t",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "dddNavigator.goToRequirement",
+        "key": "ctrl+shift+r",
+        "mac": "cmd+shift+r",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "dddNavigator.goToFeature",
+        "key": "ctrl+shift+f",
+        "mac": "cmd+shift+f",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.60.0",
+    "@types/node": "16.x",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {}
+}
