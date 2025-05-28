@@ -1694,7 +1694,7 @@ class MultiModeDriftAnalyzer:
         self.ft_analyzer = FTDriftAnalyzer(root_dir, 'docs/FEATURES.md', test_cases_file, self.config_manager)
         self.coverage_scanner = CodeCoverageScanner(root_dir)
         self.feature_scanner = FeatureImplementationScanner(root_dir, self.config_manager)
-        self.comprehensive_detector = ComprehensiveDriftDetector(root_dir, self.config_manager)
+        self.comprehensive_detector = ComprehensiveDriftDetector(root_dir)
 
     def analyze_drift(self, mode: str = 'tc-mapping', changed_files: Optional[Set[Path]] = None) -> DriftReport:
         """Analyze drift based on the specified mode, optionally filtered by changed files."""
@@ -1966,6 +1966,11 @@ class TCDriftAnalyzer:
             metadata=metadata
         )
 
+    def _get_current_timestamp(self) -> str:
+        """Get current timestamp in YYYY-MM-DD_HH:MM:SS format."""
+        from datetime import datetime
+        return datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+
     def generate_report(self, report: DriftReport, output_file: str = 'tc-drift-report.yaml') -> None:
         """Generate YAML report file."""
         # Convert dataclasses to dictionaries for YAML serialization
@@ -1987,7 +1992,7 @@ class TCDriftAnalyzer:
             'orphaned_tc_ids_in_code': report.orphaned_tc_ids,
             'tc_mappings': {tc_id: [asdict(func) for func in funcs]
                            for tc_id, funcs in report.tc_mappings.items()},
-            'generated_at': f"$(date +%Y-%m-%d_%H:%M:%S)"
+            'generated_at': self._get_current_timestamp()
         }
 
         # Write YAML report
@@ -2065,13 +2070,18 @@ class TCDriftAnalyzer:
 
         print("\n" + "="*80)
 
+def get_current_timestamp() -> str:
+    """Get current timestamp in YYYY-MM-DD_HH:MM:SS format."""
+    from datetime import datetime
+    return datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+
 def generate_multi_mode_report(report: DriftReport, output_file: str = 'drift-report.yaml') -> None:
     """Generate YAML report file for multi-mode analysis."""
     # Convert dataclasses to dictionaries for YAML serialization
     report_dict = {
         'mode': report.mode,
         'metadata': report.metadata or {},
-        'generated_at': f"$(date +%Y-%m-%d_%H:%M:%S)"
+        'generated_at': get_current_timestamp()
     }
 
     # Add mode-specific data
@@ -2088,6 +2098,24 @@ def generate_multi_mode_report(report: DriftReport, output_file: str = 'drift-re
             'orphaned_tc_ids_in_code': report.orphaned_tc_ids or [],
             'tc_mappings': {tc_id: [asdict(func) for func in funcs]
                            for tc_id, funcs in (report.tc_mappings or {}).items()}
+        })
+
+    # Add FT mapping data for ft-mapping, ft-tc-mapping, and all modes
+    if report.mode in ['ft-mapping', 'ft-tc-mapping', 'all']:
+        report_dict.update({
+            'ft_mapping_summary': {
+                'total_features': len(report.features_without_tests or []) + len(report.ft_mappings or {}),
+                'features_without_tests': len(report.features_without_tests or []),
+                'tests_without_features': len(report.tests_without_features or []),
+                'orphaned_ft_ids': len(report.orphaned_ft_ids or []),
+                'ft_tc_mappings': len(report.ft_tc_mappings or [])
+            },
+            'features_without_tests': [asdict(feature) for feature in (report.features_without_tests or [])],
+            'tests_without_features': [asdict(func) for func in (report.tests_without_features or [])],
+            'orphaned_ft_ids_in_code': report.orphaned_ft_ids or [],
+            'ft_mappings': {ft_id: [asdict(func) for func in funcs]
+                           for ft_id, funcs in (report.ft_mappings or {}).items()},
+            'ft_tc_mappings': [asdict(mapping) for mapping in (report.ft_tc_mappings or [])]
         })
 
     if report.mode in ['code-coverage', 'all']:
@@ -2133,12 +2161,18 @@ def print_multi_mode_summary(report: DriftReport) -> None:
 
     if report.mode == 'tc-mapping':
         print_tc_mapping_summary(report)
+    elif report.mode == 'ft-mapping':
+        print_ft_mapping_summary(report)
+    elif report.mode == 'ft-tc-mapping':
+        print_tc_mapping_summary(report)
+        print_ft_mapping_summary(report)
     elif report.mode == 'code-coverage':
         print_coverage_summary(report)
     elif report.mode == 'feature-impl':
         print_feature_summary(report)
     elif report.mode == 'all':
         print_tc_mapping_summary(report)
+        print_ft_mapping_summary(report)
         print_coverage_summary(report)
         print_feature_summary(report)
         print_comprehensive_drift_summary(report)
@@ -2154,6 +2188,17 @@ def print_tc_mapping_summary(report: DriftReport) -> None:
     print(f"  Test Cases Without Implementations: {len(report.test_cases_without_implementations or [])}")
     print(f"  Implementations Without TC IDs: {len(report.implementations_without_test_cases or [])}")
     print(f"  Orphaned TC IDs: {len(report.orphaned_tc_ids or [])}")
+
+def print_ft_mapping_summary(report: DriftReport) -> None:
+    """Print FT mapping specific summary."""
+    if not report.features_without_tests and not report.tests_without_features and not report.ft_tc_mappings:
+        return
+
+    print(f"\n📊 FT MAPPING OVERVIEW:")
+    print(f"  Features Without Tests: {len(report.features_without_tests or [])}")
+    print(f"  Tests Without Features: {len(report.tests_without_features or [])}")
+    print(f"  Orphaned FT IDs: {len(report.orphaned_ft_ids or [])}")
+    print(f"  FT-TC Mappings: {len(report.ft_tc_mappings or [])}")
 
 def print_coverage_summary(report: DriftReport) -> None:
     """Print code coverage specific summary."""
