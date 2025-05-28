@@ -154,6 +154,6 @@ structure:
 # Metadata
 metadata:
   created_by: "Foundation Pass"
-  created_date: "2024-12-19"
+  created_date: "[USE: date +%Y-%m-%d COMMAND]"
   configuration_version: "1.0"
   agent3d_version: "1.0.0"

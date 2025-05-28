@@ -113,6 +113,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 4. Run DDD pass for missing/outdated documentation
 5. Favor integration tests over mocks
 6. **Update Guidelines Regularly:** Run `git -C ~/.agent3d pull origin main` to keep cached rules and templates current
+7. **Use System Date Commands:** Always use `date +%Y-%m-%d` or `date +%Y-%m-%d\ %H:%M:%S` for timestamps instead of LLM knowledge
 
 **Mental Memory Map Creation:**
 - **CRITICAL**: Before starting any work, create a comprehensive mental map of the Agent3D framework and project structure

@@ -181,6 +181,27 @@ git branch -d exec-plan/horizontal-compression-pass
 
 **MEMORIZATION RULE:** Use memorized config throughout session, check branch type for commit behavior.
 
+## Date and Timestamp Standards
+
+**CRITICAL**: Always use system commands for dates, never LLM knowledge.
+
+```bash
+# Standard Date Formats
+date +%Y-%m-%d                    # 2024-01-27 (for creation_date, last_updated)
+date +%Y-%m-%d\ %H:%M:%S         # 2024-01-27 14:30:45 (for detailed timestamps)
+date +%Y-%m-%d\ %H:%M            # 2024-01-27 14:30 (for progress tracking)
+
+# Usage Examples
+echo "Last updated: $(date +%Y-%m-%d)"
+echo "Generated on: $(date +%Y-%m-%d\ %H:%M:%S)"
+```
+
+**Template Usage:**
+- Replace `{{creation_date}}` with output of `date +%Y-%m-%d`
+- Replace `{{last_updated}}` with output of `date +%Y-%m-%d`
+- Replace `[USE: date +%Y-%m-%d]` with actual command output
+- Never use hardcoded dates or LLM knowledge for timestamps
+
 ## Pass Configuration Examples
 
 ### Foundation Pass Configuration

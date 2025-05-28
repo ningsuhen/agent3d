@@ -1,9 +1,9 @@
 # Implementation Plan: {{FEATURE_NAME}}
 
-**Created:** {{DATE}}  
-**Author:** {{AUTHOR}}  
-**Status:** {{STATUS}} <!-- Draft | Approved | In Progress | Completed | Cancelled -->  
-**Priority:** {{PRIORITY}} <!-- High | Medium | Low -->  
+**Created:** {{DATE}}
+**Author:** {{AUTHOR}}
+**Status:** {{STATUS}} <!-- Draft | Approved | In Progress | Completed | Cancelled -->
+**Priority:** {{PRIORITY}} <!-- High | Medium | Low -->
 **Estimated Effort:** {{EFFORT_ESTIMATE}} <!-- e.g., 2-3 days, 1 week -->
 
 ## Executive Summary
@@ -50,7 +50,7 @@
 | {{RISK_3}} | {{HIGH/MEDIUM/LOW}} | {{HIGH/MEDIUM/LOW}} | {{MITIGATION_3}} |
 
 ### Rollback Complexity
-**Level:** {{LOW/MEDIUM/HIGH}}  
+**Level:** {{LOW/MEDIUM/HIGH}}
 **Reason:** {{ROLLBACK_COMPLEXITY_EXPLANATION}}
 
 ## Step-by-Step Execution Plan

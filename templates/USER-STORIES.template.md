@@ -176,5 +176,5 @@ US-002 → US-004 → US-006
 - **Created by:** [Author name]
 - **Reviewed by:** [Reviewer names]
 - **Approved by:** [Approver names]
-- **Last Updated:** [Date]
-- **Next Review:** [Date]
+- **Last Updated:** [USE: `date +%Y-%m-%d`]
+- **Next Review:** [USE: `date +%Y-%m-%d` +30 days]

@@ -13,6 +13,10 @@
 - `{{document_title}}`, `{{document_purpose}}`, `{{project_name}}`
 - `{{author}}`, `{{creation_date}}`, `{{last_updated}}`, `{{version}}`
 
+**DATE COMMANDS (CRITICAL):**
+- **ALWAYS** use `date +%Y-%m-%d` for creation_date and last_updated
+- **NEVER** use LLM knowledge for dates - use system commands only
+
 ## Template Variable Reference
 
 ### Core Document Variables
@@ -20,8 +24,8 @@
 - `{{document_purpose}}` - Purpose statement
 - `{{project_name}}` - Project name
 - `{{author}}` - Document author
-- `{{creation_date}}` - Creation timestamp
-- `{{last_updated}}` - Last update timestamp
+- `{{creation_date}}` - Creation timestamp (USE: `date +%Y-%m-%d`)
+- `{{last_updated}}` - Last update timestamp (USE: `date +%Y-%m-%d`)
 - `{{version}}` - Document version
 
 ### Content Structure Variables
