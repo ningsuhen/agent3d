@@ -79,3 +79,6 @@ go.work
 Thumbs.db
 
 # Project specific
+
+# Agent3D temporary directory
+.agent3d-tmp/

@@ -44,6 +44,22 @@ def get_default_output_path(mode: str) -> str:
     timestamp = os.popen('date +%Y%m%d_%H%M%S').read().strip()
     return str(tmp_dir / 'drift-reports' / f'{mode}-drift-report-{timestamp}.yaml')
 
+def get_log_file_path() -> str:
+    """Get the log file path for the current analysis session."""
+    tmp_dir = ensure_tmp_directory()
+    timestamp = os.popen('date +%Y%m%d_%H%M%S').read().strip()
+    return str(tmp_dir / 'logs' / f'drift-analysis-{timestamp}.log')
+
+def log_analysis_start(mode: str, root_dir: str, log_file: str) -> None:
+    """Log the start of a drift analysis session."""
+    with open(log_file, 'w') as f:
+        f.write(f"=== Agent3D Drift Analysis Session ===\n")
+        f.write(f"Timestamp: {os.popen('date').read().strip()}\n")
+        f.write(f"Mode: {mode}\n")
+        f.write(f"Root Directory: {root_dir}\n")
+        f.write(f"Log File: {log_file}\n")
+        f.write(f"{'='*50}\n\n")
+
 @dataclass
 class TestFunction:
     """Represents a test function found in code."""
@@ -1275,8 +1291,20 @@ def main():
 
     args = parser.parse_args()
 
+    # Initialize logging
+    log_file = get_log_file_path()
+    log_analysis_start(args.mode, args.root_dir, log_file)
+
     # Initialize multi-mode analyzer
     analyzer = MultiModeDriftAnalyzer(args.root_dir, args.test_cases_file)
+
+    # Determine output file path
+    output_file = args.output if args.output else get_default_output_path(args.mode)
+
+    if not args.quiet:
+        print(f"📁 Working directory: {args.root_dir}")
+        print(f"📄 Output file: {output_file}")
+        print(f"📝 Log file: {log_file}")
 
     # Perform analysis
     try:
@@ -1287,7 +1315,7 @@ def main():
 
     # Generate report
     try:
-        generate_multi_mode_report(report, args.output)
+        generate_multi_mode_report(report, output_file)
     except Exception as e:
         print(f"❌ Error generating report: {e}")
         return 1
