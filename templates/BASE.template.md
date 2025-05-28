@@ -69,7 +69,7 @@
 - [ ] **Diagram Validation:** All diagrams render correctly and support the text
 - [ ] **Interface Documentation:** All APIs and interfaces properly documented
 
-### Process Templates (EXEC-PLAN, IMPLEMENTATION-PLAN, etc.)
+### Process Templates (EXEC-PLAN, etc.)
 - [ ] **Step Sequencing:** Logical step-by-step progression
 - [ ] **Checkpoint Definition:** Clear checkpoints and verification criteria
 - [ ] **Risk Assessment:** Identified risks with mitigation strategies

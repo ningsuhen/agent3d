@@ -31,9 +31,9 @@
 - **UX Documentation** (for UI projects: `docs/ux/` directory with UI-SPECIFICATIONS.md, wireframes, user-flows, interaction-patterns)
 
 ## Related Passes
-Requirements → Foundation → **Documentation** → Planning → Implementation
+Requirements → Foundation → **Documentation** → Development → Testing
 
-**Note:** For major changes (migrations, refactoring, complex features), Documentation Pass should trigger Planning Pass before Implementation.
+**Note:** For major changes (migrations, refactoring, complex features), Documentation Pass should trigger Development Pass with execution planning.
 
 ## Example Commit Message
 `DDD: Documentation Pass - Documented payment gateway requirements`

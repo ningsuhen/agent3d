@@ -6,7 +6,7 @@
 
 ## When to Use
 - When feature documentation is complete and ready for implementation
-- After a Documentation Pass (and Planning Pass for major changes) has established clear requirements
+- After a Documentation Pass (and Development Pass for major changes) has established clear requirements
 - When starting the development phase of a feature
 - When converting a proof of concept into production code
 - When an implementation plan exists and has been validated
@@ -27,9 +27,9 @@
 - Updated documentation
 
 ## Related Passes
-Requirements → Documentation → Planning → **Implementation** → Testing
+Requirements → Documentation → Development → **Implementation** → Testing
 
-**Note:** Planning Pass is required for major changes before Implementation Pass.
+**Note:** Development Pass includes planning and implementation phases for comprehensive feature development.
 
 ## Example Commit Message
 `DDD: Implementation Pass - Implemented user authentication`
@@ -47,17 +47,17 @@ Requirements → Documentation → Planning → **Implementation** → Testing
 - Document technical decisions
 - Ensure readability
 
-## Working with Implementation Plans
+## Working with Development Plans
 
-### For Major Changes (with Planning Pass)
-1. **Validate Plan Exists:** Check for `docs/plans/IMPLEMENTATION-PLAN-{feature}.md`
+### For Major Changes (with Development Pass)
+1. **Validate Plan Exists:** Check for `docs/runs/EXEC-PLAN-{change-name}.md`
 2. **Follow Step Sequence:** Execute steps in planned order
 3. **Update Progress:** Mark steps as completed `[x]` in the plan
 4. **Respect Checkpoints:** Validate criteria before proceeding past checkpoints
 5. **Handle Failures:** Use rollback instructions if issues arise
 6. **Resume Work:** Use checkpoint status to resume from last successful point
 
-### For Minor Changes (without Planning Pass)
+### For Minor Changes (direct implementation)
 1. **Create Simple Plan:** Basic implementation approach in DRAFT phase
 2. **Document Steps:** Simple checklist of implementation tasks
 3. **Track Progress:** Mark completed tasks during SYNC phase

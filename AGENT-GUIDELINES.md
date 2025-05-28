@@ -32,15 +32,14 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 - [0. Requirements Pass](~/.agent3d/passes/simplified/0_requirements_pass.md) - Documenting comprehensive requirements and business objectives
 - [1. Foundation Pass](~/.agent3d/passes/simplified/1_foundation_pass.md) - Project configuration and foundational setup
 - [2. Documentation Pass](~/.agent3d/passes/simplified/2_documentation_pass.md) - Documenting features, requirements, and priorities
-- [3. Planning Pass](~/.agent3d/passes/simplified/3_planning_pass.md) - Creating step-by-step implementation plans with checkpoints for major changes
-- [4. Implementation Pass](~/.agent3d/passes/simplified/4_implementation_pass.md) - Implementing features with basic test coverage
-- [5. Testing Pass](~/.agent3d/passes/simplified/5_testing_pass.md) - Adding comprehensive tests and verifying edge cases
-- [6. Refactoring Pass](~/.agent3d/passes/simplified/6_refactoring_pass.md) - Cleaning up code without changing functionality
-- [7. Code Review Pass](~/.agent3d/passes/simplified/7_code_review_pass.md) - Reviewing PR changes and providing feedback
-- [8. Synchronization Pass](~/.agent3d/passes/simplified/8_synchronization_pass.md) - Aligning documentation with code at any scale
-- [9. Quality Pass](~/.agent3d/passes/simplified/9_quality_pass.md) - Verifying and improving documentation quality
-- [10. Prune Pass](~/.agent3d/passes/simplified/10_prune_pass.md) - Removing outdated or redundant content
-- [11. Reverse Pass](~/.agent3d/passes/simplified/11_reverse_pass.md) - Detecting and addressing reverse drift (implementation without documentation)
+- [3. Development Pass](~/.agent3d/passes/simplified/3_development_pass.md) - Step-by-step feature implementation with checkpoints and execution plans
+- [4. Testing Pass](~/.agent3d/passes/simplified/5_testing_pass.md) - Adding comprehensive tests and verifying edge cases
+- [5. Refactoring Pass](~/.agent3d/passes/simplified/6_refactoring_pass.md) - Cleaning up code without changing functionality
+- [6. Code Review Pass](~/.agent3d/passes/simplified/7_code_review_pass.md) - Reviewing PR changes and providing feedback
+- [7. Synchronization Pass](~/.agent3d/passes/simplified/8_synchronization_pass.md) - Aligning documentation with code at any scale
+- [8. Quality Pass](~/.agent3d/passes/simplified/9_quality_pass.md) - Verifying and improving documentation quality
+- [9. Prune Pass](~/.agent3d/passes/simplified/8_prune_pass.md) - Removing outdated or redundant content
+- [10. Reverse Pass](~/.agent3d/passes/simplified/11_reverse_pass.md) - Detecting and addressing reverse drift (implementation without documentation)
 
 ---
 
@@ -83,7 +82,6 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 | `docs/DDD-STATUS.md` | DDD Pass Status, Drift and Health tracking | `~/.agent3d/templates/DDD-STATUS.template.md` |
 | `docs/designs/*.md` | Component design specifications | `~/.agent3d/templates/DETAILED-DESIGN.template.md` |
 | `docs/proposals/*.md` | Design proposals for unimplemented features | `~/.agent3d/templates/PROPOSAL.template.md` |
-| `docs/plans/*.md` | Step-by-step implementation plans for major changes | `~/.agent3d/templates/IMPLEMENTATION-PLAN.template.md` |
 | `docs/ux/*.md` | UI/UX specifications, wireframes, and user flows (for UI projects) | `~/.agent3d/templates/UX-SPECIFICATIONS.template.md` |
 | `CHANGELOG.md` | Chronological record of all project changes | `~/.agent3d/templates/CHANGELOG.template.md` |
 

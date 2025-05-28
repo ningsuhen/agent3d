@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Quality Standards**: All quality gates met with 95%+ thresholds
 
 ### DDD Pass Executions
+- **2025-05-27**: DDD Prune Pass - Removed obsolete Planning Pass references, cleaned up redundant configuration examples, updated pass flow diagrams
 - **2025-05-27**: System Date Implementation - Updated all templates and guidelines to use system date commands instead of LLM knowledge
 - **2025-01-27**: Comprehensive Prune Pass - 50%+ content reduction, historical artifact removal, LLM optimization
 - **2025-01-27**: Full Pass - First comprehensive evaluation with domain expert coordination, 95%+ alignment achieved across all passes
@@ -59,6 +60,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced proposal-to-design integration workflow documentation
 
 ### Removed
+- **Obsolete Planning Pass References**: Removed all references to deprecated Planning Pass (integrated into Development Pass)
+- **Empty docs/plans Directory**: Removed unused directory structure and obsolete implementation plan references
+- **Redundant Configuration Examples**: Eliminated duplicate configuration examples from COMMON-PROCEDURES.md
 - **Legacy References**: Removed outdated references and migration checks
 - **Template Noise**: Removed verbose explanations and redundant examples
 - **LLM Optimization**: Comprehensive optimization for LLM processing efficiency

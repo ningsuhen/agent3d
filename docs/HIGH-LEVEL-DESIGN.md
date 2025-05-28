@@ -49,8 +49,7 @@ The DDD Pass System provides a structured approach to documentation-driven devel
 graph LR
     A[Requirements Pass] --> B[Foundation Pass]
     B --> C[Documentation Pass]
-    C --> CP[Planning Pass]
-    CP --> D[Implementation Pass]
+    C --> D[Development Pass]
     D --> E[Testing Pass]
     E --> F[Refactoring Pass]
     F --> G[Code Review Pass]
@@ -62,7 +61,6 @@ graph LR
     L[Full Pass] -.-> A
     L -.-> B
     L -.-> C
-    L -.-> CP
     L -.-> D
     L -.-> E
     L -.-> F
@@ -144,9 +142,8 @@ agent3d/
 │   │   ├── AGENT-PROTOCOL.md    # Agent Guideline Protocol design
 │   │   ├── DDD-PASSES.md        # DDD Pass System design
 │   │   └── LANGUAGE-RULES.md    # Language Rules System design
-│   ├── plans/             # Implementation plans for major changes
-│   │   ├── completed/     # Archived completed implementation plans
-│   │   └── IMPLEMENTATION-PLAN-{feature}.md # Active implementation plans
+│   ├── runs/              # Development execution plans
+│   │   └── EXEC-PLAN-{change-name}.md # Active execution plans
 │   └── proposals/         # Design proposals for unimplemented features
 │       ├── PROPOSALS-README.md  # Proposal process documentation
 │       ├── active/              # Proposals under consideration

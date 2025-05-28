@@ -202,79 +202,17 @@ echo "Generated on: $(date +%Y-%m-%d\ %H:%M:%S)"
 - Replace `[USE: date +%Y-%m-%d]` with actual command output
 - Never use hardcoded dates or LLM knowledge for timestamps
 
-## Pass Configuration Examples
+## Pass Configuration
 
-### Foundation Pass Configuration
-```yaml
-foundation_pass:
-  enabled: true
-  templates: [README.template.md, FEATURES.template.md, HIGH-LEVEL-DESIGN.template.md]
-  validation: strict
-```
-
-### Development Pass Configuration
-```yaml
-development_pass:
-  enabled: true
-  selection_mode: "auto"  # "auto" | "picker"
-  runs_directory: "docs/runs/"
-  auto_selection: {priority_threshold: "high", max_features_per_run: 3, include_drift_fixes: true, include_blockers: true, respect_dependencies: true, max_estimated_effort: "3 days"}
-  execution_settings: {checkpoint_frequency: 3, auto_test_after_step: true, archive_completed_plans: true}
-  auto_trigger_thresholds: {file_count: 3, estimated_effort_hours: 8, risk_level: "medium", complexity: "high"}
-  required_for: [migrations, refactoring, breaking_changes]
-  optional_for: [bug_fixes, documentation]
-```
-
-### Planning Pass Configuration
-```yaml
-planning_pass:
-  enabled: true
-  auto_trigger_thresholds:
-    file_count: 3
-    estimated_effort_hours: 8
-    risk_level: "medium"
-    complexity: "high"
-  required_for: [migrations, refactoring, breaking_changes]
-  optional_for: [bug_fixes, documentation]
-  checkpoint_frequency: 3  # steps between checkpoints
-```
-
-### Testing Pass Configuration
-```yaml
-testing_pass:
-  enabled: true
-  coverage_threshold: 80
-  test_types: [unit, integration, edge_cases]
-  framework_compliance: strict
-```
-
-### Project Type Examples
-```yaml
-# Web Application Example
-project:
-  type: "web_application"
-  language: "python"
-  framework: "django"
-  quality_level: "balanced"
-enabled_passes: [foundation, requirements, documentation, planning, implementation, testing, code_review, synchronization, quality]
-skip_passes: [prune, reverse]
-
-# Documentation Project Example
-project:
-  type: "documentation"
-  language: "markdown"
-  quality_level: "strict"
-enabled_passes: [foundation, requirements, documentation, quality]
-skip_passes: [planning, implementation, testing, code_review, refactoring]
-```
+All pass configurations are defined in `.agent3d-config.yml`. Key settings include enabled passes, pass-specific focus areas, and quality thresholds.
 
 ## Planning & Status
 
 ```bash
-# Implementation Plans: docs/plans/IMPLEMENTATION-PLAN-{feature-name}.md
-# Lifecycle: Creation → Validation → Execution → Completion → Archive
+# Execution Plans: docs/runs/EXEC-PLAN-{change-name}.md
+# Lifecycle: Creation → Validation → Execution → Completion
 # Checkpoints: Every 2-4 steps, mark [x] completed, [~] in progress, [ ] not started
-# Triggers: >3 components, >8 hours, Medium/High risk, external dependencies, breaking changes
+# Triggers: Feature implementation, refactoring, migrations, complex changes
 
 # DDD Status: docs/DDD-STATUS.md (after each pass)
 # Elements: Pass Status (✅⏸️🔄⏭️), Alignment (0-100%), Drift (🟢🟡🟠🔴), Health Indicators
@@ -286,7 +224,7 @@ skip_passes: [planning, implementation, testing, code_review, refactoring]
 docs/                    # Main documentation
 ├── designs/            # Component specifications
 ├── proposals/          # Unimplemented features
-├── plans/             # Implementation plans
+├── runs/              # Development execution plans
 └── ux/                # UI/UX specs (UI projects)
 passes/simplified/      # Pass documentation
 templates/             # Document templates
