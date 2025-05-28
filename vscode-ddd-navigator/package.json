@@ -73,6 +73,11 @@
           "default": true,
           "description": "Enable feature navigation"
         },
+        "dddNavigator.showMultipleReferences": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show quick pick menu when multiple references exist for Cmd+Click"
+        },
         "dddNavigator.testCasePattern": {
           "type": "string",
           "default": "TC-[A-Z0-9-]+",

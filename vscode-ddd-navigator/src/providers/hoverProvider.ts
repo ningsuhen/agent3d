@@ -10,11 +10,8 @@ export class IdentifierHoverProvider implements vscode.HoverProvider {
         token: vscode.CancellationToken
     ): vscode.ProviderResult<vscode.Hover> {
 
-        // Get the word at the current position
-        const wordRange = document.getWordRangeAtPosition(
-            position,
-            /\b(TC-[A-Z0-9-]+|REQ-[A-Z0-9-]+|[A-Za-z][A-Za-z0-9\s]+)\b/
-        );
+        // Get the full identifier range manually for better detection
+        const wordRange = this.getFullIdentifierRange(document, position);
 
         if (!wordRange) {
             return undefined;
@@ -68,6 +65,30 @@ export class IdentifierHoverProvider implements vscode.HoverProvider {
         }
 
         return new vscode.Hover(markdown, wordRange);
+    }
+
+    private getFullIdentifierRange(document: vscode.TextDocument, position: vscode.Position): vscode.Range | undefined {
+        const line = document.lineAt(position.line);
+        const text = line.text;
+
+        // Pattern to match TC-XXX-XXX or REQ-XXX-XXX identifiers
+        const pattern = /\b(TC-[A-Z0-9-]+|REQ-[A-Z0-9-]+)\b/g;
+
+        let match;
+        while ((match = pattern.exec(text)) !== null) {
+            const startPos = match.index;
+            const endPos = match.index + match[0].length;
+
+            // Check if the cursor position is within this match
+            if (position.character >= startPos && position.character <= endPos) {
+                return new vscode.Range(
+                    position.line, startPos,
+                    position.line, endPos
+                );
+            }
+        }
+
+        return undefined;
     }
 
     private getStatusIcon(status?: string): string {
