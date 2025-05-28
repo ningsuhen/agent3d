@@ -36,6 +36,7 @@ class DriftScannerMCPServer:
         self.drift_scanner = self.script_dir / "drift_scanner.py"
 
         logger.info("Agent3D Drift Scanner MCP Server initialized")
+        logger.info("🔄 FRESH SCAN MODE: Every request performs a fresh drift analysis (no caching)")
 
     def find_ddd_root(self, explicit_root: Optional[str] = None) -> Optional[str]:
         """
@@ -64,7 +65,7 @@ class DriftScannerMCPServer:
         return None
 
     def execute_drift_scanner(self, args: Dict[str, Any]) -> Dict[str, Any]:
-        """Execute the drift scanner with given arguments"""
+        """Execute the drift scanner with given arguments - ALWAYS performs fresh scan"""
         try:
             # Build command arguments for the original drift scanner
             cmd_args = [sys.executable, str(self.drift_scanner)]
@@ -78,18 +79,27 @@ class DriftScannerMCPServer:
             mode = args.get('mode', 'tc-mapping')
             cmd_args.extend(["--mode", mode])
 
+            # FORCE FRESH SCAN: Generate unique output file to avoid stale cache
+            import time
+            timestamp = int(time.time() * 1000)  # millisecond precision
+            fresh_output = f".agent3d-tmp/drift-reports/{mode}-drift-report-{timestamp}.yaml"
+
             # Add optional arguments
             if test_cases_file := args.get('test_cases_file'):
                 cmd_args.extend(["--test-cases-file", test_cases_file])
 
+            # Always use fresh output file unless explicitly specified
             if output := args.get('output'):
                 cmd_args.extend(["--output", output])
+            else:
+                cmd_args.extend(["--output", fresh_output])
 
             # Add quiet flag if requested
             if args.get('quiet', False):
                 cmd_args.append("--quiet")
 
-            logger.info(f"Executing drift scanner in {ddd_root}: {' '.join(cmd_args)}")
+            logger.info(f"🔄 FRESH SCAN: Executing drift scanner in {ddd_root}: {' '.join(cmd_args)}")
+            logger.info(f"📄 Fresh output file: {fresh_output}")
 
             # Execute the command in the DDD root directory
             result = subprocess.run(
@@ -113,6 +123,19 @@ class DriftScannerMCPServer:
                 if result.returncode > 0:
                     output_text += f"\n\n🎯 DRIFT LEVEL: {drift_level.upper()} (exit code {result.returncode})"
 
+                # CLEANUP: Remove temporary output file to prevent accumulation
+                try:
+                    if not args.get('output'):  # Only cleanup auto-generated files
+                        temp_output_path = Path(ddd_root) / fresh_output
+                        if temp_output_path.exists():
+                            temp_output_path.unlink()
+                            logger.info(f"🧹 Cleaned up temporary output file: {fresh_output}")
+                except Exception as cleanup_error:
+                    logger.warning(f"Failed to cleanup temporary file {fresh_output}: {cleanup_error}")
+
+                # CLEANUP: Remove old temporary drift report files (older than 1 hour)
+                self._cleanup_old_temp_files(ddd_root)
+
                 return {
                     "content": [
                         {
@@ -133,6 +156,37 @@ class DriftScannerMCPServer:
             logger.error(f"Error executing drift scanner: {e}")
             raise
 
+    def _cleanup_old_temp_files(self, ddd_root: str) -> None:
+        """Clean up old temporary drift report files to prevent accumulation"""
+        try:
+            import time
+            current_time = time.time()
+            cleanup_threshold = 3600  # 1 hour in seconds
+
+            temp_dir = Path(ddd_root) / ".agent3d-tmp" / "drift-reports"
+            if not temp_dir.exists():
+                return
+
+            cleaned_count = 0
+            for temp_file in temp_dir.glob("*-drift-report-*.yaml"):
+                try:
+                    # Extract timestamp from filename (format: mode-drift-report-timestamp.yaml)
+                    parts = temp_file.stem.split('-')
+                    if len(parts) >= 4 and parts[-1].isdigit():
+                        file_timestamp = int(parts[-1]) / 1000  # Convert from milliseconds
+                        if current_time - file_timestamp > cleanup_threshold:
+                            temp_file.unlink()
+                            cleaned_count += 1
+                except (ValueError, IndexError, OSError) as e:
+                    logger.warning(f"Failed to cleanup temp file {temp_file}: {e}")
+                    continue
+
+            if cleaned_count > 0:
+                logger.info(f"🧹 Cleaned up {cleaned_count} old temporary drift report files")
+
+        except Exception as e:
+            logger.warning(f"Error during temp file cleanup: {e}")
+
     def handle_tools_list(self, request_id: Any) -> Dict[str, Any]:
         """Handle tools/list request"""
         return {
@@ -142,7 +196,7 @@ class DriftScannerMCPServer:
                 "tools": [
                     {
                         "name": "drift_scanner",
-                        "description": "Agent3D Drift Scanner - Multi-mode drift detection with TC mapping, code coverage, and feature implementation analysis",
+                        "description": "Agent3D Drift Scanner - Multi-mode drift detection with TC mapping, FT mapping, FT-TC relationships, code coverage, and feature implementation analysis. ALWAYS performs fresh scan on every request.",
                         "inputSchema": {
                             "type": "object",
                             "properties": {
@@ -152,7 +206,7 @@ class DriftScannerMCPServer:
                                 },
                                 "mode": {
                                     "type": "string",
-                                    "enum": ["tc-mapping", "code-coverage", "feature-impl", "all"],
+                                    "enum": ["tc-mapping", "ft-mapping", "ft-tc-mapping", "code-coverage", "feature-impl", "all"],
                                     "default": "tc-mapping",
                                     "description": "Drift analysis mode"
                                 },
@@ -222,7 +276,7 @@ class DriftScannerMCPServer:
                 },
                 "serverInfo": {
                     "name": "agent3d-drift-scanner",
-                    "version": "1.0.0"
+                    "version": "1.1.0"
                 }
             }
         }
@@ -256,6 +310,7 @@ class DriftScannerMCPServer:
     def run(self):
         """Main server loop"""
         logger.info("MCP Server ready, waiting for requests...")
+        logger.info("🔄 Fresh scan mode enabled - no stale data, every request triggers new analysis")
 
         try:
             for line in sys.stdin:
