@@ -291,6 +291,25 @@ python3 ~/.agent3d/tools/drift_scanner.py --mode all
 python3 ~/.agent3d/tools/drift_scanner.py --quiet
 ```
 
+**Change-Based Scanning (Fast Mode):**
+```bash
+# Only scan files changed since last commit (10x+ faster)
+python3 ~/.agent3d/tools/drift_scanner.py --mode all --changed-only
+
+# Only scan files changed since specific branch/commit
+python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping --changed-since main
+python3 ~/.agent3d/tools/drift_scanner.py --mode all --changed-since HEAD~5
+
+# PR-focused scanning (changed vs main branch)
+python3 ~/.agent3d/tools/drift_scanner.py --mode all --pr-diff
+
+# Recent changes (last N days)
+python3 ~/.agent3d/tools/drift_scanner.py --mode all --recent-days 7
+
+# Combine with quiet mode for fast CI/CD
+python3 ~/.agent3d/tools/drift_scanner.py --mode all --changed-only --quiet
+```
+
 **MCP Server Configuration:**
 ```json
 {
@@ -322,9 +341,9 @@ python3 ~/.agent3d/tools/drift_scanner.py --quiet
 
 **DDD Pass Integration:**
 ```bash
-# Testing Pass - TC ID mapping and code coverage
-echo "🔍 Checking TC ID drift and code coverage..."
-python3 ~/.agent3d/tools/drift_scanner.py --mode all --quiet
+# Testing Pass - Fast TC ID mapping and code coverage (change-based)
+echo "🔍 Checking TC ID drift and code coverage (changed files only)..."
+python3 ~/.agent3d/tools/drift_scanner.py --mode all --changed-only --quiet
 DRIFT_LEVEL=$?
 if [ $DRIFT_LEVEL -eq 2 ]; then
     echo "❌ HIGH DRIFT: Must fix drift issues before proceeding"
@@ -335,30 +354,43 @@ fi
 python3 ~/.agent3d/tools/drift_scanner.py --mode all
 echo "📄 Comprehensive drift report generated in .agent3d-tmp/drift-reports/"
 
-# Reverse Pass - undocumented implementations
-python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping --quiet
+# PR Review - only scan files in current PR
+python3 ~/.agent3d/tools/drift_scanner.py --mode all --pr-diff --quiet
+
+# Development workflow - recent changes only
+python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping --recent-days 3 --quiet
 ```
 
 **CI/CD Integration:**
 ```yaml
-# GitHub Actions example
-- name: Check TC ID Drift
+# GitHub Actions example - Fast PR validation
+- name: Check TC ID Drift (PR Changes Only)
   run: |
-    python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping --quiet
+    python3 ~/.agent3d/tools/drift_scanner.py --mode all --pr-diff --quiet
     if [ $? -eq 2 ]; then
-      echo "❌ High TC ID drift detected"
+      echo "❌ High drift detected in PR changes"
       exit 1
     fi
+
+# Full validation on main branch
+- name: Comprehensive Drift Check (Main Branch)
+  if: github.ref == 'refs/heads/main'
+  run: |
+    python3 ~/.agent3d/tools/drift_scanner.py --mode all --quiet
 ```
 
 **TC ID Pattern Recognition:** `TC-0001`, `TC-ENV-007`, `TC-0001a`, `TC-ABC-123b`
 
 **Best Practices:**
+
 - Always include TC IDs in test function names or nearby comments
 - Use consistent naming: prefer `test_feature_tc_0001` format
 - One TC ID per test function for clear 1:1 mapping
 - Run during Testing Pass to validate test coverage
 - Set drift thresholds appropriate for your project (recommend <10%)
+- Use `--changed-only` for fast development workflow (10x+ speed improvement)
+- Use `--pr-diff` for efficient CI/CD validation of pull requests
+- Reserve full scans for comprehensive analysis and main branch validation
 
 ---
 

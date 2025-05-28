@@ -1,6 +1,6 @@
 # Test Cases
 
-This document outlines the test cases for the Agent3D framework, organized by features using FT-* identifiers for traceability.
+This document outlines the test cases for the Agent3D framework.
 
 ## 📊 Summary
 - **Total Test Cases:** 68 (41 main + 27 sub-test cases)
@@ -28,9 +28,7 @@ This document outlines the test cases for the Agent3D framework, organized by fe
 - **Guideline Compliance:** Verification that agents follow documented procedures
 - **Output Validation:** Checking that agent outputs match expected documentation standards
 
-## 🏗️ Core Documentation Framework
-
-### **FT-CORE-001** Agent Guideline Protocol
+## 🤖 Agent Guideline Protocol
 - [x] **TC-0001** - Agent retrieves and caches guidelines (Manual, High)
   - [x] **TC-0001a** - Initial guideline fetch from remote URL (Manual, High)
   - [x] **TC-0001b** - Local cache creation and storage (Manual, High)
@@ -43,7 +41,9 @@ This document outlines the test cases for the Agent3D framework, organized by fe
   - [x] **TC-0003a** - Decision-making based on cached guidelines (Manual, High)
   - [x] **TC-0003b** - Fallback behavior when cache is unavailable (Manual, Medium)
 
-### **FT-CORE-002** DDD Pass System
+## 📚 DDD Passes
+
+### Foundation & Documentation
 - [x] **TC-0101** - Foundation Pass creates architecture docs (Manual, High)
   - [x] **TC-0101a** - README.md creation and validation (Manual, High)
   - [x] **TC-0101b** - HIGH-LEVEL-DESIGN.md documentation (Manual, High)
@@ -53,6 +53,8 @@ This document outlines the test cases for the Agent3D framework, organized by fe
   - [x] **TC-0102a** - Feature specification completeness (Manual, High)
   - [x] **TC-0102b** - Test case documentation coverage (Manual, High)
   - [x] **TC-0102c** - Acceptance criteria validation (Manual, Medium)
+
+### Implementation & Testing
 - [ ] **TC-0103** - Implementation Pass follows documentation (Manual, High)
   - [ ] **TC-0103a** - Feature implementation matches specifications (Manual, High)
   - [ ] **TC-0103b** - Basic test coverage for core functionality (Manual, High)
@@ -61,6 +63,8 @@ This document outlines the test cases for the Agent3D framework, organized by fe
   - [ ] **TC-0104a** - Test framework setup and configuration (Automated, High)
   - [ ] **TC-0104b** - Edge case and boundary testing (Manual, Medium)
   - [ ] **TC-0104c** - Integration test implementation (Manual, Medium)
+
+### Refactoring & Quality
 - [ ] **TC-0105** - Refactoring Pass improves code without losing features (Manual, Medium)
   - [ ] **TC-0105a** - Code structure and style improvements (Manual, Medium)
   - [ ] **TC-0105b** - Performance optimization without breaking changes (Manual, Low)
@@ -69,6 +73,8 @@ This document outlines the test cases for the Agent3D framework, organized by fe
   - [ ] **TC-0106a** - PR review process execution (Manual, High)
   - [ ] **TC-0106b** - Feedback template usage and consistency (Manual, Medium)
   - [ ] **TC-0106c** - Review automation integration (Automated, Medium)
+
+### Synchronization & Maintenance
 - [ ] **TC-0107** - Synchronization Pass aligns docs with code (Manual, High)
   - [ ] **TC-0107a** - Documentation-code drift detection (Manual, High)
   - [ ] **TC-0107b** - Cross-reference validation and updates (Manual, Medium)
@@ -81,19 +87,16 @@ This document outlines the test cases for the Agent3D framework, organized by fe
   - [ ] **TC-0109a** - Outdated content identification (Manual, Low)
   - [ ] **TC-0109b** - Safe removal without breaking references (Manual, Medium)
   - [ ] **TC-0109c** - Archive and backup procedures (Manual, Low)
+
+### Comprehensive
 - [ ] **TC-0110** - Full Pass maintains doc-code alignment across all aspects (Manual, High)
   - [ ] **TC-0110a** - All passes execution in sequence (Manual, High)
   - [ ] **TC-0110b** - Alignment level balancing across passes (Manual, High)
   - [ ] **TC-0110c** - Overall drift reduction validation (Manual, High)
 
-### **FT-CORE-003** Documentation Standards
-- [ ] **TC-0311** - Documentation matches current implementation (Manual, High)
-- [ ] **TC-0312** - All features documented in FEATURES.md (Manual, High)
-- [ ] **TC-0313** - Test cases reference TC-#### format (Manual, Medium)
-
 ## 🔤 Language-Specific Rules
 
-### **FT-LANG-001** Python Rules
+### Python Development
 - [ ] **TC-0201** - Python code follows PEP 8 and project rules (Partial, Medium)
   - [ ] **TC-0201a** - Line length and formatting compliance (Automated, Medium)
   - [ ] **TC-0201b** - Import organization and style (Automated, Medium)
@@ -106,7 +109,7 @@ This document outlines the test cases for the Agent3D framework, organized by fe
   - [ ] **TC-0203b** - Return type annotations (Partial, Medium)
 - [ ] **TC-0204** - Dataclasses preferred over dict objects (Manual, Medium)
 
-### **FT-LANG-002** JavaScript Rules
+### JavaScript Development
 - [ ] **TC-0211** - JavaScript code follows style guide (Partial, Medium)
   - [ ] **TC-0211a** - ESLint configuration and compliance (Automated, Medium)
   - [ ] **TC-0211b** - Code formatting with Prettier (Automated, Medium)
@@ -115,24 +118,104 @@ This document outlines the test cases for the Agent3D framework, organized by fe
   - [ ] **TC-0212b** - Lock file management and consistency (Manual, Medium)
 - [ ] **TC-0213** - ES6+ features used appropriately (Manual, Medium)
 
-### **FT-LANG-003** Java Rules
+### Java Development
 - [ ] **TC-0221** - Java code follows Google style guide (Partial, Medium)
 - [ ] **TC-0222** - Proper exception handling patterns (Manual, Medium)
 - [ ] **TC-0223** - Thread safety considerations (Manual, High)
 
-### **FT-LANG-004** Go Rules
+### Go Development
 - [x] **TC-0231** - Go code follows standard formatting (Automated, High)
 - [ ] **TC-0232** - Proper package organization (Partial, Medium)
 - [ ] **TC-0233** - Error handling patterns (Partial, High)
 
-### **FT-LANG-005** Markdown Rules
-- [ ] **TC-0241** - Markdown follows linting standards (Automated, High)
-- [ ] **TC-0242** - Documentation quality validation (Manual, Medium)
-- [ ] **TC-0243** - Cross-reference consistency (Manual, Medium)
+## 🧪 Testing & Validation
 
-## 📋 Enhanced Template System
+### Test Coverage
+- [ ] **TC-0301** - Unit tests cover all public functions (Partial, High)
+- [ ] **TC-0302** - Integration tests for critical paths (Manual, High)
+- [ ] **TC-0303** - End-to-end tests for user workflows (Manual, Medium)
 
-### **FT-TMPL-001** Template Engine
+### Documentation Validation
+- [ ] **TC-0311** - Documentation matches current implementation (Manual, High)
+- [ ] **TC-0312** - All features documented in FEATURES.md (Manual, High)
+- [ ] **TC-0313** - Test cases reference TC-#### format (Manual, Medium)
+
+## 🔄 Integration & Workflow
+
+### CI/CD Integration
+- [ ] **TC-0401** - Documentation validation in CI pipeline (Automated, Medium)
+- [ ] **TC-0402** - Language-specific linting in CI (Automated, Medium)
+- [x] **TC-0403** - Test execution in CI pipeline (Automated, High)
+
+## 🔄 Drift Detection Tests
+
+### Forward Drift Detection
+- [ ] **TC-0501** - Documentation exists without corresponding implementation (Automated, High)
+  - [ ] **TC-0501a** - Features documented but not implemented (Automated, High)
+  - [ ] **TC-0501b** - API documentation without actual endpoints (Automated, High)
+  - [ ] **TC-0501c** - Test cases without corresponding feature code (Manual, Medium)
+- [ ] **TC-0502** - Features marked complete without verifiable tests (Automated, High)
+  - [ ] **TC-0502a** - Features marked [x] without passing tests (Automated, High)
+  - [ ] **TC-0502b** - Features marked [x] without manual verification (Manual, High)
+- [ ] **TC-0503** - Documentation references non-existent code components (Automated, Medium)
+
+### Reverse Drift Detection
+- [ ] **TC-0511** - Implementation exists without corresponding documentation (Automated, High)
+  - [ ] **TC-0511a** - Code features not documented in FEATURES.md (Automated, High)
+  - [ ] **TC-0511b** - API endpoints without documentation (Automated, High)
+  - [ ] **TC-0511c** - Database schema without architecture docs (Manual, Medium)
+- [ ] **TC-0512** - Features implemented but marked as pending in FEATURES.md (Automated, High)
+  - [ ] **TC-0512a** - Working features still marked [ ] or [~] (Automated, High)
+  - [ ] **TC-0512b** - Deployed features not reflected in documentation (Manual, High)
+- [ ] **TC-0513** - Code functionality exists without test case coverage (Automated, Medium)
+  - [ ] **TC-0513a** - Functions/methods without corresponding test cases (Automated, Medium)
+  - [ ] **TC-0513b** - Business logic without validation tests (Manual, Medium)
+- [ ] **TC-0514** - Configuration or environment changes without documentation (Manual, Medium)
+  - [ ] **TC-0514a** - New environment variables without README updates (Manual, Medium)
+  - [ ] **TC-0514b** - Deployment changes without architecture updates (Manual, Medium)
+
+## 📋 Proposal System Tests
+
+### Proposal Creation and Management
+- [x] **TC-0601** - Proposal template validation (Manual, High)
+  - [x] **TC-0601a** - PROPOSAL template includes all required sections (Manual, High)
+  - [x] **TC-0601b** - Proposal status tracking works correctly (Manual, Medium)
+- [x] **TC-0602** - Proposal directory structure validation (Manual, High)
+  - [x] **TC-0602a** - docs/proposals/active/ directory exists (Manual, High)
+  - [x] **TC-0602b** - docs/proposals/archive/ subdirectories exist (Manual, Medium)
+- [ ] **TC-0603** - Proposal lifecycle workflow (Manual, High)
+  - [ ] **TC-0603a** - Proposal moves from Draft to Under Review (Manual, High)
+  - [ ] **TC-0603b** - Approved proposals integrate into main docs (Manual, High)
+  - [ ] **TC-0603c** - Implemented proposals archive correctly (Manual, Medium)
+
+### Component Design System
+- [x] **TC-0611** - DETAILED-DESIGN template validation (Manual, High)
+  - [x] **TC-0611a** - Template includes all technical specifications (Manual, High)
+  - [x] **TC-0611b** - Migration checklist for existing projects (Manual, Medium)
+- [x] **TC-0612** - Component integration workflow (Manual, High)
+  - [x] **TC-0612a** - Proposals integrate into docs/designs/ with {COMPONENT}.md naming (Manual, High)
+  - [x] **TC-0612b** - HIGH-LEVEL-DESIGN.md links to component design docs (Manual, Medium)
+  - [x] **TC-0612c** - All documentation files use CAPS naming convention (Manual, Medium)
+  - [x] **TC-0612d** - Component designs contain specifications for project parts (Manual, Medium)
+
+## 📝 Change Tracking Tests
+
+### CHANGELOG System
+- [x] **TC-0701** - CHANGELOG template validation (Manual, High)
+  - [x] **TC-0701a** - Template includes all required sections and categories (Manual, High)
+  - [x] **TC-0701b** - DDD pass integration guidance is comprehensive (Manual, Medium)
+- [x] **TC-0702** - CHANGELOG maintenance workflow (Manual, High)
+  - [x] **TC-0702a** - Changes are properly categorized (Added, Changed, Fixed, etc.) (Manual, High)
+  - [x] **TC-0702b** - DDD pass executions are recorded with dates and descriptions (Manual, High)
+  - [x] **TC-0702c** - Semantic versioning is applied correctly (Manual, Medium)
+- [ ] **TC-0703** - CHANGELOG integration with DDD passes (Manual, High)
+  - [ ] **TC-0703a** - Foundation Pass updates CHANGELOG with architectural changes (Manual, High)
+  - [ ] **TC-0703b** - Full Pass updates CHANGELOG with comprehensive changes (Manual, High)
+  - [ ] **TC-0703c** - Breaking changes are properly documented and marked (Manual, Medium)
+
+## 🎯 Enhanced Template System Tests
+
+### Template Engine
 - [x] **TC-0801** - Template inheritance system validation (Manual, High)
   - [x] **TC-0801a** - BASE template provides common structure and validation (Manual, High)
   - [x] **TC-0801b** - Specialized templates properly extend base template (Manual, High)
@@ -146,7 +229,7 @@ This document outlines the test cases for the Agent3D framework, organized by fe
   - [x] **TC-0803b** - Auto-detection variables are populated correctly (Manual, Medium)
   - [x] **TC-0803c** - Intelligent suggestions are relevant and helpful (Manual, Medium)
 
-### **FT-TMPL-002** Simple Template Access
+### Template Registry
 - [x] **TC-0811** - Template registry configuration (Manual, High)
   - [x] **TC-0811a** - Registry contains all template metadata (Manual, High)
   - [x] **TC-0811b** - Template relationships are properly defined (Manual, Medium)
@@ -156,7 +239,7 @@ This document outlines the test cases for the Agent3D framework, organized by fe
   - [x] **TC-0812b** - Recommendations are ranked by relevance (Manual, Medium)
   - [x] **TC-0812c** - Fallback templates work when no good matches found (Manual, Medium)
 
-### **FT-TMPL-003** Validation Framework
+### Validation Framework
 - [x] **TC-0821** - Multi-level validation system (Manual, High)
   - [x] **TC-0821a** - Base validation rules apply to all templates (Manual, High)
   - [x] **TC-0821b** - Context-specific validation adapts to project type (Manual, High)
@@ -166,96 +249,7 @@ This document outlines the test cases for the Agent3D framework, organized by fe
   - [ ] **TC-0822b** - Validation errors provide actionable feedback (Manual, Medium)
   - [ ] **TC-0822c** - Validation passes for properly generated content (Manual, Medium)
 
-### **FT-TMPL-004** System Date Commands
-- [ ] **TC-0831** - Date command integration (Manual, High)
-- [ ] **TC-0832** - Template timestamp accuracy (Manual, Medium)
-- [ ] **TC-0833** - LLM independence validation (Manual, Medium)
-
-## 🏗️ Proposal System
-
-### **FT-PROP-001** Proposal Framework
-- [x] **TC-0601** - Proposal template validation (Manual, High)
-  - [x] **TC-0601a** - PROPOSAL template includes all required sections (Manual, High)
-  - [x] **TC-0601b** - Proposal status tracking works correctly (Manual, Medium)
-- [x] **TC-0602** - Proposal directory structure validation (Manual, High)
-  - [x] **TC-0602a** - docs/proposals/active/ directory exists (Manual, High)
-  - [x] **TC-0602b** - docs/proposals/archive/ subdirectories exist (Manual, Medium)
-- [ ] **TC-0603** - Proposal lifecycle workflow (Manual, High)
-  - [ ] **TC-0603a** - Proposal moves from Draft to Under Review (Manual, High)
-  - [ ] **TC-0603b** - Approved proposals integrate into main docs (Manual, High)
-  - [ ] **TC-0603c** - Implemented proposals archive correctly (Manual, Medium)
-
-### **FT-PROP-002** Component Design System
-- [x] **TC-0611** - DETAILED-DESIGN template validation (Manual, High)
-  - [x] **TC-0611a** - Template includes all technical specifications (Manual, High)
-  - [x] **TC-0611b** - Migration checklist for existing projects (Manual, Medium)
-- [x] **TC-0612** - Component integration workflow (Manual, High)
-  - [x] **TC-0612a** - Proposals integrate into docs/designs/ with {COMPONENT}.md naming (Manual, High)
-  - [x] **TC-0612b** - HIGH-LEVEL-DESIGN.md links to component design docs (Manual, Medium)
-  - [x] **TC-0612c** - All documentation files use CAPS naming convention (Manual, Medium)
-  - [x] **TC-0612d** - Component designs contain specifications for project parts (Manual, Medium)
-
-## 🔄 Integration Guidelines
-
-### **FT-INTG-001** LLM Agent Integration
+### Agent Workflow
 - [ ] **TC-0411** - Agent follows Scan → Draft → Ask → Sync workflow (Manual, High)
 - [ ] **TC-0412** - Agent marks progress with ✅ during execution (Manual, Medium)
 - [ ] **TC-0413** - Agent commits with proper DDD messages (Manual, Medium)
-
-### **FT-INTG-002** CI/CD Integration
-- [ ] **TC-0401** - Documentation validation in CI pipeline (Automated, Medium)
-- [ ] **TC-0402** - Language-specific linting in CI (Automated, Medium)
-- [x] **TC-0403** - Test execution in CI pipeline (Automated, High)
-
-### **FT-INTG-003** Version Control Integration
-- [ ] **TC-0421** - Documentation changes tracked in version control (Manual, High)
-- [ ] **TC-0422** - Version control validation prevents drift (Manual, Medium)
-- [ ] **TC-0423** - Documentation branching strategy (Manual, Medium)
-
-## 📊 Status Tracking
-
-### **FT-STAT-001** DDD Status Tracking
-- [ ] **TC-0501** - Pass status monitoring (Manual, High)
-- [ ] **TC-0502** - Alignment metrics calculation (Manual, High)
-- [ ] **TC-0503** - Drift indicators display (Manual, Medium)
-
-### **FT-STAT-002** Change Tracking
-- [x] **TC-0701** - CHANGELOG template validation (Manual, High)
-  - [x] **TC-0701a** - Template includes all required sections and categories (Manual, High)
-  - [x] **TC-0701b** - DDD pass integration guidance is comprehensive (Manual, Medium)
-- [x] **TC-0702** - CHANGELOG maintenance workflow (Manual, High)
-  - [x] **TC-0702a** - Changes are properly categorized (Added, Changed, Fixed, etc.) (Manual, High)
-  - [x] **TC-0702b** - DDD pass executions are recorded with dates and descriptions (Manual, High)
-  - [x] **TC-0702c** - Semantic versioning is applied correctly (Manual, Medium)
-- [ ] **TC-0703** - CHANGELOG integration with DDD passes (Manual, High)
-  - [ ] **TC-0703a** - Foundation Pass updates CHANGELOG with architectural changes (Manual, High)
-  - [ ] **TC-0703b** - Full Pass updates CHANGELOG with comprehensive changes (Manual, High)
-  - [ ] **TC-0703c** - Breaking changes are properly documented and marked (Manual, Medium)
-
-### **FT-STAT-003** Progress Indicators
-- [ ] **TC-0711** - Visual progress bars (Manual, Medium)
-- [ ] **TC-0712** - Completion statistics (Manual, Medium)
-- [ ] **TC-0713** - Progress tracking accuracy (Manual, High)
-
-### **FT-STAT-004** Drift Detection
-- [ ] **TC-0501** - Forward drift detection - Documentation exists without corresponding implementation (Automated, High)
-  - [ ] **TC-0501a** - Features documented but not implemented (Automated, High)
-  - [ ] **TC-0501b** - API documentation without actual endpoints (Automated, High)
-  - [ ] **TC-0501c** - Test cases without corresponding feature code (Manual, Medium)
-- [ ] **TC-0502** - Features marked complete without verifiable tests (Automated, High)
-  - [ ] **TC-0502a** - Features marked [x] without passing tests (Automated, High)
-  - [ ] **TC-0502b** - Features marked [x] without manual verification (Manual, High)
-- [ ] **TC-0503** - Documentation references non-existent code components (Automated, Medium)
-- [ ] **TC-0511** - Reverse drift detection - Implementation exists without corresponding documentation (Automated, High)
-  - [ ] **TC-0511a** - Code features not documented in FEATURES.md (Automated, High)
-  - [ ] **TC-0511b** - API endpoints without documentation (Automated, High)
-  - [ ] **TC-0511c** - Database schema without architecture docs (Manual, Medium)
-- [ ] **TC-0512** - Features implemented but marked as pending in FEATURES.md (Automated, High)
-  - [ ] **TC-0512a** - Working features still marked [ ] or [~] (Automated, High)
-  - [ ] **TC-0512b** - Deployed features not reflected in documentation (Manual, High)
-- [ ] **TC-0513** - Code functionality exists without test case coverage (Automated, Medium)
-  - [ ] **TC-0513a** - Functions/methods without corresponding test cases (Automated, Medium)
-  - [ ] **TC-0513b** - Business logic without validation tests (Manual, Medium)
-- [ ] **TC-0514** - Configuration or environment changes without documentation (Manual, Medium)
-  - [ ] **TC-0514a** - New environment variables without README updates (Manual, Medium)
-  - [ ] **TC-0514b** - Deployment changes without architecture updates (Manual, Medium)

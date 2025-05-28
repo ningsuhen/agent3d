@@ -18,9 +18,10 @@ Supported drift detection modes:
 import re
 import yaml
 import os
+import subprocess
 from pathlib import Path
 from collections import defaultdict
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Set
 from dataclasses import dataclass, asdict
 
 # Agent3D temporary directory for drift scanner operations
@@ -58,6 +59,129 @@ def log_analysis_start(mode: str, root_dir: str, log_file: str) -> None:
         f.write(f"Root Directory: {root_dir}\n")
         f.write(f"Log File: {log_file}\n")
         f.write(f"{'='*50}\n\n")
+
+class GitChangeDetector:
+    """Detects changed files using Git for optimized drift scanning."""
+
+    def __init__(self, root_dir: str = '.'):
+        self.root_dir = Path(root_dir)
+
+    def is_git_repository(self) -> bool:
+        """Check if the current directory is a Git repository."""
+        try:
+            result = subprocess.run(
+                ['git', 'rev-parse', '--git-dir'],
+                cwd=self.root_dir,
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            return True
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            return False
+
+    def get_changed_files(self, since: str = 'HEAD~1', include_untracked: bool = True) -> Set[Path]:
+        """Get list of changed files since a specific commit/branch."""
+        if not self.is_git_repository():
+            print("⚠️  Not a Git repository - change-based scanning disabled")
+            return set()
+
+        changed_files = set()
+
+        try:
+            # Get modified and staged files
+            result = subprocess.run(
+                ['git', 'diff', '--name-only', since],
+                cwd=self.root_dir,
+                capture_output=True,
+                text=True,
+                check=True
+            )
+
+            for file_path in result.stdout.strip().split('\n'):
+                if file_path:  # Skip empty lines
+                    full_path = self.root_dir / file_path
+                    if full_path.exists():
+                        changed_files.add(full_path)
+
+            # Get staged files (different from committed)
+            result = subprocess.run(
+                ['git', 'diff', '--cached', '--name-only'],
+                cwd=self.root_dir,
+                capture_output=True,
+                text=True,
+                check=True
+            )
+
+            for file_path in result.stdout.strip().split('\n'):
+                if file_path:  # Skip empty lines
+                    full_path = self.root_dir / file_path
+                    if full_path.exists():
+                        changed_files.add(full_path)
+
+            # Get untracked files if requested
+            if include_untracked:
+                result = subprocess.run(
+                    ['git', 'ls-files', '--others', '--exclude-standard'],
+                    cwd=self.root_dir,
+                    capture_output=True,
+                    text=True,
+                    check=True
+                )
+
+                for file_path in result.stdout.strip().split('\n'):
+                    if file_path:  # Skip empty lines
+                        full_path = self.root_dir / file_path
+                        if full_path.exists():
+                            changed_files.add(full_path)
+
+        except subprocess.CalledProcessError as e:
+            print(f"⚠️  Git command failed: {e}")
+            return set()
+
+        return changed_files
+
+    def get_changed_files_in_pr(self, base_branch: str = 'main') -> Set[Path]:
+        """Get files changed in current branch compared to base branch."""
+        return self.get_changed_files(since=base_branch)
+
+    def get_recently_changed_files(self, days: int = 7) -> Set[Path]:
+        """Get files changed in the last N days."""
+        since = f'--since="{days} days ago"'
+
+        try:
+            result = subprocess.run(
+                ['git', 'log', '--name-only', '--pretty=format:', since],
+                cwd=self.root_dir,
+                capture_output=True,
+                text=True,
+                check=True
+            )
+
+            changed_files = set()
+            for file_path in result.stdout.strip().split('\n'):
+                if file_path:  # Skip empty lines
+                    full_path = self.root_dir / file_path
+                    if full_path.exists():
+                        changed_files.add(full_path)
+
+            return changed_files
+
+        except subprocess.CalledProcessError as e:
+            print(f"⚠️  Git command failed: {e}")
+            return set()
+
+    def filter_files_by_changes(self, all_files: List[Tuple[Path, str]], changed_files: Set[Path]) -> List[Tuple[Path, str]]:
+        """Filter a list of files to only include changed files."""
+        if not changed_files:
+            return all_files  # If no changed files detected, scan all files
+
+        filtered_files = []
+        for file_path, language in all_files:
+            if file_path in changed_files:
+                filtered_files.append((file_path, language))
+
+        return filtered_files
 
 @dataclass
 class TestFunction:
@@ -112,6 +236,52 @@ class FeatureIssue:
     documented_status: str  # completed, pending, skipped
     actual_status: str  # implemented, missing, partial
     issue_type: str  # status_mismatch, missing_implementation, undocumented_feature
+
+@dataclass
+class Feature:
+    """Represents a feature from FEATURES.md."""
+    name: str
+    description: str
+    status: str  # 'completed', 'pending', 'skipped'
+    priority: str  # 'High', 'Medium', 'Low'
+    acceptance_criteria: Optional[str] = None
+    line_number: Optional[int] = None
+    is_sub_feature: bool = False
+    parent_feature: Optional[str] = None
+
+@dataclass
+class FeatureTestMapping:
+    """Represents the relationship between a feature and its test cases."""
+    feature: Feature
+    related_test_cases: List[TestCase] = None
+    related_test_functions: List[TestFunction] = None
+    coverage_percentage: float = 0.0
+    drift_issues: List[str] = None
+
+    def __post_init__(self):
+        if self.related_test_cases is None:
+            self.related_test_cases = []
+        if self.related_test_functions is None:
+            self.related_test_functions = []
+        if self.drift_issues is None:
+            self.drift_issues = []
+
+@dataclass
+class FeatureTestDriftIssue:
+    """Represents a specific feature-test drift issue."""
+    feature_name: str
+    issue_type: str  # 'feature_without_tests', 'tests_without_feature', 'status_mismatch', 'incomplete_coverage'
+    severity: str  # 'critical', 'warning', 'info'
+    description: str
+    suggested_action: str
+    related_test_cases: List[str] = None
+    related_test_functions: List[str] = None
+
+    def __post_init__(self):
+        if self.related_test_cases is None:
+            self.related_test_cases = []
+        if self.related_test_functions is None:
+            self.related_test_functions = []
 
 @dataclass
 class DriftIssue:
@@ -318,12 +488,13 @@ class TestCaseParser:
 class TestImplementationScanner:
     """Scans test implementations across multiple programming languages."""
 
-    def __init__(self, root_dir: str = '.'):
+    def __init__(self, root_dir: str = '.', change_detector: Optional['GitChangeDetector'] = None):
         self.root_dir = Path(root_dir)
         self.detector = LanguageDetector()
+        self.change_detector = change_detector
 
-    def find_test_files(self) -> List[Tuple[Path, str]]:
-        """Find all test files and their detected languages."""
+    def find_test_files(self, changed_files: Optional[Set[Path]] = None) -> List[Tuple[Path, str]]:
+        """Find all test files and their detected languages, optionally filtered by changed files."""
         test_files = []
 
         for language, patterns in self.detector.LANGUAGE_PATTERNS.items():
@@ -333,6 +504,10 @@ class TestImplementationScanner:
                         detected_lang = self.detector.detect_language(file_path)
                         if detected_lang == language:
                             test_files.append((file_path, language))
+
+        # Filter by changed files if provided
+        if changed_files is not None and self.change_detector:
+            test_files = self.change_detector.filter_files_by_changes(test_files, changed_files)
 
         return test_files
 
@@ -592,12 +767,16 @@ class TestImplementationScanner:
 
         return test_functions
 
-    def scan_all_tests(self) -> List[TestFunction]:
-        """Scan all test files and return all test functions found."""
+    def scan_all_tests(self, changed_files: Optional[Set[Path]] = None) -> List[TestFunction]:
+        """Scan all test files and return all test functions found, optionally filtered by changed files."""
         all_test_functions = []
-        test_files = self.find_test_files()
+        test_files = self.find_test_files(changed_files)
 
-        print(f"🔍 Found {len(test_files)} test files across {len(set(lang for _, lang in test_files))} languages")
+        if changed_files is not None:
+            total_test_files = len(self.find_test_files())
+            print(f"🔍 Found {len(test_files)} changed test files out of {total_test_files} total test files across {len(set(lang for _, lang in test_files))} languages")
+        else:
+            print(f"🔍 Found {len(test_files)} test files across {len(set(lang for _, lang in test_files))} languages")
 
         for file_path, language in test_files:
             print(f"  📁 Scanning {file_path} ({language})")
@@ -1106,42 +1285,50 @@ class ComprehensiveDriftDetector:
 class MultiModeDriftAnalyzer:
     """Multi-mode drift analyzer that can run different types of drift detection."""
 
-    def __init__(self, root_dir: str = '.', test_cases_file: str = 'docs/TEST-CASES.md'):
+    def __init__(self, root_dir: str = '.', test_cases_file: str = 'docs/TEST-CASES.md',
+                 change_detector: Optional[GitChangeDetector] = None):
         self.root_dir = root_dir
         self.test_cases_file = test_cases_file
+        self.change_detector = change_detector
 
         # Initialize individual scanners
-        self.tc_analyzer = TCDriftAnalyzer(root_dir, test_cases_file)
+        self.tc_analyzer = TCDriftAnalyzer(root_dir, test_cases_file, change_detector)
         self.coverage_scanner = CodeCoverageScanner(root_dir)
         self.feature_scanner = FeatureImplementationScanner(root_dir)
         self.comprehensive_detector = ComprehensiveDriftDetector(root_dir)
 
-    def analyze_drift(self, mode: str = 'tc-mapping') -> DriftReport:
-        """Analyze drift based on the specified mode."""
+    def analyze_drift(self, mode: str = 'tc-mapping', changed_files: Optional[Set[Path]] = None) -> DriftReport:
+        """Analyze drift based on the specified mode, optionally filtered by changed files."""
         if mode == 'tc-mapping':
-            return self._analyze_tc_mapping()
+            return self._analyze_tc_mapping(changed_files)
         elif mode == 'code-coverage':
-            return self._analyze_code_coverage()
+            return self._analyze_code_coverage(changed_files)
         elif mode == 'feature-impl':
-            return self._analyze_feature_implementation()
+            return self._analyze_feature_implementation(changed_files)
         elif mode == 'all':
-            return self._analyze_all_modes()
+            return self._analyze_all_modes(changed_files)
         else:
             raise ValueError(f"Unknown drift analysis mode: {mode}")
 
-    def _analyze_tc_mapping(self) -> DriftReport:
+    def _analyze_tc_mapping(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
         """Analyze TC ID mapping drift."""
-        print("🔍 Starting TC ID mapping drift analysis...\n")
-        tc_report = self.tc_analyzer.analyze_drift()
+        if changed_files is not None:
+            print("🔍 Starting TC ID mapping drift analysis (change-based)...\n")
+        else:
+            print("🔍 Starting TC ID mapping drift analysis...\n")
+        tc_report = self.tc_analyzer.analyze_drift(changed_files)
         tc_report.mode = 'tc-mapping'
         return tc_report
 
-    def _analyze_code_coverage(self) -> DriftReport:
+    def _analyze_code_coverage(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
         """Analyze code coverage drift."""
-        print("🔍 Starting code coverage drift analysis...\n")
+        if changed_files is not None:
+            print("🔍 Starting code coverage drift analysis (change-based)...\n")
+        else:
+            print("🔍 Starting code coverage drift analysis...\n")
 
         # Get test functions first
-        test_functions = self.tc_analyzer.implementation_scanner.scan_all_tests()
+        test_functions = self.tc_analyzer.implementation_scanner.scan_all_tests(changed_files)
 
         # Analyze coverage issues
         coverage_issues = self.coverage_scanner.scan_coverage_issues(test_functions)
@@ -1171,9 +1358,12 @@ class MultiModeDriftAnalyzer:
             metadata=metadata
         )
 
-    def _analyze_feature_implementation(self) -> DriftReport:
+    def _analyze_feature_implementation(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
         """Analyze feature implementation drift."""
-        print("🔍 Starting feature implementation drift analysis...\n")
+        if changed_files is not None:
+            print("🔍 Starting feature implementation drift analysis (change-based)...\n")
+        else:
+            print("🔍 Starting feature implementation drift analysis...\n")
 
         feature_issues = self.feature_scanner.scan_feature_issues()
 
@@ -1188,14 +1378,17 @@ class MultiModeDriftAnalyzer:
             metadata=metadata
         )
 
-    def _analyze_all_modes(self) -> DriftReport:
+    def _analyze_all_modes(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
         """Analyze all drift modes and combine results."""
-        print("🔍 Starting comprehensive drift analysis...\n")
+        if changed_files is not None:
+            print("🔍 Starting comprehensive drift analysis (change-based)...\n")
+        else:
+            print("🔍 Starting comprehensive drift analysis...\n")
 
         # Run all individual analyses
-        tc_report = self._analyze_tc_mapping()
-        coverage_report = self._analyze_code_coverage()
-        feature_report = self._analyze_feature_implementation()
+        tc_report = self._analyze_tc_mapping(changed_files)
+        coverage_report = self._analyze_code_coverage(changed_files)
+        feature_report = self._analyze_feature_implementation(changed_files)
 
         # Run comprehensive drift detection
         print("🔍 Running comprehensive drift detection strategies...\n")
@@ -1228,14 +1421,19 @@ class MultiModeDriftAnalyzer:
 class TCDriftAnalyzer:
     """Analyzes drift between TEST-CASES.md and test implementations."""
 
-    def __init__(self, root_dir: str = '.', test_cases_file: str = 'docs/TEST-CASES.md'):
+    def __init__(self, root_dir: str = '.', test_cases_file: str = 'docs/TEST-CASES.md',
+                 change_detector: Optional[GitChangeDetector] = None):
         self.root_dir = root_dir
         self.test_case_parser = TestCaseParser(test_cases_file)
-        self.implementation_scanner = TestImplementationScanner(root_dir)
+        self.change_detector = change_detector
+        self.implementation_scanner = TestImplementationScanner(root_dir, change_detector)
 
-    def analyze_drift(self) -> DriftReport:
-        """Perform complete drift analysis."""
-        print("🔍 Starting TC ID drift analysis...\n")
+    def analyze_drift(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
+        """Perform complete drift analysis, optionally filtered by changed files."""
+        if changed_files is not None:
+            print("🔍 Starting TC ID drift analysis (change-based)...\n")
+        else:
+            print("🔍 Starting TC ID drift analysis...\n")
 
         # Parse test cases from TEST-CASES.md
         print("📋 Parsing TEST-CASES.md...")
@@ -1243,8 +1441,11 @@ class TCDriftAnalyzer:
         print(f"  Found {len(test_cases)} test cases")
 
         # Scan test implementations
-        print("\n🔍 Scanning test implementations...")
-        test_functions = self.implementation_scanner.scan_all_tests()
+        if changed_files is not None:
+            print("\n🔍 Scanning test implementations (changed files only)...")
+        else:
+            print("\n🔍 Scanning test implementations...")
+        test_functions = self.implementation_scanner.scan_all_tests(changed_files)
         print(f"  Found {len(test_functions)} test functions")
 
         # Build mappings
@@ -1610,14 +1811,45 @@ def main():
                        help='Output YAML file (default: auto-generated in .agent3d-tmp/drift-reports/)')
     parser.add_argument('--quiet', action='store_true', help='Suppress detailed output')
 
+    # Change-based scanning options
+    parser.add_argument('--changed-only', action='store_true',
+                       help='Only scan files changed since last commit (requires Git)')
+    parser.add_argument('--changed-since', default=None,
+                       help='Only scan files changed since specified commit/branch (e.g., main, HEAD~5)')
+    parser.add_argument('--pr-diff', action='store_true',
+                       help='Only scan files changed in current branch vs main (requires Git)')
+    parser.add_argument('--recent-days', type=int, default=None,
+                       help='Only scan files changed in the last N days (requires Git)')
+
     args = parser.parse_args()
+
+    # Initialize change detector and determine changed files
+    change_detector = GitChangeDetector(args.root_dir)
+    changed_files = None
+
+    if args.changed_only:
+        changed_files = change_detector.get_changed_files()
+        if not args.quiet:
+            print(f"🔄 Change-based scanning: {len(changed_files)} changed files detected")
+    elif args.changed_since:
+        changed_files = change_detector.get_changed_files(since=args.changed_since)
+        if not args.quiet:
+            print(f"🔄 Change-based scanning since {args.changed_since}: {len(changed_files)} changed files detected")
+    elif args.pr_diff:
+        changed_files = change_detector.get_changed_files_in_pr()
+        if not args.quiet:
+            print(f"🔄 PR diff scanning: {len(changed_files)} changed files detected")
+    elif args.recent_days:
+        changed_files = change_detector.get_recently_changed_files(args.recent_days)
+        if not args.quiet:
+            print(f"🔄 Recent changes ({args.recent_days} days): {len(changed_files)} changed files detected")
 
     # Initialize logging
     log_file = get_log_file_path()
     log_analysis_start(args.mode, args.root_dir, log_file)
 
     # Initialize multi-mode analyzer
-    analyzer = MultiModeDriftAnalyzer(args.root_dir, args.test_cases_file)
+    analyzer = MultiModeDriftAnalyzer(args.root_dir, args.test_cases_file, change_detector)
 
     # Determine output file path
     output_file = args.output if args.output else get_default_output_path(args.mode)
@@ -1629,7 +1861,7 @@ def main():
 
     # Perform analysis
     try:
-        report = analyzer.analyze_drift(args.mode)
+        report = analyzer.analyze_drift(args.mode, changed_files)
     except Exception as e:
         print(f"❌ Error during analysis: {e}")
         return 1
