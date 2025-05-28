@@ -36,13 +36,16 @@ export class IdentifierReferenceProvider implements vscode.ReferenceProvider {
         const line = document.lineAt(position.line);
         const text = line.text;
 
-        // Pattern to match TC-XXX-XXX or REQ-XXX-XXX identifiers (including lowercase)
-        const pattern = /\b(TC-[A-Za-z0-9-]+|REQ-[A-Za-z0-9-]+)\b/g;
+        // More robust pattern to match TC-XXX-XXX or REQ-XXX-XXX identifiers
+        // Using non-word boundaries to better handle hyphens
+        const pattern = /(^|[^A-Za-z0-9-])(TC-[A-Za-z0-9-]+|REQ-[A-Za-z0-9-]+)(?=[^A-Za-z0-9-]|$)/g;
 
         let match;
         while ((match = pattern.exec(text)) !== null) {
-            const startPos = match.index;
-            const endPos = match.index + match[0].length;
+            // match[2] contains the actual identifier (TC-... or REQ-...)
+            const identifier = match[2];
+            const startPos = match.index + match[1].length; // Skip the prefix
+            const endPos = startPos + identifier.length;
 
             // Check if the cursor position is within this match
             if (position.character >= startPos && position.character <= endPos) {
