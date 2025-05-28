@@ -62,7 +62,7 @@ export class IdentifierIndex {
 
     private parseTestCases(document: vscode.TextDocument, text: string, fileName: string, config: vscode.WorkspaceConfiguration): void {
         const testCaseFiles = config.get<string[]>('testCaseFiles', ['TEST-CASES.md', 'docs/TEST-CASES.md']);
-        const pattern = new RegExp(config.get('testCasePattern', 'TC-[A-Z0-9-]+'), 'g');
+        const pattern = new RegExp(config.get('testCasePattern', 'TC-[A-Za-z0-9-]+'), 'g');
 
         let match;
         while ((match = pattern.exec(text)) !== null) {
@@ -96,7 +96,7 @@ export class IdentifierIndex {
 
     private parseRequirements(document: vscode.TextDocument, text: string, fileName: string, config: vscode.WorkspaceConfiguration): void {
         const requirementFiles = config.get<string[]>('requirementFiles', ['REQUIREMENTS.md', 'docs/REQUIREMENTS.md']);
-        const pattern = new RegExp(config.get('requirementPattern', 'REQ-[A-Z0-9-]+'), 'g');
+        const pattern = new RegExp(config.get('requirementPattern', 'REQ-[A-Za-z0-9-]+'), 'g');
 
         let match;
         while ((match = pattern.exec(text)) !== null) {
@@ -158,8 +158,8 @@ export class IdentifierIndex {
 
     private parseReferences(document: vscode.TextDocument, text: string): void {
         // Find all TC-#### and REQ-### references
-        const tcPattern = /\b(TC-[A-Z0-9-]+)\b/g;
-        const reqPattern = /\b(REQ-[A-Z0-9-]+)\b/g;
+        const tcPattern = /\b(TC-[A-Za-z0-9-]+)\b/g;
+        const reqPattern = /\b(REQ-[A-Za-z0-9-]+)\b/g;
 
         [tcPattern, reqPattern].forEach(pattern => {
             let match;

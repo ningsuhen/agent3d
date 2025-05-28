@@ -71,8 +71,8 @@ export class IdentifierHoverProvider implements vscode.HoverProvider {
         const line = document.lineAt(position.line);
         const text = line.text;
 
-        // Pattern to match TC-XXX-XXX or REQ-XXX-XXX identifiers
-        const pattern = /\b(TC-[A-Z0-9-]+|REQ-[A-Z0-9-]+)\b/g;
+        // Pattern to match TC-XXX-XXX or REQ-XXX-XXX identifiers (including lowercase)
+        const pattern = /\b(TC-[A-Za-z0-9-]+|REQ-[A-Za-z0-9-]+)\b/g;
 
         let match;
         while ((match = pattern.exec(text)) !== null) {
