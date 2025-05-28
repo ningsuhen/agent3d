@@ -86,7 +86,7 @@ async function showRelatedItems() {
     }
 
     const position = editor.selection.active;
-    const wordRange = editor.document.getWordRangeAtPosition(position, /\b(TC-[A-Z0-9]+-[A-Z0-9]+|REQ-[A-Z0-9]+-[A-Z0-9]+)\b/);
+    const wordRange = editor.document.getWordRangeAtPosition(position, /\b(TC-[A-Z0-9-]+|REQ-[A-Z0-9-]+)\b/);
 
     if (!wordRange) {
         vscode.window.showInformationMessage('No identifier found at cursor position');

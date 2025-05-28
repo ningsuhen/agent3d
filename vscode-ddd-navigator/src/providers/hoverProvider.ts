@@ -13,7 +13,7 @@ export class IdentifierHoverProvider implements vscode.HoverProvider {
         // Get the word at the current position
         const wordRange = document.getWordRangeAtPosition(
             position,
-            /\b(TC-[A-Z0-9]+-[A-Z0-9]+|REQ-[A-Z0-9]+-[A-Z0-9]+|[A-Za-z][A-Za-z0-9\s]+)\b/
+            /\b(TC-[A-Z0-9-]+|REQ-[A-Z0-9-]+|[A-Za-z][A-Za-z0-9\s]+)\b/
         );
 
         if (!wordRange) {

@@ -75,12 +75,12 @@
         },
         "dddNavigator.testCasePattern": {
           "type": "string",
-          "default": "TC-[A-Z0-9]+-[A-Z0-9]+",
+          "default": "TC-[A-Z0-9-]+",
           "description": "Regular expression pattern for test case identifiers"
         },
         "dddNavigator.requirementPattern": {
           "type": "string",
-          "default": "REQ-[A-Z]*-?\\d{3}",
+          "default": "REQ-[A-Z0-9-]+",
           "description": "Regular expression pattern for requirement identifiers"
         },
         "dddNavigator.featureFiles": {

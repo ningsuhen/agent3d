@@ -14,7 +14,7 @@ export class IdentifierReferenceProvider implements vscode.ReferenceProvider {
         // Get the word at the current position
         const wordRange = document.getWordRangeAtPosition(
             position,
-            /\b(TC-[A-Z0-9]+-[A-Z0-9]+|REQ-[A-Z0-9]+-[A-Z0-9]+)\b/
+            /\b(TC-[A-Z0-9-]+|REQ-[A-Z0-9-]+)\b/
         );
 
         if (!wordRange) {
