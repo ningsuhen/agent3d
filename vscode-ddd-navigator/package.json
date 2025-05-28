@@ -4,12 +4,15 @@
   "description": "Navigate between Test Cases, Features, and Requirements in documentation-driven development",
   "version": "1.0.0",
   "publisher": "agent3d",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ningsuhen/agent3d.git"
+  },
   "engines": {
     "vscode": "^1.60.0"
   },
   "categories": [
-    "Other",
-    "Navigation"
+    "Other"
   ],
   "keywords": [
     "documentation",
