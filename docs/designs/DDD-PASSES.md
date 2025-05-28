@@ -62,9 +62,10 @@ interface PassState {
 ### 1. Foundation Pass
 
 - **Input**: Project requirements, existing documentation
-- **Output**: Core documentation files (README, FEATURES, TASKS, TEST-CASES, DDD-STATUS)
+- **Output**: Core documentation files (README, FEATURES, TASKS, TEST-CASES, DDD-STATUS), identifier patterns configuration
 - **Dependencies**: None
-- **Validation**: Template compliance, content completeness
+- **Validation**: Template compliance, content completeness, identifier patterns configuration
+- **Identifier Configuration**: Establishes FT-*, TC-*, REQ-* and other identifier patterns in `.agent3d-config.yml`
 
 ### 2. Documentation Pass
 
@@ -104,9 +105,10 @@ interface PassState {
 ### 7. Synchronization Pass
 
 - **Input**: All project artifacts
-- **Output**: Aligned documentation and code, quality validation
+- **Output**: Aligned documentation and code, quality validation, FT-TC relationship validation
 - **Dependencies**: Code Review Pass
-- **Validation**: Consistency checks, drift elimination, quality verification
+- **Validation**: Consistency checks, drift elimination, quality verification, FT-TC mapping validation
+- **Drift Detection**: Comprehensive identifier drift analysis including FT-* ↔ TC-* relationships, orphaned identifiers, and cross-reference validation
 
 ### 8. Prune Pass
 
@@ -170,6 +172,7 @@ alignment = (completed_tasks + passing_tests + documented_features) / total_expe
 - Documentation completeness: % of required files created
 - Template compliance: % of templates properly followed
 - Structural integrity: Presence of required sections
+- Identifier configuration: % of identifier patterns properly configured in `.agent3d-config.yml`
 
 #### Development Pass
 

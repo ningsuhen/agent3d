@@ -249,12 +249,16 @@ The Multi-Mode Drift Scanner analyzes various types of drift between documentati
 
 **Analysis Modes:**
 - **tc-mapping** - TC ID mapping between TEST-CASES.md and test implementations
+- **ft-mapping** - FT ID mapping between FEATURES.md and test implementations
+- **ft-tc-mapping** - FT-TC relationship mapping and cross-reference validation
 - **code-coverage** - Test coverage analysis and missing test detection
 - **feature-impl** - Feature implementation status drift between FEATURES.md and code
 - **all** - Comprehensive analysis running all drift detection modes
 
 **Drift Types Detected:**
 - **TC ID Mapping Drift:** Test cases without implementations, implementations without TC IDs, orphaned TC IDs
+- **FT ID Mapping Drift:** Features without test coverage, tests without feature references, orphaned FT IDs
+- **FT-TC Relationship Drift:** Missing FT-TC cross-references, broken relationships, inconsistent mappings
 - **Code Coverage Drift:** Missing test files, untested functions, orphaned tests, coverage metrics
 - **Feature Implementation Drift:** Status mismatches, missing implementations, undocumented features
 
@@ -277,6 +281,12 @@ cd /path/to/your/ddd-project
 
 # TC ID mapping analysis (default)
 python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping
+
+# FT ID mapping analysis
+python3 ~/.agent3d/tools/drift_scanner.py --mode ft-mapping
+
+# FT-TC relationship mapping analysis
+python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping
 
 # Code coverage analysis
 python3 ~/.agent3d/tools/drift_scanner.py --mode code-coverage
@@ -335,12 +345,18 @@ python3 ~/.agent3d/tools/drift_scanner.py --mode all --changed-only --quiet
 
 **Output Location:** Reports generated in `.agent3d-tmp/drift-reports/` with consistent naming:
 - `tc-mapping-drift-report.yaml`
+- `ft-mapping-drift-report.yaml`
+- `ft-tc-mapping-drift-report.yaml`
 - `code-coverage-drift-report.yaml`
 - `feature-impl-drift-report.yaml`
 - `all-drift-report.yaml`
 
 **DDD Pass Integration:**
 ```bash
+# Foundation Pass - Validate identifier patterns configuration
+echo "🔍 Validating identifier patterns configuration..."
+python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping --quiet
+
 # Testing Pass - Fast TC ID mapping and code coverage (change-based)
 echo "🔍 Checking TC ID drift and code coverage (changed files only)..."
 python3 ~/.agent3d/tools/drift_scanner.py --mode all --changed-only --quiet
@@ -350,15 +366,16 @@ if [ $DRIFT_LEVEL -eq 2 ]; then
     exit 1
 fi
 
-# Synchronization Pass - comprehensive drift analysis
+# Synchronization Pass - comprehensive FT-TC relationship validation
+echo "🔍 Comprehensive FT-TC relationship and drift analysis..."
 python3 ~/.agent3d/tools/drift_scanner.py --mode all
 echo "📄 Comprehensive drift report generated in .agent3d-tmp/drift-reports/"
 
 # PR Review - only scan files in current PR
 python3 ~/.agent3d/tools/drift_scanner.py --mode all --pr-diff --quiet
 
-# Development workflow - recent changes only
-python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping --recent-days 3 --quiet
+# Development workflow - FT-TC mapping for recent changes
+python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping --recent-days 3 --quiet
 ```
 
 **CI/CD Integration:**
@@ -379,18 +396,22 @@ python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping --recent-days 3 --qu
     python3 ~/.agent3d/tools/drift_scanner.py --mode all --quiet
 ```
 
-**TC ID Pattern Recognition:** `TC-0001`, `TC-ENV-007`, `TC-0001a`, `TC-ABC-123b`
+**Identifier Pattern Recognition:**
+- **TC IDs:** `TC-0001`, `TC-ENV-007`, `TC-0001a`, `TC-ABC-123b`
+- **FT IDs:** `FT-CORE-001`, `FT-LANG-002a`, `FT-IMPL-005`
 
 **Best Practices:**
 
-- Always include TC IDs in test function names or nearby comments
-- Use consistent naming: prefer `test_feature_tc_0001` format
-- One TC ID per test function for clear 1:1 mapping
-- Run during Testing Pass to validate test coverage
-- Set drift thresholds appropriate for your project (recommend <10%)
-- Use `--changed-only` for fast development workflow (10x+ speed improvement)
-- Use `--pr-diff` for efficient CI/CD validation of pull requests
-- Reserve full scans for comprehensive analysis and main branch validation
+- **TC ID Mapping:** Always include TC IDs in test function names or nearby comments
+- **FT ID Mapping:** Reference FT IDs in test files and feature implementation comments
+- **Cross-References:** Maintain FT-TC relationships in FEATURES.md and TEST-CASES.md
+- **Naming Consistency:** Use `test_feature_tc_0001` format for TC mapping
+- **One-to-One Mapping:** One TC ID per test function, clear FT-TC relationships
+- **Pass Integration:** Run FT-TC mapping during Foundation and Synchronization passes
+- **Performance:** Use `--changed-only` for fast development workflow (10x+ speed improvement)
+- **CI/CD:** Use `--pr-diff` for efficient validation of pull requests
+- **Comprehensive Analysis:** Reserve full scans for main branch validation and synchronization
+- **Drift Thresholds:** Set appropriate thresholds for your project (recommend <10%)
 
 ---
 

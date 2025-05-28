@@ -3,13 +3,13 @@
 This document outlines the test cases for the Agent3D framework, organized by features using FT-* identifiers for traceability.
 
 ## 📊 Summary
-- **Total Test Cases:** 68 (41 main + 27 sub-test cases)
+- **Total Test Cases:** 76 (45 main + 31 sub-test cases)
 - **Completed:** 31 ✅ (19 main + 12 sub-test cases)
-- **Pending:** 37 ⏸️ (22 main + 15 sub-test cases)
+- **Pending:** 45 ⏸️ (26 main + 19 sub-test cases)
 - **Skipped:** 0 ⏭️
-- **Automated:** 31 (46%)
-- **Partial:** 22 (32%)
-- **Manual:** 15 (22%)
+- **Automated:** 39 (51%)
+- **Partial:** 22 (29%)
+- **Manual:** 15 (20%)
 
 ## 🔧 Test Execution Framework
 
@@ -246,6 +246,15 @@ This document outlines the test cases for the Agent3D framework, organized by fe
   - [ ] **TC-0502a** - Features marked [x] without passing tests (Automated, High)
   - [ ] **TC-0502b** - Features marked [x] without manual verification (Manual, High)
 - [ ] **TC-0503** - Documentation references non-existent code components (Automated, Medium)
+- [ ] **TC-0504** - FT-TC relationship drift detection (Automated, High)
+  - [ ] **TC-0504a** - FT-* features without corresponding TC-* test cases (Automated, High)
+  - [ ] **TC-0504b** - TC-* test cases without corresponding FT-* features (Automated, High)
+  - [ ] **TC-0504c** - Orphaned FT-* identifiers referenced in code but not documented (Automated, Medium)
+  - [ ] **TC-0504d** - Missing FT-* ↔ TC-* cross-references in documentation (Automated, Medium)
+- [ ] **TC-0505** - Identifier pattern validation (Automated, High)
+  - [ ] **TC-0505a** - FT-* identifiers follow configured pattern format (Automated, High)
+  - [ ] **TC-0505b** - TC-* identifiers follow configured pattern format (Automated, High)
+  - [ ] **TC-0505c** - REQ-* and other identifiers follow configured patterns (Automated, Medium)
 - [ ] **TC-0511** - Reverse drift detection - Implementation exists without corresponding documentation (Automated, High)
   - [ ] **TC-0511a** - Code features not documented in FEATURES.md (Automated, High)
   - [ ] **TC-0511b** - API endpoints without documentation (Automated, High)

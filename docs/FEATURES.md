@@ -128,3 +128,5 @@ This document outlines the features of the Agent3D documentation framework, grou
 - [x] **FT-STAT-004** Drift Detection - Phase-specific drift monitoring and alerts (Criteria: Automated detection of documentation-code misalignment with severity levels)
   - [x] **FT-STAT-004a** Severity Classification - Drift level categorization (Criteria: Clear classification of drift severity levels)
   - [x] **FT-STAT-004b** Alert System - Drift notification mechanism (Criteria: Alerts trigger when drift exceeds thresholds)
+  - [x] **FT-STAT-004c** FT-TC Relationship Mapping - Feature-to-test case cross-reference validation (Criteria: Comprehensive FT-* ↔ TC-* relationship analysis with orphaned identifier detection)
+  - [x] **FT-STAT-004d** Identifier Pattern Configuration - Configurable identifier patterns for comprehensive drift detection (Criteria: All identifier patterns configurable via .agent3d-config.yml with flexible and strict pattern support)
