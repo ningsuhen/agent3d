@@ -80,6 +80,7 @@ git -C ~/.agent3d pull origin main
 - Templates: Replace ALL {{placeholders}}, remove `<template>` tags
 - Quality: Functional links, LLM-friendly language, requirements-to-features-to-tests traceability
 - Code: Exception handling, memory efficiency, test coverage, security, performance, documentation, zero technical debt
+- **TC ID Mapping:** All test implementations MUST include TC-NNNN references for 1:1 traceability
 
 **Validation Checklist:**
 - [ ] `## Groups` / `### Sub-Groups` structure
@@ -87,6 +88,7 @@ git -C ~/.agent3d pull origin main
 - [ ] Functional links, single-line entries
 - [ ] `[x]` only with verifiable evidence
 - [ ] 2-space indentation, LLM-friendly language, traceability links
+- [ ] **TC ID drift <10%** (run `python3 tools/drift_scanner.py --mode tc-mapping`)
 
 ## Language Rules (MEMORIZE)
 
@@ -236,6 +238,62 @@ rules/                # Language rules
 **Quality:** Simple language, complete coverage, consistent patterns, requirements→features→tests traceability, current docs.
 **Validation:** Functional links, no template tags, consistent formatting, complete placeholders, proper hierarchy.
 **GitHub:** See [GitHub CLI Integration Guide](GITHUB-CLI-INTEGRATION.md) - automated PR detection, pending reviews, human-agent workflow.
+
+## TC ID Drift Scanning
+
+**Tool:** `python3 tools/drift_scanner.py` - Multi-mode drift detection with TC mapping, code coverage, and feature implementation analysis.
+
+**Analysis Modes:**
+- **tc-mapping** - TC ID mapping between TEST-CASES.md and test implementations
+- **code-coverage** - Test coverage analysis and missing test detection
+- **feature-impl** - Feature implementation status drift between FEATURES.md and code
+- **all** - Comprehensive analysis running all drift detection modes
+
+**Integration Points:**
+- **Testing Pass:** Validate TC ID mappings and code coverage before marking tests complete
+- **Synchronization Pass:** Check for drift during documentation-code alignment
+- **Reverse Pass:** Identify undocumented test implementations and features
+
+**Usage Examples:**
+```bash
+# TC ID mapping analysis (default)
+python3 tools/drift_scanner.py --mode tc-mapping
+
+# Code coverage analysis
+python3 tools/drift_scanner.py --mode code-coverage
+
+# Feature implementation analysis
+python3 tools/drift_scanner.py --mode feature-impl
+
+# Comprehensive analysis (all modes)
+python3 tools/drift_scanner.py --mode all
+
+# Quiet mode for CI/CD integration
+python3 tools/drift_scanner.py --quiet
+```
+
+**Exit Codes:**
+- `0` - Low drift (<10%) - Excellent TC ID mapping
+- `1` - Moderate drift (10-25%) - Some cleanup recommended
+- `2` - High drift (>25%) - Significant issues requiring attention
+
+**DDD Pass Integration:**
+```bash
+# In Testing Pass
+echo "🔍 Checking TC ID drift..."
+python3 tools/tc-drift-scanner.py --quiet
+DRIFT_LEVEL=$?
+if [ $DRIFT_LEVEL -eq 2 ]; then
+    echo "❌ HIGH DRIFT: Must fix TC ID mappings before proceeding"
+    exit 1
+fi
+
+# In Synchronization Pass
+python3 tools/tc-drift-scanner.py --output sync-drift-check.yaml
+echo "📄 TC ID drift report: sync-drift-check.yaml"
+```
+
+**See:** [TC Drift Scanner Documentation](TC-DRIFT-SCANNER.md) for complete usage guide.
 
 ---
 

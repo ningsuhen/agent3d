@@ -21,6 +21,7 @@
 
 **Testing:** **Prefer pytest**, mirror app structure, `test_` prefix, 80% coverage minimum, fixtures for setup
 **Golden Tests:** Use `pytest-goldie` for complex output/regression testing, `pytest --goldie-update` to update
+**TC ID Mapping:** **CRITICAL** - Each test function MUST include TC-NNNN in name or docstring for 1:1 traceability
 
 ## Error Handling, Performance & Security
 
@@ -58,6 +59,7 @@
 - pytest over unittest
 - pytest-goldie for complex output validation
 - Fixtures for test setup
+- **TC ID Mapping:** Each test function MUST include TC-NNNN in name or docstring
 
 #### 4. Configuration Management
 

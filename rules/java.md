@@ -96,6 +96,7 @@
    - Name test classes with "Test" suffix
    - Write focused tests that verify a single behavior
    - Use appropriate test fixtures and setup methods
+   - **TC ID Mapping:** **CRITICAL** - Each test method MUST include TC-NNNN in name or @DisplayName for 1:1 traceability
 
 ## Performance
 

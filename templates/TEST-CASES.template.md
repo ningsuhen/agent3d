@@ -9,6 +9,13 @@
 3. Test case modules organized by feature area
 4. Format: `- [status] **TC-NNNN** - Test description (Execution Type, Priority)`
 
+**IMPLEMENTATION MAPPING REQUIREMENTS:**
+
+- **1:1 Mapping:** Each TC-NNNN MUST have exactly one corresponding test implementation
+- **TC ID in Code:** Test function/method name or description MUST include the TC-NNNN identifier
+- **Traceability:** Test file path MUST be documented or easily discoverable from TC-NNNN
+- **Bidirectional Navigation:** Use VS Code DDD Navigator for seamless documentation ↔ code navigation
+
 **SUB-TEST CASES:** Use indented bullets (2 spaces) with unique TC-NNNN IDs.
 
 **🔗 CRITICAL:** Follow documentation structure from [Common Procedures](../docs/COMMON-PROCEDURES.md#structure-requirements).
@@ -67,3 +74,6 @@
 - [ ] Each test case specifies execution type (Manual/Automated/Partial) and priority (High/Medium/Low)
 - [ ] Summary statistics match the actual test case counts (including sub-test cases)
 - [ ] Test execution framework is clearly defined
+- [ ] **1:1 MAPPING:** Each TC-NNNN has exactly one corresponding test implementation
+- [ ] **TC ID IN CODE:** All test implementations include TC-NNNN in function name or description
+- [ ] **TRACEABILITY:** Test file paths are documented or discoverable via VS Code DDD Navigator

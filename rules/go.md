@@ -87,6 +87,7 @@
    - Name test files with _test.go suffix
    - Use table-driven tests for testing multiple cases
    - Use subtests for organizing related test cases
+   - **TC ID Mapping:** **CRITICAL** - Each test function MUST include TC-NNNN in name or comment for 1:1 traceability
 
 2. **Test Coverage**
    - Aim for high test coverage, especially for critical code

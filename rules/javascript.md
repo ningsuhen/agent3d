@@ -80,6 +80,7 @@
 - Write unit tests for utility functions and business logic
 - Write integration tests for API endpoints
 - Write end-to-end tests for critical user flows
+- **TC ID Mapping:** **CRITICAL** - Each test function MUST include TC-NNNN in name or description for 1:1 traceability
 
 **Test Organization:**
 
