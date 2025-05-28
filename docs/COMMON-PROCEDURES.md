@@ -88,7 +88,7 @@ git -C ~/.agent3d pull origin main
 - [ ] Functional links, single-line entries
 - [ ] `[x]` only with verifiable evidence
 - [ ] 2-space indentation, LLM-friendly language, traceability links
-- [ ] **TC ID drift <10%** (run `python3 tools/drift_scanner.py --mode tc-mapping`)
+- [ ] **TC ID drift <10%** (run `python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping`)
 
 ## Language Rules (MEMORIZE)
 
@@ -241,9 +241,11 @@ rules/                # Language rules
 
 ## Drift Scanning
 
-**Direct Tool:** `python3 ~/.agent3d/tools/drift_scanner.py` - Run from DDD project root directory. Requires manual path management and working directory setup.
+**Comprehensive drift detection tool for Agent3D framework with multiple analysis modes.**
 
-**MCP Server:** `~/.agent3d/tools/drift_scanner_mcp_server.sh` - Full MCP server implementation for client integration with virtual environment support and DDD_ROOT environment variable.
+### Overview
+
+The Multi-Mode Drift Scanner analyzes various types of drift between documentation and implementation across multiple programming languages.
 
 **Analysis Modes:**
 - **tc-mapping** - TC ID mapping between TEST-CASES.md and test implementations
@@ -251,14 +253,26 @@ rules/                # Language rules
 - **feature-impl** - Feature implementation status drift between FEATURES.md and code
 - **all** - Comprehensive analysis running all drift detection modes
 
-**Integration Points:**
-- **Testing Pass:** Validate TC ID mappings and code coverage before marking tests complete
-- **Synchronization Pass:** Check for drift during documentation-code alignment
-- **Reverse Pass:** Identify undocumented test implementations and features
+**Drift Types Detected:**
+- **TC ID Mapping Drift:** Test cases without implementations, implementations without TC IDs, orphaned TC IDs
+- **Code Coverage Drift:** Missing test files, untested functions, orphaned tests, coverage metrics
+- **Feature Implementation Drift:** Status mismatches, missing implementations, undocumented features
 
-**Usage Examples:**
+**Supported Languages:** Python, JavaScript/TypeScript, Java, Go, Rust
+
+### Tool Options
+
+**Direct Tool:** `python3 ~/.agent3d/tools/drift_scanner.py` - Run from DDD project root directory. Requires manual path management and working directory setup.
+
+**MCP Server:** `~/.agent3d/tools/drift_scanner_mcp_server.sh` - Full MCP server implementation for client integration with virtual environment support and DDD_ROOT environment variable.
+
+### Usage
+
+**Prerequisites:** Must be run from DDD project root directory (where `.agent3d-config.yaml` is located).
+
+**Basic Usage:**
 ```bash
-# CRITICAL: Run from DDD project root (where .agent3d-config.yaml is located)
+# Navigate to your DDD project root first
 cd /path/to/your/ddd-project
 
 # TC ID mapping analysis (default)
@@ -275,20 +289,40 @@ python3 ~/.agent3d/tools/drift_scanner.py --mode all
 
 # Quiet mode for CI/CD integration
 python3 ~/.agent3d/tools/drift_scanner.py --quiet
-
-# Direct tool usage examples
-python3 ~/.agent3d/tools/drift_scanner.py --mode all
-python3 ~/.agent3d/tools/drift_scanner.py --mode all --quiet
 ```
+
+**MCP Server Configuration:**
+```json
+{
+  "mcpServers": {
+    "agent3d-drift-scanner": {
+      "command": "/Users/nwaikhom/.agent3d/tools/drift_scanner_mcp_server.sh",
+      "args": [],
+      "env": {
+        "DDD_ROOT": "/path/to/your/ddd-project",
+        "PATH": "/usr/local/bin:/usr/bin:/bin"
+      }
+    }
+  }
+}
+```
+
+### Output & Integration
 
 **Exit Codes:**
 - `0` - Low drift (<10%) - Excellent TC ID mapping
 - `1` - Moderate drift (10-25%) - Some cleanup recommended
 - `2` - High drift (>25%) - Significant issues requiring attention
 
+**Output Location:** Reports generated in `.agent3d-tmp/drift-reports/` with consistent naming:
+- `tc-mapping-drift-report.yaml`
+- `code-coverage-drift-report.yaml`
+- `feature-impl-drift-report.yaml`
+- `all-drift-report.yaml`
+
 **DDD Pass Integration:**
 ```bash
-# In Testing Pass - TC ID mapping and code coverage
+# Testing Pass - TC ID mapping and code coverage
 echo "🔍 Checking TC ID drift and code coverage..."
 python3 ~/.agent3d/tools/drift_scanner.py --mode all --quiet
 DRIFT_LEVEL=$?
@@ -297,15 +331,34 @@ if [ $DRIFT_LEVEL -eq 2 ]; then
     exit 1
 fi
 
-# In Synchronization Pass - comprehensive drift analysis
+# Synchronization Pass - comprehensive drift analysis
 python3 ~/.agent3d/tools/drift_scanner.py --mode all
 echo "📄 Comprehensive drift report generated in .agent3d-tmp/drift-reports/"
 
-# In Feature Implementation Pass - feature status validation
-python3 ~/.agent3d/tools/drift_scanner.py --mode feature-impl --quiet
+# Reverse Pass - undocumented implementations
+python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping --quiet
 ```
 
-**See:** [TC Drift Scanner Documentation](TC-DRIFT-SCANNER.md) for complete usage guide.
+**CI/CD Integration:**
+```yaml
+# GitHub Actions example
+- name: Check TC ID Drift
+  run: |
+    python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping --quiet
+    if [ $? -eq 2 ]; then
+      echo "❌ High TC ID drift detected"
+      exit 1
+    fi
+```
+
+**TC ID Pattern Recognition:** `TC-0001`, `TC-ENV-007`, `TC-0001a`, `TC-ABC-123b`
+
+**Best Practices:**
+- Always include TC IDs in test function names or nearby comments
+- Use consistent naming: prefer `test_feature_tc_0001` format
+- One TC ID per test function for clear 1:1 mapping
+- Run during Testing Pass to validate test coverage
+- Set drift thresholds appropriate for your project (recommend <10%)
 
 ---
 

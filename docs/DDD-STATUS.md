@@ -193,9 +193,9 @@
 - **Status:** Completed ✅
 - **Alignment:** 95% █████████▌ (Comprehensive pruning completed with significant optimization)
 - **Drift:** None 🟢 (Complete historical artifact removal and content optimization)
-- **Last Execution:** 2025-05-28 (Enhanced Prune Pass - Technical Debt Specialist & Maintenance Engineer)
-- **Priority:** Low (Enhanced pruning completed with tool reference cleanup)
-- **Notes:** Enhanced pruning with outdated tool reference cleanup and content optimization
+- **Last Execution:** 2025-05-28 (Comprehensive Prune Pass - Technical Debt Specialist & Documentation Architect)
+- **Priority:** Low (Comprehensive consolidation and pruning completed)
+- **Notes:** Major documentation consolidation with TC-DRIFT-SCANNER.md merged into COMMON-PROCEDURES.md
 - **Artifacts:**
   - ✅ Obsolete Planning Pass removal - All references to deprecated Planning Pass eliminated
   - ✅ Empty docs/plans directory removal - Unused directory structure cleaned up
@@ -208,6 +208,10 @@
   - ✅ Historical design document removal - Removed implemented `AGENT-PROTOCOL.md` design document
   - ✅ Content compression - Reduced verbose language-specific examples and troubleshooting sections
   - ✅ Integration example cleanup - Simplified and consolidated drift scanner integration examples
+  - ✅ Major documentation consolidation - Merged TC-DRIFT-SCANNER.md into COMMON-PROCEDURES.md
+  - ✅ Single source of truth - Eliminated redundant drift scanning documentation
+  - ✅ Path reference cleanup - Fixed outdated drift scanner path in validation checklist
+  - ✅ Comprehensive content integration - All drift scanning content now centralized in COMMON-PROCEDURES.md
 
 ## 🔟 Reverse Pass
 - **Status:** Completed ✅
@@ -256,4 +260,4 @@
 
 ---
 
-*Last updated: 2025-05-28 | Status: Enhanced Prune Pass completed - Outdated tool references fixed, redundant content removed, historical artifacts eliminated*
+*Last updated: 2025-05-28 | Status: Comprehensive Prune Pass completed - Major documentation consolidation with TC-DRIFT-SCANNER.md merged into COMMON-PROCEDURES.md*
