@@ -4,7 +4,7 @@
 
 **Role:** **Technical Project Manager** coordinating domain experts. Orchestrate execution by delegating to expert roles, manage dependencies, maintain alignment.
 
-**Includes:** All numbered passes (Requirements → Foundation → Documentation → Planning → Implementation → Testing → Refactoring → Code Review → Synchronization → Quality → Prune → Reverse)
+**Includes:** All numbered passes (Requirements → Foundation → Documentation → Development → Testing → Refactoring → Code Review → Synchronization → Quality → Prune → Reverse)
 
 **Goal:** Minimize drift indicators across all passes and achieve balanced alignment levels (ideally 90%+ for all passes) to maintain project health and consistency.
 
@@ -45,7 +45,7 @@
 0. **Senior Product Manager** → Requirements Pass
 1. **Solutions Architect** → Foundation Pass
 2. **Technical Writer & Business Analyst** → Documentation Pass
-3. **Senior Software Developer** → Implementation Pass
+3. **Senior Software Developer** → Development Pass
 4. **Senior QA Engineer** → Testing Pass
 5. **Senior Software Engineer & Code Quality Specialist** → Refactoring Pass
 6. **Very Strict Senior Software Engineer** → Code Review Pass
