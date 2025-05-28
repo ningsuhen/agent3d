@@ -21,15 +21,14 @@
 0. **Requirements** - Business objectives
 1. **Foundation** - Project configuration
 2. **Documentation** - Features/requirements
-3. **Planning** - Implementation plans with checkpoints
-4. **Implementation** - Features with basic tests
-5. **Testing** - Comprehensive tests
-6. **Refactoring** - Code cleanup
-7. **Code Review** - PR reviews
-8. **Synchronization** - Doc-code alignment
-9. **Quality** - Documentation quality
-10. **Prune** - Remove outdated content
-11. **Reverse** - Detect reverse drift
+3. **Development** - Step-by-step feature implementation with execution plans (replaces Planning + Implementation)
+4. **Testing** - Comprehensive tests
+5. **Refactoring** - Code cleanup
+6. **Code Review** - PR reviews
+7. **Synchronization** - Doc-code alignment
+8. **Quality** - Documentation quality
+9. **Prune** - Remove outdated content
+10. **Reverse** - Detect reverse drift
 
 **Full Pass** - All passes for comprehensive updates
 
@@ -37,7 +36,7 @@
 
 **Core:** [AGENT-GUIDELINES.md](AGENT-GUIDELINES.md), [docs/](docs/) (BUSINESS-OBJECTIVES, REQUIREMENTS, USER-STORIES, ACCEPTANCE-CRITERIA, HIGH-LEVEL-DESIGN, DDD-STATUS)
 
-**Passes:** [passes/simplified/](passes/simplified/) (0-11: requirements→foundation→documentation→planning→implementation→testing→refactoring→code_review→synchronization→quality→prune→reverse, [full_pass.md](passes/simplified/full_pass.md))
+**Passes:** [passes/simplified/](passes/simplified/) (0-10: requirements→foundation→documentation→development→testing→refactoring→code_review→synchronization→quality→prune→reverse, [full_pass.md](passes/simplified/full_pass.md))
 
 **Supporting:** [docs/designs/](docs/designs/) (component specs), [docs/proposals/](docs/proposals/) (unimplemented features), [rules/](rules/) (language-specific), [templates/](templates/) (format specs)
 
