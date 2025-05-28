@@ -166,6 +166,129 @@ documentation:
   heading_structure: "hierarchical"
   link_style: "reference"
 
+# Identifier Patterns Configuration
+# Consolidated patterns for all Agent3D framework identifiers
+identifier_patterns:
+  # Core identifier patterns with their descriptions and file associations
+  TC-:
+    name: "Test Case"
+    description: "Test case identifiers"
+    pattern: "TC-[A-Z0-9]+-\\d+[a-z]?"
+    flexible_pattern: "TC-[A-Za-z0-9-]+"
+    primary_files: ["docs/TEST-CASES.md", "TEST-CASES.md"]
+    reference_files: ["**/*.py", "**/*.js", "**/*.ts", "**/*.java", "**/*.go", "**/*.rs", "**/*.md"]
+    format_example: "TC-0001, TC-0001a, TC-ENV-007"
+    status_indicators: ["[x]", "[ ]", "[~]", "[s]"]
+    relationship_targets: ["FT-*", "REQ-*"]
+
+  FT-:
+    name: "Feature"
+    description: "Feature tracking identifiers"
+    pattern: "FT-[A-Z]+-\\d+[a-z]?"
+    flexible_pattern: "FT-[A-Za-z0-9-]+"
+    primary_files: ["docs/FEATURES.md", "FEATURES.md"]
+    reference_files: ["docs/TEST-CASES.md", "**/*.md"]
+    format_example: "FT-CORE-001, FT-LANG-002a"
+    status_indicators: ["[x]", "[ ]", "[~]"]
+    relationship_targets: ["TC-*", "REQ-*"]
+
+  REQ-:
+    name: "Requirement"
+    description: "Requirement identifiers"
+    pattern: "REQ-[A-Z0-9]+-\\d+[a-z]?"
+    flexible_pattern: "REQ-[A-Za-z0-9-]+"
+    primary_files: ["docs/REQUIREMENTS.md", "REQUIREMENTS.md"]
+    reference_files: ["docs/TEST-CASES.md", "docs/FEATURES.md", "**/*.md"]
+    format_example: "REQ-001, REQ-FUNC-001"
+    status_indicators: ["[x]", "[ ]", "[~]"]
+    relationship_targets: ["TC-*", "FT-*"]
+
+  US-:
+    name: "User Story"
+    description: "User story identifiers"
+    pattern: "US-[A-Z0-9]+-\\d+[a-z]?"
+    flexible_pattern: "US-[A-Za-z0-9-]+"
+    primary_files: ["docs/USER-STORIES.md"]
+    reference_files: ["docs/REQUIREMENTS.md", "**/*.md"]
+    format_example: "US-001, US-AUTH-001"
+    status_indicators: ["[x]", "[ ]", "[~]"]
+    relationship_targets: ["REQ-*", "TC-*"]
+
+  AC-:
+    name: "Acceptance Criteria"
+    description: "Acceptance criteria identifiers"
+    pattern: "AC-[A-Z0-9]+-\\d+[a-z]?"
+    flexible_pattern: "AC-[A-Za-z0-9-]+"
+    primary_files: ["docs/ACCEPTANCE-CRITERIA.md"]
+    reference_files: ["docs/FEATURES.md", "docs/TEST-CASES.md", "**/*.md"]
+    format_example: "AC-001, AC-LOGIN-001"
+    status_indicators: ["[x]", "[ ]", "[~]"]
+    relationship_targets: ["TC-*", "FT-*", "US-*"]
+
+  BUG-:
+    name: "Bug"
+    description: "Bug tracking identifiers"
+    pattern: "BUG-[A-Z0-9]+-\\d+[a-z]?"
+    flexible_pattern: "BUG-[A-Za-z0-9-]+"
+    primary_files: ["docs/BUGS.md", "BUGS.md"]
+    reference_files: ["**/*.md", "**/*.py", "**/*.js"]
+    format_example: "BUG-001, BUG-CRIT-001"
+    status_indicators: ["[x]", "[ ]", "[~]"]
+    relationship_targets: ["TC-*", "FT-*"]
+
+  DOC-:
+    name: "Documentation"
+    description: "Documentation task identifiers"
+    pattern: "DOC-[A-Z0-9]+-\\d+[a-z]?"
+    flexible_pattern: "DOC-[A-Za-z0-9-]+"
+    primary_files: ["docs/DOCUMENTATION-TASKS.md"]
+    reference_files: ["**/*.md"]
+    format_example: "DOC-001, DOC-API-001"
+    status_indicators: ["[x]", "[ ]", "[~]"]
+    relationship_targets: ["FT-*", "REQ-*"]
+
+  API-:
+    name: "API Endpoint"
+    description: "API endpoint identifiers"
+    pattern: "API-[A-Z0-9]+-\\d+[a-z]?"
+    flexible_pattern: "API-[A-Za-z0-9-]+"
+    primary_files: ["docs/API-SPECIFICATION.md"]
+    reference_files: ["**/*.py", "**/*.js", "**/*.java", "**/*.md"]
+    format_example: "API-001, API-AUTH-001"
+    status_indicators: ["[x]", "[ ]", "[~]"]
+    relationship_targets: ["TC-*", "REQ-*"]
+
+  PERF-:
+    name: "Performance"
+    description: "Performance requirement identifiers"
+    pattern: "PERF-[A-Z0-9]+-\\d+[a-z]?"
+    flexible_pattern: "PERF-[A-Za-z0-9-]+"
+    primary_files: ["docs/PERFORMANCE-REQUIREMENTS.md"]
+    reference_files: ["**/*.md", "**/*.py"]
+    format_example: "PERF-001, PERF-LOAD-001"
+    status_indicators: ["[x]", "[ ]", "[~]"]
+    relationship_targets: ["TC-*", "REQ-*"]
+
+  SEC-:
+    name: "Security"
+    description: "Security requirement identifiers"
+    pattern: "SEC-[A-Z0-9]+-\\d+[a-z]?"
+    flexible_pattern: "SEC-[A-Za-z0-9-]+"
+    primary_files: ["docs/SECURITY-REQUIREMENTS.md"]
+    reference_files: ["**/*.md", "**/*.py", "**/*.js"]
+    format_example: "SEC-001, SEC-AUTH-001"
+    status_indicators: ["[x]", "[ ]", "[~]"]
+    relationship_targets: ["TC-*", "REQ-*"]
+
+# Drift Detection Configuration
+drift_detection:
+  enabled_patterns: ["TC-", "FT-", "REQ-", "US-", "AC-", "BUG-", "DOC-", "API-", "PERF-", "SEC-"]
+  primary_patterns: ["TC-", "FT-", "REQ-"]  # Non-deprecated core patterns
+  relationship_validation: true
+  cross_reference_checking: true
+  orphaned_identifier_detection: true
+  missing_implementation_detection: true
+
 # Template Configuration
 templates:
   base_path: "templates/"

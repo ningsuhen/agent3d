@@ -5,6 +5,8 @@ Detects various types of drift between documentation and implementation.
 
 Supported drift detection modes:
 - tc-mapping: TC ID mapping between TEST-CASES.md and test implementations
+- ft-mapping: FT ID mapping between FEATURES.md and test implementations
+- ft-tc-mapping: FT-* ↔ TC-* relationship mapping and validation
 - code-coverage: Test coverage analysis and missing test detection
 - doc-code: Documentation-code signature drift detection
 - feature-impl: Feature implementation status drift
@@ -22,7 +24,7 @@ import subprocess
 from pathlib import Path
 from collections import defaultdict
 from typing import Dict, List, Optional, Tuple, Set
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, field, asdict
 
 # Agent3D temporary directory for drift scanner operations
 AGENT3D_TMP_DIR = Path('.agent3d-tmp')
@@ -59,6 +61,108 @@ def log_analysis_start(mode: str, root_dir: str, log_file: str) -> None:
         f.write(f"Root Directory: {root_dir}\n")
         f.write(f"Log File: {log_file}\n")
         f.write(f"{'='*50}\n\n")
+
+class ConfigurationManager:
+    """Manages Agent3D configuration from .agent3d-config.yml"""
+
+    def __init__(self, root_dir: str = '.'):
+        self.root_dir = Path(root_dir)
+        self.config_file = self.root_dir / '.agent3d-config.yml'
+        self.config = self._load_config()
+
+    def _load_config(self) -> Dict:
+        """Load configuration from .agent3d-config.yml"""
+        if not self.config_file.exists():
+            print(f"⚠️  Configuration file not found at {self.config_file}")
+            print("   Using default identifier patterns")
+            return self._get_default_config()
+
+        try:
+            with open(self.config_file, 'r', encoding='utf-8') as f:
+                config = yaml.safe_load(f)
+                print(f"✅ Loaded configuration from {self.config_file}")
+                return config
+        except Exception as e:
+            print(f"❌ Error loading configuration: {e}")
+            print("   Using default identifier patterns")
+            return self._get_default_config()
+
+    def _get_default_config(self) -> Dict:
+        """Get default configuration when .agent3d-config.yml is not available"""
+        return {
+            'identifier_patterns': {
+                'TC-': {
+                    'name': 'Test Case',
+                    'pattern': r'TC-[A-Z0-9]+-\d+[a-z]?',
+                    'flexible_pattern': r'TC-[A-Za-z0-9-]+',
+                    'primary_files': ['docs/TEST-CASES.md', 'TEST-CASES.md'],
+                    'relationship_targets': ['FT-*', 'REQ-*']
+                },
+                'FT-': {
+                    'name': 'Feature',
+                    'pattern': r'FT-[A-Z]+-\d+[a-z]?',
+                    'flexible_pattern': r'FT-[A-Za-z0-9-]+',
+                    'primary_files': ['docs/FEATURES.md', 'FEATURES.md'],
+                    'relationship_targets': ['TC-*', 'REQ-*']
+                },
+                'REQ-': {
+                    'name': 'Requirement',
+                    'pattern': r'REQ-[A-Z0-9]+-\d+[a-z]?',
+                    'flexible_pattern': r'REQ-[A-Za-z0-9-]+',
+                    'primary_files': ['docs/REQUIREMENTS.md', 'REQUIREMENTS.md'],
+                    'relationship_targets': ['TC-*', 'FT-*']
+                }
+            },
+            'drift_detection': {
+                'enabled_patterns': ['TC-', 'FT-', 'REQ-'],
+                'primary_patterns': ['TC-', 'FT-', 'REQ-'],
+                'relationship_validation': True
+            }
+        }
+
+    def get_identifier_patterns(self) -> Dict:
+        """Get all identifier patterns from configuration"""
+        return self.config.get('identifier_patterns', {})
+
+    def get_pattern_config(self, prefix: str) -> Optional[Dict]:
+        """Get configuration for a specific identifier pattern"""
+        patterns = self.get_identifier_patterns()
+        return patterns.get(prefix)
+
+    def get_enabled_patterns(self) -> List[str]:
+        """Get list of enabled identifier patterns"""
+        drift_config = self.config.get('drift_detection', {})
+        return drift_config.get('enabled_patterns', ['TC-', 'FT-', 'REQ-'])
+
+    def get_primary_patterns(self) -> List[str]:
+        """Get list of primary (non-deprecated) patterns"""
+        drift_config = self.config.get('drift_detection', {})
+        return drift_config.get('primary_patterns', ['TC-', 'FT-', 'REQ-'])
+
+    def is_relationship_validation_enabled(self) -> bool:
+        """Check if relationship validation is enabled"""
+        drift_config = self.config.get('drift_detection', {})
+        return drift_config.get('relationship_validation', True)
+
+    def get_pattern_for_prefix(self, prefix: str, flexible: bool = False) -> str:
+        """Get regex pattern for a specific prefix"""
+        config = self.get_pattern_config(prefix)
+        if not config:
+            # Fallback pattern
+            return f'{prefix}[A-Za-z0-9-]+' if flexible else f'{prefix}[A-Z0-9]+-\\d+[a-z]?'
+
+        pattern_key = 'flexible_pattern' if flexible else 'pattern'
+        return config.get(pattern_key, f'{prefix}[A-Za-z0-9-]+')
+
+    def get_primary_files_for_pattern(self, prefix: str) -> List[str]:
+        """Get primary files where this pattern is defined"""
+        config = self.get_pattern_config(prefix)
+        return config.get('primary_files', []) if config else []
+
+    def get_relationship_targets(self, prefix: str) -> List[str]:
+        """Get which patterns this prefix can reference"""
+        config = self.get_pattern_config(prefix)
+        return config.get('relationship_targets', []) if config else []
 
 class GitChangeDetector:
     """Detects changed files using Git for optimized drift scanning."""
@@ -208,6 +312,29 @@ class TestCase:
     priority: str  # 'High', 'Medium', 'Low'
     is_sub_case: bool = False
     parent_tc_id: Optional[str] = None
+    ft_id: Optional[str] = None  # Associated FT-* feature ID
+
+@dataclass
+class Feature:
+    """Represents a feature from FEATURES.md."""
+    ft_id: str
+    title: str
+    description: str
+    status: str  # 'completed', 'pending', 'skipped'
+    criteria: str  # Acceptance criteria
+    is_sub_feature: bool = False
+    parent_ft_id: Optional[str] = None
+    tc_ids: List[str] = field(default_factory=list)  # Associated TC-* test case IDs
+
+@dataclass
+class FeatureTestMapping:
+    """Represents a mapping between FT-* features and TC-* test cases."""
+    ft_id: str
+    feature_title: str
+    tc_ids: List[str]
+    missing_tests: List[str]  # Features without test coverage
+    orphaned_tests: List[str]  # Tests without feature coverage
+    mapping_issues: List[str]  # Specific mapping problems
 
 @dataclass
 class CoverageIssue:
@@ -237,34 +364,7 @@ class FeatureIssue:
     actual_status: str  # implemented, missing, partial
     issue_type: str  # status_mismatch, missing_implementation, undocumented_feature
 
-@dataclass
-class Feature:
-    """Represents a feature from FEATURES.md."""
-    name: str
-    description: str
-    status: str  # 'completed', 'pending', 'skipped'
-    priority: str  # 'High', 'Medium', 'Low'
-    acceptance_criteria: Optional[str] = None
-    line_number: Optional[int] = None
-    is_sub_feature: bool = False
-    parent_feature: Optional[str] = None
 
-@dataclass
-class FeatureTestMapping:
-    """Represents the relationship between a feature and its test cases."""
-    feature: Feature
-    related_test_cases: List[TestCase] = None
-    related_test_functions: List[TestFunction] = None
-    coverage_percentage: float = 0.0
-    drift_issues: List[str] = None
-
-    def __post_init__(self):
-        if self.related_test_cases is None:
-            self.related_test_cases = []
-        if self.related_test_functions is None:
-            self.related_test_functions = []
-        if self.drift_issues is None:
-            self.drift_issues = []
 
 @dataclass
 class FeatureTestDriftIssue:
@@ -306,6 +406,12 @@ class DriftReport:
     implementations_without_test_cases: List[TestFunction] = None
     tc_mappings: Dict[str, List[TestFunction]] = None
     orphaned_tc_ids: List[str] = None
+    # FT Mapping (new)
+    features_without_tests: List[Feature] = None
+    tests_without_features: List[TestFunction] = None
+    ft_mappings: Dict[str, List[TestFunction]] = None
+    ft_tc_mappings: List[FeatureTestMapping] = None
+    orphaned_ft_ids: List[str] = None
     # Code Coverage
     coverage_issues: List[CoverageIssue] = None
     coverage_percentage: float = None
@@ -327,6 +433,18 @@ class DriftReport:
             self.tc_mappings = {}
         if self.orphaned_tc_ids is None:
             self.orphaned_tc_ids = []
+        # FT Mapping fields
+        if self.features_without_tests is None:
+            self.features_without_tests = []
+        if self.tests_without_features is None:
+            self.tests_without_features = []
+        if self.ft_mappings is None:
+            self.ft_mappings = {}
+        if self.ft_tc_mappings is None:
+            self.ft_tc_mappings = []
+        if self.orphaned_ft_ids is None:
+            self.orphaned_ft_ids = []
+        # Other fields
         if self.coverage_issues is None:
             self.coverage_issues = []
         if self.documentation_issues is None:
@@ -421,8 +539,10 @@ class LanguageDetector:
 class TestCaseParser:
     """Parses TEST-CASES.md to extract test case definitions."""
 
-    def __init__(self, test_cases_file: str = 'docs/TEST-CASES.md'):
+    def __init__(self, test_cases_file: str = 'docs/TEST-CASES.md',
+                 config_manager: Optional[ConfigurationManager] = None):
         self.test_cases_file = test_cases_file
+        self.config_manager = config_manager or ConfigurationManager('.')
 
     def parse_test_cases(self) -> List[TestCase]:
         """Parse TEST-CASES.md and extract all test cases."""
@@ -439,11 +559,12 @@ class TestCaseParser:
             print(f"❌ Error reading {self.test_cases_file}: {e}")
             return []
 
-        # Pattern to match test cases: - [x] **TC-NNNN** - Description (Type, Priority)
-        tc_pattern = r'- \[([x~\s])\] \*\*(TC-[A-Z0-9]+-\d+[a-z]?)\*\* - ([^(]+)\(([^,]+),\s*([^)]+)\)'
+        # Pattern to match test cases using configured TC pattern
+        tc_strict_pattern = self.config_manager.get_pattern_for_prefix('TC-', flexible=False)
+        tc_pattern = rf'- \[([x~\s])\] \*\*({tc_strict_pattern})\*\* - ([^(]+)\(([^,]+),\s*([^)]+)\)'
 
-        # Pattern for sub-test cases: - [x] **TC-NNNNa** - Description (Type, Priority)
-        sub_tc_pattern = r'\s+- \[([x~\s])\] \*\*(TC-[A-Z0-9]+-\d+[a-z])\*\* - ([^(]+)\(([^,]+),\s*([^)]+)\)'
+        # Pattern for sub-test cases using configured TC pattern
+        sub_tc_pattern = rf'\s+- \[([x~\s])\] \*\*({tc_strict_pattern})\*\* - ([^(]+)\(([^,]+),\s*([^)]+)\)'
 
         current_parent = None
 
@@ -485,13 +606,288 @@ class TestCaseParser:
 
         return test_cases
 
+class FeatureParser:
+    """Parses FEATURES.md to extract feature definitions."""
+
+    def __init__(self, features_file: str = 'docs/FEATURES.md',
+                 config_manager: Optional[ConfigurationManager] = None):
+        self.features_file = features_file
+        self.config_manager = config_manager or ConfigurationManager('.')
+
+    def parse_features(self) -> List[Feature]:
+        """Parse FEATURES.md and extract all features."""
+        if not Path(self.features_file).exists():
+            print(f"⚠️  FEATURES.md not found at {self.features_file}")
+            return []
+
+        features = []
+
+        try:
+            with open(self.features_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+        except Exception as e:
+            print(f"❌ Error reading {self.features_file}: {e}")
+            return []
+
+        # Pattern to match features using configured FT pattern
+        ft_strict_pattern = self.config_manager.get_pattern_for_prefix('FT-', flexible=False)
+        # Pattern: - [x] **FT-CORE-001** Feature Name - Description (Criteria: ...)
+        ft_pattern = rf'- \[([x~\s])\] \*\*({ft_strict_pattern})\*\* ([^-]+) - ([^(]+)\(Criteria: ([^)]+)\)'
+
+        # Pattern for sub-features
+        sub_ft_pattern = rf'\s+- \[([x~\s])\] \*\*({ft_strict_pattern})\*\* ([^-]+) - ([^(]+)\(Criteria: ([^)]+)\)'
+
+        current_parent = None
+
+        for line in content.split('\n'):
+            # Check for main features
+            main_match = re.match(ft_pattern, line.strip())
+            if main_match:
+                status_char, ft_id, title, description, criteria = main_match.groups()
+                status = 'completed' if status_char == 'x' else 'pending' if status_char == '~' else 'pending'
+
+                feature = Feature(
+                    ft_id=ft_id,
+                    title=title.strip(),
+                    description=description.strip(),
+                    status=status,
+                    criteria=criteria.strip(),
+                    is_sub_feature=False
+                )
+                features.append(feature)
+                current_parent = ft_id
+                continue
+
+            # Check for sub-features
+            sub_match = re.match(sub_ft_pattern, line)
+            if sub_match:
+                status_char, ft_id, title, description, criteria = sub_match.groups()
+                status = 'completed' if status_char == 'x' else 'pending' if status_char == '~' else 'pending'
+
+                feature = Feature(
+                    ft_id=ft_id,
+                    title=title.strip(),
+                    description=description.strip(),
+                    status=status,
+                    criteria=criteria.strip(),
+                    is_sub_feature=True,
+                    parent_ft_id=current_parent
+                )
+                features.append(feature)
+
+        return features
+
+    def extract_ft_tc_relationships(self, content: str) -> Dict[str, List[str]]:
+        """Extract FT-* to TC-* relationships from FEATURES.md content."""
+        relationships = {}
+
+        # Find all FT-* identifiers and their associated TC-* references
+        ft_pattern = self.config_manager.get_pattern_for_prefix('FT-', flexible=True)
+        tc_pattern = self.config_manager.get_pattern_for_prefix('TC-', flexible=True)
+
+        ft_matches = re.finditer(ft_pattern, content)
+
+        for ft_match in ft_matches:
+            ft_id = ft_match.group(0)
+            # Look for TC-* references in the same section (next 500 characters)
+            start_pos = ft_match.end()
+            section = content[start_pos:start_pos + 500]
+            tc_matches = re.findall(tc_pattern, section)
+
+            if tc_matches:
+                relationships[ft_id] = tc_matches
+
+        return relationships
+
+class FTDriftAnalyzer:
+    """Analyzes drift between FEATURES.md and test implementations, including FT-TC relationships."""
+
+    def __init__(self, root_dir: str = '.', features_file: str = 'docs/FEATURES.md',
+                 test_cases_file: str = 'docs/TEST-CASES.md',
+                 config_manager: Optional[ConfigurationManager] = None):
+        self.root_dir = root_dir
+        self.config_manager = config_manager or ConfigurationManager(root_dir)
+        self.feature_parser = FeatureParser(features_file, self.config_manager)
+        self.test_case_parser = TestCaseParser(test_cases_file, self.config_manager)
+
+    def analyze_ft_drift(self, test_functions: List[TestFunction]) -> DriftReport:
+        """Analyze FT-* feature drift and FT-TC relationships."""
+        print("🔍 Starting FT-* feature drift analysis...\n")
+
+        # Parse features and test cases
+        features = self.feature_parser.parse_features()
+        test_cases = self.test_case_parser.parse_test_cases()
+
+        print(f"📋 Found {len(features)} features and {len(test_cases)} test cases")
+        print(f"🧪 Analyzing {len(test_functions)} test functions")
+
+        # Analyze FT-* to test function mappings
+        ft_mappings = self._map_features_to_tests(features, test_functions)
+        features_without_tests = self._find_features_without_tests(features, ft_mappings)
+        tests_without_features = self._find_tests_without_features(test_functions, ft_mappings)
+
+        # Analyze FT-* to TC-* relationships
+        ft_tc_mappings = self._analyze_ft_tc_relationships(features, test_cases)
+
+        # Find orphaned FT IDs
+        orphaned_ft_ids = self._find_orphaned_ft_ids(features, test_functions)
+
+        metadata = {
+            'total_features': len(features),
+            'total_test_functions': len(test_functions),
+            'total_test_cases': len(test_cases),
+            'features_with_tests': len(ft_mappings),
+            'features_without_tests': len(features_without_tests),
+            'tests_without_features': len(tests_without_features),
+            'ft_tc_mappings': len(ft_tc_mappings),
+            'orphaned_ft_ids': len(orphaned_ft_ids)
+        }
+
+        return DriftReport(
+            mode='ft-mapping',
+            features_without_tests=features_without_tests,
+            tests_without_features=tests_without_features,
+            ft_mappings=ft_mappings,
+            ft_tc_mappings=ft_tc_mappings,
+            orphaned_ft_ids=orphaned_ft_ids,
+            metadata=metadata
+        )
+
+    def _map_features_to_tests(self, features: List[Feature], test_functions: List[TestFunction]) -> Dict[str, List[TestFunction]]:
+        """Map FT-* features to test functions that reference them."""
+        ft_mappings = {}
+
+        for feature in features:
+            ft_id = feature.ft_id
+            related_tests = []
+
+            # Find test functions that reference this FT ID
+            for test_func in test_functions:
+                # Check if FT ID is mentioned in the test function's vicinity
+                if self._test_references_feature(test_func, ft_id):
+                    related_tests.append(test_func)
+
+            if related_tests:
+                ft_mappings[ft_id] = related_tests
+
+        return ft_mappings
+
+    def _test_references_feature(self, test_func: TestFunction, ft_id: str) -> bool:
+        """Check if a test function references a specific FT ID."""
+        # Check if FT ID is in the test function's file content near the function
+        try:
+            with open(test_func.file, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            # Look for FT ID in the vicinity of the test function
+            # This is a simplified approach - could be enhanced with more sophisticated parsing
+            if ft_id in content:
+                return True
+
+        except Exception:
+            pass
+
+        return False
+
+    def _find_features_without_tests(self, features: List[Feature], ft_mappings: Dict[str, List[TestFunction]]) -> List[Feature]:
+        """Find features that don't have any test implementations."""
+        features_without_tests = []
+
+        for feature in features:
+            if feature.ft_id not in ft_mappings:
+                features_without_tests.append(feature)
+
+        return features_without_tests
+
+    def _find_tests_without_features(self, test_functions: List[TestFunction], ft_mappings: Dict[str, List[TestFunction]]) -> List[TestFunction]:
+        """Find test functions that don't reference any FT IDs."""
+        tests_with_features = set()
+
+        # Collect all test functions that are mapped to features
+        for ft_tests in ft_mappings.values():
+            for test_func in ft_tests:
+                tests_with_features.add(test_func.full_name)
+
+        # Find tests without feature references
+        tests_without_features = []
+        for test_func in test_functions:
+            if test_func.full_name not in tests_with_features:
+                tests_without_features.append(test_func)
+
+        return tests_without_features
+
+    def _analyze_ft_tc_relationships(self, features: List[Feature], test_cases: List[TestCase]) -> List[FeatureTestMapping]:
+        """Analyze relationships between FT-* features and TC-* test cases."""
+        ft_tc_mappings = []
+
+        for feature in features:
+            # Find test cases that reference this feature
+            related_tc_ids = []
+            missing_tests = []
+            mapping_issues = []
+
+            # Look for TC-* references in feature description/criteria
+            ft_pattern = self.config_manager.get_pattern_for_prefix('TC-', flexible=True)
+            tc_matches = re.findall(ft_pattern, f"{feature.description} {feature.criteria}")
+
+            for tc_id in tc_matches:
+                # Check if this TC ID exists in test cases
+                tc_exists = any(tc.tc_id == tc_id for tc in test_cases)
+                if tc_exists:
+                    related_tc_ids.append(tc_id)
+                else:
+                    missing_tests.append(tc_id)
+                    mapping_issues.append(f"Referenced TC-* {tc_id} not found in TEST-CASES.md")
+
+            # Check if feature has any test coverage
+            if not related_tc_ids and not missing_tests:
+                mapping_issues.append(f"Feature {feature.ft_id} has no TC-* references")
+
+            ft_tc_mapping = FeatureTestMapping(
+                ft_id=feature.ft_id,
+                feature_title=feature.title,
+                tc_ids=related_tc_ids,
+                missing_tests=missing_tests,
+                orphaned_tests=[],  # Will be populated in reverse analysis
+                mapping_issues=mapping_issues
+            )
+
+            ft_tc_mappings.append(ft_tc_mapping)
+
+        return ft_tc_mappings
+
+    def _find_orphaned_ft_ids(self, features: List[Feature], test_functions: List[TestFunction]) -> List[str]:
+        """Find FT IDs referenced in test functions but not defined in FEATURES.md."""
+        defined_ft_ids = {feature.ft_id for feature in features}
+        referenced_ft_ids = set()
+
+        # Extract FT IDs from test function files
+        ft_pattern = self.config_manager.get_pattern_for_prefix('FT-', flexible=True)
+
+        for test_func in test_functions:
+            try:
+                with open(test_func.file, 'r', encoding='utf-8') as f:
+                    content = f.read()
+
+                ft_matches = re.findall(ft_pattern, content)
+                referenced_ft_ids.update(ft_matches)
+
+            except Exception:
+                continue
+
+        # Find orphaned FT IDs
+        orphaned_ft_ids = list(referenced_ft_ids - defined_ft_ids)
+        return orphaned_ft_ids
+
 class TestImplementationScanner:
     """Scans test implementations across multiple programming languages."""
 
-    def __init__(self, root_dir: str = '.', change_detector: Optional['GitChangeDetector'] = None):
+    def __init__(self, root_dir: str = '.', change_detector: Optional['GitChangeDetector'] = None,
+                 config_manager: Optional[ConfigurationManager] = None):
         self.root_dir = Path(root_dir)
         self.detector = LanguageDetector()
         self.change_detector = change_detector
+        self.config_manager = config_manager or ConfigurationManager(root_dir)
 
     def find_test_files(self, changed_files: Optional[Set[Path]] = None) -> List[Tuple[Path, str]]:
         """Find all test files and their detected languages, optionally filtered by changed files."""
@@ -546,7 +942,8 @@ class TestImplementationScanner:
         end = min(len(content), position + search_range)
         section = content[start:end]
 
-        tc_pattern = r'TC-[A-Z0-9]+-\d+[a-z]?'
+        # Use configured pattern for TC IDs
+        tc_pattern = self.config_manager.get_pattern_for_prefix('TC-', flexible=False)
         return re.findall(tc_pattern, section)
 
     def _get_line_number(self, content: str, position: int) -> int:
@@ -1290,17 +1687,23 @@ class MultiModeDriftAnalyzer:
         self.root_dir = root_dir
         self.test_cases_file = test_cases_file
         self.change_detector = change_detector
+        self.config_manager = ConfigurationManager(root_dir)
 
-        # Initialize individual scanners
-        self.tc_analyzer = TCDriftAnalyzer(root_dir, test_cases_file, change_detector)
+        # Initialize individual scanners with configuration
+        self.tc_analyzer = TCDriftAnalyzer(root_dir, test_cases_file, change_detector, self.config_manager)
+        self.ft_analyzer = FTDriftAnalyzer(root_dir, 'docs/FEATURES.md', test_cases_file, self.config_manager)
         self.coverage_scanner = CodeCoverageScanner(root_dir)
-        self.feature_scanner = FeatureImplementationScanner(root_dir)
-        self.comprehensive_detector = ComprehensiveDriftDetector(root_dir)
+        self.feature_scanner = FeatureImplementationScanner(root_dir, self.config_manager)
+        self.comprehensive_detector = ComprehensiveDriftDetector(root_dir, self.config_manager)
 
     def analyze_drift(self, mode: str = 'tc-mapping', changed_files: Optional[Set[Path]] = None) -> DriftReport:
         """Analyze drift based on the specified mode, optionally filtered by changed files."""
         if mode == 'tc-mapping':
             return self._analyze_tc_mapping(changed_files)
+        elif mode == 'ft-mapping':
+            return self._analyze_ft_mapping(changed_files)
+        elif mode == 'ft-tc-mapping':
+            return self._analyze_ft_tc_mapping(changed_files)
         elif mode == 'code-coverage':
             return self._analyze_code_coverage(changed_files)
         elif mode == 'feature-impl':
@@ -1319,6 +1722,58 @@ class MultiModeDriftAnalyzer:
         tc_report = self.tc_analyzer.analyze_drift(changed_files)
         tc_report.mode = 'tc-mapping'
         return tc_report
+
+    def _analyze_ft_mapping(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
+        """Analyze FT ID mapping drift."""
+        if changed_files is not None:
+            print("🔍 Starting FT ID mapping drift analysis (change-based)...\n")
+        else:
+            print("🔍 Starting FT ID mapping drift analysis...\n")
+
+        # Get test functions first
+        test_functions = self.tc_analyzer.implementation_scanner.scan_all_tests(changed_files)
+
+        # Analyze FT drift
+        ft_report = self.ft_analyzer.analyze_ft_drift(test_functions)
+        ft_report.mode = 'ft-mapping'
+        return ft_report
+
+    def _analyze_ft_tc_mapping(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
+        """Analyze FT-TC relationship mapping drift."""
+        if changed_files is not None:
+            print("🔍 Starting FT-TC relationship mapping drift analysis (change-based)...\n")
+        else:
+            print("🔍 Starting FT-TC relationship mapping drift analysis...\n")
+
+        # Get test functions first
+        test_functions = self.tc_analyzer.implementation_scanner.scan_all_tests(changed_files)
+
+        # Analyze both TC and FT drift
+        tc_report = self.tc_analyzer.analyze_drift(changed_files)
+        ft_report = self.ft_analyzer.analyze_ft_drift(test_functions)
+
+        # Combine the reports
+        combined_metadata = {
+            **tc_report.metadata,
+            **ft_report.metadata,
+            'mode': 'ft-tc-mapping'
+        }
+
+        return DriftReport(
+            mode='ft-tc-mapping',
+            # TC Mapping data
+            test_cases_without_implementations=tc_report.test_cases_without_implementations,
+            implementations_without_test_cases=tc_report.implementations_without_test_cases,
+            tc_mappings=tc_report.tc_mappings,
+            orphaned_tc_ids=tc_report.orphaned_tc_ids,
+            # FT Mapping data
+            features_without_tests=ft_report.features_without_tests,
+            tests_without_features=ft_report.tests_without_features,
+            ft_mappings=ft_report.ft_mappings,
+            ft_tc_mappings=ft_report.ft_tc_mappings,
+            orphaned_ft_ids=ft_report.orphaned_ft_ids,
+            metadata=combined_metadata
+        )
 
     def _analyze_code_coverage(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
         """Analyze code coverage drift."""
@@ -1387,6 +1842,8 @@ class MultiModeDriftAnalyzer:
 
         # Run all individual analyses
         tc_report = self._analyze_tc_mapping(changed_files)
+        ft_report = self._analyze_ft_mapping(changed_files)
+        ft_tc_report = self._analyze_ft_tc_mapping(changed_files)
         coverage_report = self._analyze_code_coverage(changed_files)
         feature_report = self._analyze_feature_implementation(changed_files)
 
@@ -1397,6 +1854,7 @@ class MultiModeDriftAnalyzer:
         # Combine results
         combined_metadata = {
             **tc_report.metadata,
+            **ft_tc_report.metadata,  # This includes both FT and TC metadata
             **coverage_report.metadata,
             **feature_report.metadata,
             'comprehensive_issues_count': len(comprehensive_issues),
@@ -1407,10 +1865,18 @@ class MultiModeDriftAnalyzer:
 
         return DriftReport(
             mode='all',
+            # TC Mapping data
             test_cases_without_implementations=tc_report.test_cases_without_implementations,
             implementations_without_test_cases=tc_report.implementations_without_test_cases,
             tc_mappings=tc_report.tc_mappings,
             orphaned_tc_ids=tc_report.orphaned_tc_ids,
+            # FT Mapping data (from ft_tc_report which has the most complete FT data)
+            features_without_tests=ft_tc_report.features_without_tests,
+            tests_without_features=ft_tc_report.tests_without_features,
+            ft_mappings=ft_tc_report.ft_mappings,
+            ft_tc_mappings=ft_tc_report.ft_tc_mappings,
+            orphaned_ft_ids=ft_tc_report.orphaned_ft_ids,
+            # Other data
             coverage_issues=coverage_report.coverage_issues,
             coverage_percentage=coverage_report.coverage_percentage,
             feature_issues=feature_report.feature_issues,
@@ -1422,11 +1888,13 @@ class TCDriftAnalyzer:
     """Analyzes drift between TEST-CASES.md and test implementations."""
 
     def __init__(self, root_dir: str = '.', test_cases_file: str = 'docs/TEST-CASES.md',
-                 change_detector: Optional[GitChangeDetector] = None):
+                 change_detector: Optional[GitChangeDetector] = None,
+                 config_manager: Optional[ConfigurationManager] = None):
         self.root_dir = root_dir
-        self.test_case_parser = TestCaseParser(test_cases_file)
+        self.config_manager = config_manager or ConfigurationManager(root_dir)
+        self.test_case_parser = TestCaseParser(test_cases_file, self.config_manager)
         self.change_detector = change_detector
-        self.implementation_scanner = TestImplementationScanner(root_dir, change_detector)
+        self.implementation_scanner = TestImplementationScanner(root_dir, change_detector, self.config_manager)
 
     def analyze_drift(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
         """Perform complete drift analysis, optionally filtered by changed files."""
@@ -1802,7 +2270,7 @@ def main():
 
     parser = argparse.ArgumentParser(description='Multi-mode drift scanner for Agent3D framework')
     parser.add_argument('--mode', default='tc-mapping',
-                       choices=['tc-mapping', 'code-coverage', 'feature-impl', 'all'],
+                       choices=['tc-mapping', 'ft-mapping', 'ft-tc-mapping', 'code-coverage', 'feature-impl', 'all'],
                        help='Drift analysis mode (default: tc-mapping)')
     parser.add_argument('--root-dir', default='.', help='Root directory to scan (default: current directory)')
     parser.add_argument('--test-cases-file', default='docs/TEST-CASES.md',
