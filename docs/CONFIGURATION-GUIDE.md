@@ -13,9 +13,11 @@ foundation_pass:
   templates: [README.template.md, FEATURES.template.md, HIGH-LEVEL-DESIGN.template.md]
   validation: strict
 
-# Implementation Pass
-implementation_pass:
+# Development Pass
+development_pass:
   enabled: true
+  type: "documentation_development"
+  selection_mode: "auto"
   test_coverage_threshold: 80
   quality_gates: {lint_score: 8.0, complexity: low, security_scan: required}
 

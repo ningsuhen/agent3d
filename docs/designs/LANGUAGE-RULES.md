@@ -265,7 +265,7 @@ project_overrides:
 #### Pass Integration
 
 **Foundation Pass:** Apply environment setup, project structure, and build tool rules
-**Implementation Pass:** Validate code style, naming conventions, and import patterns
+**Development Pass:** Validate code style, naming conventions, and import patterns during implementation
 **Testing Pass:** Enforce testing framework and coverage requirements
 **Quality Pass:** Run language-specific quality tools and compliance validation
 
