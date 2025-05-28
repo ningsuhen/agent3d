@@ -239,9 +239,11 @@ rules/                # Language rules
 **Validation:** Functional links, no template tags, consistent formatting, complete placeholders, proper hierarchy.
 **GitHub:** See [GitHub CLI Integration Guide](GITHUB-CLI-INTEGRATION.md) - automated PR detection, pending reviews, human-agent workflow.
 
-## TC ID Drift Scanning
+## Drift Scanning
 
-**Tool:** `python3 tools/drift_scanner.py` - Multi-mode drift detection with TC mapping, code coverage, and feature implementation analysis.
+**Direct Tool:** `python3 ~/.agent3d/tools/drift_scanner.py` - Run from DDD project root directory. Requires manual path management and working directory setup.
+
+**MCP Server:** `~/.agent3d/tools/drift_scanner_mcp_server.sh` - Full MCP server implementation for client integration with virtual environment support and DDD_ROOT environment variable.
 
 **Analysis Modes:**
 - **tc-mapping** - TC ID mapping between TEST-CASES.md and test implementations
@@ -256,20 +258,27 @@ rules/                # Language rules
 
 **Usage Examples:**
 ```bash
+# CRITICAL: Run from DDD project root (where .agent3d-config.yaml is located)
+cd /path/to/your/ddd-project
+
 # TC ID mapping analysis (default)
-python3 tools/drift_scanner.py --mode tc-mapping
+python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping
 
 # Code coverage analysis
-python3 tools/drift_scanner.py --mode code-coverage
+python3 ~/.agent3d/tools/drift_scanner.py --mode code-coverage
 
 # Feature implementation analysis
-python3 tools/drift_scanner.py --mode feature-impl
+python3 ~/.agent3d/tools/drift_scanner.py --mode feature-impl
 
 # Comprehensive analysis (all modes)
-python3 tools/drift_scanner.py --mode all
+python3 ~/.agent3d/tools/drift_scanner.py --mode all
 
 # Quiet mode for CI/CD integration
-python3 tools/drift_scanner.py --quiet
+python3 ~/.agent3d/tools/drift_scanner.py --quiet
+
+# Direct tool usage examples
+python3 ~/.agent3d/tools/drift_scanner.py --mode all
+python3 ~/.agent3d/tools/drift_scanner.py --mode all --quiet
 ```
 
 **Exit Codes:**
@@ -279,18 +288,21 @@ python3 tools/drift_scanner.py --quiet
 
 **DDD Pass Integration:**
 ```bash
-# In Testing Pass
-echo "🔍 Checking TC ID drift..."
-python3 tools/tc-drift-scanner.py --quiet
+# In Testing Pass - TC ID mapping and code coverage
+echo "🔍 Checking TC ID drift and code coverage..."
+python3 ~/.agent3d/tools/drift_scanner.py --mode all --quiet
 DRIFT_LEVEL=$?
 if [ $DRIFT_LEVEL -eq 2 ]; then
-    echo "❌ HIGH DRIFT: Must fix TC ID mappings before proceeding"
+    echo "❌ HIGH DRIFT: Must fix drift issues before proceeding"
     exit 1
 fi
 
-# In Synchronization Pass
-python3 tools/tc-drift-scanner.py --output sync-drift-check.yaml
-echo "📄 TC ID drift report: sync-drift-check.yaml"
+# In Synchronization Pass - comprehensive drift analysis
+python3 ~/.agent3d/tools/drift_scanner.py --mode all
+echo "📄 Comprehensive drift report generated in .agent3d-tmp/drift-reports/"
+
+# In Feature Implementation Pass - feature status validation
+python3 ~/.agent3d/tools/drift_scanner.py --mode feature-impl --quiet
 ```
 
 **See:** [TC Drift Scanner Documentation](TC-DRIFT-SCANNER.md) for complete usage guide.

@@ -41,8 +41,7 @@ def ensure_tmp_directory() -> Path:
 def get_default_output_path(mode: str) -> str:
     """Get the default output path for a given drift analysis mode."""
     tmp_dir = ensure_tmp_directory()
-    timestamp = os.popen('date +%Y%m%d_%H%M%S').read().strip()
-    return str(tmp_dir / 'drift-reports' / f'{mode}-drift-report-{timestamp}.yaml')
+    return str(tmp_dir / 'drift-reports' / f'{mode}-drift-report.yaml')
 
 def get_log_file_path() -> str:
     """Get the log file path for the current analysis session."""
@@ -115,6 +114,20 @@ class FeatureIssue:
     issue_type: str  # status_mismatch, missing_implementation, undocumented_feature
 
 @dataclass
+class DriftIssue:
+    """Represents a specific drift detection issue with severity and suggestions."""
+    strategy: str
+    drift_type: str
+    severity: str  # 'critical', 'warning', 'info'
+    description: str
+    location: str
+    expected: str
+    actual: str
+    suggestion: str
+    file_path: str = None
+    line_number: int = None
+
+@dataclass
 class DriftReport:
     """Complete multi-mode drift analysis report."""
     mode: str
@@ -130,6 +143,8 @@ class DriftReport:
     documentation_issues: List[DocumentationIssue] = None
     # Feature Implementation Drift
     feature_issues: List[FeatureIssue] = None
+    # Enhanced Drift Issues (with severity and suggestions)
+    drift_issues: List[DriftIssue] = None
     # General
     metadata: Dict = None
 
@@ -148,6 +163,8 @@ class DriftReport:
             self.documentation_issues = []
         if self.feature_issues is None:
             self.feature_issues = []
+        if self.drift_issues is None:
+            self.drift_issues = []
         if self.metadata is None:
             self.metadata = {}
 
@@ -844,6 +861,248 @@ class FeatureImplementationScanner:
         # For now, return the documented status (no drift detected)
         return feature['status']
 
+class ComprehensiveDriftDetector:
+    """Comprehensive drift detection with multiple strategies and severity levels."""
+
+    def __init__(self, root_dir: str = '.'):
+        self.root_dir = Path(root_dir)
+        self.detector = LanguageDetector()
+        self.drift_issues: List[DriftIssue] = []
+
+    def detect_identifier_drift(self) -> List[DriftIssue]:
+        """Detect drift using various identifier patterns beyond TC-."""
+        patterns = {
+            'TC-': 'Test Case identifiers',
+            'REQ-': 'Requirement identifiers',
+            'US-': 'User Story identifiers',
+            'AC-': 'Acceptance Criteria identifiers',
+            'BUG-': 'Bug identifiers',
+            'FEAT-': 'Feature identifiers',
+            'DOC-': 'Documentation identifiers',
+            'API-': 'API endpoint identifiers',
+            'PERF-': 'Performance requirement identifiers',
+            'SEC-': 'Security requirement identifiers'
+        }
+
+        issues = []
+        for pattern, description in patterns.items():
+            issues.extend(self._scan_identifier_pattern(pattern, description))
+
+        return issues
+
+    def detect_import_drift(self) -> List[DriftIssue]:
+        """Detect unused imports and missing imports in test files."""
+        issues = []
+
+        for test_file in self.root_dir.glob("test_*.py"):
+            try:
+                with open(test_file, 'r', encoding='utf-8') as f:
+                    content = f.read()
+
+                # Extract imports using AST
+                import ast
+                tree = ast.parse(content)
+
+                imports = set()
+                for node in ast.walk(tree):
+                    if isinstance(node, ast.Import):
+                        for alias in node.names:
+                            imports.add(alias.name)
+                    elif isinstance(node, ast.ImportFrom):
+                        for alias in node.names:
+                            imports.add(alias.name)
+
+                # Simple usage detection (could be enhanced)
+                used_symbols = set()
+                for line in content.split('\n'):
+                    for imp in imports:
+                        if imp in line and not line.strip().startswith('import') and not line.strip().startswith('from'):
+                            used_symbols.add(imp)
+
+                # Find unused imports
+                unused_imports = imports - used_symbols
+                for unused in unused_imports:
+                    issues.append(DriftIssue(
+                        strategy="import_drift",
+                        drift_type="unused_import",
+                        severity="info",
+                        description=f"Import '{unused}' is not used",
+                        location=str(test_file),
+                        expected="used",
+                        actual="unused",
+                        suggestion=f"Remove unused import '{unused}'",
+                        file_path=str(test_file)
+                    ))
+
+            except Exception as e:
+                # Skip files that can't be parsed
+                continue
+
+        return issues
+
+    def detect_assertion_pattern_drift(self) -> List[DriftIssue]:
+        """Detect outdated assertion patterns that should be modernized."""
+        issues = []
+
+        old_patterns = {
+            'self.assertEqual': 'assert ==',
+            'self.assertTrue': 'assert',
+            'self.assertFalse': 'assert not',
+            'self.assertIn': 'assert in',
+            'self.assertIsNone': 'assert is None',
+            'self.assertIsNotNone': 'assert is not None',
+            'self.fail': 'pytest.fail'
+        }
+
+        for test_file in self.root_dir.glob("test_*.py"):
+            try:
+                with open(test_file, 'r', encoding='utf-8') as f:
+                    content = f.read()
+
+                for line_num, line in enumerate(content.split('\n'), 1):
+                    for old_pattern, new_pattern in old_patterns.items():
+                        if old_pattern in line:
+                            issues.append(DriftIssue(
+                                strategy="assertion_drift",
+                                drift_type="outdated_assertion",
+                                severity="warning",
+                                description=f"Old assertion pattern '{old_pattern}' found",
+                                location=str(test_file),
+                                expected=new_pattern,
+                                actual=old_pattern,
+                                suggestion=f"Convert '{old_pattern}' to '{new_pattern}'",
+                                file_path=str(test_file),
+                                line_number=line_num
+                            ))
+
+            except Exception:
+                continue
+
+        return issues
+
+    def detect_configuration_drift(self) -> List[DriftIssue]:
+        """Detect drift in configuration files vs actual project structure."""
+        issues = []
+
+        # Check pyproject.toml vs actual test structure
+        pyproject_path = self.root_dir / "pyproject.toml"
+        if pyproject_path.exists():
+            issues.extend(self._check_pyproject_drift(pyproject_path))
+
+        return issues
+
+    def _scan_identifier_pattern(self, pattern: str, description: str) -> List[DriftIssue]:
+        """Scan for specific identifier pattern drift."""
+        issues = []
+
+        # Find all identifiers in code
+        code_identifiers = self._extract_identifiers_from_code(pattern)
+
+        # Find all identifiers in documentation
+        doc_identifiers = self._extract_identifiers_from_docs(pattern)
+
+        # Find missing identifiers
+        missing_in_code = doc_identifiers - code_identifiers
+        missing_in_docs = code_identifiers - doc_identifiers
+
+        for missing_id in missing_in_code:
+            issues.append(DriftIssue(
+                strategy="identifier_drift",
+                drift_type="missing_implementation",
+                severity="critical",
+                description=f"{description} {missing_id} documented but not implemented",
+                location="code",
+                expected=missing_id,
+                actual="not found",
+                suggestion=f"Implement test case for {missing_id}"
+            ))
+
+        for missing_id in missing_in_docs:
+            issues.append(DriftIssue(
+                strategy="identifier_drift",
+                drift_type="missing_documentation",
+                severity="warning",
+                description=f"{description} {missing_id} implemented but not documented",
+                location="documentation",
+                expected=missing_id,
+                actual="not found",
+                suggestion=f"Add documentation for {missing_id}"
+            ))
+
+        return issues
+
+    def _extract_identifiers_from_code(self, pattern: str) -> set:
+        """Extract identifiers matching pattern from code files."""
+        identifiers = set()
+
+        for test_file in self.root_dir.glob("test_*.py"):
+            try:
+                content = test_file.read_text()
+                matches = re.findall(f'{pattern}[A-Z0-9]+-\\d+[a-z]?', content)
+                identifiers.update(matches)
+            except Exception:
+                continue
+
+        return identifiers
+
+    def _extract_identifiers_from_docs(self, pattern: str) -> set:
+        """Extract identifiers matching pattern from documentation."""
+        identifiers = set()
+
+        # Check markdown files
+        for doc_file in self.root_dir.glob("**/*.md"):
+            try:
+                content = doc_file.read_text()
+                matches = re.findall(f'{pattern}[A-Z0-9]+-\\d+[a-z]?', content)
+                identifiers.update(matches)
+            except Exception:
+                continue
+
+        return identifiers
+
+    def _check_pyproject_drift(self, pyproject_path: Path) -> List[DriftIssue]:
+        """Check for drift in pyproject.toml configuration."""
+        issues = []
+
+        try:
+            import tomllib
+            with open(pyproject_path, 'rb') as f:
+                pyproject_data = tomllib.load(f)
+
+            # Check if test paths in pyproject.toml match actual structure
+            test_paths = pyproject_data.get('tool', {}).get('pytest', {}).get('testpaths', [])
+            if test_paths:
+                for test_path in test_paths:
+                    test_dir = self.root_dir / test_path
+                    if not test_dir.exists():
+                        issues.append(DriftIssue(
+                            strategy="configuration_drift",
+                            drift_type="missing_test_path",
+                            severity="warning",
+                            description=f"Test path '{test_path}' in pyproject.toml doesn't exist",
+                            location=str(pyproject_path),
+                            expected="existing directory",
+                            actual="missing directory",
+                            suggestion=f"Create directory '{test_path}' or update pyproject.toml"
+                        ))
+
+        except Exception:
+            # Skip if tomllib not available or file can't be parsed
+            pass
+
+        return issues
+
+    def analyze_all_drift(self) -> List[DriftIssue]:
+        """Run all comprehensive drift detection strategies."""
+        all_issues = []
+
+        all_issues.extend(self.detect_identifier_drift())
+        all_issues.extend(self.detect_import_drift())
+        all_issues.extend(self.detect_assertion_pattern_drift())
+        all_issues.extend(self.detect_configuration_drift())
+
+        return all_issues
+
 class MultiModeDriftAnalyzer:
     """Multi-mode drift analyzer that can run different types of drift detection."""
 
@@ -855,6 +1114,7 @@ class MultiModeDriftAnalyzer:
         self.tc_analyzer = TCDriftAnalyzer(root_dir, test_cases_file)
         self.coverage_scanner = CodeCoverageScanner(root_dir)
         self.feature_scanner = FeatureImplementationScanner(root_dir)
+        self.comprehensive_detector = ComprehensiveDriftDetector(root_dir)
 
     def analyze_drift(self, mode: str = 'tc-mapping') -> DriftReport:
         """Analyze drift based on the specified mode."""
@@ -937,11 +1197,19 @@ class MultiModeDriftAnalyzer:
         coverage_report = self._analyze_code_coverage()
         feature_report = self._analyze_feature_implementation()
 
+        # Run comprehensive drift detection
+        print("🔍 Running comprehensive drift detection strategies...\n")
+        comprehensive_issues = self.comprehensive_detector.analyze_all_drift()
+
         # Combine results
         combined_metadata = {
             **tc_report.metadata,
             **coverage_report.metadata,
-            **feature_report.metadata
+            **feature_report.metadata,
+            'comprehensive_issues_count': len(comprehensive_issues),
+            'critical_issues': len([i for i in comprehensive_issues if i.severity == 'critical']),
+            'warning_issues': len([i for i in comprehensive_issues if i.severity == 'warning']),
+            'info_issues': len([i for i in comprehensive_issues if i.severity == 'info'])
         }
 
         return DriftReport(
@@ -953,6 +1221,7 @@ class MultiModeDriftAnalyzer:
             coverage_issues=coverage_report.coverage_issues,
             coverage_percentage=coverage_report.coverage_percentage,
             feature_issues=feature_report.feature_issues,
+            drift_issues=comprehensive_issues,
             metadata=combined_metadata
         )
 
@@ -1169,6 +1438,18 @@ def generate_multi_mode_report(report: DriftReport, output_file: str = 'drift-re
             'feature_issues': [asdict(issue) for issue in (report.feature_issues or [])]
         })
 
+    # Add comprehensive drift issues for 'all' mode
+    if report.mode == 'all' and report.drift_issues:
+        report_dict.update({
+            'comprehensive_drift_summary': {
+                'total_issues': len(report.drift_issues),
+                'critical_issues': len([i for i in report.drift_issues if i.severity == 'critical']),
+                'warning_issues': len([i for i in report.drift_issues if i.severity == 'warning']),
+                'info_issues': len([i for i in report.drift_issues if i.severity == 'info'])
+            },
+            'comprehensive_drift_issues': [asdict(issue) for issue in report.drift_issues]
+        })
+
     # Write YAML report
     with open(output_file, 'w') as f:
         yaml.dump(report_dict, f, default_flow_style=False, sort_keys=False, indent=2)
@@ -1191,6 +1472,7 @@ def print_multi_mode_summary(report: DriftReport) -> None:
         print_tc_mapping_summary(report)
         print_coverage_summary(report)
         print_feature_summary(report)
+        print_comprehensive_drift_summary(report)
 
     print("\n" + "="*80)
 
@@ -1228,6 +1510,45 @@ def print_feature_summary(report: DriftReport) -> None:
 
     print(f"\n📊 FEATURE IMPLEMENTATION OVERVIEW:")
     print(f"  Feature Issues: {len(report.feature_issues or [])}")
+
+def print_comprehensive_drift_summary(report: DriftReport) -> None:
+    """Print comprehensive drift detection summary."""
+    if not report.drift_issues:
+        return
+
+    print(f"\n📊 COMPREHENSIVE DRIFT OVERVIEW:")
+    print(f"  Total Issues: {len(report.drift_issues)}")
+
+    # Group by severity
+    critical = [i for i in report.drift_issues if i.severity == 'critical']
+    warnings = [i for i in report.drift_issues if i.severity == 'warning']
+    info = [i for i in report.drift_issues if i.severity == 'info']
+
+    print(f"  Critical Issues: {len(critical)}")
+    print(f"  Warning Issues: {len(warnings)}")
+    print(f"  Info Issues: {len(info)}")
+
+    # Group by strategy
+    strategies = {}
+    for issue in report.drift_issues:
+        if issue.strategy not in strategies:
+            strategies[issue.strategy] = 0
+        strategies[issue.strategy] += 1
+
+    print(f"\n  Issues by Strategy:")
+    for strategy, count in sorted(strategies.items()):
+        print(f"    {strategy.replace('_', ' ').title()}: {count}")
+
+    # Show critical issues details
+    if critical:
+        print(f"\n❌ CRITICAL ISSUES:")
+        for issue in critical[:5]:  # Show first 5 critical issues
+            print(f"  - {issue.description}")
+            print(f"    Location: {issue.location}")
+            print(f"    Suggestion: {issue.suggestion}")
+
+        if len(critical) > 5:
+            print(f"  ... and {len(critical) - 5} more critical issues")
 
 def calculate_exit_code(report: DriftReport) -> int:
     """Calculate exit code based on drift level across all modes."""
