@@ -15,6 +15,7 @@ This document provides an index of all Agent3D features organized by module with
 - **Integrated Testing:** Test cases directly associated with their features
 - **Better Traceability:** Clear FT-TC relationships in a single location
 - **Scalability:** Easy to add new feature sections without modifying multiple files
+- **Code Location Linking:** Direct links from features to implementation code for better analysis
 
 ### Migration Guide:
 - **Old:** Single `docs/FEATURES.md` file with separate `docs/TEST-CASES.md`
@@ -78,8 +79,20 @@ python3 tools/drift_scanner.py --mode ft-mapping
 - **Individual features:** Use `templates/FEATURES.template.md`
 - **New modules:** Use `templates/FEATURE-module.template.md`
 
+## Code Location Field
+
+**New Enhancement (2025-01-27):** All features now include a **Code Location** field that links features to their actual implementation code. This enhancement improves:
+
+- **Feature-Implementation Analysis:** Automated verification of feature-code alignment
+- **Test Writing:** Clear guidance on what code to import and test
+- **Quality Assessment:** Better code review and maintenance capabilities
+- **Drift Detection:** Enhanced accuracy in feature-implementation mapping
+
+**Documentation:** See [CODE-LOCATION-FIELD.md](CODE-LOCATION-FIELD.md) for complete documentation and examples.
+
 ## Related Documentation
 
+- **[Code Location Field](CODE-LOCATION-FIELD.md)** - Complete guide to the new Code Location field
 - **[High-Level Design](HIGH-LEVEL-DESIGN.md)** - System architecture and component designs
 - **[Requirements](REQUIREMENTS.md)** - Functional and non-functional requirements
 - **[Tasks](TASKS.md)** - Implementation backlog and priorities
