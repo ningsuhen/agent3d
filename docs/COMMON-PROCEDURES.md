@@ -439,6 +439,9 @@ python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping --recent-days 3 -
 - **Cross-References:** Maintain FT-TC relationships in FEATURES.md and TEST-CASES.md
 - **Naming Consistency:** Use `test_feature_tc_0001` format for TC mapping
 - **One-to-One Mapping:** One TC ID per test function, clear FT-TC relationships
+- **Multiple Test Cases per Feature:** **CRITICAL** - Emphasize 5-8 test cases per feature covering different aspects (core functionality, edge cases, error handling, integration, performance, security, validation, boundary)
+- **Limited Sub-Test Usage:** **CRITICAL** - Use sub-tests ONLY for parameterized testing (same test logic, different parameters/inputs/platforms/configurations)
+- **Avoid Sub-Test Misuse:** **CRITICAL** - Do NOT use sub-tests for different test logic, unrelated scenarios, or separate feature aspects
 - **Appropriate TC Description Length:** **CRITICAL** - Keep TC descriptions as short as possible when linked features provide sufficient detail for LLM understanding. Add detailed descriptions only when features lack clarity
 - **Test Quality:** **CRITICAL** - Every test MUST import project code and call project functions
 - **Real Testing:** Tests must validate actual behavior, not just assert against hardcoded values
