@@ -126,17 +126,22 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 
 **CRITICAL**: All tests must meet these quality standards:
 
-1. **Import Project Code**: Every test file MUST import modules/classes/functions from the actual project source code
-2. **Call Project Functions**: Tests MUST call actual project functions, not just assert against hardcoded values
+1. **Import Project Code**: Every test file MUST import modules/classes/functions from actual project source directories (parent/subdirectories checked into git)
+2. **Call Project Functions**: Tests MUST call actual project functions from imported modules, not just assert against hardcoded values
 3. **Meaningful Assertions**: Tests MUST validate actual behavior, not trivial comparisons like `assert 1 == 1`
 4. **Integration Focus**: Prefer testing real data flows over pure mock scenarios
 5. **TC ID Mapping**: Include TC-NNNN identifier in test function name or docstring for traceability
+6. **FT-TC Validation**: **CRITICAL** - When TC is linked to an FT, the test MUST actually use and validate that specific feature functionality
+7. **Appropriate TC Description Length**: **CRITICAL** - Keep TC descriptions as short as possible when linked features provide sufficient detail for LLM understanding. Add detailed descriptions only when features lack clarity
 
 **Prohibited Test Patterns:**
-- Tests that only use mock data without calling project code
-- Tests that only assert against hardcoded expected values
-- Tests that import only test libraries (pytest, unittest, mock) without project imports
+- Tests that only use mock data without calling actual project code from git-tracked directories
+- Tests that only assert against hardcoded expected values without importing project modules
+- Tests that import only test libraries (pytest, unittest, mock) without importing from project source directories
 - Tests with trivial assertions like `assert True` or `assert "expected" == "expected"`
+- Tests that don't import any modules from the actual project codebase (parent/subdirectories in git)
+- Tests that use try-except blocks around imports (let import failures cause test failures)
+- Tests linked to an FT that don't actually use or validate the specific feature functionality
 
 **Mental Memory Map Creation:**
 

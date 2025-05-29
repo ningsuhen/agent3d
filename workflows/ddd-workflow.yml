@@ -1,0 +1,499 @@
+# DDD (Document-Driven Development) Workflow Definition
+# This YAML file defines the complete DDD workflow with all steps, conditions, and transitions
+# It should be kept in sync with the corresponding Mermaid flowchart
+
+metadata:
+  name: "Document-Driven Development Workflow"
+  version: "1.0.0"
+  description: "Complete DDD framework workflow from requirements to final documentation"
+  last_updated: "2024-12-19"
+  sync_with:
+    - "workflows/ddd-workflow.mmd"
+    - "workflows/ddd-workflow-ascii.md"
+  visual_representations:
+    - "ASCII diagram: workflows/ddd-workflow-ascii.md"
+    - "Architecture diagram: workflows/ddd-workflow.mmd"
+    - "Simple block diagram: workflows/ddd-workflow-simple.mmd"
+    - "Layered flowchart: workflows/ddd-workflow-layered.mmd"
+
+# Global configuration and patterns
+config:
+  identifier_patterns:
+    requirements: "REQ-[A-Z]+-\\d+(-[a-z])?"
+    features: "FT-[A-Z]+-\\d+(-[a-z])?"
+    test_cases: "TC-[A-Z]+-\\d+(-[a-z])?"
+
+  files:
+    config: ".agent3d-config.yml"
+    requirements: "REQUIREMENTS.md"
+    features: "FEATURES.md"
+    test_cases: "TEST-CASES.md"
+    drift_report: "reports/drift-report.md"
+    traceability_matrix: "reports/traceability-matrix.md"
+
+# Pass Hooks System (Auto-Running & Generic)
+pass_hooks:
+  description: "Generic hooks that auto-run for every pass execution"
+
+  before_pass:
+    name: "pass.before"
+    description: "Auto-runs before ANY pass starts"
+    actions:
+      - "Load .agent3d-config.yml configuration"
+      - "Check enabled_passes list for current pass"
+      - "Validate pass dependencies and prerequisites"
+      - "Create exec-plan/{pass-name} branch"
+      - "Initialize DDD-STATUS.md entry for this pass"
+      - "Setup workspace and required tools"
+      - "Log start time and pass metadata"
+
+  after_pass:
+    name: "pass.after"
+    description: "Auto-runs after ANY pass completes successfully"
+    actions:
+      - "Run drift scanner for validation"
+      - "Update DDD-STATUS.md with completion metrics"
+      - "Calculate alignment percentage (0-100%)"
+      - "Determine drift level (none/low/medium/high)"
+      - "Generate pass-specific reports and artifacts"
+      - "Auto-commit progress to exec-plan branch"
+      - "Tag checkpoints and milestones"
+
+  error_pass:
+    name: "pass.error"
+    description: "Auto-runs when ANY pass fails"
+    actions:
+      - "Log detailed error information"
+      - "Update DDD-STATUS.md with error status"
+      - "Cleanup partial work and temporary files"
+      - "Send notifications (if configured)"
+      - "Prepare retry with error context"
+
+  skip_pass:
+    name: "pass.skip"
+    description: "Auto-runs when ANY pass is skipped"
+    actions:
+      - "Log skip reason and context"
+      - "Update DDD-STATUS.md with skipped status"
+      - "Maintain workflow state consistency"
+      - "Notify stakeholders of skip decision"
+
+# Workflow steps definition
+workflow:
+  entry_point: "start"
+
+  steps:
+    start:
+      id: "start"
+      name: "DDD Process Start"
+      type: "entry"
+      description: "Initialize DDD workflow"
+      actions:
+        - "Determine project state"
+        - "Check existing documentation"
+      decisions:
+        - condition: "new_project == true"
+          next: "step-0-requirements"
+        - condition: "existing_project == true AND changes_needed == true"
+          next: "step-3-synchronization"
+        - condition: "code_review_only == true"
+          next: "step-4-code-review"
+      default_next: "step-0-requirements"
+
+    step-0-requirements:
+      id: "step-0-requirements"
+      name: "Requirements Pass"
+      type: "process"
+      description: "Analyze and document business requirements"
+      purpose: "Establish clear, traceable requirements with REQ-NNNN identifiers"
+
+      inputs:
+        - "Business requirements"
+        - "Stakeholder input"
+        - "Project specifications"
+
+      outputs:
+        - "REQUIREMENTS.md"
+        - "REQ-NNNN identifiers"
+        - "Requirements validation report"
+
+      actions:
+        - "Gather business requirements from stakeholders"
+        - "Analyze requirement dependencies and conflicts"
+        - "Create REQUIREMENTS.md with structured format"
+        - "Assign REQ-NNNN identifiers to each requirement"
+        - "Validate requirements coverage and completeness"
+        - "Get stakeholder approval on documented requirements"
+
+      success_criteria:
+        - "All requirements documented with REQ-IDs"
+        - "Requirements are clear and testable"
+        - "Stakeholder approval obtained"
+        - "No conflicting requirements"
+
+      validation:
+        - "REQ-ID pattern matches config.identifier_patterns.requirements"
+        - "All requirements have acceptance criteria"
+        - "Requirements traceability established"
+
+      decisions:
+        - condition: "requirements_complete == true AND stakeholder_approved == true"
+          next: "step-1-foundation"
+        - condition: "requirements_incomplete == true OR stakeholder_rejected == true"
+          next: "step-0-requirements"  # Loop back
+
+      error_handling:
+        - "If stakeholder rejection: Document feedback and iterate"
+        - "If incomplete requirements: Identify gaps and gather more info"
+
+    step-1-foundation:
+      id: "step-1-foundation"
+      name: "Foundation Pass"
+      type: "process"
+      description: "Setup project structure and DDD framework"
+      purpose: "Initialize documentation structure and configuration"
+
+      inputs:
+        - "REQUIREMENTS.md"
+        - "Project setup requirements"
+
+      outputs:
+        - ".agent3d-config.yml"
+        - "Documentation structure"
+        - "Template files"
+        - "Identifier pattern configuration"
+
+      actions:
+        - "Create .agent3d-config.yml with identifier patterns"
+        - "Initialize documentation directory structure"
+        - "Create FEATURES.md template with examples"
+        - "Create TEST-CASES.md template with examples"
+        - "Setup identifier patterns and validation rules"
+        - "Initialize traceability matrix structure"
+        - "Configure drift scanning parameters"
+
+      success_criteria:
+        - "All configuration files created"
+        - "Documentation templates ready"
+        - "Identifier patterns configured"
+        - "Directory structure established"
+
+      validation:
+        - "Config file follows .agent3d-config.yml schema"
+        - "Templates contain required sections"
+        - "Identifier patterns are valid regex"
+
+      decisions:
+        - condition: "foundation_complete == true"
+          next: "step-2-development"
+        - condition: "foundation_incomplete == true"
+          next: "step-1-foundation"  # Loop back
+
+      error_handling:
+        - "If config validation fails: Fix schema issues"
+        - "If template creation fails: Check permissions and paths"
+
+    step-2-development:
+      id: "step-2-development"
+      name: "Development Pass"
+      type: "process"
+      description: "Three-phase development: Planning, Implementation, Testing"
+      purpose: "Create features, implement code, and build comprehensive tests"
+
+      sub_passes:
+        planning:
+          name: "Planning Sub-Pass"
+          inputs:
+            - "REQUIREMENTS.md"
+            - "REQ-NNNN identifiers"
+          outputs:
+            - "FEATURES.md with FT-NNNN identifiers"
+            - "TEST-CASES.md with TC-NNNN identifiers"
+            - "Feature-requirement mappings"
+          actions:
+            - "Create feature specifications from requirements"
+            - "Assign FT-NNNN identifiers to each feature"
+            - "Link features to requirements (FT → REQ)"
+            - "Create test case specifications for each feature"
+            - "Assign TC-NNNN identifiers to each test case"
+            - "Link test cases to features (TC → FT)"
+            - "Validate complete traceability chain (REQ → FT → TC)"
+
+        implementation:
+          name: "Implementation Sub-Pass"
+          inputs:
+            - "FEATURES.md"
+            - "Feature specifications"
+          outputs:
+            - "Feature implementation code"
+            - "FT-NNNN comments in code"
+            - "Test file structure"
+          actions:
+            - "Implement features according to specifications"
+            - "Add FT-NNNN identifier comments to code"
+            - "Create test files with TC-NNNN structure"
+            - "Implement test cases for each TC-NNNN"
+            - "Validate test quality and coverage"
+            - "Ensure all FT-NNNN features have corresponding tests"
+
+        testing:
+          name: "Testing Sub-Pass"
+          inputs:
+            - "Implemented features"
+            - "Test cases"
+          outputs:
+            - "Test execution results"
+            - "Coverage reports"
+            - "Quality validation"
+          actions:
+            - "Execute all test cases"
+            - "Validate test coverage meets requirements"
+            - "Check test quality against standards"
+            - "Verify TC-FT-REQ traceability in tests"
+            - "Generate test execution reports"
+
+      decisions:
+        - condition: "planning_complete == true"
+          next: "implementation_phase"
+        - condition: "implementation_complete == true"
+          next: "testing_phase"
+        - condition: "testing_complete == true AND all_tests_pass == true"
+          next: "step-3-synchronization"
+        - condition: "any_phase_failed == true"
+          next: "step-2-development"  # Loop back to failed phase
+
+      success_criteria:
+        - "All features implemented and tested"
+        - "Complete traceability chain established"
+        - "Test coverage meets requirements"
+        - "All tests passing"
+
+    step-3-synchronization:
+      id: "step-3-synchronization"
+      name: "Synchronization Pass"
+      type: "process"
+      description: "Validate relationships and detect drift"
+      purpose: "Ensure all documentation and code relationships are synchronized"
+
+      inputs:
+        - "All documentation files"
+        - "Source code with FT-NNNN comments"
+        - "Test files with TC-NNNN identifiers"
+
+      outputs:
+        - "Drift report"
+        - "Traceability matrix"
+        - "Synchronization fixes"
+        - "Validation results"
+
+      actions:
+        - "Scan all documentation for identifiers"
+        - "Extract REQ-NNNN, FT-NNNN, TC-NNNN patterns"
+        - "Validate all identifier relationships"
+        - "Check for broken links and missing references"
+        - "Generate comprehensive drift report"
+        - "Update traceability matrix"
+        - "Fix identified synchronization issues"
+
+      validation:
+        - "All REQ-NNNN have corresponding FT-NNNN"
+        - "All FT-NNNN have corresponding TC-NNNN"
+        - "All TC-NNNN have corresponding test implementations"
+        - "No orphaned identifiers exist"
+
+      decisions:
+        - condition: "sync_issues_found == true"
+          next: "fix_sync_issues"
+        - condition: "sync_clean == true"
+          next: "step-4-code-review"
+
+      success_criteria:
+        - "No drift issues detected"
+        - "Complete traceability maintained"
+        - "All relationships validated"
+
+    step-4-code-review:
+      id: "step-4-code-review"
+      name: "Code Review Pass"
+      type: "process"
+      description: "Comprehensive code quality and standards review"
+      purpose: "Ensure code quality, standards compliance, and best practices"
+
+      inputs:
+        - "Source code"
+        - "Test implementations"
+        - "Documentation"
+
+      outputs:
+        - "Code review reports"
+        - "Quality fixes"
+        - "Standards compliance validation"
+        - "Review approval"
+
+      actions:
+        - "Perform language-specific code review"
+        - "Validate test quality and coverage"
+        - "Review documentation completeness"
+        - "Check architecture and design patterns"
+        - "Validate identifier usage and linking"
+        - "Ensure coding standards compliance"
+        - "Generate review reports and recommendations"
+
+      review_types:
+        - "Language-specific review (Python, JavaScript, etc.)"
+        - "Test quality review"
+        - "Documentation review"
+        - "Architecture review"
+        - "Security review"
+        - "Performance review"
+
+      decisions:
+        - condition: "review_issues_found == true"
+          next: "address_review_issues"
+        - condition: "review_passed == true"
+          next: "step-5-refactoring"
+
+      success_criteria:
+        - "All code review issues resolved"
+        - "Standards compliance achieved"
+        - "Test quality meets requirements"
+        - "Documentation is complete and accurate"
+
+    step-5-refactoring:
+      id: "step-5-refactoring"
+      name: "Refactoring Pass"
+      type: "process"
+      description: "Code improvement and architecture optimization"
+      purpose: "Eliminate duplication, improve structure, apply DRY principles"
+
+      inputs:
+        - "Reviewed and approved code"
+        - "Test suite"
+        - "Documentation"
+
+      outputs:
+        - "Refactored code"
+        - "Improved architecture"
+        - "Updated documentation"
+        - "Refactoring report"
+
+      actions:
+        - "Identify code duplication and redundancy"
+        - "Apply DRY (Don't Repeat Yourself) principles"
+        - "Perform horizontal merging of similar components"
+        - "Improve modularization and separation of concerns"
+        - "Update documentation to reflect changes"
+        - "Maintain identifier relationships during refactoring"
+        - "Validate tests still pass after refactoring"
+
+      refactoring_types:
+        - "DRY principle application"
+        - "Horizontal merging"
+        - "Modularization"
+        - "Architecture improvement"
+        - "Performance optimization"
+        - "Code simplification"
+
+      decisions:
+        - condition: "refactoring_needed == true"
+          next: "perform_refactoring"
+        - condition: "refactoring_complete == true"
+          next: "step-6-documentation"
+
+      success_criteria:
+        - "Code duplication eliminated"
+        - "Improved code structure"
+        - "All tests still passing"
+        - "Documentation updated"
+
+    step-6-documentation:
+      id: "step-6-documentation"
+      name: "Documentation Pass"
+      type: "process"
+      description: "Final documentation compression and cleanup"
+      purpose: "Finalize, compress, and clean up all documentation"
+
+      inputs:
+        - "Complete system"
+        - "All documentation files"
+        - "Reports and matrices"
+
+      outputs:
+        - "Compressed documentation"
+        - "Final reports"
+        - "Clean cross-references"
+        - "Documentation validation"
+
+      actions:
+        - "Compress documentation by removing redundancy"
+        - "Remove detailed explanations of basic tasks"
+        - "Update all cross-references and links"
+        - "Validate markdown rendering"
+        - "Generate final summary reports"
+        - "Create documentation index and navigation"
+        - "Perform final validation of all relationships"
+
+      decisions:
+        - condition: "documentation_issues_found == true"
+          next: "fix_documentation_issues"
+        - condition: "documentation_complete == true"
+          next: "workflow_complete"
+
+      success_criteria:
+        - "Documentation is compressed and clean"
+        - "All cross-references are valid"
+        - "Markdown renders correctly"
+        - "Final reports generated"
+
+    workflow_complete:
+      id: "workflow_complete"
+      name: "DDD Workflow Complete"
+      type: "terminal"
+      description: "DDD process successfully completed"
+
+      outputs:
+        - "Complete DDD implementation"
+        - "Full traceability matrix"
+        - "Comprehensive documentation"
+        - "Quality-assured code"
+
+      final_deliverables:
+        - "REQUIREMENTS.md with REQ-NNNN"
+        - "FEATURES.md with FT-NNNN"
+        - "TEST-CASES.md with TC-NNNN"
+        - "Implemented and tested code"
+        - "Drift reports and traceability matrix"
+        - "Code review and quality reports"
+        - "Refactored and optimized codebase"
+        - "Compressed and validated documentation"
+
+# Error handling and recovery procedures
+error_handling:
+  general:
+    - "Log all errors with timestamps and context"
+    - "Provide clear error messages and recovery steps"
+    - "Maintain workflow state for recovery"
+
+  specific_errors:
+    validation_failure:
+      - "Identify specific validation that failed"
+      - "Provide corrective actions"
+      - "Re-run validation after fixes"
+
+    sync_issues:
+      - "Generate detailed drift report"
+      - "Identify broken relationships"
+      - "Provide fix recommendations"
+      - "Re-run synchronization after fixes"
+
+    test_failures:
+      - "Identify failing tests"
+      - "Provide failure analysis"
+      - "Fix implementation or tests"
+      - "Re-run test suite"
+
+# Workflow metadata and versioning
+versioning:
+  schema_version: "1.0"
+  workflow_version: "1.0.0"
+  compatibility: "DDD Framework v1.0+"

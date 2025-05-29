@@ -8,6 +8,7 @@
 2. Test Execution Framework - How tests are run
 3. Test case modules organized by feature area
 4. Format: `- [status] **TC-NNNN** - Test description (Execution Type, Priority)`
+5. **DESCRIPTION LENGTH:** **CRITICAL** - Keep TC descriptions as short as possible when the linked feature provides sufficient detail for LLM understanding. Add detailed descriptions only when the linked feature lacks clarity
 
 **IMPLEMENTATION MAPPING REQUIREMENTS:**
 
@@ -51,6 +52,18 @@
   - {{status}} **{{sub_test_id}}** - {{sub_test_description}} ({{execution_type}}, {{priority}})
   - {{status}} **{{sub_test_id}}** - {{sub_test_description}} ({{execution_type}}, {{priority}})
 
+**DESCRIPTION LENGTH EXAMPLES:**
+
+**SHORT (when linked feature provides sufficient detail for LLM understanding):**
+- [ ] **TC-AUTH-001** - User login with valid credentials (Automated, High Priority) [Links to FT-AUTH-001]
+
+**DETAILED (when linked feature lacks clarity for LLM understanding):**
+- [ ] **TC-HTTP-003** - Content Negotiation - Verify generated client request encoding changes based on ProtoEncodingType and ProtoEncodingOptions configuration (Encoding, Medium Priority)
+    - Encoding types: JSON vs BINARY affects request body serialization and Content-Type headers (application/json vs application/x-protobuf)
+    - Encoding options: preserve_proto_field_names and ignore_unknown_fields affect JSON serialization behavior and header propagation
+    - Default behavior: Verify encoding when no options specified
+    - Test scenarios: All combinations of encoding types and options with validation of headers, body format, and field name handling
+
 ### {{sub_module_name}} (e.g., Authorization & Permissions)
 
 - {{status}} **{{test_id}}** - {{test_description}} ({{execution_type}}, {{priority}})
@@ -77,3 +90,4 @@
 - [ ] **1:1 MAPPING:** Each TC-NNNN has exactly one corresponding test implementation
 - [ ] **TC ID IN CODE:** All test implementations include TC-NNNN in function name or description
 - [ ] **TRACEABILITY:** Test file paths are documented or discoverable via VS Code DDD Navigator
+- [ ] **APPROPRIATE DESCRIPTION LENGTH:** TC descriptions are as short as possible when linked features provide sufficient detail for LLM understanding, or detailed when features lack clarity

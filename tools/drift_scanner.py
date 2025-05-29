@@ -2710,8 +2710,15 @@ def main():
     # Initialize multi-mode analyzer
     analyzer = MultiModeDriftAnalyzer(args.root_dir, args.test_cases_file, change_detector)
 
-    # Determine output file path
-    output_file = args.output if args.output else get_default_output_path(args.mode)
+    # Determine output file path - always use .agent3d-tmp directory
+    if args.output:
+        # Ensure custom output is also in .agent3d-tmp directory
+        if not args.output.startswith('.agent3d-tmp/'):
+            output_file = f".agent3d-tmp/drift-reports/{args.output}"
+        else:
+            output_file = args.output
+    else:
+        output_file = get_default_output_path(args.mode)
 
     if not args.quiet:
         print(f"📁 Working directory: {args.root_dir}")

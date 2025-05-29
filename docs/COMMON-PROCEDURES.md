@@ -253,6 +253,7 @@ The Multi-Mode Drift Scanner analyzes various types of drift between documentati
 - **ft-tc-mapping** - FT-TC relationship mapping and cross-reference validation
 - **code-coverage** - Test coverage analysis and missing test detection
 - **feature-impl** - Feature implementation status drift between FEATURES.md and code
+- **test-quality** - Test quality validation ensuring tests import and call actual project code
 - **all** - Comprehensive analysis running all drift detection modes
 
 **Drift Types Detected:**
@@ -261,6 +262,7 @@ The Multi-Mode Drift Scanner analyzes various types of drift between documentati
 - **FT-TC Relationship Drift:** Missing FT-TC cross-references, broken relationships, inconsistent mappings
 - **Code Coverage Drift:** Missing test files, untested functions, orphaned tests, coverage metrics
 - **Feature Implementation Drift:** Status mismatches, missing implementations, undocumented features
+- **Test Quality Drift:** Tests without project imports, tests without function calls, mock-only tests, weak assertions
 
 **Supported Languages:** Python, JavaScript/TypeScript, Java, Go, Rust
 
@@ -293,6 +295,9 @@ python3 ~/.agent3d/tools/drift_scanner.py --mode code-coverage
 
 # Feature implementation analysis
 python3 ~/.agent3d/tools/drift_scanner.py --mode feature-impl
+
+# Test quality validation
+python3 ~/.agent3d/tools/drift_scanner.py --mode test-quality
 
 # Comprehensive analysis (all modes)
 python3 ~/.agent3d/tools/drift_scanner.py --mode all
@@ -349,7 +354,10 @@ python3 ~/.agent3d/tools/drift_scanner.py --mode all --changed-only --quiet
 - `ft-tc-mapping-drift-report.yaml`
 - `code-coverage-drift-report.yaml`
 - `feature-impl-drift-report.yaml`
+- `test-quality-drift-report.yaml`
 - `all-drift-report.yaml`
+
+**DDD Output Principle:** All drift scanner outputs MUST be placed in `.agent3d-tmp/` directory, even when custom output paths are specified. Custom paths are automatically prefixed with `.agent3d-tmp/drift-reports/` to maintain DDD standards.
 
 **DDD Pass Integration:**
 ```bash
@@ -357,12 +365,21 @@ python3 ~/.agent3d/tools/drift_scanner.py --mode all --changed-only --quiet
 echo "🔍 Validating identifier patterns configuration..."
 python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping --quiet
 
-# Testing Pass - Fast TC ID mapping and code coverage (change-based)
-echo "🔍 Checking TC ID drift and code coverage (changed files only)..."
+# Testing Pass - Fast TC ID mapping, test quality, and code coverage (change-based)
+echo "🔍 Checking TC ID drift, test quality, and code coverage (changed files only)..."
 python3 ~/.agent3d/tools/drift_scanner.py --mode all --changed-only --quiet
 DRIFT_LEVEL=$?
 if [ $DRIFT_LEVEL -eq 2 ]; then
     echo "❌ HIGH DRIFT: Must fix drift issues before proceeding"
+    exit 1
+fi
+
+# Test Quality Pass - Validate tests actually test project code
+echo "🔍 Validating test quality (tests must import and call project code)..."
+python3 ~/.agent3d/tools/drift_scanner.py --mode test-quality --quiet
+QUALITY_LEVEL=$?
+if [ $QUALITY_LEVEL -eq 2 ]; then
+    echo "❌ POOR TEST QUALITY: Tests must import and call actual project code"
     exit 1
 fi
 
@@ -407,6 +424,10 @@ python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping --recent-days 3 -
 - **Cross-References:** Maintain FT-TC relationships in FEATURES.md and TEST-CASES.md
 - **Naming Consistency:** Use `test_feature_tc_0001` format for TC mapping
 - **One-to-One Mapping:** One TC ID per test function, clear FT-TC relationships
+- **Appropriate TC Description Length:** **CRITICAL** - Keep TC descriptions as short as possible when linked features provide sufficient detail for LLM understanding. Add detailed descriptions only when features lack clarity
+- **Test Quality:** **CRITICAL** - Every test MUST import project code and call project functions
+- **Real Testing:** Tests must validate actual behavior, not just assert against hardcoded values
+- **Integration Focus:** Prefer integration tests over pure mock scenarios
 - **Pass Integration:** Run FT-TC mapping during Foundation and Synchronization passes
 - **Performance:** Use `--changed-only` for fast development workflow (10x+ speed improvement)
 - **CI/CD:** Use `--pr-diff` for efficient validation of pull requests
