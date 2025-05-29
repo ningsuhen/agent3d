@@ -11,74 +11,33 @@ metadata:
 description: "Automated backup-and-rewrite loop for systematic file quality improvement using DDD templates and intelligent test case optimization."
 
 core_principles:
-- "ONE FILE AT A TIME: Process only one file per iteration"
-- "BACKUP BEFORE REWRITE: Always create backup before any changes"
-- "VERIFY BEFORE CLEANUP: Compare content integrity before deleting backup"
-- "PURE LLM APPROACH: No programming language execution, only text analysis"
-- "ZERO CONFIRMATION: Never ask for human confirmation at any stage"
-- "FULLY AUTOMATED: Complete autonomous execution without user interaction"
-- "AUTOMATED VERIFICATION: No human confirmation required for any validation"
-- "CONTENT PRESERVATION: Zero tolerance for information loss"
-- "TEMP DIRECTORY USAGE: Store execution plans in ~/.agent3d-tmp/"
-- "EXEC PLAN DRIVEN: Check exec plan for remaining iterations and status updates"
-- "NO PROMPTING: Fully automated loop without user confirmation or prompts"
-- "NO INTERRUPTIONS: Never pause for user input or confirmation"
-- "VERSION TRACKING: Check template versions before rewriting to prevent unnecessary operations"
-- "FORCE OVERRIDE: Support --force flag to bypass version checking when needed"
-- "INTELLIGENT SKIPPING: Skip files that are already up-to-date unless forced"
-- "MEMORIZATION REQUIRED: For exec plan mode, memorize necessary templates and procedures before execution"
-- "OVERRIDE DDD CONFIRMATION: Override any DDD workflow confirmation requirements during rewrite operations"
+- "AUTOMATED EXECUTION: Zero confirmation, fully autonomous operation"
+- "SAFETY FIRST: Backup before rewrite, verify before cleanup"
+- "QUALITY OPTIMIZATION: Compress test cases, optimize TC-IDs, improve structure"
+- "TEMPLATE COMPLIANCE: Follow cached templates exactly with version tracking"
+- "INTELLIGENT PROCESSING: Skip up-to-date files, force override available"
+- "MEMORIZATION DRIVEN: Pre-load templates and procedures for consistency"
 
 workflow_pattern: "MEMORIZE → EXEC-PLAN → LOOP(VERSION-CHECK → BACKUP → REWRITE → VERIFY → CLEANUP)"
 
-# Memorization Requirements for Exec Plan Mode
+# Memorization Requirements
 memorization_requirements:
-  description: "Before creating execution plans, agents must memorize key templates and procedures to ensure consistent, high-quality rewriting"
-
-  when_required:
-  - "exec_plan_mode: true"
-  - "target_scope involves feature documentation"
-  - "target_scope involves test case documentation"
-  - "target_scope involves template conversion"
-  - "any rewrite operation requiring template compliance"
+  description: "Pre-load templates and procedures for consistent, high-quality rewriting"
+  when_required: [ "exec_plan_mode", "feature documentation", "test case documentation", "template conversion" ]
 
   critical_templates:
     feature_module_template:
       location: "templates/FEATURE-module.template.yml"
-      purpose: "Feature documentation structure and test case integration"
-      memorize_sections:
-      - "template_content: Complete template structure with placeholders"
-      - "examples: Code location examples and replacement patterns"
-      - "critical_rules: Code location rules and correct/wrong examples"
-      - "code_location_discovery: Steps for finding unknown code locations"
-      - "framework_classification: Testing approach based on code type"
-      - "test_guidelines: Reference to test case selection principles"
-      critical_for: "Feature documentation rewriting, FT-TC structure compliance"
+      memorize: "template_content, examples, critical_rules, code_location_discovery, test_guidelines, feature_status_system"
 
     test_case_guidelines:
       location: "procedures.yml/test-case-guidelines.yml"
-      purpose: "Judicious test case selection and sub-test implementation"
-      memorize_sections:
-      - "philosophy: Quality over quantity principle"
-      - "selection_criteria: Always test, consider testing, avoid testing"
-      - "feature_complexity: Simple(1-2), Moderate(2-4), Complex(3-6) ranges"
-      - "sub_test_guidelines: When to use/not use sub-tests"
-      - "decision_framework: Test case and sub-test decision trees"
-      - "implementation_examples: Good vs poor sub-test usage patterns"
-      - "tc_identifier_placement: Allowed and forbidden locations"
-      critical_for: "Test case selection, sub-test implementation, TC ID mapping"
+      memorize: "philosophy, selection_criteria, feature_complexity, decision_framework, implementation_examples"
 
     templates_procedure:
       location: "procedures.yml/templates.yml"
-      purpose: "Template usage workflow and validation standards"
-      memorize_sections:
-      - "template_usage: Process steps and placeholder replacement rules"
-      - "ddd_workflow: SCAN → DRAFT → ASK → SYNC workflow (SKIP CONFIRM step for rewrite operations)"
-      - "format_requirements: YAML-only requirements for DDD-STATUS and EXEC-PLAN"
-      - "validation_checklist: Structure and drift validation requirements"
-      - "best_practices: Template handling and format consistency"
-      critical_for: "Template compliance, workflow execution, format standards"
-      rewrite_override: "Override DDD workflow confirmation requirements - proceed directly to execution"
+      memorize: "template_usage, ddd_workflow (skip confirmation), format_requirements, validation_checklist"
+      override: "Skip DDD confirmation steps for rewrite operations"
 
   supporting_templates:
     exec_plan_template:
