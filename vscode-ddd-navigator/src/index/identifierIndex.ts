@@ -138,13 +138,71 @@ export class IdentifierIndex {
 
     private parseFeatures(document: vscode.TextDocument, text: string, fileName: string, config: vscode.WorkspaceConfiguration): void {
         const featureFiles = config.get<string[]>('featureFiles', ['FEATURES.md', 'docs/FEATURES.md']);
-        const isFeatureFile = featureFiles.some(file => fileName.endsWith(file));
+        const featureDirs = config.get<string[]>('featureDirs', ['docs/features/']);
 
-        if (!isFeatureFile) {
+        // Check for legacy FEATURES.md files
+        const isLegacyFeatureFile = featureFiles.some(file => fileName.endsWith(file));
+
+        // Check for new merged structure files in docs/features/
+        const isMergedFeatureFile = featureDirs.some(dir => fileName.includes(dir) && fileName.endsWith('.md'));
+
+        if (!isLegacyFeatureFile && !isMergedFeatureFile) {
             return;
         }
 
         const lines = text.split('\n');
+
+        if (isMergedFeatureFile) {
+            // Parse merged FT-TC structure (docs/features/*.md)
+            this.parseMergedFeatureStructure(document, lines);
+        } else {
+            // Parse legacy FEATURES.md structure
+            this.parseLegacyFeatureStructure(document, lines);
+        }
+    }
+
+    private parseMergedFeatureStructure(document: vscode.TextDocument, lines: string[]): void {
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+
+            // Match feature headers: ## FT-CORE-001 - Feature Name
+            const featureMatch = line.match(/^## (FT-[A-Z]+-\d+) - (.+)$/);
+            if (featureMatch) {
+                const [, ftId, featureName] = featureMatch;
+                const position = new vscode.Position(i, 0);
+
+                const identifier: Identifier = {
+                    type: 'feature',
+                    id: ftId,
+                    location: new vscode.Location(document.uri, position),
+                    status: 'complete', // Default status for merged structure
+                    description: featureName.trim()
+                };
+
+                this.identifiers.set(ftId, identifier);
+            }
+
+            // Match test case entries: - [x] **TC-CORE-001** - Test Name
+            const testCaseMatch = line.match(/^\s+- \[([x~\s])\] \*\*(TC-[A-Z]+-\d+[a-z]?)\*\* - (.+)/);
+            if (testCaseMatch) {
+                const [, statusChar, tcId, testName] = testCaseMatch;
+                const status = statusChar === 'x' ? 'complete' : statusChar === '~' ? 'in-progress' : 'pending';
+                const position = new vscode.Position(i, 0);
+
+                const identifier: Identifier = {
+                    type: 'test-case',
+                    id: tcId,
+                    location: new vscode.Location(document.uri, position),
+                    status,
+                    description: testName.trim()
+                };
+
+                this.identifiers.set(tcId, identifier);
+            }
+        }
+    }
+
+    private parseLegacyFeatureStructure(document: vscode.TextDocument, lines: string[]): void {
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i];
             const featureMatch = line.match(/^- \[([ x])\] (.+?) - (.+?)(?:\s+\(Criteria:|$)/);

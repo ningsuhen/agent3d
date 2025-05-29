@@ -13,6 +13,15 @@ Features:
 - Fresh scan mode (no caching)
 - Multi-mode drift detection
 - Automatic server restart
+- File watching for live reloading (requires 'watchdog' package)
+- Support for merged FT-TC structure
+
+Installation:
+    pip install -r tools/requirements.txt
+
+Dependencies:
+- Required: pyyaml (for YAML processing)
+- Optional: watchdog (for file watching and live reloading)
 
 Author: Agent3D Framework
 """
@@ -27,6 +36,15 @@ import threading
 from pathlib import Path
 from typing import Dict, Any, Optional
 
+try:
+    from watchdog.observers import Observer
+    from watchdog.events import FileSystemEventHandler
+    WATCHDOG_AVAILABLE = True
+except ImportError:
+    WATCHDOG_AVAILABLE = False
+    Observer = None
+    FileSystemEventHandler = None
+
 # Configure logging to stderr only (MCP protocol uses stdout for JSON-RPC)
 logging.basicConfig(
     level=logging.INFO,
@@ -34,6 +52,30 @@ logging.basicConfig(
     stream=sys.stderr
 )
 logger = logging.getLogger(__name__)
+
+class DriftFileWatcher(FileSystemEventHandler if WATCHDOG_AVAILABLE else object):
+    """File system event handler for drift scanner files"""
+
+    def __init__(self, server):
+        if WATCHDOG_AVAILABLE:
+            super().__init__()
+        self.server = server
+
+    def on_modified(self, event):
+        """Handle file modification events"""
+        if not WATCHDOG_AVAILABLE:
+            return
+
+        if event.is_directory:
+            return
+
+        # Check if it's a relevant file (documentation, code, config)
+        relevant_extensions = {'.md', '.py', '.yaml', '.yml', '.json', '.txt'}
+        file_path = Path(event.src_path)
+
+        if file_path.suffix.lower() in relevant_extensions:
+            logger.info(f"📝 File change detected: {file_path.name}")
+            self.server.invalidate_cache()
 
 class CodeReloader:
     """Monitors MCP server code files for changes and triggers restart"""
@@ -98,14 +140,23 @@ class DriftScannerMCPServer:
         self.drift_scanner = self.script_dir / "drift_scanner.py"
 
         # Live reloading components
-        self.file_watcher = DriftFileWatcher(self)
-        self.observer = None
-        self.cache_invalidated = False
-        self.watched_directories = set()
+        if WATCHDOG_AVAILABLE:
+            self.file_watcher = DriftFileWatcher(self)
+            self.observer = None
+            self.cache_invalidated = False
+            self.watched_directories = set()
+        else:
+            self.file_watcher = None
+            self.observer = None
+            self.cache_invalidated = True  # Always invalidated if no watching
+            self.watched_directories = set()
 
         logger.info("Agent3D Drift Scanner MCP Server initialized")
         logger.info("🔄 FRESH SCAN MODE: Every request performs a fresh drift analysis (no caching)")
-        logger.info("👁️  LIVE RELOADING: File watching enabled for automatic change detection")
+        if WATCHDOG_AVAILABLE:
+            logger.info("👁️  LIVE RELOADING: File watching enabled for automatic change detection")
+        else:
+            logger.warning("⚠️  WATCHDOG NOT AVAILABLE: File watching disabled (install 'watchdog' package for live reloading)")
 
     def find_ddd_root(self, explicit_root: Optional[str] = None) -> Optional[str]:
         """
@@ -135,6 +186,10 @@ class DriftScannerMCPServer:
 
     def start_file_watching(self, ddd_root: str) -> None:
         """Start file watching for the DDD project directory"""
+        if not WATCHDOG_AVAILABLE:
+            logger.warning("⚠️  File watching not available - watchdog package not installed")
+            return
+
         try:
             if self.observer is not None:
                 self.stop_file_watching()
@@ -154,6 +209,9 @@ class DriftScannerMCPServer:
 
     def stop_file_watching(self) -> None:
         """Stop file watching"""
+        if not WATCHDOG_AVAILABLE:
+            return
+
         if self.observer is not None:
             self.observer.stop()
             self.observer.join()

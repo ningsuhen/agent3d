@@ -228,7 +228,8 @@ agent3d/
 
 **Related Documentation:**
 - **[DDD Status](DDD-STATUS.md)** - Current pass status and project health
-- **[Features](FEATURES.md)** - Feature documentation and acceptance criteria
+- **[Features](FEATURES.md)** - Feature index with merged FT-TC structure
+- **[Feature Modules](features/)** - Modular feature sections with integrated test cases
 - **[Tasks](TASKS.md)** - Work backlog and priorities
 
 ## Proposal-to-Implementation Workflow

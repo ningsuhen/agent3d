@@ -25,8 +25,9 @@
 
 ## Expected Outcomes
 
-- Feature entries in `FEATURES.md`
-- Test cases in `TEST-CASES.md`
+- Feature entries in merged FT-TC structure (`docs/features/` directory)
+- Test cases integrated with features (NEW: merged structure)
+- Legacy `TEST-CASES.md` maintained for compatibility
 - Technical constraints documented
 - Updated `TASKS.md` priorities
 - Resolved ambiguities

@@ -128,9 +128,9 @@ graph LR
     end
 
     subgraph "Step 2: Development Pass"
-        DEV_IN[Requirements] --> DEV_PLAN_OUT[FEATURES.md<br/>FT-NNNN IDs]
+        DEV_IN[Requirements] --> DEV_PLAN_OUT[docs/features/<br/>FT-NNNN IDs + TC-NNNN Tests<br/>Merged Structure]
         DEV_PLAN_OUT --> DEV_IMPL_OUT[Feature Code<br/>FT Comments]
-        DEV_IMPL_OUT --> DEV_TEST_OUT[TEST-CASES.md<br/>TC-NNNN Tests]
+        DEV_IMPL_OUT --> DEV_TEST_OUT[Test Implementations<br/>TC-NNNN References]
     end
 
     subgraph "Step 3: Synchronization Pass"
@@ -395,7 +395,7 @@ graph LR
 - **Sub-Pass 1 - Planning**: Create feature specifications and test case definitions
 - **Sub-Pass 2 - Implementation**: Implement features and create test files
 - **Sub-Pass 3 - Testing**: Execute tests, validate coverage, and ensure quality
-- **Deliverables**: FEATURES.md (FT-NNNN), TEST-CASES.md (TC-NNNN), working code and tests
+- **Deliverables**: docs/features/ (FT-NNNN + TC-NNNN merged), working code and tests
 
 ### **Step 3: Synchronization Pass**
 - **Purpose**: Validate all relationships and detect drift

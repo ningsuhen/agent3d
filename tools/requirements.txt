@@ -1,0 +1,13 @@
+# Agent3D Drift Scanner MCP Server Dependencies
+# 
+# Install with: pip install -r requirements.txt
+
+# Core dependencies (required)
+pyyaml>=6.0
+
+# Optional dependencies for enhanced functionality
+watchdog>=3.0.0  # For file watching and live reloading in MCP server
+
+# Development dependencies (optional)
+pytest>=7.0.0    # For running tests
+black>=22.0.0    # For code formatting

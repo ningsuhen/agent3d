@@ -287,8 +287,11 @@ python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping
 # FT ID mapping analysis
 python3 ~/.agent3d/tools/drift_scanner.py --mode ft-mapping
 
-# FT-TC relationship mapping analysis
+# FT-TC relationship mapping analysis (NEW: supports merged structure)
 python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping
+
+# Feature mapping analysis (NEW: reads from docs/features/)
+python3 ~/.agent3d/tools/drift_scanner.py --mode ft-mapping
 
 # Code coverage analysis
 python3 ~/.agent3d/tools/drift_scanner.py --mode code-coverage
@@ -339,6 +342,18 @@ python3 ~/.agent3d/tools/drift_scanner.py --mode all --changed-only --quiet
     }
   }
 }
+```
+
+**Installation Requirements:**
+```bash
+# Install required dependencies for full functionality
+pip install -r ~/.agent3d/tools/requirements.txt
+
+# Or minimal installation (YAML processing only)
+pip install pyyaml
+
+# Optional: File watching for MCP server live reloading
+pip install watchdog
 ```
 
 ### Output & Integration
@@ -433,6 +448,84 @@ python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping --recent-days 3 -
 - **CI/CD:** Use `--pr-diff` for efficient validation of pull requests
 - **Comprehensive Analysis:** Reserve full scans for main branch validation and synchronization
 - **Drift Thresholds:** Set appropriate thresholds for your project (recommend <10%)
+
+## Merged FT-TC Structure (NEW)
+
+**As of 2025-01-27**, Agent3D has migrated to a **merged FT-TC structure** for improved documentation organization and traceability.
+
+### Structure Overview
+
+**Old Structure:**
+- `docs/FEATURES.md` - Single file with all features
+- `docs/TEST-CASES.md` - Separate file with all test cases
+- Manual cross-referencing between FT and TC IDs
+
+**New Structure:**
+- `docs/features/` - Directory with modular section files
+- Each section file contains features AND their associated test cases
+- Automatic FT-TC relationship tracking
+
+### Section Files
+
+```bash
+docs/features/
+├── core.md              # FT-CORE-* features with TC-CORE-* test cases
+├── implementation.md    # FT-IMPL-* features with TC-IMPL-* test cases
+├── integration.md       # FT-INTG-* features with TC-INTG-* test cases
+├── language-rules.md    # FT-LANG-* features with TC-LANG-* test cases
+├── passes.md           # FT-PASS-* features with TC-PASS-* test cases
+├── proposals.md        # FT-PROP-* features with TC-PROP-* test cases
+├── status-tracking.md  # FT-STAT-* features with TC-STAT-* test cases
+└── templates.md        # FT-TMPL-* features with TC-TMPL-* test cases
+```
+
+### Feature Format
+
+```markdown
+## FT-CORE-001 - Feature Name
+- **Description:** Brief feature description
+- **Criteria:** Acceptance criteria for completion
+- **Dependencies:** Related features or requirements
+- **Impact:** High/Medium/Low impact assessment
+- **Test Coverage:** Number of test cases and sub-tests
+- **Related Features:** Links to related features
+- **Test Cases:**
+    - [x] **TC-CORE-001** - Test Name (Automated, High) ✅ **PRODUCTION**
+        - [x] **TC-CORE-001a** - Sub-test Name - Detailed test description
+        - [x] **TC-CORE-001b** - Sub-test Name - Detailed test description
+    - [x] **TC-CORE-002** - Test Name (Manual, Medium) ✅ **PRODUCTION**
+```
+
+### Migration Benefits
+
+1. **Modular Organization:** Features grouped by logical sections
+2. **Integrated Testing:** Test cases directly under their features
+3. **Better Traceability:** Clear FT-TC relationships in single location
+4. **Scalability:** Easy to add new sections without modifying multiple files
+5. **Drift Scanner Support:** Automatic detection of merged structure with fallback
+
+### Working with New Structure
+
+**Adding Features:**
+1. Edit appropriate section file in `docs/features/`
+2. Follow the feature format template
+3. Include test cases directly under the feature
+4. Run drift scanner to validate relationships
+
+**Creating New Sections:**
+1. Create new `.md` file in `docs/features/`
+2. Use `templates/FEATURE-module.template.md`
+3. Follow FT-SECTION-NNN naming convention
+4. Update `docs/FEATURES.md` index
+
+**Validation:**
+```bash
+# Validate merged structure
+python3 ~/.agent3d/tools/drift_scanner.py --mode ft-mapping
+
+# Check FT-TC relationships
+python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping
+```
 
 ---
 
