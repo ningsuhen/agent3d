@@ -16,8 +16,8 @@
 # The 'language' field determines which language-specific features are enabled
 project:
     name: "{PROJECT_NAME}" # Replace with actual project name
-    type: "{PROJECT_TYPE}" # Options: web_application, api_service, library, cli_tool, mobile_app, desktop_application, documentation_framework, python_plugin, other
-    language: "{PRIMARY_LANGUAGE}" # Options: python, javascript, typescript, java, go, csharp, rust, markdown, other
+    type: "{PROJECT_TYPE}"
+    language: "{PRIMARY_LANGUAGE}"
     description: "{PROJECT_DESCRIPTION}" # Brief project description
     quality_level: "{QUALITY_LEVEL}" # Options: strict, balanced, relaxed, comprehensive, production
     execution_mode: "{EXECUTION_MODE}" # Options: standard, comprehensive_full_pass, incremental
@@ -32,25 +32,12 @@ project:
 
     # Dependencies configuration
     dependencies:
-        runtime:
-          - "{RUNTIME_DEP_1}" # e.g., "protobuf>=4.0.0"
-          - "{RUNTIME_DEP_2}" # e.g., "httpx>=0.24.0"
-          - "{RUNTIME_DEP_3}" # e.g., "fastapi>=0.100.0"
-
-        test:
-          - "{TEST_DEP_1}" # e.g., "pytest>=7.0.0"
-          - "{TEST_DEP_2}" # e.g., "pytest-asyncio>=0.21.0"
-          - "{TEST_DEP_3}" # e.g., "pytest-goldie>=0.1.0"
-
+        runtime: ['{RUNTIME_DEP_1}" 
+        test: ['{TEST_DEP_1}" 
         validation:
-          - "{VALIDATION_DEP_1}" # e.g., "protovalidate"
-          - "{VALIDATION_DEP_2}" # e.g., "buf-validate"
-
-        dev:
-          - "{DEV_DEP_1}" # e.g., "flake8>=6.0.0"
-          - "{DEV_DEP_2}" # e.g., "black>=23.0.0"
-          - "{DEV_DEP_3}" # e.g., "mypy>=1.0.0"
-
+          - "{VALIDATION_DEP_1}"           
+          - "{VALIDATION_DEP_2}" 
+        dev: ['{DEV_DEP_1}" 
 # ============================================================================
 # DDD PASS CONFIGURATION
 # ============================================================================
@@ -233,8 +220,7 @@ identifier_patterns:
     # DRIFT DETECTION CONFIGURATION
     # ============================================================================
     # CRITICAL FOR LLMs: This section configures the drift scanner tool
-    # The drift scanner validates TC-*, FT-*, REQ-* identifiers and Code Location fields
-drift_detection:
+    drift_detection:
     enabled_patterns: [ "TC-", "FT-", "REQ-" ] # Add more patterns as needed
     primary_patterns: [ "TC-", "FT-", "REQ-" ] # Core non-deprecated patterns
     relationship_validation: { RELATIONSHIP_VALIDATION } # Boolean: true/false
@@ -260,8 +246,7 @@ mcp_server:
         root_directory: "{MCP_ROOT_DIRECTORY}" # Usually same as ddd_root
         use_ddd_root_env: { USE_DDD_ROOT_ENV } # Boolean: true/false
         fallback_to_config: { FALLBACK_CONFIG } # Boolean: true/false
-    alternative_standalone: "{STANDALONE_COMMAND}" # e.g., "python3 tools/drift_scanner.py"
-
+    alternative_standalone: "{STANDALONE_COMMAND}" 
 # ============================================================================
 # TEMPLATE CONFIGURATION
 # ============================================================================
@@ -327,29 +312,22 @@ project_settings:
 
     # Documentation structure
     docs_structure:
-        guides: "{GUIDES_DIR}" # e.g., "docs/guides/", "documentation/guides/"
-        modules: "{MODULES_DIR}" # e.g., "docs/modules/", "docs/api/"
-        designs: "{DESIGNS_DIR}" # e.g., "docs/designs/", "docs/architecture/"
-        proposals: "{PROPOSALS_DIR}" # e.g., "docs/proposals/", "docs/rfcs/"
+        guides: "{GUIDES_DIR}"
+        modules: "{MODULES_DIR}"
+        designs: "{DESIGNS_DIR}"
+        proposals: "{PROPOSALS_DIR}"
 
     # Python path configuration (for Python projects)
     # CRITICAL FOR LLMs: Used by Code Location field validation in drift scanner
-    # This section is REQUIRED for Python projects to validate FT-* Code Location fields
-    python_paths:
+        python_paths:
         # Primary source directories (in order of preference)
-        source_directories:
-          - "{SOURCE_DIR_1}" # e.g., "src", "tools", "lib"
-          - "{SOURCE_DIR_2}" # e.g., "app", "scripts"
-          - "." # Project root (fallback)
-          # Package structure configuration
+        source_directories: ['{SOURCE_DIR_1}"           # Package structure configuration
         package_structure:
             # Flat structure: tools/module_name.py
             flat_modules:
-              - "{FLAT_MODULE_DIR}" # e.g., "tools", "scripts", "utils"
-              # Nested structure: src/package/module.py
+              - "{FLAT_MODULE_DIR}"               # Nested structure: src/package/module.py
             nested_modules:
-              - "{NESTED_MODULE_DIR}" # e.g., "src", "lib", "app"
-
+              - "{NESTED_MODULE_DIR}" 
         # Module resolution strategies (in order of preference)
         resolution_strategies:
           - "pyproject_toml" # Use pyproject.toml configuration if available
@@ -359,19 +337,11 @@ project_settings:
           - "package_init" # module/path/__init__.py for packages
           # Framework-specific module mappings
         framework_modules:
-            "{MODULE_MAPPING_1}": "{FILE_PATH_1}" # e.g., "tools.main": "tools/main.py"
-            "{MODULE_MAPPING_2}": "{FILE_PATH_2}" # e.g., "src.core": "src/core.py"
-
+            "{MODULE_MAPPING_1}": "{FILE_PATH_1}"             "{MODULE_MAPPING_2}": "{FILE_PATH_2}" 
         # External package handling
         external_packages:
             skip_validation: true # Skip validation for external packages
-            common_external:
-              - "os"
-              - "sys"
-              - "pathlib"
-              - "json"
-              - "yaml"
-              - "typing"
+            common_external: ['os', 'sys', 'pathlib', 'json', 'yaml', 'typing']
 
 # ============================================================================
 # CUSTOM SETTINGS
@@ -431,23 +401,22 @@ custom_settings:
 
     # Code quality tools
     code_quality:
-        static_analysis: [ "{STATIC_ANALYSIS_TOOL_1}" ] # e.g., ["sonarqube", "codeclimate", "deepsource"]
-        code_coverage: "{COVERAGE_TOOL}" # e.g., "coverage.py", "jest", "jacoco"
-        dependency_scanning: [ "{DEPENDENCY_SCANNER_1}" ] # e.g., ["safety", "audit", "snyk"]
+        static_analysis: [ "{STATIC_ANALYSIS_TOOL_1}" ]
+        code_coverage: "{COVERAGE_TOOL}"
+        dependency_scanning: [ "{DEPENDENCY_SCANNER_1}" ]
 
     # Documentation tools
     documentation_tools:
-        generator: "{DOC_GENERATOR}" # e.g., "sphinx", "mkdocs", "gitbook", "docusaurus"
-        api_docs: "{API_DOC_GENERATOR}" # e.g., "sphinx-autoapi", "typedoc", "javadoc"
-        diagrams: "{DIAGRAM_TOOL}" # e.g., "mermaid", "plantuml", "draw.io"
+        generator: "{DOC_GENERATOR}"
+        api_docs: "{API_DOC_GENERATOR}"
+        diagrams: "{DIAGRAM_TOOL}"
 
     # Environment configuration
     environments:
         development:
             database_url: "{DEV_DATABASE_URL}"
             debug_mode: { DEV_DEBUG_MODE } # Boolean: true/false
-            log_level: "{DEV_LOG_LEVEL}" # e.g., "DEBUG", "INFO"
-
+            log_level: "{DEV_LOG_LEVEL}" 
         testing:
             database_url: "{TEST_DATABASE_URL}"
             parallel_execution: { TEST_PARALLEL } # Boolean: true/false
@@ -461,8 +430,7 @@ custom_settings:
         production:
             database_url: "{PROD_DATABASE_URL}"
             high_availability: { PROD_HA } # Boolean: true/false
-            backup_strategy: "{PROD_BACKUP_STRATEGY}" # e.g., "daily", "continuous"
-
+            backup_strategy: "{PROD_BACKUP_STRATEGY}" 
     # Integration configuration
     integrations:
         external_apis:
@@ -484,8 +452,7 @@ custom_settings:
     business_rules:
         validation_rules: [ "{VALIDATION_RULE_1}" ] # Project-specific validation rules
         workflow_rules: [ "{WORKFLOW_RULE_1}" ] # Project-specific workflow rules
-        compliance_requirements: [ "{COMPLIANCE_REQ_1}" ] # e.g., "GDPR", "HIPAA", "SOX"
-
+        compliance_requirements: [ "{COMPLIANCE_REQ_1}" ] 
     # Maintenance configuration
     maintenance:
         backup_schedule: "{BACKUP_SCHEDULE}" # e.g., "daily", "weekly", "monthly"

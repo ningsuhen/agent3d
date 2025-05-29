@@ -20,8 +20,7 @@ project:
   quality_level: comprehensive
   execution_mode: comprehensive_full_pass
 
-# CRITICAL FOR LLMs: This list determines which DDD passes are active
-# Only passes listed here will be executed during DDD operations
+# Active DDD passes
 enabled_passes:
 - requirements
 - foundation
@@ -51,9 +50,7 @@ validation:
   validate_links: true
   check_formatting: true
 
-# IMPORTANT FOR LLMs: These settings control git operations and safety measures.
-# Always check these values before performing any git operations.
-# require_commit_confirmation=true means ALWAYS ask user before committing.
+# Git operations and safety settings
 git_workflow:
   require_commit_confirmation: true
   commit_message_format: 'DDD: {pass_name} - {description}'

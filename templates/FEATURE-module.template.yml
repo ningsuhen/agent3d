@@ -9,7 +9,7 @@ metadata:
     features:
       - "Prioritized test case selection guidelines with decision framework"
       - "TC-ID optimization and compression for quality improvement"
-      - "Comprehensive feature status system (NEW to ARCHIVED)"
+      - "Comprehensive feature status system (UNPLANNED to ARCHIVED)"
       - "Automated test case regeneration from scratch"
       - "Feature lifecycle management with archive safety rules"
 
@@ -38,12 +38,12 @@ usage:
     # PRIORITY 3: Feature Status System
     feature_status_system:
         purpose: "Track feature lifecycle from conception to completion or retirement"
-        status_values: "NEW, PLANNED, IN_DEVELOPMENT, FEATURE_IMPLEMENTED, TEST_IMPLEMENTED, READY, DEPRECATED, ARCHIVED"
+        status_values: "UNPLANNED, PLANNED, IN_DEVELOPMENT, FEATURE_IMPLEMENTED, TEST_IMPLEMENTED, READY, DEPRECATED, ARCHIVED"
         status_transitions: "Follow logical progression through development lifecycle"
         archive_implications: "ARCHIVED status allows deletion of associated code if not used by other active features"
 
         status_definitions:
-            NEW: "Feature just identified/documented, awaiting planning"
+            UNPLANNED: "Feature just identified/documented, awaiting planning"
             PLANNED: "Feature approved and scheduled for development"
             IN_DEVELOPMENT: "Code implementation in progress"
             FEATURE_IMPLEMENTED: "Code implementation complete, tests pending"
@@ -53,9 +53,9 @@ usage:
             ARCHIVED: "Feature no longer active, code can be safely deleted"
 
         transition_workflow:
-            typical_flow: "NEW → PLANNED → IN_DEVELOPMENT → FEATURE_IMPLEMENTED → TEST_IMPLEMENTED → READY"
+            typical_flow: "UNPLANNED → PLANNED → IN_DEVELOPMENT → FEATURE_IMPLEMENTED → TEST_IMPLEMENTED → READY"
             retirement_flow: "READY → DEPRECATED → ARCHIVED"
-            skip_allowed: "Can skip statuses if appropriate (e.g., NEW → IN_DEVELOPMENT for urgent fixes)"
+            skip_allowed: "Can skip statuses if appropriate (e.g., UNPLANNED → IN_DEVELOPMENT for urgent fixes)"
 
         archive_safety_rules:
             code_deletion_criteria: "Only delete code for ARCHIVED features if not referenced by other non-ARCHIVED features"
@@ -74,7 +74,7 @@ template_content: |
     <!-- Template Version: {{template_version}} -->
 
     ## FT-{{SECTION}}-001 - {{Feature Name}}
-    - **Status:** {{NEW/PLANNED/IN_DEVELOPMENT/FEATURE_IMPLEMENTED/TEST_IMPLEMENTED/READY/DEPRECATED/ARCHIVED}}
+    - **Status:** {{UNPLANNED/PLANNED/IN_DEVELOPMENT/FEATURE_IMPLEMENTED/TEST_IMPLEMENTED/READY/DEPRECATED/ARCHIVED}}
     - **Description:** {{Brief feature description}}
     - **Criteria:** {{Acceptance criteria}}
     - **Dependencies:** {{Related features/requirements}}
@@ -94,7 +94,7 @@ template_content: |
             - [{{status}}] **TC-{{SECTION}}-003b** - {{Sub-test: Same logic, different input - use sparingly}} - {{Boundary/Parameter variation}}
 
     ## FT-{{SECTION}}-002 - {{Feature Name}}
-    - **Status:** {{NEW/PLANNED/IN_DEVELOPMENT/FEATURE_IMPLEMENTED/TEST_IMPLEMENTED/READY/DEPRECATED/ARCHIVED}}
+    - **Status:** {{UNPLANNED/PLANNED/IN_DEVELOPMENT/FEATURE_IMPLEMENTED/TEST_IMPLEMENTED/READY/DEPRECATED/ARCHIVED}}
     - **Description:** {{Brief feature description}}
     - **Criteria:** {{Acceptance criteria}}
     - **Dependencies:** {{Related features/requirements}}
@@ -120,7 +120,7 @@ examples:
         complexity_guidance: "Simple(1-2), Moderate(2-4), Complex(3-6) test cases based on feature complexity"
 
     feature_status_examples:
-        NEW: "FT-AUTH-003 - Multi-factor Authentication (just identified)"
+        UNPLANNED: "FT-AUTH-003 - Multi-factor Authentication (just identified)"
         PLANNED: "FT-SEC-002 - Data Encryption (approved for Q2 development)"
         IN_DEVELOPMENT: "FT-API-001 - REST API Endpoints (code in progress)"
         FEATURE_IMPLEMENTED: "FT-UI-004 - Dashboard Widget (code complete, tests pending)"
@@ -130,8 +130,8 @@ examples:
         ARCHIVED: "FT-BETA-001 - Beta Feature (removed, code deleted)"
 
     status_transition_examples:
-        new_feature: "NEW → PLANNED → IN_DEVELOPMENT → FEATURE_IMPLEMENTED → TEST_IMPLEMENTED → READY"
-        urgent_fix: "NEW → IN_DEVELOPMENT → FEATURE_IMPLEMENTED → TEST_IMPLEMENTED → READY"
+        new_feature: "UNPLANNED → PLANNED → IN_DEVELOPMENT → FEATURE_IMPLEMENTED → TEST_IMPLEMENTED → READY"
+        urgent_fix: "UNPLANNED → IN_DEVELOPMENT → FEATURE_IMPLEMENTED → TEST_IMPLEMENTED → READY"
         feature_retirement: "READY → DEPRECATED → ARCHIVED"
         cancelled_feature: "PLANNED → ARCHIVED"
 
@@ -244,7 +244,7 @@ feature_status_management:
     purpose: "Comprehensive lifecycle tracking for features from conception to retirement"
 
     status_definitions:
-        NEW:
+        UNPLANNED:
             description: "Feature just identified/documented, awaiting planning"
             entry_criteria: "Feature documented with basic description"
             exit_criteria: "Feature approved and scheduled for development"
@@ -294,7 +294,7 @@ feature_status_management:
 
     transition_rules:
         allowed_transitions:
-            NEW: [ "PLANNED", "IN_DEVELOPMENT", "ARCHIVED" ]
+            UNPLANNED: [ "PLANNED", "IN_DEVELOPMENT", "ARCHIVED" ]
             PLANNED: [ "IN_DEVELOPMENT", "ARCHIVED" ]
             IN_DEVELOPMENT: [ "FEATURE_IMPLEMENTED", "PLANNED", "ARCHIVED" ]
             FEATURE_IMPLEMENTED: [ "TEST_IMPLEMENTED", "IN_DEVELOPMENT" ]
@@ -304,7 +304,7 @@ feature_status_management:
             ARCHIVED: [] # Terminal state
 
         skip_transitions:
-            emergency_development: "NEW → IN_DEVELOPMENT (for urgent fixes)"
+            emergency_development: "UNPLANNED → IN_DEVELOPMENT (for urgent fixes)"
             cancelled_features: "Any status → ARCHIVED (for cancelled features)"
             rollback_scenarios: "Any status → previous status (for rollbacks)"
 

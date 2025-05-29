@@ -25,17 +25,9 @@ process:
       description: Clarify edge case behavior, confirm priorities, verify acceptance criteria
       actions: []
     'sync:':
-      description: "Implement test suite, add edge case tests, create integration tests, update `TEST-CASES.md`
-
-
-        **Note:** During execution, mark completed steps with ✅ to track progress."
+      description: "Implement test suite, add edge case tests, create integration tests, update `TEST-CASES.md` **Note:** During execution, mark completed steps with ✅ to track progress."
       actions: []
-expected_outcomes:
-- Comprehensive test coverage
-- Edge case and error tests
-- Integration tests
-- Updated test documentation
-- Increased quality confidence
+expected_outcomes: ['Comprehensive test coverage', 'Edge case and error tests', 'Integration tests', 'Updated test documentation', 'Increased quality confidence']
 
 # Testing Framework Classification
 testing_framework_rules:
@@ -47,11 +39,7 @@ testing_framework_rules:
     - "Features with Code Location pointing to .py, .js, .ts, .java, .go files"
     - "Executable code that can be unit/integration tested"
     - "APIs, functions, classes, and modules"
-    testing_approach:
-    - "Create pytest/jest/junit test files"
-    - "Implement unit and integration tests"
-    - "Add to CI/CD pipeline"
-    - "Achieve target coverage metrics"
+    testing_approach: ['Create pytest/jest/junit test files', 'Implement unit and integration tests', 'Add to CI/CD pipeline', 'Achieve target coverage metrics']
 
   manual_validation_scope:
     description: "NO automated tests for Documentation/Configuration/Process features"
@@ -60,11 +48,7 @@ testing_framework_rules:
     - "Documentation framework features (docs/, README, etc.)"
     - "Configuration framework features (.agent3d-config.yml, passes.yml/)"
     - "Process features with N/A or descriptive Code Locations"
-    validation_approach:
-    - "Manual review and validation only"
-    - "Schema validation for configuration files"
-    - "Process adherence verification"
-    - "Documentation quality assessment"
+    validation_approach: ['Manual review and validation only', 'Schema validation for configuration files', 'Process adherence verification', 'Documentation quality assessment']
 
   implementation_guidelines:
     before_creating_tests:
@@ -73,11 +57,7 @@ testing_framework_rules:
     - "Apply appropriate testing strategy"
     - "Do NOT create automated tests for non-code features"
 
-    test_organization:
-    - "Group tests by feature module/component"
-    - "Use TC ID comments for drift scanner detection"
-    - "Follow language-specific testing conventions"
-    - "Maintain test documentation and coverage reports"
+    test_organization: ['Group tests by feature module/component', 'Use TC ID comments for drift scanner detection', 'Follow language-specific testing conventions', 'Maintain test documentation and coverage reports']
 
 quality_gates:
 - name: "framework_classification_followed"

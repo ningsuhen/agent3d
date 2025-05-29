@@ -192,7 +192,3 @@ Efficient rule enforcement:
 - Session-based rule caching
 - Incremental validation
 - Parallel rule processing where possible
-
----
-
-**Usage:** This document covers advanced features for power users. For basic usage, see the main documentation.

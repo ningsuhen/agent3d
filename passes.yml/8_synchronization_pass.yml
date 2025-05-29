@@ -26,16 +26,7 @@ process:
       description: Clarify implementation details, confirm intended behavior, verify constraints
       actions: []
     'sync:':
-      description: "Ensure documentation accuracy, update diagrams, validate alignment
-
-
-        **Note:** During execution, mark completed steps with ✅ to track progress."
+      description: "Ensure docs accuracy, update diagrams, validate alignment **Note:** During execution, mark completed steps with ✅ to track progress."
       actions: []
-expected_outcomes:
-- Documentation reflects implementation
-- Updated status markers
-- Corrected technical details
-- Aligned feature descriptions
-- Updated diagrams
-- Aligned test cases
+expected_outcomes: ['Documentation reflects implementation', 'Updated status markers', 'Corrected technical details', 'Aligned feature descriptions', 'Updated diagrams', 'Aligned test cases']
 quality_gates: []

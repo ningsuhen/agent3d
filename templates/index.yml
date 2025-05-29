@@ -48,54 +48,21 @@ template_categories:
       supports_placeholders: true
 usage_guidelines:
   foundation_pass:
-    primary_template: agent3d-config.template.yml
-    workflow:
-    - Check if .agent3d-config.yml exists
-    - 'If exists: Run migration analysis'
-    - 'If migration needed: Execute migration'
-    - 'If not exists: Copy template and configure'
-    - Replace all {PLACEHOLDER} values
-    - MEMORIZE entire configuration
+    template: agent3d-config.template.yml
+    workflow: [ "Check config exists", "Run migration if needed", "Copy/configure", "Replace placeholders", "Memorize config" ]
   development_pass:
-    primary_template: exec-plan.template.yml
-    workflow:
-    - Copy template to docs/runs/
-    - Replace placeholders with execution details
-    - Use for step-by-step implementation tracking
+    template: exec-plan.template.yml
+    workflow: [ "Copy to docs/runs/", "Replace placeholders", "Track implementation" ]
   documentation_pass:
-    templates:
-    - README.template.md
-    - FEATURES.template.md
-    workflow:
-    - Copy templates to appropriate locations
-    - Replace placeholders with project information
-    - Customize content for project needs
+    templates: [ "README.template.md", "FEATURES.template.md" ]
+    workflow: [ "Copy templates", "Replace placeholders", "Customize content" ]
 placeholder_system:
   format: '{PLACEHOLDER_NAME}'
-  conventions:
-    project_info: PROJECT_NAME, PROJECT_TYPE, PROJECT_DESCRIPTION
-    configuration: QUALITY_LEVEL, EXECUTION_MODE, VALIDATION_MODE
-    development: DEVELOPMENT_TYPE, SELECTION_MODE, PRIORITY
-    testing: TEST_FRAMEWORK, COVERAGE_THRESHOLD, TEST_CATEGORY_*
-    paths: SOURCE_DIR_*, DOCS_DIRECTORY, TEMPLATES_DIR
-    metadata: CREATION_DATE, MAINTAINER, REPOSITORY_URL
-  replacement_tools:
-    manual: Direct text replacement in editors
-    automated: tools/config_migrator.py for configuration templates
-    interactive: Foundation Pass interactive configuration
+  categories: [ "project_info", "configuration", "development", "testing", "paths", "metadata" ]
+  tools: [ "manual", "automated", "interactive" ]
 validation:
-  yaml_templates:
-    tool: python3 -c 'import yaml; yaml.safe_load(open("template.yml"))'
-    requirements:
-    - Valid YAML syntax
-    - All required sections present
-    - Placeholder format consistency
-  markdown_templates:
-    tool: markdownlint or similar
-    requirements:
-    - Valid Markdown syntax
-    - Consistent heading structure
-    - Working placeholder references
+  yaml: [ "Valid syntax", "Required sections", "Placeholder consistency" ]
+  markdown: [ "Valid syntax", "Heading structure", "Working references" ]
 migration:
   configuration_templates:
     migrator: tools/config_migrator.py

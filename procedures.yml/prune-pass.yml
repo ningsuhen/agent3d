@@ -6,10 +6,7 @@ last_updated: "2025-01-27"
 pre_prune_analysis:
   repository_scan:
     cache_files:
-      commands:
-        - "find . -name '__pycache__' -type d"
-        - "find . -name '*.pyc'"
-        - "find . -name 'node_modules' -type d"
+      commands: ["find . -name '__pycache__' -type d", "find . -name '*.pyc'", "find . -name 'node_modules' -type d"]
       description: "Identify cache files for safe removal"
     
     temporary_files:
@@ -39,11 +36,7 @@ safe_removal_categories:
       - "*.pyc files"
       - "node_modules/ (can be regenerated with npm install)"
     
-    build_artifacts:
-      - "dist/"
-      - "build/"
-      - "out/"
-      - "target/"
+    build_artifacts: ['dist/', 'build/', 'out/', 'target/']
     
     temporary_files:
       - "Temporary test files with names containing 'test', 'debug', 'temp'"
@@ -74,10 +67,7 @@ safe_removal_categories:
       action: "Archive with clear labeling"
   
   never_remove:
-    configuration_files:
-      - ".agent3d-config.yml"
-      - "package.json"
-      - "pyproject.toml"
+    configuration_files: ['.agent3d-config.yml', 'package.json', 'pyproject.toml']
     
     production_reports:
       - "Current state indicators"
@@ -136,62 +126,24 @@ archival_procedures:
     destination: "docs/proposals/archive/implemented/"
     criteria: "Proposals marked as implemented in current documentation"
     
-    process:
-      - "Identify implemented proposals"
-      - "Create archive directory if needed"
-      - "Move proposals to archive with date stamp"
-      - "Update proposal index"
+    process: ['Identify implemented proposals', 'Create archive directory if needed', 'Move proposals to archive with date stamp', 'Update proposal index']
   
   deprecated_documentation:
     criteria: "Documentation no longer current but historically valuable"
-    process:
-      - "Create archive directory structure"
-      - "Move deprecated docs with clear labeling"
-      - "Update references and indexes"
-      - "Document archival reason and date"
+    process: ['Create archive directory structure', 'Move deprecated docs with clear labeling', 'Update references and indexes', 'Document archival reason and date']
 
 validation_procedures:
-  pre_removal_validation:
-    - "Run drift scanner baseline"
-    - "Check for active references"
-    - "Verify file dependencies"
-    - "Confirm backup/archive status"
+  pre_removal_validation: ['Run drift scanner baseline', 'Check for active references', 'Verify file dependencies', 'Confirm backup/archive status']
   
-  post_removal_validation:
-    - "Run drift scanner comparison"
-    - "Test build processes"
-    - "Verify documentation links"
-    - "Confirm system functionality"
+  post_removal_validation: ['Run drift scanner comparison', 'Test build processes', 'Verify documentation links', 'Confirm system functionality']
   
-  rollback_procedures:
-    - "Maintain removal log"
-    - "Keep temporary backups during session"
-    - "Document removal rationale"
-    - "Provide restoration instructions"
+  rollback_procedures: ['Maintain removal log', 'Keep temporary backups during session', 'Document removal rationale', 'Provide restoration instructions']
 
 safety_guidelines:
-  verification_steps:
-    - "Always check file references before removal"
-    - "Verify files are truly unused"
-    - "Confirm regeneration capability"
-    - "Test after removal"
+  verification_steps: ['Always check file references before removal', 'Verify files are truly unused', 'Confirm regeneration capability', 'Test after removal']
   
-  backup_strategy:
-    - "Archive valuable content before removal"
-    - "Maintain removal logs"
-    - "Keep session backups"
-    - "Document removal decisions"
+  backup_strategy: ['Archive valuable content before removal', 'Maintain removal logs', 'Keep session backups', 'Document removal decisions']
   
-  risk_mitigation:
-    - "Start with obviously safe removals"
-    - "Verify each category before proceeding"
-    - "Test functionality after each removal batch"
-    - "Maintain ability to rollback changes"
+  risk_mitigation: ['Start with obviously safe removals', 'Verify each category before proceeding', 'Test functionality after each removal batch', 'Maintain ability to rollback changes']
 
-best_practices:
-  - "Always run pre-prune analysis"
-  - "Archive before removing valuable content"
-  - "Verify file dependencies and references"
-  - "Test functionality after removal"
-  - "Document removal decisions and rationale"
-  - "Maintain ability to restore removed content"
+best_practices: ['Always run pre-prune analysis', 'Archive before removing valuable content', 'Verify file dependencies and references', 'Test functionality after removal', 'Document removal decisions and rationale', 'Maintain ability to restore removed content']

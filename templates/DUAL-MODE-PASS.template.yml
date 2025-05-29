@@ -14,37 +14,23 @@ execution_modes:
   complete:
     description: "Complete {PASS_NAME} execution with comprehensive workflow"
     scope: "entire_{PASS_SCOPE}"
-    use_cases:
-    - "{COMPLETE_USE_CASE_1}"
-    - "{COMPLETE_USE_CASE_2}"
-    - "{COMPLETE_USE_CASE_3}"
-    - "{COMPLETE_USE_CASE_4}"
+    use_cases: ['{COMPLETE_USE_CASE_1}', '{COMPLETE_USE_CASE_2}', '{COMPLETE_USE_CASE_3}', '{COMPLETE_USE_CASE_4}']
     phases: [ "scan", "draft", "ask", "sync", "confirm" ]
     duration: "{COMPLETE_DURATION_ESTIMATE}"
 
   incremental:
     description: "Targeted updates to specific {PASS_SCOPE} areas"
     scope: "specific_{PASS_SCOPE}_updates"
-    use_cases:
-    - "{INCREMENTAL_USE_CASE_1}"
-    - "{INCREMENTAL_USE_CASE_2}"
-    - "{INCREMENTAL_USE_CASE_3}"
-    - "{INCREMENTAL_USE_CASE_4}"
+    use_cases: ['{INCREMENTAL_USE_CASE_1}', '{INCREMENTAL_USE_CASE_2}', '{INCREMENTAL_USE_CASE_3}', '{INCREMENTAL_USE_CASE_4}']
     phases: [ "scan", "draft", "sync" ]
     duration: "{INCREMENTAL_DURATION_ESTIMATE}"
 
 # Mode Selection Criteria
 mode_selection:
   automatic_detection:
-    complete_mode_triggers:
-    - "{COMPLETE_TRIGGER_1}"
-    - "{COMPLETE_TRIGGER_2}"
-    - "{COMPLETE_TRIGGER_3}"
+    complete_mode_triggers: ['{COMPLETE_TRIGGER_1}', '{COMPLETE_TRIGGER_2}', '{COMPLETE_TRIGGER_3}']
 
-    incremental_mode_triggers:
-    - "{INCREMENTAL_TRIGGER_1}"
-    - "{INCREMENTAL_TRIGGER_2}"
-    - "{INCREMENTAL_TRIGGER_3}"
+    incremental_mode_triggers: ['{INCREMENTAL_TRIGGER_1}', '{INCREMENTAL_TRIGGER_2}', '{INCREMENTAL_TRIGGER_3}']
 
   manual_override:
     syntax: "Run {PASS_NAME} Pass --mode={complete|incremental}"
@@ -55,19 +41,13 @@ mode_selection:
 # When to Use
 when_to_use:
   complete_mode:
-    conditions:
-    - "{COMPLETE_CONDITION_1}"
-    - "{COMPLETE_CONDITION_2}"
-    - "{COMPLETE_CONDITION_3}"
+    conditions: ['{COMPLETE_CONDITION_1}', '{COMPLETE_CONDITION_2}', '{COMPLETE_CONDITION_3}']
     prerequisites:
     - "{COMPLETE_PREREQUISITE_1}"
     - "{COMPLETE_PREREQUISITE_2}"
 
   incremental_mode:
-    conditions:
-    - "{INCREMENTAL_CONDITION_1}"
-    - "{INCREMENTAL_CONDITION_2}"
-    - "{INCREMENTAL_CONDITION_3}"
+    conditions: ['{INCREMENTAL_CONDITION_1}', '{INCREMENTAL_CONDITION_2}', '{INCREMENTAL_CONDITION_3}']
     prerequisites:
     - "{INCREMENTAL_PREREQUISITE_1}"
     - "{INCREMENTAL_PREREQUISITE_2}"
@@ -127,14 +107,8 @@ process:
       description: "{ASK_DESCRIPTION}"
       complete_mode:
         purpose: "Comprehensive stakeholder engagement"
-        protocol:
-        - "ask_one_question_at_a_time"
-        - "wait_for_response_before_next"
-        - "validate_choices_for_consistency"
-        areas:
-        - "{COMPLETE_ASK_AREA_1}"
-        - "{COMPLETE_ASK_AREA_2}"
-        - "{COMPLETE_ASK_AREA_3}"
+        protocol: ['ask_one_question_at_a_time', 'wait_for_response_before_next', 'validate_choices_for_consistency']
+        areas: ['{COMPLETE_ASK_AREA_1}', '{COMPLETE_ASK_AREA_2}', '{COMPLETE_ASK_AREA_3}']
 
       incremental_mode:
         purpose: "Skipped - streamlined workflow"
@@ -167,10 +141,7 @@ process:
       description: "{CONFIRM_DESCRIPTION}"
       complete_mode:
         purpose: "Complete validation and commit preparation"
-        actions:
-        - action: "{COMPLETE_CONFIRM_ACTION_1}"
-        - action: "{COMPLETE_CONFIRM_ACTION_2}"
-        - action: "{COMPLETE_CONFIRM_ACTION_3}"
+        actions: ['action: "{COMPLETE_CONFIRM_ACTION_1}', 'action: "{COMPLETE_CONFIRM_ACTION_2}', 'action: "{COMPLETE_CONFIRM_ACTION_3}']
 
       incremental_mode:
         purpose: "Skipped - auto-commit if configured"
@@ -181,16 +152,9 @@ process:
 
 # Expected Outcomes
 expected_outcomes:
-  complete_mode:
-  - "{COMPLETE_OUTCOME_1}"
-  - "{COMPLETE_OUTCOME_2}"
-  - "{COMPLETE_OUTCOME_3}"
-  - "{COMPLETE_OUTCOME_4}"
+  complete_mode: ['{COMPLETE_OUTCOME_1}', '{COMPLETE_OUTCOME_2}', '{COMPLETE_OUTCOME_3}', '{COMPLETE_OUTCOME_4}']
 
-  incremental_mode:
-  - "{INCREMENTAL_OUTCOME_1}"
-  - "{INCREMENTAL_OUTCOME_2}"
-  - "{INCREMENTAL_OUTCOME_3}"
+  incremental_mode: ['{INCREMENTAL_OUTCOME_1}', '{INCREMENTAL_OUTCOME_2}', '{INCREMENTAL_OUTCOME_3}']
 
 # Quality Gates
 quality_gates:
@@ -246,12 +210,6 @@ commit_messages:
 
 # Critical Notes
 critical_notes:
-  complete_mode:
-  - "{COMPLETE_CRITICAL_NOTE_1}"
-  - "{COMPLETE_CRITICAL_NOTE_2}"
-  - "{COMPLETE_CRITICAL_NOTE_3}"
+  complete_mode: ['{COMPLETE_CRITICAL_NOTE_1}', '{COMPLETE_CRITICAL_NOTE_2}', '{COMPLETE_CRITICAL_NOTE_3}']
 
-  incremental_mode:
-  - "{INCREMENTAL_CRITICAL_NOTE_1}"
-  - "{INCREMENTAL_CRITICAL_NOTE_2}"
-  - "{INCREMENTAL_CRITICAL_NOTE_3}"
+  incremental_mode: ['{INCREMENTAL_CRITICAL_NOTE_1}', '{INCREMENTAL_CRITICAL_NOTE_2}', '{INCREMENTAL_CRITICAL_NOTE_3}']

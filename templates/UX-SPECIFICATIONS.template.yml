@@ -2,13 +2,13 @@ metadata:
   name: "UX Specifications Template"
   type: "template"
   format: "markdown_content_with_yaml_metadata"
-  purpose: "Comprehensive UI/UX specifications with design principles, layouts, and implementation guidelines"
+  purpose: "Comprehensive UI/UX specifications with design principles, layouts, and impl guidelines"
   version: "2.0.0"
   created: "2025-01-29"
   last_updated: "2025-01-29"
 
 usage:
-  description: "This document must provide comprehensive UI/UX specifications with design principles, layouts, and implementation guidelines"
+  description: "This document must provide comprehensive UI/UX specifications with design principles, layouts, and impl guidelines"
 
   required_content:
   - "Design principles and UX philosophy"
@@ -271,14 +271,6 @@ examples:
   load_time_requirement: "< 2 seconds, < 3 seconds, < 1 second"
 
 validation:
-  checklist:
-  - "All user flows documented and validated"
-  - "Wireframes created for all major screens"
-  - "Responsive behavior specified for all breakpoints"
-  - "Accessibility requirements defined and testable"
-  - "Component specifications complete"
-  - "Interaction patterns documented"
-  - "Performance requirements specified"
-  - "Testing strategy defined"
+  checklist: ['All user flows documented and validated', 'Wireframes created for all major screens', 'Responsive behavior specified for all breakpoints', 'Accessibility requirements defined and testable', 'Component specifications complete', 'Interaction patterns documented', 'Performance requirements specified', 'Testing strategy defined']
 
   references: [ "BASE.template.yml#universal-validation-rules" ]

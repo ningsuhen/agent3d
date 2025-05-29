@@ -11,10 +11,7 @@ repository_management:
 
   project_root_detection:
     primary_indicator: ".agent3d-config.yml"
-    process:
-    - "Look for .agent3d-config.yml file"
-    - "MEMORIZE entire config contents"
-    - "Cache project root location"
+    process: ['Look for .agent3d-config.yml file', 'MEMORIZE entire config contents', 'Cache project root location']
 
     fallback_action:
       condition: "no config found"
@@ -56,20 +53,10 @@ error_handling:
     description: "Clone Agent3D repository if missing"
 
   update_failure:
-    actions:
-    - "Check network connectivity"
-    - "Verify git credentials"
-    - "Check for local changes: git -C ~/.agent3d status"
-    - "Stash if needed: git -C ~/.agent3d stash"
-    - "Retry pull: git -C ~/.agent3d pull origin main"
+    actions: ['Check network connectivity', 'Verify git credentials', 'Check for local changes: git -C ~/.agent3d status', 'Stash if needed: git -C ~/.agent3d stash', 'Retry pull: git -C ~/.agent3d pull origin main']
 
   config_missing:
     action: "Run Foundation Pass to initialize project"
     description: "Create .agent3d-config.yml if missing"
 
-best_practices:
-- "Always update repository before starting any pass"
-- "Cache project root location for session duration"
-- "Verify configuration exists before proceeding"
-- "Use memorized config throughout session"
-- "Handle missing dependencies gracefully"
+best_practices: ['Always update repository before starting any pass', 'Cache project root location for session duration', 'Verify configuration exists before proceeding', 'Use memorized config throughout session', 'Handle missing dependencies gracefully']

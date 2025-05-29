@@ -7,28 +7,12 @@ metadata:
   last_updated: "2025-01-29"
   refactoring_version: "1.0.0"
   inherits_from: "common-patterns.yml"
-  features:
-  - "Quality standards and validation procedures"
-  - "GitHub integration guidelines"
-  - "TC ID mapping and drift validation"
-  - "Code quality and documentation standards"
+  features: [ 'Quality standards and validation procedures', 'GitHub integration guidelines', 'TC ID mapping and drift validation', 'Code quality and documentation standards' ]
 
 quality_standards:
-  documentation:
-  - "Simple language"
-  - "Complete coverage"
-  - "Consistent patterns"
-  - "Requirements→features→tests traceability"
-  - "Current documentation"
+  documentation: [ 'Simple language', 'Complete coverage', 'Consistent patterns', 'Requirements→features→tests traceability', 'Current documentation' ]
 
-  code_quality:
-  - "Exception handling"
-  - "Memory efficiency"
-  - "Test coverage"
-  - "Security"
-  - "Performance"
-  - "Documentation"
-  - "Zero technical debt"
+  code_quality: [ 'Exception handling', 'Memory efficiency', 'Test coverage', 'Security', 'Performance', 'Documentation', 'Zero technical debt' ]
 
   tc_id_mapping:
     requirement: "All test implementations MUST include TC-NNNN references for 1:1 traceability"
@@ -41,39 +25,21 @@ validation_procedures:
 
   structure_validation:
     extends: "common-patterns.yml#validation_rules.universal_requirements"
-    additional_checks:
-    - "## Groups / ### Sub-Groups structure ✓"
-    - "Functional links, single-line entries ✓"
-    - "[x] only with verifiable evidence ✓"
-    - "2-space indentation, LLM-friendly language, traceability links ✓"
+    additional_checks: [ '2-space indentation', 'LLM-friendly language', 'traceability links' ]
 
   format_validation:
     extends: "common-patterns.yml#validation_rules.format_requirements"
-    additional_requirements:
-    - "Functional links"
-    - "No template tags"
-    - "Proper hierarchy"
+    additional_requirements: [ 'Functional links', 'No template tags', 'Proper hierarchy' ]
 
   content_validation:
-    requirements:
-    - "LLM-friendly language"
-    - "Requirements-to-features-to-tests traceability"
-    - "Verifiable completion evidence"
-    - "Consistent patterns throughout"
+    requirements: [ 'LLM-friendly language', 'Requirements-to-features-to-tests traceability', 'Verifiable completion evidence', 'Consistent patterns throughout' ]
 
 github_integration:
   reference: "GitHub CLI Integration Guide (GITHUB-CLI-INTEGRATION.md)"
 
-  features:
-  - "Automated PR detection"
-  - "Pending reviews"
-  - "Human-agent workflow"
+  features: [ 'Automated PR detection', 'Pending reviews', 'Human-agent workflow' ]
 
-  workflow_integration:
-  - "Automated status updates"
-  - "Review request management"
-  - "Merge conflict resolution"
-  - "Branch management"
+  workflow_integration: [ 'Automated status updates', 'Review request management', 'Merge conflict resolution', 'Branch management' ]
 
 drift_validation:
   tc_id_drift:
@@ -106,58 +72,23 @@ quality_gates:
         validation: "Code review passes language-specific rules"
 
 validation_workflow:
-  pre_validation:
-  - "Check structure and format"
-  - "Validate placeholder replacement"
-  - "Verify link functionality"
-  - "Confirm traceability"
+  pre_validation: [ 'Check structure and format', 'Validate placeholder replacement', 'Verify link functionality', 'Confirm traceability' ]
 
-  content_validation:
-  - "Review language clarity"
-  - "Check completeness"
-  - "Validate consistency"
-  - "Verify evidence"
+  content_validation: [ 'Review language clarity', 'Check completeness', 'Validate consistency', 'Verify evidence' ]
 
-  post_validation:
-  - "Run drift scanner"
-  - "Check quality gates"
-  - "Validate integration"
-  - "Confirm standards compliance"
+  post_validation: [ 'Run drift scanner', 'Check quality gates', 'Validate integration', 'Confirm standards compliance' ]
 
 error_handling:
   validation_failures:
-    structure_errors:
-    - "Fix hierarchy issues"
-    - "Correct formatting problems"
-    - "Replace missing placeholders"
+    structure_errors: [ 'Fix hierarchy issues', 'Correct formatting problems', 'Replace missing placeholders' ]
 
-    content_errors:
-    - "Clarify unclear language"
-    - "Add missing traceability"
-    - "Provide verifiable evidence"
+    content_errors: [ 'Clarify unclear language', 'Add missing traceability', 'Provide verifiable evidence' ]
 
-    drift_errors:
-    - "Fix TC ID mapping issues"
-    - "Update feature references"
-    - "Resolve orphaned identifiers"
+    drift_errors: [ 'Fix TC ID mapping issues', 'Update feature references', 'Resolve orphaned identifiers' ]
 
 continuous_improvement:
-  feedback_loops:
-  - "Collect validation metrics"
-  - "Identify common issues"
-  - "Update procedures based on findings"
-  - "Refine quality standards"
+  feedback_loops: [ 'Collect validation metrics', 'Identify common issues', 'Update procedures based on findings', 'Refine quality standards' ]
 
-  metrics_tracking:
-  - "Validation pass rates"
-  - "Drift percentages"
-  - "Quality gate success rates"
-  - "Time to validation completion"
+  metrics_tracking: [ 'Validation pass rates', 'Drift percentages', 'Quality gate success rates', 'Time to validation completion' ]
 
-best_practices:
-- "Validate early and often"
-- "Use automated tools for drift detection"
-- "Maintain traceability throughout development"
-- "Apply quality standards consistently"
-- "Document validation results"
-- "Continuously improve validation procedures"
+best_practices: [ 'Validate early and often', 'Use automated tools for drift detection', 'Maintain traceability throughout development', 'Apply quality standards consistently', 'Document validation results', 'Continuously improve validation procedures' ]

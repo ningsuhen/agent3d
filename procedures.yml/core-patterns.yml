@@ -1,4 +1,5 @@
-name: "Core Patterns and LLM Speed Optimization"
+metadata:
+  name: "Core Patterns and LLM Speed Optimization"
 description: "Essential patterns and optimization rules for LLM agents in DDD framework"
 version: "1.0.0"
 last_updated: "2025-01-27"
@@ -26,12 +27,7 @@ core_patterns:
     priority: "critical"
 
 speed_optimization:
-  rules:
-  - "Cache language rules"
-  - "Minimize file access"
-  - "Internalize validation patterns"
-  - "Memorize decision trees"
-  - "MEMORIZE ENTIRE .agent3d-config.yml"
+  rules: ['Cache language rules', 'Minimize file access', 'Internalize validation patterns', 'Memorize decision trees', 'MEMORIZE ENTIRE .agent3d-config.yml']
 
   critical_requirement: "MEMORIZE ENTIRE .agent3d-config.yml"
 
@@ -51,28 +47,9 @@ usage_notes:
 - "ALWAYS update versions when writing template or framework YAML files"
 
 file_operations:
-  before_write:
-  - "validate_file_path"
-  - "check_file_permissions"
-  - "backup_if_exists"
-  - "validate_content_format"
-  - "update_version_if_template_or_framework_file"
+  before_write: ['validate_file_path', 'check_file_permissions', 'backup_if_exists', 'validate_content_format', 'update_version_if_template_or_framework_file']
 
   version_management:
-    trigger_files:
-    - "templates/*.template.yml"
-    - "templates/*.template.md"
-    - "templates/index.yml"
-    - "procedures.yml/*.yml"
-    - "passes.yml/*.yml"
-    - "rules.yml/*.yml"
-    - ".agent3d-config.yml"
-    - "AGENT-GUIDELINES.yml"
+    trigger_files: ['templates/*.template.yml', 'templates/*.template.md', 'templates/index.yml', 'procedures.yml/*.yml', 'passes.yml/*.yml', 'rules.yml/*.yml', '.agent3d-config.yml', 'AGENT-GUIDELINES.yml']
 
-    update_process:
-    - "detect_file_category"
-    - "read_current_version"
-    - "determine_change_type"
-    - "increment_version"
-    - "update_metadata"
-    - "add_version_comment"
+    update_process: ['detect_file_category', 'read_current_version', 'determine_change_type', 'increment_version', 'update_metadata', 'add_version_comment']

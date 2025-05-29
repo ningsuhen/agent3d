@@ -2,7 +2,7 @@
 
 Complete guide for configuring Agent3D using `.agent3d-config.yml` in project root.
 
-**CRITICAL FOR LLM AGENTS:** MEMORIZE the ENTIRE .agent3d-config.yml file at session start. Load once, use from memory throughout all passes.
+**CRITICAL:**
 
 ## 🎯 Quick Start for Agents
 
@@ -208,8 +208,6 @@ cicd: {enabled: true, trigger_on: ["pull_request", "push_to_main"], pipeline_ste
 
 ## Configuration Update Protocol
 
-**CRITICAL FOR LLM AGENTS:** When updating .agent3d-config.yml, ALWAYS refresh memorized configuration.
+**CRITICAL:** When updating .agent3d-config.yml, refresh memorized configuration.
 
----
-
-**Usage:** Place `.agent3d-config.yml` in project root. Use Foundation Pass to create initial configuration. ALWAYS refresh memory when config is updated.
+**Usage:** Place `.agent3d-config.yml` in project root. Use Foundation Pass for initial setup.

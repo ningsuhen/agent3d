@@ -14,12 +14,7 @@ when_to_use:
   - '**Creating design proposals** for complex features that need detailed planning'
   - '**UI/UX projects** requiring wireframes, user flows, and interaction specifications'
   # Decision Tree Indicators
-  indicators:
-  - "missing feature documentation"
-  - "incomplete HIGH-LEVEL-DESIGN.md"
-  - "unclear system architecture"
-  - "ambiguous requirements"
-  - "missing technical specifications"
+  indicators: ['missing feature documentation', 'incomplete HIGH-LEVEL-DESIGN.md', 'unclear system architecture', 'ambiguous requirements', 'missing technical specifications']
 
   prerequisites: [ "requirements_pass" ]
   next_pass: "development_pass"
@@ -29,11 +24,7 @@ process:
     scan:
       purpose: "Detect missing/outdated feature documentation and design gaps"
       description: "Review features structure, check design documentation, assess documentation gaps"
-      actions:
-      - "review_features_structure"
-      - "check_design_documentation"
-      - "assess_documentation_gaps"
-      - "identify_missing_specifications"
+      actions: ['review_features_structure', 'check_design_documentation', 'assess_documentation_gaps', 'identify_missing_specifications']
 
     draft:
       purpose: "Create/update feature documentation and technical specifications"
@@ -48,33 +39,18 @@ process:
     ask:
       purpose: "Clarify gaps and get technical input"
       description: "Clarify scope, priorities, constraints"
-      protocol:
-      - "ask_one_question_at_a_time"
-      - "wait_for_response"
-      - "no_multiple_questions"
-      questions:
-      - "architecture_decisions: [key choices]"
-      - "feature_priorities: [high/medium/low]"
-      - "integration_points: [external systems]"
-      - "technical_constraints: [limitations]"
+      protocol: ['ask_one_question_at_a_time', 'wait_for_response', 'no_multiple_questions']
+      questions: ['architecture_decisions: [key choices]', 'feature_priorities: [high/medium/low]', 'integration_points: [external systems]', 'technical_constraints: [limitations]']
 
     sync:
       purpose: "Finalize changes and ensure design consistency"
       description: "Update FEATURES.md, align roadmap, validate completeness"
-      actions:
-      - "validate_feature_completeness"
-      - "ensure_design_consistency"
-      - "run_drift_scanner"
-      - "update_roadmap_alignment"
-      - "update_status_tracking"
+      actions: ['validate_feature_completeness', 'ensure_design_consistency', 'run_drift_scanner', 'update_roadmap_alignment', 'update_status_tracking']
 
     confirm:
       purpose: "Get approval before committing (if required)"
       condition: "git_workflow.require_commit_confirmation == true"
-      actions:
-      - "show_changes_summary"
-      - "request_confirmation"
-      - "commit_with_ddd_format"
+      actions: ['show_changes_summary', 'request_confirmation', 'commit_with_ddd_format']
 expected_outcomes:
 - Feature entries in merged FT-TC structure (`docs/features/` directory)
 - 'Test cases integrated with features (NEW: merged structure)'

@@ -1,26 +1,16 @@
 # Features Index
 
-This document provides an index of all Agent3D features organized by module with FT-* identifiers for traceability.
+Index of Agent3D features organized by module with FT-* identifiers.
 
-## Important Note
-
-**Agent3D is a documentation-only framework.** It does not contain any implementations, libraries, or code to import. The features listed below refer to the documentation guidelines and principles defined in this repository, not to functional components.
+**Note:** Agent3D is documentation-only framework. Features refer to documentation guidelines, not functional components.
 
 ## New Merged FT-TC Structure
 
-**As of 2025-01-27**, Agent3D has migrated to a **merged FT-TC structure** where features and their associated test cases are documented together in modular section files located in `docs/features/`. This replaces the previous separate `FEATURES.md` and `TEST-CASES.md` files.
+**As of 2025-01-27**, Agent3D uses **merged FT-TC structure** - features and test cases in modular `docs/features/` files.
 
-### Structure Benefits:
-- **Modular Organization:** Features organized by logical sections (core, passes, implementation, etc.)
-- **Integrated Testing:** Test cases directly associated with their features
-- **Better Traceability:** Clear FT-TC relationships in a single location
-- **Scalability:** Easy to add new feature sections without modifying multiple files
-- **Code Location Linking:** Direct links from features to implementation code for better analysis
+**Benefits:** Modular organization, integrated testing, better traceability, scalability, code location linking.
 
-### Migration Guide:
-- **Old:** Single `docs/FEATURES.md` file with separate `docs/TEST-CASES.md`
-- **New:** Multiple section files in `docs/features/` directory with merged FT-TC content
-- **Compatibility:** Drift scanner supports both structures with automatic fallback
+**Migration:** `docs/FEATURES.md` + `docs/TEST-CASES.md` → multiple `docs/features/*.md` files.
 
 ## Feature Modules
 

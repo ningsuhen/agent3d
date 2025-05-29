@@ -26,10 +26,7 @@ process:
       description: Confirm safe removal, verify obsolescence, clarify historical value, validate historical relevance, validate quality standards
       actions: []
     'sync:':
-      description: "Remove/archive content, eliminate historical artifacts, update cross-references, maintain coherence, ensure quality standards
-
-
-        **Note:** During execution, mark completed steps with ✅ to track progress."
+      description: "Remove/archive content, eliminate historical artifacts, update cross-references, maintain coherence, ensure quality standards **Note:** During execution, mark completed steps with ✅ to track progress."
       actions: []
 expected_outcomes:
 - Streamlined relevant documentation

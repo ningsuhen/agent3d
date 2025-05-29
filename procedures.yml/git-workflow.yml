@@ -17,21 +17,21 @@ git_workflow:
       description: "Apply branch-specific commit behavior"
       conditions:
         exec_plan_branch_auto_commit:
-          condition: "$CURRENT_BRANCH == exec-plan/* && $EXEC_PLAN_ENABLED == true"
-          actions:
-            - "git add ."
+          condition: "\1\2"
+                actions:
+                  - "\3"
             - "git commit -m 'EXEC: Step {step_number} - {step_description}'"
           
           checkpoint_tagging:
-            condition: "$IS_CHECKPOINT == true"
-            actions:
-              - "git tag 'checkpoint-{checkpoint_number}-$(date +%Y%m%d-%H%M%S)'"
+            condition: "\1\2"
+                actions:
+                  - "\3"
               - "git commit -m 'CHECKPOINT: {checkpoint_number} - {checkpoint_description}'"
         
         exec_plan_branch_merge:
-          condition: "$CURRENT_BRANCH == exec-plan/* && $ACTION == merge"
-          actions:
-            - "echo 'Ready to merge exec plan branch to main. Please review:'"
+          condition: "\1\2"
+                actions:
+                  - "\3"
             - "git log --oneline main..HEAD"
             - "echo 'Proceed with merge? (y/n)'"
             - "read confirmation"
@@ -47,19 +47,14 @@ git_workflow:
           condition: "not exec-plan branch"
           strict_mode:
             condition: "MEMORIZED_CONFIG.git_workflow.require_commit_confirmation=true"
-            actions:
-              - "echo 'Ready to commit changes. Please review:'"
-              - "git status"
-              - "echo 'Proceed with commit? (y/n)'"
-              - "read confirmation"
-              - "if [ '$confirmation' = 'y' ]; then"
+            actions: ["echo 'Ready to commit changes. Please review:'", 'git status', "echo 'Proceed with commit? (y/n)'", 'read confirmation', "if [ '$confirmation' = 'y' ]; then"]
               - "  git commit -m 'DDD: {Pass Name} - {Description}'"
               - "fi"
           
           automated_mode:
-            condition: "MEMORIZED_CONFIG.git_workflow.require_commit_confirmation=false"
-            actions:
-              - "git commit -m 'DDD: {Pass Name} - {Description}'"
+            condition: "\1\2"
+                actions:
+                  - "\3"
 
 execution_plan_examples:
   create_branch:

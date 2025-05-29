@@ -206,9 +206,5 @@ examples:
   impact_probability: "High/Medium/Low"
 
 validation:
-  rules:
-  - "All REQ-* identifiers must be unique"
-  - "Each requirement must have acceptance criteria"
-  - "Traceability matrices must be complete"
-  - "All placeholders must be replaced"
+  rules: ['All REQ-* identifiers must be unique', 'Each requirement must have acceptance criteria', 'Traceability matrices must be complete', 'All placeholders must be replaced']
   references: [ "BASE.template.yml#universal-validation-rules" ]

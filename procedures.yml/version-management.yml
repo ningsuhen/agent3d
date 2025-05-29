@@ -7,39 +7,25 @@ last_updated: "2025-01-29"
 file_categories:
   templates:
     description: "Template files that require version tracking"
-    patterns:
-      - "templates/*.template.yml"
-      - "templates/*.template.md"
-      - "templates/index.yml"
+    patterns: ['templates/*.template.yml', 'templates/*.template.md', 'templates/index.yml']
     version_field: "metadata.version"
     version_comment: "<!-- Template Version: {version} -->"
     
   framework_yaml:
     description: "Framework YAML files that require version tracking"
-    patterns:
-      - "procedures.yml/*.yml"
-      - "passes.yml/*.yml"
-      - "rules.yml/*.yml"
-      - ".agent3d-config.yml"
-      - "AGENT-GUIDELINES.yml"
+    patterns: ['procedures.yml/*.yml', 'passes.yml/*.yml', 'rules.yml/*.yml', '.agent3d-config.yml', 'AGENT-GUIDELINES.yml']
     version_field: "version"
     version_comment: "# Framework Version: {version}"
     
   generated_files:
     description: "Files generated from templates"
-    patterns:
-      - "docs/*.md"
-      - "docs/**/*.md"
-      - ".agent3d-config.yml"
+    patterns: ['docs/*.md', 'docs/**/*.md', '.agent3d-config.yml']
     version_tracking: "template_version_comment"
 
 # Version Update Rules
 version_update_rules:
   automatic_increment:
-    trigger_conditions:
-      - "file_modification"
-      - "content_change"
-      - "ddd_pass_execution"
+    trigger_conditions: ['file_modification', 'content_change', 'ddd_pass_execution']
     
     increment_strategy:
       patch: "content_updates, bug_fixes, minor_changes"
@@ -50,22 +36,13 @@ version_update_rules:
     
   version_format:
     semantic_versioning: "MAJOR.MINOR.PATCH"
-    examples:
-      - "1.0.0 → 1.0.1 (patch)"
-      - "1.0.1 → 1.1.0 (minor)"
-      - "1.1.0 → 2.0.0 (major)"
+    examples: ['1.0.0 → 1.0.1 (patch)', '1.0.1 → 1.1.0 (minor)', '1.1.0 → 2.0.0 (major)']
 
 # Implementation Strategy
 implementation:
   pre_write_hooks:
     description: "Execute before writing any template or framework file"
-    steps:
-      - "detect_file_category"
-      - "read_current_version"
-      - "determine_increment_type"
-      - "calculate_new_version"
-      - "update_version_metadata"
-      - "add_version_comment"
+    steps: ['detect_file_category', 'read_current_version', 'determine_increment_type', 'calculate_new_version', 'update_version_metadata', 'add_version_comment']
     
   version_detection:
     yaml_files:
@@ -79,22 +56,11 @@ implementation:
       default_version: "1.0.0"
   
   version_update_process:
-    read_current:
-      - "parse_file_content"
-      - "extract_version_from_metadata"
-      - "extract_version_from_comments"
-      - "use_default_if_not_found"
+    read_current: ['parse_file_content', 'extract_version_from_metadata', 'extract_version_from_comments', 'use_default_if_not_found']
     
-    calculate_new:
-      - "determine_change_type"
-      - "apply_increment_strategy"
-      - "validate_version_format"
+    calculate_new: ['determine_change_type', 'apply_increment_strategy', 'validate_version_format']
     
-    write_updated:
-      - "update_metadata_version"
-      - "update_version_comments"
-      - "update_last_updated_timestamp"
-      - "preserve_file_structure"
+    write_updated: ['update_metadata_version', 'update_version_comments', 'update_last_updated_timestamp', 'preserve_file_structure']
 
 # Agent Instructions
 agent_instructions:
@@ -104,32 +70,14 @@ agent_instructions:
       - "is_framework_yaml: Check if file matches framework YAML patterns"
       - "requires_version_update: Determine if version update is needed"
     
-    version_update_workflow:
-      - "read_current_version_from_file"
-      - "determine_change_significance"
-      - "calculate_new_version_number"
-      - "update_version_in_metadata"
-      - "add_or_update_version_comment"
-      - "update_last_updated_timestamp"
+    version_update_workflow: ['read_current_version_from_file', 'determine_change_significance', 'calculate_new_version_number', 'update_version_in_metadata', 'add_or_update_version_comment', 'update_last_updated_timestamp']
     
     change_significance_detection:
-      patch_changes:
-        - "typo_fixes"
-        - "formatting_improvements"
-        - "minor_content_updates"
-        - "comment_additions"
+      patch_changes: ['typo_fixes', 'formatting_improvements', 'minor_content_updates', 'comment_additions']
       
-      minor_changes:
-        - "new_sections_added"
-        - "new_fields_added"
-        - "structure_enhancements"
-        - "feature_additions"
+      minor_changes: ['new_sections_added', 'new_fields_added', 'structure_enhancements', 'feature_additions']
       
-      major_changes:
-        - "breaking_format_changes"
-        - "complete_restructuring"
-        - "api_breaking_changes"
-        - "major_workflow_changes"
+      major_changes: ['breaking_format_changes', 'complete_restructuring', 'api_breaking_changes', 'major_workflow_changes']
 
 # File-Specific Rules
 file_specific_rules:
@@ -167,15 +115,9 @@ integration:
       - "ensure_version_consistency"
   
   template_system:
-    rewrite_procedures:
-      - "check_template_version_before_rewrite"
-      - "update_template_version_after_rewrite"
-      - "track_version_changes_in_generated_files"
+    rewrite_procedures: ['check_template_version_before_rewrite', 'update_template_version_after_rewrite', 'track_version_changes_in_generated_files']
     
-    template_usage:
-      - "embed_template_version_in_generated_files"
-      - "track_template_source_version"
-      - "enable_version_based_rewrite_detection"
+    template_usage: ['embed_template_version_in_generated_files', 'track_template_source_version', 'enable_version_based_rewrite_detection']
 
 # Validation Rules
 validation:
@@ -185,11 +127,7 @@ validation:
     invalid_examples: ["1.0", "v1.0.0", "1.0.0-beta"]
   
   version_progression:
-    rules:
-      - "new_version_must_be_greater_than_current"
-      - "patch_increment_only_increases_patch_number"
-      - "minor_increment_resets_patch_to_zero"
-      - "major_increment_resets_minor_and_patch_to_zero"
+    rules: ['new_version_must_be_greater_than_current', 'patch_increment_only_increases_patch_number', 'minor_increment_resets_patch_to_zero', 'major_increment_resets_minor_and_patch_to_zero']
   
   timestamp_format:
     pattern: "^\\d{4}-\\d{2}-\\d{2}$"

@@ -15,12 +15,7 @@ purpose: |
     presents them to the user for selection, and executes the chosen migration following
     the migration YAML specification.
 
-triggers:
-  - "User requests framework migration"
-  - "Configuration updates needed"
-  - "Template format changes"
-  - "Framework version upgrades"
-  - "Manual migration execution"
+triggers: ['User requests framework migration', 'Configuration updates needed', 'Template format changes', 'Framework version upgrades', 'Manual migration execution']
 
 procedure:
     discovery_phase:
@@ -33,10 +28,7 @@ procedure:
               - "List all .yml files in migrations/ folder"
               - "Read metadata from each migration file"
               - "Check migration status in .agent3d-tmp/migration-tracker.yml"
-            validation:
-              - "Migration files are valid YAML"
-              - "Each migration has required metadata"
-              - "Migration tracker is accessible"
+            validation: ['Migration files are valid YAML', 'Each migration has required metadata', 'Migration tracker is accessible']
 
           - id: "load_migration_tracker"
             description: "Load current migration status"
@@ -110,21 +102,14 @@ procedure:
         steps:
           - id: "check_prerequisites"
             description: "Verify migration prerequisites"
-            actions:
-              - "Check each prerequisite listed in migration file"
-              - "Verify required files and tools are available"
-              - "Validate current system state"
+            actions: ['Check each prerequisite listed in migration file', 'Verify required files and tools are available', 'Validate current system state']
             validation:
               - "All prerequisites are met"
               - "System is ready for migration"
 
           - id: "confirm_execution"
             description: "Get final confirmation from user"
-            actions:
-              - "Display migration summary and impact"
-              - "Show backup strategy and rollback plan"
-              - "Ask for explicit confirmation to proceed"
-              - "Allow user to cancel if needed"
+            actions: ['Display migration summary and impact', 'Show backup strategy and rollback plan', 'Ask for explicit confirmation to proceed', 'Allow user to cancel if needed']
             validation:
               - "User provides explicit confirmation"
               - "Backup strategy is understood"
@@ -155,26 +140,13 @@ procedure:
 
           - id: "execute_migration_steps"
             description: "Execute migration steps in sequence"
-            actions:
-              - "Execute each step defined in migration YAML"
-              - "Validate step completion before proceeding"
-              - "Log step execution and results"
-              - "Stop execution if any step fails"
-            validation:
-              - "Each step completes successfully"
-              - "Step validation criteria are met"
-              - "No critical errors occur"
+            actions: ['Execute each step defined in migration YAML', 'Validate step completion before proceeding', 'Log step execution and results', 'Stop execution if any step fails']
+            validation: ['Each step completes successfully', 'Step validation criteria are met', 'No critical errors occur']
 
           - id: "validate_migration"
             description: "Validate migration success"
-            actions:
-              - "Check all validation criteria from migration file"
-              - "Verify system functionality after migration"
-              - "Test critical components and integrations"
-            validation:
-              - "All validation criteria pass"
-              - "System functions correctly"
-              - "No regressions detected"
+            actions: ['Check all validation criteria from migration file', 'Verify system functionality after migration', 'Test critical components and integrations']
+            validation: ['All validation criteria pass', 'System functions correctly', 'No regressions detected']
 
           - id: "update_tracker_complete"
             description: "Mark migration as completed"
@@ -192,26 +164,13 @@ procedure:
         steps:
           - id: "detect_failure"
             description: "Detect migration failure"
-            triggers:
-              - "Step validation fails"
-              - "Critical error occurs"
-              - "User requests rollback"
-            actions:
-              - "Stop migration execution immediately"
-              - "Log failure details and error messages"
-              - "Prepare for rollback procedure"
+            triggers: ['Step validation fails', 'Critical error occurs', 'User requests rollback']
+            actions: ['Stop migration execution immediately', 'Log failure details and error messages', 'Prepare for rollback procedure']
 
           - id: "execute_rollback"
             description: "Execute rollback procedure"
-            actions:
-              - "Follow rollback procedure from migration file"
-              - "Restore backups to original locations"
-              - "Verify system state after rollback"
-              - "Clean up migration artifacts"
-            validation:
-              - "System restored to pre-migration state"
-              - "All backups restored successfully"
-              - "No migration artifacts remain"
+            actions: ['Follow rollback procedure from migration file', 'Restore backups to original locations', 'Verify system state after rollback', 'Clean up migration artifacts']
+            validation: ['System restored to pre-migration state', 'All backups restored successfully', 'No migration artifacts remain']
 
           - id: "update_tracker_failed"
             description: "Mark migration as failed"
@@ -236,27 +195,11 @@ integration_points:
         trigger: "User command or request"
         action: "Execute selected migration"
 
-safety_measures:
-  - "Always create backups before migration"
-  - "Validate prerequisites before execution"
-  - "Stop execution on first failure"
-  - "Provide clear rollback procedures"
-  - "Track all migration attempts"
-  - "Require explicit user confirmation"
+safety_measures: ['Always create backups before migration', 'Validate prerequisites before execution', 'Stop execution on first failure', 'Provide clear rollback procedures', 'Track all migration attempts', 'Require explicit user confirmation']
 
-success_criteria:
-  - "Migration executes without errors"
-  - "All validation criteria pass"
-  - "System functionality preserved"
-  - "Migration tracker updated correctly"
-  - "Backups created and verified"
+success_criteria: ['Migration executes without errors', 'All validation criteria pass', 'System functionality preserved', 'Migration tracker updated correctly', 'Backups created and verified']
 
-failure_handling:
-  - "Immediate rollback on failure"
-  - "Detailed error logging"
-  - "System state restoration"
-  - "User notification of failure"
-  - "Troubleshooting guidance"
+failure_handling: ['Immediate rollback on failure', 'Detailed error logging', 'System state restoration', 'User notification of failure', 'Troubleshooting guidance']
 
 # LLM Instructions for DDD Migration:
 # 1. Always scan migrations/ folder first

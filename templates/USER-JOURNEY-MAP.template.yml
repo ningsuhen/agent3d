@@ -291,13 +291,6 @@ examples:
   touchpoint_1: "Website, Mobile App, Email"
 
 validation:
-  checklist:
-  - "Journey map includes all major phases and steps"
-  - "Mermaid journey diagram is properly formatted"
-  - "User personas are detailed and realistic"
-  - "Pain points are specific and actionable"
-  - "Success metrics are measurable"
-  - "Validation plan includes user testing approach"
-  - "Related documentation links are functional"
+  checklist: ['Journey map includes all major phases and steps', 'Mermaid journey diagram is properly formatted', 'User personas are detailed and realistic', 'Pain points are specific and actionable', 'Success metrics are measurable', 'Validation plan includes user testing approach', 'Related documentation links are functional']
 
   references: [ "BASE.template.yml#universal-validation-rules" ]

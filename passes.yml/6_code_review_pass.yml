@@ -5,13 +5,7 @@ metadata:
   role: "Senior Software Engineer with expertise in code quality, security, and maintainability"
   description: Converted from 7_code_review_pass.md
 when_to_use:
-  conditions:
-  - When a pull request has been submitted
-  - Before merging code changes into the main branch
-  - As part of the continuous integration process
-  - When conducting peer reviews of code changes
-  - For quality assurance of feature implementations
-  - When validating that code changes align with documentation
+  conditions: ['When a pull request has been submitted', 'Before merging code changes into the main branch', 'As part of the continuous integration process', 'When conducting peer reviews of code changes', 'For quality assurance of feature implementations']
   prerequisites: []
 process:
   workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
@@ -26,17 +20,9 @@ process:
       description: Submit pending PR comments, verify requirements, challenge decisions
       actions: []
     'sync:':
-      description: "Submit automated comments, request changes, hand off to human
-
-
-        **Note:** During execution, mark completed steps with ✅ to track progress."
+      description: "Submit automated comments, request changes, hand off to human **Note:** During execution, mark completed steps with ✅ to track progress."
       actions: []
-expected_outcomes:
-- Automated PR comments in pending mode
-- Actionable feedback with solutions
-- Human-agent collaborative workflow
-- Strict standards enforcement
-- Language-specific compliance
+expected_outcomes: ['Automated PR comments in pending mode', 'Actionable feedback with solutions', 'Human-agent collaborative workflow', 'Strict standards enforcement', 'Language-specific compliance']
 # Language-Specific Review Criteria
 language_rules:
   critical_requirement: "Always consult and strictly enforce language-specific rules"
@@ -64,14 +50,7 @@ language_rules:
 # Review Standards
 review_standards:
   approach: "UNCOMPROMISINGLY_STRICT"
-  principles:
-  - "be_uncompromisingly_specific_about_every_issue"
-  - "demand_explanations_for_deviations"
-  - "provide_concrete_solutions_with_examples"
-  - "reference_specific_language_rules"
-  - "distinguish_critical_vs_improvement_issues"
-  - "focus_on_long_term_maintainability"
-  - "acknowledge_good_practices_without_lowering_standards"
+  principles: ['be_uncompromisingly_specific_about_every_issue', 'demand_explanations_for_deviations', 'provide_concrete_solutions_with_examples', 'reference_specific_language_rules', 'distinguish_critical_vs_improvement_issues', 'focus_on_long_term_maintainability']
 
 # Quality Gates
 quality_gates:

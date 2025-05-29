@@ -4,26 +4,16 @@
 metadata:
   name: "Foundation Pass"
   number: 1
-  purpose: "Establish project foundation through configuration discovery, feature selection, and initial setup after requirements understood"
+  purpose: "Establish project foundation through config discovery, feature selection, and initial setup after requirements understood"
   role: "Project Setup Specialist"
   expertise: [ "project initialization", "configuration management", "foundation establishment" ]
   focus: [ "project context", "tooling configuration", "basic structure" ]
 
 # When to Use
 when_to_use:
-  conditions:
-  - "after_requirements_pass_completed"
-  - "project_configuration_needed"
-  - "before_technical_architecture_work"
-  - "agent3d_features_need_configuration"
-  - "project_foundation_setup_required"
-  - "ddd_passes_selection_needed"
-  - "before_technical_stakeholder_engagement"
+  conditions: ['after_requirements_pass_completed', 'project_configuration_needed', 'before_technical_architecture_work', 'agent3d_features_need_configuration', 'project_foundation_setup_required', 'ddd_passes_selection_needed', 'before_technical_stakeholder_engagement']
 
-  prerequisites:
-  - "requirements_pass_completed"
-  - "business_needs_established"
-  - "project_scope_defined"
+  prerequisites: ['requirements_pass_completed', 'business_needs_established', 'project_scope_defined']
 
 # Process Workflow
 process:
@@ -54,15 +44,8 @@ process:
 
     ask:
       description: "Interactive configuration and validation"
-      protocol:
-      - "ask_one_question_at_a_time"
-      - "wait_for_response_before_next"
-      - "validate_choices_for_consistency"
-      areas:
-      - "project_type_and_language"
-      - "ddd_passes_selection"
-      - "quality_level_requirements"
-      - "custom_configuration_needs"
+      protocol: ['ask_one_question_at_a_time', 'wait_for_response_before_next', 'validate_choices_for_consistency']
+      areas: ['project_type_and_language', 'ddd_passes_selection', 'quality_level_requirements', 'custom_configuration_needs']
 
     sync:
       description: "Save configuration and establish foundation"
@@ -77,10 +60,7 @@ process:
         version_management: "update_config_version_before_save"
       - action: "memorize_entire_config"
         requirement: "IMMEDIATELY_MEMORIZE_ENTIRE_NEW_CONFIG"
-        critical: true
-      - action: "create_foundation_structure"
-      - action: "establish_docs_framework"
-      - action: "create_ddd_status"
+        critical: ['action: "create_foundation_structure', 'action: "establish_docs_framework', 'action: "create_ddd_status']
         file: "docs/DDD-STATUS.md"
       - action: "configure_python_paths"
         requirement: "CRITICAL_FOR_CODE_LOCATION_VALIDATION"
@@ -192,24 +172,14 @@ configuration_framework:
     purpose: "Enable accurate Code Location field validation in drift scanner"
 
     project_structure_analysis:
-      scan_directories:
-      - "src/"
-      - "lib/"
-      - "tools/"
-      - "scripts/"
-      - "app/"
-      - "project/"
+      scan_directories: ['src/', 'lib/', 'tools/', 'scripts/', 'app/', 'project/']
 
       detect_patterns:
         flat_structure: "tools/module_name.py"
         nested_structure: "src/package/module.py"
         package_structure: "package/__init__.py"
 
-      check_configuration_files:
-      - "pyproject.toml"
-      - "setup.py"
-      - "setup.cfg"
-      - "requirements.txt"
+      check_configuration_files: ['pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt']
 
     configuration_generation:
       source_directories:
@@ -245,11 +215,7 @@ configuration_framework:
       - "Module paths must follow project structure conventions"
       - "External packages should be marked for skip validation"
 
-      quality_gates:
-      - "Python path configuration complete"
-      - "Module resolution strategies defined"
-      - "Framework-specific modules mapped"
-      - "External packages identified"
+      quality_gates: ['Python path configuration complete', 'Module resolution strategies defined', 'Framework-specific modules mapped', 'External packages identified']
 
 # Interactive Process
 interactive_process:
@@ -286,20 +252,11 @@ interactive_process:
       optional: true
 
   validation:
-    consistency_checks:
-    - "validate_language_framework_compatibility"
-    - "check_pass_dependencies"
-    - "verify_quality_level_alignment"
+    consistency_checks: ['validate_language_framework_compatibility', 'check_pass_dependencies', 'verify_quality_level_alignment']
 
-    conflict_warnings:
-    - "warn_about_incompatible_selections"
-    - "suggest_missing_dependencies"
-    - "recommend_optimal_configurations"
+    conflict_warnings: ['warn_about_incompatible_selections', 'suggest_missing_dependencies', 'recommend_optimal_configurations']
 
-    confirmation:
-    - "display_final_configuration_summary"
-    - "request_user_confirmation"
-    - "allow_modifications_if_needed"
+    confirmation: ['display_final_configuration_summary', 'request_user_confirmation', 'allow_modifications_if_needed']
 
 # Expected Outcomes
 expected_outcomes:

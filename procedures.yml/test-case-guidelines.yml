@@ -215,23 +215,10 @@ test_case_description_requirements:
 
   description_standards:
     detail_level: "comprehensive"
-    length_target: "Around 120 characters for optimal readability"
-    scope: "Applies to both main test cases and sub-tests"
-    minimum_requirements:
-    - "Clearly identify the specific module, class, or function being tested"
-    - "Describe the exact behavior or functionality being validated"
-    - "Specify the expected outcome or assertion being made"
-    - "Include context about why this test case is important"
-    - "Provide enough detail for a developer to implement the test without additional research"
-
-    format_guidelines:
-    - "Use descriptive, action-oriented language"
-    - "Include specific technical details about what is being tested"
-    - "Avoid vague phrases like 'basic functionality' or 'simple test'"
-    - "Reference specific methods, classes, or modules when applicable"
-    - "Include expected inputs and outputs when relevant"
-    - "Keep descriptions around 120 characters for both main tests and sub-tests"
-    - "Use abbreviations for common terms when space is limited"
+    length_target: "~120 characters"
+    scope: "main tests and sub-tests"
+    requirements: [ "Identify module/class/function", "Describe behavior", "Specify outcome", "Implementation detail" ]
+    guidelines: [ "Action-oriented language", "Technical details", "Avoid vague phrases", "Reference specific components", "Use abbreviations if needed" ]
 
   good_description_examples:
     example_1:
@@ -408,16 +395,14 @@ agent_instructions:
   - "Use sub-tests sparingly and appropriately"
 
   test_case_description_writing:
-  - "ALWAYS write detailed, comprehensive test case descriptions around 120 characters"
-  - "ALWAYS specify the exact module, class, or function being tested"
-  - "ALWAYS describe the specific behavior or functionality being validated"
-  - "ALWAYS include expected outcomes and assertions"
-  - "NEVER use vague phrases like 'basic test' or 'simple validation'"
-  - "ALWAYS provide enough detail for implementation without additional research"
-  - "ALWAYS explain WHY the test case is important for the feature"
-  - "ALWAYS reference specific technical components and methods"
-  - "ALWAYS keep both main test cases AND sub-tests around 120 characters"
-  - "ALWAYS use abbreviations when needed to stay within character limit"
+  - "Write detailed descriptions ~120 chars"
+  - "Specify exact module/class/function tested"
+  - "Describe specific behavior validated"
+  - "Include expected outcomes"
+  - "Avoid vague phrases"
+  - "Provide implementation detail"
+  - "Reference technical components"
+  - "Apply to main tests AND sub-tests"
 
   implementation_approach:
   - "Start with core functionality tests"
@@ -428,14 +413,12 @@ agent_instructions:
   - "Ensure test descriptions match implementation complexity"
 
   quality_validation:
-  - "Ensure each test has clear purpose and objective"
-  - "Verify test cases address real failure scenarios"
-  - "Confirm sub-tests use same logic with different inputs"
-  - "Validate 1:1 mapping between TC IDs and test functions"
-  - "Check for redundant or overlapping test coverage"
-  - "Validate test case descriptions meet detail requirements"
-  - "Ensure descriptions clearly identify target code components"
-  - "Verify descriptions provide implementation guidance"
+  - "Clear purpose and objective"
+  - "Address real failure scenarios"
+  - "1:1 TC ID mapping"
+  - "No redundant coverage"
+  - "Descriptions meet detail requirements"
+  - "Implementation guidance provided"
 
 # Integration with DDD Framework
 ddd_integration:

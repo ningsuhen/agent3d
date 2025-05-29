@@ -8,24 +8,12 @@ language_rules:
 
   languages:
     markdown:
-      key_patterns:
-      - "LLM compression"
-      - "command-first"
-      - "no verbose explanations"
+      key_patterns: ['LLM compression', 'command-first', 'no verbose explanations']
 
-      specific_rules:
-      - "Use concise, action-oriented language"
-      - "Prioritize commands and procedures"
-      - "Minimize explanatory text"
-      - "Structure for LLM parsing efficiency"
+      specific_rules: ['Use concise, action-oriented language', 'Prioritize commands and procedures', 'Minimize explanatory text', 'Structure for LLM parsing efficiency']
 
     python:
-      key_patterns:
-      - "Type hints"
-      - "docstrings"
-      - "pytest"
-      - "pyproject.toml"
-      - "black formatting"
+      key_patterns: ['Type hints', 'docstrings', 'pytest', 'pyproject.toml', 'black formatting']
 
       specific_rules:
       - "Always include type hints for function parameters and returns"
@@ -37,42 +25,20 @@ language_rules:
       - "Import project code in tests (no mock-only tests)"
 
     javascript:
-      key_patterns:
-      - "ESLint"
-      - "TypeScript preferred"
-      - "Jest testing"
-      - "modern ES6+"
+      key_patterns: ['ESLint', 'TypeScript preferred', 'Jest testing', 'modern ES6+']
 
-      specific_rules:
-      - "Use ESLint for code quality"
-      - "Prefer TypeScript over plain JavaScript"
-      - "Use Jest for testing framework"
-      - "Apply modern ES6+ features"
+      specific_rules: ['Use ESLint for code quality', 'Prefer TypeScript over plain JavaScript', 'Use Jest for testing framework', 'Apply modern ES6+ features']
       - "Follow functional programming patterns where appropriate"
 
     java:
-      key_patterns:
-      - "Spring patterns"
-      - "JUnit"
-      - "Maven/Gradle"
-      - "SOLID principles"
+      key_patterns: ['Spring patterns', 'JUnit', 'Maven/Gradle', 'SOLID principles']
 
-      specific_rules:
-      - "Follow Spring framework patterns"
-      - "Use JUnit for testing"
-      - "Configure with Maven or Gradle"
-      - "Apply SOLID design principles"
-      - "Use dependency injection"
+      specific_rules: ['Follow Spring framework patterns', 'Use JUnit for testing', 'Configure with Maven or Gradle', 'Apply SOLID design principles', 'Use dependency injection']
 
 speed_optimization:
   caching_strategy: "Cache on first use, apply from memory, no repeated lookups"
 
-  performance_rules:
-  - "Load language rules once per session"
-  - "Cache patterns in working memory"
-  - "Apply from memory without file access"
-  - "Use memorized patterns for validation"
-  - "Avoid repeated rule lookups"
+  performance_rules: ['Load language rules once per session', 'Cache patterns in working memory', 'Apply from memory without file access', 'Use memorized patterns for validation', 'Avoid repeated rule lookups']
 
 application_guidelines:
   consistency:
@@ -81,62 +47,26 @@ application_guidelines:
   - "Validate against cached rules"
   - "Maintain language-specific standards"
 
-  validation:
-  - "Check code against memorized language patterns"
-  - "Ensure compliance with language-specific rules"
-  - "Apply formatting standards consistently"
+  validation: ['Check code against memorized language patterns', 'Ensure compliance with language-specific rules', 'Apply formatting standards consistently']
   - "Validate testing approaches match language conventions"
 
 testing_requirements:
-  universal_rules:
-  - "Include TC ID references for traceability"
-  - "Import actual project code (not just mocks)"
-  - "Test real functionality, not just assertions"
-  - "Maintain 1:1 TC ID to test mapping"
+  universal_rules: ['Include TC ID references for traceability', 'Import actual project code (not just mocks)', 'Test real functionality, not just assertions', 'Maintain 1:1 TC ID to test mapping']
   - "Select test cases judiciously based on feature needs and risk"
   - "Use sub-tests only for parameterized testing (same logic, different inputs)"
 
   language_specific:
-    python:
-    - "Use pytest framework"
-    - "Include type hints in test functions"
-    - "Write descriptive test docstrings"
-    - "Use pytest fixtures appropriately"
+    python: ['Use pytest framework', 'Include type hints in test functions', 'Write descriptive test docstrings', 'Use pytest fixtures appropriately']
 
-    javascript:
-    - "Use Jest testing framework"
-    - "Write TypeScript tests when possible"
-    - "Use describe/it structure"
-    - "Mock external dependencies appropriately"
+    javascript: ['Use Jest testing framework', 'Write TypeScript tests when possible', 'Use describe/it structure', 'Mock external dependencies appropriately']
 
-    java:
-    - "Use JUnit framework"
-    - "Follow AAA pattern (Arrange, Act, Assert)"
-    - "Use appropriate annotations"
-    - "Test Spring components with proper context"
+    java: ['Use JUnit framework', 'Follow AAA pattern (Arrange, Act, Assert)', 'Use appropriate annotations', 'Test Spring components with proper context']
 
-    go:
-    - "Use table-driven tests"
-    - "Follow Go testing conventions"
-    - "Use testify for assertions when needed"
-    - "Test error conditions explicitly"
+    go: ['Use table-driven tests', 'Follow Go testing conventions', 'Use testify for assertions when needed', 'Test error conditions explicitly']
 
 memory_management:
-  loading_strategy:
-  - "Load all language rules at session start"
-  - "Cache in working memory for duration of session"
-  - "Reference from memory during code operations"
-  - "Update memory only when rules change"
+  loading_strategy: ['Load all language rules at session start', 'Cache in working memory for duration of session', 'Reference from memory during code operations', 'Update memory only when rules change']
 
-  access_pattern:
-  - "Memory-only access during operations"
-  - "No file system reads after initial load"
-  - "Fast pattern matching from cached rules"
-  - "Consistent application across all code"
+  access_pattern: ['Memory-only access during operations', 'No file system reads after initial load', 'Fast pattern matching from cached rules', 'Consistent application across all code']
 
-best_practices:
-- "Memorize language rules at session start"
-- "Apply consistently across all code"
-- "Use cached patterns for validation"
-- "Maintain language-specific testing standards"
-- "Include TC ID mapping in all tests"
+best_practices: ['Memorize language rules at session start', 'Apply consistently across all code', 'Use cached patterns for validation', 'Maintain language-specific testing standards', 'Include TC ID mapping in all tests']

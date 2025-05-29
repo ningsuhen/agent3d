@@ -10,15 +10,7 @@ metadata:
 usage:
   description: "System overview, core components, data flow, component interactions, directory structure, technical decisions, dependencies, module design links"
 
-  required_sections:
-  - "System overview"
-  - "Core components"
-  - "Data flow (Mermaid)"
-  - "Component interactions"
-  - "Directory structure"
-  - "Technical decisions"
-  - "Dependencies"
-  - "Module design links"
+  required_sections: ['System overview', 'Core components', 'Data flow (Mermaid)', 'Component interactions', 'Directory structure', 'Technical decisions', 'Dependencies', 'Module design links']
 
 template_content: |
   # High-Level Design
@@ -89,12 +81,5 @@ examples:
   component_file: "component-name, service-name, module-name"
 
 validation:
-  rules:
-  - "System overview present"
-  - "Components with responsibilities defined"
-  - "Data flow diagrams (Mermaid) included"
-  - "Directory structure documented"
-  - "Technical decisions with rationale"
-  - "Dependencies listed and explained"
-  - "Functional design links provided"
+  rules: ['System overview present', 'Components with responsibilities defined', 'Data flow diagrams (Mermaid) included', 'Directory structure documented', 'Technical decisions with rationale', 'Dependencies listed and explained', 'Functional design links provided']
   references: [ "BASE.template.yml#universal-validation-rules" ]

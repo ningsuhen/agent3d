@@ -37,39 +37,16 @@ date_timestamp_standards:
     - placeholder: "[USE: date +%Y-%m-%d]"
       replacement: "actual command output"
 
-    rules:
-    - "Never use hardcoded dates"
-    - "Never use LLM knowledge for timestamps"
-    - "Always execute system commands for current dates"
+    rules: [ 'Never use hardcoded dates', 'Never use LLM knowledge for timestamps', 'Always execute system commands for current dates' ]
 
 validation_standards:
-  structure_validation:
-  - "## Groups / ### Sub-Groups structure"
-  - "{{placeholders}} replaced, template tags removed"
-  - "Functional links, single-line entries"
-  - "[x] only with verifiable evidence"
-  - "2-space indentation, LLM-friendly language, traceability links"
-
-  quality_validation:
-  - "Simple language"
-  - "Complete coverage"
-  - "Consistent patterns"
-  - "Requirements→features→tests traceability"
-  - "Current documentation"
-
-  format_validation:
-  - "Functional links"
-  - "No template tags"
-  - "Consistent formatting"
-  - "Complete placeholders"
-  - "Proper hierarchy"
+  structure_validation: [ '2-space indentation', 'LLM-friendly language', 'traceability links' ]
+  quality_validation: [ 'Simple language', 'Complete coverage', 'Consistent patterns', 'Requirements→features→tests traceability', 'Current documentation' ]
+  format_validation: [ 'Functional links', 'No template tags', 'Consistent formatting', 'Complete placeholders', 'Proper hierarchy' ]
 
 pass_configuration:
   location: ".agent3d-config.yml"
-  key_settings:
-  - "enabled passes"
-  - "pass-specific focus areas"
-  - "quality thresholds"
+  key_settings: [ 'enabled passes', 'pass-specific focus areas', 'quality thresholds' ]
 
   memorization_requirement: "All pass configurations must be memorized from .agent3d-config.yml"
 
@@ -92,26 +69,13 @@ directory_structure_standards:
     language_rules: "rules/ (Markdown for human)"
 
 quality_github_standards:
-  quality_requirements:
-  - "Simple language"
-  - "Complete coverage"
-  - "Consistent patterns"
-  - "Requirements→features→tests traceability"
-  - "Current docs"
+  quality_requirements: [ 'Simple language', 'Complete coverage', 'Consistent patterns', 'Requirements→features→tests traceability', 'Current docs' ]
 
-  validation_requirements:
-  - "Functional links"
-  - "No template tags"
-  - "Consistent formatting"
-  - "Complete placeholders"
-  - "Proper hierarchy"
+  validation_requirements: [ 'Functional links', 'No template tags', 'Consistent formatting', 'Complete placeholders', 'Proper hierarchy' ]
 
   github_integration:
     reference: "See GitHub CLI Integration Guide (GITHUB-CLI-INTEGRATION.md)"
-    features:
-    - "Automated PR detection"
-    - "Pending reviews"
-    - "Human-agent workflow"
+    features: [ 'Automated PR detection', 'Pending reviews', 'Human-agent workflow' ]
 
 best_practices:
 - "Use system commands for all date/timestamp generation"

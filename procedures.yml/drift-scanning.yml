@@ -4,7 +4,7 @@ version: "1.0.0"
 last_updated: "2025-01-27"
 
 overview:
-  description: "Multi-mode drift detection with TC mapping, FT mapping, FT-TC relationships, code coverage, test quality validation, and feature implementation analysis"
+  description: "Multi-mode drift detection with TC mapping, FT mapping, FT-TC relationships, code coverage, test quality valid, and feature impl analysis"
 
   analysis_modes:
     tc_mapping:
@@ -36,44 +36,19 @@ overview:
       focus: "Complete drift analysis"
 
 drift_types:
-  tc_id_mapping_drift:
-  - "Test cases without implementations"
-  - "Implementations without TC IDs"
-  - "Orphaned TC IDs"
+  tc_id_mapping_drift: ['Test cases without implementations', 'Implementations without TC IDs', 'Orphaned TC IDs']
 
-  ft_id_mapping_drift:
-  - "Features without test coverage"
-  - "Tests without feature references"
-  - "Orphaned FT IDs"
+  ft_id_mapping_drift: ['Features without test coverage', 'Tests without feature references', 'Orphaned FT IDs']
 
-  ft_tc_relationship_drift:
-  - "Missing FT-TC cross-references"
-  - "Broken relationships"
-  - "Inconsistent mappings"
+  ft_tc_relationship_drift: ['Missing FT-TC cross-references', 'Broken relationships', 'Inconsistent mappings']
 
-  code_coverage_drift:
-  - "Missing test files"
-  - "Untested functions"
-  - "Orphaned tests"
-  - "Coverage metrics"
+  code_coverage_drift: ['Missing test files', 'Untested functions', 'Orphaned tests', 'Coverage metrics']
 
-  feature_implementation_drift:
-  - "Status mismatches"
-  - "Missing implementations"
-  - "Undocumented features"
+  feature_implementation_drift: ['Status mismatches', 'Missing implementations', 'Undocumented features']
 
-  test_quality_drift:
-  - "Tests without project imports"
-  - "Tests without function calls"
-  - "Mock-only tests"
-  - "Weak assertions"
+  test_quality_drift: ['Tests without project imports', 'Tests without function calls', 'Mock-only tests', 'Weak assertions']
 
-supported_languages:
-- "Python"
-- "JavaScript/TypeScript"
-- "Java"
-- "Go"
-- "Rust"
+supported_languages: ['Python', 'JavaScript/TypeScript', 'Java', 'Go', 'Rust']
 
 tool_options:
   direct_tool:
@@ -84,10 +59,7 @@ tool_options:
   mcp_server:
     command: "~/.agent3d/tools/drift_scanner_mcp_server.sh"
     description: "Full MCP server implementation for client integration"
-    features:
-    - "Virtual environment support"
-    - "DDD_ROOT environment variable"
-    - "Automated path management"
+    features: ['Virtual environment support', 'DDD_ROOT environment variable', 'Automated path management']
 
 prerequisites:
   working_directory: "Must be run from DDD project root directory (where .agent3d-config.yaml is located)"
@@ -191,14 +163,7 @@ output_integration:
     directory: ".agent3d-tmp/drift-reports/"
     principle: "All drift scanner outputs MUST be placed in .agent3d-tmp/ directory"
 
-    report_files:
-    - "tc-mapping-drift-report.yaml"
-    - "ft-mapping-drift-report.yaml"
-    - "ft-tc-mapping-drift-report.yaml"
-    - "code-coverage-drift-report.yaml"
-    - "feature-impl-drift-report.yaml"
-    - "test-quality-drift-report.yaml"
-    - "all-drift-report.yaml"
+    report_files: ['tc-mapping-drift-report.yaml', 'ft-mapping-drift-report.yaml', 'ft-tc-mapping-drift-report.yaml', 'code-coverage-drift-report.yaml', 'feature-impl-drift-report.yaml', 'test-quality-drift-report.yaml', 'all-drift-report.yaml']
 
     custom_paths: "Automatically prefixed with .agent3d-tmp/drift-reports/ to maintain DDD standards"
 
@@ -259,16 +224,9 @@ ci_cd_integration:
     script: "python3 ~/.agent3d/tools/drift_scanner.py --mode all --quiet"
 
 identifier_patterns:
-  tc_ids:
-  - "TC-0001"
-  - "TC-ENV-007"
-  - "TC-0001a"
-  - "TC-ABC-123b"
+  tc_ids: ['TC-0001', 'TC-ENV-007', 'TC-0001a', 'TC-ABC-123b']
 
-  ft_ids:
-  - "FT-CORE-001"
-  - "FT-LANG-002a"
-  - "FT-IMPL-005"
+  ft_ids: ['FT-CORE-001', 'FT-LANG-002a', 'FT-IMPL-005']
 
 best_practices:
   tc_id_mapping:

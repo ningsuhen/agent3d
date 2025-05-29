@@ -17,8 +17,7 @@ usage:
     medium_priority: "Feature improvements, performance optimizations, documentation updates"
     low_priority: "Nice-to-have features, experimental ideas, long-term goals"
 
-  critical_structure: "Use ## Groups (Priority Levels) for High/Medium/Low/Completed and ### Sub-Groups (Functional Areas) for specific work areas within each priority"
-
+  critical_structure: "Use 
 template_content: |
   # Tasks
 
@@ -68,8 +67,7 @@ template_content: |
   - [x] {{completed_task_name}} - {{completion_description}}
 
 examples:
-  functional_area: "Documentation & Guidelines, Infrastructure & Tooling, Feature Development, Quality & Testing, Future Enhancements"
-  status: "[x] (completed), [ ] (not started), [~] (in progress)"
+  functional_area: "\1\2\3"
   task_name: "Update documentation, Fix critical bug, Implement feature"
   task_description: "Brief description of what needs to be done"
   sub_task_name: "Specific sub-task within larger task"
@@ -85,4 +83,4 @@ validation:
   - "Use ## Groups / ### Sub-Groups structure"
   - "Include functional links and single-line entries"
   - "Mark [x] only with verifiable evidence"
-  references: [ "BASE.template.yml#universal-validation-rules", "BASE.template.yml#documentation-templates-features-requirements-tasks-etc" ]
+  references: [ "BASE.template.yml

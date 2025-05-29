@@ -10,15 +10,7 @@ metadata:
 usage:
   description: "This document must provide a comprehensive proposal for unimplemented features, modules, or system changes"
 
-  required_content:
-  - "Clear problem statement and motivation"
-  - "Proposed solution with detailed design"
-  - "Implementation approach and timeline"
-  - "Risk assessment and mitigation strategies"
-  - "Success criteria and acceptance criteria"
-  - "Integration plan with existing systems"
-  - "Resource requirements and dependencies"
-  - "Alternative approaches considered"
+  required_content: ['Clear problem statement and motivation', 'Proposed solution with detailed design', 'Implementation approach and timeline', 'Risk assessment and mitigation strategies', 'Success criteria and acceptance criteria', 'Integration plan with existing systems', 'Resource requirements and dependencies', 'Alternative approaches considered']
 
   required_sections:
   - "Problem Statement - What problem this proposal solves"

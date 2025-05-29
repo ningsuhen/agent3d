@@ -2,66 +2,63 @@
 # Use this template to create new DDD framework migrations
 
 metadata:
-  id: "{{migration-id}}"
-  name: "{{Human Readable Migration Name}}"
+  id: ""{{\1}}""
+  name: ""{{\1}}""
   version: "1.0.0"
-  description: "{{Detailed description of what this migration accomplishes}}"
-  created_at: "{{YYYY-MM-DDTHH:MM:SSZ}}"
-  author: "{{Author Name}}"
-  impact: "{{high/medium/low}}"
-  estimated_time_minutes: {{number}}
+  description: ""{{\1}}""
+  created_at: ""{{\1}}""
+  author: ""{{\1}}""
+  impact: ""{{\1}}""
+  estimated_time_minutes: "{{\1}}"
   
-prerequisites:
-  - "{{Condition that must be met before migration}}"
-  - "{{Another prerequisite}}"
-  - "{{File or directory existence check}}"
+prerequisites: ['"{{\1}}"', '"{{\1}}"', '"{{\1}}"']
   
 backup_targets:
-  - "{{file/directory to backup}}"
-  - "{{another backup target}}"
+  - ""{{\1}}""
+  - ""{{\1}}""
   
 steps:
   - id: "validate-prerequisites"
     name: "Validate Prerequisites"
-    description: "{{What this step does}}"
+    description: ""{{\1}}""
     actions:
-      - "{{Action to perform}}"
-      - "{{Another action}}"
+      - ""{{\1}}""
+      - ""{{\1}}""
     validation:
-      - "{{How to verify this step succeeded}}"
-      - "{{Another validation check}}"
+      - ""{{\1}}""
+      - ""{{\1}}""
     rollback:
-      - "{{How to undo this step if needed}}"
+      - ""{{\1}}""
       
-  - id: "{{step-id}}"
-    name: "{{Step Name}}"
-    description: "{{Step description}}"
+  - id: ""{{\1}}""
+    name: ""{{\1}}""
+    description: ""{{\1}}""
     actions:
-      - "{{Action description}}"
+      - ""{{\1}}""
     validation:
-      - "{{Success criteria}}"
+      - ""{{\1}}""
     rollback:
-      - "{{Rollback procedure}}"
+      - ""{{\1}}""
 
 post_migration:
-  - "{{Post-migration cleanup task}}"
-  - "{{Status update task}}"
+  - ""{{\1}}""
+  - ""{{\1}}""
 
 rollback_procedure:
-  - "{{Overall rollback step}}"
-  - "{{Another rollback step}}"
+  - ""{{\1}}""
+  - ""{{\1}}""
 
 validation_criteria:
-  - "{{Overall success criterion}}"
-  - "{{Another validation check}}"
+  - ""{{\1}}""
+  - ""{{\1}}""
 
 success_indicators:
-  - "{{How to know migration completed successfully}}"
-  - "{{Another success indicator}}"
+  - ""{{\1}}""
+  - ""{{\1}}""
 
 # Template Usage Instructions:
-# 1. Copy this template to docs/migrations/{{migration-id}}.yml
-# 2. Replace all {{placeholder}} values with actual content
+# 1. Copy this template to docs/migrations/"{{\1}}".yml
+# 2. Replace all "{{\1}}" values with actual content
 # 3. Remove this comment section
 # 4. Test migration thoroughly before committing
 # 5. Update migration-tracker.yml to include new migration

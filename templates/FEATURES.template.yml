@@ -114,4 +114,4 @@ examples:
 
 validation:
   rules: [ "See Base Template System for universal validation rules", "Documentation Templates validation" ]
-  references: [ "BASE.template.yml#universal-validation-rules", "BASE.template.yml#documentation-templates-features-requirements-tasks-etc" ]
+  references: [ "BASE.template.yml#universal_validation_rules" ]

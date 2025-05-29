@@ -1,8 +1,8 @@
 metadata:
   name: Requirements Pass
   number: 0
-  purpose: Establish clear requirements and business objectives as first step. Document stakeholder needs, business goals, and success criteria.
-  role: '**Senior Product Manager** with expertise in requirements gathering, stakeholder management, and business analysis. Focus on user needs, acceptance criteria, and success metrics.'
+  purpose: Establish requirements and business objectives. Document stakeholder needs, goals, success criteria.
+  role: Senior Product Manager - requirements gathering, stakeholder management, business analysis.
   description: Converted from 0_requirements_pass.md
 when_to_use:
   conditions:
@@ -27,23 +27,12 @@ process:
   workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
   phases:
     scan:
-      purpose: "Detect missing/outdated business documentation and requirements"
-      description: '[Repository Management](../procedures.yml/repository.yml#repository-management), identify gaps, review business docs, assess alignment'
-      actions:
-      - "check_business_objectives"
-      - "review_existing_requirements"
-      - "identify_stakeholder_needs"
-      - "assess_current_documentation_gaps"
+      purpose: "Detect missing/outdated business documentation"
+      actions: [ "check_business_objectives", "review_existing_requirements", "identify_stakeholder_needs", "assess_gaps" ]
 
     draft:
       purpose: "Create/update business requirements and objectives"
-      description: "Document objectives, define personas, create requirements, establish criteria, document constraints"
-      actions:
-      - "create_BUSINESS-OBJECTIVES.md"
-      - "create_REQUIREMENTS.md"
-      - "create_USER-STORIES.md"
-      - "create_ACCEPTANCE-CRITERIA.md"
-      - "document_constraints_and_assumptions"
+      actions: [ "create_BUSINESS-OBJECTIVES.md", "create_REQUIREMENTS.md", "create_USER-STORIES.md", "create_ACCEPTANCE-CRITERIA.md", "document_constraints" ]
 
     ask:
       purpose: "Clarify gaps and get stakeholder input"

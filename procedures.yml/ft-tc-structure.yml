@@ -5,7 +5,7 @@ last_updated: "2025-01-27"
 migration_date: "2025-01-27"
 
 overview:
-  description: "Agent3D has migrated to a merged FT-TC structure for improved documentation organization and traceability"
+  description: "Agent3D has migrated to a merged FT-TC structure for improved docs organization and traceability"
 
   benefits:
   - "Modular organization: Features grouped by logical sections"
@@ -77,11 +77,7 @@ feature_format:
             - [x] **TC-CORE-001b** - Sub-test Name - Detailed test description
         - [x] **TC-CORE-002** - Test Name (Manual, Medium) ✅ **PRODUCTION**
 
-  required_fields:
-  - "Description: Brief feature description"
-  - "Criteria: Acceptance criteria for completion"
-  - "Dependencies: Related features or requirements"
-  - "Impact: High/Medium/Low impact assessment"
+  required_fields: ['Description: Brief feature description', 'Criteria: Acceptance criteria for completion', 'Dependencies: Related features or requirements', 'Impact: High/Medium/Low impact assessment']
   - "Code Location: Implementation location for feature-implementation analysis"
   - "Test Coverage: Number of test cases and sub-tests"
   - "Related Features: Links to related features"
@@ -104,20 +100,12 @@ feature_format:
 
 working_procedures:
   adding_features:
-    steps:
-    - "Edit appropriate section file in docs/features/"
-    - "Follow the feature format template"
-    - "Include test cases directly under the feature"
-    - "Run drift scanner to validate relationships"
+    steps: ['Edit appropriate section file in docs/features/', 'Follow the feature format template', 'Include test cases directly under the feature', 'Run drift scanner to validate relationships']
 
     validation: "python3 ~/.agent3d/tools/drift_scanner.py --mode ft-mapping"
 
   creating_new_sections:
-    steps:
-    - "Create new .md file in docs/features/"
-    - "Use templates/FEATURE-module.template.md"
-    - "Follow FT-SECTION-NNN naming convention"
-    - "Update docs/FEATURES.md index"
+    steps: ['Create new .md file in docs/features/', 'Use templates/FEATURE-module.template.md', 'Follow FT-SECTION-NNN naming convention', 'Update docs/FEATURES.md index']
 
     naming_convention: "FT-SECTION-NNN"
     template: "templates/FEATURE-module.template.md"
@@ -130,24 +118,15 @@ working_procedures:
 naming_conventions:
   feature_ids:
     pattern: "FT-SECTION-NNN"
-    examples:
-    - "FT-CORE-001"
-    - "FT-IMPL-002"
-    - "FT-LANG-003"
+    examples: ['FT-CORE-001', 'FT-IMPL-002', 'FT-LANG-003']
 
   test_case_ids:
     pattern: "TC-SECTION-NNN"
-    examples:
-    - "TC-CORE-001"
-    - "TC-IMPL-002"
-    - "TC-LANG-003"
+    examples: ['TC-CORE-001', 'TC-IMPL-002', 'TC-LANG-003']
 
   sub_test_ids:
     pattern: "TC-SECTION-NNNx"
-    examples:
-    - "TC-CORE-001a"
-    - "TC-IMPL-002b"
-    - "TC-LANG-003c"
+    examples: ['TC-CORE-001a', 'TC-IMPL-002b', 'TC-LANG-003c']
 
 migration_benefits:
   modular_organization: "Features grouped by logical sections"
