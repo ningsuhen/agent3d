@@ -1,0 +1,304 @@
+# DDD Status Template - YAML Format
+# Tracks DDD pass status, alignment, and project health for LLM processing
+
+metadata:
+  title: "DDD Status"
+  project_name: "{{project_name}}"
+  created: "{{creation_date}}"
+  last_updated: "{{last_updated}}"
+  format_version: "2.0.0"
+  description: "Tracks DDD pass status, alignment, and project health"
+
+# Summary Statistics
+summary:
+  total_passes: {{total_passes}}
+  completed_count: {{completed_count}}
+  pending_count: {{pending_count}}
+  skipped_count: {{skipped_count}}
+  overall_drift: "{{overall_drift}}"
+  drift_icon: "{{drift_icon}}"
+  last_full_pass: "{{last_full_pass_date}}"
+  last_sync_check: "{{last_sync_date}}"
+
+# Health Indicators
+health_indicators:
+  critical_issues: {{critical_count}}
+  documentation_gaps: {{doc_gaps}}
+  implementation_drift: "{{impl_drift}}"
+  quality_score: {{quality_score}}
+  overall_health: "{{overall_health}}"  # Excellent | Good | Fair | Poor | Critical
+
+# Drift and Alignment Thresholds
+thresholds:
+  drift_levels:
+    none: "0-10%"
+    low: "11-30%"
+    medium: "31-60%"
+    high: "61-100%"
+  alignment_levels:
+    excellent: "90-100%"
+    good: "80-89%"
+    fair: "60-79%"
+    poor: "40-59%"
+    critical: "0-39%"
+
+# Pass Status Tracking
+passes:
+  # Full Pass - Comprehensive execution
+  full_pass:
+    name: "Full Pass"
+    number: "full"
+    icon: "🔄"
+    status: "{{status}}"  # completed | in_progress | pending | skipped | failed
+    status_icon: "{{status_icon}}"  # ✅ | 🔄 | ⏸️ | ⏭️ | ❌
+    alignment_percentage: {{alignment_percentage}}
+    alignment_description: "{{alignment_description}}"
+    drift_level: "{{drift_level}}"  # none | low | medium | high
+    drift_icon: "{{drift_icon}}"  # 🟢 | 🟡 | 🟠 | 🔴
+    drift_explanation: "{{drift_explanation}}"
+    last_execution: "{{execution_date}}"
+    priority: "{{priority_level}}"  # high | medium | low
+    notes: "{{status_notes}}"
+    artifacts:
+      - status: "{{artifact_status}}"
+        name: "{{artifact_name}}"
+        description: "{{artifact_description}}"
+
+  # Individual Passes (0-10)
+  requirements_pass:
+    name: "Requirements Pass"
+    number: 0
+    icon: "📋"
+    status: "{{status}}"
+    status_icon: "{{status_icon}}"
+    alignment_percentage: {{alignment_percentage}}
+    alignment_description: "{{alignment_description}}"
+    drift_level: "{{drift_level}}"
+    drift_icon: "{{drift_icon}}"
+    drift_explanation: "{{drift_explanation}}"
+    last_execution: "{{execution_date}}"
+    priority: "{{priority_level}}"
+    notes: "{{status_notes}}"
+    artifacts:
+      - status: "{{artifact_status}}"
+        name: "docs/BUSINESS-OBJECTIVES.md"
+        description: "Business goals and success criteria"
+      - status: "{{artifact_status}}"
+        name: "docs/REQUIREMENTS.md"
+        description: "Functional and non-functional requirements"
+
+  foundation_pass:
+    name: "Foundation Pass"
+    number: 1
+    icon: "🏗️"
+    status: "{{status}}"
+    status_icon: "{{status_icon}}"
+    alignment_percentage: {{alignment_percentage}}
+    alignment_description: "{{alignment_description}}"
+    drift_level: "{{drift_level}}"
+    drift_icon: "{{drift_icon}}"
+    drift_explanation: "{{drift_explanation}}"
+    last_execution: "{{execution_date}}"
+    priority: "{{priority_level}}"
+    notes: "{{status_notes}}"
+    artifacts:
+      - status: "{{artifact_status}}"
+        name: ".agent3d-config.yml"
+        description: "Project DDD configuration"
+      - status: "{{artifact_status}}"
+        name: "README.md"
+        description: "Project overview and setup"
+
+  documentation_pass:
+    name: "Documentation Pass"
+    number: 2
+    icon: "📚"
+    status: "{{status}}"
+    status_icon: "{{status_icon}}"
+    alignment_percentage: {{alignment_percentage}}
+    alignment_description: "{{alignment_description}}"
+    drift_level: "{{drift_level}}"
+    drift_icon: "{{drift_icon}}"
+    drift_explanation: "{{drift_explanation}}"
+    last_execution: "{{execution_date}}"
+    priority: "{{priority_level}}"
+    notes: "{{status_notes}}"
+    artifacts:
+      - status: "{{artifact_status}}"
+        name: "docs/features/"
+        description: "Feature documentation with test cases"
+      - status: "{{artifact_status}}"
+        name: "docs/HIGH-LEVEL-DESIGN.md"
+        description: "System architecture and design"
+
+  development_pass:
+    name: "Development Pass"
+    number: 3
+    icon: "⚡"
+    status: "{{status}}"
+    status_icon: "{{status_icon}}"
+    alignment_percentage: {{alignment_percentage}}
+    alignment_description: "{{alignment_description}}"
+    drift_level: "{{drift_level}}"
+    drift_icon: "{{drift_icon}}"
+    drift_explanation: "{{drift_explanation}}"
+    last_execution: "{{execution_date}}"
+    priority: "{{priority_level}}"
+    notes: "{{status_notes}}"
+    artifacts:
+      - status: "{{artifact_status}}"
+        name: "docs/runs/"
+        description: "Execution plans and development tracking"
+      - status: "{{artifact_status}}"
+        name: "src/"
+        description: "Implementation code"
+
+  testing_pass:
+    name: "Testing Pass"
+    number: 4
+    icon: "🧪"
+    status: "{{status}}"
+    status_icon: "{{status_icon}}"
+    alignment_percentage: {{alignment_percentage}}
+    alignment_description: "{{alignment_description}}"
+    drift_level: "{{drift_level}}"
+    drift_icon: "{{drift_icon}}"
+    drift_explanation: "{{drift_explanation}}"
+    last_execution: "{{execution_date}}"
+    priority: "{{priority_level}}"
+    notes: "{{status_notes}}"
+    artifacts:
+      - status: "{{artifact_status}}"
+        name: "tests/"
+        description: "Test implementations with TC ID mapping"
+      - status: "{{artifact_status}}"
+        name: "test coverage reports"
+        description: "Coverage analysis and quality metrics"
+
+  refactoring_pass:
+    name: "Refactoring Pass"
+    number: 5
+    icon: "🔧"
+    status: "{{status}}"
+    status_icon: "{{status_icon}}"
+    alignment_percentage: {{alignment_percentage}}
+    alignment_description: "{{alignment_description}}"
+    drift_level: "{{drift_level}}"
+    drift_icon: "{{drift_icon}}"
+    drift_explanation: "{{drift_explanation}}"
+    last_execution: "{{execution_date}}"
+    priority: "{{priority_level}}"
+    notes: "{{status_notes}}"
+    artifacts:
+      - status: "{{artifact_status}}"
+        name: "refactoring documentation"
+        description: "Code cleanup and optimization records"
+
+  code_review_pass:
+    name: "Code Review Pass"
+    number: 6
+    icon: "👁️"
+    status: "{{status}}"
+    status_icon: "{{status_icon}}"
+    alignment_percentage: {{alignment_percentage}}
+    alignment_description: "{{alignment_description}}"
+    drift_level: "{{drift_level}}"
+    drift_icon: "{{drift_icon}}"
+    drift_explanation: "{{drift_explanation}}"
+    last_execution: "{{execution_date}}"
+    priority: "{{priority_level}}"
+    notes: "{{status_notes}}"
+    artifacts:
+      - status: "{{artifact_status}}"
+        name: "PR reviews"
+        description: "Code review feedback and approvals"
+
+  synchronization_pass:
+    name: "Synchronization Pass"
+    number: 7
+    icon: "🔄"
+    status: "{{status}}"
+    status_icon: "{{status_icon}}"
+    alignment_percentage: {{alignment_percentage}}
+    alignment_description: "{{alignment_description}}"
+    drift_level: "{{drift_level}}"
+    drift_icon: "{{drift_icon}}"
+    drift_explanation: "{{drift_explanation}}"
+    last_execution: "{{execution_date}}"
+    priority: "{{priority_level}}"
+    notes: "{{status_notes}}"
+    artifacts:
+      - status: "{{artifact_status}}"
+        name: ".agent3d-tmp/drift-reports/"
+        description: "Drift analysis and synchronization reports"
+
+  prune_pass:
+    name: "Prune Pass"
+    number: 8
+    icon: "✂️"
+    status: "{{status}}"
+    status_icon: "{{status_icon}}"
+    alignment_percentage: {{alignment_percentage}}
+    alignment_description: "{{alignment_description}}"
+    drift_level: "{{drift_level}}"
+    drift_icon: "{{drift_icon}}"
+    drift_explanation: "{{drift_explanation}}"
+    last_execution: "{{execution_date}}"
+    priority: "{{priority_level}}"
+    notes: "{{status_notes}}"
+    artifacts:
+      - status: "{{artifact_status}}"
+        name: "cleanup documentation"
+        description: "Removed outdated content tracking"
+
+  reverse_pass:
+    name: "Reverse Pass"
+    number: 9
+    icon: "🔍"
+    status: "{{status}}"
+    status_icon: "{{status_icon}}"
+    alignment_percentage: {{alignment_percentage}}
+    alignment_description: "{{alignment_description}}"
+    drift_level: "{{drift_level}}"
+    drift_icon: "{{drift_icon}}"
+    drift_explanation: "{{drift_explanation}}"
+    last_execution: "{{execution_date}}"
+    priority: "{{priority_level}}"
+    notes: "{{status_notes}}"
+    artifacts:
+      - status: "{{artifact_status}}"
+        name: "reverse drift analysis"
+        description: "Undocumented implementation detection"
+
+# Status Icons Reference
+status_icons:
+  completed: "✅"
+  in_progress: "🔄"
+  pending: "⏸️"
+  skipped: "⏭️"
+  failed: "❌"
+
+# Drift Icons Reference
+drift_icons:
+  none: "🟢"
+  low: "🟡"
+  medium: "🟠"
+  high: "🔴"
+
+# Template Usage Instructions
+template_usage:
+  instructions:
+    - "Replace all {{placeholder}} values with actual data"
+    - "Update status and alignment percentages based on current state"
+    - "Ensure drift levels match actual project conditions"
+    - "Add or remove artifacts as needed for each pass"
+    - "Update last_execution dates when passes are run"
+    - "Remove this template_usage section when complete"
+  
+  validation_checklist:
+    - "All passes have status, alignment, drift, execution date, and priority"
+    - "Alignment percentages are realistic and justified"
+    - "Drift levels are explained with specific reasons"
+    - "Artifacts list is complete and up-to-date"
+    - "Summary statistics match individual pass data"
+    - "Health indicators reflect current project state"
