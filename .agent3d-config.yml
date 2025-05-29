@@ -8,462 +8,485 @@
 # IMPORTANT FOR LLMs: This section defines the project type and language
 # The 'language' field determines which language-specific features are enabled
 project:
-  name: Agent3D
-  type: documentation_framework
-  language: markdown
-  description: Documentation-Driven Development Guidelines for LLM Coding Agents
-  quality_level: comprehensive
-  execution_mode: comprehensive_full_pass
+    name: Agent3D
+    type: documentation_framework
+    language: markdown
+    description: Documentation-Driven Development Guidelines for LLM Coding Agents
+    quality_level: comprehensive
+    execution_mode: comprehensive_full_pass
 
 # CRITICAL FOR LLMs: This list determines which DDD passes are active
 # Only passes listed here will be executed during DDD operations
 enabled_passes:
-- requirements
-- foundation
-- documentation
-- development
-- testing
-- refactoring
-- code_review
-- synchronization
-- prune
-- reverse
+  - requirements
+  - foundation
+  - documentation
+  - development
+  - testing
+  - refactoring
+  - code_review
+  - synchronization
+  - prune
+  - reverse
 disabled_passes:
-- planning
-- implementation
+  - planning
+  - implementation
 quality_gates:
-  documentation_completeness: 95
-  link_validity: 100
-  template_compliance: 100
-  code_quality: 85
-  overall_quality_threshold: 95
-  markdown_quality: 90
+    documentation_completeness: 95
+    link_validity: 100
+    template_compliance: 100
+    code_quality: 85
+    overall_quality_threshold: 95
+    markdown_quality: 90
 validation:
-  mode: strict
-  enforce_all_rules: true
-  fail_on_warnings: true
-  require_all_sections: true
-  validate_links: true
-  check_formatting: true
+    mode: strict
+    enforce_all_rules: true
+    fail_on_warnings: true
+    require_all_sections: true
+    validate_links: true
+    check_formatting: true
 
 # IMPORTANT FOR LLMs: These settings control git operations and safety measures.
 # Always check these values before performing any git operations.
 # require_commit_confirmation=true means ALWAYS ask user before committing.
 git_workflow:
-  require_commit_confirmation: true
-  commit_message_format: 'DDD: {pass_name} - {description}'
-  always_confirm_before_commit: true
-  human_approval_required: true
-  exec_plan_branches:
-    enabled: true
-    branch_naming: exec-plan/{exec_plan_name}
-    auto_commit_during_execution: true
-    require_confirmation_for_merge: true
-    tag_steps_and_checkpoints: true
+    require_commit_confirmation: true
+    commit_message_format: 'DDD: {pass_name} - {description}'
+    always_confirm_before_commit: true
+    human_approval_required: true
+    exec_plan_branches:
+        enabled: true
+        branch_naming: exec-plan/{exec_plan_name}
+        auto_commit_during_execution: true
+        require_confirmation_for_merge: true
+        tag_steps_and_checkpoints: true
 documentation:
-  format: markdown
-  style_guide: github_flavored_markdown
-  line_length: 120
-  heading_structure: hierarchical
-  link_style: reference
+    format: markdown
+    style_guide: github_flavored_markdown
+    line_length: 120
+    heading_structure: hierarchical
+    link_style: reference
 identifier_patterns:
-  TC-:
-    name: Test Case
-    description: Test case identifiers
-    pattern: TC-[A-Z0-9]+-\d+[a-z]?
-    flexible_pattern: TC-[A-Za-z0-9-]+
-    primary_files:
-    - docs/features/*.md
-    - docs/FEATURES.md
-    reference_files:
-    - '**/*.py'
-    - '**/*.js'
-    - '**/*.ts'
-    - '**/*.java'
-    - '**/*.go'
-    - '**/*.rs'
-    - '**/*.md'
-    format_example: TC-0001, TC-0001a, TC-ENV-007
-    status_indicators:
-    - '[x]'
-    - '[ ]'
-    - '[~]'
-    - '[s]'
-    relationship_targets:
-    - FT-*
-    - REQ-*
-    legacy_files:
-    - docs/TEST-CASES.md
-  FT-:
-    name: Feature
-    description: Feature tracking identifiers
-    pattern: FT-[A-Z]+-\d+[a-z]?
-    flexible_pattern: FT-[A-Za-z0-9-]+
-    primary_files:
-    - docs/features/*.md
-    - docs/FEATURES.md
-    - FEATURES.md
-    reference_files:
-    - docs/features/*.md
-    - '**/*.md'
-    format_example: FT-CORE-001, FT-LANG-002a
-    status_indicators:
-    - '[x]'
-    - '[ ]'
-    - '[~]'
-    relationship_targets:
-    - TC-*
-    - REQ-*
-    legacy_files:
-    - docs/TEST-CASES.md
-  REQ-:
-    name: Requirement
-    description: Requirement identifiers
-    pattern: REQ-[A-Z0-9]+-\d+[a-z]?
-    flexible_pattern: REQ-[A-Za-z0-9-]+
-    primary_files:
-    - docs/REQUIREMENTS.md
-    - REQUIREMENTS.md
-    reference_files:
-    - docs/features/*.md
-    - docs/FEATURES.md
-    - '**/*.md'
-    format_example: REQ-001, REQ-FUNC-001
-    status_indicators:
-    - '[x]'
-    - '[ ]'
-    - '[~]'
-    relationship_targets:
-    - TC-*
-    - FT-*
-  US-:
-    name: User Story
-    description: User story identifiers
-    pattern: US-[A-Z0-9]+-\d+[a-z]?
-    flexible_pattern: US-[A-Za-z0-9-]+
-    primary_files:
-    - docs/USER-STORIES.md
-    reference_files:
-    - docs/REQUIREMENTS.md
-    - '**/*.md'
-    format_example: US-001, US-AUTH-001
-    status_indicators:
-    - '[x]'
-    - '[ ]'
-    - '[~]'
-    relationship_targets:
-    - REQ-*
-    - TC-*
-  AC-:
-    name: Acceptance Criteria
-    description: Acceptance criteria identifiers
-    pattern: AC-[A-Z0-9]+-\d+[a-z]?
-    flexible_pattern: AC-[A-Za-z0-9-]+
-    primary_files:
-    - docs/ACCEPTANCE-CRITERIA.md
-    reference_files:
-    - docs/FEATURES.md
-    - docs/features/*.md
-    - '**/*.md'
-    format_example: AC-001, AC-LOGIN-001
-    status_indicators:
-    - '[x]'
-    - '[ ]'
-    - '[~]'
-    relationship_targets:
-    - TC-*
-    - FT-*
-    - US-*
-  BUG-:
-    name: Bug
-    description: Bug tracking identifiers
-    pattern: BUG-[A-Z0-9]+-\d+[a-z]?
-    flexible_pattern: BUG-[A-Za-z0-9-]+
-    primary_files:
-    - docs/BUGS.md
-    - BUGS.md
-    reference_files:
-    - '**/*.md'
-    - '**/*.py'
-    - '**/*.js'
-    format_example: BUG-001, BUG-CRIT-001
-    status_indicators:
-    - '[x]'
-    - '[ ]'
-    - '[~]'
-    relationship_targets:
-    - TC-*
-    - FT-*
-  DOC-:
-    name: Documentation
-    description: Documentation task identifiers
-    pattern: DOC-[A-Z0-9]+-\d+[a-z]?
-    flexible_pattern: DOC-[A-Za-z0-9-]+
-    primary_files:
-    - docs/DOCUMENTATION-TASKS.md
-    reference_files:
-    - '**/*.md'
-    format_example: DOC-001, DOC-API-001
-    status_indicators:
-    - '[x]'
-    - '[ ]'
-    - '[~]'
-    relationship_targets:
-    - FT-*
-    - REQ-*
-  API-:
-    name: API Endpoint
-    description: API endpoint identifiers
-    pattern: API-[A-Z0-9]+-\d+[a-z]?
-    flexible_pattern: API-[A-Za-z0-9-]+
-    primary_files:
-    - docs/API-SPECIFICATION.md
-    reference_files:
-    - '**/*.py'
-    - '**/*.js'
-    - '**/*.java'
-    - '**/*.md'
-    format_example: API-001, API-AUTH-001
-    status_indicators:
-    - '[x]'
-    - '[ ]'
-    - '[~]'
-    relationship_targets:
-    - TC-*
-    - REQ-*
-  PERF-:
-    name: Performance
-    description: Performance requirement identifiers
-    pattern: PERF-[A-Z0-9]+-\d+[a-z]?
-    flexible_pattern: PERF-[A-Za-z0-9-]+
-    primary_files:
-    - docs/PERFORMANCE-REQUIREMENTS.md
-    reference_files:
-    - '**/*.md'
-    - '**/*.py'
-    format_example: PERF-001, PERF-LOAD-001
-    status_indicators:
-    - '[x]'
-    - '[ ]'
-    - '[~]'
-    relationship_targets:
-    - TC-*
-    - REQ-*
-  SEC-:
-    name: Security
-    description: Security requirement identifiers
-    pattern: SEC-[A-Z0-9]+-\d+[a-z]?
-    flexible_pattern: SEC-[A-Za-z0-9-]+
-    primary_files:
-    - docs/SECURITY-REQUIREMENTS.md
-    reference_files:
-    - '**/*.md'
-    - '**/*.py'
-    - '**/*.js'
-    format_example: SEC-001, SEC-AUTH-001
-    status_indicators:
-    - '[x]'
-    - '[ ]'
-    - '[~]'
-    relationship_targets:
-    - TC-*
-    - REQ-*
+    TC-:
+        name: Test Case
+        description: Test case identifiers
+        pattern: TC-[A-Z0-9]+-\d+[a-z]?
+        flexible_pattern: TC-[A-Za-z0-9-]+
+        primary_files:
+          - docs/features/*.md
+          - docs/FEATURES.md
+        reference_files:
+          - '**/*.py'
+          - '**/*.js'
+          - '**/*.ts'
+          - '**/*.java'
+          - '**/*.go'
+          - '**/*.rs'
+          - '**/*.md'
+        format_example: TC-0001, TC-0001a, TC-ENV-007
+        status_indicators:
+          - '[x]'
+          - '[ ]'
+          - '[~]'
+          - '[s]'
+        relationship_targets:
+          - FT-*
+          - REQ-*
+        legacy_files:
+          - docs/TEST-CASES.md
+    FT-:
+        name: Feature
+        description: Feature tracking identifiers
+        pattern: FT-[A-Z]+-\d+[a-z]?
+        flexible_pattern: FT-[A-Za-z0-9-]+
+        primary_files:
+          - docs/features/*.md
+          - docs/FEATURES.md
+          - FEATURES.md
+        reference_files:
+          - docs/features/*.md
+          - '**/*.md'
+        format_example: FT-CORE-001, FT-LANG-002a
+        status_indicators:
+          - '[x]'
+          - '[ ]'
+          - '[~]'
+        relationship_targets:
+          - TC-*
+          - REQ-*
+        legacy_files:
+          - docs/TEST-CASES.md
+    REQ-:
+        name: Requirement
+        description: Requirement identifiers
+        pattern: REQ-[A-Z0-9]+-\d+[a-z]?
+        flexible_pattern: REQ-[A-Za-z0-9-]+
+        primary_files:
+          - docs/REQUIREMENTS.md
+          - REQUIREMENTS.md
+        reference_files:
+          - docs/features/*.md
+          - docs/FEATURES.md
+          - '**/*.md'
+        format_example: REQ-001, REQ-FUNC-001
+        status_indicators:
+          - '[x]'
+          - '[ ]'
+          - '[~]'
+        relationship_targets:
+          - TC-*
+          - FT-*
+    US-:
+        name: User Story
+        description: User story identifiers
+        pattern: US-[A-Z0-9]+-\d+[a-z]?
+        flexible_pattern: US-[A-Za-z0-9-]+
+        primary_files:
+          - docs/USER-STORIES.md
+        reference_files:
+          - docs/REQUIREMENTS.md
+          - '**/*.md'
+        format_example: US-001, US-AUTH-001
+        status_indicators:
+          - '[x]'
+          - '[ ]'
+          - '[~]'
+        relationship_targets:
+          - REQ-*
+          - TC-*
+    AC-:
+        name: Acceptance Criteria
+        description: Acceptance criteria identifiers
+        pattern: AC-[A-Z0-9]+-\d+[a-z]?
+        flexible_pattern: AC-[A-Za-z0-9-]+
+        primary_files:
+          - docs/ACCEPTANCE-CRITERIA.md
+        reference_files:
+          - docs/FEATURES.md
+          - docs/features/*.md
+          - '**/*.md'
+        format_example: AC-001, AC-LOGIN-001
+        status_indicators:
+          - '[x]'
+          - '[ ]'
+          - '[~]'
+        relationship_targets:
+          - TC-*
+          - FT-*
+          - US-*
+    BUG-:
+        name: Bug
+        description: Bug tracking identifiers
+        pattern: BUG-[A-Z0-9]+-\d+[a-z]?
+        flexible_pattern: BUG-[A-Za-z0-9-]+
+        primary_files:
+          - docs/BUGS.md
+          - BUGS.md
+        reference_files:
+          - '**/*.md'
+          - '**/*.py'
+          - '**/*.js'
+        format_example: BUG-001, BUG-CRIT-001
+        status_indicators:
+          - '[x]'
+          - '[ ]'
+          - '[~]'
+        relationship_targets:
+          - TC-*
+          - FT-*
+    DOC-:
+        name: Documentation
+        description: Documentation task identifiers
+        pattern: DOC-[A-Z0-9]+-\d+[a-z]?
+        flexible_pattern: DOC-[A-Za-z0-9-]+
+        primary_files:
+          - docs/DOCUMENTATION-TASKS.md
+        reference_files:
+          - '**/*.md'
+        format_example: DOC-001, DOC-API-001
+        status_indicators:
+          - '[x]'
+          - '[ ]'
+          - '[~]'
+        relationship_targets:
+          - FT-*
+          - REQ-*
+    API-:
+        name: API Endpoint
+        description: API endpoint identifiers
+        pattern: API-[A-Z0-9]+-\d+[a-z]?
+        flexible_pattern: API-[A-Za-z0-9-]+
+        primary_files:
+          - docs/API-SPECIFICATION.md
+        reference_files:
+          - '**/*.py'
+          - '**/*.js'
+          - '**/*.java'
+          - '**/*.md'
+        format_example: API-001, API-AUTH-001
+        status_indicators:
+          - '[x]'
+          - '[ ]'
+          - '[~]'
+        relationship_targets:
+          - TC-*
+          - REQ-*
+    PERF-:
+        name: Performance
+        description: Performance requirement identifiers
+        pattern: PERF-[A-Z0-9]+-\d+[a-z]?
+        flexible_pattern: PERF-[A-Za-z0-9-]+
+        primary_files:
+          - docs/PERFORMANCE-REQUIREMENTS.md
+        reference_files:
+          - '**/*.md'
+          - '**/*.py'
+        format_example: PERF-001, PERF-LOAD-001
+        status_indicators:
+          - '[x]'
+          - '[ ]'
+          - '[~]'
+        relationship_targets:
+          - TC-*
+          - REQ-*
+    SEC-:
+        name: Security
+        description: Security requirement identifiers
+        pattern: SEC-[A-Z0-9]+-\d+[a-z]?
+        flexible_pattern: SEC-[A-Za-z0-9-]+
+        primary_files:
+          - docs/SECURITY-REQUIREMENTS.md
+        reference_files:
+          - '**/*.md'
+          - '**/*.py'
+          - '**/*.js'
+        format_example: SEC-001, SEC-AUTH-001
+        status_indicators:
+          - '[x]'
+          - '[ ]'
+          - '[~]'
+        relationship_targets:
+          - TC-*
+          - REQ-*
 drift_detection:
-  enabled_patterns:
-  - TC-
-  - FT-
-  - REQ-
-  - US-
-  - AC-
-  - BUG-
-  - DOC-
-  - API-
-  - PERF-
-  - SEC-
-  primary_patterns:
-  - TC-
-  - FT-
-  - REQ-
-  relationship_validation: true
-  cross_reference_checking: true
-  orphaned_identifier_detection: true
-  missing_implementation_detection: true
-  feature_files:
-    primary: docs/features/*.md
-    index: docs/FEATURES.md
-    legacy: docs/TEST-CASES.md
-  test_case_integration: merged_with_features
+    enabled_patterns:
+      - TC-
+      - FT-
+      - REQ-
+      - US-
+      - AC-
+      - BUG-
+      - DOC-
+      - API-
+      - PERF-
+      - SEC-
+    primary_patterns:
+      - TC-
+      - FT-
+      - REQ-
+    relationship_validation: true
+    cross_reference_checking: true
+    orphaned_identifier_detection: true
+    missing_implementation_detection: true
+    feature_files:
+        primary: docs/features/*.md
+        index: docs/FEATURES.md
+        legacy: docs/TEST-CASES.md
+    test_case_integration: merged_with_features
 mcp_server:
-  enabled: true
-  ddd_root: /Users/nwaikhom/.agent3d
-  server_type: drift_scanner_ddd-mcp
-  configuration:
-    root_directory: /Users/nwaikhom/.agent3d
-    use_ddd_root_env: true
-    fallback_to_config: true
-  alternative_standalone: python3 ~/.agent3d/tools/drift_scanner.py
+    enabled: true
+    ddd_root: /Users/nwaikhom/.agent3d
+    server_type: drift_scanner_ddd-mcp
+    configuration:
+        root_directory: /Users/nwaikhom/.agent3d
+        use_ddd_root_env: true
+        fallback_to_config: true
+    alternative_standalone: python3 ~/.agent3d/tools/drift_scanner.py
 templates:
-  base_path: templates.yml/
-  validation: strict
-  required_sections: all
-  allow_empty_sections: false
+    yaml:
+        base_path: templates.yml/
+        validation: strict
+        required_sections: all
+        allow_empty_sections: false
+        format: yaml
+        file_extension: .yml
+        use_case: execution_plans_status_tracking
+    markdown:
+        base_path: templates/
+        validation: strict
+        required_sections: all
+        allow_empty_sections: false
+        format: markdown
+        file_extension: .md
+        use_case: documentation_guides_procedures
+        style_guide: github_flavored_markdown
+        line_length: 120
+        heading_structure: hierarchical
+        link_style: reference
+        template_types:
+          - procedure_templates
+          - documentation_templates
+          - guide_templates
+          - feature_templates
+          - requirement_templates
 structure:
-  docs_directory: docs/
-  templates_directory: templates.yml/
-  passes_directory: passes/simplified/
-  rules_directory: rules/
-  source_directory: src/
-  test_directory: tests/
-  build_directory: build/
+    docs_directory: docs/
+    yaml_templates_directory: templates.yml/
+    markdown_templates_directory: templates/
+    passes_directory: passes/simplified/
+    rules_directory: rules/
+    source_directory: src/
+    test_directory: tests/
+    build_directory: build/
 project_settings:
-  development_tools: []
-  test_command: pytest
-  test_framework: pytest
-  test_paths:
-  - test
-  - tests
-  test_files:
-  - test_*.py
-  test_classes:
-  - Test*
-  test_functions:
-  - test_*
-  docs_structure:
-    guides: docs/guides/
-    modules: docs/modules/
-    designs: docs/designs/
-    proposals: docs/proposals/
-  python_paths:
-    source_directories:
-    - src
-    - lib
-    - tools
-    - app
-    - .
-    package_structure:
-      flat_modules:
-      - tools
-      - scripts
-      - utils
-      nested_modules:
-      - src
-      - lib
-      - app
-    resolution_strategies:
-    - pyproject_toml
-    - direct_path
-    - flat_structure
-    - nested_structure
-    - package_init
-  framework_modules:
-    tools.drift_scanner: tools/drift_scanner.py
-    tools.drift_scanner_mcp_server: tools/drift_scanner_mcp_server.py
-    workflows.validate_sync: workflows/validate-sync.py
-    workflows.test_mermaid: workflows/test-mermaid.py
-  external_packages:
-    skip_validation: true
-    common_external:
-    - os
-    - sys
-    - pathlib
-    - json
-    - yaml
-    - typing
+    development_tools: []
+    test_command: pytest
+    test_framework: pytest
+    test_paths:
+      - test
+      - tests
+    test_files:
+      - test_*.py
+    test_classes:
+      - Test*
+    test_functions:
+      - test_*
+    docs_structure:
+        guides: docs/guides/
+        modules: docs/modules/
+        designs: docs/designs/
+        proposals: docs/proposals/
+    python_paths:
+        source_directories:
+          - src
+          - lib
+          - tools
+          - app
+          - .
+        package_structure:
+            flat_modules:
+              - tools
+              - scripts
+              - utils
+            nested_modules:
+              - src
+              - lib
+              - app
+        resolution_strategies:
+          - pyproject_toml
+          - direct_path
+          - flat_structure
+          - nested_structure
+          - package_init
+    framework_modules:
+        tools.drift_scanner: tools/drift_scanner.py
+        tools.drift_scanner_mcp_server: tools/drift_scanner_mcp_server.py
+        workflows.validate_sync: workflows/validate-sync.py
+        workflows.test_mermaid: workflows/test-mermaid.py
+    external_packages:
+        skip_validation: true
+        common_external:
+          - os
+          - sys
+          - pathlib
+          - json
+          - yaml
+          - typing
 custom_settings:
-  quality_gates:
-    markdown_quality: 90
+    quality_gates:
+        markdown_quality: 90
 metadata:
-  created_by: Foundation Pass
-  created_date: '[USE: date +%Y-%m-%d COMMAND]'
-  configuration_version: '2.0'
-  agent3d_version: 1.0.0
-  template_version: '2.0'
-  migrated_from: '1.0'
-  migration_date: '2025-05-29'
+    created_by: Foundation Pass
+    created_date: '[USE: date +%Y-%m-%d COMMAND]'
+    configuration_version: '2.0'
+    agent3d_version: 1.0.0
+    template_version: '2.0'
+    migrated_from: '1.0'
+    migration_date: '2025-05-29'
 pass_config:
-  development:
-    type: documentation_development
-    scope: markdown_framework
-    selection_mode: auto
-    runs_directory: docs/runs/
-    focus:
-    - framework_enhancement
-    - documentation_implementation
-    - template_development
-    - guideline_creation
-    auto_selection:
-      priority_threshold: medium
-      max_features_per_run: 2
-      include_drift_fixes: true
-      respect_dependencies: true
-    execution_settings:
-      checkpoint_frequency: 3
-      archive_completed_plans: true
-  testing:
-    type: documentation
-    checks:
-    - markdown_linting
-    - link_validation
-    - template_verification
-    - documentation_completeness
-    - expert_coordination_validation
-    coverage_threshold: 95
-    markdown_linting:
-      priority: 1
-      config_file: .markdownlint.yaml
-      auto_fix: true
-  refactoring:
-    type: documentation
-    scope: markdown_only
-    focus:
-    - structure_optimization
-    - content_consolidation
-    - duplicate_removal
-    - clarity_improvement
-    - llm_focused_compression
-  code_review:
-    type: documentation
-    scope: markdown_only
-    criteria:
-    - content_accuracy
-    - structure_consistency
-    - language_clarity
-    - template_compliance
-    - cross_reference_validity
-  synchronization:
-    type: content_alignment
-    checks:
-    - cross_reference_validity
-    - content_consistency
-    - information_freshness
-    - framework_integration
-  prune:
-    type: content_maintenance
-    focus:
-    - outdated_information_removal
-    - duplicate_content_elimination
-    - historical_artifact_removal
-    - migration_notes_cleanup
-    - legacy_reference_elimination
-    - relevance_optimization
-    - cognitive_load_reduction
+    development:
+        type: documentation_development
+        scope: markdown_framework
+        selection_mode: auto
+        runs_directory: docs/runs/
+        focus:
+          - framework_enhancement
+          - documentation_implementation
+          - template_development
+          - guideline_creation
+        auto_selection:
+            priority_threshold: medium
+            max_features_per_run: 2
+            include_drift_fixes: true
+            respect_dependencies: true
+        execution_settings:
+            checkpoint_frequency: 3
+            archive_completed_plans: true
+    testing:
+        type: documentation
+        checks:
+          - markdown_linting
+          - link_validation
+          - template_verification
+          - documentation_completeness
+          - expert_coordination_validation
+        coverage_threshold: 95
+        markdown_linting:
+            priority: 1
+            config_file: .markdownlint.yaml
+            auto_fix: true
+    refactoring:
+        type: documentation
+        scope: markdown_only
+        focus:
+          - structure_optimization
+          - content_consolidation
+          - duplicate_removal
+          - clarity_improvement
+          - llm_focused_compression
+    code_review:
+        type: documentation
+        scope: markdown_only
+        criteria:
+          - content_accuracy
+          - structure_consistency
+          - language_clarity
+          - template_compliance
+          - cross_reference_validity
+    synchronization:
+        type: content_alignment
+        checks:
+          - cross_reference_validity
+          - content_consistency
+          - information_freshness
+          - framework_integration
+    prune:
+        type: content_maintenance
+        focus:
+          - outdated_information_removal
+          - duplicate_content_elimination
+          - historical_artifact_removal
+          - migration_notes_cleanup
+          - legacy_reference_elimination
+          - relevance_optimization
+          - cognitive_load_reduction
 expert_coordination:
-  enabled: true
-  mode: comprehensive
-  experts:
-    requirements: Senior Product Manager
-    foundation: Solutions Architect
-    documentation: Technical Writer & Business Analyst
-    development: Senior Software Developer
-    testing: Senior QA Engineer
-    refactoring: Senior Software Engineer & Code Quality Specialist
-    code_review: Very Strict Senior Software Engineer
-    synchronization: DevOps Engineer & Technical Lead
-    quality: Technical Documentation Specialist
-    prune: Technical Debt Specialist
-    reverse: Software Architect & Technical Auditor
-  coordination_requirements:
-    thorough_execution: true
-    quality_validation: true
-    comprehensive_coverage: true
-    expert_accountability: true
+    enabled: true
+    mode: comprehensive
+    experts:
+        requirements: Senior Product Manager
+        foundation: Solutions Architect
+        documentation: Technical Writer & Business Analyst
+        development: Senior Software Developer
+        testing: Senior QA Engineer
+        refactoring: Senior Software Engineer & Code Quality Specialist
+        code_review: Very Strict Senior Software Engineer
+        synchronization: DevOps Engineer & Technical Lead
+        quality: Technical Documentation Specialist
+        prune: Technical Debt Specialist
+        reverse: Software Architect & Technical Auditor
+    coordination_requirements:
+        thorough_execution: true
+        quality_validation: true
+        comprehensive_coverage: true
+        expert_accountability: true
