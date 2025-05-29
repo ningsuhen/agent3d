@@ -37,7 +37,7 @@
 
 ## Related Passes
 
-Synchronization → **Prune** → Reverse
+Code Review → **Prune** → Synchronization
 
 ## Historical Content Removal
 
