@@ -1,0 +1,48 @@
+name: "Core Patterns and LLM Speed Optimization"
+description: "Essential patterns and optimization rules for LLM agents in DDD framework"
+version: "1.0.0"
+last_updated: "2025-01-27"
+
+core_patterns:
+  memorize_patterns:
+    - name: "Pass Execution"
+      pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM (if required by config)"
+      priority: "critical"
+    
+    - name: "Pass Sequence"
+      pattern: "REQ → FOUND → DOC → DEV → TEST → REFACT → REVIEW → SYNC → PRUNE → REV"
+      priority: "critical"
+    
+    - name: "File Locations"
+      pattern: "CONFIG(.agent3d-config.yml), DOCS(docs/), RULES(~/.agent3d/rules.yml/ for LLM | ~/.agent3d/rules/ for human), TEMPLATES(~/.agent3d/templates.yml/ for LLM | ~/.agent3d/templates/ for human)"
+      priority: "high"
+    
+    - name: "Quality Gates"
+      pattern: "Requirements(objectives), Foundation(config), Documentation(criteria), Implementation(matches), Testing(passes), Review(rules)"
+      priority: "high"
+    
+    - name: "Complete Config"
+      pattern: "ALWAYS load and memorize ENTIRE .agent3d-config.yml at session start"
+      priority: "critical"
+
+speed_optimization:
+  rules:
+    - "Cache language rules"
+    - "Minimize file access"
+    - "Internalize validation patterns"
+    - "Memorize decision trees"
+    - "MEMORIZE ENTIRE .agent3d-config.yml"
+  
+  critical_requirement: "MEMORIZE ENTIRE .agent3d-config.yml"
+  
+  performance_targets:
+    config_access: "memory_only"
+    file_reads: "minimize"
+    validation: "cached_patterns"
+    decisions: "memorized_trees"
+
+usage_notes:
+  - "Load configuration once per session"
+  - "Use memorized patterns for all decisions"
+  - "Cache language rules on first access"
+  - "Apply speed rules consistently across all passes"

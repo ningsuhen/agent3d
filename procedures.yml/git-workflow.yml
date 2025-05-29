@@ -1,0 +1,119 @@
+name: "Git Workflow and Commit Procedures"
+description: "Git workflow procedures with execution plan branch support and commit confirmation"
+version: "1.0.0"
+last_updated: "2025-01-27"
+
+git_workflow:
+  critical_requirement: "Use memorized git_workflow configuration for all commit operations"
+  
+  execution_plan_branch_workflow:
+    step_1:
+      description: "Check current branch and memorized exec_plan_branches config"
+      commands:
+        - "CURRENT_BRANCH=$(git branch --show-current)"
+        - "EXEC_PLAN_ENABLED=$(MEMORIZED_CONFIG.git_workflow.exec_plan_branches.enabled)"
+    
+    step_2:
+      description: "Apply branch-specific commit behavior"
+      conditions:
+        exec_plan_branch_auto_commit:
+          condition: "$CURRENT_BRANCH == exec-plan/* && $EXEC_PLAN_ENABLED == true"
+          actions:
+            - "git add ."
+            - "git commit -m 'EXEC: Step {step_number} - {step_description}'"
+          
+          checkpoint_tagging:
+            condition: "$IS_CHECKPOINT == true"
+            actions:
+              - "git tag 'checkpoint-{checkpoint_number}-$(date +%Y%m%d-%H%M%S)'"
+              - "git commit -m 'CHECKPOINT: {checkpoint_number} - {checkpoint_description}'"
+        
+        exec_plan_branch_merge:
+          condition: "$CURRENT_BRANCH == exec-plan/* && $ACTION == merge"
+          actions:
+            - "echo 'Ready to merge exec plan branch to main. Please review:'"
+            - "git log --oneline main..HEAD"
+            - "echo 'Proceed with merge? (y/n)'"
+            - "read confirmation"
+            - "if [ '$confirmation' = 'y' ]; then"
+            - "  git checkout main"
+            - "  git merge '$CURRENT_BRANCH'"
+            - "  git branch -d '$CURRENT_BRANCH'"
+            - "else"
+            - "  echo 'Merge cancelled by user'"
+            - "fi"
+        
+        regular_branch:
+          condition: "not exec-plan branch"
+          strict_mode:
+            condition: "MEMORIZED_CONFIG.git_workflow.require_commit_confirmation=true"
+            actions:
+              - "echo 'Ready to commit changes. Please review:'"
+              - "git status"
+              - "echo 'Proceed with commit? (y/n)'"
+              - "read confirmation"
+              - "if [ '$confirmation' = 'y' ]; then"
+              - "  git commit -m 'DDD: {Pass Name} - {Description}'"
+              - "fi"
+          
+          automated_mode:
+            condition: "MEMORIZED_CONFIG.git_workflow.require_commit_confirmation=false"
+            actions:
+              - "git commit -m 'DDD: {Pass Name} - {Description}'"
+
+execution_plan_examples:
+  create_branch:
+    command: "git checkout -b exec-plan/horizontal-compression-pass"
+    description: "Create execution plan branch"
+  
+  auto_commit_steps:
+    commands:
+      - "git add ."
+      - "git commit -m 'EXEC: Step 1 - Compress Configuration Guide'"
+      - "git commit -m 'EXEC: Step 2 - Compress GitHub CLI Integration'"
+    description: "Auto-commit during execution"
+  
+  tag_checkpoints:
+    commands:
+      - "git tag 'checkpoint-1-20250127-1430'"
+      - "git commit -m 'CHECKPOINT: 1 - Core Documentation Compressed'"
+    description: "Tag checkpoints"
+  
+  complete_and_merge:
+    commands:
+      - "git checkout main"
+      - "echo 'Ready to merge exec-plan/horizontal-compression-pass. Proceed? (y/n)'"
+      - "git merge exec-plan/horizontal-compression-pass"
+      - "git branch -d exec-plan/horizontal-compression-pass"
+    description: "Complete execution and merge with confirmation"
+
+configuration_patterns:
+  exec_plan_branch:
+    pattern: "exec-plan/*"
+    behavior: "Auto-commit during execution, confirm for merge"
+  
+  regular_branch:
+    patterns: ["main", "feature/*"]
+    behavior: "Use standard confirmation behavior"
+  
+  strict_mode:
+    setting: "require_commit_confirmation=true"
+    behavior: "Always ask human before committing"
+  
+  automated_mode:
+    setting: "require_commit_confirmation=false"
+    behavior: "Auto-commit allowed"
+
+memorization_rule: "Use memorized config throughout session, check branch type for commit behavior"
+
+commit_message_formats:
+  execution_step: "EXEC: Step {step_number} - {step_description}"
+  checkpoint: "CHECKPOINT: {checkpoint_number} - {checkpoint_description}"
+  regular_pass: "DDD: {Pass Name} - {Description}"
+  
+best_practices:
+  - "Always check memorized git_workflow configuration before committing"
+  - "Use appropriate commit message format based on branch type"
+  - "Tag checkpoints during execution plan execution"
+  - "Require confirmation for merging execution plan branches"
+  - "Respect user's commit confirmation preferences"

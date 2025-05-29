@@ -1,0 +1,99 @@
+name: "Templates and Workflow Procedures"
+description: "Procedures for template usage and DDD workflow execution"
+version: "1.0.0"
+last_updated: "2025-01-27"
+
+template_usage:
+  locations:
+    llm_templates: "~/.agent3d/templates.yml/{DOCUMENT-NAME}.template.yml"
+    human_templates: "~/.agent3d/templates/{DOCUMENT-NAME}.template.md"
+  
+  process:
+    steps:
+      - "git pull → access templates"
+      - "replace {{placeholders}}"
+      - "remove template tags"
+      - "validate"
+  
+  placeholder_replacement:
+    rules:
+      - "Replace ALL {{placeholders}} with actual values"
+      - "Remove <template> tags completely"
+      - "Use system commands for dates (never LLM knowledge)"
+      - "Validate all links are functional"
+
+ddd_workflow:
+  process: "SCAN → DRAFT → ASK → SYNC → CONFIRM BEFORE COMMIT"
+  
+  step_marking:
+    completed: "✅"
+    in_progress: "[~]"
+    not_started: "[ ]"
+  
+  standards:
+    structure:
+      - "## Groups / ### Sub-Groups"
+      - "single-line entries"
+      - "2-space indentation"
+    
+    completion:
+      - "Mark [x] only with verifiable evidence"
+      - "Mark [~] for in-progress items"
+      - "Mark [ ] for not started items"
+    
+    templates:
+      - "Replace ALL {{placeholders}}"
+      - "Remove <template> tags"
+    
+    quality:
+      - "Functional links"
+      - "LLM-friendly language"
+      - "Requirements-to-features-to-tests traceability"
+    
+    code:
+      - "Exception handling"
+      - "Memory efficiency"
+      - "Test coverage"
+      - "Security"
+      - "Performance"
+      - "Documentation"
+      - "Zero technical debt"
+    
+    tc_id_mapping:
+      - "All test implementations MUST include TC-NNNN references"
+      - "1:1 traceability required"
+
+validation_checklist:
+  structure:
+    - "## Groups / ### Sub-Groups structure ✓"
+    - "{{placeholders}} replaced, template tags removed ✓"
+    - "Functional links, single-line entries ✓"
+    - "[x] only with verifiable evidence ✓"
+    - "2-space indentation, LLM-friendly language, traceability links ✓"
+  
+  drift_validation:
+    - "TC ID drift <10%"
+    - "Command: python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping"
+
+template_types:
+  documentation:
+    - "REQUIREMENTS.template.yml"
+    - "FEATURES.template.yml"
+    - "ACCEPTANCE-CRITERIA.template.yml"
+    - "HIGH-LEVEL-DESIGN.template.yml"
+  
+  execution:
+    - "EXEC-PLAN.template.yml"
+    - "DDD-STATUS.template.yml"
+    - "DUAL-MODE-PASS.template.yml"
+  
+  migration:
+    - "migration.template.yml"
+
+best_practices:
+  - "Always use latest templates from ~/.agent3d"
+  - "Replace placeholders with actual system-generated values"
+  - "Validate template output before proceeding"
+  - "Remove all template artifacts from final documents"
+  - "Maintain consistent formatting across all documents"
+  - "Use drift scanner to validate TC ID mapping"

@@ -298,9 +298,14 @@ drift_detection:
 
 # MCP Server Configuration
 mcp_server:
-  enabled: false # Explicitly disabled - do not use DDD MCP server
-  reason: "User preference - MCP server functionality disabled"
-  alternative: "Use standalone drift scanner: python3 ~/.agent3d/tools/drift_scanner.py"
+  enabled: true # MCP server enabled for DDD operations
+  ddd_root: "/Users/nwaikhom/.agent3d" # DDD_ROOT environment variable value
+  server_type: "drift_scanner_ddd-mcp"
+  configuration:
+    root_directory: "/Users/nwaikhom/.agent3d"
+    use_ddd_root_env: true # Use DDD_ROOT environment variable
+    fallback_to_config: true # Fall back to config value if env var not set
+  alternative_standalone: "python3 ~/.agent3d/tools/drift_scanner.py" # Standalone option
 
 # Template Configuration
 templates:

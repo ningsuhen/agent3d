@@ -163,6 +163,8 @@ pass_execution:
       - "memorize_applicable_language_rules_from_rules.yml"
       - "memorize_identifier_patterns_and_file_mappings"
       - "memorize_git_workflow_and_quality_settings"
+      - "memorize_procedures_index_from_procedures.yml/index.yml"
+      - "memorize_critical_procedures_core-patterns_and_configuration"
       purpose: "Establish configuration baseline for consistent behavior"
 
     phase_3_baseline:
@@ -201,6 +203,7 @@ memory_patterns:
   - "git_workflow_settings"
   - "quality_thresholds"
   - "applicable_language_rules_from_rules.yml"
+  - "procedures_index_from_procedures.yml/index.yml"
   # Configuration Memorization Protocol
   config_memorization:
     trigger: "complete_mode_pass_execution"
@@ -209,6 +212,8 @@ memory_patterns:
     - "memorize_project_language_rules_from_rules.yml"
     - "memorize_identifier_patterns_and_file_mappings"
     - "memorize_git_workflow_and_expert_coordination_settings"
+    - "memorize_procedures_index_from_procedures.yml/index.yml"
+    - "memorize_critical_procedures_core-patterns_and_configuration"
     update_frequency: "when_config_changes"
 
   decision_shortcuts:
@@ -272,6 +277,7 @@ usage_instructions:
   - "clean_ddd_status_with_echo_command"
   - "memorize_entire_agent3d_config_yml"
   - "memorize_applicable_language_rules"
+  - "memorize_procedures_index_and_critical_procedures"
   - "establish_fresh_evaluation_baseline"
 
   decision_making_process:
@@ -286,6 +292,27 @@ usage_instructions:
 
 # Integration Points
 integration_points:
+  procedures:
+    index_file: "~/.agent3d/procedures.yml/index.yml"
+    memorization_strategy:
+      critical_at_session_start:
+      - "procedures.yml/core-patterns.yml"
+      - "procedures.yml/configuration.yml"
+      operation_specific:
+      - "procedures.yml/git-workflow.yml - before git operations"
+      - "procedures.yml/drift-scanning.yml - when running drift analysis"
+      - "procedures.yml/templates.yml - when using templates"
+      as_needed:
+      - "procedures.yml/quality.yml - during validation"
+      - "procedures.yml/planning.yml - when creating execution plans"
+      - "procedures.yml/ft-tc-structure.yml - when working with features"
+
+    usage_protocol:
+    - "load_procedures_index_at_session_start"
+    - "memorize_critical_procedures_immediately"
+    - "load_operation_specific_procedures_as_needed"
+    - "cache_procedures_in_memory_to_avoid_repeated_access"
+
   drift_scanner:
     trigger_conditions: [ "after_synchronization_pass", "before_code_review_pass" ]
     modes:

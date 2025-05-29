@@ -1,0 +1,121 @@
+name: "Date, Timestamp and Validation Standards"
+description: "Standards for dates, timestamps, and validation procedures"
+version: "1.0.0"
+last_updated: "2025-01-27"
+
+date_timestamp_standards:
+  critical_rule: "Always use system commands for dates, never LLM knowledge"
+  
+  standard_formats:
+    creation_date:
+      command: "date +%Y-%m-%d"
+      example: "2024-01-27"
+      usage: "for creation_date, last_updated"
+    
+    detailed_timestamp:
+      command: "date +%Y-%m-%d\\ %H:%M:%S"
+      example: "2024-01-27 14:30:45"
+      usage: "for detailed timestamps"
+    
+    progress_tracking:
+      command: "date +%Y-%m-%d\\ %H:%M"
+      example: "2024-01-27 14:30"
+      usage: "for progress tracking"
+
+  usage_examples:
+    last_updated: "echo \"Last updated: $(date +%Y-%m-%d)\""
+    generated_on: "echo \"Generated on: $(date +%Y-%m-%d\\ %H:%M:%S)\""
+
+  template_replacement:
+    placeholders:
+      - placeholder: "{{creation_date}}"
+        replacement: "output of date +%Y-%m-%d"
+      
+      - placeholder: "{{last_updated}}"
+        replacement: "output of date +%Y-%m-%d"
+      
+      - placeholder: "[USE: date +%Y-%m-%d]"
+        replacement: "actual command output"
+    
+    rules:
+      - "Never use hardcoded dates"
+      - "Never use LLM knowledge for timestamps"
+      - "Always execute system commands for current dates"
+
+validation_standards:
+  structure_validation:
+    - "## Groups / ### Sub-Groups structure"
+    - "{{placeholders}} replaced, template tags removed"
+    - "Functional links, single-line entries"
+    - "[x] only with verifiable evidence"
+    - "2-space indentation, LLM-friendly language, traceability links"
+  
+  quality_validation:
+    - "Simple language"
+    - "Complete coverage"
+    - "Consistent patterns"
+    - "Requirements→features→tests traceability"
+    - "Current documentation"
+  
+  format_validation:
+    - "Functional links"
+    - "No template tags"
+    - "Consistent formatting"
+    - "Complete placeholders"
+    - "Proper hierarchy"
+
+pass_configuration:
+  location: ".agent3d-config.yml"
+  key_settings:
+    - "enabled passes"
+    - "pass-specific focus areas"
+    - "quality thresholds"
+  
+  memorization_requirement: "All pass configurations must be memorized from .agent3d-config.yml"
+
+directory_structure_standards:
+  main_documentation: "docs/"
+  component_specifications: "docs/designs/"
+  unimplemented_features: "docs/proposals/"
+  execution_plans: "docs/runs/"
+  ui_ux_specs: "docs/ux/ (UI projects only)"
+  
+  yaml_formats:
+    pass_documentation: "passes.yml/ (YAML for LLM)"
+    llm_templates: "templates.yml/ (YAML)"
+    language_rules: "rules.yml/ (YAML for LLM)"
+    procedures: "procedures.yml/ (YAML)"
+  
+  human_formats:
+    pass_documentation: "passes/simplified/ (Markdown for human)"
+    human_templates: "templates/ (Markdown)"
+    language_rules: "rules/ (Markdown for human)"
+
+quality_github_standards:
+  quality_requirements:
+    - "Simple language"
+    - "Complete coverage"
+    - "Consistent patterns"
+    - "Requirements→features→tests traceability"
+    - "Current docs"
+  
+  validation_requirements:
+    - "Functional links"
+    - "No template tags"
+    - "Consistent formatting"
+    - "Complete placeholders"
+    - "Proper hierarchy"
+  
+  github_integration:
+    reference: "See GitHub CLI Integration Guide (GITHUB-CLI-INTEGRATION.md)"
+    features:
+      - "Automated PR detection"
+      - "Pending reviews"
+      - "Human-agent workflow"
+
+best_practices:
+  - "Use system commands for all date/timestamp generation"
+  - "Validate structure and format before proceeding"
+  - "Maintain traceability throughout documentation"
+  - "Keep documentation current and accurate"
+  - "Follow consistent formatting standards"

@@ -1,0 +1,244 @@
+name: "DDD Procedures Index"
+description: "Master index of all DDD procedures for LLM memorization and quick reference"
+version: "1.0.0"
+last_updated: "2025-01-27"
+format: "YAML"
+purpose: "LLM memorization and structured procedure access"
+
+procedures_overview:
+  total_files: 12
+  format: "YAML for machine readability"
+  organization: "Modular by functional area"
+  memorization_priority: "Load core patterns and configuration first"
+
+core_procedures:
+  essential_for_session_start:
+    - file: "core-patterns.yml"
+      priority: "critical"
+      description: "Essential patterns and LLM speed optimization rules"
+      memorize: "ALWAYS - Load at session start"
+      key_content:
+        - "Pass execution patterns"
+        - "Pass sequence"
+        - "File locations"
+        - "Quality gates"
+        - "Speed optimization rules"
+    
+    - file: "configuration.yml"
+      priority: "critical"
+      description: "Configuration memorization and management procedures"
+      memorize: "ALWAYS - Load at session start"
+      key_content:
+        - "Configuration loading process"
+        - "Memorization rules"
+        - "Update protocol"
+        - "Validation checks"
+
+workflow_procedures:
+  session_operations:
+    - file: "repository.yml"
+      priority: "high"
+      description: "Repository management and project root detection"
+      memorize: "At session start"
+      key_content:
+        - "Repository update procedure"
+        - "Project root detection"
+        - "Directory structure"
+        - "Error handling"
+    
+    - file: "templates.yml"
+      priority: "high"
+      description: "Template usage and DDD workflow procedures"
+      memorize: "When working with templates"
+      key_content:
+        - "Template locations"
+        - "Placeholder replacement"
+        - "DDD workflow process"
+        - "Validation checklist"
+    
+    - file: "git-workflow.yml"
+      priority: "high"
+      description: "Git workflow with execution plan branch support"
+      memorize: "Before any git operations"
+      key_content:
+        - "Execution plan branch workflow"
+        - "Commit confirmation procedures"
+        - "Branch-specific behaviors"
+        - "Configuration patterns"
+    
+    - file: "standards.yml"
+      priority: "medium"
+      description: "Date/timestamp standards and validation procedures"
+      memorize: "When generating dates or validating"
+      key_content:
+        - "Date format standards"
+        - "Template replacement rules"
+        - "Validation standards"
+        - "Quality requirements"
+
+language_and_quality:
+  development_operations:
+    - file: "language-rules.yml"
+      priority: "high"
+      description: "Language-specific rules and patterns"
+      memorize: "At session start for relevant languages"
+      key_content:
+        - "Language-specific patterns"
+        - "Testing requirements"
+        - "Speed optimization"
+        - "Memory management"
+    
+    - file: "quality.yml"
+      priority: "medium"
+      description: "Quality standards and validation procedures"
+      memorize: "During quality validation"
+      key_content:
+        - "Quality standards"
+        - "Validation procedures"
+        - "GitHub integration"
+        - "Quality gates"
+    
+    - file: "drift-scanning.yml"
+      priority: "medium"
+      description: "Comprehensive drift detection procedures"
+      memorize: "When running drift analysis"
+      key_content:
+        - "Analysis modes"
+        - "Usage commands"
+        - "Best practices"
+        - "Integration patterns"
+
+specialized_procedures:
+  specific_operations:
+    - file: "planning.yml"
+      priority: "medium"
+      description: "Execution planning and status tracking procedures"
+      memorize: "When creating execution plans"
+      key_content:
+        - "Execution plan lifecycle"
+        - "Status tracking workflow"
+        - "Progress indicators"
+        - "Validation criteria"
+    
+    - file: "ft-tc-structure.yml"
+      priority: "medium"
+      description: "Merged Feature-Test Case structure procedures"
+      memorize: "When working with features and test cases"
+      key_content:
+        - "Structure overview"
+        - "Feature format"
+        - "Working procedures"
+        - "Migration benefits"
+    
+    - file: "prune-pass.yml"
+      priority: "low"
+      description: "Safe removal and repository cleanup procedures"
+      memorize: "During prune pass only"
+      key_content:
+        - "Pre-prune analysis"
+        - "Safe removal categories"
+        - "Archival procedures"
+        - "Safety guidelines"
+
+memorization_strategy:
+  session_start_critical:
+    - "core-patterns.yml - ALWAYS memorize completely"
+    - "configuration.yml - ALWAYS memorize completely"
+    - "language-rules.yml - Memorize for relevant languages"
+  
+  operation_specific:
+    - "repository.yml - Load when starting any pass"
+    - "git-workflow.yml - Load before git operations"
+    - "templates.yml - Load when using templates"
+    - "drift-scanning.yml - Load when running drift analysis"
+  
+  as_needed:
+    - "standards.yml - Load when validating or generating dates"
+    - "quality.yml - Load during quality validation"
+    - "planning.yml - Load when creating execution plans"
+    - "ft-tc-structure.yml - Load when working with features"
+    - "prune-pass.yml - Load only during prune pass"
+
+quick_reference:
+  by_priority:
+    critical:
+      - "core-patterns.yml"
+      - "configuration.yml"
+    
+    high:
+      - "repository.yml"
+      - "templates.yml"
+      - "git-workflow.yml"
+      - "language-rules.yml"
+    
+    medium:
+      - "standards.yml"
+      - "quality.yml"
+      - "drift-scanning.yml"
+      - "planning.yml"
+      - "ft-tc-structure.yml"
+    
+    low:
+      - "prune-pass.yml"
+  
+  by_use_case:
+    session_initialization:
+      - "core-patterns.yml"
+      - "configuration.yml"
+      - "repository.yml"
+      - "language-rules.yml"
+    
+    development_workflow:
+      - "templates.yml"
+      - "git-workflow.yml"
+      - "standards.yml"
+      - "quality.yml"
+    
+    analysis_and_validation:
+      - "drift-scanning.yml"
+      - "quality.yml"
+      - "standards.yml"
+    
+    specialized_operations:
+      - "planning.yml"
+      - "ft-tc-structure.yml"
+      - "prune-pass.yml"
+
+file_relationships:
+  dependencies:
+    - "core-patterns.yml depends on configuration.yml"
+    - "git-workflow.yml depends on configuration.yml"
+    - "templates.yml depends on standards.yml"
+    - "quality.yml depends on standards.yml and drift-scanning.yml"
+  
+  cross_references:
+    - "All files reference core-patterns.yml for basic workflow"
+    - "Most files reference configuration.yml for settings"
+    - "Development files reference language-rules.yml"
+    - "Validation files reference quality.yml and standards.yml"
+
+usage_guidelines:
+  for_llm_agents:
+    - "Load index.yml first to understand structure"
+    - "Memorize critical files at session start"
+    - "Load operation-specific files as needed"
+    - "Cache in memory to avoid repeated file access"
+  
+  for_human_developers:
+    - "Use index.yml as navigation guide"
+    - "Reference specific files for detailed procedures"
+    - "Follow memorization strategy for learning"
+    - "Update index when adding new procedures"
+
+maintenance:
+  update_triggers:
+    - "New procedure files added"
+    - "Procedure priorities change"
+    - "Cross-references updated"
+    - "Memorization strategy refined"
+  
+  validation:
+    - "Verify all procedure files are listed"
+    - "Check priority assignments are accurate"
+    - "Validate cross-references exist"
+    - "Confirm memorization strategy is optimal"

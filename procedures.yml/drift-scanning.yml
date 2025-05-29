@@ -1,0 +1,311 @@
+name: "Drift Scanning Procedures"
+description: "Comprehensive drift detection procedures for Agent3D framework"
+version: "1.0.0"
+last_updated: "2025-01-27"
+
+overview:
+  description: "Multi-mode drift detection with TC mapping, FT mapping, FT-TC relationships, code coverage, test quality validation, and feature implementation analysis"
+
+  analysis_modes:
+    tc_mapping:
+      description: "TC ID mapping between TEST-CASES.md and test implementations"
+      focus: "Test case traceability"
+
+    ft_mapping:
+      description: "FT ID mapping between FEATURES.md and test implementations"
+      focus: "Feature test coverage"
+
+    ft_tc_mapping:
+      description: "FT-TC relationship mapping and cross-reference validation"
+      focus: "Feature-test relationships"
+
+    code_coverage:
+      description: "Test coverage analysis and missing test detection"
+      focus: "Code coverage metrics"
+
+    feature_impl:
+      description: "Feature implementation status drift between FEATURES.md and code"
+      focus: "Implementation completeness"
+
+    test_quality:
+      description: "Test quality validation ensuring tests import and call actual project code"
+      focus: "Test effectiveness"
+
+    all:
+      description: "Comprehensive analysis running all drift detection modes"
+      focus: "Complete drift analysis"
+
+drift_types:
+  tc_id_mapping_drift:
+  - "Test cases without implementations"
+  - "Implementations without TC IDs"
+  - "Orphaned TC IDs"
+
+  ft_id_mapping_drift:
+  - "Features without test coverage"
+  - "Tests without feature references"
+  - "Orphaned FT IDs"
+
+  ft_tc_relationship_drift:
+  - "Missing FT-TC cross-references"
+  - "Broken relationships"
+  - "Inconsistent mappings"
+
+  code_coverage_drift:
+  - "Missing test files"
+  - "Untested functions"
+  - "Orphaned tests"
+  - "Coverage metrics"
+
+  feature_implementation_drift:
+  - "Status mismatches"
+  - "Missing implementations"
+  - "Undocumented features"
+
+  test_quality_drift:
+  - "Tests without project imports"
+  - "Tests without function calls"
+  - "Mock-only tests"
+  - "Weak assertions"
+
+supported_languages:
+- "Python"
+- "JavaScript/TypeScript"
+- "Java"
+- "Go"
+- "Rust"
+
+tool_options:
+  direct_tool:
+    command: "python3 ~/.agent3d/tools/drift_scanner.py"
+    location: "Run from DDD project root directory"
+    requirements: "Manual path management and working directory setup"
+
+  mcp_server:
+    command: "~/.agent3d/tools/drift_scanner_mcp_server.sh"
+    description: "Full MCP server implementation for client integration"
+    features:
+    - "Virtual environment support"
+    - "DDD_ROOT environment variable"
+    - "Automated path management"
+
+prerequisites:
+  working_directory: "Must be run from DDD project root directory (where .agent3d-config.yaml is located)"
+
+  installation:
+    full_functionality: "pip install -r ~/.agent3d/tools/requirements.txt"
+    minimal: "pip install pyyaml"
+    optional: "pip install watchdog  # For MCP server live reloading"
+
+basic_usage:
+  setup: "cd /path/to/your/ddd-project"
+
+  commands:
+    tc_mapping:
+      command: "python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping"
+      description: "TC ID mapping analysis (default)"
+
+    ft_mapping:
+      command: "python3 ~/.agent3d/tools/drift_scanner.py --mode ft-mapping"
+      description: "FT ID mapping analysis"
+
+    ft_tc_mapping:
+      command: "python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping"
+      description: "FT-TC relationship mapping analysis (supports merged structure)"
+
+    code_coverage:
+      command: "python3 ~/.agent3d/tools/drift_scanner.py --mode code-coverage"
+      description: "Code coverage analysis"
+
+    feature_impl:
+      command: "python3 ~/.agent3d/tools/drift_scanner.py --mode feature-impl"
+      description: "Feature implementation analysis"
+
+    test_quality:
+      command: "python3 ~/.agent3d/tools/drift_scanner.py --mode test-quality"
+      description: "Test quality validation"
+
+    comprehensive:
+      command: "python3 ~/.agent3d/tools/drift_scanner.py --mode all"
+      description: "Comprehensive analysis (all modes)"
+
+    quiet_mode:
+      command: "python3 ~/.agent3d/tools/drift_scanner.py --quiet"
+      description: "Quiet mode for CI/CD integration"
+
+change_based_scanning:
+  description: "Fast mode scanning only changed files (10x+ faster)"
+
+  commands:
+    changed_only:
+      command: "python3 ~/.agent3d/tools/drift_scanner.py --mode all --changed-only"
+      description: "Only scan files changed since last commit"
+
+    changed_since:
+      commands:
+      - "python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping --changed-since main"
+      - "python3 ~/.agent3d/tools/drift_scanner.py --mode all --changed-since HEAD~5"
+      description: "Only scan files changed since specific branch/commit"
+
+    pr_diff:
+      command: "python3 ~/.agent3d/tools/drift_scanner.py --mode all --pr-diff"
+      description: "PR-focused scanning (changed vs main branch)"
+
+    recent_changes:
+      command: "python3 ~/.agent3d/tools/drift_scanner.py --mode all --recent-days 7"
+      description: "Recent changes (last N days)"
+
+    fast_ci_cd:
+      command: "python3 ~/.agent3d/tools/drift_scanner.py --mode all --changed-only --quiet"
+      description: "Combine with quiet mode for fast CI/CD"
+
+mcp_server_configuration:
+  config_file: "MCP client configuration"
+  example:
+    mcpServers:
+      agent3d_drift_scanner:
+        command: "/Users/nwaikhom/.agent3d/tools/drift_scanner_mcp_server.sh"
+        args: []
+        env:
+          DDD_ROOT: "/path/to/your/ddd-project"
+          PATH: "/usr/local/bin:/usr/bin:/bin"
+
+output_integration:
+  exit_codes:
+    low_drift:
+      code: 0
+      threshold: "<10%"
+      description: "Excellent TC ID mapping"
+
+    moderate_drift:
+      code: 1
+      threshold: "10-25%"
+      description: "Some cleanup recommended"
+
+    high_drift:
+      code: 2
+      threshold: ">25%"
+      description: "Significant issues requiring attention"
+
+  output_location:
+    directory: ".agent3d-tmp/drift-reports/"
+    principle: "All drift scanner outputs MUST be placed in .agent3d-tmp/ directory"
+
+    report_files:
+    - "tc-mapping-drift-report.yaml"
+    - "ft-mapping-drift-report.yaml"
+    - "ft-tc-mapping-drift-report.yaml"
+    - "code-coverage-drift-report.yaml"
+    - "feature-impl-drift-report.yaml"
+    - "test-quality-drift-report.yaml"
+    - "all-drift-report.yaml"
+
+    custom_paths: "Automatically prefixed with .agent3d-tmp/drift-reports/ to maintain DDD standards"
+
+ddd_pass_integration:
+  foundation_pass:
+    purpose: "Validate identifier patterns configuration"
+    command: "python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping --quiet"
+
+  testing_pass:
+    purpose: "Fast TC ID mapping, test quality, and code coverage (change-based)"
+    commands:
+    - "python3 ~/.agent3d/tools/drift_scanner.py --mode all --changed-only --quiet"
+    validation: |
+      DRIFT_LEVEL=$?
+      if [ $DRIFT_LEVEL -eq 2 ]; then
+          echo "❌ HIGH DRIFT: Must fix drift issues before proceeding"
+          exit 1
+      fi
+
+  test_quality_pass:
+    purpose: "Validate tests actually test project code"
+    commands:
+    - "python3 ~/.agent3d/tools/drift_scanner.py --mode test-quality --quiet"
+    validation: |
+      QUALITY_LEVEL=$?
+      if [ $QUALITY_LEVEL -eq 2 ]; then
+          echo "❌ POOR TEST QUALITY: Tests must import and call actual project code"
+          exit 1
+      fi
+
+  synchronization_pass:
+    purpose: "Comprehensive FT-TC relationship and drift analysis"
+    commands:
+    - "python3 ~/.agent3d/tools/drift_scanner.py --mode all"
+    output: "Comprehensive drift report generated in .agent3d-tmp/drift-reports/"
+
+  pr_review:
+    purpose: "Only scan files in current PR"
+    command: "python3 ~/.agent3d/tools/drift_scanner.py --mode all --pr-diff --quiet"
+
+  development_workflow:
+    purpose: "FT-TC mapping for recent changes"
+    command: "python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping --recent-days 3 --quiet"
+
+ci_cd_integration:
+  github_actions_pr:
+    name: "Check TC ID Drift (PR Changes Only)"
+    script: |
+      python3 ~/.agent3d/tools/drift_scanner.py --mode all --pr-diff --quiet
+      if [ $? -eq 2 ]; then
+        echo "❌ High drift detected in PR changes"
+        exit 1
+      fi
+
+  github_actions_main:
+    name: "Comprehensive Drift Check (Main Branch)"
+    condition: "github.ref == 'refs/heads/main'"
+    script: "python3 ~/.agent3d/tools/drift_scanner.py --mode all --quiet"
+
+identifier_patterns:
+  tc_ids:
+  - "TC-0001"
+  - "TC-ENV-007"
+  - "TC-0001a"
+  - "TC-ABC-123b"
+
+  ft_ids:
+  - "FT-CORE-001"
+  - "FT-LANG-002a"
+  - "FT-IMPL-005"
+
+best_practices:
+  tc_id_mapping:
+  - "Always include TC IDs in test function names or nearby comments"
+  - "Use test_feature_tc_0001 format for TC mapping"
+  - "One TC ID per test function"
+
+  ft_id_mapping:
+  - "Reference FT IDs in test files and feature implementation comments"
+  - "Maintain clear FT-TC relationships"
+
+  cross_references:
+  - "Maintain FT-TC relationships in FEATURES.md and TEST-CASES.md"
+  - "Use one-to-one mapping for clarity"
+
+  test_case_design:
+    critical_rules:
+    - "Emphasize 5-8 test cases per feature covering different aspects"
+    - "Aspects: core functionality, edge cases, error handling, integration, performance, security, validation, boundary"
+    - "Use sub-tests ONLY for parameterized testing (same test logic, different parameters/inputs/platforms/configurations)"
+    - "Do NOT use sub-tests for different test logic, unrelated scenarios, or separate feature aspects"
+    - "Keep TC descriptions as short as possible when linked features provide sufficient detail for LLM understanding"
+    - "Add detailed descriptions only when features lack clarity"
+
+  test_quality:
+    critical_requirements:
+    - "Every test MUST import project code and call project functions"
+    - "Tests must validate actual behavior, not just assert against hardcoded values"
+    - "Prefer integration tests over pure mock scenarios"
+
+  performance_optimization:
+  - "Use --changed-only for fast development workflow (10x+ speed improvement)"
+  - "Use --pr-diff for efficient validation of pull requests"
+  - "Reserve full scans for main branch validation and synchronization"
+  - "Set appropriate drift thresholds for your project (recommend <10%)"
+
+  pass_integration:
+  - "Run FT-TC mapping during Foundation and Synchronization passes"
+  - "Use change-based scanning during development for speed"
+  - "Perform comprehensive analysis during synchronization"

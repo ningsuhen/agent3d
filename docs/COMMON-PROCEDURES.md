@@ -1,15 +1,33 @@
 # Common DDD Procedures
 
-## LLM Speed Optimization
+> **MIGRATION COMPLETE:** This file has been converted to YAML format and split into multiple files in the `procedures.yml/` directory for better organization and LLM processing.
+>
+> **New Location:** `procedures.yml/` directory with modular procedure files
+> **Format:** YAML for machine readability and structured data
+> **Benefits:** Modular updates, better LLM processing, structured validation
+>
+> See `procedures.yml/README.md` for complete documentation of the new structure.
 
-**MEMORIZE Core Patterns:**
-1. **Pass Execution:** SCAN → DRAFT → ASK → SYNC → CONFIRM (if required by config)
-2. **Pass Sequence:** REQ → FOUND → DOC → DEV → TEST → REFACT → REVIEW → SYNC → PRUNE → REV
-3. **File Locations:** CONFIG(.agent3d-config.yml), DOCS(docs/), RULES(~/.agent3d/rules.yml/ for LLM | ~/.agent3d/rules/ for human), TEMPLATES(~/.agent3d/templates.yml/ for LLM | ~/.agent3d/templates/ for human)
-4. **Quality Gates:** Requirements(objectives), Foundation(config), Documentation(criteria), Implementation(matches), Testing(passes), Review(rules)
-5. **COMPLETE CONFIG:** ALWAYS load and memorize ENTIRE .agent3d-config.yml at session start
+## Quick Reference
 
-**Speed Rules:** Cache language rules, minimize file access, internalize validation patterns, memorize decision trees, **MEMORIZE ENTIRE .agent3d-config.yml**.
+For immediate access to procedures, refer to these YAML files:
+
+- **Core Patterns**: `procedures.yml/core-patterns.yml` - Essential patterns and LLM speed optimization
+- **Configuration**: `procedures.yml/configuration.yml` - Configuration memorization and management
+- **Repository**: `procedures.yml/repository.yml` - Repository management and project root detection
+- **Templates**: `procedures.yml/templates.yml` - Template usage and DDD workflow procedures
+- **Git Workflow**: `procedures.yml/git-workflow.yml` - Git workflow with execution plan branch support
+- **Standards**: `procedures.yml/standards.yml` - Date/timestamp standards and validation procedures
+- **Language Rules**: `procedures.yml/language-rules.yml` - Language-specific rules and patterns
+- **Planning**: `procedures.yml/planning.yml` - Execution planning and status tracking procedures
+- **Quality**: `procedures.yml/quality.yml` - Quality standards and validation procedures
+- **Drift Scanning**: `procedures.yml/drift-scanning.yml` - Comprehensive drift detection procedures
+- **FT-TC Structure**: `procedures.yml/ft-tc-structure.yml` - Merged Feature-Test Case structure procedures
+- **Prune Pass**: `procedures.yml/prune-pass.yml` - Safe removal and repository cleanup procedures
+
+## Legacy Content (Preserved for Reference)
+
+The content below is preserved for reference but should be considered deprecated. Use the YAML files above for current procedures.
 
 ## Configuration Memorization (CRITICAL)
 

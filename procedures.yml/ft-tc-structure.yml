@@ -1,0 +1,167 @@
+name: "Merged FT-TC Structure Procedures"
+description: "Procedures for working with the new merged Feature-Test Case structure"
+version: "1.0.0"
+last_updated: "2025-01-27"
+migration_date: "2025-01-27"
+
+overview:
+  description: "Agent3D has migrated to a merged FT-TC structure for improved documentation organization and traceability"
+  
+  benefits:
+    - "Modular organization: Features grouped by logical sections"
+    - "Integrated testing: Test cases directly under their features"
+    - "Better traceability: Clear FT-TC relationships in single location"
+    - "Scalability: Easy to add new sections without modifying multiple files"
+    - "Drift scanner support: Automatic detection of merged structure with fallback"
+
+structure_comparison:
+  old_structure:
+    features_file: "docs/FEATURES.md - Single file with all features"
+    test_cases_file: "docs/TEST-CASES.md - Separate file with all test cases"
+    cross_referencing: "Manual cross-referencing between FT and TC IDs"
+  
+  new_structure:
+    features_directory: "docs/features/ - Directory with modular section files"
+    integrated_structure: "Each section file contains features AND their associated test cases"
+    relationship_tracking: "Automatic FT-TC relationship tracking"
+
+section_files:
+  directory: "docs/features/"
+  
+  files:
+    core:
+      file: "core.md"
+      content: "FT-CORE-* features with TC-CORE-* test cases"
+    
+    implementation:
+      file: "implementation.md"
+      content: "FT-IMPL-* features with TC-IMPL-* test cases"
+    
+    integration:
+      file: "integration.md"
+      content: "FT-INTG-* features with TC-INTG-* test cases"
+    
+    language_rules:
+      file: "language-rules.md"
+      content: "FT-LANG-* features with TC-LANG-* test cases"
+    
+    passes:
+      file: "passes.md"
+      content: "FT-PASS-* features with TC-PASS-* test cases"
+    
+    proposals:
+      file: "proposals.md"
+      content: "FT-PROP-* features with TC-PROP-* test cases"
+    
+    status_tracking:
+      file: "status-tracking.md"
+      content: "FT-STAT-* features with TC-STAT-* test cases"
+    
+    templates:
+      file: "templates.md"
+      content: "FT-TMPL-* features with TC-TMPL-* test cases"
+
+feature_format:
+  structure: |
+    ## FT-CORE-001 - Feature Name
+    - **Description:** Brief feature description
+    - **Criteria:** Acceptance criteria for completion
+    - **Dependencies:** Related features or requirements
+    - **Impact:** High/Medium/Low impact assessment
+    - **Test Coverage:** Number of test cases and sub-tests
+    - **Related Features:** Links to related features
+    - **Test Cases:**
+        - [x] **TC-CORE-001** - Test Name (Automated, High) ✅ **PRODUCTION**
+            - [x] **TC-CORE-001a** - Sub-test Name - Detailed test description
+            - [x] **TC-CORE-001b** - Sub-test Name - Detailed test description
+        - [x] **TC-CORE-002** - Test Name (Manual, Medium) ✅ **PRODUCTION**
+  
+  required_fields:
+    - "Description: Brief feature description"
+    - "Criteria: Acceptance criteria for completion"
+    - "Dependencies: Related features or requirements"
+    - "Impact: High/Medium/Low impact assessment"
+    - "Test Coverage: Number of test cases and sub-tests"
+    - "Related Features: Links to related features"
+    - "Test Cases: Indented list of test cases"
+  
+  test_case_format:
+    main_test: "- [x] **TC-CORE-001** - Test Name (Automated, High) ✅ **PRODUCTION**"
+    sub_test: "    - [x] **TC-CORE-001a** - Sub-test Name - Detailed test description"
+    
+  status_indicators:
+    completed: "[x]"
+    in_progress: "[~]"
+    not_started: "[ ]"
+    production_ready: "✅ **PRODUCTION**"
+
+working_procedures:
+  adding_features:
+    steps:
+      - "Edit appropriate section file in docs/features/"
+      - "Follow the feature format template"
+      - "Include test cases directly under the feature"
+      - "Run drift scanner to validate relationships"
+    
+    validation: "python3 ~/.agent3d/tools/drift_scanner.py --mode ft-mapping"
+  
+  creating_new_sections:
+    steps:
+      - "Create new .md file in docs/features/"
+      - "Use templates/FEATURE-module.template.md"
+      - "Follow FT-SECTION-NNN naming convention"
+      - "Update docs/FEATURES.md index"
+    
+    naming_convention: "FT-SECTION-NNN"
+    template: "templates/FEATURE-module.template.md"
+  
+  validation_commands:
+    merged_structure: "python3 ~/.agent3d/tools/drift_scanner.py --mode ft-mapping"
+    ft_tc_relationships: "python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping"
+    comprehensive: "python3 ~/.agent3d/tools/drift_scanner.py --mode all"
+
+naming_conventions:
+  feature_ids:
+    pattern: "FT-SECTION-NNN"
+    examples:
+      - "FT-CORE-001"
+      - "FT-IMPL-002"
+      - "FT-LANG-003"
+  
+  test_case_ids:
+    pattern: "TC-SECTION-NNN"
+    examples:
+      - "TC-CORE-001"
+      - "TC-IMPL-002"
+      - "TC-LANG-003"
+  
+  sub_test_ids:
+    pattern: "TC-SECTION-NNNx"
+    examples:
+      - "TC-CORE-001a"
+      - "TC-IMPL-002b"
+      - "TC-LANG-003c"
+
+migration_benefits:
+  modular_organization: "Features grouped by logical sections"
+  integrated_testing: "Test cases directly under their features"
+  better_traceability: "Clear FT-TC relationships in single location"
+  scalability: "Easy to add new sections without modifying multiple files"
+  drift_scanner_support: "Automatic detection of merged structure with fallback"
+
+drift_scanner_compatibility:
+  automatic_detection: "Drift scanner automatically detects merged structure"
+  fallback_support: "Falls back to legacy structure if merged structure not found"
+  validation_modes:
+    - "ft-mapping: Validates feature-test relationships"
+    - "ft-tc-mapping: Validates FT-TC cross-references"
+    - "all: Comprehensive validation including merged structure"
+
+best_practices:
+  - "Use appropriate section files for feature organization"
+  - "Maintain clear FT-TC relationships within each section"
+  - "Follow consistent naming conventions"
+  - "Validate structure with drift scanner after changes"
+  - "Keep test cases directly under their parent features"
+  - "Use sub-tests only for parameterized testing scenarios"
+  - "Update docs/FEATURES.md index when adding new sections"

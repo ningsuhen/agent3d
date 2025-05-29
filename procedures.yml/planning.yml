@@ -1,0 +1,154 @@
+name: "Planning and Status Procedures"
+description: "Procedures for execution planning, status tracking, and progress management"
+version: "1.0.0"
+last_updated: "2025-01-27"
+
+execution_plans:
+  location: "docs/runs/EXEC-PLAN-{change-name}.md"
+  
+  lifecycle:
+    stages:
+      - "Creation"
+      - "Validation"
+      - "Execution"
+      - "Completion"
+  
+  checkpoint_management:
+    frequency: "Every 2-4 steps"
+    status_markers:
+      completed: "[x]"
+      in_progress: "[~]"
+      not_started: "[ ]"
+  
+  triggers:
+    - "Feature implementation"
+    - "Refactoring"
+    - "Migrations"
+    - "Complex changes"
+
+ddd_status:
+  location: "docs/DDD-STATUS.md"
+  update_frequency: "after each pass"
+  
+  elements:
+    pass_status:
+      completed: "✅"
+      paused: "⏸️"
+      in_progress: "🔄"
+      skipped: "⏭️"
+    
+    alignment:
+      scale: "0-100%"
+      description: "Alignment with requirements and objectives"
+    
+    drift:
+      low: "🟢"
+      moderate: "🟡"
+      high: "🟠"
+      critical: "🔴"
+    
+    health_indicators:
+      - "Pass completion status"
+      - "Requirements alignment percentage"
+      - "Drift level indicators"
+      - "Quality gate status"
+
+status_tracking_workflow:
+  creation:
+    - "Generate execution plan from template"
+    - "Define checkpoints and milestones"
+    - "Assign status markers to all tasks"
+    - "Validate plan completeness"
+  
+  execution:
+    - "Update status markers as work progresses"
+    - "Mark checkpoints when reached"
+    - "Track time and effort estimates"
+    - "Document blockers and dependencies"
+  
+  completion:
+    - "Mark all tasks as completed [x]"
+    - "Update DDD-STATUS.md"
+    - "Generate completion report"
+    - "Archive execution plan"
+
+progress_indicators:
+  task_status:
+    not_started:
+      marker: "[ ]"
+      description: "Task not yet begun"
+    
+    in_progress:
+      marker: "[~]"
+      description: "Task currently being worked on"
+    
+    completed:
+      marker: "[x]"
+      description: "Task completed with verifiable evidence"
+  
+  checkpoint_markers:
+    format: "CHECKPOINT: {number} - {description}"
+    git_tag: "checkpoint-{number}-$(date +%Y%m%d-%H%M%S)"
+    commit_message: "CHECKPOINT: {number} - {description}"
+
+execution_plan_structure:
+  metadata:
+    - "Plan name and description"
+    - "Creation date and author"
+    - "Estimated duration"
+    - "Dependencies and prerequisites"
+  
+  phases:
+    - "Planning phase with detailed steps"
+    - "Implementation phase with checkpoints"
+    - "Validation phase with criteria"
+    - "Completion phase with deliverables"
+  
+  tracking:
+    - "Status markers for all tasks"
+    - "Time estimates and actuals"
+    - "Blocker identification"
+    - "Success criteria validation"
+
+validation_criteria:
+  plan_completeness:
+    - "All major tasks identified"
+    - "Dependencies mapped"
+    - "Success criteria defined"
+    - "Checkpoints established"
+  
+  execution_readiness:
+    - "Prerequisites satisfied"
+    - "Resources available"
+    - "Timeline realistic"
+    - "Risks identified"
+  
+  completion_validation:
+    - "All tasks marked complete"
+    - "Success criteria met"
+    - "Deliverables produced"
+    - "Quality gates passed"
+
+integration_with_passes:
+  foundation_pass:
+    - "Create initial execution plan"
+    - "Define project structure"
+    - "Establish tracking mechanisms"
+  
+  development_pass:
+    - "Execute planned implementation"
+    - "Update status regularly"
+    - "Track progress against plan"
+  
+  synchronization_pass:
+    - "Validate plan completion"
+    - "Update DDD status"
+    - "Archive completed plans"
+
+best_practices:
+  - "Create detailed execution plans for complex changes"
+  - "Update status markers regularly during execution"
+  - "Use checkpoints to track major milestones"
+  - "Validate completion criteria before marking tasks done"
+  - "Maintain DDD status after each pass"
+  - "Archive completed plans for future reference"
