@@ -1,8 +1,83 @@
-# Configuration Guide
+# Agent3D Configuration Guide
 
-Configure Agent3D using `.agent3d-config.yml` in project root.
+Complete guide for configuring Agent3D using `.agent3d-config.yml` in project root.
 
 **CRITICAL FOR LLM AGENTS:** MEMORIZE the ENTIRE .agent3d-config.yml file at session start. Load once, use from memory throughout all passes.
+
+## 🎯 Quick Start for Agents
+
+### 1. For New Projects (Foundation Pass)
+
+```bash
+# Check if template exists
+ls templates.yml/agent3d-config.template.yml
+
+# Copy template to project root
+cp templates.yml/agent3d-config.template.yml .agent3d-config.yml
+
+# Edit placeholders manually or use Foundation Pass
+# Validate configuration with drift scanner
+python3 tools/drift_scanner.py --mode all --quiet
+```
+
+### 2. For Existing Projects (Configuration Validation)
+
+```bash
+# Validate current configuration
+python3 tools/drift_scanner.py --mode all
+
+# Check specific aspects
+python3 tools/drift_scanner.py --mode code-coverage
+python3 tools/drift_scanner.py --mode ft-tc-mapping
+
+# Run comprehensive analysis
+python3 tools/drift_scanner.py --mode all --output .agent3d-tmp/config-analysis.yaml
+```
+
+## 📋 Template Structure
+
+The template includes all required sections with placeholder values:
+
+### Core Sections
+- **project**: Project metadata and type
+- **enabled_passes**: DDD passes to enable
+- **pass_config**: Pass-specific configuration
+- **quality_gates**: Quality thresholds
+- **validation**: Validation settings
+- **git_workflow**: Git workflow configuration
+- **documentation**: Documentation standards
+- **identifier_patterns**: ID pattern definitions
+- **drift_detection**: Drift detection settings
+- **python_paths**: Python module resolution (for Python projects)
+- **mcp_server**: MCP server configuration
+- **templates**: Template configuration
+- **structure**: Project structure
+- **metadata**: Configuration metadata
+
+## 🔍 Configuration Validation
+
+### Drift Scanner Integration
+
+```bash
+# Comprehensive configuration analysis
+python3 tools/drift_scanner.py --mode all
+
+# Specific validation modes
+python3 tools/drift_scanner.py --mode tc-mapping     # Test case mapping
+python3 tools/drift_scanner.py --mode ft-mapping     # Feature mapping
+python3 tools/drift_scanner.py --mode code-coverage  # Code coverage analysis
+python3 tools/drift_scanner.py --mode feature-impl   # Feature implementation
+python3 tools/drift_scanner.py --mode test-quality   # Test quality validation
+```
+
+### Configuration Health Checks
+
+1. **YAML Syntax**: Validates configuration file syntax
+2. **Section Completeness**: Ensures all required sections are present
+3. **Path Validation**: Verifies directory and file paths exist
+4. **Cross-Reference Integrity**: Validates internal references
+5. **Template Compatibility**: Checks template system integration
+6. **Drift Detection**: Identifies configuration-implementation misalignment
 
 ## Pass Configuration
 
