@@ -2,364 +2,451 @@
 # Comprehensive YAML guidelines for judicious test case selection and implementation
 
 metadata:
-    name: "Test Case and Sub-Test Guidelines"
-    version: "2.0.0"
-    created: "2025-01-29"
-    last_updated: "2025-01-29"
-    purpose: "Unified guidelines for test case selection, sub-test usage, and implementation"
-    replaces: [ "docs/TEST-CASE-SELECTION-GUIDELINES.md", "docs/TC-SUBTEST-GUIDELINES.md" ]
+  name: "Test Case and Sub-Test Guidelines"
+  version: "2.0.0"
+  created: "2025-01-29"
+  last_updated: "2025-01-29"
+  purpose: "Unified guidelines for test case selection, sub-test usage, and implementation"
+  replaces: [ "docs/TEST-CASE-SELECTION-GUIDELINES.md", "docs/TC-SUBTEST-GUIDELINES.md" ]
 
 # Core Philosophy
 philosophy:
-    principle: "Quality over quantity - select test cases based on feature needs and risk"
-    approach: "Judicious selection rather than meeting arbitrary numerical goals"
-    focus: "Feature reliability and user experience over test count quotas"
+  principle: "Quality over quantity - select test cases based on feature needs and risk"
+  approach: "Judicious selection rather than meeting arbitrary numerical goals"
+  focus: "Feature reliability and user experience over test count quotas"
 
 # Test Case Selection Criteria
 selection_criteria:
-    always_test:
-      - name: "Core functionality"
-        description: "Primary feature behavior and main use cases"
-        priority: "critical"
-      - name: "Error conditions"
-        description: "Failure modes and edge cases"
-        priority: "critical"
-      - name: "Integration points"
-        description: "Interfaces with other components"
-        priority: "high"
-      - name: "Security boundaries"
-        description: "Authentication, authorization, data validation"
-        priority: "high"
-      - name: "Performance critical paths"
-        description: "Bottlenecks and resource-intensive operations"
-        priority: "medium"
+  always_test:
+  - name: "Core functionality"
+    description: "Primary feature behavior and main use cases"
+    priority: "critical"
+  - name: "Error conditions"
+    description: "Failure modes and edge cases"
+    priority: "critical"
+  - name: "Integration points"
+    description: "Interfaces with other components"
+    priority: "high"
+  - name: "Security boundaries"
+    description: "Authentication, authorization, data validation"
+    priority: "high"
+  - name: "Performance critical paths"
+    description: "Bottlenecks and resource-intensive operations"
+    priority: "medium"
 
-    consider_testing:
-      - name: "Complex business logic"
-        description: "Multi-step workflows and complex decision trees"
-        priority: "medium"
-      - name: "Data transformations"
-        description: "Input/output processing and format conversions"
-        priority: "medium"
-      - name: "Configuration variations"
-        description: "Different setup scenarios and environment configs"
-        priority: "low"
-      - name: "User interaction flows"
-        description: "Critical user journeys and workflows"
-        priority: "medium"
+  consider_testing:
+  - name: "Complex business logic"
+    description: "Multi-step workflows and complex decision trees"
+    priority: "medium"
+  - name: "Data transformations"
+    description: "Input/output processing and format conversions"
+    priority: "medium"
+  - name: "Configuration variations"
+    description: "Different setup scenarios and environment configs"
+    priority: "low"
+  - name: "User interaction flows"
+    description: "Critical user journeys and workflows"
+    priority: "medium"
 
-    avoid_testing:
-      - name: "Simple getters/setters"
-        description: "Trivial property access without logic"
-        reason: "No business value, framework handles this"
-      - name: "Framework functionality"
-        description: "Well-tested third-party code"
-        reason: "Already tested by framework maintainers"
-      - name: "Obvious implementations"
-        description: "Straightforward logic with no complexity"
-        reason: "Low risk, high maintenance cost"
-      - name: "Duplicate scenarios"
-        description: "Already covered by other tests"
-        reason: "Redundant coverage, maintenance overhead"
+  avoid_testing:
+  - name: "Simple getters/setters"
+    description: "Trivial property access without logic"
+    reason: "No business value, framework handles this"
+  - name: "Framework functionality"
+    description: "Well-tested third-party code"
+    reason: "Already tested by framework maintainers"
+  - name: "Obvious implementations"
+    description: "Straightforward logic with no complexity"
+    reason: "Low risk, high maintenance cost"
+  - name: "Duplicate scenarios"
+    description: "Already covered by other tests"
+    reason: "Redundant coverage, maintenance overhead"
 
 # Feature Complexity Guidelines
 feature_complexity:
-    simple_features:
-        test_case_range: "1-2"
-        characteristics:
-          - "Basic CRUD operations"
-          - "Simple validations"
-          - "Configuration loading"
-        example:
-            feature: "FT-CONFIG-001 - Configuration Loading"
-            test_cases:
-              - "TC-CONFIG-001 - Valid Configuration (Automated, High)"
-              - "TC-CONFIG-002 - Invalid Configuration Handling (Automated, Medium)"
+  simple_features:
+    test_case_range: "1-2"
+    characteristics:
+    - "Basic CRUD operations"
+    - "Simple validations"
+    - "Configuration loading"
+    example:
+      feature: "FT-CONFIG-001 - Configuration Loading"
+      test_cases:
+      - "TC-CONFIG-001 - Valid Configuration (Automated, High)"
+      - "TC-CONFIG-002 - Invalid Configuration Handling (Automated, Medium)"
 
-    moderate_features:
-        test_case_range: "2-4"
-        characteristics:
-          - "API endpoints"
-          - "Data processing"
-          - "User authentication"
-        example:
-            feature: "FT-AUTH-001 - User Authentication"
-            test_cases:
-              - "TC-AUTH-001 - Successful Login (Automated, High)"
-              - "TC-AUTH-002 - Invalid Credentials (Automated, High)"
-              - "TC-AUTH-003 - Session Management (Automated, Medium)"
+  moderate_features:
+    test_case_range: "2-4"
+    characteristics:
+    - "API endpoints"
+    - "Data processing"
+    - "User authentication"
+    example:
+      feature: "FT-AUTH-001 - User Authentication"
+      test_cases:
+      - "TC-AUTH-001 - Successful Login (Automated, High)"
+      - "TC-AUTH-002 - Invalid Credentials (Automated, High)"
+      - "TC-AUTH-003 - Session Management (Automated, Medium)"
 
-    complex_features:
-        test_case_range: "3-6"
-        characteristics:
-          - "Multi-step workflows"
-          - "Integration systems"
-          - "Advanced algorithms"
-        example:
-            feature: "FT-WORKFLOW-001 - Document Processing Pipeline"
-            test_cases:
-              - "TC-WORKFLOW-001 - Complete Processing (Automated, High)"
-              - "TC-WORKFLOW-002 - Partial Failure Recovery (Automated, High)"
-              - "TC-WORKFLOW-003 - Format Validation (Automated, Medium)"
-              - "TC-WORKFLOW-004 - Performance Thresholds (Automated, Medium)"
+  complex_features:
+    test_case_range: "3-6"
+    characteristics:
+    - "Multi-step workflows"
+    - "Integration systems"
+    - "Advanced algorithms"
+    example:
+      feature: "FT-WORKFLOW-001 - Document Processing Pipeline"
+      test_cases:
+      - "TC-WORKFLOW-001 - Complete Processing (Automated, High)"
+      - "TC-WORKFLOW-002 - Partial Failure Recovery (Automated, High)"
+      - "TC-WORKFLOW-003 - Format Validation (Automated, Medium)"
+      - "TC-WORKFLOW-004 - Performance Thresholds (Automated, Medium)"
 
 # Sub-Test Guidelines
 sub_test_guidelines:
-    when_to_use:
-      - name: "Parameterized testing"
-        description: "Same logic with different input values"
-        example: "Testing email, phone, date format validation with same validation logic"
-      - name: "Boundary value testing"
-        description: "Min/max/edge values for same test"
-        example: "Testing input limits: 0, 1, 999, 1000, 1001"
-      - name: "Data-driven scenarios"
-        description: "Multiple datasets for same test logic"
-        example: "Testing file processing with different file formats"
-      - name: "Cross-platform variations"
-        description: "Same test across different environments"
-        example: "Testing functionality on Windows, Linux, macOS"
+  when_to_use:
+  - name: "Parameterized testing"
+    description: "Same logic with different input values"
+    example: "Testing email, phone, date format validation with same validation logic"
+  - name: "Boundary value testing"
+    description: "Min/max/edge values for same test"
+    example: "Testing input limits: 0, 1, 999, 1000, 1001"
+  - name: "Data-driven scenarios"
+    description: "Multiple datasets for same test logic"
+    example: "Testing file processing with different file formats"
+  - name: "Cross-platform variations"
+    description: "Same test across different environments"
+    example: "Testing functionality on Windows, Linux, macOS"
 
-    when_not_to_use:
-      - name: "Different logic paths"
-        description: "Create separate test cases instead"
-        example: "User creation vs. user deletion - different operations"
-      - name: "Unrelated scenarios"
-        description: "Group only logically related tests"
-        example: "Authentication vs. data processing - separate concerns"
-      - name: "Complex setup variations"
-        description: "Use separate test cases for clarity"
-        example: "Different database configurations requiring different setup"
+  when_not_to_use:
+  - name: "Different logic paths"
+    description: "Create separate test cases instead"
+    example: "User creation vs. user deletion - different operations"
+  - name: "Unrelated scenarios"
+    description: "Group only logically related tests"
+    example: "Authentication vs. data processing - separate concerns"
+  - name: "Complex setup variations"
+    description: "Use separate test cases for clarity"
+    example: "Different database configurations requiring different setup"
 
 # Decision Framework
 decision_framework:
-    test_case_decision_tree:
-        step_1:
-            question: "Is this core functionality?"
-            yes_action: "Create test case"
-            no_action: "Continue to step 2"
-        step_2:
-            question: "Does failure impact users significantly?"
-            yes_action: "Create test case"
-            no_action: "Continue to step 3"
-        step_3:
-            question: "Is this complex or error-prone logic?"
-            yes_action: "Create test case"
-            no_action: "Continue to step 4"
-        step_4:
-            question: "Is this already covered by other tests?"
-            yes_action: "Skip test case"
-            no_action: "Continue to step 5"
-        step_5:
-            question: "Is this trivial or framework code?"
-            yes_action: "Skip test case"
-            no_action: "Consider creating test case"
+  test_case_decision_tree:
+    step_1:
+      question: "Is this core functionality?"
+      yes_action: "Create test case"
+      no_action: "Continue to step 2"
+    step_2:
+      question: "Does failure impact users significantly?"
+      yes_action: "Create test case"
+      no_action: "Continue to step 3"
+    step_3:
+      question: "Is this complex or error-prone logic?"
+      yes_action: "Create test case"
+      no_action: "Continue to step 4"
+    step_4:
+      question: "Is this already covered by other tests?"
+      yes_action: "Skip test case"
+      no_action: "Continue to step 5"
+    step_5:
+      question: "Is this trivial or framework code?"
+      yes_action: "Skip test case"
+      no_action: "Consider creating test case"
 
-    sub_test_decision_tree:
-        step_1:
-            question: "Same test logic with different inputs?"
-            yes_action: "Use sub-tests"
-            no_action: "Continue to step 2"
-        step_2:
-            question: "Testing boundary conditions?"
-            yes_action: "Use sub-tests"
-            no_action: "Continue to step 3"
-        step_3:
-            question: "Different logic or setup required?"
-            yes_action: "Use separate test cases"
-            no_action: "Continue to step 4"
-        step_4:
-            question: "Unrelated functionality?"
-            yes_action: "Use separate test cases"
-            no_action: "Consider sub-tests"
+  sub_test_decision_tree:
+    step_1:
+      question: "Same test logic with different inputs?"
+      yes_action: "Use sub-tests"
+      no_action: "Continue to step 2"
+    step_2:
+      question: "Testing boundary conditions?"
+      yes_action: "Use sub-tests"
+      no_action: "Continue to step 3"
+    step_3:
+      question: "Different logic or setup required?"
+      yes_action: "Use separate test cases"
+      no_action: "Continue to step 4"
+    step_4:
+      question: "Unrelated functionality?"
+      yes_action: "Use separate test cases"
+      no_action: "Consider sub-tests"
 
 # Test Case Structure and Mapping
 test_case_structure:
-    hierarchy:
-        main_test_case:
-            format: "TC-####"
-            description: "Maps to individual test functions"
-            example: "TC-AUTH-001"
-        sub_test_case:
-            format: "TC-####-{a,b,c...}"
-            description: "Maps to parameters within parameterized tests"
-            example: "TC-AUTH-001-a, TC-AUTH-001-b"
+  hierarchy:
+    main_test_case:
+      format: "TC-####"
+      description: "Maps to individual test functions"
+      example: "TC-AUTH-001"
+    sub_test_case:
+      format: "TC-####-{a,b,c...}"
+      description: "Maps to parameters within parameterized tests"
+      example: "TC-AUTH-001-a, TC-AUTH-001-b"
 
-    implementation_guidelines:
-        test_function_mapping:
-          - "Each TC-#### maps to exactly one test function"
-          - "Test function docstring must include the TC-#### identifier"
-          - "Function name should be descriptive of the test case purpose"
+  implementation_guidelines:
+    test_function_mapping:
+    - "Each TC-#### maps to exactly one test function"
+    - "Test function docstring must include the TC-#### identifier"
+    - "Function name should be descriptive of the test case purpose"
 
-        sub_test_implementation:
-          - "Sub-tests TC-####-{a,b,c...} are implemented as parameters in @pytest.mark.parametrize"
-          - "Each parameter set represents one sub-test with specific test data"
-          - "Sub-test identifiers follow alphabetical sequence: a, b, c, d, etc."
+    sub_test_implementation:
+    - "Sub-tests TC-####-{a,b,c...} are implemented as parameters in @pytest.mark.parametrize"
+    - "Each parameter set represents one sub-test with specific test data"
+    - "Sub-test identifiers follow alphabetical sequence: a, b, c, d, etc."
 
-    tc_identifier_placement:
-        allowed_locations:
-          - "Test function docstrings (for TC-#### main test cases)"
-          - "Parameter values in @pytest.mark.parametrize (for TC-####-{a,b,c...} sub-tests)"
-          - "Comments directly above parameterize decorators (for grouping context)"
+  tc_identifier_placement:
+    allowed_locations:
+    - "Test function docstrings (for TC-#### main test cases)"
+    - "Parameter values in @pytest.mark.parametrize (for TC-####-{a,b,c...} sub-tests)"
+    - "Comments directly above parameterize decorators (for grouping context)"
 
-        forbidden_locations:
-          - "Comments outside test functions"
-          - "Data structures or constants"
-          - "Helper functions or utilities"
-          - "Variable names or configuration"
-          - "Module-level comments"
-          - "Class-level comments"
+    forbidden_locations:
+    - "Comments outside test functions"
+    - "Data structures or constants"
+    - "Helper functions or utilities"
+    - "Variable names or configuration"
+    - "Module-level comments"
+    - "Class-level comments"
+
+# Test Case Description Requirements
+test_case_description_requirements:
+  purpose: "Ensure test case descriptions provide sufficient detail for implementation and understanding"
+
+  description_standards:
+    detail_level: "comprehensive"
+    length_target: "Around 120 characters for optimal readability"
+    scope: "Applies to both main test cases and sub-tests"
+    minimum_requirements:
+    - "Clearly identify the specific module, class, or function being tested"
+    - "Describe the exact behavior or functionality being validated"
+    - "Specify the expected outcome or assertion being made"
+    - "Include context about why this test case is important"
+    - "Provide enough detail for a developer to implement the test without additional research"
+
+    format_guidelines:
+    - "Use descriptive, action-oriented language"
+    - "Include specific technical details about what is being tested"
+    - "Avoid vague phrases like 'basic functionality' or 'simple test'"
+    - "Reference specific methods, classes, or modules when applicable"
+    - "Include expected inputs and outputs when relevant"
+    - "Keep descriptions around 120 characters for both main tests and sub-tests"
+    - "Use abbreviations for common terms when space is limited"
+
+  good_description_examples:
+    example_1:
+      tc_id: "TC-SCANNER-001"
+      poor_description: "File scanning"
+      good_description: "Test DriftScanner.scan_test_files() correctly identifies Python test files and extracts TC-ID patterns"
+      character_count: 105
+
+    example_2:
+      tc_id: "TC-CONFIG-003"
+      poor_description: "Configuration validation"
+      good_description: "Test ConfigValidator.validate_yaml_structure() detects missing fields in .agent3d-config.yml with error msgs"
+      character_count: 118
+
+    example_3:
+      tc_id: "TC-TEMPLATE-005"
+      poor_description: "Template processing"
+      good_description: "Test TemplateEngine.process_placeholders() replaces {PROJECT-NAME} and {DATE} while preserving YAML format"
+      character_count: 115
+
+  description_components:
+    required_elements:
+    - "Target module/class/function": "Specific code component being tested"
+    - "Action being tested": "What operation or behavior is being validated"
+    - "Expected behavior": "What should happen when the test passes"
+    - "Test scope": "Boundaries of what is and isn't included in the test"
+
+    optional_elements:
+    - "Input parameters": "Specific inputs used in the test"
+    - "Expected outputs": "Specific outputs or return values expected"
+    - "Error conditions": "What error conditions are being tested"
+    - "Dependencies": "External dependencies or setup required"
+
+  quality_validation:
+    description_checklist:
+    - "Can a developer implement this test case from the description alone?"
+    - "Is it clear which specific code module/function is being tested?"
+    - "Does the description explain WHY this test case is important?"
+    - "Are the expected outcomes clearly specified?"
+    - "Would a code reviewer understand the test's purpose from the description?"
+
+    red_flags:
+    - "Generic phrases like 'basic test', 'simple validation', 'core functionality'"
+    - "Missing reference to specific code components"
+    - "Vague assertions like 'works correctly' or 'functions properly'"
+    - "No indication of what constitutes test success or failure"
+    - "Descriptions that could apply to multiple different test cases"
 
 # Implementation Examples
 implementation_examples:
-    good_sub_test_usage:
-        description: "Parameterized testing with same logic, different inputs"
-        code_example: |
-            @pytest.mark.parametrize("test_aspect,test_data", [
-                # TC-VALIDATION-001-a: Input Format Validation
-                ("email_format", "test@example.com"),
-                # TC-VALIDATION-001-b: ...
-                ("phone_format", "+1-555-123-4567"),
-                # TC-VALIDATION-001-c: ...
-                ("date_format", "2025-01-29"),
-            ])
-            def test_input_format_validation(tc_id, test_aspect, test_data):
-                """TC-VALIDATION-001: Input format validation with different data types."""
-                # Same validation logic, different input formats
-                assert validate_format(test_data, test_aspect) is True
+  good_sub_test_usage:
+    description: "Parameterized testing with same logic, different inputs"
+    code_example: |
+      @pytest.mark.parametrize("test_aspect,test_data", [
+          # TC-VALIDATION-001-a: Input Format Validation
+          ("email_format", "test@example.com"),
+          # TC-VALIDATION-001-b: ...
+          ("phone_format", "+1-555-123-4567"),
+          # TC-VALIDATION-001-c: ...
+          ("date_format", "2025-01-29"),
+      ])
+      def test_input_format_validation(tc_id, test_aspect, test_data):
+          """TC-VALIDATION-001: Input format validation with different data types."""
+          # Same validation logic, different input formats
+          assert validate_format(test_data, test_aspect) is True
 
-    poor_sub_test_usage:
-        description: "Different functionality grouped incorrectly"
-        problem: "These should be separate test cases as they test different functionality"
-        code_example: |
-            # ❌ WRONG - Different logic should be separate test cases
-            @pytest.mark.parametrize("operation,data", [
-                # TC-USER-001-a
-                ( "create_user", {"name": "John"}),
-                # TC-USER-001-b
-                ( "delete_user", {"id": 123}),
-                # TC-USER-001c
-                ( "send_email", {"to": "user@example.com"}),
-            ])
+  poor_sub_test_usage:
+    description: "Different functionality grouped incorrectly"
+    problem: "These should be separate test cases as they test different functionality"
+    code_example: |
+      # ❌ WRONG - Different logic should be separate test cases
+      @pytest.mark.parametrize("operation,data", [
+          # TC-USER-001-a
+          ( "create_user", {"name": "John"}),
+          # TC-USER-001-b
+          ( "delete_user", {"id": 123}),
+          # TC-USER-001c
+          ( "send_email", {"to": "user@example.com"}),
+      ])
 
-    correct_separate_test_cases:
-        description: "Proper separation of different functionality"
-        code_example: |
-            def test_user_creation():
-                """TC-USER-001: User creation functionality."""
-                # Test user creation logic
+  correct_separate_test_cases:
+    description: "Proper separation of different functionality"
+    code_example: |
+      def test_user_creation():
+          """TC-USER-001: User creation functionality."""
+          # Test user creation logic
 
-            def test_user_deletion():
-                """TC-USER-002: User deletion functionality."""
-                # Test user deletion logic
+      def test_user_deletion():
+          """TC-USER-002: User deletion functionality."""
+          # Test user deletion logic
 
-            def test_email_notification():
-                """TC-USER-003: Email notification functionality."""
-                # Test email sending logic
+      def test_email_notification():
+          """TC-USER-003: Email notification functionality."""
+          # Test email sending logic
 
 # Quality Indicators
 quality_indicators:
-    good_test_coverage:
-        characteristics:
-          - "Focused on risk - tests address real failure scenarios"
-          - "Clear purpose - each test has specific objective"
-          - "Maintainable - tests are easy to understand and update"
-          - "Efficient - no redundant or overlapping tests"
+  good_test_coverage:
+    characteristics:
+    - "Focused on risk - tests address real failure scenarios"
+    - "Clear purpose - each test has specific objective"
+    - "Maintainable - tests are easy to understand and update"
+    - "Efficient - no redundant or overlapping tests"
 
-    poor_test_coverage:
-        characteristics:
-          - "Arbitrary numbers - 'Must have 5 test cases per feature'"
-          - "Trivial tests - testing obvious or framework functionality"
-          - "Redundant tests - multiple tests covering same scenario"
-          - "Complex sub-tests - sub-tests that should be separate cases"
+  poor_test_coverage:
+    characteristics:
+    - "Arbitrary numbers - 'Must have 5 test cases per feature'"
+    - "Trivial tests - testing obvious or framework functionality"
+    - "Redundant tests - multiple tests covering same scenario"
+    - "Complex sub-tests - sub-tests that should be separate cases"
 
 # Benefits and Traceability
 benefits:
-    granular_failure_reporting:
-        before: "test_client_functionality failed (which part?)"
-        after: "test_client_id_enum_generation[TC-CLIENT-001-a-enum_values_present] failed"
+  granular_failure_reporting:
+    before: "test_client_functionality failed (which part?)"
+    after: "test_client_id_enum_generation[TC-CLIENT-001-a-enum_values_present] failed"
 
-    selective_test_execution:
-        run_all_tc: "pytest -k 'TC-CLIENT-001'"
-        run_specific_sub_test: "pytest -k 'TC-CLIENT-001-a'"
-        run_specific_aspect: "pytest -k 'enum_values_present'"
+  selective_test_execution:
+    run_all_tc: "pytest -k 'TC-CLIENT-001'"
+    run_specific_sub_test: "pytest -k 'TC-CLIENT-001-a'"
+    run_specific_aspect: "pytest -k 'enum_values_present'"
 
-    perfect_traceability:
-      - "Each test failure maps to exactly one TC or Sub-Test"
-      - "Clear relationship between documentation and implementation"
-      - "Easy to identify which requirement failed"
+  perfect_traceability:
+  - "Each test failure maps to exactly one TC or Sub-Test"
+  - "Clear relationship between documentation and implementation"
+  - "Easy to identify which requirement failed"
 
-    maintainable_organization:
-      - "Related tests grouped logically"
-      - "Easy to add new sub-tests without changing test logic"
-      - "Shared setup code with focused test logic"
+  maintainable_organization:
+  - "Related tests grouped logically"
+  - "Easy to add new sub-tests without changing test logic"
+  - "Shared setup code with focused test logic"
 
 # Feature Type Examples
 feature_type_examples:
-    documentation_features:
-        test_case_range: "1-2"
-        example:
-            feature: "FT-DOC-001 - Template System"
-            test_cases:
-              - "TC-DOC-001 - Template Processing (Manual, Medium)"
-              - "TC-DOC-002 - Placeholder Replacement (Manual, Low)"
+  documentation_features:
+    test_case_range: "1-2"
+    example:
+      feature: "FT-DOC-001 - Template System"
+      test_cases:
+      - "TC-DOC-001 - Test TemplateEngine.process_template() loads YAML templates and validates metadata fields (Manual, Medium)"
+      - "TC-DOC-002 - Test TemplateEngine.replace_placeholders() substitutes {PROJECT-NAME} and {DATE} preserving format (Manual, Low)"
 
-    configuration_features:
-        test_case_range: "2-3"
-        example:
-            feature: "FT-CONFIG-001 - Project Configuration"
-            test_cases:
-              - "TC-CONFIG-001 - Valid Configuration (Automated, High)"
-              - "TC-CONFIG-002 - Migration Handling (Automated, Medium)"
-              - "TC-CONFIG-003 - Validation Errors (Automated, Medium)"
+  configuration_features:
+    test_case_range: "2-3"
+    example:
+      feature: "FT-CONFIG-001 - Project Configuration"
+      test_cases:
+      - "TC-CONFIG-001 - Test ConfigLoader.load_config() parses .agent3d-config.yml and returns valid config object (Automated, High)"
+      - "TC-CONFIG-002 - Test ConfigMigrator.migrate_config() upgrades legacy configs to current schema preserving settings (Automated, Medium)"
+      - "TC-CONFIG-003 - Test ConfigValidator.validate_structure() detects missing fields and returns specific error msgs (Automated, Medium)"
 
-    processing_features:
-        test_case_range: "3-5"
-        example:
-            feature: "FT-SCAN-001 - Code Analysis"
-            test_cases:
-              - "TC-SCAN-001 - File Discovery (Automated, High)"
-              - "TC-SCAN-002 - Language Detection (Automated, High)"
-              - "TC-SCAN-003 - Test Case Extraction (Automated, High)"
-              - "TC-SCAN-004 - Error Handling (Automated, Medium)"
-            sub_test_example:
-                test_case: "TC-SCAN-002 - Language Detection (Automated, High)"
-                sub_tests:
-                  - "TC-SCAN-002a - Python Files - Test .py file detection"
-                  - "TC-SCAN-002b - JavaScript Files - Test .js/.ts file detection"
+  processing_features:
+    test_case_range: "3-5"
+    example:
+      feature: "FT-SCAN-001 - Code Analysis"
+      test_cases:
+      - "TC-SCAN-001 - Test DriftScanner.discover_files() finds Python test files in tests/ respecting .gitignore (Automated, High)"
+      - "TC-SCAN-002 - Test DriftScanner.detect_language() identifies file types by extension returning enum values (Automated, High)"
+      - "TC-SCAN-003 - Test DriftScanner.extract_tc_ids() parses TC-ID patterns from docstrings and parametrize (Automated, High)"
+      - "TC-SCAN-004 - Test DriftScanner.handle_parse_errors() gracefully handles malformed files without crashing (Automated, Medium)"
+      sub_test_example:
+        test_case: "TC-SCAN-002 - Test DriftScanner.detect_language() identifies file types by extension returning enum values (Automated, High)"
+        sub_tests:
+        - "TC-SCAN-002a - Test .py file detection returns Language.PYTHON enum value correctly"
+        - "TC-SCAN-002b - Test .js/.ts file detection returns Language.JAVASCRIPT enum value correctly"
 
 # Agent Instructions
 agent_instructions:
-    test_case_selection:
-      - "Analyze feature complexity and risk profile before selecting test cases"
-      - "Identify critical paths and failure modes"
-      - "Select minimum viable test coverage for confidence"
-      - "Group related scenarios logically"
-      - "Use sub-tests sparingly and appropriately"
+  test_case_selection:
+  - "Analyze feature complexity and risk profile before selecting test cases"
+  - "Identify critical paths and failure modes"
+  - "Select minimum viable test coverage for confidence"
+  - "Group related scenarios logically"
+  - "Use sub-tests sparingly and appropriately"
 
-    implementation_approach:
-      - "Start with core functionality tests"
-      - "Add error condition tests"
-      - "Include integration tests if applicable"
-      - "Consider performance tests for critical paths"
-      - "Review for redundancy and consolidate"
+  test_case_description_writing:
+  - "ALWAYS write detailed, comprehensive test case descriptions around 120 characters"
+  - "ALWAYS specify the exact module, class, or function being tested"
+  - "ALWAYS describe the specific behavior or functionality being validated"
+  - "ALWAYS include expected outcomes and assertions"
+  - "NEVER use vague phrases like 'basic test' or 'simple validation'"
+  - "ALWAYS provide enough detail for implementation without additional research"
+  - "ALWAYS explain WHY the test case is important for the feature"
+  - "ALWAYS reference specific technical components and methods"
+  - "ALWAYS keep both main test cases AND sub-tests around 120 characters"
+  - "ALWAYS use abbreviations when needed to stay within character limit"
 
-    quality_validation:
-      - "Ensure each test has clear purpose and objective"
-      - "Verify test cases address real failure scenarios"
-      - "Confirm sub-tests use same logic with different inputs"
-      - "Validate 1:1 mapping between TC IDs and test functions"
-      - "Check for redundant or overlapping test coverage"
+  implementation_approach:
+  - "Start with core functionality tests"
+  - "Add error condition tests"
+  - "Include integration tests if applicable"
+  - "Consider performance tests for critical paths"
+  - "Review for redundancy and consolidate"
+  - "Ensure test descriptions match implementation complexity"
+
+  quality_validation:
+  - "Ensure each test has clear purpose and objective"
+  - "Verify test cases address real failure scenarios"
+  - "Confirm sub-tests use same logic with different inputs"
+  - "Validate 1:1 mapping between TC IDs and test functions"
+  - "Check for redundant or overlapping test coverage"
+  - "Validate test case descriptions meet detail requirements"
+  - "Ensure descriptions clearly identify target code components"
+  - "Verify descriptions provide implementation guidance"
 
 # Integration with DDD Framework
 ddd_integration:
-    template_usage:
-        feature_template: "templates/FEATURE-module.template.yml"
-        test_strategy_field: "Select test cases judiciously based on feature complexity and risk"
+  template_usage:
+    feature_template: "templates/FEATURE-module.template.yml"
+    test_strategy_field: "Select test cases judiciously based on feature complexity and risk"
 
-    procedure_references:
-        ft_tc_structure: "procedures.yml/ft-tc-structure.yml"
-        language_rules: "procedures.yml/language-rules.yml"
+  procedure_references:
+    ft_tc_structure: "procedures.yml/ft-tc-structure.yml"
+    language_rules: "procedures.yml/language-rules.yml"
 
-    documentation_links:
-        agent_guidelines: "AGENT-GUIDELINES.yml#test_case_requirements"
-        feature_documentation: "docs/FEATURES.md"
+  documentation_links:
+    agent_guidelines: "AGENT-GUIDELINES.yml#test_case_requirements"
+    feature_documentation: "docs/FEATURES.md"

@@ -1,6 +1,6 @@
 metadata:
   name: Code Review Pass
-  number: 7
+  number: 6
   purpose: Reviewing code changes between the base branch and a pull request, providing feedback through comments on the PR, and setting the review status to "Pending" until all issues are addressed.
   role: "Senior Software Engineer with expertise in code quality, security, and maintainability"
   description: Converted from 7_code_review_pass.md

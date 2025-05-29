@@ -1,9 +1,11 @@
 metadata:
   name: Development Pass
   number: 3
-  purpose: Step-by-step feature implementation with checkpoints and execution plans.
-  role: '**Development Lead** - feature discovery, planning, implementation, checkpoint-based execution.'
-  description: Converted from 3_development_pass.md
+  purpose: Comprehensive feature development including planning, implementation, testing, and integration with checkpoint-based execution.
+  role: '**Development Lead & Senior Software Developer** - feature discovery, planning, implementation, testing, and checkpoint-based execution with clean code practices.'
+  description: Integrated development and implementation pass for complete feature delivery
+  version: "2.0.0"
+  integration: "Merged Implementation Pass (4) into Development Pass for streamlined workflow"
 when_to_use:
   conditions:
   - "Implementation needed for documented features"
@@ -11,6 +13,10 @@ when_to_use:
   - "Development work planned in execution plans"
   - "Feature implementation gaps identified"
   - "Technical debt needs addressing"
+  - "Feature documentation is complete and ready for implementation"
+  - "Converting proof of concept into production code"
+  - "Implementation plan exists and has been validated"
+  - "Starting development phase of a feature"
   # Decision Tree Indicators
   indicators:
   - "implementation needed"
@@ -18,25 +24,33 @@ when_to_use:
   - "new features to build"
   - "execution plans ready"
   - "development backlog items"
+  - "requirements ready for coding"
+  - "architecture decisions made"
+  - "design patterns identified"
 
-  prerequisites: [ "documentation_pass" ]
+  prerequisites: [ "documentation_pass", "foundation_pass" ]
   next_pass: "testing_pass"
+  replaces: [ "implementation_pass" ]
+  note: "Implementation Pass (4) has been merged into this pass and removed from the framework"
 process:
   workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
   phases:
     scan:
       purpose: "Detect implementation gaps and development opportunities"
-      description: "Repository update, scan docs/, identify features/drift needing development"
+      description: "Repository update, scan docs/, identify features/drift needing development, review implementation readiness"
       actions:
       - "update_repository_status"
       - "scan_documentation_for_features"
       - "identify_implementation_gaps"
       - "assess_development_priorities"
       - "run_drift_scanner"
+      - "review_feature_documentation_completeness"
+      - "validate_implementation_prerequisites"
+      - "check_existing_test_cases"
 
     draft:
-      purpose: "Create execution plans and development branches"
-      description: "Feature selection (AUTO/PICKER mode), create EXEC-PLAN-{change-name}.md with documented steps, create exec-plan/{change-name} branch"
+      purpose: "Create execution plans, development approach, and implementation strategy"
+      description: "Feature selection (AUTO/PICKER mode), create EXEC-PLAN-{change-name}.md with detailed implementation steps, create exec-plan/{change-name} branch, plan implementation approach"
       actions:
       - "select_features_for_implementation"
       - "create_execution_plan_document"
@@ -44,69 +58,123 @@ process:
       - "document_implementation_steps"
       - "establish_checkpoints"
       - "validate_code_location_fields"
+      - "plan_implementation_approach"
+      - "identify_test_scenarios"
+      - "plan_error_handling_strategy"
+      - "design_code_structure"
+      - "identify_dependencies_and_patterns"
 
     ask:
-      purpose: "Validate development approach and priorities"
-      description: "Validate selection and execution plan, confirm approach/priorities"
+      purpose: "Validate development approach, implementation strategy, and priorities"
+      description: "Validate selection and execution plan, confirm approach/priorities, clarify implementation requirements"
       protocol:
       - "ask_one_question_at_a_time"
       - "wait_for_response"
       - "no_multiple_questions"
       questions:
-      - "implementation_approach: [methodology/strategy]"
+      - "implementation_approach: [methodology/strategy/design_patterns]"
       - "feature_priorities: [high/medium/low]"
-      - "technical_constraints: [limitations]"
+      - "technical_constraints: [limitations/dependencies]"
       - "timeline_expectations: [estimated effort]"
+      - "code_quality_standards: [requirements/conventions]"
+      - "testing_strategy: [unit/integration/manual]"
+      - "error_handling_approach: [strategy/patterns]"
 
     sync:
-      purpose: "Execute implementation with checkpoint tracking"
-      description: "Execute steps in loop on exec-plan branch, auto-commit steps/checkpoints, update progress"
+      purpose: "Execute complete implementation with checkpoint tracking and testing"
+      description: "Execute implementation steps in loop on exec-plan branch, write code following clean practices, implement tests, auto-commit steps/checkpoints, update progress"
       actions:
       - "execute_implementation_steps"
+      - "implement_features_following_planned_steps"
+      - "write_clean_maintainable_code"
+      - "implement_error_handling"
+      - "write_unit_and_integration_tests"
+      - "ensure_code_quality_standards"
       - "auto_commit_checkpoints"
       - "update_progress_tracking"
       - "validate_step_completion"
       - "handle_implementation_issues"
       - "update_code_location_fields"
+      - "run_tests_and_validate_functionality"
+      - "ensure_standards_compliance"
 
     merge:
-      purpose: "Complete development cycle and integrate changes"
-      description: "Complete execution, confirm merge to main branch, delete exec-plan branch"
+      purpose: "Complete development cycle, validate implementation, and integrate changes"
+      description: "Complete execution, validate implementation quality, run comprehensive tests, confirm merge to main branch, delete exec-plan branch"
       actions:
       - "validate_implementation_completion"
+      - "run_comprehensive_test_suite"
+      - "validate_code_quality_standards"
+      - "ensure_no_breaking_changes"
       - "run_final_quality_checks"
+      - "validate_feature_functionality"
+      - "update_feature_status_to_implemented"
       - "merge_to_main_branch"
       - "cleanup_exec_plan_branch"
       - "update_documentation_status"
 
 # Expected Outcomes
 expected_outcomes:
-- "Implemented features with working code"
+- "Fully implemented features with working, tested code"
+- "Comprehensive test coverage (unit and integration tests)"
+- "Clean, maintainable code following best practices"
 - "Execution plan documentation in docs/runs/"
 - "Checkpoint-based progress tracking"
 - "Clean integration with main branch"
 - "Updated feature implementation status"
 - "Technical debt reduction"
 - "Code quality improvements"
+- "Passing test suite"
+- "Standards compliance validation"
+- "Error handling implementation"
+- "Updated Code Location fields"
 
 # Quality Gates
 quality_gates:
-  implementation_requirements:
+  planning_requirements:
   - name: "execution_plan_complete"
-    validation: "EXEC-PLAN document exists with detailed steps"
+    validation: "EXEC-PLAN document exists with detailed implementation steps"
     critical: true
-  - name: "checkpoint_tracking"
-    validation: "Implementation progress tracked with checkpoints"
+  - name: "implementation_approach_defined"
+    validation: "Clear implementation strategy and design patterns identified"
+    critical: true
+  - name: "test_strategy_planned"
+    validation: "Testing approach planned for implementation"
+    critical: true
+
+  implementation_requirements:
+  - name: "working_implementation"
+    validation: "Features are fully implemented and functional"
     critical: true
   - name: "code_quality_standards"
-    validation: "Implementation meets code quality standards"
+    validation: "Implementation meets code quality standards and best practices"
+    critical: true
+  - name: "error_handling_implemented"
+    validation: "Proper error handling and edge cases addressed"
+    critical: true
+  - name: "clean_code_practices"
+    validation: "Code follows clean code principles and design patterns"
+    critical: true
+
+  testing_requirements:
+  - name: "test_coverage_adequate"
+    validation: "Unit and integration tests implemented for code features"
+    critical: true
+  - name: "tests_passing"
+    validation: "All tests pass successfully"
+    critical: true
+  - name: "manual_validation_completed"
+    validation: "Manual validation completed for documentation/configuration features"
+    critical: true
+
+  integration_requirements:
+  - name: "checkpoint_tracking"
+    validation: "Implementation progress tracked with checkpoints"
     critical: true
   - name: "code_location_fields_updated"
     validation: "All implemented features have accurate Code Location fields"
     critical: true
     description: "Ensure Code Location fields point to actual implementation"
-
-  integration_requirements:
   - name: "clean_merge"
     validation: "Changes merge cleanly to main branch"
     critical: true
@@ -114,7 +182,10 @@ quality_gates:
     validation: "Implementation doesn't break existing functionality"
     critical: true
   - name: "documentation_updated"
-    validation: "Related documentation is updated"
+    validation: "Related documentation is updated and accurate"
+    critical: true
+  - name: "feature_status_updated"
+    validation: "Feature status updated to reflect implementation completion"
     critical: true
 
 # Code Location Field Requirements
@@ -221,7 +292,23 @@ critical_notes:
 - "ALWAYS create execution plan before implementation"
 - "ALWAYS use YAML format for execution plans"
 - "ALWAYS commit execution plan before starting implementation"
+- "ALWAYS follow clean code practices and design patterns"
+- "ALWAYS implement proper error handling and edge cases"
+- "ALWAYS write tests for code features (unit and integration)"
+- "ALWAYS perform manual validation for documentation/configuration features"
 - "ALWAYS validate Code Location fields before marking complete"
-- "ALWAYS run tests after implementation"
+- "ALWAYS run comprehensive test suite after implementation"
+- "ALWAYS ensure no breaking changes before merge"
+- "ALWAYS update feature status to reflect implementation completion"
 - "ALWAYS update DDD-STATUS after completion"
 - "ALWAYS update versions when writing template or framework YAML files"
+- "NEVER skip quality gates - they ensure implementation integrity"
+- "NEVER merge without passing all tests and validations"
+
+# Integration Notes
+integration_notes:
+- "This pass replaces the separate Implementation Pass (4)"
+- "Combines planning, implementation, testing, and integration in one workflow"
+- "Maintains checkpoint-based execution for complex implementations"
+- "Ensures comprehensive quality validation before integration"
+- "Supports both code and documentation feature implementations"
