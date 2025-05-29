@@ -122,6 +122,55 @@ code_location_requirements:
   purpose: "Ensure accurate Feature-Implementation linking for drift analysis"
   critical: true
 
+  # Framework Classification for Testing Strategy
+  framework_classification:
+    code_framework:
+      description: "Features with executable code requiring automated testing"
+      code_location_patterns: [ ".py", ".js", ".ts", ".java", ".go", ".cpp", ".c" ]
+      testing_approach: "Automated unit/integration tests"
+      examples: [ "tools/drift_scanner.py", "vscode-ddd-navigator/src/extension.ts" ]
+      validation: "Automated test execution with CI/CD integration"
+
+    documentation_framework:
+      description: "Features with documentation requiring manual validation"
+      code_location_patterns: [ ".md", "docs/", "README" ]
+      testing_approach: "Manual validation only - NO automated tests"
+      examples: [ "docs/features/", "README.md", "AGENT-GUIDELINES.md" ]
+      validation: "Manual review for accuracy, completeness, and consistency"
+
+    configuration_framework:
+      description: "Features with configuration requiring schema validation"
+      code_location_patterns: [ ".yml", ".yaml", ".json", "config/" ]
+      testing_approach: "Schema validation + manual review"
+      examples: [ ".agent3d-config.yml", "passes.yml/", "templates.yml/" ]
+      validation: "Configuration validation and manual configuration review"
+
+    non_testable:
+      description: "Process/workflow features requiring manual validation only"
+      code_location_patterns: [ "N/A", "process description" ]
+      testing_approach: "Manual process validation only"
+      examples: [ "N/A (Documentation framework quality process)" ]
+      validation: "Manual verification of process adherence"
+
+  # Testing Strategy Rules
+  testing_strategy:
+    automated_testing_required:
+    - "ONLY Code Framework features (.py, .js, .ts, etc.)"
+    - "Create pytest/jest/junit tests for executable code"
+    - "Implement unit and integration tests"
+    - "Include in CI/CD pipeline"
+
+    manual_validation_required:
+    - "Documentation Framework features (.md files)"
+    - "Configuration Framework features (.yml/.json files)"
+    - "Non-Testable features (N/A locations)"
+    - "NO automated tests should be created for these"
+
+    validation_approach:
+    - "Documentation: Manual review for quality and accuracy"
+    - "Configuration: Schema validation + manual verification"
+    - "Process: Manual adherence verification"
+
   field_format:
     python_modules: "module.path[Class/Function]"
     file_paths: "path/to/file[Object]"
