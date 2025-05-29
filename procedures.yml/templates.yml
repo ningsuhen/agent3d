@@ -7,93 +7,116 @@ template_usage:
   locations:
     llm_templates: "~/.agent3d/templates.yml/{DOCUMENT-NAME}.template.yml"
     human_templates: "~/.agent3d/templates/{DOCUMENT-NAME}.template.md"
-  
+
   process:
     steps:
-      - "git pull → access templates"
-      - "replace {{placeholders}}"
-      - "remove template tags"
-      - "validate"
-  
+    - "git pull → access templates"
+    - "replace {{placeholders}}"
+    - "remove template tags"
+    - "validate"
+
   placeholder_replacement:
     rules:
-      - "Replace ALL {{placeholders}} with actual values"
-      - "Remove <template> tags completely"
-      - "Use system commands for dates (never LLM knowledge)"
-      - "Validate all links are functional"
+    - "Replace ALL {{placeholders}} with actual values"
+    - "Remove <template> tags completely"
+    - "Use system commands for dates (never LLM knowledge)"
+    - "Validate all links are functional"
 
 ddd_workflow:
   process: "SCAN → DRAFT → ASK → SYNC → CONFIRM BEFORE COMMIT"
-  
+
   step_marking:
     completed: "✅"
     in_progress: "[~]"
     not_started: "[ ]"
-  
+
   standards:
     structure:
-      - "## Groups / ### Sub-Groups"
-      - "single-line entries"
-      - "2-space indentation"
-    
+    - "## Groups / ### Sub-Groups"
+    - "single-line entries"
+    - "2-space indentation"
+
     completion:
-      - "Mark [x] only with verifiable evidence"
-      - "Mark [~] for in-progress items"
-      - "Mark [ ] for not started items"
-    
+    - "Mark [x] only with verifiable evidence"
+    - "Mark [~] for in-progress items"
+    - "Mark [ ] for not started items"
+
     templates:
-      - "Replace ALL {{placeholders}}"
-      - "Remove <template> tags"
-    
+    - "Replace ALL {{placeholders}}"
+    - "Remove <template> tags"
+
     quality:
-      - "Functional links"
-      - "LLM-friendly language"
-      - "Requirements-to-features-to-tests traceability"
-    
+    - "Functional links"
+    - "LLM-friendly language"
+    - "Requirements-to-features-to-tests traceability"
+
     code:
-      - "Exception handling"
-      - "Memory efficiency"
-      - "Test coverage"
-      - "Security"
-      - "Performance"
-      - "Documentation"
-      - "Zero technical debt"
-    
+    - "Exception handling"
+    - "Memory efficiency"
+    - "Test coverage"
+    - "Security"
+    - "Performance"
+    - "Documentation"
+    - "Zero technical debt"
+
     tc_id_mapping:
-      - "All test implementations MUST include TC-NNNN references"
-      - "1:1 traceability required"
+    - "All test implementations MUST include TC-NNNN references"
+    - "1:1 traceability required"
 
 validation_checklist:
   structure:
-    - "## Groups / ### Sub-Groups structure ✓"
-    - "{{placeholders}} replaced, template tags removed ✓"
-    - "Functional links, single-line entries ✓"
-    - "[x] only with verifiable evidence ✓"
-    - "2-space indentation, LLM-friendly language, traceability links ✓"
-  
+  - "## Groups / ### Sub-Groups structure ✓"
+  - "{{placeholders}} replaced, template tags removed ✓"
+  - "Functional links, single-line entries ✓"
+  - "[x] only with verifiable evidence ✓"
+  - "2-space indentation, LLM-friendly language, traceability links ✓"
+
   drift_validation:
-    - "TC ID drift <10%"
-    - "Command: python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping"
+  - "TC ID drift <10%"
+  - "Command: python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping"
 
 template_types:
   documentation:
-    - "REQUIREMENTS.template.yml"
-    - "FEATURES.template.yml"
-    - "ACCEPTANCE-CRITERIA.template.yml"
-    - "HIGH-LEVEL-DESIGN.template.yml"
-  
+  - "REQUIREMENTS.template.yml"
+  - "FEATURES.template.yml"
+  - "ACCEPTANCE-CRITERIA.template.yml"
+  - "HIGH-LEVEL-DESIGN.template.yml"
+
   execution:
-    - "EXEC-PLAN.template.yml"
-    - "DDD-STATUS.template.yml"
-    - "DUAL-MODE-PASS.template.yml"
-  
+  - "EXEC-PLAN.template.yml"
+  - "DDD-STATUS.template.yml"
+  - "DUAL-MODE-PASS.template.yml"
+
   migration:
-    - "migration.template.yml"
+  - "migration.template.yml"
+
+format_requirements:
+  critical_yaml_only:
+    ddd_status:
+      template: "DDD-STATUS.template.yml"
+      output_location: "docs/DDD-STATUS.yml"
+      requirement: "ALWAYS use YAML format - never Markdown"
+      rationale: "Better machine readability and structured data for LLM processing"
+
+    exec_plan:
+      template: "EXEC-PLAN.template.yml"
+      output_location: "docs/runs/EXEC-PLAN-{change-name}.yml"
+      requirement: "ALWAYS use YAML format - never Markdown"
+      rationale: "Structured progress tracking and better automation integration"
+
+    dual_mode_pass:
+      template: "DUAL-MODE-PASS.template.yml"
+      output_location: "docs/runs/DUAL-MODE-{pass-name}.yml"
+      requirement: "ALWAYS use YAML format for pass execution tracking"
+      rationale: "Consistent machine-readable format for all execution tracking"
 
 best_practices:
-  - "Always use latest templates from ~/.agent3d"
-  - "Replace placeholders with actual system-generated values"
-  - "Validate template output before proceeding"
-  - "Remove all template artifacts from final documents"
-  - "Maintain consistent formatting across all documents"
-  - "Use drift scanner to validate TC ID mapping"
+- "Always use latest templates from ~/.agent3d"
+- "Replace placeholders with actual system-generated values"
+- "Validate template output before proceeding"
+- "Remove all template artifacts from final documents"
+- "Maintain consistent formatting across all documents"
+- "Use drift scanner to validate TC ID mapping"
+- "ALWAYS use YAML format for DDD-STATUS and EXEC-PLAN files"
+- "Use YAML templates for better machine readability and LLM processing"
+- "Never create Markdown versions of DDD-STATUS or EXEC-PLAN files"

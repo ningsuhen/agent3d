@@ -156,6 +156,7 @@ pass_execution:
     phase_1_clean:
       action: "echo '' > .agent3d-tmp/DDD-STATUS.yml"
       purpose: "Empty existing DDD status for fresh evaluation"
+      format_requirement: "ALWAYS use YAML format for DDD-STATUS files"
 
     phase_2_memorize:
       actions:
@@ -274,7 +275,7 @@ usage_instructions:
 
   complete_mode_initialization:
   - "execute_fresh_start_protocol_if_complete_mode"
-  - "clean_ddd_status_with_echo_command"
+  - "clean_ddd_status_with_echo_command_to_docs/DDD-STATUS.yml"
   - "memorize_entire_agent3d_config_yml"
   - "memorize_applicable_language_rules"
   - "memorize_procedures_index_and_critical_procedures"
@@ -323,6 +324,21 @@ integration_points:
     location: "~/.agent3d/passes.yml/"
     format: "yaml"
     usage: "load_for_detailed_workflow_execution"
+
+  template_format_requirements:
+    ddd_status:
+      format: "YAML"
+      template: "~/.agent3d/templates.yml/DDD-STATUS.template.yml"
+      location: "docs/DDD-STATUS.yml"
+      requirement: "ALWAYS use YAML format for DDD-STATUS files"
+
+    exec_plan:
+      format: "YAML"
+      template: "~/.agent3d/templates.yml/EXEC-PLAN.template.yml"
+      location: "docs/runs/EXEC-PLAN-{change-name}.yml"
+      requirement: "ALWAYS use YAML format for EXEC-PLAN files"
+
+    rationale: "YAML format provides better machine readability and structured data for LLM processing"
 
 # Success Criteria
 success_criteria:
