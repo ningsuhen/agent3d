@@ -469,6 +469,22 @@ class DriftIssue:
     line_number: int = None
 
 @dataclass
+class DuplicateTCIssue:
+    """Represents a TC ID that is used in multiple test functions."""
+    tc_id: str
+    test_functions: List[TestFunction]
+    issue_type: str = 'duplicate_tc_id'
+    severity: str = 'warning'
+    description: str = ''
+    suggestion: str = ''
+
+    def __post_init__(self):
+        if not self.description:
+            self.description = f"TC ID '{self.tc_id}' is used in {len(self.test_functions)} different test functions"
+        if not self.suggestion:
+            self.suggestion = f"Each TC ID should be used in only one test function. Consider using sub-test cases with parameters or renaming duplicate TC IDs to unique identifiers."
+
+@dataclass
 class DriftReport:
     """Complete multi-mode drift analysis report."""
     mode: str
@@ -477,6 +493,8 @@ class DriftReport:
     implementations_without_test_cases: List[TestFunction] = None
     tc_mappings: Dict[str, List[TestFunction]] = None
     orphaned_tc_ids: List[str] = None
+    # Duplicate TC ID Detection
+    duplicate_tc_issues: List[DuplicateTCIssue] = None
     # FT Mapping (new)
     features_without_tests: List[Feature] = None
     tests_without_features: List[TestFunction] = None
@@ -510,6 +528,9 @@ class DriftReport:
             self.tc_mappings = {}
         if self.orphaned_tc_ids is None:
             self.orphaned_tc_ids = []
+        # Duplicate TC ID fields
+        if self.duplicate_tc_issues is None:
+            self.duplicate_tc_issues = []
         # FT Mapping fields
         if self.features_without_tests is None:
             self.features_without_tests = []
@@ -2919,6 +2940,9 @@ class TCDriftAnalyzer:
             if not func.tc_ids:
                 implementations_without_test_cases.append(func)
 
+        # Detect duplicate TC IDs
+        duplicate_tc_issues = self._detect_duplicate_tc_ids(tc_id_to_implementations)
+
         # Generate metadata
         metadata = {
             'total_test_cases': len(test_cases),
@@ -2927,6 +2951,7 @@ class TCDriftAnalyzer:
             'test_functions_with_tc_ids': len([f for f in test_functions if f.tc_ids]),
             'unique_tc_ids_in_code': len(tc_id_to_implementations),
             'orphaned_tc_ids_count': len(orphaned_tc_ids),
+            'duplicate_tc_ids_count': len(duplicate_tc_issues),
             'languages_detected': list(set(self.implementation_scanner.detector.detect_language(Path(f.file))
                                          for f in test_functions if self.implementation_scanner.detector.detect_language(Path(f.file))))
         }
@@ -2937,8 +2962,24 @@ class TCDriftAnalyzer:
             implementations_without_test_cases=implementations_without_test_cases,
             tc_mappings=dict(tc_id_to_implementations),
             orphaned_tc_ids=orphaned_tc_ids,
+            duplicate_tc_issues=duplicate_tc_issues,
             metadata=metadata
         )
+
+    def _detect_duplicate_tc_ids(self, tc_id_to_implementations: Dict[str, List[TestFunction]]) -> List[DuplicateTCIssue]:
+        """Detect TC IDs that are used in multiple test functions."""
+        duplicate_issues = []
+
+        for tc_id, test_functions in tc_id_to_implementations.items():
+            if len(test_functions) > 1:
+                # This TC ID is used in multiple test functions
+                duplicate_issue = DuplicateTCIssue(
+                    tc_id=tc_id,
+                    test_functions=test_functions
+                )
+                duplicate_issues.append(duplicate_issue)
+
+        return duplicate_issues
 
     def _get_current_timestamp(self) -> str:
         """Get current timestamp in YYYY-MM-DD_HH:MM:SS format."""
@@ -2956,6 +2997,7 @@ class TCDriftAnalyzer:
                 'test_cases_without_implementations': len(report.test_cases_without_implementations),
                 'implementations_without_test_cases': len(report.implementations_without_test_cases),
                 'orphaned_tc_ids': len(report.orphaned_tc_ids),
+                'duplicate_tc_ids': len(report.duplicate_tc_issues),
                 'drift_percentage': round((len(report.test_cases_without_implementations) +
                                          len(report.implementations_without_test_cases)) /
                                         max(1, report.metadata['total_test_cases'] +
@@ -2964,6 +3006,7 @@ class TCDriftAnalyzer:
             'test_cases_without_implementations': [asdict(tc) for tc in report.test_cases_without_implementations],
             'implementations_without_test_cases': [asdict(func) for func in report.implementations_without_test_cases],
             'orphaned_tc_ids_in_code': report.orphaned_tc_ids,
+            'duplicate_tc_issues': [asdict(issue) for issue in report.duplicate_tc_issues],
             'tc_mappings': {tc_id: [asdict(func) for func in funcs]
                            for tc_id, funcs in report.tc_mappings.items()},
             'generated_at': self._get_current_timestamp()
@@ -2986,6 +3029,7 @@ class TCDriftAnalyzer:
         print(f"  Test Functions in Code: {report.metadata['total_test_functions']}")
         print(f"  Languages Detected: {', '.join(report.metadata['languages_detected'])}")
         print(f"  Unique TC IDs in Code: {report.metadata['unique_tc_ids_in_code']}")
+        print(f"  Duplicate TC IDs: {report.metadata.get('duplicate_tc_ids_count', 0)}")
 
         # Calculate drift metrics
         total_items = report.metadata['total_test_cases'] + report.metadata['total_test_functions']
@@ -3035,6 +3079,17 @@ class TCDriftAnalyzer:
                 implementations = report.tc_mappings.get(tc_id, [])
                 print(f"    {tc_id} (used in {len(implementations)} implementations)")
 
+        # Duplicate TC IDs
+        if report.duplicate_tc_issues:
+            print(f"\n⚠️  DUPLICATE TC IDs ({len(report.duplicate_tc_issues)}):")
+            print("-" * 60)
+            print("  These TC IDs are used in multiple test functions:")
+            for issue in sorted(report.duplicate_tc_issues, key=lambda x: x.tc_id):
+                print(f"    {issue.tc_id} (used in {len(issue.test_functions)} test functions)")
+                for func in issue.test_functions:
+                    line_info = f":{func.line_number}" if func.line_number else ""
+                    print(f"      - {func.full_name} in {func.file}{line_info}")
+
         # Success cases
         if report.tc_mappings:
             mapped_count = len([tc_id for tc_id in report.tc_mappings
@@ -3065,11 +3120,13 @@ def generate_multi_mode_report(report: DriftReport, output_file: str = 'drift-re
                 'total_test_cases': len(report.test_cases_without_implementations or []) + len(report.tc_mappings or {}),
                 'test_cases_without_implementations': len(report.test_cases_without_implementations or []),
                 'implementations_without_test_cases': len(report.implementations_without_test_cases or []),
-                'orphaned_tc_ids': len(report.orphaned_tc_ids or [])
+                'orphaned_tc_ids': len(report.orphaned_tc_ids or []),
+                'duplicate_tc_ids': len(report.duplicate_tc_issues or [])
             },
             'test_cases_without_implementations': [asdict(tc) for tc in (report.test_cases_without_implementations or [])],
             'implementations_without_test_cases': [asdict(func) for func in (report.implementations_without_test_cases or [])],
             'orphaned_tc_ids_in_code': report.orphaned_tc_ids or [],
+            'duplicate_tc_issues': [asdict(issue) for issue in (report.duplicate_tc_issues or [])],
             'tc_mappings': {tc_id: [asdict(func) for func in funcs]
                            for tc_id, funcs in (report.tc_mappings or {}).items()}
         })
@@ -3185,13 +3242,24 @@ def print_multi_mode_summary(report: DriftReport) -> None:
 
 def print_tc_mapping_summary(report: DriftReport) -> None:
     """Print TC mapping specific summary."""
-    if not report.test_cases_without_implementations and not report.implementations_without_test_cases:
+    if not report.test_cases_without_implementations and not report.implementations_without_test_cases and not report.duplicate_tc_issues:
         return
 
     print(f"\n📊 TC MAPPING OVERVIEW:")
     print(f"  Test Cases Without Implementations: {len(report.test_cases_without_implementations or [])}")
     print(f"  Implementations Without TC IDs: {len(report.implementations_without_test_cases or [])}")
     print(f"  Orphaned TC IDs: {len(report.orphaned_tc_ids or [])}")
+    print(f"  Duplicate TC IDs: {len(report.duplicate_tc_issues or [])}")
+
+    # Show duplicate TC ID details if any exist
+    if report.duplicate_tc_issues:
+        print(f"\n⚠️  DUPLICATE TC ID DETAILS:")
+        for issue in sorted(report.duplicate_tc_issues, key=lambda x: x.tc_id)[:5]:  # Show first 5
+            print(f"    {issue.tc_id} used in {len(issue.test_functions)} functions:")
+            for func in issue.test_functions:
+                print(f"      - {func.full_name} ({func.file})")
+        if len(report.duplicate_tc_issues) > 5:
+            print(f"    ... and {len(report.duplicate_tc_issues) - 5} more duplicate TC IDs")
 
 def print_ft_mapping_summary(report: DriftReport) -> None:
     """Print FT mapping specific summary."""
