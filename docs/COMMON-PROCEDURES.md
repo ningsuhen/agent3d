@@ -527,6 +527,59 @@ python3 ~/.agent3d/tools/drift_scanner.py --mode ft-mapping
 python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping
 ```
 
+## Prune Pass Procedures
+
+### **Pre-Prune Analysis**
+
+**Repository Scan:**
+```bash
+# Identify cache files
+find . -name "__pycache__" -type d
+find . -name "*.pyc"
+find . -name "node_modules" -type d
+
+# Find temporary files
+find .agent3d-tmp/ -name "*test*" -o -name "*debug*"
+find .agent3d-tmp/logs/ -mtime +7
+
+# Check empty directories
+find . -type d -empty
+```
+
+**Cross-Reference Check:**
+```bash
+# Run baseline drift analysis
+python3 ~/.agent3d/tools/drift_scanner.py --mode all --output pre-prune-baseline.yaml
+
+# Check for broken links (if available)
+# markdown-link-check docs/**/*.md
+```
+
+### **Safe Removal Categories**
+
+**Always Safe:**
+- `__pycache__/` directories and `*.pyc` files
+- `node_modules/` (can be regenerated with `npm install`)
+- Build artifacts: `dist/`, `build/`, `out/`, `target/`
+- Temporary test files with names containing "test", "debug", "temp"
+- Log files older than 7 days
+- Empty directories (after verification)
+- IDE cache: `.vscode/settings.json`, `.idea/workspace.xml`
+
+**Archive First:**
+- Implemented proposals → `docs/proposals/archive/implemented/`
+- Deprecated documentation with historical value
+- Migration guides that may be referenced later
+- Legacy templates that provide examples
+
+**Never Remove:**
+- Configuration files: `.agent3d-config.yml`, `package.json`, `pyproject.toml`
+- Production drift reports (current state indicators)
+- Template files (even if seemingly redundant)
+- Documentation with active cross-references
+- Recent logs (last 7 days)
+- Any file referenced in current documentation
+
 ---
 
 **Usage:** Reference from all DDD passes for consistency.
