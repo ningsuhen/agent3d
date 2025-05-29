@@ -2,33 +2,111 @@ metadata:
   name: Development Pass
   number: 3
   purpose: Step-by-step feature implementation with checkpoints and execution plans.
-  role: '**Development Lead** - feature discovery, planning, implementation, checkpoint-based
-    execution.'
+  role: '**Development Lead** - feature discovery, planning, implementation, checkpoint-based execution.'
   description: Converted from 3_development_pass.md
 when_to_use:
-  conditions: []
-  prerequisites: []
+  conditions:
+  - "Implementation needed for documented features"
+  - "Code changes required for new functionality"
+  - "Development work planned in execution plans"
+  - "Feature implementation gaps identified"
+  - "Technical debt needs addressing"
+  # Decision Tree Indicators
+  indicators:
+  - "implementation needed"
+  - "code changes required"
+  - "new features to build"
+  - "execution plans ready"
+  - "development backlog items"
+
+  prerequisites: [ "documentation_pass" ]
+  next_pass: "testing_pass"
 process:
-  workflow_pattern: "SCAN \u2192 DRAFT \u2192 ASK \u2192 SYNC \u2192 CONFIRM"
+  workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
   phases:
-    'scan:':
-      description: Repository update, scan docs/, identify features/drift needing
-        development
-      actions: []
-    'draft:':
-      description: Feature selection (AUTO/PICKER mode), create EXEC-PLAN-{change-name}.md
-        with documented steps, create exec-plan/{change-name} branch
-      actions: []
-    'ask:':
-      description: Validate selection and execution plan, confirm approach/priorities
-      actions: []
-    'sync:':
-      description: "Execute steps in loop on exec-plan branch, auto-commit steps/checkpoints,\
-        \ update progress (mark \u2705)"
-      actions: []
-    'merge:':
-      description: Complete execution, confirm merge to main branch, delete exec-plan
-        branch
-      actions: []
-expected_outcomes: []
-quality_gates: []
+    scan:
+      purpose: "Detect implementation gaps and development opportunities"
+      description: "Repository update, scan docs/, identify features/drift needing development"
+      actions:
+      - "update_repository_status"
+      - "scan_documentation_for_features"
+      - "identify_implementation_gaps"
+      - "assess_development_priorities"
+      - "run_drift_scanner"
+
+    draft:
+      purpose: "Create execution plans and development branches"
+      description: "Feature selection (AUTO/PICKER mode), create EXEC-PLAN-{change-name}.md with documented steps, create exec-plan/{change-name} branch"
+      actions:
+      - "select_features_for_implementation"
+      - "create_execution_plan_document"
+      - "create_exec_plan_branch"
+      - "document_implementation_steps"
+      - "establish_checkpoints"
+
+    ask:
+      purpose: "Validate development approach and priorities"
+      description: "Validate selection and execution plan, confirm approach/priorities"
+      protocol:
+      - "ask_one_question_at_a_time"
+      - "wait_for_response"
+      - "no_multiple_questions"
+      questions:
+      - "implementation_approach: [methodology/strategy]"
+      - "feature_priorities: [high/medium/low]"
+      - "technical_constraints: [limitations]"
+      - "timeline_expectations: [estimated effort]"
+
+    sync:
+      purpose: "Execute implementation with checkpoint tracking"
+      description: "Execute steps in loop on exec-plan branch, auto-commit steps/checkpoints, update progress"
+      actions:
+      - "execute_implementation_steps"
+      - "auto_commit_checkpoints"
+      - "update_progress_tracking"
+      - "validate_step_completion"
+      - "handle_implementation_issues"
+
+    merge:
+      purpose: "Complete development cycle and integrate changes"
+      description: "Complete execution, confirm merge to main branch, delete exec-plan branch"
+      actions:
+      - "validate_implementation_completion"
+      - "run_final_quality_checks"
+      - "merge_to_main_branch"
+      - "cleanup_exec_plan_branch"
+      - "update_documentation_status"
+
+# Expected Outcomes
+expected_outcomes:
+- "Implemented features with working code"
+- "Execution plan documentation in docs/runs/"
+- "Checkpoint-based progress tracking"
+- "Clean integration with main branch"
+- "Updated feature implementation status"
+- "Technical debt reduction"
+- "Code quality improvements"
+
+# Quality Gates
+quality_gates:
+  implementation_requirements:
+  - name: "execution_plan_complete"
+    validation: "EXEC-PLAN document exists with detailed steps"
+    critical: true
+  - name: "checkpoint_tracking"
+    validation: "Implementation progress tracked with checkpoints"
+    critical: true
+  - name: "code_quality_standards"
+    validation: "Implementation meets code quality standards"
+    critical: true
+
+  integration_requirements:
+  - name: "clean_merge"
+    validation: "Changes merge cleanly to main branch"
+    critical: true
+  - name: "no_breaking_changes"
+    validation: "Implementation doesn't break existing functionality"
+    critical: true
+  - name: "documentation_updated"
+    validation: "Related documentation is updated"
+    critical: true

@@ -1,11 +1,8 @@
 metadata:
   name: Documentation Pass
   number: 2
-  purpose: Document features, requirements, and priorities while clarifying existing
-    documentation for completeness and clarity.
-  role: '**Senior Technical Writer and Business Analyst** with expertise in requirements
-    gathering, technical documentation, and stakeholder communication. Focus on clarity,
-    completeness, and user-centered documentation.'
+  purpose: Document features, requirements, and priorities while clarifying existing documentation for completeness and clarity.
+  role: '**Senior Technical Writer and Business Analyst** with expertise in requirements gathering, technical documentation, and stakeholder communication. Focus on clarity, completeness, and user-centered documentation.'
   description: Converted from 2_documentation_pass.md
 when_to_use:
   conditions:
@@ -16,21 +13,68 @@ when_to_use:
   - When exploring unfamiliar technical domains
   - '**Creating design proposals** for complex features that need detailed planning'
   - '**UI/UX projects** requiring wireframes, user flows, and interaction specifications'
-  prerequisites: []
+  # Decision Tree Indicators
+  indicators:
+  - "missing feature documentation"
+  - "incomplete HIGH-LEVEL-DESIGN.md"
+  - "unclear system architecture"
+  - "ambiguous requirements"
+  - "missing technical specifications"
+
+  prerequisites: [ "requirements_pass" ]
+  next_pass: "development_pass"
 process:
-  workflow_pattern: "SCAN \u2192 DRAFT \u2192 ASK \u2192 SYNC \u2192 CONFIRM"
+  workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
   phases:
-    'draft:':
-      description: Use `## Groups`/`### Sub-Groups`, mark `[x]` with evidence, create
-        specifications, document requirements
-      actions: []
-    'ask:':
-      description: Clarify scope, priorities, constraints
-      actions: []
-    'sync:':
-      description: "Update FEATURES.md, align roadmap\n\n**Note:** During execution,\
-        \ mark completed steps with \u2705 to track progress."
-      actions: []
+    scan:
+      purpose: "Detect missing/outdated feature documentation and design gaps"
+      description: "Review features structure, check design documentation, assess documentation gaps"
+      actions:
+      - "review_features_structure"
+      - "check_design_documentation"
+      - "assess_documentation_gaps"
+      - "identify_missing_specifications"
+
+    draft:
+      purpose: "Create/update feature documentation and technical specifications"
+      description: "Use `## Groups`/`### Sub-Groups`, mark `[x]` with evidence, create specifications, document requirements"
+      actions:
+      - "create_docs/features/core.md"
+      - "create_HIGH-LEVEL-DESIGN.md"
+      - "update_feature_modules"
+      - "establish_FT-TC_mapping"
+      - "document_technical_constraints"
+
+    ask:
+      purpose: "Clarify gaps and get technical input"
+      description: "Clarify scope, priorities, constraints"
+      protocol:
+      - "ask_one_question_at_a_time"
+      - "wait_for_response"
+      - "no_multiple_questions"
+      questions:
+      - "architecture_decisions: [key choices]"
+      - "feature_priorities: [high/medium/low]"
+      - "integration_points: [external systems]"
+      - "technical_constraints: [limitations]"
+
+    sync:
+      purpose: "Finalize changes and ensure design consistency"
+      description: "Update FEATURES.md, align roadmap, validate completeness"
+      actions:
+      - "validate_feature_completeness"
+      - "ensure_design_consistency"
+      - "run_drift_scanner"
+      - "update_roadmap_alignment"
+      - "update_status_tracking"
+
+    confirm:
+      purpose: "Get approval before committing (if required)"
+      condition: "git_workflow.require_commit_confirmation == true"
+      actions:
+      - "show_changes_summary"
+      - "request_confirmation"
+      - "commit_with_ddd_format"
 expected_outcomes:
 - Feature entries in merged FT-TC structure (`docs/features/` directory)
 - 'Test cases integrated with features (NEW: merged structure)'
@@ -38,6 +82,36 @@ expected_outcomes:
 - Updated `TASKS.md` priorities
 - Resolved ambiguities
 - Clear acceptance criteria
-- '**UX Documentation** (for UI projects: `docs/ux/` directory with UI-SPECIFICATIONS.md,
-  wireframes, user-flows, interaction-patterns)'
-quality_gates: []
+- '**UX Documentation** (for UI projects: `docs/ux/` directory with UI-SPECIFICATIONS.md, wireframes, user-flows, interaction-patterns)'
+
+# Quality Gates
+quality_gates:
+  documentation_requirements:
+  - name: "feature_documentation_complete"
+    validation: "All features documented in docs/features/ directory"
+    critical: true
+  - name: "high_level_design_exists"
+    validation: "HIGH-LEVEL-DESIGN.md exists and is complete"
+    critical: true
+  - name: "ft_tc_mapping_established"
+    validation: "Feature-Test Case mapping is properly established"
+    critical: true
+
+  content_quality:
+  - name: "technical_specifications_clear"
+    validation: "Technical specifications are clear and unambiguous"
+    critical: true
+  - name: "architecture_decisions_documented"
+    validation: "Key architecture decisions are documented with rationale"
+    critical: true
+  - name: "integration_points_defined"
+    validation: "External system integration points are clearly defined"
+    critical: false
+
+  alignment_requirements:
+  - name: "requirements_traceability"
+    validation: "Features are traceable to requirements"
+    critical: true
+  - name: "drift_level_acceptable"
+    validation: "Documentation-code drift is below threshold"
+    critical: true
