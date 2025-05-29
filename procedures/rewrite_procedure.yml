@@ -1,10 +1,12 @@
 metadata:
   name: "Rewrite Files Procedure"
-  version: "1.0.0"
-  purpose: "Systematic loop workflow for large-scale file refactoring using DDD methodologies"
+  version: "2.0.0"
+  purpose: "Systematic loop workflow for large-scale file refactoring using DDD methodologies with intelligent version tracking"
   approach: "Pure LLM-based rewriting without programming language execution"
   scope: "Any file type - documentation, test files, configuration files, source code"
   created: "2025-01-29"
+  last_updated: "2025-01-29"
+  new_features: "Template version tracking, intelligent rewrite detection, --force flag support"
 
 description: |
   A comprehensive procedure for systematically rewriting files using DDD methodologies and templates.
@@ -21,8 +23,11 @@ core_principles:
 - "TEMP DIRECTORY USAGE: Store execution plans in ~/.agent3d-tmp/"
 - "EXEC PLAN DRIVEN: Check exec plan for remaining iterations and status updates"
 - "NO PROMPTING: Fully automated loop without user confirmation"
+- "VERSION TRACKING: Check template versions before rewriting to prevent unnecessary operations"
+- "FORCE OVERRIDE: Support --force flag to bypass version checking when needed"
+- "INTELLIGENT SKIPPING: Skip files that are already up-to-date unless forced"
 
-workflow_pattern: "EXEC-PLAN → LOOP(BACKUP → REWRITE → VERIFY → CLEANUP)"
+workflow_pattern: "EXEC-PLAN → LOOP(VERSION-CHECK → BACKUP → REWRITE → VERIFY → CLEANUP)"
 
 execution_strategy:
   approach: "execution_plan_driven"
@@ -93,15 +98,23 @@ execution_phases:
       files_to_process:
         - path: "{file_path_1}"
           template: "{template_name}"
+          template_version: "{template_version}"
+          current_file_version: "{current_version_or_none}"
           backup: "{file_path_1}.backup.{timestamp}"
           priority: "{priority_level}"
           status: "pending"
+          version_check_result: "pending"
+          skip_reason: null
 
         - path: "{file_path_2}"
           template: "{template_name}"
+          template_version: "{template_version}"
+          current_file_version: "{current_version_or_none}"
           backup: "{file_path_2}.backup.{timestamp}"
           priority: "{priority_level}"
           status: "pending"
+          version_check_result: "pending"
+          skip_reason: null
 
       templates_cache:
         "{template_name_1}": "{cached_template_content_1}"
@@ -121,6 +134,9 @@ execution_phases:
         check_remaining_iterations: true
         resume_from_iteration: null
         max_iterations: {file_count}
+        force_rewrite: false  # Set to true to bypass version checking
+        version_tracking_enabled: true
+        skip_up_to_date_files: true
 
     speed_optimizations:
     - "scan_once_execute_many"
@@ -129,10 +145,44 @@ execution_phases:
     - "batch_file_validation"
 
   # Fast Loop Phases (per file from exec plan)
+  version_check:
+    purpose: "Intelligent rewrite detection to prevent unnecessary operations"
+    action: "compare_template_version_with_file_version"
+
+    version_detection:
+      template_version: "Extract version from template metadata.version field"
+      file_version: "Search for <!-- Template Version: X.X.X --> comment in target file"
+      fallback: "If no version comment found, assume file needs rewriting"
+
+    comparison_logic:
+      template_newer: "template.version > file.version → PROCEED with rewrite"
+      template_same: "template.version == file.version → SKIP rewrite (unless --force)"
+      template_older: "template.version < file.version → SKIP rewrite (unless --force)"
+      no_file_version: "file has no version comment → PROCEED with rewrite"
+
+    force_flag_behavior:
+      when_force_enabled: "Skip all version checking and always proceed with rewrite"
+      when_force_disabled: "Follow comparison_logic above"
+
+    skip_conditions:
+    - "template_version <= file_version AND --force not used"
+    - "file is already up-to-date with current template"
+
+    proceed_conditions:
+    - "template_version > file_version"
+    - "--force flag is used"
+    - "file has no version tracking comment"
+    - "file does not exist"
+
+    output_actions:
+      skip: "Log skip reason and move to next file in exec plan"
+      proceed: "Continue to backup phase"
+
   backup:
     action: "mv {file_path} {file_path}.backup.{timestamp}"
     verify: "backup_file_exists_and_readable"
     safety: "never_overwrite_existing_backups"
+    prerequisite: "version_check passed or --force flag used"
 
   rewrite:
     action: "apply_cached_template_to_original_content_or_convert_format"
@@ -141,6 +191,12 @@ execution_phases:
     improve: "structure_clarity_template_compliance"
 
     template_compliance: "follow_cached_template_format_exactly"
+
+    version_tracking_requirements:
+      template_version_injection: "ALWAYS include <!-- Template Version: {template.version} --> comment in generated files"
+      placement: "Insert version comment near the top of the file, after title/header"
+      format: "<!-- Template Version: X.X.X -->"
+      critical: "Version tracking is MANDATORY for all generated files"
 
     # Special handling for template conversion
     template_conversion_rules:
@@ -250,7 +306,9 @@ loop_control:
   exec_plan_management:
   - "update_current_iteration_in_exec_plan"
   - "update_next_iteration_in_exec_plan"
-  - "update_file_status_to_completed"
+  - "update_file_status_to_completed_or_skipped"
+  - "update_version_check_result_in_exec_plan"
+  - "log_skip_reason_if_applicable"
   - "increment_completed_count"
   - "decrement_remaining_count"
   - "log_errors_to_exec_plan"
@@ -297,12 +355,16 @@ expected_outcomes:
   - "ddd_template_compliance_achieved"
   - "enhanced_content_clarity_and_structure"
   - "maintained_content_accuracy_and_integrity"
+  - "intelligent_rewrite_detection_prevents_unnecessary_operations"
+  - "version_tracking_enables_efficient_template_management"
 
   long_term:
   - "consistent_documentation_standards"
   - "improved_maintainability"
   - "enhanced_user_experience"
   - "reduced_technical_debt"
+  - "efficient_template_evolution_and_migration"
+  - "automated_version_compatibility_management"
 
 # Quality Gates
 quality_gates:
@@ -316,6 +378,10 @@ quality_gates:
   - name: "quality_improvement"
     threshold: "20%"
     critical: false
+  - name: "version_tracking_injection"
+    threshold: "100%"
+    critical: true
+    description: "All generated files must include template version comment"
 
   overall_procedure:
   - name: "files_processed_successfully"
@@ -327,6 +393,14 @@ quality_gates:
   - name: "zero_data_loss"
     threshold: "100%"
     critical: true
+  - name: "version_tracking_accuracy"
+    threshold: "100%"
+    critical: true
+    description: "All version checks and injections must be accurate"
+  - name: "intelligent_skip_efficiency"
+    threshold: "80%"
+    critical: false
+    description: "Percentage of unnecessary rewrites prevented by version checking"
 
   template_conversion_specific:
   - name: "yaml_syntax_validity"
