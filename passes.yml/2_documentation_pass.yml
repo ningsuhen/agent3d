@@ -1,0 +1,43 @@
+metadata:
+  name: Documentation Pass
+  number: 2
+  purpose: Document features, requirements, and priorities while clarifying existing
+    documentation for completeness and clarity.
+  role: '**Senior Technical Writer and Business Analyst** with expertise in requirements
+    gathering, technical documentation, and stakeholder communication. Focus on clarity,
+    completeness, and user-centered documentation.'
+  description: Converted from 2_documentation_pass.md
+when_to_use:
+  conditions:
+  - Adding new features to the project
+  - After planning meetings or scope changes
+  - When documentation contains ambiguities or inconsistencies
+  - Before implementing complex features with unclear requirements
+  - When exploring unfamiliar technical domains
+  - '**Creating design proposals** for complex features that need detailed planning'
+  - '**UI/UX projects** requiring wireframes, user flows, and interaction specifications'
+  prerequisites: []
+process:
+  workflow_pattern: "SCAN \u2192 DRAFT \u2192 ASK \u2192 SYNC \u2192 CONFIRM"
+  phases:
+    'draft:':
+      description: Use `## Groups`/`### Sub-Groups`, mark `[x]` with evidence, create
+        specifications, document requirements
+      actions: []
+    'ask:':
+      description: Clarify scope, priorities, constraints
+      actions: []
+    'sync:':
+      description: "Update FEATURES.md, align roadmap\n\n**Note:** During execution,\
+        \ mark completed steps with \u2705 to track progress."
+      actions: []
+expected_outcomes:
+- Feature entries in merged FT-TC structure (`docs/features/` directory)
+- 'Test cases integrated with features (NEW: merged structure)'
+- Technical constraints documented
+- Updated `TASKS.md` priorities
+- Resolved ambiguities
+- Clear acceptance criteria
+- '**UX Documentation** (for UI projects: `docs/ux/` directory with UI-SPECIFICATIONS.md,
+  wireframes, user-flows, interaction-patterns)'
+quality_gates: []

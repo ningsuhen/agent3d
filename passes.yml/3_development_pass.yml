@@ -1,0 +1,34 @@
+metadata:
+  name: Development Pass
+  number: 3
+  purpose: Step-by-step feature implementation with checkpoints and execution plans.
+  role: '**Development Lead** - feature discovery, planning, implementation, checkpoint-based
+    execution.'
+  description: Converted from 3_development_pass.md
+when_to_use:
+  conditions: []
+  prerequisites: []
+process:
+  workflow_pattern: "SCAN \u2192 DRAFT \u2192 ASK \u2192 SYNC \u2192 CONFIRM"
+  phases:
+    'scan:':
+      description: Repository update, scan docs/, identify features/drift needing
+        development
+      actions: []
+    'draft:':
+      description: Feature selection (AUTO/PICKER mode), create EXEC-PLAN-{change-name}.md
+        with documented steps, create exec-plan/{change-name} branch
+      actions: []
+    'ask:':
+      description: Validate selection and execution plan, confirm approach/priorities
+      actions: []
+    'sync:':
+      description: "Execute steps in loop on exec-plan branch, auto-commit steps/checkpoints,\
+        \ update progress (mark \u2705)"
+      actions: []
+    'merge:':
+      description: Complete execution, confirm merge to main branch, delete exec-plan
+        branch
+      actions: []
+expected_outcomes: []
+quality_gates: []

@@ -1,0 +1,45 @@
+metadata:
+  name: Testing Pass
+  number: 5
+  purpose: Adding comprehensive test coverage and verifying edge cases, focusing on
+    the test cases documented in `TEST-CASES.md`.
+  role: Assume the role of a **Senior QA Engineer** with expertise in test strategy,
+    automation, and quality assurance. Apply rigorous testing methodologies, focus
+    on edge cases, and ensure comprehensive coverage. Think like a quality-focused
+    professional who takes pride in finding issues before they reach production.
+  description: Converted from 5_testing_pass.md
+when_to_use:
+  conditions:
+  - After an Implementation Pass has established basic functionality
+  - When increasing test coverage for existing features
+  - Before releasing features to production
+  - When addressing quality concerns or bug reports
+  - As part of regular quality assurance cycles
+  prerequisites: []
+process:
+  workflow_pattern: "SCAN \u2192 DRAFT \u2192 ASK \u2192 SYNC \u2192 CONFIRM"
+  phases:
+    'scan:':
+      description: Review coverage gaps, analyze `TEST-CASES.md`, identify edge cases,
+        check bug reports
+      actions: []
+    'draft:':
+      description: Plan test strategy, document edge cases, identify integration scenarios,
+        plan performance tests
+      actions: []
+    'ask:':
+      description: Clarify edge case behavior, confirm priorities, verify acceptance
+        criteria
+      actions: []
+    'sync:':
+      description: "Implement test suite, add edge case tests, create integration\
+        \ tests, update `TEST-CASES.md`\n\n**Note:** During execution, mark completed\
+        \ steps with \u2705 to track progress."
+      actions: []
+expected_outcomes:
+- Comprehensive test coverage
+- Edge case and error tests
+- Integration tests
+- Updated test documentation
+- Increased quality confidence
+quality_gates: []

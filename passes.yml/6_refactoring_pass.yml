@@ -1,0 +1,31 @@
+metadata:
+  name: Refactoring Pass
+  number: 6
+  purpose: Code structure improvement without changing functionality, LLM-focused
+    compression, DRY compliance.
+  role: '**Senior Software Engineer** - refactoring techniques, performance optimization,
+    technical debt management.'
+  description: Converted from 6_refactoring_pass.md
+when_to_use:
+  conditions: []
+  prerequisites: []
+process:
+  workflow_pattern: "SCAN \u2192 DRAFT \u2192 ASK \u2192 SYNC \u2192 CONFIRM"
+  phases:
+    'scan:':
+      description: Repository-wide DRY audit, modularization opportunities, LLM compression
+        targets
+      actions: []
+    'draft:':
+      description: Consolidation plan, DRY implementation strategy, compression approach
+      actions: []
+    'ask:':
+      description: Structural changes approval, priority alignment, breaking change
+        discussion
+      actions: []
+    'sync:':
+      description: "Incremental implementation, duplication elimination, testing verification\
+        \ (mark \u2705)"
+      actions: []
+expected_outcomes: []
+quality_gates: []

@@ -1,0 +1,489 @@
+# Agent3D DDD Decision Tree - YAML Format
+# Structured decision framework for LLM agents following DDD principles
+
+metadata:
+  title: "Agent3D DDD Decision Tree"
+  version: "2.0.0"
+  created: "2025-01-27"
+  description: "Comprehensive decision framework for LLM agents implementing Documentation-Driven Development"
+  prime_directive: "Documentation leads, code follows"
+
+# Initial Assessment Phase
+initial_assessment:
+  framework_check:
+    condition: "~/.agent3d directory exists"
+    actions:
+      exists: "proceed_to_project_assessment"
+      missing: "bootstrap_framework"
+
+  bootstrap_framework:
+    steps:
+      - action: "clone_framework"
+        command: "git clone git@github.com:ningsuhen/agent3d.git ~/.agent3d"
+      - action: "verify_installation"
+        check: "~/.agent3d/AGENT-GUIDELINES.md exists"
+      - action: "proceed_to_project_assessment"
+
+# Project Assessment Phase
+project_assessment:
+  project_root_detection:
+    condition: ".agent3d-config.yml exists in current directory"
+    actions:
+      exists: "load_configuration"
+      missing: "establish_project_root"
+
+  establish_project_root:
+    steps:
+      - action: "search_parent_directories"
+        pattern: ".agent3d-config.yml"
+        max_depth: 5
+      - condition: "config_found"
+        true: "set_ddd_root_and_load_config"
+        false: "run_foundation_pass"
+
+  load_configuration:
+    critical: true
+    steps:
+      - action: "memorize_entire_config"
+        file: ".agent3d-config.yml"
+        requirement: "MEMORIZE ALL SECTIONS"
+      - action: "set_environment"
+        command: "export DDD_ROOT=$(pwd)"
+      - action: "cache_settings"
+        sections: ["project", "enabled_passes", "git_workflow", "quality_gates"]
+
+# Migration Check Phase
+migration_check:
+  condition: "project_configured"
+  steps:
+    - action: "check_migration_status"
+      command: "python ~/.agent3d/tools/migration_manager.py status"
+    - condition: "pending_migrations_exist"
+      true: "execute_migrations"
+      false: "proceed_to_task_assessment"
+
+  execute_migrations:
+    steps:
+      - action: "backup_current_state"
+      - action: "run_pending_migrations"
+      - action: "validate_migration_success"
+      - action: "proceed_to_task_assessment"
+
+# Task Assessment Phase
+task_assessment:
+  user_request_analysis:
+    categories:
+      new_project:
+        indicators: ["no documentation", "empty repository", "initial setup"]
+        decision: "foundation_pass"
+
+      missing_requirements:
+        indicators: ["no REQUIREMENTS.md", "unclear objectives", "no business goals"]
+        decision: "requirements_pass"
+
+      incomplete_documentation:
+        indicators: ["missing features", "no test cases", "unclear design"]
+        decision: "documentation_pass"
+
+      implementation_request:
+        indicators: ["code changes", "new features", "bug fixes"]
+        decision: "development_pass"
+
+      testing_issues:
+        indicators: ["test failures", "missing tests", "coverage gaps"]
+        decision: "testing_pass"
+
+      code_quality:
+        indicators: ["refactoring", "cleanup", "optimization"]
+        decision: "refactoring_pass"
+
+      review_request:
+        indicators: ["PR review", "code review", "quality check"]
+        decision: "code_review_pass"
+
+      drift_detected:
+        indicators: ["docs outdated", "code-doc mismatch", "alignment issues"]
+        decision: "synchronization_pass"
+
+      cleanup_needed:
+        indicators: ["outdated content", "redundant files", "legacy code"]
+        decision: "prune_pass"
+
+      undocumented_code:
+        indicators: ["implementation without docs", "reverse drift"]
+        decision: "reverse_pass"
+
+      comprehensive_update:
+        indicators: ["full project review", "complete alignment", "all passes"]
+        decision: "full_pass"
+
+# Pass Execution Decision Tree
+pass_execution:
+  # Foundation Pass
+  foundation_pass:
+    prerequisites: []
+    conditions:
+      - "no .agent3d-config.yml OR"
+      - "missing core documentation OR"
+      - "new project setup"
+    workflow:
+      scan:
+        actions:
+          - "check_project_structure"
+          - "identify_missing_core_files"
+          - "assess_configuration_needs"
+      draft:
+        actions:
+          - "create_.agent3d-config.yml"
+          - "setup_directory_structure"
+          - "create_README.md"
+          - "initialize_DDD-STATUS.md"
+      ask:
+        questions:
+          - "project_type: web_application|library|cli_tool|api_service"
+          - "primary_language: python|javascript|java|go|rust"
+          - "quality_level: development|staging|production"
+          - "enabled_passes: [list]"
+      sync:
+        actions:
+          - "validate_configuration"
+          - "commit_foundation_files"
+          - "update_gitignore"
+    next_pass: "requirements_pass"
+
+  # Requirements Pass
+  requirements_pass:
+    prerequisites: ["foundation_pass"]
+    conditions:
+      - "missing BUSINESS-OBJECTIVES.md OR"
+      - "missing REQUIREMENTS.md OR"
+      - "unclear project goals"
+    workflow:
+      scan:
+        actions:
+          - "check_business_objectives"
+          - "review_existing_requirements"
+          - "identify_stakeholder_needs"
+      draft:
+        actions:
+          - "create_BUSINESS-OBJECTIVES.md"
+          - "create_REQUIREMENTS.md"
+          - "create_USER-STORIES.md"
+          - "create_ACCEPTANCE-CRITERIA.md"
+      ask:
+        questions:
+          - "business_goals: [list of objectives]"
+          - "target_users: [user personas]"
+          - "success_metrics: [measurable criteria]"
+          - "constraints: [technical/business limitations]"
+      sync:
+        actions:
+          - "validate_requirements_completeness"
+          - "ensure_traceability"
+          - "commit_requirements_docs"
+    next_pass: "documentation_pass"
+
+  # Documentation Pass
+  documentation_pass:
+    prerequisites: ["requirements_pass"]
+    conditions:
+      - "missing feature documentation OR"
+      - "incomplete HIGH-LEVEL-DESIGN.md OR"
+      - "unclear system architecture"
+    workflow:
+      scan:
+        actions:
+          - "review_features_structure"
+          - "check_design_documentation"
+          - "assess_documentation_gaps"
+      draft:
+        actions:
+          - "create_docs/features/core.md"
+          - "create_HIGH-LEVEL-DESIGN.md"
+          - "update_feature_modules"
+          - "establish_FT-TC_mapping"
+      ask:
+        questions:
+          - "architecture_decisions: [key choices]"
+          - "feature_priorities: [high/medium/low]"
+          - "integration_points: [external systems]"
+      sync:
+        actions:
+          - "validate_feature_completeness"
+          - "ensure_design_consistency"
+          - "run_drift_scanner"
+    next_pass: "development_pass"
+
+# Execution Workflow
+execution_workflow:
+  standard_pattern:
+    phases:
+      scan:
+        purpose: "Detect missing/outdated documentation and code"
+        actions:
+          - "analyze_current_state"
+          - "identify_gaps"
+          - "assess_drift_levels"
+
+      draft:
+        purpose: "Create/update documentation and implementation"
+        actions:
+          - "create_missing_documentation"
+          - "update_outdated_content"
+          - "implement_code_changes"
+
+      ask:
+        purpose: "Clarify gaps and get human input"
+        protocol:
+          - "ask_one_question_at_a_time"
+          - "wait_for_response"
+          - "no_multiple_questions"
+
+      sync:
+        purpose: "Finalize changes and ensure alignment"
+        actions:
+          - "validate_documentation_code_alignment"
+          - "run_quality_checks"
+          - "update_status_tracking"
+
+      confirm:
+        purpose: "Get approval before committing (if required)"
+        condition: "git_workflow.require_commit_confirmation == true"
+        actions:
+          - "show_changes_summary"
+          - "request_confirmation"
+          - "commit_with_ddd_format"
+
+# Quality Gates and Validation
+quality_gates:
+  documentation_requirements:
+    - "all_placeholders_replaced"
+    - "template_tags_removed"
+    - "functional_links_verified"
+    - "traceability_established"
+
+  code_requirements:
+    - "tests_import_project_code"
+    - "tests_call_project_functions"
+    - "meaningful_assertions"
+    - "tc_id_mapping_present"
+
+  alignment_requirements:
+    - "documentation_matches_implementation"
+    - "drift_level_below_threshold"
+    - "all_features_documented"
+    - "test_coverage_adequate"
+
+# Error Handling and Recovery
+error_handling:
+  common_issues:
+    missing_framework:
+      detection: "~/.agent3d not found"
+      solution: "bootstrap_framework"
+
+    configuration_error:
+      detection: "invalid .agent3d-config.yml"
+      solution: "run_foundation_pass"
+
+    migration_failure:
+      detection: "migration status failed"
+      solution: "rollback_and_retry"
+
+    drift_too_high:
+      detection: "drift > quality_gates.drift_threshold"
+      solution: "run_synchronization_pass"
+
+    test_quality_poor:
+      detection: "tests don't import project code"
+      solution: "run_testing_pass"
+
+# Memory Optimization Patterns
+memory_patterns:
+  critical_memorization:
+    - "entire_.agent3d-config.yml"
+    - "project_type_and_language"
+    - "enabled_passes_list"
+    - "git_workflow_settings"
+    - "quality_thresholds"
+
+  execution_shortcuts:
+    - "SCAN_DRAFT_ASK_SYNC"
+    - "REQ_FOUND_DOC_DEV_TEST_REFACT_REVIEW_SYNC_PRUNE_REV"
+    - "CONFIG_DOCS_RULES_TEMPLATES"
+
+  decision_shortcuts:
+    no_config: "foundation_pass"
+    missing_requirements: "requirements_pass"
+    unclear_features: "documentation_pass"
+    implementation_needed: "development_pass"
+    tests_failing: "testing_pass"
+    code_messy: "refactoring_pass"
+    review_needed: "code_review_pass"
+    docs_outdated: "synchronization_pass"
+    cleanup_needed: "prune_pass"
+    undocumented_code: "reverse_pass"
+    comprehensive_needed: "full_pass"
+
+# Success Criteria
+success_criteria:
+  pass_completion:
+    - "all_workflow_phases_completed"
+    - "quality_gates_passed"
+    - "documentation_updated"
+    - "tests_passing"
+    - "drift_within_acceptable_range"
+
+  project_health:
+    - "alignment_above_90_percent"
+    - "drift_below_10_percent"
+    - "all_critical_documentation_present"
+    - "test_coverage_above_threshold"
+    - "no_broken_links_or_references"
+
+# Advanced Decision Logic
+advanced_decisions:
+  parallel_pass_execution:
+    conditions:
+      - "multiple_issues_detected"
+      - "independent_pass_requirements"
+    strategy:
+      - "prioritize_by_dependencies"
+      - "execute_foundation_first"
+      - "run_documentation_and_testing_parallel"
+
+  emergency_procedures:
+    critical_drift:
+      threshold: "> 50%"
+      action: "immediate_synchronization_pass"
+      escalation: "full_pass_if_sync_fails"
+
+    broken_build:
+      detection: "tests_failing_or_build_broken"
+      action: "testing_pass_with_emergency_priority"
+
+    security_issue:
+      detection: "security_vulnerability_detected"
+      action: "immediate_code_review_pass"
+
+  context_awareness:
+    branch_detection:
+      exec_plan_branch:
+        pattern: "exec-plan/*"
+        behavior: "auto_commit_steps"
+        confirmation: "required_for_merge"
+
+      main_branch:
+        pattern: "main"
+        behavior: "use_memorized_git_workflow"
+
+      feature_branch:
+        pattern: "feature/*"
+        behavior: "standard_confirmation"
+
+    project_size_adaptation:
+      small_project:
+        indicators: ["< 10 files", "single developer"]
+        adaptations: ["simplified_documentation", "combined_passes"]
+
+      large_project:
+        indicators: ["> 100 files", "multiple developers"]
+        adaptations: ["detailed_documentation", "strict_quality_gates"]
+
+      enterprise_project:
+        indicators: ["complex architecture", "compliance requirements"]
+        adaptations: ["comprehensive_documentation", "enhanced_validation"]
+
+# Integration Points
+integration_points:
+  drift_scanner:
+    trigger_conditions:
+      - "after_synchronization_pass"
+      - "before_code_review_pass"
+      - "on_testing_pass_completion"
+    modes:
+      quick_scan: "--mode tc-mapping --changed-only"
+      comprehensive: "--mode all"
+      pr_focused: "--mode all --pr-diff"
+
+  migration_manager:
+    check_frequency: "session_start"
+    auto_execute: false
+    validation_required: true
+
+  mcp_servers:
+    drift_scanner_mcp: "real_time_analysis"
+    status_tracking: "automated_updates"
+
+  vscode_navigator:
+    integration: "documentation_navigation"
+    features: ["bidirectional_linking", "status_indicators"]
+
+# Performance Optimizations
+performance_optimizations:
+  caching_strategy:
+    config_memorization: "session_start_only"
+    language_rules: "first_use_cache"
+    template_access: "minimize_file_reads"
+
+  decision_shortcuts:
+    pattern_recognition:
+      - "cache_common_decision_paths"
+      - "use_heuristics_for_pass_selection"
+      - "optimize_workflow_execution"
+
+  batch_operations:
+    multiple_files: "process_in_single_pass"
+    related_changes: "group_by_functional_area"
+
+# Monitoring and Feedback
+monitoring:
+  execution_tracking:
+    metrics:
+      - "pass_execution_time"
+      - "decision_accuracy"
+      - "user_satisfaction"
+      - "drift_reduction_effectiveness"
+
+  continuous_improvement:
+    feedback_loops:
+      - "track_decision_outcomes"
+      - "adjust_thresholds_based_on_results"
+      - "optimize_workflow_efficiency"
+
+  health_monitoring:
+    project_metrics:
+      - "documentation_completeness"
+      - "code_quality_trends"
+      - "test_coverage_evolution"
+      - "drift_patterns_over_time"
+
+# Usage Instructions for LLM Agents
+usage_instructions:
+  session_initialization:
+    steps:
+      - "load_and_memorize_decision_tree"
+      - "execute_initial_assessment"
+      - "establish_project_context"
+      - "cache_critical_configurations"
+
+  decision_making_process:
+    steps:
+      - "analyze_user_request"
+      - "match_against_task_categories"
+      - "select_appropriate_pass"
+      - "execute_workflow_phases"
+      - "validate_completion_criteria"
+
+  error_recovery:
+    steps:
+      - "detect_error_condition"
+      - "match_against_common_issues"
+      - "apply_appropriate_solution"
+      - "validate_recovery_success"
+
+  optimization_guidelines:
+    - "minimize_file_system_access"
+    - "cache_frequently_used_data"
+    - "use_decision_shortcuts_when_appropriate"
+    - "batch_related_operations"
+    - "validate_assumptions_before_proceeding"

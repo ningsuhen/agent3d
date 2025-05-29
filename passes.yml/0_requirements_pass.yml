@@ -1,0 +1,46 @@
+metadata:
+  name: Requirements Pass
+  number: 0
+  purpose: Establish clear requirements and business objectives as first step. Document
+    stakeholder needs, business goals, and success criteria.
+  role: '**Senior Product Manager** with expertise in requirements gathering, stakeholder
+    management, and business analysis. Focus on user needs, acceptance criteria, and
+    success metrics.'
+  description: Converted from 0_requirements_pass.md
+when_to_use:
+  conditions:
+  - Starting any new project or major initiative (first pass)
+  - When business requirements are unclear or undocumented
+  - Before any technical configuration or architectural decisions
+  - When stakeholder alignment is needed
+  - During product discovery phases
+  - When pivoting or changing project direction
+  - Before any development or technical work begins
+  prerequisites: []
+process:
+  workflow_pattern: "SCAN \u2192 DRAFT \u2192 ASK \u2192 SYNC \u2192 CONFIRM"
+  phases:
+    'scan:':
+      description: '[Repository Management](../docs/COMMON-PROCEDURES.md#repository-management),
+        identify gaps, review business docs, assess alignment'
+      actions: []
+    'draft:':
+      description: Document objectives, define personas, create requirements, establish
+        criteria, document constraints
+      actions: []
+    'ask:':
+      description: Clarify objectives, validate personas, confirm scope, resolve conflicts,
+        verify metrics
+      actions: []
+    'sync:':
+      description: "Finalize documentation, ensure sign-off, create baseline, establish\
+        \ change management\n\n**Note:** During execution, mark completed steps with\
+        \ \u2705 to track progress."
+      actions: []
+expected_outcomes:
+- Requirements documentation (REQUIREMENTS.md, USER-STORIES.md, ACCEPTANCE-CRITERIA.md,
+  BUSINESS-OBJECTIVES.md)
+- '**UX Requirements** (for UI projects: USER-PERSONAS.md, UX-PRINCIPLES.md, USER-JOURNEY-MAPS.md)'
+- Stakeholder alignment on scope and priorities
+- Requirements baseline with traceability
+quality_gates: []

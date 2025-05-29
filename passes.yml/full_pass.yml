@@ -1,0 +1,42 @@
+metadata:
+  name: Full Pass
+  number: null
+  purpose: Comprehensive DDD pass reducing project drift and achieving balanced alignment
+    across all passes.
+  role: '**Technical Project Manager** coordinating domain experts. Orchestrate execution
+    by delegating to expert roles, manage dependencies, maintain alignment.'
+  description: Converted from full_pass.md
+when_to_use:
+  conditions:
+  - For major project milestones or releases
+  - When onboarding a new codebase or project
+  - During significant overhauls of existing systems
+  - For annual or semi-annual documentation health checks
+  - When preparing for external audits or reviews
+  - When drift indicators show significant imbalance across passes
+  - When multiple passes have alignment levels below 85%
+  prerequisites: []
+process:
+  workflow_pattern: "SCAN \u2192 DRAFT \u2192 ASK \u2192 SYNC \u2192 CONFIRM"
+  phases:
+    'scan:':
+      description: '[Repository Management](../docs/COMMON-PROCEDURES.md#repository-management),
+        assess project health, review drift levels, identify low alignment passes'
+      actions: []
+    'draft:':
+      description: "Delegate to pass experts (Product Manager\u2192Requirements, Architect\u2192\
+        Foundation, etc.), coordinate handoffs, monitor progress"
+      actions: []
+    'ask:':
+      description: Facilitate expert-stakeholder communication, escalate decisions,
+        coordinate conflict resolution, ensure alignment
+      actions: []
+expected_outcomes:
+- Coordinated execution by domain experts
+- Balanced alignment levels (90%+ target)
+- Minimized drift indicators
+- Consistent project health metrics
+- Seamless expert integration
+- Comprehensive project alignment
+- Clear specialist accountability
+quality_gates: []

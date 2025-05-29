@@ -1,0 +1,720 @@
+metadata:
+  language: markdown
+  description: Markdown development rules for DDD framework
+  last_updated: '2025-01-27'
+standards:
+  primary_validation:_markdown_linting_(priority_1):
+    description: 'Primary Validation: Markdown Linting (PRIORITY 1)'
+    content: '**Tool:** markdownlint (MD rules)
+
+      **Execution:** Run before all other checks
+
+      **Requirement:** MUST pass all lint checks before proceeding
+
+
+      ### Critical Lint Rules (Must Pass)
+
+
+      Use default markdownlint checks with custom configuration below.
+
+
+      ### Lint Configuration
+
+
+      ```yaml'
+  lint_execution_commands:
+    description: Lint Execution Commands
+    content: '```bash'
+  secondary_validation_(priority_2):
+    description: Secondary Validation (PRIORITY 2)
+    content: '- Link validation (after lint passes)
+
+      - Spell checking (after lint passes)
+
+      - Template compliance (after lint passes)
+
+      - Mermaid diagram syntax validation (after lint passes)
+
+
+      ### Manual Review (PRIORITY 3)
+
+
+      - Content accuracy verification
+
+      - LLM optimization review
+
+      - Cross-reference validation
+
+      - Consistency checking'
+  core_principles:
+    description: Core Principles
+    content: '### Documentation-First Development
+
+
+      - Markdown is the implementation, not just documentation
+
+      - Structure and clarity are paramount
+
+      - Consistency across all documentation files
+
+      - LLM-optimized content for agent consumption
+
+
+      ### Content Philosophy
+
+
+      - **Assume LLM Competency:** Remove verbose explanations of standard tools and
+      practices
+
+      - **Command-Centric:** Provide exact commands and syntax, minimal explanation
+
+      - **Project-Specific Focus:** Emphasize unique procedures and configurations
+
+      - **Brevity with Context:** Maintain necessary context without verbosity'
+  file_structure_standards:
+    description: File Structure Standards
+    content: "### Naming Conventions\n\n- Use kebab-case for file names: `user-guide.md`,\
+      \ `api-reference.md`\n- Use descriptive, specific names: `github-integration.md`\
+      \ not `integration.md`\n- Prefix numbered sequences: `1_foundation_pass.md`,\
+      \ `2_documentation_pass.md`\n- Use `.template.md` suffix for templates\n\n###\
+      \ Directory Organization\n\n```text\ndocs/\n\u251C\u2500\u2500 README.md   \
+      \                 # Project overview\n\u251C\u2500\u2500 REQUIREMENTS.md   \
+      \           # Functional requirements\n\u251C\u2500\u2500 designs/         \
+      \            # Component specifications\n\u251C\u2500\u2500 proposals/     \
+      \              # Feature proposals\n\u2514\u2500\u2500 guides/             \
+      \         # User guides\n```\n\n### File Headers\n\nEvery markdown file should\
+      \ start with:\n\n```markdown"
+  content_structure_rules:
+    description: Content Structure Rules
+    content: "### Heading Hierarchy\n\n- Use consistent heading levels: `#` \u2192\
+      \ `##` \u2192 `###`\n- No skipping levels: Don't go from `#` to `###`\n- Use\
+      \ descriptive headings that work as standalone navigation\n- Maximum 4 heading\
+      \ levels for readability\n\n### Lists and Organization\n\n- Use `-` for unordered\
+      \ lists (consistent bullet style)\n- Use `1.` for ordered lists (auto-numbering)\n\
+      - Nest lists with 2-space indentation\n- Use task lists `- [ ]` for actionable\
+      \ items\n\n### Code Blocks and Commands\n\n- Always specify language for syntax\
+      \ highlighting: ````markdown` not````\n- Use `bash` for shell commands, not\
+      \ `sh` or `shell`\n- Include exact commands without verbose explanations\n-\
+      \ Use inline code for file names, variables, and short commands"
+  llm_optimization_rules:
+    description: LLM Optimization Rules
+    content: '### Content Compression
+
+
+      - **Remove Basic Explanations:** Assume knowledge of git, npm, standard tools
+
+      - **Focus on Specifics:** Keep project-specific details and exact commands
+
+      - **Eliminate Redundancy:** Don''t repeat information available elsewhere
+
+      - **Command-First:** Lead with the command, minimal context
+
+
+      ### Examples of Compression
+
+
+      **Before (Verbose):**
+
+
+      ```markdown
+
+      To create a new branch, you need to use git checkout with the -b flag.
+
+      This will create and switch to a new branch. Run the following command
+
+      where feature-name should be descriptive of your changes:
+
+      ```
+
+
+      **After (LLM-Optimized):**
+
+
+      ```markdown
+
+      Create feature branch:
+
+      ```bash
+
+      git checkout -b feature-name
+
+      ```
+
+
+      ### Information Hierarchy
+
+
+      1. **Essential Commands:** Always include exact syntax
+
+      2. **Project Context:** Keep project-specific configurations
+
+      3. **Critical Warnings:** Preserve important constraints
+
+      4. **Standard Procedures:** Compress to command-only format'
+  link_and_reference_standards:
+    description: Link and Reference Standards
+    content: '### Internal Links
+
+
+      - Use relative paths: `[Guide](../guides/setup.md)` not absolute URLs
+
+      - Link to specific sections: `[Setup Process](setup.md#installation)`
+
+      - Verify all links during documentation passes
+
+      - Use descriptive link text, not "click here"
+
+
+      ### External Links
+
+
+      - Use reference-style links for repeated URLs
+
+      - Include link validation in testing
+
+      - Prefer stable, official documentation links
+
+      - Archive important external content when possible'
+  template_integration:
+    description: Template Integration
+    content: '### Template Usage
+
+
+      - All documents should derive from appropriate templates
+
+      - Replace all `{{placeholders}}` with actual content
+
+      - Remove `<template>` and `<example>` tags before finalizing
+
+      - Follow template structure exactly for consistency
+
+
+      ### Template Variables
+
+
+      Common variables across markdown documents:
+
+
+      - `{{project_name}}` - Project name
+
+      - `{{document_title}}` - Document title
+
+      - `{{creation_date}}` - Creation timestamp
+
+      - `{{author}}` - Document author'
+  quality_standards:
+    description: Quality Standards
+    content: '### Content Quality
+
+
+      - **Clarity:** Every sentence should have clear purpose
+
+      - **Accuracy:** All commands and procedures must be tested
+
+      - **Completeness:** Cover all necessary information without excess
+
+      - **Consistency:** Use same terminology and format throughout
+
+
+      ### Technical Accuracy
+
+
+      - Test all commands and procedures
+
+      - Verify all links and references
+
+      - Ensure code examples are functional
+
+      - Validate against actual implementation
+
+
+      ### LLM Readability
+
+
+      - Use clear, unambiguous language
+
+      - Structure information hierarchically
+
+      - Provide context without verbosity
+
+      - Focus on actionable information'
+  documentation_types:
+    description: Documentation Types
+    content: '### Process Documentation
+
+
+      - Focus on step-by-step procedures
+
+      - Use numbered lists for sequential steps
+
+      - Include verification steps
+
+      - Compress standard tool usage
+
+
+      ### Reference Documentation
+
+
+      - Organize information for quick lookup
+
+      - Use consistent formatting for similar items
+
+      - Include examples for complex concepts
+
+      - Minimize explanatory text
+
+
+      ### Guide Documentation
+
+
+      - Balance completeness with brevity
+
+      - Assume reader competency with basics
+
+      - Focus on project-specific procedures
+
+      - Include troubleshooting for common issues'
+  validation_rules:
+    description: Validation Rules
+    content: '### Primary Validation: Markdown Linting (PRIORITY 1)
+
+
+      **Tool:** markdownlint (MD rules)
+
+      **Execution:** Run before all other checks
+
+      **Requirement:** MUST pass all lint checks before proceeding
+
+
+      #### Critical Lint Rules (Must Pass)
+
+
+      Use default markdownlint checks with custom configuration below.
+
+
+      #### Lint Configuration
+
+
+      ```yaml'
+  markdown_rendering_validation:
+    description: Markdown Rendering Validation
+    content: "### Critical Rendering Issues (Must Fix)\n\n#### Mermaid Diagram Validation\n\
+      \n- [ ] **Syntax Correctness:** All mermaid diagrams use valid syntax\n- [ ]\
+      \ **Proper Fencing:** Mermaid blocks use ````mermaid` with language specification\n\
+      - [ ] **Node Naming:** Use consistent node naming (A, B, C... or descriptive\
+      \ names)\n- [ ] **Arrow Syntax:** Use correct arrow syntax (`-->`, `-.->`, `==>`)\n\
+      - [ ] **Diagram Types:** Verify diagram type matches content (graph, sequenceDiagram,\
+      \ etc.)\n\n#### Code Block Validation\n\n- [ ] **Language Specification:** All\
+      \ code blocks specify language (````bash`,````yaml`, etc.)\n- [ ] **Consistent\
+      \ Fencing:** Use triple backticks (````), not single or double\n- [ ] **Proper\
+      \ Indentation:** Code blocks maintain consistent indentation\n- [ ] **Syntax\
+      \ Highlighting:** Language tags enable proper syntax highlighting\n\n#### Link\
+      \ Validation\n\n- [ ] **Relative Path Accuracy:** Internal links use correct\
+      \ relative paths\n- [ ] **Anchor Link Format:** Section links use proper `#heading-format`\n\
+      - [ ] **External Link Validity:** All external URLs are accessible\n- [ ] **Reference\
+      \ Link Format:** Reference-style links properly formatted\n\n#### Table Validation\n\
+      \n- [ ] **Pipe Alignment:** Table pipes (`|`) properly aligned\n- [ ] **Header\
+      \ Separation:** Tables include header separator row\n- [ ] **Cell Content:**\
+      \ No empty cells without explicit spacing\n- [ ] **Consistent Columns:** All\
+      \ rows have same number of columns\n\n### High Priority Rendering Issues\n\n\
+      #### Heading Structure\n\n- [ ] **Hierarchy Compliance:** No skipped heading\
+      \ levels (H1 \u2192 H2 \u2192 H3)\n- [ ] **Unique Anchors:** Heading text creates\
+      \ unique anchor links\n- [ ] **Navigation Clarity:** Headings work as standalone\
+      \ navigation\n- [ ] **Length Limits:** Headings under 60 characters for readability\n\
+      \n#### List Formatting\n\n- [ ] **Consistent Bullets:** Use `-` for unordered\
+      \ lists throughout\n- [ ] **Proper Nesting:** Nested lists use 2-space indentation\n\
+      - [ ] **Task List Format:** Checkboxes use `- [ ]` and `- [x]` format\n- [ ]\
+      \ **Mixed List Avoidance:** Don't mix ordered and unordered in same context\n\
+      \n#### Special Characters\n\n- [ ] **HTML Entity Usage:** Use HTML entities\
+      \ for special characters when needed\n- [ ] **Escape Characters:** Properly\
+      \ escape markdown special characters\n- [ ] **Unicode Handling:** Ensure unicode\
+      \ characters render correctly\n- [ ] **Emoji Consistency:** Use consistent emoji\
+      \ format (unicode vs shortcodes)\n\n### Medium Priority Rendering Issues\n\n\
+      #### Emphasis and Formatting\n\n- [ ] **Bold/Italic Syntax:** Use `**bold**`\
+      \ and `*italic*` consistently\n- [ ] **Inline Code Format:** Use single backticks\
+      \ for inline code\n- [ ] **Strikethrough Format:** Use `~~text~~` for strikethrough\n\
+      - [ ] **Consistent Emphasis:** Apply emphasis consistently across documents\n\
+      \n#### Image and Media\n\n- [ ] **Alt Text Presence:** All images include descriptive\
+      \ alt text\n- [ ] **Path Accuracy:** Image paths are correct and accessible\n\
+      - [ ] **Size Considerations:** Images are appropriately sized for context\n\
+      - [ ] **Format Support:** Use widely supported image formats (PNG, JPG, SVG)\n\
+      \n#### Blockquotes and Callouts\n\n- [ ] **Quote Formatting:** Use `>` for blockquotes\
+      \ consistently\n- [ ] **Nested Quotes:** Properly format nested blockquotes\n\
+      - [ ] **Callout Syntax:** Use consistent callout formatting if supported\n-\
+      \ [ ] **Attribution Format:** Properly attribute quoted content\n\n### Rendering\
+      \ Compatibility\n\n#### GitHub Flavored Markdown\n\n- [ ] **GFM Compliance:**\
+      \ Follow GitHub Flavored Markdown specifications\n- [ ] **Table Support:** Use\
+      \ GFM table syntax\n- [ ] **Task List Support:** Use GFM task list format\n\
+      - [ ] **Syntax Highlighting:** Use GFM supported language identifiers\n\n####\
+      \ Cross-Platform Compatibility\n\n- [ ] **Standard Compliance:** Follow CommonMark\
+      \ specification\n- [ ] **Parser Compatibility:** Test with multiple markdown\
+      \ parsers\n- [ ] **Mobile Rendering:** Ensure content renders well on mobile\
+      \ devices\n- [ ] **Accessibility:** Follow accessibility guidelines for markdown\
+      \ content\n\n### Mermaid Diagram Best Practices\n\n#### Diagram Syntax Rules\n\
+      \n```markdown"
+  graph_diagrams:
+    description: Graph Diagrams
+    content: "```mermaid\ngraph TD\n    A[Start] --> B{Decision}\n    B -->|Yes| C[Action\
+      \ 1]\n    B -->|No| D[Action 2]\n```"
+  sequence_diagrams:
+    description: Sequence Diagrams
+    content: "```mermaid\nsequenceDiagram\n    participant A as Actor\n    participant\
+      \ B as System\n    A->>B: Request\n    B-->>A: Response\n```"
+  flowcharts:
+    description: Flowcharts
+    content: "```mermaid\nflowchart LR\n    A[Input] --> B[Process]\n    B --> C[Output]\n\
+      ```\n\n```markdown\n\n#### Common Mermaid Errors to Avoid\n- **Missing Language\
+      \ Tag:** Always use ````mermaid`\n- **Invalid Node Names:** Use alphanumeric\
+      \ characters for node IDs\n- **Incorrect Arrow Syntax:** Use `-->` for solid,\
+      \ `-.->` for dashed arrows\n- **Malformed Participant Names:** Use valid identifiers\
+      \ in sequence diagrams\n- **Syntax Mixing:** Don't mix different diagram syntaxes\
+      \ in one block"
+  common_anti-patterns:
+    description: Common Anti-Patterns
+    content: '### Avoid These Patterns
+
+      - **Over-explanation:** Don''t explain basic development concepts
+
+      - **Redundant Information:** Don''t repeat content from other documents
+
+      - **Verbose Commands:** Don''t include installation instructions for standard
+      tools
+
+      - **Inconsistent Structure:** Don''t deviate from established patterns
+
+      - **Broken Links:** Don''t leave unvalidated references
+
+
+      ### Preferred Alternatives
+
+      - **Concise Commands:** Provide exact syntax with minimal context
+
+      - **Cross-References:** Link to detailed information instead of repeating
+
+      - **Assumed Knowledge:** Build on standard development knowledge
+
+      - **Consistent Patterns:** Follow established documentation structure'
+  rendering_validation_checklist:
+    description: Rendering Validation Checklist
+    content: '### Pre-Commit Validation
+
+      Before committing any markdown changes, verify:
+
+
+      - [ ] **Mermaid Diagrams Render:** All diagrams display correctly in GitHub
+      preview
+
+      - [ ] **Code Blocks Highlight:** All code blocks show proper syntax highlighting
+
+      - [ ] **Links Function:** All internal and external links work correctly
+
+      - [ ] **Tables Display:** All tables render with proper alignment
+
+      - [ ] **Headings Navigate:** All headings create proper anchor links
+
+      - [ ] **Lists Format:** All lists display with consistent formatting
+
+      - [ ] **Images Load:** All images display with proper alt text
+
+      - [ ] **Special Characters:** All special characters render correctly
+
+
+      ### Cross-Platform Testing
+
+      Test markdown rendering across:
+
+
+      - [ ] **GitHub Web Interface:** Primary rendering target
+
+      - [ ] **GitHub Mobile App:** Mobile compatibility
+
+      - [ ] **VS Code Preview:** Development environment preview
+
+      - [ ] **Common Markdown Parsers:** Pandoc, CommonMark, etc.
+
+
+      ### Accessibility Validation
+
+      Ensure markdown content is accessible:
+
+
+      - [ ] **Alt Text Present:** All images have descriptive alt text
+
+      - [ ] **Heading Structure:** Logical heading hierarchy for screen readers
+
+      - [ ] **Link Context:** Link text is descriptive and meaningful
+
+      - [ ] **Color Independence:** Information not conveyed by color alone
+
+      - [ ] **Keyboard Navigation:** All interactive elements are keyboard accessible
+
+
+      ### Performance Considerations
+
+      Optimize markdown for performance:
+
+
+      - [ ] **Image Optimization:** Images are appropriately sized and compressed
+
+      - [ ] **Diagram Complexity:** Mermaid diagrams are not overly complex
+
+      - [ ] **File Size:** Markdown files are reasonably sized for quick loading
+
+      - [ ] **External Dependencies:** Minimize external resource dependencies
+
+
+      ---'
+  code_review_standards:
+    description: Code Review Standards
+    content: '**Purpose:** Review criteria for markdown documentation with focus on
+      LLM optimization and technical accuracy
+
+      **Scope:** All markdown files in documentation projects
+
+      **Role:** Technical Documentation Specialist and LLM Content Optimizer
+
+
+      ### Review Priorities
+
+
+      #### Critical Issues (Must Fix)
+
+      1. **Broken Links:** All internal and external links must be functional
+
+      2. **Template Compliance:** Documents must follow template structure exactly
+
+      3. **Command Accuracy:** All commands and code examples must be tested and functional
+
+      4. **Structural Consistency:** Heading hierarchy and organization must be correct
+
+
+      #### High Priority Issues
+
+      1. **LLM Optimization:** Remove verbose explanations of standard development
+      tasks
+
+      2. **Content Redundancy:** Eliminate duplicate information across documents
+
+      3. **Missing Context:** Ensure sufficient context for task completion
+
+      4. **Inconsistent Terminology:** Use consistent terms throughout documentation
+
+
+      #### Medium Priority Issues
+
+      1. **Formatting Consistency:** Standardize code blocks, lists, and emphasis
+
+      2. **Link Organization:** Optimize internal linking and cross-references
+
+      3. **Content Organization:** Improve information hierarchy and flow
+
+      4. **Language Clarity:** Enhance readability and precision
+
+
+      ### LLM Optimization Review
+
+
+      #### Content Compression Checklist
+
+      - [ ] **Basic Tool Explanations:** Remove installation and basic usage instructions
+      for standard tools
+
+      - [ ] **Verbose Command Descriptions:** Replace with concise command-first format
+
+      - [ ] **Redundant Context:** Eliminate unnecessary background information
+
+      - [ ] **Standard Procedures:** Compress to essential commands and parameters
+
+
+      #### What to Preserve vs Remove
+
+      **Preserve:** Exact commands, project-specific details, critical warnings, file
+      paths
+
+      **Remove:** Installation instructions for standard tools, basic explanations
+      of widely-known concepts, step-by-step breakdowns of common operations, verbose
+      descriptions of standard tool functionality
+
+
+      ### Technical Accuracy Review
+
+
+      #### Command and Link Validation
+
+      - [ ] **Syntax Accuracy:** All commands use correct syntax and parameters
+
+      - [ ] **Path Validity:** File paths and references are accurate
+
+      - [ ] **Internal Links:** All relative links resolve correctly
+
+      - [ ] **External Links:** All external URLs are accessible and current
+
+
+      ### Quality Assurance Checklist
+
+
+      #### Pre-Review Validation
+
+      - [ ] **Markdown Linting:** Document passes markdownlint validation
+
+      - [ ] **Spell Check:** No spelling errors or typos
+
+      - [ ] **Link Check:** All links validated and functional
+
+      - [ ] **Template Compliance:** All required sections present, placeholders replaced
+
+
+      #### Content Review
+
+      - [ ] **Accuracy Verification:** All information is current and correct
+
+      - [ ] **Completeness Check:** All necessary information included
+
+      - [ ] **Redundancy Elimination:** No duplicate information
+
+      - [ ] **LLM Optimization:** Verbose explanations removed appropriately
+
+
+      ### Common Review Patterns
+
+      **Frequent Issues:** Over-explanation of basic tools, broken internal links,
+      inconsistent code block language specification, template placeholders not replaced,
+      redundant information across documents
+
+      **Quick Fixes:** Command compression, link updates, language specification,
+      placeholder replacement, cross-reference cleanup
+
+
+      ---
+
+
+      **Usage:** Apply these rules during Documentation Pass, Refactoring Pass, and
+      Code Review Pass for all markdown content. Use the rendering validation checklist
+      before committing any markdown changes to ensure proper display across all platforms.'
+code_review:
+  role: Senior Engineer
+  standards: '**Purpose:** Review criteria for markdown documentation with focus on
+    LLM optimization and technical accuracy
+
+    **Scope:** All markdown files in documentation projects
+
+    **Role:** Technical Documentation Specialist and LLM Content Optimizer
+
+
+    ### Review Priorities
+
+
+    #### Critical Issues (Must Fix)
+
+    1. **Broken Links:** All internal and external links must be functional
+
+    2. **Template Compliance:** Documents must follow template structure exactly
+
+    3. **Command Accuracy:** All commands and code examples must be tested and functional
+
+    4. **Structural Consistency:** Heading hierarchy and organization must be correct
+
+
+    #### High Priority Issues
+
+    1. **LLM Optimization:** Remove verbose explanations of standard development tasks
+
+    2. **Content Redundancy:** Eliminate duplicate information across documents
+
+    3. **Missing Context:** Ensure sufficient context for task completion
+
+    4. **Inconsistent Terminology:** Use consistent terms throughout documentation
+
+
+    #### Medium Priority Issues
+
+    1. **Formatting Consistency:** Standardize code blocks, lists, and emphasis
+
+    2. **Link Organization:** Optimize internal linking and cross-references
+
+    3. **Content Organization:** Improve information hierarchy and flow
+
+    4. **Language Clarity:** Enhance readability and precision
+
+
+    ### LLM Optimization Review
+
+
+    #### Content Compression Checklist
+
+    - [ ] **Basic Tool Explanations:** Remove installation and basic usage instructions
+    for standard tools
+
+    - [ ] **Verbose Command Descriptions:** Replace with concise command-first format
+
+    - [ ] **Redundant Context:** Eliminate unnecessary background information
+
+    - [ ] **Standard Procedures:** Compress to essential commands and parameters
+
+
+    #### What to Preserve vs Remove
+
+    **Preserve:** Exact commands, project-specific details, critical warnings, file
+    paths
+
+    **Remove:** Installation instructions for standard tools, basic explanations of
+    widely-known concepts, step-by-step breakdowns of common operations, verbose descriptions
+    of standard tool functionality
+
+
+    ### Technical Accuracy Review
+
+
+    #### Command and Link Validation
+
+    - [ ] **Syntax Accuracy:** All commands use correct syntax and parameters
+
+    - [ ] **Path Validity:** File paths and references are accurate
+
+    - [ ] **Internal Links:** All relative links resolve correctly
+
+    - [ ] **External Links:** All external URLs are accessible and current
+
+
+    ### Quality Assurance Checklist
+
+
+    #### Pre-Review Validation
+
+    - [ ] **Markdown Linting:** Document passes markdownlint validation
+
+    - [ ] **Spell Check:** No spelling errors or typos
+
+    - [ ] **Link Check:** All links validated and functional
+
+    - [ ] **Template Compliance:** All required sections present, placeholders replaced
+
+
+    #### Content Review
+
+    - [ ] **Accuracy Verification:** All information is current and correct
+
+    - [ ] **Completeness Check:** All necessary information included
+
+    - [ ] **Redundancy Elimination:** No duplicate information
+
+    - [ ] **LLM Optimization:** Verbose explanations removed appropriately
+
+
+    ### Common Review Patterns
+
+    **Frequent Issues:** Over-explanation of basic tools, broken internal links, inconsistent
+    code block language specification, template placeholders not replaced, redundant
+    information across documents
+
+    **Quick Fixes:** Command compression, link updates, language specification, placeholder
+    replacement, cross-reference cleanup
+
+
+    ---
+
+
+    **Usage:** Apply these rules during Documentation Pass, Refactoring Pass, and
+    Code Review Pass for all markdown content. Use the rendering validation checklist
+    before committing any markdown changes to ensure proper display across all platforms.'
+quality_gates: []

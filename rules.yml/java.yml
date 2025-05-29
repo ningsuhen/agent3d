@@ -1,0 +1,513 @@
+metadata:
+  language: java
+  description: Java development rules for DDD framework
+  last_updated: '2025-01-27'
+standards:
+  environment_setup:
+    description: Environment Setup
+    content: '**JDK Version:**
+
+
+      - Use LTS (Long Term Support) versions of Java when possible
+
+      - Document required Java version in build files
+
+      - Use consistent JDK version across development, CI/CD, and production
+
+
+      **Build Tools:**
+
+
+      - Use Gradle or Maven for build automation
+
+      - Include wrapper scripts (gradlew/mvnw) in the repository
+
+      - Define all dependencies in build file, not in IDE
+
+      - Use dependency locking to ensure reproducible builds'
+  code_style:
+    description: Code Style
+    content: '**Formatting:**
+
+
+      - Follow Google Java Style Guide or similar established style
+
+      - Use 4 spaces for indentation, not tabs
+
+      - Limit line length to 100-120 characters
+
+      - Use tools like Checkstyle, PMD, or SpotBugs for static analysis
+
+
+      **Naming Conventions:**
+
+
+      - `camelCase` for variables, methods, parameters
+
+      - `PascalCase` for classes and interfaces
+
+      - `UPPER_SNAKE_CASE` for constants
+
+      - Use descriptive names that reflect purpose
+
+      - Prefix interfaces with ''I'' only when both interface and implementation exist
+
+
+      **Organization:**
+
+
+      - One top-level class per file
+
+      - Group related classes in packages
+
+      - Follow standard package naming conventions (com.company.project.module)
+
+      - Order class members logically (constants, fields, constructors, methods)'
+  best_practices:
+    description: Best Practices
+    content: '**Object-Oriented Design:**
+
+
+      - Follow SOLID principles
+
+      - Prefer composition over inheritance
+
+      - Design for extension but restrict subclassing when appropriate
+
+      - Make fields private and provide getters/setters only when necessary
+
+
+      **Immutability:**
+
+
+      - Make classes immutable when possible
+
+      - Use final for fields that shouldn''t change after initialization
+
+      - Use defensive copying for mutable parameters and return values
+
+      - Use immutable collections when appropriate
+
+
+      **Exception Handling:**
+
+
+      - Use checked exceptions for recoverable conditions
+
+      - Use unchecked exceptions for programming errors
+
+      - Include meaningful error messages
+
+      - Clean up resources in finally blocks or use try-with-resources
+
+
+      **Concurrency:**
+
+
+      - Prefer higher-level concurrency utilities over raw threads
+
+      - Use thread pools for managing worker threads
+
+      - Make classes thread-safe or clearly document thread safety guarantees
+
+      - Be cautious with synchronization to avoid deadlocks'
+  documentation:
+    description: Documentation
+    content: "1. **Javadoc**\n   - Write Javadoc for all public classes and methods\n\
+      \   - Include @param, @return, and @throws tags\n   - Document thread safety\
+      \ guarantees\n   - Keep documentation up-to-date with code changes\n\n2. **Comments**\n\
+      \   - Use comments to explain complex algorithms or non-obvious solutions\n\
+      \   - Avoid redundant comments that just repeat the code\n   - Use TODO comments\
+      \ for temporary solutions or incomplete implementations\n   - Document performance\
+      \ characteristics for critical operations"
+  testing:
+    description: Testing
+    content: "1. **Test Framework**\n   - Use JUnit 5 for unit testing\n   - Use Mockito\
+      \ for mocking dependencies\n   - Use AssertJ or similar for fluent assertions\n\
+      \   - Write both unit and integration tests\n\n2. **Test Organization**\n  \
+      \ - Mirror the package structure of the main code\n   - Name test classes with\
+      \ \"Test\" suffix\n   - Write focused tests that verify a single behavior\n\
+      \   - Use appropriate test fixtures and setup methods\n   - **TC ID Mapping:**\
+      \ **CRITICAL** - Each test method MUST include TC-NNNN in name or @DisplayName\
+      \ for 1:1 traceability"
+  performance:
+    description: Performance
+    content: "1. **Optimization**\n   - Optimize only after measuring performance\n\
+      \   - Use profiling tools to identify bottlenecks\n   - Consider memory usage\
+      \ and garbage collection\n   - Document performance characteristics and requirements\n\
+      \n2. **Collections**\n   - Choose appropriate collection types for the use case\n\
+      \   - Specify initial capacity for collections when the size is known\n   -\
+      \ Use streams for processing collections when appropriate\n   - Be cautious\
+      \ with large collections and memory usage"
+  security:
+    description: Security
+    content: "1. **Input Validation**\n   - Validate all user inputs\n   - Use parameterized\
+      \ queries for database operations\n   - Sanitize data before displaying it to\
+      \ users\n   - Be cautious with reflection, deserialization, and dynamic code\
+      \ execution\n\n2. **Sensitive Data**\n   - Don't log sensitive information\n\
+      \   - Don't include sensitive data in exception messages\n   - Properly handle\
+      \ secrets and credentials\n   - Use secure random number generation for security-sensitive\
+      \ operations"
+  deployment:
+    description: Deployment
+    content: "1. **Containerization**\n   - Use Docker for containerizing Java applications\n\
+      \   - Create minimal container images\n   - Use multi-stage builds to reduce\
+      \ image size\n   - Don't run containers as root\n\n2. **Configuration**\n  \
+      \ - Use environment variables or external configuration sources\n   - Never\
+      \ hardcode sensitive information\n   - Provide sensible defaults for all configuration\
+      \ options\n   - Document all configuration parameters"
+  code_review_standards:
+    description: Code Review Standards
+    content: '**Role:** Senior Java Engineer with expertise in object-oriented design,
+      enterprise patterns, and JVM optimization.
+
+
+      ### Critical Review Areas
+
+
+      #### 1. Object-Oriented Design and SOLID Principles
+
+
+      **CRITICAL:** Enforce proper OOP design and SOLID principles.
+
+
+      - Split class responsibilities according to Single Responsibility Principle
+
+      - Use dependency injection instead of direct instantiation
+
+      - Apply Interface Segregation Principle for better testability
+
+      - Enforce proper encapsulation and abstraction
+
+
+      #### 2. Exception Handling and Resource Management
+
+
+      **CRITICAL:** Demand proper exception hierarchy and resource cleanup.
+
+
+      - Use try-with-resources for automatic resource management
+
+      - Create specific exception types instead of catching Exception
+
+      - Never return null on error; throw meaningful exceptions
+
+      - Use proper logging instead of silent failures
+
+
+      #### 3. Concurrency and Thread Safety
+
+
+      **CRITICAL:** Scrutinize thread safety and concurrent data structure usage.
+
+
+      - Use AtomicInteger/AtomicReference for simple thread-safe operations
+
+      - Implement proper synchronization for compound operations
+
+      - Use concurrent collections from java.util.concurrent
+
+      - Avoid synchronized methods; prefer synchronized blocks
+
+
+      #### 4. Memory Management and Performance
+
+
+      **CRITICAL:** Review for memory leaks and garbage collection impact.
+
+
+      - Use streams for lazy evaluation of large datasets
+
+      - Pre-size collections when size is known
+
+      - Avoid creating unnecessary temporary objects
+
+      - Use StringBuilder for string concatenation in loops
+
+
+      #### 5. Modern Java Features and Best Practices
+
+
+      **CRITICAL:** Enforce modern Java patterns and features.
+
+
+      - Use Optional instead of null checks
+
+      - Use records for immutable data classes
+
+      - Leverage modern switch expressions
+
+      - Use method references where appropriate
+
+
+      #### 6. Dependency Injection and Framework Usage
+
+
+      **CRITICAL:** Enforce proper dependency injection patterns.
+
+
+      - Use constructor injection instead of field injection
+
+      - Make dependencies final for immutability
+
+      - Use proper transaction boundaries
+
+      - Validate inputs at service boundaries
+
+
+      #### 7. Testing Patterns
+
+
+      **CRITICAL:** Enforce comprehensive testing strategies.
+
+
+      - Use proper mocking frameworks for unit tests
+
+      - Write descriptive test names and use @DisplayName
+
+      - Follow Given-When-Then pattern
+
+      - Verify all interactions with mocks
+
+
+      ### Severity Classification
+
+
+      **Critical:** Thread safety violations, memory leaks or resource leaks, security
+      vulnerabilities, violation of SOLID principles, missing exception handling
+
+      **High:** Poor performance patterns, missing dependency injection, legacy Java
+      patterns, inadequate test coverage, missing input validation
+
+      **Medium:** Missing JavaDoc on public APIs, inconsistent naming conventions,
+      suboptimal collection usage, missing logging
+
+      **Low:** Code style improvements, additional modern Java features, performance
+      micro-optimizations, documentation enhancements
+
+
+      ### Anti-Patterns to Reject
+
+
+      - Using raw types instead of generics, catching Exception instead of specific
+      exceptions
+
+      - Not using try-with-resources, synchronizing on public objects
+
+      - Using == for object comparison, not overriding equals() and hashCode() together
+
+      - Using Vector or Hashtable, creating unnecessary objects in loops
+
+
+      ### Quality Gates
+
+
+      **Java-Specific:**
+
+
+      - [ ] All classes follow SOLID principles
+
+      - [ ] Thread-safe where concurrency is expected
+
+      - [ ] Modern Java features leveraged
+
+      - [ ] Dependency injection properly implemented
+
+      - [ ] No resource leaks
+
+
+      **Universal (see [Common Procedures](../docs/COMMON-PROCEDURES.md#quality-standards)):**
+
+
+      - [ ] Proper exception handling throughout
+
+      - [ ] Memory efficient patterns used
+
+      - [ ] Comprehensive test coverage
+
+      - [ ] Security best practices followed
+
+      - [ ] Performance considerations addressed'
+code_review:
+  role: Senior Engineer
+  standards: '**Role:** Senior Java Engineer with expertise in object-oriented design,
+    enterprise patterns, and JVM optimization.
+
+
+    ### Critical Review Areas
+
+
+    #### 1. Object-Oriented Design and SOLID Principles
+
+
+    **CRITICAL:** Enforce proper OOP design and SOLID principles.
+
+
+    - Split class responsibilities according to Single Responsibility Principle
+
+    - Use dependency injection instead of direct instantiation
+
+    - Apply Interface Segregation Principle for better testability
+
+    - Enforce proper encapsulation and abstraction
+
+
+    #### 2. Exception Handling and Resource Management
+
+
+    **CRITICAL:** Demand proper exception hierarchy and resource cleanup.
+
+
+    - Use try-with-resources for automatic resource management
+
+    - Create specific exception types instead of catching Exception
+
+    - Never return null on error; throw meaningful exceptions
+
+    - Use proper logging instead of silent failures
+
+
+    #### 3. Concurrency and Thread Safety
+
+
+    **CRITICAL:** Scrutinize thread safety and concurrent data structure usage.
+
+
+    - Use AtomicInteger/AtomicReference for simple thread-safe operations
+
+    - Implement proper synchronization for compound operations
+
+    - Use concurrent collections from java.util.concurrent
+
+    - Avoid synchronized methods; prefer synchronized blocks
+
+
+    #### 4. Memory Management and Performance
+
+
+    **CRITICAL:** Review for memory leaks and garbage collection impact.
+
+
+    - Use streams for lazy evaluation of large datasets
+
+    - Pre-size collections when size is known
+
+    - Avoid creating unnecessary temporary objects
+
+    - Use StringBuilder for string concatenation in loops
+
+
+    #### 5. Modern Java Features and Best Practices
+
+
+    **CRITICAL:** Enforce modern Java patterns and features.
+
+
+    - Use Optional instead of null checks
+
+    - Use records for immutable data classes
+
+    - Leverage modern switch expressions
+
+    - Use method references where appropriate
+
+
+    #### 6. Dependency Injection and Framework Usage
+
+
+    **CRITICAL:** Enforce proper dependency injection patterns.
+
+
+    - Use constructor injection instead of field injection
+
+    - Make dependencies final for immutability
+
+    - Use proper transaction boundaries
+
+    - Validate inputs at service boundaries
+
+
+    #### 7. Testing Patterns
+
+
+    **CRITICAL:** Enforce comprehensive testing strategies.
+
+
+    - Use proper mocking frameworks for unit tests
+
+    - Write descriptive test names and use @DisplayName
+
+    - Follow Given-When-Then pattern
+
+    - Verify all interactions with mocks
+
+
+    ### Severity Classification
+
+
+    **Critical:** Thread safety violations, memory leaks or resource leaks, security
+    vulnerabilities, violation of SOLID principles, missing exception handling
+
+    **High:** Poor performance patterns, missing dependency injection, legacy Java
+    patterns, inadequate test coverage, missing input validation
+
+    **Medium:** Missing JavaDoc on public APIs, inconsistent naming conventions, suboptimal
+    collection usage, missing logging
+
+    **Low:** Code style improvements, additional modern Java features, performance
+    micro-optimizations, documentation enhancements
+
+
+    ### Anti-Patterns to Reject
+
+
+    - Using raw types instead of generics, catching Exception instead of specific
+    exceptions
+
+    - Not using try-with-resources, synchronizing on public objects
+
+    - Using == for object comparison, not overriding equals() and hashCode() together
+
+    - Using Vector or Hashtable, creating unnecessary objects in loops
+
+
+    ### Quality Gates
+
+
+    **Java-Specific:**
+
+
+    - [ ] All classes follow SOLID principles
+
+    - [ ] Thread-safe where concurrency is expected
+
+    - [ ] Modern Java features leveraged
+
+    - [ ] Dependency injection properly implemented
+
+    - [ ] No resource leaks
+
+
+    **Universal (see [Common Procedures](../docs/COMMON-PROCEDURES.md#quality-standards)):**
+
+
+    - [ ] Proper exception handling throughout
+
+    - [ ] Memory efficient patterns used
+
+    - [ ] Comprehensive test coverage
+
+    - [ ] Security best practices followed
+
+    - [ ] Performance considerations addressed'
+quality_gates:
+- '[ ] All classes follow SOLID principles'
+- '[ ] Thread-safe where concurrency is expected'
+- '[ ] Modern Java features leveraged'
+- '[ ] Dependency injection properly implemented'
+- '[ ] No resource leaks'
+- '[ ] Proper exception handling throughout'
+- '[ ] Memory efficient patterns used'
+- '[ ] Comprehensive test coverage'
+- '[ ] Security best practices followed'
+- '[ ] Performance considerations addressed'

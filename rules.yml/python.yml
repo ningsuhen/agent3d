@@ -1,0 +1,391 @@
+# Python Development Rules - YAML Configuration
+# Comprehensive Python development standards and best practices
+
+metadata:
+  language: "python"
+  version: "3.8+"
+  last_updated: "2025-01-27"
+  description: "Python development rules for DDD framework compliance"
+
+# Environment and Dependencies
+environment:
+  setup:
+    virtual_environment:
+      command: "python -m venv venv"
+      activation: "source venv/bin/activate"
+      gitignore: "venv/"
+      
+  dependencies:
+    preferred_format: "pyproject.toml"
+    standards: ["PEP 518", "PEP 621"]
+    requirements:
+      - "pin_versions"
+      - "separate_dev_prod_dependencies"
+      - "use_package_managers"
+      - "never_manual_editing"
+      
+  configuration:
+    file: "pyproject.toml"
+    sections:
+      - "project_metadata"
+      - "dependencies"
+      - "tool_configurations"
+    tools: ["pytest", "black", "isort"]
+
+# Code Style Standards
+code_style:
+  formatting:
+    standard: "PEP 8"
+    line_length: 88
+    indentation: "4 spaces"
+    tools: ["black", "isort"]
+    
+  naming_conventions:
+    variables_functions: "snake_case"
+    classes: "PascalCase"
+    constants: "UPPER_CASE"
+    private: "_private"
+    special: "__special__"
+    
+  data_structures:
+    preferences:
+      - "dataclass over dict"
+      - "Enum over string literals"
+      - "NamedTuple for structured data"
+      - "typed objects over generic containers"
+      
+  imports:
+    order: ["standard_library", "third_party", "local"]
+    style: "absolute_imports"
+    prohibited: ["wildcard_imports"]
+
+# Documentation Standards
+documentation:
+  docstrings:
+    required_for: ["public_modules", "functions", "classes"]
+    style: ["Google", "NumPy"]
+    requirements:
+      - "type_hints_PEP_484"
+      - "document_params"
+      - "document_returns"
+      - "document_exceptions"
+      
+  type_hints:
+    required_for: ["function_args", "function_returns"]
+    complex_structures: "use_typing_module"
+    nullable: "Optional[Type]"
+    
+  comments:
+    purpose: "explain_complex_logic"
+    maintenance: "keep_synchronized"
+    temporary: "use_TODO"
+
+# Testing Framework
+testing:
+  framework: "pytest"
+  critical_principle: "EVERY_TEST_MUST_TEST_PROJECT_FUNCTIONALITY"
+  
+  structure:
+    organization: "mirror_app_structure"
+    naming: "test_prefix"
+    coverage: "80_percent_minimum"
+    setup: "fixtures_for_setup"
+    
+  implementation_requirements:
+    critical_rules:
+      - name: "test_project_functionality"
+        description: "Tests should implement best end-to-end behavior of project code"
+        critical: true
+        
+      - name: "tc_id_mapping"
+        description: "Each test function MUST include TC-NNNN in name or docstring"
+        format: "1:1 traceability"
+        critical: true
+        
+      - name: "ft_tc_validation"
+        description: "When TC is linked to FT, test MUST use and validate specific feature"
+        critical: true
+        
+      - name: "project_code_imports"
+        description: "Tests must import from git-tracked project directories"
+        critical: true
+        
+      - name: "no_import_try_except"
+        description: "Never use try-except on imports in tests"
+        critical: true
+        
+      - name: "imports_at_top"
+        description: "All imports must be at top of file"
+        order: "standard_library → third_party → local"
+        critical: true
+        
+      - name: "real_testing"
+        description: "Tests must validate actual behavior through end-to-end execution"
+        critical: true
+
+  golden_tests:
+    tool: "pytest-goldie"
+    use_case: "complex_output_regression_testing"
+    update_command: "pytest --update_goldens"
+    
+  parameterization:
+    tool: "@pytest.mark.parametrize"
+    use_case: "testing_multiple_inputs_scenarios"
+    
+  sub_test_cases:
+    definition: "variations of single test case (TC-XXX-001-a, TC-XXX-001-b)"
+    implementation: "@pytest.mark.parametrize with TC ID comments"
+    example: |
+      @pytest.mark.parametrize("http_method,test_data", [
+          # TC-HTTP-001-a
+          ("GET", {
+              "method_name": "GetItem",
+              "request_type": "GetItemRequest",
+              "response_type": "GetItemResponse",
+              "request_data": {"item_id": "test-item-123"},
+              "expected_response": {"item": {"id": "test-item-123", "name": "Test Item"}}
+          }),
+          # TC-HTTP-001-b
+          ("POST", {
+              "method_name": "CreateItem",
+              "request_type": "CreateItemRequest", 
+              "response_type": "CreateItemResponse",
+              "request_data": {"name": "New Item", "description": "New Description"},
+              "expected_response": {"item": {"id": "new-item-456", "name": "New Item"}}
+          }),
+      ])
+      @pytest.mark.asyncio
+      async def test_basic_http_operations(http_method, test_data):
+          """TC-HTTP-001: Basic HTTP Operations - Verify GET, POST operations."""
+
+# Error Handling and Performance
+error_handling:
+  exceptions:
+    requirements:
+      - "specific_exception_types"
+      - "custom_exception_classes"
+      - "meaningful_error_messages"
+      - "context_managers_with_statement"
+      
+  logging:
+    module: "built_in_logging"
+    requirements:
+      - "appropriate_levels"
+      - "contextual_information"
+      - "no_sensitive_data"
+
+performance:
+  data_structures: "appropriate_for_use_case"
+  comprehensions: "list_comprehensions_preferred"
+  large_datasets: "generators_for_memory_efficiency"
+  optimization: "profile_before_optimizing"
+  
+concurrency:
+  io_bound: "asyncio"
+  cpu_bound: "multiprocessing"
+  requirements:
+    - "thread_safety"
+    - "synchronization_primitives"
+
+# Security Standards
+security:
+  input_validation: "validate_all_inputs"
+  database: "parameterized_queries"
+  data_sanitization: "sanitize_user_data"
+  prohibited:
+    - "eval()"
+    - "exec()"
+  dependencies: "update_regularly"
+  tools: ["safety", "Snyk"]
+
+# Deployment
+deployment:
+  containerization:
+    tool: "Docker"
+    requirements:
+      - "minimal_images"
+      - "non_root_user"
+      - "environment_variables"
+  development: "python-dotenv"
+
+# Code Review Standards
+code_review:
+  role: "Senior Python Engineer"
+  expertise: ["pythonic_code", "performance_optimization", "maintainability"]
+  
+  critical_areas:
+    type_safety:
+      requirement: "type_hints_for_all_functions"
+      nullable: "Optional[Type]"
+      complex_types: "import_from_typing"
+      severity: "critical"
+      
+    data_structure_design:
+      requirement: "structured_types_over_strings"
+      preferences:
+        - "dataclasses over dictionaries"
+        - "Enum over string literals"
+      severity: "critical"
+      
+    testing_compliance:
+      framework: "pytest_over_unittest"
+      requirements:
+        - "pytest_goldie_for_complex_output"
+        - "fixtures_for_setup"
+        - "tc_id_mapping_required"
+        - "ft_tc_validation_required"
+        - "parameterization_for_multiple_scenarios"
+        - "project_functionality_testing"
+        - "project_code_imports_from_git_tracked"
+        - "no_try_except_on_imports"
+        - "imports_at_top_of_file"
+        - "real_behavior_validation"
+      severity: "critical"
+      
+    configuration_management:
+      requirement: "pyproject_toml_for_modern_projects"
+      preferences:
+        - "pyproject.toml over requirements.txt"
+        - "centralized_tool_configuration"
+        - "package_managers_only"
+      severity: "critical"
+      
+    error_handling:
+      requirements:
+        - "specific_exception_types"
+        - "meaningful_error_messages"
+        - "exception_chaining"
+      anti_patterns:
+        - "catching_generic_Exception"
+        - "bare_except_clauses"
+      severity: "critical"
+      
+    performance:
+      requirements:
+        - "efficient_data_structures"
+        - "generators_for_large_datasets"
+        - "appropriate_collections"
+        - "avoid_unnecessary_objects"
+      severity: "critical"
+      
+    import_organization:
+      order: "standard_library → third_party → local"
+      style: "absolute_imports"
+      prohibited: "wildcard_imports"
+      severity: "critical"
+
+# Severity Classification
+severity_levels:
+  critical:
+    issues:
+      - "missing_type_hints"
+      - "string_based_data_access"
+      - "catch_all_exceptions"
+      - "manual_dependency_editing"
+      - "security_vulnerabilities"
+      - "tests_without_project_functionality"
+      - "tests_without_project_imports"
+      - "try_except_on_imports_in_tests"
+      - "ft_linked_tests_not_validating_feature"
+      
+  high:
+    issues:
+      - "inefficient_data_structures"
+      - "missing_tests"
+      - "poor_error_messages"
+      - "memory_issues"
+      - "import_problems"
+      - "tests_without_project_function_calls"
+      - "tests_not_implementing_end_to_end_behavior"
+      
+  medium:
+    issues:
+      - "missing_docstrings"
+      - "long_functions"
+      - "naming_inconsistencies"
+      - "tests_with_only_mock_data"
+      - "tests_importing_only_test_libraries"
+      
+  low:
+    issues:
+      - "style_improvements"
+      - "performance_micro_optimizations"
+      - "weak_test_assertions"
+
+# Anti-Patterns to Reject
+anti_patterns:
+  code:
+    - "mutable_default_arguments"
+    - "eval_exec_usage"
+    - "bare_except_clauses"
+    - "string_concatenation_in_loops"
+    - "not_using_context_managers"
+    - "using_is_for_value_comparison"
+    - "inappropriate_comprehensions"
+    
+  testing:
+    - "try_except_around_imports"
+    - "imports_scattered_throughout_file"
+    - "tests_without_project_functionality"
+    - "tests_not_implementing_described_behavior"
+    - "ft_linked_tests_not_using_feature"
+
+# Quality Gates
+quality_gates:
+  python_specific:
+    - name: "type_hints_for_public_functions"
+      check: "all_public_functions_have_type_hints"
+      
+    - name: "pytest_usage"
+      check: "pytest_used_for_all_tests"
+      
+    - name: "pyproject_toml_configuration"
+      check: "pyproject_toml_used_for_config"
+      
+    - name: "appropriate_data_structures"
+      check: "structured_types_chosen_appropriately"
+      
+    - name: "import_organization"
+      check: "imports_at_top_following_order"
+      
+    - name: "project_functionality_testing"
+      check: "every_test_tests_project_code"
+      critical: true
+      
+    - name: "project_code_imports"
+      check: "tests_import_from_git_tracked_directories"
+      critical: true
+      
+    - name: "project_function_calls"
+      check: "tests_call_project_functions"
+      critical: true
+      
+    - name: "real_behavior_validation"
+      check: "tests_validate_actual_behavior"
+      critical: true
+      
+    - name: "no_test_library_only_imports"
+      check: "tests_import_project_code_not_just_libraries"
+      critical: true
+      
+    - name: "no_import_try_except"
+      check: "no_try_except_blocks_around_imports"
+      critical: true
+      
+    - name: "ft_feature_validation"
+      check: "ft_linked_tests_validate_specific_features"
+      critical: true
+      
+    - name: "parameterization_usage"
+      check: "appropriate_parameterization_for_scenarios"
+      
+    - name: "sub_test_implementation"
+      check: "sub_tests_use_parametrize_with_tc_comments"
+      
+  universal:
+    reference: "../docs/COMMON-PROCEDURES.md#quality-standards"
+    checks:
+      - "specific_exception_handling"
+      - "memory_efficient_patterns"
+      - "no_security_anti_patterns"
+      - "comprehensive_test_coverage"
