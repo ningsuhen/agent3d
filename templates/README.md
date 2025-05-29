@@ -8,13 +8,16 @@ This directory contains the standardized templates for the Agent3D Documentation
 templates/
 ├── index.yml                           # Template system index and configuration
 ├── agent3d-config.template.yml         # Main project configuration template
-├── README.md                           # This file
-└── [future templates]                  # Additional templates as needed
+├── DDD-STATUS.template.yml             # DDD status tracking template
+├── EXEC-PLAN.template.yml              # Execution plan template
+├── migration.template.yml              # Migration template
+├── [other templates]                   # Additional templates
+└── README.md                           # This file
 ```
 
 ## 🎯 Purpose
 
-The templates.yml directory provides:
+The templates directory provides:
 
 1. **Standardized Configuration Templates**: Consistent project setup across all Agent3D projects
 2. **Migration Support**: Tools and templates for upgrading existing configurations
@@ -46,7 +49,7 @@ The templates.yml directory provides:
 - **Validation**: Schema-based validation possible
 - **Usage**: Automated tracking, status updates, planning
 
-### Markdown Templates (`../templates/`)
+### Markdown Templates (this directory)
 - **Target**: Human developers and documentation
 - **Format**: Human-readable Markdown with placeholders
 - **Processing**: Manual editing and reading
@@ -62,7 +65,7 @@ The templates.yml directory provides:
 4. Generate reports and analytics from structured data
 
 ### For Human Developers
-1. Use Markdown templates in `../templates/` for documentation
+1. Use Markdown templates in this directory for documentation
 2. Create user-facing content with Markdown templates
 3. Use YAML templates only when integrating with automation tools
 
@@ -73,11 +76,11 @@ The templates.yml directory provides:
 | Status tracking | YAML | `templates/` |
 | Execution planning | YAML | `templates/` |
 | Framework migrations | YAML | `templates/` |
-| Feature documentation | Markdown | `../templates/` |
-| Requirements documentation | Markdown | `../templates/` |
-| User stories | Markdown | `../templates/` |
-| Design documents | Markdown | `../templates/` |
-| Project README | Markdown | `../templates/` |
+| Feature documentation | Markdown | `templates/` |
+| Requirements documentation | Markdown | `templates/` |
+| User stories | Markdown | `templates/` |
+| Design documents | Markdown | `templates/` |
+| Project README | Markdown | `templates/` |
 
 ## Integration with DDD Framework
 
