@@ -11,6 +11,14 @@ description: |
     This procedure implements a backup-and-rewrite loop workflow that processes directories of files
     one at a time, ensuring quality improvements while maintaining safety through backups.
 
+core_principles:
+  - "ONE FILE AT A TIME: Process only one file per iteration"
+  - "BACKUP BEFORE REWRITE: Always create backup before any changes"
+  - "VERIFY BEFORE CLEANUP: Compare content integrity before deleting backup"
+  - "PURE LLM APPROACH: No programming language execution, only text analysis"
+  - "AUTOMATED VERIFICATION: No human confirmation required"
+  - "CONTENT PRESERVATION: Zero tolerance for information loss"
+
 workflow_pattern: "SCAN → SELECT → BACKUP → REWRITE → VALIDATE → COMPARE → CLEANUP → LOOP"
 
 # Target Scope Configuration
@@ -314,10 +322,11 @@ safety_measures:
       - "user_notification_of_issues"
 
     quality_assurance:
-      - "mandatory_validation_before_confirmation"
+      - "mandatory_content_integrity_verification"
+      - "automated_content_preservation_checking"
       - "quality_threshold_enforcement"
-      - "content_integrity_verification"
-      - "template_compliance_checking"
+      - "template_compliance_validation"
+      - "no_backup_deletion_without_verification"
 
 # Expected Outcomes
 expected_outcomes:
