@@ -1,9 +1,10 @@
 # DDD Workflow System
 
-This directory contains the synchronized workflow definitions for the Document-Driven Development (DDD) framework.
+This directory contains the comprehensive workflow definitions for the Document-Driven Development (DDD) framework, including both core DDD workflows and specialized migration workflows.
 
 ## 📁 Files Overview
 
+### **Core DDD Workflows**
 | File | Purpose | Target Audience | Format |
 |------|---------|-----------------|--------|
 | `ddd-workflow.yml` | **Primary workflow definition** | LLMs, Automation | YAML |
@@ -11,6 +12,16 @@ This directory contains the synchronized workflow definitions for the Document-D
 | `ddd-workflow.mmd` | **Architecture diagram** | Humans, Documentation | Mermaid Architecture |
 | `ddd-workflow-simple.mmd` | **Simple block diagram** | Quick reference | Mermaid Block |
 | `ddd-workflow-layered.mmd` | **Layered flowchart** | Complex flows | Mermaid Flowchart |
+
+### **Migration Workflows**
+| File | Purpose | Target Audience | Format |
+|------|---------|-----------------|--------|
+| `test-cases-migration.yml` | **TEST-CASES.md → Features migration** | DDD Projects, LLMs | YAML |
+| `legacy-structure-migration.yml` | **Legacy → Modern DDD migration** | Project Teams | YAML |
+
+### **Validation & Tools**
+| File | Purpose | Target Audience | Format |
+|------|---------|-----------------|--------|
 | `validate-sync.py` | **Synchronization validator** | Maintenance, CI/CD | Python |
 | `test-mermaid.py` | **Mermaid syntax validator** | Development | Python |
 | `README.md` | **Documentation and usage guide** | All users | Markdown |

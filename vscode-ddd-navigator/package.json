@@ -111,6 +111,19 @@
             "docs/REQUIREMENTS.md"
           ],
           "description": "Files to search for requirement definitions"
+        },
+        "dddNavigator.excludeDirectories": {
+          "type": "array",
+          "default": [
+            ".agent3d-tmp",
+            "node_modules",
+            ".git",
+            ".vscode",
+            "out",
+            "dist",
+            "build"
+          ],
+          "description": "Directories to exclude from file watching and indexing"
         }
       }
     },

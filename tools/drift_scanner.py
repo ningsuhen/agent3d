@@ -566,27 +566,36 @@ class LanguageDetector:
         return cls.LANGUAGE_PATTERNS.get(language, {})
 
 class TestCaseParser:
-    """Parses TEST-CASES.md to extract test case definitions."""
+    """Parses test cases from merged FT-TC structure in docs/features/ directory."""
 
-    def __init__(self, test_cases_file: str = 'docs/TEST-CASES.md',
+    def __init__(self, features_dir: str = 'docs/features',
                  config_manager: Optional[ConfigurationManager] = None):
-        self.test_cases_file = test_cases_file
+        self.features_dir = features_dir
         self.config_manager = config_manager or ConfigurationManager('.')
 
     def parse_test_cases(self) -> List[TestCase]:
-        """Parse TEST-CASES.md and extract all test cases."""
-        if not Path(self.test_cases_file).exists():
-            print(f"⚠️  TEST-CASES.md not found at {self.test_cases_file}")
+        """Parse test cases from merged FT-TC structure in docs/features/ directory."""
+        if not Path(self.features_dir).exists():
+            print(f"⚠️  Features directory not found at {self.features_dir}")
             return []
 
         test_cases = []
 
         try:
-            with open(self.test_cases_file, 'r', encoding='utf-8') as f:
-                content = f.read()
+            # Parse all .md files in the features directory
+            for feature_file in Path(self.features_dir).glob('*.md'):
+                with open(feature_file, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                    test_cases.extend(self._parse_merged_test_cases(content, str(feature_file)))
         except Exception as e:
-            print(f"❌ Error reading {self.test_cases_file}: {e}")
+            print(f"❌ Error reading features directory {self.features_dir}: {e}")
             return []
+
+        return test_cases
+
+    def _parse_merged_test_cases(self, content: str, file_path: str) -> List[TestCase]:
+        """Parse test cases from merged FT-TC structure content."""
+        test_cases = []
 
         # Pattern to match test cases using configured TC pattern
         tc_strict_pattern = self.config_manager.get_pattern_for_prefix('TC-', flexible=False)
@@ -595,41 +604,35 @@ class TestCaseParser:
         # Pattern for sub-test cases using configured TC pattern
         sub_tc_pattern = rf'\s+- \[([x~\s])\] \*\*({tc_strict_pattern})\*\* - ([^(]+)\(([^,]+),\s*([^)]+)\)'
 
-        current_parent = None
-
-        for line in content.split('\n'):
-            # Check for main test cases
-            main_match = re.match(tc_pattern, line.strip())
-            if main_match:
-                status_char, tc_id, title, exec_type, priority = main_match.groups()
-                status = 'completed' if status_char == 'x' else 'pending' if status_char == '~' else 'pending'
+        lines = content.split('\n')
+        for line_num, line in enumerate(lines, 1):
+            # Match main test cases
+            match = re.match(tc_pattern, line.strip())
+            if match:
+                status_char, tc_id, description, execution_type, priority = match.groups()
 
                 test_case = TestCase(
                     tc_id=tc_id,
-                    title=title.strip(),
-                    status=status,
-                    execution_type=exec_type.strip(),
+                    description=description.strip(),
+                    execution_type=execution_type.strip(),
                     priority=priority.strip(),
-                    is_sub_case=False
+                    status='complete' if status_char == 'x' else 'pending',
+                    line_number=line_num
                 )
                 test_cases.append(test_case)
-                current_parent = tc_id
-                continue
 
-            # Check for sub-test cases
+            # Match sub-test cases
             sub_match = re.match(sub_tc_pattern, line)
             if sub_match:
-                status_char, tc_id, title, exec_type, priority = sub_match.groups()
-                status = 'completed' if status_char == 'x' else 'pending' if status_char == '~' else 'pending'
+                status_char, tc_id, description, execution_type, priority = sub_match.groups()
 
                 test_case = TestCase(
                     tc_id=tc_id,
-                    title=title.strip(),
-                    status=status,
-                    execution_type=exec_type.strip(),
+                    description=description.strip(),
+                    execution_type=execution_type.strip(),
                     priority=priority.strip(),
-                    is_sub_case=True,
-                    parent_tc_id=current_parent
+                    status='complete' if status_char == 'x' else 'pending',
+                    line_number=line_num
                 )
                 test_cases.append(test_case)
 
@@ -2260,14 +2263,14 @@ class MultiModeDriftAnalyzer:
         )
 
 class TCDriftAnalyzer:
-    """Analyzes drift between TEST-CASES.md and test implementations."""
+    """Analyzes drift between merged FT-TC structure and test implementations."""
 
-    def __init__(self, root_dir: str = '.', test_cases_file: str = 'docs/TEST-CASES.md',
+    def __init__(self, root_dir: str = '.', features_dir: str = 'docs/features',
                  change_detector: Optional[GitChangeDetector] = None,
                  config_manager: Optional[ConfigurationManager] = None):
         self.root_dir = root_dir
         self.config_manager = config_manager or ConfigurationManager(root_dir)
-        self.test_case_parser = TestCaseParser(test_cases_file, self.config_manager)
+        self.test_case_parser = TestCaseParser(features_dir, self.config_manager)
         self.change_detector = change_detector
         self.implementation_scanner = TestImplementationScanner(root_dir, change_detector, self.config_manager)
 

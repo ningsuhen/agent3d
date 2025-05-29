@@ -7,6 +7,14 @@ import { QuickPickProvider } from './providers/quickPickProvider';
 
 let identifierIndex: IdentifierIndex;
 
+function shouldExcludeFile(uri: vscode.Uri, excludeDirectories: string[]): boolean {
+    const filePath = uri.fsPath;
+    return excludeDirectories.some(dir => {
+        const normalizedDir = dir.replace(/^\/+|\/+$/g, ''); // Remove leading/trailing slashes
+        return filePath.includes(`/${normalizedDir}/`) || filePath.includes(`\\${normalizedDir}\\`) || filePath.endsWith(`/${normalizedDir}`) || filePath.endsWith(`\\${normalizedDir}`);
+    });
+}
+
 export function activate(context: vscode.ExtensionContext) {
     console.log('DDD Navigator extension is now active!');
 
@@ -57,17 +65,44 @@ export function activate(context: vscode.ExtensionContext) {
     // Build initial index
     buildIndex();
 
-    // Watch for file changes (markdown and programming files)
-    const markdownWatcher = vscode.workspace.createFileSystemWatcher('**/*.md');
-    markdownWatcher.onDidChange(() => buildIndex());
-    markdownWatcher.onDidCreate(() => buildIndex());
-    markdownWatcher.onDidDelete(() => buildIndex());
+    // Get exclude directories from configuration
+    const config = vscode.workspace.getConfiguration('dddNavigator');
+    const excludeDirectories = config.get<string[]>('excludeDirectories', ['.agent3d-tmp', 'node_modules', '.git', '.vscode', 'out', 'dist', 'build']);
+
+    // Create exclude pattern for file watchers
+    const excludePattern = `{${excludeDirectories.map(dir => `**/${dir}/**`).join(',')}}`;
+
+    // Watch for file changes (markdown and programming files) excluding specified directories
+    const markdownWatcher = vscode.workspace.createFileSystemWatcher('**/*.md', false, false, false);
+    markdownWatcher.onDidChange((uri) => {
+        if (!shouldExcludeFile(uri, excludeDirectories)) {
+            buildIndex();
+        }
+    });
+    markdownWatcher.onDidCreate((uri) => {
+        if (!shouldExcludeFile(uri, excludeDirectories)) {
+            buildIndex();
+        }
+    });
+    markdownWatcher.onDidDelete((uri) => {
+        if (!shouldExcludeFile(uri, excludeDirectories)) {
+            buildIndex();
+        }
+    });
     context.subscriptions.push(markdownWatcher);
 
     // Watch for programming file changes to update file references
     const codeWatcher = vscode.workspace.createFileSystemWatcher('**/*.{js,ts,jsx,tsx,py,java,go,c,cpp,h,hpp,cs,php,rb,rs,swift,kt,scala,clj,hs,ml,fs,elm,dart,lua,r,m,pl,sh,bat,ps1}');
-    codeWatcher.onDidCreate(() => buildIndex());
-    codeWatcher.onDidDelete(() => buildIndex());
+    codeWatcher.onDidCreate((uri) => {
+        if (!shouldExcludeFile(uri, excludeDirectories)) {
+            buildIndex();
+        }
+    });
+    codeWatcher.onDidDelete((uri) => {
+        if (!shouldExcludeFile(uri, excludeDirectories)) {
+            buildIndex();
+        }
+    });
     context.subscriptions.push(codeWatcher);
 }
 

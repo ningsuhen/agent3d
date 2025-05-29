@@ -27,7 +27,7 @@ config:
     config: ".agent3d-config.yml"
     requirements: "REQUIREMENTS.md"
     features: "FEATURES.md"
-    test_cases: "TEST-CASES.md"
+    features_dir: "docs/features/"
     drift_report: "reports/drift-report.md"
     traceability_matrix: "reports/traceability-matrix.md"
 

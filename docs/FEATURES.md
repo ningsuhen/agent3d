@@ -80,7 +80,6 @@ python3 tools/drift_scanner.py --mode ft-mapping
 
 ## Related Documentation
 
-- **[Test Cases](TEST-CASES.md)** - Legacy test case documentation (maintained for compatibility)
 - **[High-Level Design](HIGH-LEVEL-DESIGN.md)** - System architecture and component designs
 - **[Requirements](REQUIREMENTS.md)** - Functional and non-functional requirements
 - **[Tasks](TASKS.md)** - Implementation backlog and priorities

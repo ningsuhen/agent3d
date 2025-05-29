@@ -175,7 +175,7 @@ identifier_patterns:
     description: "Test case identifiers"
     pattern: "TC-[A-Z0-9]+-\\d+[a-z]?"
     flexible_pattern: "TC-[A-Za-z0-9-]+"
-    primary_files: ["docs/TEST-CASES.md", "TEST-CASES.md"]
+    primary_files: ["docs/features/*.md"]
     reference_files: ["**/*.py", "**/*.js", "**/*.ts", "**/*.java", "**/*.go", "**/*.rs", "**/*.md"]
     format_example: "TC-0001, TC-0001a, TC-ENV-007"
     status_indicators: ["[x]", "[ ]", "[~]", "[s]"]
@@ -187,7 +187,7 @@ identifier_patterns:
     pattern: "FT-[A-Z]+-\\d+[a-z]?"
     flexible_pattern: "FT-[A-Za-z0-9-]+"
     primary_files: ["docs/FEATURES.md", "FEATURES.md"]
-    reference_files: ["docs/TEST-CASES.md", "**/*.md"]
+    reference_files: ["docs/features/*.md", "**/*.md"]
     format_example: "FT-CORE-001, FT-LANG-002a"
     status_indicators: ["[x]", "[ ]", "[~]"]
     relationship_targets: ["TC-*", "REQ-*"]
@@ -198,7 +198,7 @@ identifier_patterns:
     pattern: "REQ-[A-Z0-9]+-\\d+[a-z]?"
     flexible_pattern: "REQ-[A-Za-z0-9-]+"
     primary_files: ["docs/REQUIREMENTS.md", "REQUIREMENTS.md"]
-    reference_files: ["docs/TEST-CASES.md", "docs/FEATURES.md", "**/*.md"]
+    reference_files: ["docs/features/*.md", "docs/FEATURES.md", "**/*.md"]
     format_example: "REQ-001, REQ-FUNC-001"
     status_indicators: ["[x]", "[ ]", "[~]"]
     relationship_targets: ["TC-*", "FT-*"]
@@ -220,7 +220,7 @@ identifier_patterns:
     pattern: "AC-[A-Z0-9]+-\\d+[a-z]?"
     flexible_pattern: "AC-[A-Za-z0-9-]+"
     primary_files: ["docs/ACCEPTANCE-CRITERIA.md"]
-    reference_files: ["docs/FEATURES.md", "docs/TEST-CASES.md", "**/*.md"]
+    reference_files: ["docs/FEATURES.md", "docs/features/*.md", "**/*.md"]
     format_example: "AC-001, AC-LOGIN-001"
     status_indicators: ["[x]", "[ ]", "[~]"]
     relationship_targets: ["TC-*", "FT-*", "US-*"]

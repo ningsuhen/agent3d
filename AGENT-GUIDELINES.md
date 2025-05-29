@@ -88,6 +88,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 | `docs/DDD-STATUS.md` | DDD Pass Status, Drift and Health tracking | `~/.agent3d/templates/DDD-STATUS.template.md` |
 | `docs/designs/*.md` | Component design specifications | `~/.agent3d/templates/DETAILED-DESIGN.template.md` |
 | `docs/proposals/*.md` | Design proposals for unimplemented features | `~/.agent3d/templates/PROPOSAL.template.md` |
+| `docs/migrations/*.yml` | Migration workflows and execution tracking | `~/.agent3d/docs/migrations/` |
 | `docs/ux/*.md` | UI/UX specifications, wireframes, and user flows (for UI projects) | `~/.agent3d/templates/UX-SPECIFICATIONS.template.md` |
 | `CHANGELOG.md` | Chronological record of all project changes | `~/.agent3d/templates/CHANGELOG.template.md` |
 
@@ -115,12 +116,14 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 **Workflow:**
 
 1. **Create Mental Memory Map:** Build comprehensive understanding of Agent3D framework
-2. Configure project (`.agent3d-config.yml` in project root)
-3. Follow `~/.agent3d/AGENT-GUIDELINES.md`
-4. Run DDD pass for missing/outdated documentation
-5. **Write Real Tests:** Every test MUST import project code and call project functions
-6. **Update Guidelines Regularly:** Run `git -C ~/.agent3d pull origin main` to keep cached rules and templates current
-7. **Use System Date Commands:** Always use `date +%Y-%m-%d` or `date +%Y-%m-%d\ %H:%M:%S` for timestamps instead of LLM knowledge
+2. **Check Migration Status:** Run `python tools/migration_manager.py status` to identify applicable migrations
+3. **Execute Required Migrations:** Apply any pending migrations before proceeding with development
+4. Configure project (`.agent3d-config.yml` in project root)
+5. Follow `~/.agent3d/AGENT-GUIDELINES.md`
+6. Run DDD pass for missing/outdated documentation
+7. **Write Real Tests:** Every test MUST import project code and call project functions
+8. **Update Guidelines Regularly:** Run `git -C ~/.agent3d pull origin main` to keep cached rules and templates current
+9. **Use System Date Commands:** Always use `date +%Y-%m-%d` or `date +%Y-%m-%d\ %H:%M:%S` for timestamps instead of LLM knowledge
 
 **Test Quality Requirements:**
 

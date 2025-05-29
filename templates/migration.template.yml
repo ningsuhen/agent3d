@@ -1,0 +1,68 @@
+# Migration Template
+# Use this template to create new DDD framework migrations
+
+metadata:
+  id: "{{migration-id}}"
+  name: "{{Human Readable Migration Name}}"
+  version: "1.0.0"
+  description: "{{Detailed description of what this migration accomplishes}}"
+  created_at: "{{YYYY-MM-DDTHH:MM:SSZ}}"
+  author: "{{Author Name}}"
+  impact: "{{high/medium/low}}"
+  estimated_time_minutes: {{number}}
+  
+prerequisites:
+  - "{{Condition that must be met before migration}}"
+  - "{{Another prerequisite}}"
+  - "{{File or directory existence check}}"
+  
+backup_targets:
+  - "{{file/directory to backup}}"
+  - "{{another backup target}}"
+  
+steps:
+  - id: "validate-prerequisites"
+    name: "Validate Prerequisites"
+    description: "{{What this step does}}"
+    actions:
+      - "{{Action to perform}}"
+      - "{{Another action}}"
+    validation:
+      - "{{How to verify this step succeeded}}"
+      - "{{Another validation check}}"
+    rollback:
+      - "{{How to undo this step if needed}}"
+      
+  - id: "{{step-id}}"
+    name: "{{Step Name}}"
+    description: "{{Step description}}"
+    actions:
+      - "{{Action description}}"
+    validation:
+      - "{{Success criteria}}"
+    rollback:
+      - "{{Rollback procedure}}"
+
+post_migration:
+  - "{{Post-migration cleanup task}}"
+  - "{{Status update task}}"
+
+rollback_procedure:
+  - "{{Overall rollback step}}"
+  - "{{Another rollback step}}"
+
+validation_criteria:
+  - "{{Overall success criterion}}"
+  - "{{Another validation check}}"
+
+success_indicators:
+  - "{{How to know migration completed successfully}}"
+  - "{{Another success indicator}}"
+
+# Template Usage Instructions:
+# 1. Copy this template to docs/migrations/{{migration-id}}.yml
+# 2. Replace all {{placeholder}} values with actual content
+# 3. Remove this comment section
+# 4. Test migration thoroughly before committing
+# 5. Update migration-tracker.yml to include new migration
+# 6. Document migration in docs/migrations/README.md

@@ -5,7 +5,7 @@ export interface Identifier {
     type: 'test-case' | 'requirement' | 'feature' | 'file-reference';
     id: string;
     location: vscode.Location;
-    status?: 'complete' | 'pending' | 'skipped';
+    status?: 'complete' | 'pending' | 'skipped' | 'in-progress';
     description?: string;
     relatedIds?: string[];
 }
@@ -27,11 +27,15 @@ export class IdentifierIndex {
         this.fileReferences.clear();
 
         const config = vscode.workspace.getConfiguration('dddNavigator');
+        const excludeDirectories = config.get<string[]>('excludeDirectories', ['.agent3d-tmp', 'node_modules', '.git', '.vscode', 'out', 'dist', 'build']);
+
+        // Create exclude pattern for findFiles
+        const excludePattern = `{${excludeDirectories.map(dir => `**/${dir}/**`).join(',')}}`;
 
         // Find all text-based files (markdown, text, code files)
         const textFiles = await vscode.workspace.findFiles(
             new vscode.RelativePattern(workspaceFolder, '**/*.{md,txt,js,ts,py,java,go,c,cpp,h,hpp,cs,php,rb,rs,swift,kt,scala,clj,hs,ml,fs,elm,dart,lua,r,m,pl,sh,bat,ps1,yaml,yml,json,xml,html,css,scss,less,sql}'),
-            '**/node_modules/**'
+            excludePattern
         );
 
         for (const fileUri of textFiles) {
@@ -72,7 +76,7 @@ export class IdentifierIndex {
     }
 
     private parseTestCases(document: vscode.TextDocument, text: string, fileName: string, config: vscode.WorkspaceConfiguration): void {
-        const testCaseFiles = config.get<string[]>('testCaseFiles', ['TEST-CASES.md', 'docs/TEST-CASES.md']);
+        const testCaseFiles = config.get<string[]>('testCaseFiles', ['docs/features/*.md']);
         const pattern = new RegExp(config.get('testCasePattern', 'TC-[A-Za-z0-9-]+'), 'g');
 
         let match;
@@ -240,9 +244,11 @@ export class IdentifierIndex {
         });
     }
 
-    private extractStatus(lineText: string): 'complete' | 'pending' | 'skipped' | undefined {
+    private extractStatus(lineText: string): 'complete' | 'pending' | 'skipped' | 'in-progress' | undefined {
         if (lineText.includes('✅') || lineText.includes('[x]')) {
             return 'complete';
+        } else if (lineText.includes('🚧') || lineText.includes('[~]')) {
+            return 'in-progress';
         } else if (lineText.includes('⏸️') || lineText.includes('[ ]')) {
             return 'pending';
         } else if (lineText.includes('⏭️')) {

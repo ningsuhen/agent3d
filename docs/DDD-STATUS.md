@@ -89,7 +89,7 @@
   - ✅ docs/features/ - Modular feature sections with integrated test cases (NEW: 2025-01-27)
   - ✅ docs/HIGH-LEVEL-DESIGN.md - Detailed system architecture
   - ✅ docs/REQUIREMENTS.md - Technical requirements
-  - ✅ docs/TEST-CASES.md - Legacy test case documentation (maintained for compatibility)
+
   - ✅ CHANGELOG.md - Current and comprehensive
 
 ## 3️⃣ Development Pass (Replaces Planning + Implementation)

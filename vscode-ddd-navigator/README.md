@@ -49,11 +49,32 @@ Configure where the extension looks for definitions:
 
 ```json
 {
-    "dddNavigator.testCaseFiles": ["TEST-CASES.md", "docs/TEST-CASES.md"],
+    "dddNavigator.testCaseFiles": ["docs/features/*.md"],
+    "dddNavigator.featureDirs": ["docs/features/"],
     "dddNavigator.requirementFiles": ["REQUIREMENTS.md", "docs/REQUIREMENTS.md"],
-    "dddNavigator.featureFiles": ["FEATURES.md", "docs/FEATURES.md"]
+    "dddNavigator.featureFiles": ["FEATURES.md", "docs/FEATURES.md"],
+    "dddNavigator.excludeDirectories": [".agent3d-tmp", "node_modules", ".git", ".vscode", "out", "dist", "build"]
 }
 ```
+
+### Exclude Directories
+Configure directories to exclude from file watching and indexing:
+
+```json
+{
+    "dddNavigator.excludeDirectories": [
+        ".agent3d-tmp",
+        "node_modules",
+        ".git",
+        ".vscode",
+        "out",
+        "dist",
+        "build"
+    ]
+}
+```
+
+This prevents the extension from watching files in temporary directories, build outputs, and other directories that don't contain relevant documentation.
 
 ### Identifier Patterns
 Customize the patterns used to recognize identifiers:

@@ -1,0 +1,182 @@
+# TEST-CASES.md to Features Migration Workflow
+# Migrates from separate TEST-CASES.md to merged FT-TC structure in docs/features/
+
+metadata:
+  id: "test-cases-to-features"
+  name: "TEST-CASES.md to Features Migration"
+  version: "1.0.0"
+  description: "Migrates test cases from separate TEST-CASES.md file to merged FT-TC structure in docs/features/ directory"
+  created_at: "2025-01-27T15:00:00Z"
+  author: "Agent3D Framework"
+  impact: "high"
+  estimated_time_minutes: 15
+  
+prerequisites:
+  - "docs/TEST-CASES.md file exists"
+  - "docs/FEATURES.md file exists"
+  - "Test cases follow TC-NNNN format"
+  - "Features follow FT-NNNN format"
+  - "No existing docs/features/ directory with conflicting content"
+  
+backup_targets:
+  - "docs/TEST-CASES.md"
+  - "docs/FEATURES.md"
+  - ".agent3d-config.yml"
+  - "workflows/ddd-workflow.yml"
+  - "vscode-ddd-navigator/"
+  - "tools/drift_scanner.py"
+
+steps:
+  - id: "validate-prerequisites"
+    name: "Validate Prerequisites"
+    description: "Ensure all prerequisites are met before migration"
+    actions:
+      - "Check if docs/TEST-CASES.md exists"
+      - "Check if docs/FEATURES.md exists"
+      - "Validate TC-NNNN pattern usage in TEST-CASES.md"
+      - "Validate FT-NNNN pattern usage in FEATURES.md"
+      - "Check for existing docs/features/ directory conflicts"
+    validation:
+      - "All prerequisite files exist"
+      - "Pattern validation passes"
+      - "No conflicting content detected"
+    rollback: []
+    
+  - id: "create-backup"
+    name: "Create Migration Backup"
+    description: "Backup all files that will be modified"
+    actions:
+      - "Create .agent3d-backups/migrations/test-cases-to-features/ directory"
+      - "Copy docs/TEST-CASES.md to backup"
+      - "Copy docs/FEATURES.md to backup"
+      - "Copy .agent3d-config.yml to backup"
+      - "Copy relevant tool files to backup"
+    validation:
+      - "Backup directory created successfully"
+      - "All target files backed up"
+      - "Backup integrity verified"
+    rollback:
+      - "Remove backup directory if created"
+      
+  - id: "parse-test-cases"
+    name: "Parse Existing Test Cases"
+    description: "Extract test cases from TEST-CASES.md"
+    actions:
+      - "Parse TEST-CASES.md for TC-NNNN patterns"
+      - "Extract test case metadata (status, priority, type)"
+      - "Group test cases by feature area or section"
+      - "Identify sub-test relationships"
+    validation:
+      - "All test cases successfully parsed"
+      - "Metadata extraction complete"
+      - "Grouping logic applied correctly"
+    rollback:
+      - "Clear parsed test case data"
+      
+  - id: "create-features-directory"
+    name: "Create Features Directory Structure"
+    description: "Set up the new docs/features/ directory"
+    actions:
+      - "Create docs/features/ directory"
+      - "Determine feature section groupings"
+      - "Create section files (core.md, passes.md, tools.md, etc.)"
+    validation:
+      - "docs/features/ directory created"
+      - "Section files created successfully"
+      - "Directory structure matches template"
+    rollback:
+      - "Remove docs/features/ directory"
+      
+  - id: "migrate-test-cases"
+    name: "Migrate Test Cases to Features"
+    description: "Move test cases into merged FT-TC structure"
+    actions:
+      - "Map test cases to appropriate feature sections"
+      - "Convert test case format to merged structure"
+      - "Preserve test case status and metadata"
+      - "Maintain sub-test relationships"
+      - "Update test case numbering if needed"
+    validation:
+      - "All test cases migrated successfully"
+      - "Format conversion accurate"
+      - "Metadata preserved"
+      - "Relationships maintained"
+    rollback:
+      - "Remove migrated content from feature files"
+      
+  - id: "update-configuration"
+    name: "Update Configuration Files"
+    description: "Update system configuration for new structure"
+    actions:
+      - "Update .agent3d-config.yml TC- pattern references"
+      - "Update drift scanner configuration"
+      - "Update VSCode extension configuration"
+      - "Update workflow file references"
+    validation:
+      - "Configuration files updated correctly"
+      - "Pattern references point to docs/features/"
+      - "Tool configurations compatible"
+    rollback:
+      - "Restore original configuration files from backup"
+      
+  - id: "update-documentation"
+    name: "Update Documentation References"
+    description: "Update all documentation to reference new structure"
+    actions:
+      - "Update docs/FEATURES.md to remove TEST-CASES.md reference"
+      - "Add deprecation notice to templates/TEST-CASES.template.md"
+      - "Update pass documentation"
+      - "Update DDD-STATUS.md"
+    validation:
+      - "Documentation references updated"
+      - "Deprecation notices added"
+      - "Cross-references working"
+    rollback:
+      - "Restore original documentation from backup"
+      
+  - id: "validate-migration"
+    name: "Validate Migration Success"
+    description: "Comprehensive validation of migration results"
+    actions:
+      - "Run drift scanner with new configuration"
+      - "Verify all test cases accessible"
+      - "Check feature-test case relationships"
+      - "Validate tool compatibility"
+      - "Test VSCode extension functionality"
+    validation:
+      - "Drift scanner runs successfully"
+      - "All test cases found in new structure"
+      - "Relationships preserved"
+      - "Tools work with new structure"
+    rollback:
+      - "Document validation failures for troubleshooting"
+
+post_migration:
+  - "Mark TEST-CASES.md as deprecated"
+  - "Update migration tracker status"
+  - "Generate migration report"
+  - "Clean up temporary files"
+
+rollback_procedure:
+  - "Stop migration execution"
+  - "Restore all files from backup"
+  - "Remove docs/features/ directory"
+  - "Restore original configuration"
+  - "Validate rollback success"
+  - "Update migration tracker with rollback status"
+
+validation_criteria:
+  - "All original test cases present in new structure"
+  - "Test case metadata preserved (status, priority, type)"
+  - "Feature-test case relationships maintained"
+  - "Configuration files updated correctly"
+  - "Tools work with new structure"
+  - "Documentation references updated"
+  - "No data loss detected"
+
+success_indicators:
+  - "docs/features/ directory contains all test cases"
+  - "Drift scanner reports successful parsing"
+  - "VSCode extension navigates correctly"
+  - "All tools compatible with new structure"
+  - "Migration tracker shows 'completed' status"

@@ -1,0 +1,108 @@
+---
+# 🎯 DDD Execution Plan Template
+
+metadata:
+  title: "[PLAN_TITLE]"
+  created: "[YYYY-MM-DD]"
+  type: "[EXECUTION_TYPE]"  # Standard|Aggressive|Focused|Emergency
+  scope: "[SCOPE_DESCRIPTION]"
+  coordinator: "[COORDINATOR_ROLE]"
+  target_alignment: "[TARGET_%]"
+  estimated_duration: "[DURATION]"
+
+current_state:
+  last_full_pass: "[YYYY-MM-DD]"
+  current_alignment: "[CURRENT_%]"
+  drift_status: "[DRIFT_STATUS]"
+  recent_changes: "[RECENT_CHANGES_DESCRIPTION]"
+
+goals:
+  - "[GOAL_1]"
+  - "[GOAL_2]"
+  - "[GOAL_3]"
+
+checkpoints:
+
+  # ═══════════════════════════════════════════════════════════════
+  # 📋 CHECKPOINT 1: [CHECKPOINT_1_NAME]
+  # ═══════════════════════════════════════════════════════════════
+  checkpoint_1:
+    name: "[CHECKPOINT_1_FULL_NAME]"
+    duration: "[DURATION_MINUTES] minutes"
+    coordinator: "[COORDINATOR_ROLE]"
+
+    [section_1_name]:
+      - "[TASK_1] [STATUS_ICON]"
+      - "[TASK_2] [STATUS_ICON]"
+
+    [section_2_name]:
+      - "[TASK_1] [STATUS_ICON]"
+      - "[TASK_2] [STATUS_ICON]"
+
+    validation:
+      - "[VALIDATION_CRITERIA_1]"
+      - "[VALIDATION_CRITERIA_2]"
+
+  # ═══════════════════════════════════════════════════════════════
+  # 📝 CHECKPOINT 2: [CHECKPOINT_2_NAME]
+  # ═══════════════════════════════════════════════════════════════
+  checkpoint_2:
+    name: "[CHECKPOINT_2_FULL_NAME]"
+    duration: "[DURATION_MINUTES] minutes"
+    experts: ["[EXPERT_1]", "[EXPERT_2]"]
+
+    [section_1_name]:
+      expert: "[EXPERT_ROLE]"
+      tasks:
+        - "[TASK_1] [STATUS_ICON]"
+        - "[TASK_2] [STATUS_ICON]"
+
+    [section_2_name]:
+      expert: "[EXPERT_ROLE]"
+      tasks:
+        - "[TASK_1] [STATUS_ICON]"
+        - "[TASK_2] [STATUS_ICON]"
+
+    validation:
+      - "[VALIDATION_CRITERIA_1]"
+      - "[VALIDATION_CRITERIA_2]"
+
+  # ═══════════════════════════════════════════════════════════════
+  # 📚 CHECKPOINT 3+: [CHECKPOINT_N_NAME]
+  # ═══════════════════════════════════════════════════════════════
+  checkpoint_N:
+    name: "[CHECKPOINT_N_FULL_NAME]"
+    duration: "[DURATION_MINUTES] minutes"
+    experts: ["[EXPERT_1]", "[EXPERT_2]"]
+
+    [section_1_name]:
+      expert: "[EXPERT_ROLE]"
+      target: "[TARGET_ALIGNMENT]"
+      tasks:
+        - "[TASK_1] [STATUS_ICON]"
+        - "[TASK_2] [STATUS_ICON]"
+
+    validation:
+      - "[VALIDATION_CRITERIA_1]"
+      - "[VALIDATION_CRITERIA_2]"
+
+success_criteria:
+  - "[SUCCESS_CRITERIA_1]"
+  - "[SUCCESS_CRITERIA_2]"
+  - "[SUCCESS_CRITERIA_3]"
+
+risks:
+  issues: ["[RISK_1]", "[RISK_2]"]
+  mitigation: ["[MITIGATION_1]", "[MITIGATION_2]"]
+
+post_execution:
+  - "[POST_ACTION_1] [STATUS_ICON]"
+  - "[POST_ACTION_2] [STATUS_ICON]"
+
+summary:
+  total_checkpoints: [NUMBER]
+  total_duration: "[TOTAL_DURATION] minutes"
+  target_alignment: "[TARGET_%]"
+  current_status: "[CURRENT_STATUS]"
+
+# Status: ✅ Completed | 📋 Pending | 🚧 In Progress | 🚨 Critical | ⏭️ Skipped
