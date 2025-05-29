@@ -3,6 +3,9 @@ metadata:
    type: "template"
    format: "markdown_content_with_yaml_metadata"
    purpose: "Define acceptance criteria for all requirements and user stories"
+   version: "2.0.0"
+   created: "2025-01-29"
+   last_updated: "2025-01-29"
 
 usage:
    description: "This document defines the acceptance criteria for all requirements and user stories. Each criterion must be testable, measurable, and clearly define the conditions for acceptance"

@@ -3,6 +3,9 @@ metadata:
   type: "template"
   format: "markdown_content_with_yaml_metadata"
   purpose: "Comprehensive design specifications for a specific component or system part"
+  version: "2.0.0"
+  created: "2025-01-29"
+  last_updated: "2025-01-29"
 
 usage:
   description: "This document must provide comprehensive design specifications for a specific component or system part"

@@ -3,6 +3,9 @@ metadata:
   type: "template"
   format: "markdown_content_with_yaml_metadata"
   purpose: "System architecture and component design documentation"
+  version: "2.0.0"
+  created: "2025-01-29"
+  last_updated: "2025-01-29"
 
 usage:
   description: "System overview, core components, data flow, component interactions, directory structure, technical decisions, dependencies, module design links"

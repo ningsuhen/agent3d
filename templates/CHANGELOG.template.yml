@@ -3,6 +3,9 @@ metadata:
   type: "template"
   format: "markdown_content_with_yaml_metadata"
   purpose: "Comprehensive record of all changes made to the project"
+  version: "2.0.0"
+  created: "2025-01-29"
+  last_updated: "2025-01-29"
 
 usage:
   description: "This document must provide a comprehensive record of all changes made to the project, organized chronologically and categorized by change type"

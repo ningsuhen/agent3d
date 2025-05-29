@@ -3,6 +3,9 @@ metadata:
   type: "template"
   format: "markdown_content_with_yaml_metadata"
   purpose: "Tasks organized by priority with status tracking and actionable descriptions"
+  version: "2.0.0"
+  created: "2025-01-29"
+  last_updated: "2025-01-29"
 
 usage:
   description: "Tasks organized by priority (High/Medium/Low/Completed) with status [x]/[ ]/[~] and actionable descriptions"
