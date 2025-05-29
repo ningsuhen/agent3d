@@ -6,7 +6,7 @@ This directory contains all DDD passes converted to YAML format for optimal LLM 
 
 ### Core Passes
 - `0_requirements_pass.yml` - Requirements Pass (Step 0)
-- `1_foundation_pass.yml` - Foundation Pass (Step 1) 
+- `1_foundation_pass.yml` - Foundation Pass (Step 1)
 - `2_documentation_pass.yml` - Documentation Pass (Step 2)
 - `3_development_pass.yml` - Development Pass (Step 3)
 - `4_implementation_pass.yml` - Implementation Pass (Step 4)
@@ -118,10 +118,10 @@ def select_pass_for_condition(condition):
 ```python
 def execute_pass_workflow(pass_config):
     phases = pass_config['process']['phases']
-    
+
     for phase_name, phase_config in phases.items():
         print(f"Executing {phase_name}: {phase_config['description']}")
-        
+
         for action in phase_config.get('actions', []):
             print(f"  - {action}")
             # Execute action logic here
@@ -138,14 +138,17 @@ Pass execution status is tracked in `DDD-STATUS.template.yml` with structured me
 ### Quality Validation
 Each pass includes quality gates that can be automatically validated during execution.
 
-## Migration from Markdown
+## YAML-First Approach
 
-The original Markdown passes in `../passes/simplified/` remain available for human reference. The YAML versions provide:
+**As of 2025-01-27**, the DDD framework has migrated to a YAML-first approach for LLM agents:
 
-- **Enhanced Structure**: Better organization for machine processing
-- **Metadata Enrichment**: Additional fields for automation
+- **Primary Format**: YAML versions are the authoritative source for LLM processing
+- **Enhanced Structure**: Optimized organization for machine processing and automation
+- **Metadata Enrichment**: Comprehensive fields for decision-making and validation
 - **Validation Support**: Schema-based validation capabilities
-- **Tool Integration**: Better integration with development tools
+- **Tool Integration**: Superior integration with development tools and CI/CD pipelines
+
+**Note**: Markdown versions have been removed after validation confirmed YAML completeness. For human-readable documentation, refer to the main `AGENT-GUIDELINES.md` and `docs/` directory.
 
 ## Best Practices
 
@@ -170,11 +173,12 @@ A JSON schema for pass validation is available at `../schemas/pass.schema.json` 
 ## Contributing
 
 When modifying passes:
-1. Update both YAML and Markdown versions
-2. Validate YAML syntax
-3. Test with sample projects
-4. Update documentation
+1. Update YAML versions (primary format)
+2. Validate YAML syntax and structure
+3. Test with sample projects and LLM agents
+4. Update related documentation in `docs/`
 5. Run quality gates validation
+6. Ensure backward compatibility for existing automations
 
 ---
 

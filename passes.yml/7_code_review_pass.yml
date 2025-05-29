@@ -1,10 +1,8 @@
 metadata:
   name: Code Review Pass
   number: 7
-  purpose: Reviewing code changes between the base branch and a pull request, providing
-    feedback through comments on the PR, and setting the review status to "Pending"
-    until all issues are addressed.
-  role: ''
+  purpose: Reviewing code changes between the base branch and a pull request, providing feedback through comments on the PR, and setting the review status to "Pending" until all issues are addressed.
+  role: "Senior Software Engineer with expertise in code quality, security, and maintainability"
   description: Converted from 7_code_review_pass.md
 when_to_use:
   conditions:
@@ -16,22 +14,22 @@ when_to_use:
   - When validating that code changes align with documentation
   prerequisites: []
 process:
-  workflow_pattern: "SCAN \u2192 DRAFT \u2192 ASK \u2192 SYNC \u2192 CONFIRM"
+  workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
   phases:
     'scan:':
-      description: '`gh pr status`, apply language rules, identify issues, verify
-        coverage'
+      description: '`gh pr status`, apply language rules, identify issues, verify coverage'
       actions: []
     'draft:':
-      description: Generate review comments, include solutions, note documentation
-        updates
+      description: Generate review comments, include solutions, note documentation updates
       actions: []
     'ask:':
       description: Submit pending PR comments, verify requirements, challenge decisions
       actions: []
     'sync:':
-      description: "Submit automated comments, request changes, hand off to human\n\
-        \n**Note:** During execution, mark completed steps with \u2705 to track progress."
+      description: "Submit automated comments, request changes, hand off to human
+
+
+        **Note:** During execution, mark completed steps with ✅ to track progress."
       actions: []
 expected_outcomes:
 - Automated PR comments in pending mode
@@ -39,4 +37,53 @@ expected_outcomes:
 - Human-agent collaborative workflow
 - Strict standards enforcement
 - Language-specific compliance
-quality_gates: []
+# Language-Specific Review Criteria
+language_rules:
+  critical_requirement: "Always consult and strictly enforce language-specific rules"
+  sources:
+    yaml_format: "~/.agent3d/rules.yml/[language].yml"
+    markdown_format: "~/.agent3d/rules/[language].md"
+
+  supported_languages:
+    markdown:
+      yaml: "~/.agent3d/rules.yml/markdown.yml"
+      markdown: "~/.agent3d/rules/markdown.md"
+    python:
+      yaml: "~/.agent3d/rules.yml/python.yml"
+      markdown: "~/.agent3d/rules/python.md"
+    javascript:
+      yaml: "~/.agent3d/rules.yml/javascript.yml"
+      markdown: "~/.agent3d/rules/javascript.md"
+    java:
+      yaml: "~/.agent3d/rules.yml/java.yml"
+      markdown: "~/.agent3d/rules/java.md"
+    go:
+      yaml: "~/.agent3d/rules.yml/go.yml"
+      markdown: "~/.agent3d/rules/go.md"
+
+# Review Standards
+review_standards:
+  approach: "UNCOMPROMISINGLY_STRICT"
+  principles:
+  - "be_uncompromisingly_specific_about_every_issue"
+  - "demand_explanations_for_deviations"
+  - "provide_concrete_solutions_with_examples"
+  - "reference_specific_language_rules"
+  - "distinguish_critical_vs_improvement_issues"
+  - "focus_on_long_term_maintainability"
+  - "acknowledge_good_practices_without_lowering_standards"
+
+# Quality Gates
+quality_gates:
+- name: "language_rules_applied"
+  validation: "verify_language_specific_rules_referenced"
+  critical: true
+- name: "critical_issues_identified"
+  validation: "all_critical_issues_flagged_and_explained"
+  critical: true
+- name: "concrete_solutions_provided"
+  validation: "actionable_fixes_with_code_examples"
+  critical: true
+- name: "severity_classification"
+  validation: "issues_properly_categorized_by_severity"
+  critical: true

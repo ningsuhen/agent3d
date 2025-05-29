@@ -101,7 +101,7 @@ for rule in testing_rules['critical_rules']:
 def get_review_criteria(language):
     with open(f'rules.yml/{language}.yml') as f:
         rules = yaml.safe_load(f)
-    
+
     return {
         'role': rules['code_review']['role'],
         'critical_areas': rules['code_review']['critical_areas'],
@@ -110,11 +110,11 @@ def get_review_criteria(language):
 
 def classify_issue_severity(issue, language_rules):
     severity_levels = language_rules['code_review']['severity_levels']
-    
+
     for level, issues in severity_levels.items():
         if issue in issues['issues']:
             return level
-    
+
     return 'low'
 ```
 
@@ -123,17 +123,17 @@ def classify_issue_severity(issue, language_rules):
 def validate_quality_gates(code_analysis, language):
     with open(f'rules.yml/{language}.yml') as f:
         rules = yaml.safe_load(f)
-    
+
     quality_gates = rules['quality_gates']
     results = {}
-    
+
     for gate_name, gate_config in quality_gates.items():
         if isinstance(gate_config, list):
             for gate in gate_config:
                 check_name = gate['name']
                 validation = gate['check']
                 results[check_name] = validate_check(code_analysis, validation)
-    
+
     return results
 ```
 
@@ -142,17 +142,17 @@ def validate_quality_gates(code_analysis, language):
 def generate_project_config(language, project_type):
     with open(f'rules.yml/{language}.yml') as f:
         rules = yaml.safe_load(f)
-    
+
     config = {
         'environment': rules['environment'],
         'code_style': rules['code_style'],
         'testing': rules['testing']['framework']
     }
-    
+
     # Customize based on project type
     if project_type == 'library':
         config['documentation'] = rules['documentation']
-    
+
     return config
 ```
 
@@ -207,14 +207,17 @@ Rules provide quality gates for:
 - **MCP Servers**: Real-time rule validation
 - **VSCode Extension**: IDE integration for rule enforcement
 
-## Migration from Markdown
+## YAML-First Approach
 
-Original Markdown rules in `../rules/` remain for human reference. YAML versions provide:
+**As of 2025-01-27**, the DDD framework has migrated to a YAML-first approach for language rules:
 
-- **Machine Processing**: Better automation and tool integration
-- **Structured Validation**: Programmatic quality gate checking
-- **Enhanced Metadata**: Additional fields for tool integration
-- **Conditional Logic**: Context-aware rule application
+- **Primary Format**: YAML versions are the authoritative source for LLM processing
+- **Machine Processing**: Optimized automation and tool integration
+- **Structured Validation**: Programmatic quality gate checking and rule enforcement
+- **Enhanced Metadata**: Comprehensive fields for automated decision-making
+- **Conditional Logic**: Context-aware rule application and severity classification
+
+**Note**: Markdown versions have been removed after validation confirmed YAML completeness. For human-readable documentation, refer to the main `AGENT-GUIDELINES.md` and language-specific sections in `docs/`.
 
 ## Best Practices
 
@@ -239,11 +242,12 @@ JSON schemas for rule validation are available at `../schemas/rules.schema.json`
 ## Contributing
 
 When modifying language rules:
-1. Update both YAML and Markdown versions
+1. Update YAML versions (primary format)
 2. Validate YAML syntax and structure
 3. Test with real projects in the target language
 4. Ensure quality gates are testable and measurable
-5. Update integration documentation
+5. Update integration documentation in `docs/`
+6. Verify LLM agent compatibility and performance
 
 ## Custom Rules
 
