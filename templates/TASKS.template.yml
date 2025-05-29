@@ -1,0 +1,85 @@
+metadata:
+  name: "Tasks Template"
+  type: "template"
+  format: "markdown_content_with_yaml_metadata"
+  purpose: "Tasks organized by priority with status tracking and actionable descriptions"
+
+usage:
+  description: "Tasks organized by priority (High/Medium/Low/Completed) with status [x]/[ ]/[~] and actionable descriptions"
+  structure: "Use ## Groups/### Sub-Groups structure"
+  sub_tasks: "Complex tasks can have sub-tasks using indented bullets (2 spaces)"
+  
+  priority_guidelines:
+    high_priority: "Tasks that block other work, critical bugs, security issues"
+    medium_priority: "Feature improvements, performance optimizations, documentation updates"
+    low_priority: "Nice-to-have features, experimental ideas, long-term goals"
+  
+  critical_structure: "Use ## Groups (Priority Levels) for High/Medium/Low/Completed and ### Sub-Groups (Functional Areas) for specific work areas within each priority"
+
+template_content: |
+  # Tasks
+
+  ## High Priority
+
+  ### {{functional_area}} (e.g., Documentation & Guidelines)
+
+  - {{status}} {{task_name}} - {{task_description}}
+  - {{status}} {{task_name}} - {{task_description}}
+    - {{status}} {{sub_task_name}} - {{sub_task_description}}
+    - {{status}} {{sub_task_name}} - {{sub_task_description}}
+
+  ### {{functional_area}} (e.g., Infrastructure & Tooling)
+
+  - {{status}} {{task_name}} - {{task_description}}
+  - {{status}} {{task_name}} - {{task_description}}
+
+  ## Medium Priority
+
+  ### {{functional_area}} (e.g., Feature Development)
+
+  - {{status}} {{task_name}} - {{task_description}}
+  - {{status}} {{task_name}} - {{task_description}}
+    - {{status}} {{sub_task_name}} - {{sub_task_description}}
+
+  ### {{functional_area}} (e.g., Quality & Testing)
+
+  - {{status}} {{task_name}} - {{task_description}}
+
+  ## Low Priority
+
+  ### {{functional_area}} (e.g., Future Enhancements)
+
+  - {{status}} {{task_name}} - {{task_description}}
+  - {{status}} {{task_name}} - {{task_description}}
+
+  ## Completed
+
+  ### {{functional_area}} (e.g., Documentation & Guidelines)
+
+  - [x] {{completed_task_name}} - {{completion_description}}
+  - [x] {{completed_task_name}} - {{completion_description}}
+    - [x] {{completed_sub_task}} - {{sub_completion_description}}
+
+  ### {{functional_area}} (e.g., Infrastructure & Tooling)
+
+  - [x] {{completed_task_name}} - {{completion_description}}
+
+examples:
+  functional_area: "Documentation & Guidelines, Infrastructure & Tooling, Feature Development, Quality & Testing, Future Enhancements"
+  status: "[x] (completed), [ ] (not started), [~] (in progress)"
+  task_name: "Update documentation, Fix critical bug, Implement feature"
+  task_description: "Brief description of what needs to be done"
+  sub_task_name: "Specific sub-task within larger task"
+  sub_task_description: "Detailed description of sub-task"
+  completed_task_name: "Task that has been finished"
+  completion_description: "Description of what was completed"
+
+validation:
+  rules: 
+    - "Follow Common Procedures for common validation checklist"
+    - "Replace ALL {{placeholders}} with actual content"
+    - "Remove <template> tags"
+    - "Use ## Groups / ### Sub-Groups structure"
+    - "Include functional links and single-line entries"
+    - "Mark [x] only with verifiable evidence"
+  references: ["BASE.template.md#universal-validation-rules", "BASE.template.md#documentation-templates-features-requirements-tasks-etc"]

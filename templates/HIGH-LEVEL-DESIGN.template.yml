@@ -1,0 +1,97 @@
+metadata:
+  name: "High-Level Design Template"
+  type: "template"
+  format: "markdown_content_with_yaml_metadata"
+  purpose: "System architecture and component design documentation"
+
+usage:
+  description: "System overview, core components, data flow, component interactions, directory structure, technical decisions, dependencies, module design links"
+  
+  required_sections:
+    - "System overview"
+    - "Core components"
+    - "Data flow (Mermaid)"
+    - "Component interactions"
+    - "Directory structure"
+    - "Technical decisions"
+    - "Dependencies"
+    - "Module design links"
+
+template_content: |
+  # High-Level Design
+
+  ## System Overview
+
+  {{system_description}}
+
+  ```mermaid
+  {{high_level_diagram}}
+  ```
+
+  ## Core Components
+
+  ### {{component_name}}
+
+  {{component_description}}
+
+  ## Data Flow
+
+  {{data_flow_description}}
+
+  ```mermaid
+  {{data_flow_diagram}}
+  ```
+
+  ## Component Interactions
+
+  {{interaction_description}}
+
+  ## Directory Structure
+
+  ```
+  {{directory_structure}}
+  ```
+
+  ## Technical Decisions
+
+  ### {{decision_name}}
+
+  **Rationale:** {{decision_rationale}}
+  **Alternatives:** {{alternatives}}
+  **Trade-offs:** {{trade_offs}}
+
+  ## Dependencies
+
+  - **{{dependency_name}}** - {{dependency_description}}
+
+  ## Component Designs
+
+  - **[{{component_name}}](designs/{{component_file}}.md)** - {{component_description}}
+
+examples:
+  system_description: "Overall description of what the system does and its main purpose"
+  high_level_diagram: "Mermaid diagram showing system architecture"
+  component_name: "API Gateway, Database Layer, Authentication Service"
+  component_description: "Description of component responsibilities and functionality"
+  data_flow_description: "How data moves through the system"
+  data_flow_diagram: "Mermaid diagram showing data flow"
+  interaction_description: "How components communicate with each other"
+  directory_structure: "Project directory tree structure"
+  decision_name: "Technology Choice, Architecture Pattern, Design Decision"
+  decision_rationale: "Why this decision was made"
+  alternatives: "Other options that were considered"
+  trade_offs: "Benefits and drawbacks of the chosen approach"
+  dependency_name: "External library, service, or framework"
+  dependency_description: "What the dependency provides and why it's needed"
+  component_file: "component-name, service-name, module-name"
+
+validation:
+  rules:
+    - "System overview present"
+    - "Components with responsibilities defined"
+    - "Data flow diagrams (Mermaid) included"
+    - "Directory structure documented"
+    - "Technical decisions with rationale"
+    - "Dependencies listed and explained"
+    - "Functional design links provided"
+  references: ["BASE.template.md#universal-validation-rules"]

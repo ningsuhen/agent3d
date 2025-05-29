@@ -1,0 +1,261 @@
+metadata:
+  name: "User Stories Template"
+  type: "template"
+  format: "markdown_content_with_yaml_metadata"
+  purpose: "Comprehensive user stories with personas, epics, use cases, and story mapping"
+
+usage:
+  description: "This document must provide comprehensive user stories with personas, epics, use cases, and story mapping"
+
+  required_content:
+    - "User personas with detailed characteristics and goals"
+    - "Epic stories with business value and user mapping"
+    - "Individual user stories following standard format"
+    - "Use cases with detailed flows and scenarios"
+    - "User journey maps with touchpoints and emotions"
+    - "Story mapping with release planning"
+    - "Story dependencies and relationships"
+    - "Validation criteria for stories and personas"
+
+  required_sections:
+    - "User Personas - Primary and secondary personas with detailed profiles"
+    - "Epic Stories - High-level epics with associated user stories"
+    - "Use Cases - Detailed use cases with flows and exceptions"
+    - "User Journey Maps - Journey steps with touchpoints and emotions"
+    - "Story Mapping - Release planning with prioritized stories"
+    - "Story Dependencies - Dependency mapping and explanations"
+    - "Validation Criteria - Story and persona validation checklists"
+
+template_content: |
+  # User Stories
+
+  **Project:** [Project Name]
+  **Version:** [Version Number]
+  **Date:** [Date]
+
+  ## User Personas
+
+  ### Primary Personas
+
+  #### Persona 1: [Persona Name]
+
+  - **Role:** [Job title/role]
+  - **Goals:** [Primary goals and motivations]
+  - **Pain Points:** [Current challenges and frustrations]
+  - **Technical Skill Level:** [Beginner/Intermediate/Advanced]
+  - **Usage Patterns:** [How they interact with the system]
+
+  #### Persona 2: [Persona Name]
+
+  - **Role:** [Job title/role]
+  - **Goals:** [Primary goals and motivations]
+  - **Pain Points:** [Current challenges and frustrations]
+  - **Technical Skill Level:** [Beginner/Intermediate/Advanced]
+  - **Usage Patterns:** [How they interact with the system]
+
+  ### Secondary Personas
+
+  #### Persona 3: [Persona Name]
+
+  - **Role:** [Job title/role]
+  - **Goals:** [Primary goals and motivations]
+  - **Pain Points:** [Current challenges and frustrations]
+  - **Technical Skill Level:** [Beginner/Intermediate/Advanced]
+  - **Usage Patterns:** [How they interact with the system]
+
+  ## Epic Stories
+
+  ### Epic 1: [Epic Name]
+
+  **Description:** [High-level description of the epic]
+  **Business Value:** [Why this epic is important]
+  **User Personas:** [Which personas benefit from this epic]
+
+  #### User Stories
+
+  - **US-001:** As a [persona], I want [functionality] so that [benefit]
+    - **Priority:** [High/Medium/Low]
+    - **Story Points:** [Estimation]
+    - **Acceptance Criteria:** [Link to acceptance criteria]
+    - **Dependencies:** [Other stories this depends on]
+
+  - **US-002:** As a [persona], I want [functionality] so that [benefit]
+    - **Priority:** [High/Medium/Low]
+    - **Story Points:** [Estimation]
+    - **Acceptance Criteria:** [Link to acceptance criteria]
+    - **Dependencies:** [Other stories this depends on]
+
+  ### Epic 2: [Epic Name]
+
+  **Description:** [High-level description of the epic]
+  **Business Value:** [Why this epic is important]
+  **User Personas:** [Which personas benefit from this epic]
+
+  #### User Stories
+
+  - **US-003:** As a [persona], I want [functionality] so that [benefit]
+    - **Priority:** [High/Medium/Low]
+    - **Story Points:** [Estimation]
+    - **Acceptance Criteria:** [Link to acceptance criteria]
+    - **Dependencies:** [Other stories this depends on]
+
+  ## Use Cases
+
+  ### Use Case 1: [Use Case Name]
+
+  - **Actor:** [Primary actor]
+  - **Goal:** [What the actor wants to achieve]
+  - **Preconditions:** [What must be true before this use case]
+  - **Main Flow:**
+    1. [Step 1]
+    2. [Step 2]
+    3. [Step 3]
+  - **Alternative Flows:**
+    - **Alt 1:** [Alternative scenario]
+    - **Alt 2:** [Alternative scenario]
+  - **Postconditions:** [What is true after successful completion]
+  - **Exception Flows:**
+    - **Exception 1:** [Error scenario and handling]
+
+  ### Use Case 2: [Use Case Name]
+
+  - **Actor:** [Primary actor]
+  - **Goal:** [What the actor wants to achieve]
+  - **Preconditions:** [What must be true before this use case]
+  - **Main Flow:**
+    1. [Step 1]
+    2. [Step 2]
+    3. [Step 3]
+  - **Alternative Flows:**
+    - **Alt 1:** [Alternative scenario]
+    - **Alt 2:** [Alternative scenario]
+  - **Postconditions:** [What is true after successful completion]
+  - **Exception Flows:**
+    - **Exception 1:** [Error scenario and handling]
+
+  ## User Journey Maps
+
+  ### Journey 1: [Journey Name]
+
+  **Persona:** [Which persona this journey represents]
+  **Scenario:** [Context and situation]
+
+  #### Journey Steps
+
+  1. **[Step Name]**
+     - **Action:** [What the user does]
+     - **Touchpoint:** [Where this happens]
+     - **Emotion:** [How the user feels]
+     - **Pain Points:** [Challenges or frustrations]
+     - **Opportunities:** [Improvement opportunities]
+
+  2. **[Step Name]**
+     - **Action:** [What the user does]
+     - **Touchpoint:** [Where this happens]
+     - **Emotion:** [How the user feels]
+     - **Pain Points:** [Challenges or frustrations]
+     - **Opportunities:** [Improvement opportunities]
+
+  ## Story Mapping
+
+  ### Release 1: [Release Name]
+
+  **Theme:** [Overarching theme for this release]
+  **Timeline:** [Expected timeline]
+
+  #### Must Have (Priority 1)
+
+  - US-001: [Story summary]
+  - US-002: [Story summary]
+
+  #### Should Have (Priority 2)
+
+  - US-003: [Story summary]
+  - US-004: [Story summary]
+
+  #### Could Have (Priority 3)
+
+  - US-005: [Story summary]
+  - US-006: [Story summary]
+
+  ### Release 2: [Release Name]
+
+  **Theme:** [Overarching theme for this release]
+  **Timeline:** [Expected timeline]
+
+  #### Must Have (Priority 1)
+
+  - US-007: [Story summary]
+  - US-008: [Story summary]
+
+  ## Story Dependencies
+
+  ### Dependency Map
+
+  ```
+  US-001 → US-003 → US-005
+  US-002 → US-004 → US-006
+  ```
+
+  ### Dependency Details
+
+  - **US-001 → US-003:** [Explanation of dependency]
+  - **US-002 → US-004:** [Explanation of dependency]
+  - **US-003 → US-005:** [Explanation of dependency]
+
+  ## Validation Criteria
+
+  ### Story Validation
+
+  - [ ] Each story follows the "As a... I want... So that..." format
+  - [ ] Each story is independent and testable
+  - [ ] Each story provides clear business value
+  - [ ] Each story is sized appropriately for development
+  - [ ] Dependencies are clearly identified
+
+  ### Persona Validation
+
+  - [ ] Personas are based on real user research
+  - [ ] Personas represent distinct user groups
+  - [ ] Personas have clear goals and pain points
+  - [ ] Stories map clearly to persona needs
+
+  ---
+
+  **Document Control:**
+
+  - **Created by:** [Author name]
+  - **Reviewed by:** [Reviewer names]
+  - **Approved by:** [Approver names]
+  - **Last Updated:** [USE: `date +%Y-%m-%d`]
+  - **Next Review:** [USE: `date +%Y-%m-%d` +30 days]
+
+examples:
+  project_name: "E-commerce Platform, Mobile Banking App, Customer Portal"
+  version_number: "1.0, 2.1, 3.0-beta"
+  persona_name: "Sarah the Shopper, John the Manager, Admin User"
+  job_title_role: "Marketing Manager, Software Developer, Customer Service Rep"
+  goals: "Complete purchases quickly, Manage team efficiently, Resolve customer issues"
+  pain_points: "Slow checkout process, Complex interface, Limited reporting"
+  technical_skill_level: "Beginner, Intermediate, Advanced"
+  epic_name: "User Authentication, Shopping Cart, Payment Processing"
+  functionality: "log in securely, add items to cart, process payments"
+  benefit: "access my account safely, save items for later, complete purchases"
+  priority: "High, Medium, Low"
+  story_points: "1, 2, 3, 5, 8, 13"
+  use_case_name: "User Login, Product Search, Order Checkout"
+  primary_actor: "Customer, Admin, Guest User"
+  journey_name: "Purchase Flow, Onboarding, Support Request"
+  release_name: "MVP Release, Feature Enhancement, Bug Fix Release"
+
+validation:
+  checklist:
+    - "Each story follows 'As a... I want... So that...' format"
+    - "Stories are independent and testable"
+    - "Personas are based on real user research"
+    - "Use cases include main and alternative flows"
+    - "Journey maps include emotional aspects"
+    - "Story mapping aligns with release planning"
+    - "Dependencies are clearly documented"
+
+  references: ["BASE.template.md#universal-validation-rules"]

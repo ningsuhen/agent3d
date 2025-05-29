@@ -1,0 +1,165 @@
+metadata:
+  name: "Changelog Template"
+  type: "template"
+  format: "markdown_content_with_yaml_metadata"
+  purpose: "Comprehensive record of all changes made to the project"
+
+usage:
+  description: "This document must provide a comprehensive record of all changes made to the project, organized chronologically and categorized by change type"
+  
+  required_content:
+    - "Clear versioning scheme (Semantic Versioning recommended)"
+    - "Chronological organization with most recent changes first"
+    - "Categorized changes (Added, Changed, Deprecated, Removed, Fixed, Security)"
+    - "DDD pass execution tracking with specific pass types"
+    - "Links to relevant documentation, issues, or pull requests"
+    - "Breaking change notifications"
+    - "Migration guidance for significant changes"
+  
+  required_sections:
+    - "Unreleased - Changes not yet released"
+    - "Version Entries - Released versions with dates"
+    - "Change Categories - Organized by type of change"
+    - "DDD Pass Tracking - Record of pass executions"
+    - "Breaking Changes - Significant compatibility changes"
+    - "Migration Notes - Guidance for upgrading"
+
+template_content: |
+  # Changelog
+
+  All notable changes to this project will be documented in this file.
+
+  The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+  and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+  ## [Unreleased]
+
+  ### Added
+
+  - {{new_feature_description}}
+  - {{new_component_description}}
+
+  ### Changed
+
+  - {{modified_feature_description}}
+  - {{updated_behavior_description}}
+
+  ### Deprecated
+
+  - {{deprecated_feature_description}}
+
+  ### Removed
+
+  - {{removed_feature_description}}
+
+  ### Fixed
+
+  - {{bug_fix_description}}
+  - {{issue_resolution_description}}
+
+  ### Security
+
+  - {{security_improvement_description}}
+
+  ### DDD Pass Executions
+
+  - **{{pass_date}}**: {{pass_type}} Pass - {{pass_description}}
+  - **{{pass_date}}**: {{pass_type}} Pass - {{pass_description}}
+
+  ## [{{version}}] - {{release_date}}
+
+  ### Added
+
+  - {{feature_description}} ([#{{issue_number}}]({{issue_link}}))
+  - {{component_description}} - {{detailed_explanation}}
+
+  ### Changed
+
+  - **BREAKING**: {{breaking_change_description}}
+  - {{improvement_description}} ([#{{pr_number}}]({{pr_link}}))
+
+  ### Fixed
+
+  - {{bug_description}} ([#{{issue_number}}]({{issue_link}}))
+
+  ### DDD Pass Executions
+
+  - **{{pass_date}}**: Full Pass - {{comprehensive_update_description}}
+  - **{{pass_date}}**: Foundation Pass - {{foundation_changes}}
+  - **{{pass_date}}**: Documentation Pass - {{documentation_updates}}
+  - **{{pass_date}}**: Planning Pass - {{planning_activities}}
+  - **{{pass_date}}**: Implementation Pass - {{implementation_changes}}
+  - **{{pass_date}}**: Testing Pass - {{testing_improvements}}
+  - **{{pass_date}}**: Refactoring Pass - {{refactoring_changes}}
+  - **{{pass_date}}**: Code Review Pass - {{review_outcomes}}
+  - **{{pass_date}}**: Synchronization Pass - {{sync_changes}}
+  - **{{pass_date}}**: Quality Pass - {{quality_improvements}}
+  - **{{pass_date}}**: Prune Pass - {{cleanup_actions}}
+  - **{{pass_date}}**: Reverse Pass - {{reverse_drift_fixes}}
+
+  ### Migration Notes
+
+  - {{migration_instruction_1}}
+  - {{migration_instruction_2}}
+
+  ## [{{previous_version}}] - {{previous_date}}
+
+  ### Added
+
+  - {{previous_feature_description}}
+
+  ### Changed
+
+  - {{previous_change_description}}
+
+  ### Fixed
+
+  - {{previous_fix_description}}
+
+  ### DDD Pass Executions
+
+  - **{{pass_date}}**: {{pass_type}} Pass - {{pass_description}}
+
+examples:
+  version: "1.0.0, 2.1.3, 3.0.0-beta"
+  release_date: "2025-01-29, 2024-12-15, 2024-11-30"
+  new_feature_description: "Added user authentication system"
+  modified_feature_description: "Updated API response format for better performance"
+  deprecated_feature_description: "Legacy authentication method (will be removed in v3.0)"
+  removed_feature_description: "Removed deprecated configuration options"
+  bug_fix_description: "Fixed memory leak in data processing module"
+  security_improvement_description: "Enhanced encryption for sensitive data storage"
+  breaking_change_description: "Changed API endpoint structure - requires client updates"
+  pass_type: "Full, Foundation, Documentation, Planning, Implementation, Testing, Refactoring, Code Review, Synchronization, Quality, Prune, Reverse"
+  pass_date: "2025-01-29, 2024-12-15"
+  pass_description: "Updated all documentation templates to YAML format"
+  issue_number: "123, 456, 789"
+  pr_number: "45, 67, 89"
+  migration_instruction_1: "Update configuration files to use new format"
+  migration_instruction_2: "Run migration script: python migrate.py"
+
+ddd_pass_types:
+  full_pass: "Comprehensive update across all areas"
+  foundation_pass: "Core infrastructure and setup changes"
+  documentation_pass: "Documentation updates and improvements"
+  planning_pass: "Project planning and strategy activities"
+  implementation_pass: "Feature implementation and development"
+  testing_pass: "Testing improvements and coverage expansion"
+  refactoring_pass: "Code refactoring and optimization"
+  code_review_pass: "Code review activities and outcomes"
+  synchronization_pass: "Synchronization between components"
+  quality_pass: "Quality improvements and standards"
+  prune_pass: "Cleanup and removal of obsolete items"
+  reverse_pass: "Reverse drift detection and fixes"
+
+validation:
+  checklist:
+    - "All changes are categorized appropriately (Added, Changed, Fixed, etc.)"
+    - "DDD pass executions are recorded with dates and descriptions"
+    - "Breaking changes are clearly marked and explained"
+    - "Version numbers follow semantic versioning"
+    - "Most recent changes appear first"
+    - "Links to issues and PRs are functional"
+    - "Migration notes are provided for breaking changes"
+  
+  references: ["BASE.template.md#universal-validation-rules", "../docs/COMMON-PROCEDURES.md#common-validation-checklist"]

@@ -1,0 +1,98 @@
+metadata:
+  name: "README Template"
+  type: "template"
+  format: "markdown_content_with_yaml_metadata"
+  purpose: "Main entry point for project documentation"
+
+usage:
+  description: "This document must serve as the main entry point for the project"
+  
+  required_content:
+    - "Clear project title and one-line description"
+    - "Project overview explaining what the project does"
+    - "Key features or benefits"
+    - "Installation/setup instructions (if applicable)"
+    - "Usage examples or getting started guide"
+    - "Links to additional documentation"
+    - "Contributing guidelines"
+    - "License information"
+  
+  required_sections:
+    - "Project title and description"
+    - "Overview/What it does"
+    - "Key features or benefits"
+    - "Installation/Setup (if applicable)"
+    - "Usage/Getting Started"
+    - "Documentation links"
+    - "Contributing"
+    - "License"
+
+template_content: |
+  # {{project_name}} - {{project_description}}
+
+  ## Overview
+
+  {{project_overview}}
+
+  ## Key Features
+
+  - **{{feature_name}}** - {{feature_description}}
+  - **{{feature_name}}** - {{feature_description}}
+  - **{{feature_name}}** - {{feature_description}}
+
+  ## Installation
+
+  {{installation_instructions}}
+
+  ```{{language}}
+  {{installation_commands}}
+  ```
+
+  ## Quick Start
+
+  {{usage_instructions}}
+
+  ```{{language}}
+  {{code_example}}
+  ```
+
+  ## Documentation
+
+  - [{{doc_name}}]({{doc_link}})
+  - [{{doc_name}}]({{doc_link}})
+  - [High-Level Design](docs/HIGH-LEVEL-DESIGN.md)
+  - [Contributing](CONTRIBUTING.md)
+
+  ## Contributing
+
+  {{contributing_instructions}}
+
+  ## License
+
+  {{license_info}}
+
+examples:
+  project_name: "Agent3D Framework, MyApp, DataProcessor"
+  project_description: "Brief one-line description of what the project does"
+  project_overview: "Detailed explanation of the project's purpose and functionality"
+  feature_name: "Core Feature, Advanced Analytics, Easy Integration"
+  feature_description: "Brief description of what this feature provides"
+  installation_instructions: "Step-by-step installation guide"
+  language: "bash, python, javascript, typescript"
+  installation_commands: "npm install, pip install, cargo install"
+  usage_instructions: "How to get started with the project"
+  code_example: "Basic usage example in the project's primary language"
+  doc_name: "API Reference, User Guide, Developer Docs"
+  doc_link: "docs/api.md, docs/guide.md, docs/dev.md"
+  contributing_instructions: "How to contribute to the project"
+  license_info: "MIT License, Apache 2.0, GPL v3"
+
+validation:
+  rules:
+    - "Clear project name/description"
+    - "Complete installation instructions"
+    - "Functional examples"
+    - "Clear contributing guidelines"
+    - "All required sections present"
+    - "Links to documentation are functional"
+  references: ["BASE.template.md#universal-validation-rules"]
