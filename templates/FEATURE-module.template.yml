@@ -10,9 +10,9 @@ metadata:
 usage:
     description: "Template for docs/features/ section files"
     naming_convention: "{{section_name}}.md, FT-{{SECTION}}-NNN, TC-{{SECTION}}-NNN"
-    test_strategy: "Select test cases judiciously based on feature complexity and risk. Sub-tests only when testing same logic with different parameters. Quality over quantity."
+    test_strategy: "Follow complexity-based test case selection - see procedures.yml/test-case-guidelines.yml"
     critical_requirement: "Follow DDD Procedures for merged FT-TC structure"
-    guidelines_reference: "See procedures.yml/test-case-guidelines.yml for test case selection guidance"
+    guidelines_reference: "See procedures.yml/test-case-guidelines.yml for comprehensive test case selection and implementation guidance"
 
 template_content: |
     # FT-{{SECTION}} - {{Module Title}}
@@ -25,17 +25,14 @@ template_content: |
     - **Dependencies:** {{Related features/requirements}}
     - **Impact:** {{High/Medium/Low}} - {{Impact description}}
     - **Code Location:** {{module.path}}[{{ImportedObject/Class}}] | {{file_path}} | {{N/A for documentation-only}}
-    - **Test Coverage:** {{5-8}} test cases covering all aspects
+    - **Test Coverage:** {{Select based on complexity: Simple(1-2), Moderate(2-4), Complex(3-6) - see guidelines}}
     - **Related Features:** [FT-{{RELATED_SECTION}}-{{NNN}}]({{related_file}}.md#ft-{{related_section}}-{{nnn}})
-    - **Test Cases:**
-        - [{{status}}] **TC-{{SECTION}}-001** - {{Core Functionality}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
-        - [{{status}}] **TC-{{SECTION}}-002** - {{Edge Cases}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
-        - [{{status}}] **TC-{{SECTION}}-003** - {{Error Handling}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
-        - [{{status}}] **TC-{{SECTION}}-004** - {{Integration}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
-        - [{{status}}] **TC-{{SECTION}}-005** - {{Performance}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
-        - [{{status}}] **TC-{{SECTION}}-006** - {{Parameterized}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
-            - [{{status}}] **TC-{{SECTION}}-006a** - {{Param 1}} - {{Same logic, diff input}}
-            - [{{status}}] **TC-{{SECTION}}-006b** - {{Param 2}} - {{Same logic, diff input}}
+    - **Test Cases:** {{Select test cases based on feature complexity and risk - see procedures.yml/test-case-guidelines.yml}}
+        - [{{status}}] **TC-{{SECTION}}-001** - {{Test Name Based on Selection Criteria}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
+        - [{{status}}] **TC-{{SECTION}}-002** - {{Test Name Based on Selection Criteria}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
+        - [{{status}}] **TC-{{SECTION}}-003** - {{Test Name Based on Selection Criteria}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
+            - [{{status}}] **TC-{{SECTION}}-003a** - {{Sub-test only for parameterized testing}} - {{Same logic, different input}}
+            - [{{status}}] **TC-{{SECTION}}-003b** - {{Sub-test only for parameterized testing}} - {{Same logic, different input}}
 
     ## FT-{{SECTION}}-002 - {{Feature Name}}
     - **Description:** {{Brief feature description}}
@@ -43,23 +40,20 @@ template_content: |
     - **Dependencies:** {{Related features/requirements}}
     - **Impact:** {{High/Medium/Low}} - {{Impact description}}
     - **Code Location:** {{module.path}}[{{ImportedObject/Class}}] | {{file_path}} | {{N/A for documentation-only}}
-    - **Test Coverage:** {{4-6}} test cases covering key scenarios
+    - **Test Coverage:** {{Select based on complexity: Simple(1-2), Moderate(2-4), Complex(3-6) - see guidelines}}
     - **Related Features:** [FT-{{SECTION}}-001]({{current_file}}.md#ft-{{section}}-001)
-    - **Test Cases:**
-        - [{{status}}] **TC-{{SECTION}}-007** - {{Basic Functionality}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
-        - [{{status}}] **TC-{{SECTION}}-008** - {{Validation}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
-        - [{{status}}] **TC-{{SECTION}}-009** - {{Boundary}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
-        - [{{status}}] **TC-{{SECTION}}-010** - {{Security}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
-        - [{{status}}] **TC-{{SECTION}}-011** - {{Cross-Platform}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
-            - [{{status}}] **TC-{{SECTION}}-011a** - {{Platform 1}} - {{Same test, diff platform}}
-            - [{{status}}] **TC-{{SECTION}}-011b** - {{Platform 2}} - {{Same test, diff platform}}
+    - **Test Cases:** {{Select test cases based on feature complexity and risk - see procedures.yml/test-case-guidelines.yml}}
+        - [{{status}}] **TC-{{SECTION}}-004** - {{Test Name Based on Selection Criteria}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
+        - [{{status}}] **TC-{{SECTION}}-005** - {{Test Name Based on Selection Criteria}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
+            - [{{status}}] **TC-{{SECTION}}-005a** - {{Sub-test only for parameterized testing}} - {{Same logic, different input}}
+            - [{{status}}] **TC-{{SECTION}}-005b** - {{Sub-test only for parameterized testing}} - {{Same logic, different input}}
 
 examples:
     section_examples: "security.md → FT-SEC-001, performance.md → FT-PERF-001"
     replacements:
         SECTION: "SEC/PERF"
         status: "[x]/[~]/[ ]"
-        test_count: "numbers (5-8)"
+        complexity_guidance: "Simple(1-2), Moderate(2-4), Complex(3-6) test cases based on feature complexity"
 
     code_location_examples:
         python_class_method: "tools/drift_scanner.py#DriftScanner.analyze_code_locations"
@@ -131,14 +125,8 @@ framework_classification:
     mixed_implementation: "code_file.py#Class | config.yml → Automated + Schema testing"
 
 test_guidelines:
-    test_types: "Core, Edge Cases, Error Handling, Integration, Performance, Security, Validation, Boundary"
-    sub_tests:
-        good_use: "Parameterized/Cross-platform/Data-driven (same logic, diff params)"
-        bad_use: "Different logic/scenarios"
-
-    examples:
-        good: "TC-001 Password Validation → TC-001a Valid, TC-001b Too short, TC-001c No numbers"
-        bad: "TC-001 Security → TC-001a Password ❌, TC-001b Auth ❌, TC-001c Authorization ❌"
+    reference: "See procedures.yml/test-case-guidelines.yml for comprehensive test case selection and implementation guidance"
+    key_principle: "Quality over quantity - select test cases based on feature complexity and risk"
 
 post_creation:
     steps:
