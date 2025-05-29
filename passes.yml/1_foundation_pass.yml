@@ -6,148 +6,148 @@ metadata:
   number: 1
   purpose: "Establish project foundation through configuration discovery, feature selection, and initial setup after requirements understood"
   role: "Project Setup Specialist"
-  expertise: ["project initialization", "configuration management", "foundation establishment"]
-  focus: ["project context", "tooling configuration", "basic structure"]
+  expertise: [ "project initialization", "configuration management", "foundation establishment" ]
+  focus: [ "project context", "tooling configuration", "basic structure" ]
 
 # When to Use
 when_to_use:
   conditions:
-    - "after_requirements_pass_completed"
-    - "project_configuration_needed"
-    - "before_technical_architecture_work"
-    - "agent3d_features_need_configuration"
-    - "project_foundation_setup_required"
-    - "ddd_passes_selection_needed"
-    - "before_technical_stakeholder_engagement"
-  
+  - "after_requirements_pass_completed"
+  - "project_configuration_needed"
+  - "before_technical_architecture_work"
+  - "agent3d_features_need_configuration"
+  - "project_foundation_setup_required"
+  - "ddd_passes_selection_needed"
+  - "before_technical_stakeholder_engagement"
+
   prerequisites:
-    - "requirements_pass_completed"
-    - "business_needs_established"
-    - "project_scope_defined"
+  - "requirements_pass_completed"
+  - "business_needs_established"
+  - "project_scope_defined"
 
 # Process Workflow
 process:
   workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
-  
+
   phases:
     scan:
       description: "Review requirements, check configuration, identify project type"
       actions:
-        - action: "repository_management"
-          reference: "../docs/COMMON-PROCEDURES.md#repository-management"
-        - action: "review_requirements"
-          check: "requirements_pass_outputs"
-        - action: "check_existing_config"
-          file: ".agent3d-config.yml"
-        - action: "identify_project_type"
-          analyze: ["codebase", "documentation", "structure"]
-          
+      - action: "repository_management"
+        reference: "../docs/COMMON-PROCEDURES.md#repository-management"
+      - action: "review_requirements"
+        check: "requirements_pass_outputs"
+      - action: "check_existing_config"
+        file: ".agent3d-config.yml"
+      - action: "identify_project_type"
+        analyze: [ "codebase", "documentation", "structure" ]
+
     draft:
       description: "Ask configuration questions, select DDD passes, create structure"
       actions:
-        - action: "interactive_configuration"
-          method: "one_question_at_a_time"
-        - action: "select_ddd_passes"
-          based_on: "project_requirements"
-        - action: "create_project_structure"
-          directories: ["docs", "tests", ".agent3d-tmp"]
-          
+      - action: "interactive_configuration"
+        method: "one_question_at_a_time"
+      - action: "select_ddd_passes"
+        based_on: "project_requirements"
+      - action: "create_project_structure"
+        directories: [ "docs", "tests", ".agent3d-tmp" ]
+
     ask:
       description: "Interactive configuration and validation"
       protocol:
-        - "ask_one_question_at_a_time"
-        - "wait_for_response_before_next"
-        - "validate_choices_for_consistency"
+      - "ask_one_question_at_a_time"
+      - "wait_for_response_before_next"
+      - "validate_choices_for_consistency"
       areas:
-        - "project_type_and_language"
-        - "ddd_passes_selection"
-        - "quality_level_requirements"
-        - "custom_configuration_needs"
-        
+      - "project_type_and_language"
+      - "ddd_passes_selection"
+      - "quality_level_requirements"
+      - "custom_configuration_needs"
+
     sync:
       description: "Save configuration and establish foundation"
       critical_actions:
-        - action: "save_agent3d_config"
-          file: ".agent3d-config.yml"
-          critical: true
-        - action: "memorize_entire_config"
-          requirement: "IMMEDIATELY_MEMORIZE_ENTIRE_NEW_CONFIG"
-          critical: true
-        - action: "create_foundation_structure"
-        - action: "establish_docs_framework"
-        - action: "create_ddd_status"
-          file: "docs/DDD-STATUS.md"
-          
+      - action: "save_agent3d_config"
+        file: ".agent3d-config.yml"
+        critical: true
+      - action: "memorize_entire_config"
+        requirement: "IMMEDIATELY_MEMORIZE_ENTIRE_NEW_CONFIG"
+        critical: true
+      - action: "create_foundation_structure"
+      - action: "establish_docs_framework"
+      - action: "create_ddd_status"
+        file: "docs/DDD-STATUS.md"
+
     confirm:
       description: "Check settings and commit if required"
       actions:
-        - action: "check_memorized_git_workflow"
-        - action: "confirm_before_commit"
-          condition: "git_workflow.require_commit_confirmation == true"
-        - action: "mark_completed_steps"
-          format: "✅"
+      - action: "check_memorized_git_workflow"
+      - action: "confirm_before_commit"
+        condition: "git_workflow.require_commit_confirmation == true"
+      - action: "mark_completed_steps"
+        format: "✅"
 
 # Configuration Framework
 configuration_framework:
   project_type_discovery:
     project_category:
-      options: ["web_application", "api_service", "library", "cli_tool", "mobile_app", "desktop_application", "other"]
+      options: [ "web_application", "api_service", "library", "cli_tool", "mobile_app", "desktop_application", "other" ]
       question: "What type of project are you working on?"
-      
+
     project_scale:
-      options: ["small_personal", "medium_team", "large_enterprise"]
+      options: [ "small_personal", "medium_team", "large_enterprise" ]
       question: "What is the scale of your project?"
-      
+
     project_phase:
-      options: ["new_project", "existing_enhancement", "legacy_modernization"]
+      options: [ "new_project", "existing_enhancement", "legacy_modernization" ]
       question: "What phase is your project in?"
-      
+
     project_timeline:
-      options: ["proof_of_concept", "mvp", "production_ready", "long_term_maintenance"]
+      options: [ "proof_of_concept", "mvp", "production_ready", "long_term_maintenance" ]
       question: "What is your project timeline?"
 
   technology_stack:
     primary_language:
-      options: ["python", "javascript", "typescript", "java", "go", "csharp", "rust", "other"]
+      options: [ "python", "javascript", "typescript", "java", "go", "csharp", "rust", "other" ]
       question: "What is your primary programming language?"
-      
+
     framework_platform:
       conditional: true
       depends_on: "primary_language"
-      examples: ["django", "react", "spring_boot", "gin", "dotnet"]
+      examples: [ "django", "react", "spring_boot", "gin", "dotnet" ]
       question: "What framework or platform are you using?"
-      
+
     database:
-      options: ["sql", "nosql", "file_based", "none"]
+      options: [ "sql", "nosql", "file_based", "none" ]
       question: "What type of database are you using?"
-      
+
     deployment:
-      options: ["cloud", "on_premise", "hybrid", "local_development_only"]
+      options: [ "cloud", "on_premise", "hybrid", "local_development_only" ]
       question: "What is your deployment target?"
 
   ddd_pass_selection:
     documentation_passes:
-      always_enabled: ["foundation", "requirements", "documentation", "quality"]
+      always_enabled: [ "foundation", "requirements", "documentation", "quality" ]
       description: "Core documentation passes always enabled"
-      
+
     implementation_passes:
       conditional: "enable_for_code_projects"
-      passes: ["development", "implementation", "testing"]
+      passes: [ "development", "implementation", "testing" ]
       skip_condition: "documentation_only_project"
-      
+
     testing_passes:
       conditional: "enable_for_production_code"
-      passes: ["testing", "code_review"]
+      passes: [ "testing", "code_review" ]
       optional_condition: "prototype_project"
-      
+
     code_review_passes:
       conditional: "enable_for_team_projects"
-      passes: ["code_review"]
+      passes: [ "code_review" ]
       optional_condition: "personal_project"
-      
+
     maintenance_passes:
       conditional: "enable_for_long_term_projects"
-      passes: ["refactoring", "prune", "reverse"]
+      passes: [ "refactoring", "prune", "reverse" ]
       description: "Enable for projects with ongoing maintenance"
 
   quality_standards:
@@ -156,26 +156,26 @@ configuration_framework:
         strict:
           description: "Enterprise-grade quality requirements"
           use_case: "production systems, regulated environments"
-          
+
         balanced:
           description: "Standard team development practices"
           use_case: "team projects, business applications"
-          
+
         relaxed:
           description: "Flexible approach for rapid development"
           use_case: "personal projects, prototypes"
       question: "What quality level do you need?"
-      
+
     validation_mode:
-      options: ["full_validation", "essential_only", "minimal_checks"]
+      options: [ "full_validation", "essential_only", "minimal_checks" ]
       question: "What level of validation do you want?"
-      
+
     documentation_standards:
-      options: ["complete", "core_only", "lightweight"]
+      options: [ "complete", "core_only", "lightweight" ]
       question: "What documentation standards do you need?"
-      
+
     code_quality:
-      options: ["high_standards", "standard_practices", "flexible_approach"]
+      options: [ "high_standards", "standard_practices", "flexible_approach" ]
       question: "What code quality standards do you want?"
 
 # Interactive Process
@@ -183,24 +183,24 @@ interactive_process:
   question_flow:
     step_1:
       question: "What type of project are you working on?"
-      options: ["web_application", "api_service", "library", "cli_tool", "mobile_app", "other"]
-      
+      options: [ "web_application", "api_service", "library", "cli_tool", "mobile_app", "other" ]
+
     step_2:
       question: "What is your primary programming language?"
-      options: ["python", "javascript", "java", "go", "rust", "other"]
-      
+      options: [ "python", "javascript", "java", "go", "rust", "other" ]
+
     step_3:
       question: "Is this a personal project or team project?"
-      options: ["personal", "team", "enterprise"]
-      
+      options: [ "personal", "team", "enterprise" ]
+
     step_4:
       question: "What quality level do you need?"
-      options: ["strict", "balanced", "relaxed"]
-      
+      options: [ "strict", "balanced", "relaxed" ]
+
     step_5:
       question: "Which DDD passes do you want to enable?"
       method: "multi_select_with_recommendations"
-      
+
     step_6:
       question: "Any specific configuration requirements?"
       type: "open_ended"
@@ -208,30 +208,30 @@ interactive_process:
 
   validation:
     consistency_checks:
-      - "validate_language_framework_compatibility"
-      - "check_pass_dependencies"
-      - "verify_quality_level_alignment"
-      
+    - "validate_language_framework_compatibility"
+    - "check_pass_dependencies"
+    - "verify_quality_level_alignment"
+
     conflict_warnings:
-      - "warn_about_incompatible_selections"
-      - "suggest_missing_dependencies"
-      - "recommend_optimal_configurations"
-      
+    - "warn_about_incompatible_selections"
+    - "suggest_missing_dependencies"
+    - "recommend_optimal_configurations"
+
     confirmation:
-      - "display_final_configuration_summary"
-      - "request_user_confirmation"
-      - "allow_modifications_if_needed"
+    - "display_final_configuration_summary"
+    - "request_user_confirmation"
+    - "allow_modifications_if_needed"
 
 # Expected Outcomes
 expected_outcomes:
   project_configuration:
     file: ".agent3d-config.yml"
-    contents: ["passes", "rules", "quality_thresholds"]
-    
+    contents: [ "passes", "rules", "quality_thresholds" ]
+
   foundation_structure:
-    directories: ["docs/", "tests/", ".agent3d-tmp/"]
+    directories: [ "docs/", "tests/", ".agent3d-tmp/" ]
     features: "agent3d_features_configured"
-    
+
   configuration_documentation:
     decisions: "recorded_in_config"
     scope: "established_and_documented"
@@ -240,33 +240,33 @@ expected_outcomes:
 related_passes:
   sequence: "Requirements → Foundation → Documentation"
   dependencies:
-    prerequisites: ["requirements_pass"]
+    prerequisites: [ "requirements_pass" ]
     next_pass: "documentation_pass"
 
 # Quality Gates
 quality_gates:
   completion_criteria:
-    - name: "project_type_and_scope_defined"
-      validation: "check_project_metadata_complete"
-      
-    - name: "technology_stack_configured"
-      validation: "verify_language_and_framework_settings"
-      
-    - name: "ddd_pass_selection_finalized"
-      validation: "confirm_enabled_passes_list"
-      
-    - name: "quality_standards_established"
-      validation: "validate_quality_thresholds_set"
-      
-    - name: "configuration_file_created"
-      validation: "check_agent3d_config_exists_and_valid"
-      
-    - name: "foundation_structure_established"
-      validation: "verify_directory_structure_created"
-      
-    - name: "config_memorized"
-      validation: "confirm_agent_memorized_entire_config"
-      critical: true
+  - name: "project_type_and_scope_defined"
+    validation: "check_project_metadata_complete"
+
+  - name: "technology_stack_configured"
+    validation: "verify_language_and_framework_settings"
+
+  - name: "ddd_pass_selection_finalized"
+    validation: "confirm_enabled_passes_list"
+
+  - name: "quality_standards_established"
+    validation: "validate_quality_thresholds_set"
+
+  - name: "configuration_file_created"
+    validation: "check_agent3d_config_exists_and_valid"
+
+  - name: "foundation_structure_established"
+    validation: "verify_directory_structure_created"
+
+  - name: "config_memorized"
+    validation: "confirm_agent_memorized_entire_config"
+    critical: true
 
 # Sample Configurations
 sample_configurations:
@@ -274,19 +274,19 @@ sample_configurations:
     project_type: "web_application"
     language: "python"
     quality_level: "balanced"
-    enabled_passes: ["foundation", "requirements", "documentation", "development", "testing", "code_review", "synchronization"]
-    
+    enabled_passes: [ "foundation", "requirements", "documentation", "development", "testing", "code_review", "synchronization" ]
+
   javascript_library:
     project_type: "library"
     language: "javascript"
     quality_level: "strict"
-    enabled_passes: ["foundation", "requirements", "documentation", "development", "testing", "refactoring", "synchronization"]
-    
+    enabled_passes: [ "foundation", "requirements", "documentation", "development", "testing", "refactoring", "synchronization" ]
+
   personal_prototype:
     project_type: "cli_tool"
     language: "go"
     quality_level: "relaxed"
-    enabled_passes: ["foundation", "requirements", "documentation", "development", "synchronization"]
+    enabled_passes: [ "foundation", "requirements", "documentation", "development", "synchronization" ]
 
 # Commit Message
 commit_message:
@@ -295,7 +295,7 @@ commit_message:
 
 # Critical Notes
 critical_notes:
-  - "IMMEDIATELY_MEMORIZE_ENTIRE_CONFIG after creating/updating .agent3d-config.yml"
-  - "Mark completed steps with ✅ during execution"
-  - "Validate git_workflow settings before committing"
-  - "Ensure all quality gates are met before proceeding"
+- "IMMEDIATELY_MEMORIZE_ENTIRE_CONFIG after creating/updating .agent3d-config.yml"
+- "Mark completed steps with ✅ during execution"
+- "Validate git_workflow settings before committing"
+- "Ensure all quality gates are met before proceeding"

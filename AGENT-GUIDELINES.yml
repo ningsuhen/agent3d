@@ -105,13 +105,45 @@ pass_execution:
       file: "~/.agent3d/passes.yml/full_pass.yml"
       triggers: [ "comprehensive review needed", "major milestone", "complete alignment required" ]
 
+  # Dual-Mode Execution Support
+  execution_modes:
+    full:
+      description: "Complete pass execution with comprehensive workflow"
+      phases: [ "scan", "draft", "ask", "sync", "confirm" ]
+      use_cases: [ "new projects", "major changes", "comprehensive reviews" ]
+
+    incremental:
+      description: "Targeted updates with streamlined workflow"
+      phases: [ "scan", "draft", "sync" ]
+      use_cases: [ "minor updates", "specific fixes", "targeted improvements" ]
+
+  # Mode Detection Logic
+  mode_detection:
+    criteria:
+      project_state:
+        new_project: "complete"
+        existing_project: "analyze_scope"
+
+      change_scope:
+        major_changes: "complete" # >30% of content
+        minor_changes: "incremental" # <30% of content
+
+      user_intent:
+        explicit_mode: "use_specified" # --mode=complete|incremental
+        context_clues: "analyze_request"
+
+    keywords:
+      complete_mode: [ "complete", "comprehensive", "major", "new", "overhaul", "setup", "initialize" ]
+      incremental_mode: [ "update", "fix", "add", "modify", "adjust", "improve", "minor" ]
+
   # Execution Protocol
   execution_steps:
   - "analyze_user_request_against_indicators"
+  - "detect_appropriate_execution_mode"
   - "select_appropriate_pass_from_registry"
   - "load_pass_configuration_from_yaml_file"
   - "validate_prerequisites_and_conditions"
-  - "execute_workflow_phases_as_defined_in_pass_file"
+  - "execute_workflow_phases_for_selected_mode"
   - "validate_quality_gates_completion"
   - "determine_next_pass_if_applicable"
 

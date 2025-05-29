@@ -1,0 +1,257 @@
+# {PASS_NAME} Pass - Dual-Mode Configuration
+# {PASS_DESCRIPTION}
+
+metadata:
+  name: "{PASS_NAME} Pass"
+  number: { PASS_NUMBER }
+  purpose: "{PASS_PURPOSE}"
+  role: "{PASS_ROLE}"
+  expertise: [ "{EXPERTISE_AREAS}" ]
+  focus: [ "{FOCUS_AREAS}" ]
+
+# Execution Modes
+execution_modes:
+  complete:
+    description: "Complete {PASS_NAME} execution with comprehensive workflow"
+    scope: "entire_{PASS_SCOPE}"
+    use_cases:
+    - "{COMPLETE_USE_CASE_1}"
+    - "{COMPLETE_USE_CASE_2}"
+    - "{COMPLETE_USE_CASE_3}"
+    - "{COMPLETE_USE_CASE_4}"
+    phases: [ "scan", "draft", "ask", "sync", "confirm" ]
+    duration: "{COMPLETE_DURATION_ESTIMATE}"
+
+  incremental:
+    description: "Targeted updates to specific {PASS_SCOPE} areas"
+    scope: "specific_{PASS_SCOPE}_updates"
+    use_cases:
+    - "{INCREMENTAL_USE_CASE_1}"
+    - "{INCREMENTAL_USE_CASE_2}"
+    - "{INCREMENTAL_USE_CASE_3}"
+    - "{INCREMENTAL_USE_CASE_4}"
+    phases: [ "scan", "draft", "sync" ]
+    duration: "{INCREMENTAL_DURATION_ESTIMATE}"
+
+# Mode Selection Criteria
+mode_selection:
+  automatic_detection:
+    complete_mode_triggers:
+    - "{COMPLETE_TRIGGER_1}"
+    - "{COMPLETE_TRIGGER_2}"
+    - "{COMPLETE_TRIGGER_3}"
+
+    incremental_mode_triggers:
+    - "{INCREMENTAL_TRIGGER_1}"
+    - "{INCREMENTAL_TRIGGER_2}"
+    - "{INCREMENTAL_TRIGGER_3}"
+
+  manual_override:
+    syntax: "Run {PASS_NAME} Pass --mode={complete|incremental}"
+    examples:
+    - "Run {PASS_NAME} Pass --mode=complete"
+    - "Run {PASS_NAME} Pass --mode=incremental"
+
+# When to Use
+when_to_use:
+  complete_mode:
+    conditions:
+    - "{COMPLETE_CONDITION_1}"
+    - "{COMPLETE_CONDITION_2}"
+    - "{COMPLETE_CONDITION_3}"
+    prerequisites:
+    - "{COMPLETE_PREREQUISITE_1}"
+    - "{COMPLETE_PREREQUISITE_2}"
+
+  incremental_mode:
+    conditions:
+    - "{INCREMENTAL_CONDITION_1}"
+    - "{INCREMENTAL_CONDITION_2}"
+    - "{INCREMENTAL_CONDITION_3}"
+    prerequisites:
+    - "{INCREMENTAL_PREREQUISITE_1}"
+    - "{INCREMENTAL_PREREQUISITE_2}"
+
+# Process Workflow
+process:
+  workflow_patterns:
+    complete: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
+    incremental: "SCAN → DRAFT → SYNC"
+
+  phases:
+    scan:
+      description: "{SCAN_DESCRIPTION}"
+      complete_mode:
+        purpose: "Comprehensive assessment of {SCAN_SCOPE}"
+        actions:
+        - action: "{COMPLETE_SCAN_ACTION_1}"
+          scope: "comprehensive"
+        - action: "{COMPLETE_SCAN_ACTION_2}"
+          scope: "complete"
+        - action: "{COMPLETE_SCAN_ACTION_3}"
+          scope: "thorough"
+
+      incremental_mode:
+        purpose: "Targeted assessment of specific {SCAN_SCOPE} areas"
+        actions:
+        - action: "{INCREMENTAL_SCAN_ACTION_1}"
+          scope: "focused"
+        - action: "{INCREMENTAL_SCAN_ACTION_2}"
+          scope: "targeted"
+        - action: "{INCREMENTAL_SCAN_ACTION_3}"
+          scope: "minimal"
+
+    draft:
+      description: "{DRAFT_DESCRIPTION}"
+      complete_mode:
+        purpose: "Complete {DRAFT_SCOPE} creation/update"
+        actions:
+        - action: "{COMPLETE_DRAFT_ACTION_1}"
+          method: "comprehensive"
+        - action: "{COMPLETE_DRAFT_ACTION_2}"
+          method: "complete"
+        - action: "{COMPLETE_DRAFT_ACTION_3}"
+          method: "thorough"
+
+      incremental_mode:
+        purpose: "Targeted {DRAFT_SCOPE} updates"
+        actions:
+        - action: "{INCREMENTAL_DRAFT_ACTION_1}"
+          method: "focused"
+        - action: "{INCREMENTAL_DRAFT_ACTION_2}"
+          method: "targeted"
+        - action: "{INCREMENTAL_DRAFT_ACTION_3}"
+          method: "minimal"
+
+    ask:
+      description: "{ASK_DESCRIPTION}"
+      complete_mode:
+        purpose: "Comprehensive stakeholder engagement"
+        protocol:
+        - "ask_one_question_at_a_time"
+        - "wait_for_response_before_next"
+        - "validate_choices_for_consistency"
+        areas:
+        - "{COMPLETE_ASK_AREA_1}"
+        - "{COMPLETE_ASK_AREA_2}"
+        - "{COMPLETE_ASK_AREA_3}"
+
+      incremental_mode:
+        purpose: "Skipped - streamlined workflow"
+        note: "Incremental mode skips ASK phase for efficiency"
+        fallback: "Use automatic decisions with validation"
+
+    sync:
+      description: "{SYNC_DESCRIPTION}"
+      complete_mode:
+        purpose: "Complete alignment and validation"
+        critical_actions:
+        - action: "{COMPLETE_SYNC_ACTION_1}"
+          critical: true
+        - action: "{COMPLETE_SYNC_ACTION_2}"
+          critical: true
+        - action: "{COMPLETE_SYNC_ACTION_3}"
+          critical: false
+
+      incremental_mode:
+        purpose: "Targeted alignment and essential validation"
+        critical_actions:
+        - action: "{INCREMENTAL_SYNC_ACTION_1}"
+          critical: true
+        - action: "{INCREMENTAL_SYNC_ACTION_2}"
+          critical: false
+        - action: "{INCREMENTAL_SYNC_ACTION_3}"
+          critical: false
+
+    confirm:
+      description: "{CONFIRM_DESCRIPTION}"
+      complete_mode:
+        purpose: "Complete validation and commit preparation"
+        actions:
+        - action: "{COMPLETE_CONFIRM_ACTION_1}"
+        - action: "{COMPLETE_CONFIRM_ACTION_2}"
+        - action: "{COMPLETE_CONFIRM_ACTION_3}"
+
+      incremental_mode:
+        purpose: "Skipped - auto-commit if configured"
+        note: "Incremental mode uses streamlined confirmation"
+        actions:
+        - action: "{INCREMENTAL_CONFIRM_ACTION_1}"
+        - action: "{INCREMENTAL_CONFIRM_ACTION_2}"
+
+# Expected Outcomes
+expected_outcomes:
+  complete_mode:
+  - "{COMPLETE_OUTCOME_1}"
+  - "{COMPLETE_OUTCOME_2}"
+  - "{COMPLETE_OUTCOME_3}"
+  - "{COMPLETE_OUTCOME_4}"
+
+  incremental_mode:
+  - "{INCREMENTAL_OUTCOME_1}"
+  - "{INCREMENTAL_OUTCOME_2}"
+  - "{INCREMENTAL_OUTCOME_3}"
+
+# Quality Gates
+quality_gates:
+  complete_mode:
+    completion_criteria:
+    - name: "{COMPLETE_GATE_1_NAME}"
+      validation: "{COMPLETE_GATE_1_VALIDATION}"
+      critical: true
+    - name: "{COMPLETE_GATE_2_NAME}"
+      validation: "{COMPLETE_GATE_2_VALIDATION}"
+      critical: true
+    - name: "{COMPLETE_GATE_3_NAME}"
+      validation: "{COMPLETE_GATE_3_VALIDATION}"
+      critical: false
+
+  incremental_mode:
+    completion_criteria:
+    - name: "{INCREMENTAL_GATE_1_NAME}"
+      validation: "{INCREMENTAL_GATE_1_VALIDATION}"
+      critical: true
+    - name: "{INCREMENTAL_GATE_2_NAME}"
+      validation: "{INCREMENTAL_GATE_2_VALIDATION}"
+      critical: false
+
+# Performance Metrics
+performance_metrics:
+  complete_mode:
+    estimated_duration: "{COMPLETE_DURATION}"
+    user_interactions: "{COMPLETE_INTERACTIONS}"
+    files_affected: "{COMPLETE_FILES}"
+
+  incremental_mode:
+    estimated_duration: "{INCREMENTAL_DURATION}"
+    user_interactions: "{INCREMENTAL_INTERACTIONS}"
+    files_affected: "{INCREMENTAL_FILES}"
+
+# Related Passes
+related_passes:
+  sequence: "{PASS_SEQUENCE}"
+  dependencies:
+    prerequisites: [ "{PREREQUISITES}" ]
+    next_pass: "{NEXT_PASS}"
+
+# Commit Messages
+commit_messages:
+  complete_mode:
+    format: "DDD: {PASS_NAME} Pass (Complete) - {COMPLETE_COMMIT_DESCRIPTION}"
+    example: "DDD: {PASS_NAME} Pass (Complete) - {COMPLETE_COMMIT_EXAMPLE}"
+
+  incremental_mode:
+    format: "DDD: {PASS_NAME} Pass (Incremental) - {INCREMENTAL_COMMIT_DESCRIPTION}"
+    example: "DDD: {PASS_NAME} Pass (Incremental) - {INCREMENTAL_COMMIT_EXAMPLE}"
+
+# Critical Notes
+critical_notes:
+  complete_mode:
+  - "{COMPLETE_CRITICAL_NOTE_1}"
+  - "{COMPLETE_CRITICAL_NOTE_2}"
+  - "{COMPLETE_CRITICAL_NOTE_3}"
+
+  incremental_mode:
+  - "{INCREMENTAL_CRITICAL_NOTE_1}"
+  - "{INCREMENTAL_CRITICAL_NOTE_2}"
+  - "{INCREMENTAL_CRITICAL_NOTE_3}"
