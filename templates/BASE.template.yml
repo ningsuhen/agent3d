@@ -3,15 +3,17 @@ metadata:
     type: "template"
     format: "markdown_content_with_yaml_metadata"
     purpose: "Universal template structure and validation system for Agent3D documentation"
-    version: "3.0.0"
+    version: "4.0.0"
     created: "2025-01-29"
     last_updated: "2025-01-29"
+    refactoring_version: "1.0.0"
     features:
       - "Universal template structure and validation rules"
       - "Standardized metadata format across all templates"
       - "Common placeholder and variable system"
       - "Date command validation and system integration"
       - "Template compliance and quality assurance"
+      - "Consolidated validation rules and inheritance patterns"
 
 usage:
     description: "Unified template structure and validation system for Agent3D documentation"
@@ -122,6 +124,29 @@ universal_validation_rules:
       - "Use ## Groups / ### Sub-Groups structure"
       - "Include functional links and single-line entries"
       - "Mark [x] only with verifiable evidence"
+
+    common_validation_patterns:
+        placeholder_replacement:
+            rule: "All {{placeholders}} must be replaced with actual content"
+            validation: "grep -n '{{.*}}' file.yml should return no results"
+            critical: true
+
+        yaml_syntax:
+            rule: "Valid YAML syntax required"
+            validation: "python -c 'import yaml; yaml.safe_load(open(\"file.yml\"))'"
+            critical: true
+
+        metadata_completeness:
+            rule: "All required metadata fields must be present"
+            required_fields: [ "name", "type", "purpose", "version", "created", "last_updated" ]
+            validation: "Check metadata section contains all required fields"
+            critical: true
+
+        content_structure:
+            rule: "Follow standard content organization"
+            requirements: [ "Clear sections", "Logical hierarchy", "Consistent formatting" ]
+            validation: "Manual review for structure compliance"
+            critical: false
 
 template_specific_validation:
     documentation_templates:
