@@ -289,6 +289,12 @@ drift_detection:
   orphaned_identifier_detection: true
   missing_implementation_detection: true
 
+# MCP Server Configuration
+mcp_server:
+  enabled: false  # Explicitly disabled - do not use DDD MCP server
+  reason: "User preference - MCP server functionality disabled"
+  alternative: "Use standalone drift scanner: python3 ~/.agent3d/tools/drift_scanner.py"
+
 # Template Configuration
 templates:
   base_path: "templates/"

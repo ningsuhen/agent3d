@@ -26,7 +26,9 @@ python3 tools/drift_scanner.py --quiet
 
 ### MCP Server Usage
 
-The MCP server provides drift analysis capabilities to AI assistants through the Model Context Protocol.
+**⚠️ DISABLED BY DEFAULT:** The MCP server is disabled in the current configuration (`.agent3d-config.yml: mcp_server.enabled = false`).
+
+The MCP server provides drift analysis capabilities to AI assistants through the Model Context Protocol, but is currently disabled per user preference.
 
 #### Installation
 

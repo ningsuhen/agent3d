@@ -139,6 +139,9 @@ class DriftScannerMCPServer:
         self.agent3d_dir = self.script_dir.parent
         self.drift_scanner = self.script_dir / "drift_scanner.py"
 
+        # Check if MCP server is disabled in configuration
+        self._check_mcp_configuration()
+
         # Live reloading components
         if WATCHDOG_AVAILABLE:
             self.file_watcher = DriftFileWatcher(self)
@@ -157,6 +160,24 @@ class DriftScannerMCPServer:
             logger.info("👁️  LIVE RELOADING: File watching enabled for automatic change detection")
         else:
             logger.warning("⚠️  WATCHDOG NOT AVAILABLE: File watching disabled (install 'watchdog' package for live reloading)")
+
+    def _check_mcp_configuration(self):
+        """Check if MCP server is disabled in configuration"""
+        try:
+            import yaml
+            config_file = self.agent3d_dir / '.agent3d-config.yml'
+            if config_file.exists():
+                with open(config_file, 'r', encoding='utf-8') as f:
+                    config = yaml.safe_load(f)
+
+                mcp_config = config.get('mcp_server', {})
+                if not mcp_config.get('enabled', True):  # Default to True if not specified
+                    logger.warning("⚠️  MCP SERVER DISABLED: Configuration shows mcp_server.enabled = false")
+                    logger.warning(f"   Reason: {mcp_config.get('reason', 'Not specified')}")
+                    logger.warning(f"   Alternative: {mcp_config.get('alternative', 'Use standalone drift scanner')}")
+                    logger.warning("   To enable: Set mcp_server.enabled = true in .agent3d-config.yml")
+        except Exception as e:
+            logger.debug(f"Could not check MCP configuration: {e}")
 
     def find_ddd_root(self, explicit_root: Optional[str] = None) -> Optional[str]:
         """
