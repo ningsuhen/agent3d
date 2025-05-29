@@ -3,6 +3,7 @@
 ## FT-CORE-001 - Agent Guideline Protocol
 - **Description:** Guidelines for agents to retrieve and follow DDD principles automatically
 - **Criteria:** Agents can fetch, cache, and follow remote guidelines automatically
+- **Code Location:** tools/drift_scanner.py#DriftScanner.analyze_code_locations
 - **Dependencies:** Git repository access, .agent3d-config.yaml file
 - **Impact:** High - Core framework functionality
 - **Test Coverage:** 4 test cases, 12 sub-tests

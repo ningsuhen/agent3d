@@ -1,18 +1,18 @@
-# DDD Migration System
+# DDD Migrations
 
-This directory contains migration workflows for transitioning between different DDD framework versions and structures.
+This directory contains DDD framework migrations that can be executed to update configurations, migrate data structures, or upgrade framework components.
 
-## 📁 Migration Directory Structure
+## 📁 Directory Structure
 
 ```
-docs/migrations/
-├── README.md                           # This file - migration system overview
-├── migration-tracker.yml              # Tracks completed migrations
-├── test-cases-to-features.yml         # TEST-CASES.md → docs/features/ migration
-├── legacy-structure-migration.yml     # Legacy → Modern DDD migration
-└── templates/
-    └── migration.template.yml          # Template for new migrations
+migrations/
+├── README.md                           # This file
+├── config-template-migration.yml      # Configuration template migration
+├── test-cases-to-features.yml        # Test cases to features migration
+└── [future migrations]               # Additional migrations as needed
 ```
+
+**Migration Tracking**: `.agent3d-tmp/migration-tracker.yml`
 
 ## 🎯 Migration Tracking System
 
@@ -96,11 +96,11 @@ metadata:
   name: "Human Readable Name"
   version: "1.0.0"
   description: "What this migration does"
-  
+
 prerequisites:
   - "Condition that must be met"
   - "Another prerequisite"
-  
+
 steps:
   - id: "step-1"
     name: "Step Name"
@@ -108,7 +108,7 @@ steps:
       - "Action to perform"
     validation:
       - "How to verify success"
-      
+
 rollback:
   - "How to undo this migration"
 ```

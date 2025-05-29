@@ -1,0 +1,284 @@
+# Agent3D Configuration Template Migration
+# Migration ID: config-template-v2.0
+# Purpose: Migrate .agent3d-config.yml files to use the standardized template format
+# Target: All Agent3D projects with outdated or missing configuration files
+
+metadata:
+  migration_id: "config-template-v2.0"
+  name: "Configuration Template Migration"
+  description: "Migrate .agent3d-config.yml files to the standardized template format with Python path support"
+  version: "2.0"
+  created_date: "2025-01-27"
+  target_version: "2.0"
+  migration_type: "configuration_update"
+  priority: "high"
+  estimated_duration: "5-15 minutes"
+
+# Migration Scope
+scope:
+  target_files:
+  - ".agent3d-config.yml"
+  - ".agent3d-config.yaml"
+
+  affected_components:
+  - "Foundation Pass configuration"
+  - "Python path resolution"
+  - "Drift scanner configuration"
+  - "Pass configuration structure"
+  - "Quality gates and validation"
+  - "Git workflow settings"
+  - "Project-specific settings"
+  - "Custom settings migration"
+
+  project_types:
+  - "all" # This migration applies to all project types
+
+# Prerequisites
+prerequisites:
+  required_tools:
+  - "python3"
+  - "pyyaml"
+
+  required_files:
+  - "templates.yml/agent3d-config.template.yml"
+  - "tools/config_migrator.py"
+
+  environment_checks:
+  - name: "python_available"
+    command: "python3 --version"
+    expected: "Python 3.7+"
+
+  - name: "yaml_module_available"
+    command: "python3 -c 'import yaml; print(yaml.__version__)'"
+    expected: "Any version"
+
+# Migration Steps
+migration_steps:
+  step_1:
+    name: "Analyze Current Configuration"
+    description: "Analyze existing .agent3d-config.yml file to determine migration needs"
+    type: "analysis"
+    commands:
+    - "python3 tools/config_migrator.py --analyze-only"
+
+    expected_outcomes:
+    - "Configuration analysis report generated"
+    - "Migration requirements identified"
+
+    validation:
+    - "Analysis completes without errors"
+    - "Migration needs are clearly identified"
+
+  step_2:
+    name: "Create Configuration Backup"
+    description: "Create backup of existing configuration file"
+    type: "backup"
+    conditional: "existing_config_exists"
+    commands:
+    - "cp .agent3d-config.yml .agent3d-config.yml.backup.$(date +%Y%m%d_%H%M%S)"
+
+    expected_outcomes:
+    - "Backup file created with timestamp"
+
+    validation:
+    - "Backup file exists and is readable"
+    - "Backup file contains original configuration"
+
+  step_3:
+    name: "Perform Dry Run Migration"
+    description: "Test migration process without making changes"
+    type: "validation"
+    commands:
+    - "python3 tools/config_migrator.py --dry-run"
+
+    expected_outcomes:
+    - "Dry run completes successfully"
+    - "Migration plan is validated"
+
+    validation:
+    - "No errors during dry run"
+    - "Migration log shows expected changes"
+
+  step_4:
+    name: "Execute Configuration Migration"
+    description: "Migrate configuration file to template format"
+    type: "migration"
+    commands:
+    - "python3 tools/config_migrator.py"
+
+    expected_outcomes:
+    - "Configuration file migrated successfully"
+    - "All required sections present"
+    - "Project-specific settings preserved"
+
+    validation:
+    - "Migration completes without errors"
+    - "New configuration file is valid YAML"
+    - "Configuration version updated to 2.0"
+
+  step_5:
+    name: "Validate Migrated Configuration"
+    description: "Validate the migrated configuration file"
+    type: "validation"
+    commands:
+    - "python3 -c 'import yaml; yaml.safe_load(open(\".agent3d-config.yml\"))'"
+    - "python3 tools/drift_scanner.py --mode tc-mapping --quiet"
+
+    expected_outcomes:
+    - "Configuration file is valid YAML"
+    - "Drift scanner can load configuration"
+    - "No critical configuration errors"
+
+    validation:
+    - "YAML parsing succeeds"
+    - "Drift scanner loads configuration without errors"
+    - "All required sections are present"
+
+  step_6:
+    name: "Update Agent Memory"
+    description: "Ensure agent memorizes the new configuration"
+    type: "memory_update"
+    agent_instructions:
+    - "IMMEDIATELY_MEMORIZE_ENTIRE_NEW_CONFIG"
+    - "Refresh configuration understanding"
+    - "Update Python path resolution knowledge"
+
+    expected_outcomes:
+    - "Agent has memorized new configuration"
+    - "Agent understands updated structure"
+
+    validation:
+    - "Agent can reference new configuration sections"
+    - "Agent understands Python path configuration"
+
+# Rollback Plan
+rollback:
+  description: "Restore original configuration if migration fails"
+
+  steps:
+    rollback_1:
+      name: "Restore Original Configuration"
+      commands:
+      - "mv .agent3d-config.yml.backup.* .agent3d-config.yml"
+
+      validation:
+      - "Original configuration restored"
+      - "System functions with original config"
+
+    rollback_2:
+      name: "Clean Up Failed Migration"
+      commands:
+      - "rm -f .agent3d-config.yml.migration-failed"
+
+      validation:
+      - "Failed migration artifacts removed"
+
+# Post-Migration Validation
+post_migration_validation:
+  configuration_checks:
+  - name: "yaml_validity"
+    description: "Ensure configuration is valid YAML"
+    command: "python3 -c 'import yaml; yaml.safe_load(open(\".agent3d-config.yml\"))'"
+
+  - name: "required_sections"
+    description: "Verify all required sections are present"
+    sections:
+    - "project"
+    - "enabled_passes"
+    - "pass_config"
+    - "quality_gates"
+    - "validation"
+    - "git_workflow"
+    - "documentation"
+    - "identifier_patterns"
+    - "drift_detection"
+    - "metadata"
+
+  - name: "python_paths_for_python_projects"
+    description: "Verify Python projects have python_paths section"
+    conditional: "project.language == python"
+    required_section: "python_paths"
+
+  - name: "version_updated"
+    description: "Verify configuration version is updated"
+    expected: "metadata.configuration_version == 2.0"
+
+  functional_checks:
+  - name: "drift_scanner_compatibility"
+    description: "Ensure drift scanner works with new configuration"
+    command: "python3 tools/drift_scanner.py --mode tc-mapping --quiet"
+
+  - name: "foundation_pass_compatibility"
+    description: "Ensure Foundation Pass can read new configuration"
+    validation: "Configuration loads without errors in Foundation Pass"
+
+# Success Criteria
+success_criteria:
+- "Configuration file migrated to template format"
+- "All required sections present and valid"
+- "Project-specific settings preserved in project_settings section"
+- "Custom configurations migrated to custom_settings section"
+- "Python path configuration added for Python projects"
+- "Configuration version updated to 2.0"
+- "Drift scanner works with new configuration"
+- "Agent has memorized new configuration"
+- "No functional regressions"
+- "Non-standard configurations preserved in appropriate sections"
+
+# Common Issues and Solutions
+troubleshooting:
+  issue_1:
+    problem: "YAML parsing errors after migration"
+    cause: "Invalid YAML syntax in migrated file"
+    solution: "Restore backup and re-run migration with --dry-run first"
+
+  issue_2:
+    problem: "Missing python_paths section for Python project"
+    cause: "Project language not detected correctly"
+    solution: "Manually add python_paths section or update project.language field"
+
+  issue_3:
+    problem: "Drift scanner fails to load configuration"
+    cause: "Missing or invalid configuration sections"
+    solution: "Run config_migrator.py --analyze-only to identify issues"
+
+  issue_4:
+    problem: "Agent doesn't recognize new configuration"
+    cause: "Agent memory not updated"
+    solution: "Explicitly instruct agent to memorize entire new configuration"
+
+# Migration Commands Reference
+commands:
+  analyze: "python3 tools/config_migrator.py --analyze-only"
+  dry_run: "python3 tools/config_migrator.py --dry-run"
+  migrate: "python3 tools/config_migrator.py"
+  migrate_no_backup: "python3 tools/config_migrator.py --no-backup"
+  validate: "python3 -c 'import yaml; yaml.safe_load(open(\".agent3d-config.yml\"))'"
+
+# Agent Instructions
+agent_instructions:
+  foundation_pass:
+  - "Always check if configuration needs migration before proceeding"
+  - "Run config_migrator.py --analyze-only to check migration status"
+  - "If migration is needed, execute migration before continuing with Foundation Pass"
+  - "MEMORIZE entire configuration after migration"
+
+  general_usage:
+  - "Use templates.yml/agent3d-config.template.yml as reference for new projects"
+  - "Always validate configuration after manual changes"
+  - "Keep configuration version updated when making structural changes"
+  - "Ensure Python projects have python_paths section configured"
+
+# Integration Points
+integration:
+  foundation_pass:
+    trigger: "Before configuration creation/update"
+    action: "Check if migration needed and execute if required"
+
+  development_pass:
+    trigger: "Before Code Location validation"
+    action: "Ensure python_paths section is configured for Python projects"
+
+  drift_scanner:
+    trigger: "Before any drift analysis"
+    action: "Validate configuration compatibility"

@@ -356,7 +356,7 @@ class DriftScannerMCPServer:
                                 },
                                 "mode": {
                                     "type": "string",
-                                    "enum": ["tc-mapping", "ft-mapping", "ft-tc-mapping", "code-coverage", "feature-impl", "test-quality", "all"],
+                                    "enum": ["tc-mapping", "ft-mapping", "ft-tc-mapping", "code-coverage", "feature-impl", "code-location", "test-quality", "all"],
                                     "default": "tc-mapping",
                                     "description": "Drift analysis mode"
                                 },

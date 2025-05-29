@@ -1,0 +1,218 @@
+# Agent3D Templates Index
+# Template Management System for Agent3D Framework
+# Version: 2.0
+
+metadata:
+  name: "Agent3D Templates System"
+  version: "2.0"
+  description: "Standardized templates for Agent3D project configurations and documentation"
+  created_date: "2025-01-27"
+  last_updated: "2025-01-27"
+  maintainer: "Agent3D Framework"
+
+# Template Categories
+template_categories:
+  configuration:
+    description: "Project configuration templates"
+    templates:
+      - name: "agent3d-config.template.yml"
+        description: "Main Agent3D project configuration template"
+        version: "2.0"
+        target_file: ".agent3d-config.yml"
+        usage: "Foundation Pass configuration setup"
+        supports_placeholders: true
+        migration_tool: "tools/config_migrator.py"
+        
+  documentation:
+    description: "Documentation templates"
+    templates:
+      - name: "README.template.md"
+        description: "Project README template"
+        version: "1.0"
+        target_file: "README.md"
+        usage: "Project documentation setup"
+        supports_placeholders: true
+        
+      - name: "FEATURES.template.md"
+        description: "Features documentation template"
+        version: "1.0"
+        target_file: "docs/FEATURES.md"
+        usage: "Feature tracking and documentation"
+        supports_placeholders: true
+        
+  passes:
+    description: "DDD pass execution templates"
+    templates:
+      - name: "exec-plan.template.yml"
+        description: "Execution plan template for Development Pass"
+        version: "1.0"
+        target_file: "docs/runs/EXEC-PLAN-{name}.yml"
+        usage: "Development Pass execution planning"
+        supports_placeholders: true
+
+# Template Usage Guidelines
+usage_guidelines:
+  foundation_pass:
+    primary_template: "agent3d-config.template.yml"
+    workflow:
+      - "Check if .agent3d-config.yml exists"
+      - "If exists: Run migration analysis"
+      - "If migration needed: Execute migration"
+      - "If not exists: Copy template and configure"
+      - "Replace all {PLACEHOLDER} values"
+      - "MEMORIZE entire configuration"
+      
+  development_pass:
+    primary_template: "exec-plan.template.yml"
+    workflow:
+      - "Copy template to docs/runs/"
+      - "Replace placeholders with execution details"
+      - "Use for step-by-step implementation tracking"
+      
+  documentation_pass:
+    templates:
+      - "README.template.md"
+      - "FEATURES.template.md"
+    workflow:
+      - "Copy templates to appropriate locations"
+      - "Replace placeholders with project information"
+      - "Customize content for project needs"
+
+# Placeholder System
+placeholder_system:
+  format: "{PLACEHOLDER_NAME}"
+  conventions:
+    project_info: "PROJECT_NAME, PROJECT_TYPE, PROJECT_DESCRIPTION"
+    configuration: "QUALITY_LEVEL, EXECUTION_MODE, VALIDATION_MODE"
+    development: "DEVELOPMENT_TYPE, SELECTION_MODE, PRIORITY"
+    testing: "TEST_FRAMEWORK, COVERAGE_THRESHOLD, TEST_CATEGORY_*"
+    paths: "SOURCE_DIR_*, DOCS_DIRECTORY, TEMPLATES_DIR"
+    metadata: "CREATION_DATE, MAINTAINER, REPOSITORY_URL"
+    
+  replacement_tools:
+    manual: "Direct text replacement in editors"
+    automated: "tools/config_migrator.py for configuration templates"
+    interactive: "Foundation Pass interactive configuration"
+
+# Template Validation
+validation:
+  yaml_templates:
+    tool: "python3 -c 'import yaml; yaml.safe_load(open(\"template.yml\"))'"
+    requirements:
+      - "Valid YAML syntax"
+      - "All required sections present"
+      - "Placeholder format consistency"
+      
+  markdown_templates:
+    tool: "markdownlint or similar"
+    requirements:
+      - "Valid Markdown syntax"
+      - "Consistent heading structure"
+      - "Working placeholder references"
+
+# Migration Support
+migration:
+  configuration_templates:
+    migrator: "tools/config_migrator.py"
+    capabilities:
+      - "Analyze existing configurations"
+      - "Migrate to latest template format"
+      - "Preserve project-specific settings"
+      - "Handle custom configurations"
+      - "Auto-detect project structure"
+      
+  migration_workflow:
+    - "Analyze current configuration"
+    - "Create backup of existing file"
+    - "Execute migration with template defaults"
+    - "Preserve custom settings in appropriate sections"
+    - "Validate migrated configuration"
+    - "Update agent memory"
+
+# Template Maintenance
+maintenance:
+  version_control:
+    - "Track template versions in metadata"
+    - "Maintain backward compatibility"
+    - "Document breaking changes"
+    - "Provide migration paths"
+    
+  quality_assurance:
+    - "Validate template syntax"
+    - "Test placeholder replacement"
+    - "Verify migration compatibility"
+    - "Check documentation accuracy"
+    
+  update_process:
+    - "Update template content"
+    - "Increment version numbers"
+    - "Update migration tools"
+    - "Test with existing projects"
+    - "Document changes"
+
+# Integration Points
+integration:
+  foundation_pass:
+    templates: ["agent3d-config.template.yml"]
+    workflow: "Configuration setup and migration"
+    
+  development_pass:
+    templates: ["exec-plan.template.yml"]
+    workflow: "Execution planning and tracking"
+    
+  documentation_pass:
+    templates: ["README.template.md", "FEATURES.template.md"]
+    workflow: "Documentation structure setup"
+    
+  drift_scanner:
+    dependency: "agent3d-config.template.yml"
+    usage: "Configuration validation and analysis"
+
+# Agent Instructions
+agent_instructions:
+  template_usage:
+    - "Always use templates for new project setup"
+    - "Check template versions before using"
+    - "Replace ALL placeholders with appropriate values"
+    - "Validate template output after replacement"
+    - "Use migration tools for existing configurations"
+    
+  template_selection:
+    - "Use agent3d-config.template.yml for all projects"
+    - "Customize based on project type and requirements"
+    - "Preserve existing project-specific settings"
+    - "Move non-standard configurations to custom_settings"
+    
+  quality_checks:
+    - "Validate YAML syntax after template processing"
+    - "Ensure all required sections are present"
+    - "Verify placeholder replacement completeness"
+    - "Test configuration with drift scanner"
+    - "MEMORIZE configuration after setup"
+
+# Template Locations
+template_locations:
+  primary: "templates.yml/"
+  legacy: "templates/" # For backward compatibility
+  backup: ".agent3d/templates/" # Alternative location
+  
+# File Naming Conventions
+naming_conventions:
+  templates: "{name}.template.{extension}"
+  generated: "{name}.{extension}"
+  backups: "{name}.{extension}.backup.{timestamp}"
+  
+# Support and Documentation
+support:
+  migration_guide: "docs/AGENT3D-CONFIG-TEMPLATE-GUIDE.md"
+  migration_workflow: "docs/migrations/config-template-migration.yml"
+  troubleshooting: "Check migration guide for common issues"
+  
+# Future Enhancements
+roadmap:
+  planned_features:
+    - "Interactive template configuration wizard"
+    - "Template validation automation"
+    - "Custom template creation tools"
+    - "Template versioning and rollback"
+    - "Multi-project template synchronization"

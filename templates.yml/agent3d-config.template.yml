@@ -1,0 +1,495 @@
+# Agent3D Project Configuration Template
+# Documentation-Driven Development Framework
+# Template Version: 2.0
+# Generated: {GENERATION_DATE}
+#
+# INSTRUCTIONS FOR AGENTS:
+# 1. Copy this template to .agent3d-config.yml in project root
+# 2. Replace all {PLACEHOLDER} values with project-specific information
+# 3. Configure sections based on project type and requirements
+# 4. MEMORIZE the entire configuration after creation/updates
+
+# ============================================================================
+# PROJECT CONFIGURATION
+# ============================================================================
+# IMPORTANT FOR LLMs: This section defines the project type and language
+# The 'language' field determines which language-specific features are enabled
+project:
+    name: "{PROJECT_NAME}" # Replace with actual project name
+    type: "{PROJECT_TYPE}" # Options: web_application, api_service, library, cli_tool, mobile_app, desktop_application, documentation_framework, python_plugin, other
+    language: "{PRIMARY_LANGUAGE}" # Options: python, javascript, typescript, java, go, csharp, rust, markdown, other
+    description: "{PROJECT_DESCRIPTION}" # Brief project description
+    quality_level: "{QUALITY_LEVEL}" # Options: strict, balanced, relaxed, comprehensive, production
+    execution_mode: "{EXECUTION_MODE}" # Options: standard, comprehensive_full_pass, incremental
+
+    # Package information (for Python/Node.js/etc. projects)
+    package:
+        name: "{PACKAGE_NAME}" # Package name (e.g., "protoc-gen-httpx-fastapi")
+        version: "{PACKAGE_VERSION}" # Package version (e.g., "0.1.0")
+        requires_python: "{PYTHON_VERSION}" # Python version requirement (e.g., ">=3.8")
+        main_module: "{MAIN_MODULE}" # Main module name (e.g., "protoc_gen_httpx_fastapi")
+        entry_point: "{ENTRY_POINT}" # Entry point (e.g., "protoc_gen_httpx_fastapi.plugin:main")
+
+    # Dependencies configuration
+    dependencies:
+        runtime:
+          - "{RUNTIME_DEP_1}" # e.g., "protobuf>=4.0.0"
+          - "{RUNTIME_DEP_2}" # e.g., "httpx>=0.24.0"
+          - "{RUNTIME_DEP_3}" # e.g., "fastapi>=0.100.0"
+
+        test:
+          - "{TEST_DEP_1}" # e.g., "pytest>=7.0.0"
+          - "{TEST_DEP_2}" # e.g., "pytest-asyncio>=0.21.0"
+          - "{TEST_DEP_3}" # e.g., "pytest-goldie>=0.1.0"
+
+        validation:
+          - "{VALIDATION_DEP_1}" # e.g., "protovalidate"
+          - "{VALIDATION_DEP_2}" # e.g., "buf-validate"
+
+        dev:
+          - "{DEV_DEP_1}" # e.g., "flake8>=6.0.0"
+          - "{DEV_DEP_2}" # e.g., "black>=23.0.0"
+          - "{DEV_DEP_3}" # e.g., "mypy>=1.0.0"
+
+# ============================================================================
+# DDD PASS CONFIGURATION
+# ============================================================================
+# CRITICAL FOR LLMs: This list determines which DDD passes are active
+# Only passes listed here will be executed during DDD operations
+enabled_passes:
+  # Core passes (always recommended)
+  - requirements # Business requirements and objectives
+  - foundation # Project configuration and setup
+  - documentation # Feature and requirement documentation
+
+  # Development passes (for code projects)
+  - development # {CONDITIONAL: CODE_PROJECTS} Step-by-step implementation with execution plans
+  - testing # {CONDITIONAL: CODE_PROJECTS} Code and documentation testing
+
+  # Quality passes (for team/production projects)
+  - code_review # {CONDITIONAL: TEAM_PROJECTS} Code review and quality checks
+  - refactoring # {CONDITIONAL: MAINTENANCE_PROJECTS} Code/documentation refactoring
+
+  # Maintenance passes (for long-term projects)
+  - synchronization # Documentation alignment and consistency
+  - prune # {CONDITIONAL: MAINTENANCE_PROJECTS} Remove outdated content
+  - reverse # {CONDITIONAL: MAINTENANCE_PROJECTS} Detect drift
+
+disabled_passes:
+  # Legacy passes (replaced by Development Pass sub-passes)
+  - planning # Replaced by Development Pass planning sub-pass
+  - implementation # Replaced by Development Pass implementation sub-pass
+
+# ============================================================================
+# PASS-SPECIFIC CONFIGURATION
+# ============================================================================
+pass_config:
+    development:
+        type: "{DEVELOPMENT_TYPE}" # Options: code_development, documentation_development, mixed
+        scope: "{DEVELOPMENT_SCOPE}" # Options: full_stack, backend_only, frontend_only, markdown_framework
+        selection_mode: "{SELECTION_MODE}" # Options: auto, manual, picker
+        runs_directory: "docs/runs/"
+        focus:
+          - "{FOCUS_AREA_1}" # e.g., feature_implementation, bug_fixes, performance_optimization
+          - "{FOCUS_AREA_2}" # e.g., documentation_implementation, template_development
+        auto_selection:
+            priority_threshold: "{PRIORITY}" # Options: high, medium, low
+            max_features_per_run: { MAX_FEATURES } # Number: 1-5 recommended
+            include_drift_fixes: { INCLUDE_DRIFT } # Boolean: true/false
+            respect_dependencies: { RESPECT_DEPS } # Boolean: true/false
+        execution_settings:
+            checkpoint_frequency: { CHECKPOINT_FREQ } # Number: 3-5 recommended
+            archive_completed_plans: { ARCHIVE_PLANS } # Boolean: true/false
+
+    testing:
+        type: "{TESTING_TYPE}" # Options: code, documentation, mixed
+        checks:
+          - "{CHECK_TYPE_1}" # e.g., unit_tests, integration_tests, markdown_linting
+          - "{CHECK_TYPE_2}" # e.g., link_validation, code_coverage
+        coverage_threshold: { COVERAGE_THRESHOLD } # Number: 80-95 recommended
+
+    code_review:
+        type: "{REVIEW_TYPE}" # Options: code, documentation, mixed
+        scope: "{REVIEW_SCOPE}" # Options: full_project, changed_files_only, markdown_only
+        criteria:
+          - "{CRITERIA_1}" # e.g., code_quality, security, performance
+          - "{CRITERIA_2}" # e.g., documentation_accuracy, style_compliance
+
+# ============================================================================
+# QUALITY STANDARDS
+# ============================================================================
+quality_gates:
+    documentation_completeness: { DOC_COMPLETENESS } # Number: 80-100
+    link_validity: { LINK_VALIDITY } # Number: 95-100
+    template_compliance: { TEMPLATE_COMPLIANCE } # Number: 90-100
+    code_quality: { CODE_QUALITY } # Number: 80-95
+    overall_quality_threshold: { OVERALL_QUALITY } # Number: 85-95
+
+# ============================================================================
+# VALIDATION SETTINGS
+# ============================================================================
+validation:
+    mode: "{VALIDATION_MODE}" # Options: strict, balanced, relaxed
+    enforce_all_rules: { ENFORCE_RULES } # Boolean: true/false
+    fail_on_warnings: { FAIL_ON_WARNINGS } # Boolean: true/false
+    require_all_sections: { REQUIRE_SECTIONS } # Boolean: true/false
+    validate_links: { VALIDATE_LINKS } # Boolean: true/false
+    check_formatting: { CHECK_FORMATTING } # Boolean: true/false
+
+# ============================================================================
+# GIT WORKFLOW SETTINGS (CRITICAL - MEMORIZE THESE SETTINGS)
+# ============================================================================
+# IMPORTANT FOR LLMs: These settings control git operations and safety measures.
+# Always check these values before performing any git operations.
+# require_commit_confirmation=true means ALWAYS ask user before committing.
+git_workflow:
+    require_commit_confirmation: { COMMIT_CONFIRMATION } # Boolean: true for safety, false for automation
+    commit_message_format: "DDD: {pass_name} - {description}"
+    always_confirm_before_commit: { CONFIRM_COMMITS } # Boolean: true for safety, false for automation
+    human_approval_required: { HUMAN_APPROVAL } # Boolean: true for team projects, false for personal
+
+    # Execution Plan Branch Workflow
+    exec_plan_branches:
+        enabled: { EXEC_BRANCHES } # Boolean: true recommended
+        branch_naming: "exec-plan/{exec_plan_name}"
+        auto_commit_during_execution: { AUTO_COMMIT } # Boolean: true recommended
+        require_confirmation_for_merge: { CONFIRM_MERGE } # Boolean: true for safety
+        tag_steps_and_checkpoints: { TAG_STEPS } # Boolean: true for tracking
+
+# ============================================================================
+# EXPERT COORDINATION (COMPREHENSIVE EXECUTION)
+# ============================================================================
+expert_coordination:
+    enabled: { EXPERT_COORDINATION } # Boolean: true for comprehensive mode
+    mode: "{COORDINATION_MODE}" # Options: basic, comprehensive, custom
+    experts:
+        requirements: "{REQUIREMENTS_EXPERT}" # e.g., "Senior Product Manager"
+        foundation: "{FOUNDATION_EXPERT}" # e.g., "Solutions Architect"
+        documentation: "{DOCUMENTATION_EXPERT}" # e.g., "Technical Writer"
+        development: "{DEVELOPMENT_EXPERT}" # e.g., "Senior Software Developer"
+        testing: "{TESTING_EXPERT}" # e.g., "Senior QA Engineer"
+        code_review: "{REVIEW_EXPERT}" # e.g., "Senior Software Engineer"
+    coordination_requirements:
+        thorough_execution: { THOROUGH_EXEC } # Boolean: true/false
+        quality_validation: { QUALITY_VALIDATION } # Boolean: true/false
+        comprehensive_coverage: { COMPREHENSIVE } # Boolean: true/false
+
+# ============================================================================
+# DOCUMENTATION STANDARDS
+# ============================================================================
+documentation:
+    format: "markdown" # Standard: markdown
+    style_guide: "{STYLE_GUIDE}" # Options: github_flavored_markdown, commonmark, custom
+    line_length: { LINE_LENGTH } # Number: 80, 100, 120 common
+    heading_structure: "hierarchical" # Standard: hierarchical
+    link_style: "{LINK_STYLE}" # Options: inline, reference
+
+# ============================================================================
+# IDENTIFIER PATTERNS CONFIGURATION
+# ============================================================================
+identifier_patterns:
+    # Core identifier patterns - customize based on project needs
+    TC-:
+        name: "Test Case"
+        description: "Test case identifiers"
+        pattern: "TC-[A-Z0-9]+-\\d+[a-z]?"
+        flexible_pattern: "TC-[A-Za-z0-9-]+"
+        primary_files: [ "{TC_PRIMARY_FILES}" ] # e.g., "docs/features/*.md", "docs/TEST-CASES.md"
+        reference_files: [ "**/*.py", "**/*.js", "**/*.md" ]
+        format_example: "TC-0001, TC-ENV-007"
+        status_indicators: [ "[x]", "[ ]", "[~]", "[s]" ]
+        relationship_targets: [ "FT-*", "REQ-*" ]
+
+    FT-:
+        name: "Feature"
+        description: "Feature tracking identifiers"
+        pattern: "FT-[A-Z]+-\\d+[a-z]?"
+        flexible_pattern: "FT-[A-Za-z0-9-]+"
+        primary_files: [ "{FT_PRIMARY_FILES}" ] # e.g., "docs/features/*.md", "docs/FEATURES.md"
+        reference_files: [ "docs/features/*.md", "**/*.md" ]
+        format_example: "FT-CORE-001, FT-API-002a"
+        status_indicators: [ "[x]", "[ ]", "[~]" ]
+        relationship_targets: [ "TC-*", "REQ-*" ]
+
+    REQ-:
+        name: "Requirement"
+        description: "Requirement identifiers"
+        pattern: "REQ-[A-Z0-9]+-\\d+[a-z]?"
+        flexible_pattern: "REQ-[A-Za-z0-9-]+"
+        primary_files: [ "{REQ_PRIMARY_FILES}" ] # e.g., "docs/REQUIREMENTS.md"
+        reference_files: [ "docs/features/*.md", "**/*.md" ]
+        format_example: "REQ-001, REQ-FUNC-001"
+        status_indicators: [ "[x]", "[ ]", "[~]" ]
+        relationship_targets: [ "TC-*", "FT-*" ]
+    # Optional patterns - enable based on project needs
+    # US-:  # User Stories
+    # AC-:  # Acceptance Criteria
+    # BUG-: # Bug Tracking
+    # API-: # API Endpoints
+    # PERF-: # Performance Requirements
+    # SEC-: # Security Requirements
+
+    # ============================================================================
+    # DRIFT DETECTION CONFIGURATION
+    # ============================================================================
+    # CRITICAL FOR LLMs: This section configures the drift scanner tool
+    # The drift scanner validates TC-*, FT-*, REQ-* identifiers and Code Location fields
+drift_detection:
+    enabled_patterns: [ "TC-", "FT-", "REQ-" ] # Add more patterns as needed
+    primary_patterns: [ "TC-", "FT-", "REQ-" ] # Core non-deprecated patterns
+    relationship_validation: { RELATIONSHIP_VALIDATION } # Boolean: true/false
+    cross_reference_checking: { CROSS_REF_CHECKING } # Boolean: true/false
+    orphaned_identifier_detection: { ORPHANED_DETECTION } # Boolean: true/false
+    missing_implementation_detection: { MISSING_IMPL } # Boolean: true/false
+
+    # File structure configuration
+    feature_files:
+        primary: "{FEATURE_FILES_PRIMARY}" # e.g., "docs/features/*.md"
+        index: "{FEATURE_FILES_INDEX}" # e.g., "docs/FEATURES.md"
+        legacy: "{FEATURE_FILES_LEGACY}" # e.g., "docs/TEST-CASES.md"
+    test_case_integration: "{TC_INTEGRATION}" # Options: separate_files, merged_with_features
+
+# ============================================================================
+# MCP SERVER CONFIGURATION
+# ============================================================================
+mcp_server:
+    enabled: { MCP_ENABLED } # Boolean: true/false
+    ddd_root: "{DDD_ROOT_PATH}" # Path to DDD project root
+    server_type: "drift_scanner_ddd-mcp" # Standard: drift_scanner_ddd-mcp
+    configuration:
+        root_directory: "{MCP_ROOT_DIRECTORY}" # Usually same as ddd_root
+        use_ddd_root_env: { USE_DDD_ROOT_ENV } # Boolean: true/false
+        fallback_to_config: { FALLBACK_CONFIG } # Boolean: true/false
+    alternative_standalone: "{STANDALONE_COMMAND}" # e.g., "python3 tools/drift_scanner.py"
+
+# ============================================================================
+# TEMPLATE CONFIGURATION
+# ============================================================================
+templates:
+    base_path: "{TEMPLATES_PATH}" # e.g., "templates/", ".agent3d/templates/"
+    validation: "{TEMPLATE_VALIDATION}" # Options: strict, relaxed, none
+    required_sections: "{REQUIRED_SECTIONS}" # Options: all, core, minimal
+    allow_empty_sections: { ALLOW_EMPTY } # Boolean: true/false
+
+# ============================================================================
+# PROJECT STRUCTURE
+# ============================================================================
+structure:
+    docs_directory: "{DOCS_DIRECTORY}" # e.g., "docs/", "documentation/"
+    templates_directory: "{TEMPLATES_DIR}" # e.g., "templates/", ".agent3d/templates/"
+    passes_directory: "{PASSES_DIRECTORY}" # e.g., "passes/", ".agent3d/passes/"
+    rules_directory: "{RULES_DIRECTORY}" # e.g., "rules/", ".agent3d/rules/"
+
+    # Additional structure for code projects
+    source_directory: "{SOURCE_DIRECTORY}" # e.g., "src/", "lib/", "app/"
+    test_directory: "{TEST_DIRECTORY}" # e.g., "tests/", "test/", "spec/"
+    build_directory: "{BUILD_DIRECTORY}" # e.g., "build/", "dist/", "target/"
+
+# ============================================================================
+# METADATA
+# ============================================================================
+metadata:
+    created_by: "Foundation Pass"
+    created_date: "{CREATION_DATE}" # Use: date +%Y-%m-%d
+    configuration_version: "2.0"
+    agent3d_version: "{AGENT3D_VERSION}" # e.g., "1.0.0"
+    template_version: "2.0"
+
+    # Project-specific metadata
+    project_version: "{PROJECT_VERSION}" # e.g., "0.1.0"
+    maintainer: "{MAINTAINER}" # e.g., "Team Name <email@domain.com>"
+    repository: "{REPOSITORY_URL}" # e.g., "https://github.com/user/repo"
+    license: "{LICENSE}" # e.g., "MIT", "Apache-2.0"
+
+# ============================================================================
+# PROJECT-SPECIFIC SETTINGS
+# ============================================================================
+project_settings:
+    # Plugin-specific configuration (for plugin projects)
+    plugin_type: "{PLUGIN_TYPE}" # e.g., "buf_protoc", "webpack", "babel", "eslint"
+    target_languages: [ "{TARGET_LANGUAGE_1}", "{TARGET_LANGUAGE_2}" ] # e.g., ["python", "typescript"]
+    runtime_libraries: [ "{RUNTIME_LIB_1}", "{RUNTIME_LIB_2}" ] # e.g., ["httpx", "fastapi", "websockets"]
+
+    # Development tooling
+    development_tools:
+      - "{DEV_TOOL_1}" # e.g., "black", "prettier", "eslint"
+      - "{DEV_TOOL_2}" # e.g., "isort", "flake8", "mypy"
+      - "{DEV_TOOL_3}" # e.g., "pre-commit", "husky"
+      # Test configuration
+    test_command: "{TEST_COMMAND}" # e.g., "./run_test.sh --all", "npm test", "pytest"
+    test_update_goldens: "{TEST_UPDATE_GOLDENS}" # e.g., "./run_test.sh --update_goldens --all"
+    test_framework: "{TEST_FRAMEWORK}" # e.g., "pytest", "jest", "junit"
+    test_paths: [ "{TEST_PATH_1}", "{TEST_PATH_2}" ] # e.g., ["test", "tests", "spec"]
+    test_files: [ "{TEST_FILE_PATTERN_1}" ] # e.g., ["test_*.py", "*.test.js", "*_test.go"]
+    test_classes: [ "{TEST_CLASS_PATTERN}" ] # e.g., ["Test*", "*Test", "*TestCase"]
+    test_functions: [ "{TEST_FUNCTION_PATTERN}" ] # e.g., ["test_*", "it_*", "should_*"]
+
+    # Documentation structure
+    docs_structure:
+        guides: "{GUIDES_DIR}" # e.g., "docs/guides/", "documentation/guides/"
+        modules: "{MODULES_DIR}" # e.g., "docs/modules/", "docs/api/"
+        designs: "{DESIGNS_DIR}" # e.g., "docs/designs/", "docs/architecture/"
+        proposals: "{PROPOSALS_DIR}" # e.g., "docs/proposals/", "docs/rfcs/"
+
+    # Python path configuration (for Python projects)
+    # CRITICAL FOR LLMs: Used by Code Location field validation in drift scanner
+    # This section is REQUIRED for Python projects to validate FT-* Code Location fields
+    python_paths:
+        # Primary source directories (in order of preference)
+        source_directories:
+          - "{SOURCE_DIR_1}" # e.g., "src", "tools", "lib"
+          - "{SOURCE_DIR_2}" # e.g., "app", "scripts"
+          - "." # Project root (fallback)
+          # Package structure configuration
+        package_structure:
+            # Flat structure: tools/module_name.py
+            flat_modules:
+              - "{FLAT_MODULE_DIR}" # e.g., "tools", "scripts", "utils"
+              # Nested structure: src/package/module.py
+            nested_modules:
+              - "{NESTED_MODULE_DIR}" # e.g., "src", "lib", "app"
+
+        # Module resolution strategies (in order of preference)
+        resolution_strategies:
+          - "pyproject_toml" # Use pyproject.toml configuration if available
+          - "direct_path" # Direct module.path -> module/path.py conversion
+          - "flat_structure" # tools/module_name.py for tools.module_name
+          - "nested_structure" # src/module/path.py for module.path
+          - "package_init" # module/path/__init__.py for packages
+          # Framework-specific module mappings
+        framework_modules:
+            "{MODULE_MAPPING_1}": "{FILE_PATH_1}" # e.g., "tools.main": "tools/main.py"
+            "{MODULE_MAPPING_2}": "{FILE_PATH_2}" # e.g., "src.core": "src/core.py"
+
+        # External package handling
+        external_packages:
+            skip_validation: true # Skip validation for external packages
+            common_external:
+              - "os"
+              - "sys"
+              - "pathlib"
+              - "json"
+              - "yaml"
+              - "typing"
+
+# ============================================================================
+# CUSTOM SETTINGS
+# ============================================================================
+# This section is for project-specific configurations that don't fit
+# into the standard template structure. Add any custom settings here.
+custom_settings:
+    # Example custom configurations:
+
+    # Build system configuration
+    build_system:
+        type: "{BUILD_SYSTEM_TYPE}" # e.g., "webpack", "vite", "gradle", "maven", "cargo"
+        config_file: "{BUILD_CONFIG_FILE}" # e.g., "webpack.config.js", "build.gradle"
+        output_directory: "{BUILD_OUTPUT_DIR}" # e.g., "dist/", "build/", "target/"
+
+    # CI/CD configuration
+    ci_cd:
+        platform: "{CI_PLATFORM}" # e.g., "github_actions", "gitlab_ci", "jenkins"
+        config_file: "{CI_CONFIG_FILE}" # e.g., ".github/workflows/ci.yml"
+        deployment_environments: [ "{ENV_1}", "{ENV_2}" ] # e.g., ["staging", "production"]
+
+    # Database configuration
+    database:
+        type: "{DATABASE_TYPE}" # e.g., "postgresql", "mysql", "mongodb", "sqlite"
+        migration_tool: "{MIGRATION_TOOL}" # e.g., "alembic", "flyway", "liquibase"
+        schema_directory: "{SCHEMA_DIR}" # e.g., "migrations/", "sql/", "schemas/"
+
+    # API configuration
+    api:
+        specification: "{API_SPEC}" # e.g., "openapi", "graphql", "grpc"
+        spec_file: "{API_SPEC_FILE}" # e.g., "openapi.yaml", "schema.graphql"
+        documentation_tool: "{API_DOC_TOOL}" # e.g., "swagger-ui", "redoc", "graphiql"
+
+    # Security configuration
+    security:
+        authentication: "{AUTH_METHOD}" # e.g., "jwt", "oauth2", "saml", "basic"
+        authorization: "{AUTHZ_METHOD}" # e.g., "rbac", "abac", "acl"
+        security_scanning: [ "{SECURITY_TOOL_1}" ] # e.g., ["bandit", "safety", "snyk"]
+
+    # Performance configuration
+    performance:
+        monitoring_tools: [ "{MONITORING_TOOL_1}" ] # e.g., ["prometheus", "datadog", "newrelic"]
+        profiling_tools: [ "{PROFILING_TOOL_1}" ] # e.g., ["py-spy", "perf", "valgrind"]
+        load_testing: "{LOAD_TEST_TOOL}" # e.g., "locust", "jmeter", "k6"
+
+    # Deployment configuration
+    deployment:
+        containerization: "{CONTAINER_TECH}" # e.g., "docker", "podman", "containerd"
+        orchestration: "{ORCHESTRATION}" # e.g., "kubernetes", "docker-compose", "nomad"
+        infrastructure: "{INFRASTRUCTURE}" # e.g., "terraform", "cloudformation", "pulumi"
+
+    # Monitoring and logging
+    observability:
+        logging_framework: "{LOGGING_FRAMEWORK}" # e.g., "structlog", "winston", "logback"
+        metrics_collection: "{METRICS_TOOL}" # e.g., "prometheus", "statsd", "micrometer"
+        tracing: "{TRACING_TOOL}" # e.g., "jaeger", "zipkin", "opentelemetry"
+
+    # Code quality tools
+    code_quality:
+        static_analysis: [ "{STATIC_ANALYSIS_TOOL_1}" ] # e.g., ["sonarqube", "codeclimate", "deepsource"]
+        code_coverage: "{COVERAGE_TOOL}" # e.g., "coverage.py", "jest", "jacoco"
+        dependency_scanning: [ "{DEPENDENCY_SCANNER_1}" ] # e.g., ["safety", "audit", "snyk"]
+
+    # Documentation tools
+    documentation_tools:
+        generator: "{DOC_GENERATOR}" # e.g., "sphinx", "mkdocs", "gitbook", "docusaurus"
+        api_docs: "{API_DOC_GENERATOR}" # e.g., "sphinx-autoapi", "typedoc", "javadoc"
+        diagrams: "{DIAGRAM_TOOL}" # e.g., "mermaid", "plantuml", "draw.io"
+
+    # Environment configuration
+    environments:
+        development:
+            database_url: "{DEV_DATABASE_URL}"
+            debug_mode: { DEV_DEBUG_MODE } # Boolean: true/false
+            log_level: "{DEV_LOG_LEVEL}" # e.g., "DEBUG", "INFO"
+
+        testing:
+            database_url: "{TEST_DATABASE_URL}"
+            parallel_execution: { TEST_PARALLEL } # Boolean: true/false
+            mock_external_services: { TEST_MOCK_SERVICES } # Boolean: true/false
+
+        staging:
+            database_url: "{STAGING_DATABASE_URL}"
+            feature_flags: { STAGING_FEATURE_FLAGS } # Boolean: true/false
+            monitoring_enabled: { STAGING_MONITORING } # Boolean: true/false
+
+        production:
+            database_url: "{PROD_DATABASE_URL}"
+            high_availability: { PROD_HA } # Boolean: true/false
+            backup_strategy: "{PROD_BACKUP_STRATEGY}" # e.g., "daily", "continuous"
+
+    # Integration configuration
+    integrations:
+        external_apis:
+          - name: "{EXTERNAL_API_1_NAME}"
+            url: "{EXTERNAL_API_1_URL}"
+            authentication: "{EXTERNAL_API_1_AUTH}"
+
+        webhooks:
+          - name: "{WEBHOOK_1_NAME}"
+            endpoint: "{WEBHOOK_1_ENDPOINT}"
+            events: [ "{WEBHOOK_1_EVENT_1}", "{WEBHOOK_1_EVENT_2}" ]
+
+        message_queues:
+          - name: "{QUEUE_1_NAME}"
+            type: "{QUEUE_1_TYPE}" # e.g., "rabbitmq", "kafka", "redis"
+            connection: "{QUEUE_1_CONNECTION}"
+
+    # Custom business logic
+    business_rules:
+        validation_rules: [ "{VALIDATION_RULE_1}" ] # Project-specific validation rules
+        workflow_rules: [ "{WORKFLOW_RULE_1}" ] # Project-specific workflow rules
+        compliance_requirements: [ "{COMPLIANCE_REQ_1}" ] # e.g., "GDPR", "HIPAA", "SOX"
+
+    # Maintenance configuration
+    maintenance:
+        backup_schedule: "{BACKUP_SCHEDULE}" # e.g., "daily", "weekly", "monthly"
+        update_schedule: "{UPDATE_SCHEDULE}" # e.g., "weekly", "monthly", "quarterly"
+        health_checks: [ "{HEALTH_CHECK_1}" ] # e.g., "database", "external_apis", "disk_space"
+    # Add any other project-specific configurations here
+    # This section should accommodate any unique requirements
+    # that don't fit into the standard template structure

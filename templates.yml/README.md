@@ -1,35 +1,41 @@
-# YAML Templates for LLM Tracking
+# Agent3D Templates System
 
-This directory contains YAML templates specifically designed for LLM processing and automated tracking. These templates are optimized for machine readability and structured data processing.
+This directory contains the standardized templates for the Agent3D Documentation-Driven Development framework.
 
-## Templates in this Directory
+## 📁 Directory Structure
 
-### `DDD-STATUS.template.yml`
-**Purpose**: Structured status tracking for all DDD passes
-**Usage**: LLM agents use this for automated status updates and health monitoring
-**Features**:
-- Hierarchical pass organization
-- Structured metadata and statistics
-- Machine-readable status indicators
-- Automated validation criteria
+```
+templates.yml/
+├── index.yml                           # Template system index and configuration
+├── agent3d-config.template.yml         # Main project configuration template
+├── README.md                           # This file
+└── [future templates]                  # Additional templates as needed
+```
 
-### `EXEC-PLAN.template.yml`
-**Purpose**: Execution plan templates for complex development tasks
-**Usage**: LLM agents use this for planning and tracking multi-step implementations
-**Features**:
-- Checkpoint-based execution tracking
-- Expert role assignments
-- Structured validation criteria
-- Progress monitoring with status icons
+## 🎯 Purpose
 
-### `migration.template.yml`
-**Purpose**: Framework migration templates
-**Usage**: LLM agents use this for managing DDD framework updates and migrations
-**Features**:
-- Step-by-step migration procedures
-- Rollback instructions
-- Validation and success criteria
-- Automated tracking integration
+The templates.yml directory provides:
+
+1. **Standardized Configuration Templates**: Consistent project setup across all Agent3D projects
+2. **Migration Support**: Tools and templates for upgrading existing configurations
+3. **Placeholder System**: Structured approach to customizing templates for specific projects
+4. **Version Management**: Template versioning and compatibility tracking
+
+## 📋 Available Templates
+
+### Configuration Templates
+
+#### `agent3d-config.template.yml`
+- **Purpose**: Main Agent3D project configuration
+- **Target File**: `.agent3d-config.yml`
+- **Version**: 2.0
+- **Usage**: Foundation Pass configuration setup
+- **Features**:
+  - Comprehensive project configuration
+  - Python path resolution support
+  - Custom settings accommodation
+  - Pass-specific configurations
+  - Migration compatibility
 
 ## Key Differences from Markdown Templates
 

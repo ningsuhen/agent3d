@@ -165,6 +165,43 @@ class ConfigurationManager:
         config = self.get_pattern_config(prefix)
         return config.get('relationship_targets', []) if config else []
 
+    def get_python_paths_config(self) -> Dict:
+        """Get Python path configuration for Code Location validation"""
+        # First check under project_settings (new location)
+        project_settings = self.config.get('project_settings', {})
+        if 'python_paths' in project_settings:
+            return project_settings['python_paths']
+
+        # Fallback to root level (legacy location) for backward compatibility
+        return self.config.get('python_paths', {})
+
+    def get_source_directories(self) -> List[str]:
+        """Get source directories for Python module resolution"""
+        python_config = self.get_python_paths_config()
+        return python_config.get('source_directories', ['tools', 'src', 'lib', 'scripts', 'app', '.'])
+
+    def get_framework_modules(self) -> Dict[str, str]:
+        """Get framework-specific module mappings"""
+        python_config = self.get_python_paths_config()
+        return python_config.get('framework_modules', {})
+
+    def get_resolution_strategies(self) -> List[str]:
+        """Get module resolution strategies in order of preference"""
+        python_config = self.get_python_paths_config()
+        return python_config.get('resolution_strategies', ['pyproject_toml', 'direct_path', 'flat_structure', 'nested_structure', 'package_init'])
+
+    def get_flat_module_directories(self) -> List[str]:
+        """Get directories with flat module structure"""
+        python_config = self.get_python_paths_config()
+        package_structure = python_config.get('package_structure', {})
+        return package_structure.get('flat_modules', ['tools', 'scripts', 'utils'])
+
+    def get_nested_module_directories(self) -> List[str]:
+        """Get directories with nested module structure"""
+        python_config = self.get_python_paths_config()
+        package_structure = python_config.get('package_structure', {})
+        return package_structure.get('nested_modules', ['src', 'lib', 'app'])
+
 class GitChangeDetector:
     """Detects changed files using Git for optimized drift scanning."""
 
@@ -334,6 +371,7 @@ class Feature:
     is_sub_feature: bool = False
     parent_ft_id: Optional[str] = None
     tc_ids: List[str] = field(default_factory=list)  # Associated TC-* test case IDs
+    code_location: Optional[str] = None  # Implementation location for feature-implementation analysis
 
 @dataclass
 class FeatureTestMapping:
@@ -372,6 +410,19 @@ class FeatureIssue:
     documented_status: str  # completed, pending, skipped
     actual_status: str  # implemented, missing, partial
     issue_type: str  # status_mismatch, missing_implementation, undocumented_feature
+
+@dataclass
+class CodeLocationIssue:
+    """Represents a Code Location field analysis issue."""
+    feature_id: str
+    feature_name: str
+    code_location: Optional[str]
+    issue_type: str  # 'missing_code_location', 'invalid_path', 'file_not_found', 'class_not_found', 'multiple_locations_invalid'
+    severity: str  # 'critical', 'high', 'medium', 'low'
+    description: str
+    suggestion: str
+    expected_path: Optional[str] = None
+    actual_status: Optional[str] = None
 
 @dataclass
 class TestQualityIssue:
@@ -439,6 +490,8 @@ class DriftReport:
     documentation_issues: List[DocumentationIssue] = None
     # Feature Implementation Drift
     feature_issues: List[FeatureIssue] = None
+    # Code Location Analysis
+    code_location_issues: List[CodeLocationIssue] = None
     # Test Quality Validation
     test_quality_issues: List[TestQualityIssue] = None
     low_quality_tests: List[TestFunction] = None
@@ -475,6 +528,9 @@ class DriftReport:
             self.documentation_issues = []
         if self.feature_issues is None:
             self.feature_issues = []
+        # Code Location fields
+        if self.code_location_issues is None:
+            self.code_location_issues = []
         # Test Quality fields
         if self.test_quality_issues is None:
             self.test_quality_issues = []
@@ -698,6 +754,9 @@ class FeatureParser:
         # Pattern to match feature bullets with criteria
         criteria_pattern = r'- \*\*Criteria:\*\* (.+)'
 
+        # Pattern to match Code Location field
+        code_location_pattern = r'- \*\*Code Location:\*\* (.+)'
+
         # Pattern to match test cases: - [x] **TC-CORE-001** - Test Name
         tc_pattern = r'^\s+- \[([x~\s])\] \*\*TC-[A-Z]+-\d+[a-z]?\*\* - (.+)'
 
@@ -737,6 +796,12 @@ class FeatureParser:
                 # Look for description
                 if line.strip().startswith('- **Description:**'):
                     current_feature.description = line.replace('- **Description:**', '').strip()
+                    continue
+
+                # Look for Code Location
+                code_location_match = re.match(code_location_pattern, line)
+                if code_location_match:
+                    current_feature.code_location = code_location_match.group(1).strip()
                     continue
 
                 # Look for test cases
@@ -2010,6 +2075,492 @@ class ComprehensiveDriftDetector:
 
         return all_issues
 
+class CodeLocationAnalyzer:
+    """Analyzes Code Location fields in features for implementation validation."""
+
+    def __init__(self, root_dir: str = '.', features_dir: str = 'docs/features', config_manager: Optional['ConfigurationManager'] = None):
+        self.root_dir = Path(root_dir)
+        self.features_dir = Path(features_dir)
+        self.feature_parser = FeatureParser(features_dir)
+        self.config_manager = config_manager or ConfigurationManager(root_dir)
+
+    def analyze_code_locations(self, features: Optional[List[Feature]] = None) -> List[CodeLocationIssue]:
+        """Analyze Code Location fields in features and validate implementation paths."""
+        if features is None:
+            features = self.feature_parser.parse_features()
+
+        issues = []
+
+        for feature in features:
+            issues.extend(self._validate_feature_code_location(feature))
+
+        return issues
+
+    def _validate_feature_code_location(self, feature: Feature) -> List[CodeLocationIssue]:
+        """Validate a single feature's Code Location field."""
+        issues = []
+
+        # Check if Code Location field is missing
+        if not feature.code_location:
+            issues.append(CodeLocationIssue(
+                feature_id=feature.ft_id,
+                feature_name=feature.title,
+                code_location=None,
+                issue_type='missing_code_location',
+                severity='medium',
+                description=f"Feature {feature.ft_id} is missing Code Location field",
+                suggestion="Add Code Location field pointing to implementation or use 'N/A' for documentation-only features"
+            ))
+            return issues
+
+        # Skip validation for documentation-only features
+        if feature.code_location.strip().upper() == 'N/A':
+            return issues
+
+        # Parse multiple locations (separated by commas)
+        locations = [loc.strip() for loc in feature.code_location.split(',')]
+
+        for location in locations:
+            issues.extend(self._validate_single_location(feature, location))
+
+        return issues
+
+    def _validate_single_location(self, feature: Feature, location: str) -> List[CodeLocationIssue]:
+        """Validate a single code location entry."""
+        issues = []
+
+        # Parse different location formats
+        if '#' in location:
+            # New format: relative/path/to/file.py#ClassName.method_name
+            file_part, object_part = location.split('#', 1)
+            file_part = file_part.strip()
+            object_part = object_part.strip()
+
+            issues.extend(self._validate_relative_path_location(feature, file_part, object_part, location))
+
+        elif '[' in location and ']' in location:
+            # Legacy format: module.path[Class/Function] or file_path[Object]
+            path_part, object_part = location.split('[', 1)
+            object_part = object_part.rstrip(']')
+            path_part = path_part.strip()
+
+            # Check if it's a Python module path or file path
+            if '.' in path_part and not path_part.endswith('.py'):
+                # Python module format: tools.drift_scanner[DriftScanner]
+                issues.extend(self._validate_python_module_location(feature, path_part, object_part, location))
+            else:
+                # File path format: vscode-ddd-navigator/src/extension[activate]
+                issues.extend(self._validate_file_path_location(feature, path_part, object_part, location))
+        else:
+            # Simple file path: tools/drift_scanner_mcp_server.sh
+            issues.extend(self._validate_simple_file_path(feature, location))
+
+        return issues
+
+    def _validate_relative_path_location(self, feature: Feature, file_path: str, object_name: str, full_location: str) -> List[CodeLocationIssue]:
+        """Validate relative file path with object indicator format: path/to/file.py#ClassName.method_name"""
+        issues = []
+
+        # Resolve relative path from project root
+        full_file_path = self.root_dir / file_path
+
+        # Check if file exists
+        if not full_file_path.exists():
+            issues.append(CodeLocationIssue(
+                feature_id=feature.ft_id,
+                feature_name=feature.title,
+                code_location=full_location,
+                issue_type='file_not_found',
+                severity='high',
+                description=f"File not found: {file_path}",
+                suggestion=f"Check if {file_path} exists relative to project root or update Code Location",
+                expected_path=str(full_file_path)
+            ))
+            return issues
+
+        # Read file content for object validation
+        try:
+            with open(full_file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+        except Exception as e:
+            issues.append(CodeLocationIssue(
+                feature_id=feature.ft_id,
+                feature_name=feature.title,
+                code_location=full_location,
+                issue_type='file_read_error',
+                severity='medium',
+                description=f"Cannot read file {file_path}: {e}",
+                suggestion=f"Check file permissions and encoding for {file_path}",
+                expected_path=str(full_file_path)
+            ))
+            return issues
+
+        # Parse object name (supports Class, Class.method, function formats)
+        if '.' in object_name:
+            # Format: ClassName.method_name
+            class_name, method_name = object_name.split('.', 1)
+            issues.extend(self._validate_class_method_in_content(feature, content, class_name, method_name, full_location, file_path))
+        else:
+            # Format: ClassName or function_name
+            issues.extend(self._validate_object_in_content(feature, content, object_name, full_location, file_path))
+
+        return issues
+
+    def _validate_class_method_in_content(self, feature: Feature, content: str, class_name: str, method_name: str, full_location: str, file_path: str) -> List[CodeLocationIssue]:
+        """Validate that a class and its method exist in the file content."""
+        issues = []
+
+        # Look for class definition
+        class_pattern = rf'class\s+{re.escape(class_name)}\s*[\(:]'
+        class_match = re.search(class_pattern, content)
+
+        if not class_match:
+            issues.append(CodeLocationIssue(
+                feature_id=feature.ft_id,
+                feature_name=feature.title,
+                code_location=full_location,
+                issue_type='class_not_found',
+                severity='medium',
+                description=f"Class '{class_name}' not found in {file_path}",
+                suggestion=f"Check if class '{class_name}' exists in {file_path} or update Code Location",
+                expected_path=file_path
+            ))
+            return issues
+
+        # Look for method within the class
+        # Find the class block and search for the method within it
+        class_start = class_match.start()
+
+        # Find the end of the class (next class definition or end of file)
+        next_class_pattern = r'\nclass\s+\w+'
+        next_class_match = re.search(next_class_pattern, content[class_start + 1:])
+        class_end = class_start + next_class_match.start() + 1 if next_class_match else len(content)
+
+        class_content = content[class_start:class_end]
+
+        # Look for method definition within the class
+        method_pattern = rf'def\s+{re.escape(method_name)}\s*\('
+        method_match = re.search(method_pattern, class_content)
+
+        if not method_match:
+            issues.append(CodeLocationIssue(
+                feature_id=feature.ft_id,
+                feature_name=feature.title,
+                code_location=full_location,
+                issue_type='method_not_found',
+                severity='medium',
+                description=f"Method '{method_name}' not found in class '{class_name}' in {file_path}",
+                suggestion=f"Check if method '{method_name}' exists in class '{class_name}' or update Code Location",
+                expected_path=file_path
+            ))
+
+        return issues
+
+    def _validate_object_in_content(self, feature: Feature, content: str, object_name: str, full_location: str, file_path: str) -> List[CodeLocationIssue]:
+        """Validate that a class or function exists in the file content."""
+        issues = []
+
+        # Look for class definition
+        class_pattern = rf'class\s+{re.escape(object_name)}\s*[\(:]'
+        # Look for function definition
+        function_pattern = rf'def\s+{re.escape(object_name)}\s*\('
+        # Look for variable/constant definition
+        variable_pattern = rf'^{re.escape(object_name)}\s*='
+
+        class_match = re.search(class_pattern, content)
+        function_match = re.search(function_pattern, content)
+        variable_match = re.search(variable_pattern, content, re.MULTILINE)
+
+        if not (class_match or function_match or variable_match):
+            issues.append(CodeLocationIssue(
+                feature_id=feature.ft_id,
+                feature_name=feature.title,
+                code_location=full_location,
+                issue_type='object_not_found',
+                severity='medium',
+                description=f"Object '{object_name}' (class, function, or variable) not found in {file_path}",
+                suggestion=f"Check if '{object_name}' exists in {file_path} or update Code Location",
+                expected_path=file_path
+            ))
+
+        return issues
+
+    def _resolve_python_module_paths(self, module_path: str) -> List[Path]:
+        """
+        Resolve Python module path using multi-fallback approach with configuration.
+
+        Uses .agent3d-config.yml python_paths configuration when available,
+        falls back to common project structures.
+        """
+        possible_paths = []
+
+        # Strategy 1: Check framework-specific module mappings first
+        framework_modules = self.config_manager.get_framework_modules()
+        if module_path in framework_modules:
+            framework_path = self.root_dir / framework_modules[module_path]
+            possible_paths.append(framework_path)
+
+        # Strategy 2: Use configured resolution strategies
+        resolution_strategies = self.config_manager.get_resolution_strategies()
+
+        for strategy in resolution_strategies:
+            if strategy == 'pyproject_toml':
+                pyproject_paths = self._get_pyproject_python_paths(module_path)
+                possible_paths.extend(pyproject_paths)
+
+            elif strategy == 'direct_path':
+                direct_path = self.root_dir / (module_path.replace('.', '/') + '.py')
+                possible_paths.append(direct_path)
+
+            elif strategy == 'flat_structure':
+                flat_dirs = self.config_manager.get_flat_module_directories()
+                for base_dir in flat_dirs:
+                    if '.' in module_path:
+                        flat_name = module_path.split('.')[-1]  # Get last part of module path
+                        flat_path = self.root_dir / base_dir / (flat_name + '.py')
+                        possible_paths.append(flat_path)
+
+            elif strategy == 'nested_structure':
+                nested_dirs = self.config_manager.get_nested_module_directories()
+                for base_dir in nested_dirs:
+                    nested_path = self.root_dir / base_dir / (module_path.replace('.', '/') + '.py')
+                    possible_paths.append(nested_path)
+
+            elif strategy == 'package_init':
+                package_path = self.root_dir / (module_path.replace('.', '/')) / '__init__.py'
+                possible_paths.append(package_path)
+
+        # Strategy 3: Fallback to configured source directories
+        source_directories = self.config_manager.get_source_directories()
+        for base_dir in source_directories:
+            # Standard nested structure: base_dir/module/path.py
+            nested_path = self.root_dir / base_dir / (module_path.replace('.', '/') + '.py')
+            possible_paths.append(nested_path)
+
+            # Flat structure: base_dir/module_name.py
+            if '.' in module_path:
+                flat_name = module_path.split('.')[-1]
+                flat_path = self.root_dir / base_dir / (flat_name + '.py')
+                possible_paths.append(flat_path)
+
+        # Remove duplicates while preserving order
+        seen = set()
+        unique_paths = []
+        for path in possible_paths:
+            if path not in seen:
+                seen.add(path)
+                unique_paths.append(path)
+
+        return unique_paths
+
+    def _get_pyproject_python_paths(self, module_path: str) -> List[Path]:
+        """Get Python paths from pyproject.toml configuration if it exists."""
+        pyproject_file = self.root_dir / 'pyproject.toml'
+        if not pyproject_file.exists():
+            return []
+
+        try:
+            # Try to parse pyproject.toml (requires tomli/tomllib for Python < 3.11)
+            try:
+                import tomllib  # Python 3.11+
+            except ImportError:
+                try:
+                    import tomli as tomllib  # Fallback for older Python
+                except ImportError:
+                    # If no TOML parser available, skip pyproject.toml parsing
+                    return []
+
+            with open(pyproject_file, 'rb') as f:
+                pyproject_data = tomllib.load(f)
+
+            paths = []
+
+            # Check for setuptools configuration
+            setuptools_config = pyproject_data.get('tool', {}).get('setuptools', {})
+            if 'packages' in setuptools_config:
+                # packages = ["src/mypackage"]
+                for package in setuptools_config['packages']:
+                    if isinstance(package, str):
+                        package_path = self.root_dir / package / (module_path.replace('.', '/') + '.py')
+                        paths.append(package_path)
+
+            if 'package-dir' in setuptools_config:
+                # package-dir = {"" = "src"}
+                package_dir = setuptools_config['package-dir']
+                for key, value in package_dir.items():
+                    base_path = self.root_dir / value / (module_path.replace('.', '/') + '.py')
+                    paths.append(base_path)
+
+            # Check for pytest configuration (test paths)
+            pytest_config = pyproject_data.get('tool', {}).get('pytest', {}).get('ini_options', {})
+            if 'pythonpath' in pytest_config:
+                python_paths = pytest_config['pythonpath']
+                if isinstance(python_paths, str):
+                    python_paths = [python_paths]
+                for python_path in python_paths:
+                    path = self.root_dir / python_path / (module_path.replace('.', '/') + '.py')
+                    paths.append(path)
+
+            return paths
+
+        except Exception as e:
+            # If pyproject.toml parsing fails, continue with other strategies
+            return []
+
+    def _validate_python_module_location(self, feature: Feature, module_path: str, object_name: str, full_location: str) -> List[CodeLocationIssue]:
+        """Validate Python module.path[Object] format."""
+        issues = []
+
+        # Try multiple Python path resolution strategies
+        possible_paths = self._resolve_python_module_paths(module_path)
+
+        file_path = None
+        for path in possible_paths:
+            if path.exists():
+                file_path = path
+                break
+
+        if not file_path:
+            # Generate helpful error message with relative paths (first 5 attempts)
+            attempted_paths = []
+            for p in possible_paths[:5]:  # Show first 5 attempts
+                try:
+                    rel_path = p.relative_to(self.root_dir)
+                    attempted_paths.append(str(rel_path))
+                except ValueError:
+                    attempted_paths.append(str(p))
+
+            issues.append(CodeLocationIssue(
+                feature_id=feature.ft_id,
+                feature_name=feature.title,
+                code_location=full_location,
+                issue_type='file_not_found',
+                severity='high',
+                description=f"Python module '{module_path}' not found. Tried: {', '.join(attempted_paths)}",
+                suggestion=f"Check if module exists in project structure. Common patterns: tools/{module_path.split('.')[-1]}.py, src/{module_path.replace('.', '/')}.py, or {module_path.replace('.', '/')}.py",
+                expected_path=attempted_paths[0] if attempted_paths else f"{module_path.replace('.', '/')}.py"
+            ))
+            return issues
+
+        # Check if the specified class/function exists in the file
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            # Look for class or function definition
+            class_pattern = rf'class\s+{re.escape(object_name)}\s*[\(:]'
+            function_pattern = rf'def\s+{re.escape(object_name)}\s*\('
+            method_pattern = rf'def\s+{re.escape(object_name.split(".")[-1])}\s*\('  # For Class.method format
+
+            if not (re.search(class_pattern, content) or
+                   re.search(function_pattern, content) or
+                   re.search(method_pattern, content)):
+                issues.append(CodeLocationIssue(
+                    feature_id=feature.ft_id,
+                    feature_name=feature.title,
+                    code_location=full_location,
+                    issue_type='class_not_found',
+                    severity='medium',
+                    description=f"Class/function '{object_name}' not found in {file_path}",
+                    suggestion=f"Check if '{object_name}' exists in {file_path} or update Code Location",
+                    expected_path=str(file_path)
+                ))
+
+        except Exception as e:
+            issues.append(CodeLocationIssue(
+                feature_id=feature.ft_id,
+                feature_name=feature.title,
+                code_location=full_location,
+                issue_type='invalid_path',
+                severity='medium',
+                description=f"Error reading file {file_path}: {e}",
+                suggestion=f"Check file permissions and encoding for {file_path}",
+                expected_path=str(file_path)
+            ))
+
+        return issues
+
+    def _validate_file_path_location(self, feature: Feature, file_path: str, object_name: str, full_location: str) -> List[CodeLocationIssue]:
+        """Validate file_path[Object] format."""
+        issues = []
+
+        full_file_path = self.root_dir / file_path
+
+        if not full_file_path.exists():
+            issues.append(CodeLocationIssue(
+                feature_id=feature.ft_id,
+                feature_name=feature.title,
+                code_location=full_location,
+                issue_type='file_not_found',
+                severity='high',
+                description=f"File not found: {full_file_path}",
+                suggestion=f"Check if {full_file_path} exists or update Code Location",
+                expected_path=str(full_file_path)
+            ))
+            return issues
+
+        # For TypeScript/JavaScript files, look for function/class/export
+        if full_file_path.suffix in ['.ts', '.js', '.tsx', '.jsx']:
+            try:
+                with open(full_file_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+
+                # Look for various TypeScript/JavaScript patterns
+                patterns = [
+                    rf'function\s+{re.escape(object_name)}\s*\(',
+                    rf'const\s+{re.escape(object_name)}\s*=',
+                    rf'export\s+function\s+{re.escape(object_name)}\s*\(',
+                    rf'export\s+const\s+{re.escape(object_name)}\s*=',
+                    rf'class\s+{re.escape(object_name)}\s*{{',
+                    rf'export\s+class\s+{re.escape(object_name)}\s*{{'
+                ]
+
+                if not any(re.search(pattern, content) for pattern in patterns):
+                    issues.append(CodeLocationIssue(
+                        feature_id=feature.ft_id,
+                        feature_name=feature.title,
+                        code_location=full_location,
+                        issue_type='class_not_found',
+                        severity='medium',
+                        description=f"Function/class '{object_name}' not found in {full_file_path}",
+                        suggestion=f"Check if '{object_name}' exists in {full_file_path} or update Code Location",
+                        expected_path=str(full_file_path)
+                    ))
+
+            except Exception as e:
+                issues.append(CodeLocationIssue(
+                    feature_id=feature.ft_id,
+                    feature_name=feature.title,
+                    code_location=full_location,
+                    issue_type='invalid_path',
+                    severity='medium',
+                    description=f"Error reading file {full_file_path}: {e}",
+                    suggestion=f"Check file permissions and encoding for {full_file_path}",
+                    expected_path=str(full_file_path)
+                ))
+
+        return issues
+
+    def _validate_simple_file_path(self, feature: Feature, file_path: str) -> List[CodeLocationIssue]:
+        """Validate simple file path format."""
+        issues = []
+
+        full_file_path = self.root_dir / file_path
+
+        if not full_file_path.exists():
+            issues.append(CodeLocationIssue(
+                feature_id=feature.ft_id,
+                feature_name=feature.title,
+                code_location=file_path,
+                issue_type='file_not_found',
+                severity='high',
+                description=f"File not found: {full_file_path}",
+                suggestion=f"Check if {full_file_path} exists or update Code Location",
+                expected_path=str(full_file_path)
+            ))
+
+        return issues
+
 class MultiModeDriftAnalyzer:
     """Multi-mode drift analyzer that can run different types of drift detection."""
 
@@ -2027,6 +2578,7 @@ class MultiModeDriftAnalyzer:
         self.feature_scanner = FeatureImplementationScanner(root_dir, 'docs/features')
         self.comprehensive_detector = ComprehensiveDriftDetector(root_dir)
         self.test_quality_validator = TestQualityValidator(root_dir)
+        self.code_location_analyzer = CodeLocationAnalyzer(root_dir, 'docs/features', self.config_manager)
 
     def analyze_drift(self, mode: str = 'tc-mapping', changed_files: Optional[Set[Path]] = None) -> DriftReport:
         """Analyze drift based on the specified mode, optionally filtered by changed files."""
@@ -2040,6 +2592,8 @@ class MultiModeDriftAnalyzer:
             return self._analyze_code_coverage(changed_files)
         elif mode == 'feature-impl':
             return self._analyze_feature_implementation(changed_files)
+        elif mode == 'code-location':
+            return self._analyze_code_location(changed_files)
         elif mode == 'test-quality':
             return self._analyze_test_quality(changed_files)
         elif mode == 'all':
@@ -2167,6 +2721,46 @@ class MultiModeDriftAnalyzer:
             metadata=metadata
         )
 
+    def _analyze_code_location(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
+        """Analyze Code Location field validation."""
+        if changed_files is not None:
+            print("🔍 Starting Code Location analysis (change-based)...\n")
+        else:
+            print("🔍 Starting Code Location analysis...\n")
+
+        # Parse features and analyze their Code Location fields
+        features = self.ft_analyzer.feature_parser.parse_features()
+        code_location_issues = self.code_location_analyzer.analyze_code_locations(features)
+
+        # Calculate statistics
+        total_features = len(features)
+        features_with_code_location = len([f for f in features if f.code_location])
+        features_with_valid_location = len([f for f in features
+                                          if f.code_location and f.code_location.strip().upper() != 'N/A'])
+        documentation_only_features = len([f for f in features
+                                         if f.code_location and f.code_location.strip().upper() == 'N/A'])
+
+        metadata = {
+            'total_features': total_features,
+            'features_with_code_location': features_with_code_location,
+            'features_with_valid_location': features_with_valid_location,
+            'documentation_only_features': documentation_only_features,
+            'code_location_issues_count': len(code_location_issues),
+            'missing_code_location': len([issue for issue in code_location_issues
+                                        if issue.issue_type == 'missing_code_location']),
+            'file_not_found': len([issue for issue in code_location_issues
+                                 if issue.issue_type == 'file_not_found']),
+            'class_not_found': len([issue for issue in code_location_issues
+                                  if issue.issue_type == 'class_not_found']),
+            'coverage_percentage': round((features_with_code_location / total_features) * 100, 2) if total_features > 0 else 0
+        }
+
+        return DriftReport(
+            mode='code-location',
+            code_location_issues=code_location_issues,
+            metadata=metadata
+        )
+
     def _analyze_test_quality(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
         """Analyze test quality to ensure tests actually test project code."""
         if changed_files is not None:
@@ -2216,6 +2810,7 @@ class MultiModeDriftAnalyzer:
         ft_tc_report = self._analyze_ft_tc_mapping(changed_files)
         coverage_report = self._analyze_code_coverage(changed_files)
         feature_report = self._analyze_feature_implementation(changed_files)
+        code_location_report = self._analyze_code_location(changed_files)
         quality_report = self._analyze_test_quality(changed_files)
 
         # Run comprehensive drift detection
@@ -2228,6 +2823,7 @@ class MultiModeDriftAnalyzer:
             **ft_tc_report.metadata,  # This includes both FT and TC metadata
             **coverage_report.metadata,
             **feature_report.metadata,
+            **code_location_report.metadata,
             **quality_report.metadata,
             'comprehensive_issues_count': len(comprehensive_issues),
             'critical_issues': len([i for i in comprehensive_issues if i.severity == 'critical']),
@@ -2252,6 +2848,8 @@ class MultiModeDriftAnalyzer:
             coverage_issues=coverage_report.coverage_issues,
             coverage_percentage=coverage_report.coverage_percentage,
             feature_issues=feature_report.feature_issues,
+            # Code Location data
+            code_location_issues=code_location_report.code_location_issues,
             # Test Quality data
             test_quality_issues=quality_report.test_quality_issues,
             low_quality_tests=quality_report.low_quality_tests,
@@ -2511,6 +3109,19 @@ def generate_multi_mode_report(report: DriftReport, output_file: str = 'drift-re
             'feature_issues': [asdict(issue) for issue in (report.feature_issues or [])]
         })
 
+    if report.mode in ['code-location', 'all']:
+        report_dict.update({
+            'code_location_summary': {
+                'total_features': report.metadata.get('total_features', 0),
+                'features_with_code_location': report.metadata.get('features_with_code_location', 0),
+                'features_with_valid_location': report.metadata.get('features_with_valid_location', 0),
+                'documentation_only_features': report.metadata.get('documentation_only_features', 0),
+                'code_location_issues_count': len(report.code_location_issues or []),
+                'coverage_percentage': report.metadata.get('coverage_percentage', 0)
+            },
+            'code_location_issues': [asdict(issue) for issue in (report.code_location_issues or [])]
+        })
+
     if report.mode in ['test-quality', 'all']:
         report_dict.update({
             'test_quality_summary': {
@@ -2557,6 +3168,8 @@ def print_multi_mode_summary(report: DriftReport) -> None:
         print_coverage_summary(report)
     elif report.mode == 'feature-impl':
         print_feature_summary(report)
+    elif report.mode == 'code-location':
+        print_code_location_summary(report)
     elif report.mode == 'test-quality':
         print_test_quality_summary(report)
     elif report.mode == 'all':
@@ -2564,6 +3177,7 @@ def print_multi_mode_summary(report: DriftReport) -> None:
         print_ft_mapping_summary(report)
         print_coverage_summary(report)
         print_feature_summary(report)
+        print_code_location_summary(report)
         print_test_quality_summary(report)
         print_comprehensive_drift_summary(report)
 
@@ -2614,6 +3228,58 @@ def print_feature_summary(report: DriftReport) -> None:
 
     print(f"\n📊 FEATURE IMPLEMENTATION OVERVIEW:")
     print(f"  Feature Issues: {len(report.feature_issues or [])}")
+
+def print_code_location_summary(report: DriftReport) -> None:
+    """Print Code Location field analysis summary."""
+    if not report.code_location_issues and not hasattr(report, 'metadata'):
+        return
+
+    print(f"\n📊 CODE LOCATION ANALYSIS OVERVIEW:")
+
+    # Get metadata with safe defaults
+    metadata = report.metadata or {}
+    total_features = metadata.get('total_features', 0)
+    features_with_code_location = metadata.get('features_with_code_location', 0)
+    features_with_valid_location = metadata.get('features_with_valid_location', 0)
+    documentation_only_features = metadata.get('documentation_only_features', 0)
+    coverage_percentage = metadata.get('coverage_percentage', 0)
+
+    print(f"  Total Features: {total_features}")
+    print(f"  Features with Code Location: {features_with_code_location}")
+    print(f"  Features with Valid Implementation Location: {features_with_valid_location}")
+    print(f"  Documentation-Only Features: {documentation_only_features}")
+    print(f"  Code Location Coverage: {coverage_percentage:.1f}%")
+
+    if report.code_location_issues:
+        print(f"  Code Location Issues: {len(report.code_location_issues)}")
+
+        # Group issues by type
+        issue_types = defaultdict(int)
+        for issue in report.code_location_issues:
+            issue_types[issue.issue_type] += 1
+
+        for issue_type, count in issue_types.items():
+            print(f"    {issue_type.replace('_', ' ').title()}: {count}")
+
+        # Show critical issues
+        critical_issues = [issue for issue in report.code_location_issues if issue.severity == 'critical']
+        high_issues = [issue for issue in report.code_location_issues if issue.severity == 'high']
+
+        if critical_issues or high_issues:
+            print(f"\n❌ HIGH PRIORITY CODE LOCATION ISSUES:")
+            for issue in (critical_issues + high_issues)[:5]:  # Show first 5 high priority issues
+                severity_icon = "🔴" if issue.severity == 'critical' else "🟠"
+                print(f"  {severity_icon} {issue.feature_id} - {issue.feature_name}")
+                print(f"    Issue: {issue.description}")
+                print(f"    Suggestion: {issue.suggestion}")
+                if issue.expected_path:
+                    print(f"    Expected Path: {issue.expected_path}")
+
+            total_high_priority = len(critical_issues) + len(high_issues)
+            if total_high_priority > 5:
+                print(f"  ... and {total_high_priority - 5} more high priority issues")
+    else:
+        print("  ✅ No Code Location issues found")
 
 def print_test_quality_summary(report: DriftReport) -> None:
     """Print test quality specific summary."""
@@ -2716,6 +3382,17 @@ def calculate_exit_code(report: DriftReport) -> int:
             return 1
         else:
             return 2
+    elif report.mode == 'code-location':
+        issue_count = len(report.code_location_issues or [])
+        critical_issues = len([issue for issue in (report.code_location_issues or []) if issue.severity in ['critical', 'high']])
+        coverage_percentage = report.metadata.get('coverage_percentage', 0) if report.metadata else 0
+
+        if issue_count == 0 and coverage_percentage >= 90:
+            return 0
+        elif critical_issues == 0 and coverage_percentage >= 70:
+            return 1
+        else:
+            return 2
     elif report.mode == 'test-quality':
         quality_score = report.test_quality_score or 0
         critical_issues = len([issue for issue in (report.test_quality_issues or []) if issue.severity == 'critical'])
@@ -2736,10 +3413,13 @@ def calculate_exit_code(report: DriftReport) -> int:
                                                       coverage_issues=report.coverage_issues))
         feature_code = calculate_exit_code(DriftReport(mode='feature-impl',
                                                      feature_issues=report.feature_issues))
+        code_location_code = calculate_exit_code(DriftReport(mode='code-location',
+                                                           code_location_issues=report.code_location_issues,
+                                                           metadata=report.metadata))
         quality_code = calculate_exit_code(DriftReport(mode='test-quality',
                                                      test_quality_score=report.test_quality_score,
                                                      test_quality_issues=report.test_quality_issues))
-        return max(tc_code, coverage_code, feature_code, quality_code)
+        return max(tc_code, coverage_code, feature_code, code_location_code, quality_code)
 
     return 0
 
@@ -2749,7 +3429,7 @@ def main():
 
     parser = argparse.ArgumentParser(description='Multi-mode drift scanner for Agent3D framework')
     parser.add_argument('--mode', default='tc-mapping',
-                       choices=['tc-mapping', 'ft-mapping', 'ft-tc-mapping', 'code-coverage', 'feature-impl', 'test-quality', 'all'],
+                       choices=['tc-mapping', 'ft-mapping', 'ft-tc-mapping', 'code-coverage', 'feature-impl', 'code-location', 'test-quality', 'all'],
                        help='Drift analysis mode (default: tc-mapping)')
     parser.add_argument('--root-dir', default='.', help='Root directory to scan (default: current directory)')
     parser.add_argument('--test-cases-file', default='docs/features',

@@ -205,6 +205,7 @@ memory_patterns:
   - "quality_thresholds"
   - "applicable_language_rules_from_rules.yml"
   - "procedures_index_from_procedures.yml/index.yml"
+  - ".editorconfig_formatting_rules_and_file-specific_settings"
   # Configuration Memorization Protocol
   config_memorization:
     trigger: "complete_mode_pass_execution"
@@ -340,6 +341,51 @@ integration_points:
 
     rationale: "YAML format provides better machine readability and structured data for LLM processing"
 
+# Code Formatting Standards
+code_formatting_standards:
+  editorconfig_compliance:
+    requirement: "ALWAYS respect .editorconfig settings for consistent formatting"
+    location: ".editorconfig"
+    key_settings:
+    - "indent_style: space (for all files)"
+    - "indent_size: 4 (default), 2 (YAML files)"
+    - "end_of_line: lf (Unix line endings)"
+    - "charset: utf-8"
+    - "trim_trailing_whitespace: false"
+    - "insert_final_newline: false"
+
+  file_specific_rules:
+    yaml_files:
+      extensions: [ "*.yml", "*.yaml" ]
+      indent_size: 2
+      indent_style: "space"
+
+    python_files:
+      extensions: [ "*.py" ]
+      indent_size: 4
+      indent_style: "space"
+
+    general_files:
+      indent_size: 4
+      indent_style: "space"
+
+  formatting_workflow:
+    before_editing:
+    - "check_.editorconfig_for_file-specific_rules"
+    - "configure_editor_to_respect_editorconfig"
+    - "verify_indentation_settings_match_file_type"
+
+    during_editing:
+    - "maintain_consistent_indentation_per_.editorconfig"
+    - "use_spaces_not_tabs_unless_specified"
+    - "respect_line_ending_format_(lf)"
+    - "maintain_utf-8_encoding"
+
+    after_editing:
+    - "verify_formatting_matches_.editorconfig_rules"
+    - "check_indentation_consistency"
+    - "ensure_proper_line_endings"
+
 # Success Criteria
 success_criteria:
   pass_completion:
@@ -347,6 +393,7 @@ success_criteria:
   - "quality_gates_passed"
   - "documentation_updated"
   - "drift_within_acceptable_range"
+  - "code_formatting_follows_.editorconfig_standards"
 
   project_health:
   - "alignment_above_90_percent"

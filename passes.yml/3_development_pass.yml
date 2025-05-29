@@ -43,6 +43,7 @@ process:
       - "create_exec_plan_branch"
       - "document_implementation_steps"
       - "establish_checkpoints"
+      - "validate_code_location_fields"
 
     ask:
       purpose: "Validate development approach and priorities"
@@ -66,6 +67,7 @@ process:
       - "update_progress_tracking"
       - "validate_step_completion"
       - "handle_implementation_issues"
+      - "update_code_location_fields"
 
     merge:
       purpose: "Complete development cycle and integrate changes"
@@ -99,6 +101,10 @@ quality_gates:
   - name: "code_quality_standards"
     validation: "Implementation meets code quality standards"
     critical: true
+  - name: "code_location_fields_updated"
+    validation: "All implemented features have accurate Code Location fields"
+    critical: true
+    description: "Ensure Code Location fields point to actual implementation"
 
   integration_requirements:
   - name: "clean_merge"
@@ -110,3 +116,53 @@ quality_gates:
   - name: "documentation_updated"
     validation: "Related documentation is updated"
     critical: true
+
+# Code Location Field Requirements
+code_location_requirements:
+  purpose: "Ensure accurate Feature-Implementation linking for drift analysis"
+  critical: true
+
+  field_format:
+    python_modules: "module.path[Class/Function]"
+    file_paths: "path/to/file[Object]"
+    simple_files: "path/to/script.py"
+    documentation_only: "N/A"
+    multiple_locations: "location1, location2, location3"
+
+  validation_requirements:
+    during_implementation:
+    - "Add Code Location field to all new features"
+    - "Update Code Location field when implementing existing features"
+    - "Verify Code Location paths are accurate and resolvable"
+    - "Use project Python path configuration for module resolution"
+
+    before_merge:
+    - "Run drift scanner in code-location mode to validate all paths"
+    - "Ensure no 'file_not_found' or 'class_not_found' issues"
+    - "Verify Code Location fields follow project conventions"
+    - "Update any outdated Code Location references"
+
+  examples_by_project_type:
+    python_tools_structure:
+    - "tools.drift_scanner[DriftScanner]"
+    - "tools.migration_manager[MigrationManager.execute_migration]"
+    - "workflows.validate_sync[WorkflowSyncValidator]"
+
+    python_src_layout:
+    - "src.main[Application]"
+    - "src.models.user[UserModel]"
+    - "src.services.auth[AuthenticationService.login]"
+
+    mixed_structure:
+    - "tools/drift_scanner_mcp_server.sh"
+    - "src.core[CoreEngine]"
+    - "scripts.deploy[deploy_application]"
+
+    documentation_features:
+    - "N/A" # For documentation-only features
+
+  quality_gates:
+  - "All implemented features have Code Location fields"
+  - "Code Location paths are validated and resolvable"
+  - "Code Location format follows project conventions"
+  - "Drift scanner code-location mode passes without critical issues"

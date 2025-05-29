@@ -2,300 +2,395 @@
 # Establish project foundation through configuration discovery and setup
 
 metadata:
-  name: "Foundation Pass"
-  number: 1
-  purpose: "Establish project foundation through configuration discovery, feature selection, and initial setup after requirements understood"
-  role: "Project Setup Specialist"
-  expertise: [ "project initialization", "configuration management", "foundation establishment" ]
-  focus: [ "project context", "tooling configuration", "basic structure" ]
+    name: "Foundation Pass"
+    number: 1
+    purpose: "Establish project foundation through configuration discovery, feature selection, and initial setup after requirements understood"
+    role: "Project Setup Specialist"
+    expertise: [ "project initialization", "configuration management", "foundation establishment" ]
+    focus: [ "project context", "tooling configuration", "basic structure" ]
 
 # When to Use
 when_to_use:
-  conditions:
-  - "after_requirements_pass_completed"
-  - "project_configuration_needed"
-  - "before_technical_architecture_work"
-  - "agent3d_features_need_configuration"
-  - "project_foundation_setup_required"
-  - "ddd_passes_selection_needed"
-  - "before_technical_stakeholder_engagement"
+    conditions:
+      - "after_requirements_pass_completed"
+      - "project_configuration_needed"
+      - "before_technical_architecture_work"
+      - "agent3d_features_need_configuration"
+      - "project_foundation_setup_required"
+      - "ddd_passes_selection_needed"
+      - "before_technical_stakeholder_engagement"
 
-  prerequisites:
-  - "requirements_pass_completed"
-  - "business_needs_established"
-  - "project_scope_defined"
+    prerequisites:
+      - "requirements_pass_completed"
+      - "business_needs_established"
+      - "project_scope_defined"
 
 # Process Workflow
 process:
-  workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
+    workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
 
-  phases:
-    scan:
-      description: "Review requirements, check configuration, identify project type"
-      actions:
-      - action: "repository_management"
-        reference: "../docs/COMMON-PROCEDURES.md#repository-management"
-      - action: "review_requirements"
-        check: "requirements_pass_outputs"
-      - action: "check_existing_config"
-        file: ".agent3d-config.yml"
-      - action: "identify_project_type"
-        analyze: [ "codebase", "documentation", "structure" ]
+    phases:
+        scan:
+            description: "Review requirements, check configuration, identify project type"
+            actions:
+              - action: "repository_management"
+                reference: "../docs/COMMON-PROCEDURES.md#repository-management"
+              - action: "review_requirements"
+                check: "requirements_pass_outputs"
+              - action: "check_existing_config"
+                file: ".agent3d-config.yml"
+              - action: "identify_project_type"
+                analyze: [ "codebase", "documentation", "structure" ]
 
-    draft:
-      description: "Ask configuration questions, select DDD passes, create structure"
-      actions:
-      - action: "interactive_configuration"
-        method: "one_question_at_a_time"
-      - action: "select_ddd_passes"
-        based_on: "project_requirements"
-      - action: "create_project_structure"
-        directories: [ "docs", "tests", ".agent3d-tmp" ]
+        draft:
+            description: "Ask configuration questions, select DDD passes, create structure"
+            actions:
+              - action: "interactive_configuration"
+                method: "one_question_at_a_time"
+              - action: "select_ddd_passes"
+                based_on: "project_requirements"
+              - action: "create_project_structure"
+                directories: [ "docs", "tests", ".agent3d-tmp" ]
 
-    ask:
-      description: "Interactive configuration and validation"
-      protocol:
-      - "ask_one_question_at_a_time"
-      - "wait_for_response_before_next"
-      - "validate_choices_for_consistency"
-      areas:
-      - "project_type_and_language"
-      - "ddd_passes_selection"
-      - "quality_level_requirements"
-      - "custom_configuration_needs"
+        ask:
+            description: "Interactive configuration and validation"
+            protocol:
+              - "ask_one_question_at_a_time"
+              - "wait_for_response_before_next"
+              - "validate_choices_for_consistency"
+            areas:
+              - "project_type_and_language"
+              - "ddd_passes_selection"
+              - "quality_level_requirements"
+              - "custom_configuration_needs"
 
-    sync:
-      description: "Save configuration and establish foundation"
-      critical_actions:
-      - action: "save_agent3d_config"
-        file: ".agent3d-config.yml"
-        critical: true
-      - action: "memorize_entire_config"
-        requirement: "IMMEDIATELY_MEMORIZE_ENTIRE_NEW_CONFIG"
-        critical: true
-      - action: "create_foundation_structure"
-      - action: "establish_docs_framework"
-      - action: "create_ddd_status"
-        file: "docs/DDD-STATUS.md"
+        sync:
+            description: "Save configuration and establish foundation"
+            critical_actions:
+              - action: "execute_config_migration_if_needed"
+                command: "python3 tools/config_migrator.py"
+                conditional: "migration_analysis_shows_needs_migration"
+                critical: true
+              - action: "save_agent3d_config"
+                file: ".agent3d-config.yml"
+                critical: true
+              - action: "memorize_entire_config"
+                requirement: "IMMEDIATELY_MEMORIZE_ENTIRE_NEW_CONFIG"
+                critical: true
+              - action: "create_foundation_structure"
+              - action: "establish_docs_framework"
+              - action: "create_ddd_status"
+                file: "docs/DDD-STATUS.md"
+              - action: "configure_python_paths"
+                requirement: "CRITICAL_FOR_CODE_LOCATION_VALIDATION"
+                critical: true
 
-    confirm:
-      description: "Check settings and commit if required"
-      actions:
-      - action: "check_memorized_git_workflow"
-      - action: "confirm_before_commit"
-        condition: "git_workflow.require_commit_confirmation == true"
-      - action: "mark_completed_steps"
-        format: "✅"
+        confirm:
+            description: "Check settings and commit if required"
+            actions:
+              - action: "check_memorized_git_workflow"
+              - action: "confirm_before_commit"
+                condition: "git_workflow.require_commit_confirmation == true"
+              - action: "mark_completed_steps"
+                format: "✅"
 
 # Configuration Framework
 configuration_framework:
-  project_type_discovery:
-    project_category:
-      options: [ "web_application", "api_service", "library", "cli_tool", "mobile_app", "desktop_application", "other" ]
-      question: "What type of project are you working on?"
+    project_type_discovery:
+        project_category:
+            options: [ "web_application", "api_service", "library", "cli_tool", "mobile_app", "desktop_application", "other" ]
+            question: "What type of project are you working on?"
 
-    project_scale:
-      options: [ "small_personal", "medium_team", "large_enterprise" ]
-      question: "What is the scale of your project?"
+        project_scale:
+            options: [ "small_personal", "medium_team", "large_enterprise" ]
+            question: "What is the scale of your project?"
 
-    project_phase:
-      options: [ "new_project", "existing_enhancement", "legacy_modernization" ]
-      question: "What phase is your project in?"
+        project_phase:
+            options: [ "new_project", "existing_enhancement", "legacy_modernization" ]
+            question: "What phase is your project in?"
 
-    project_timeline:
-      options: [ "proof_of_concept", "mvp", "production_ready", "long_term_maintenance" ]
-      question: "What is your project timeline?"
+        project_timeline:
+            options: [ "proof_of_concept", "mvp", "production_ready", "long_term_maintenance" ]
+            question: "What is your project timeline?"
 
-  technology_stack:
-    primary_language:
-      options: [ "python", "javascript", "typescript", "java", "go", "csharp", "rust", "other" ]
-      question: "What is your primary programming language?"
+    technology_stack:
+        primary_language:
+            options: [ "python", "javascript", "typescript", "java", "go", "csharp", "rust", "other" ]
+            question: "What is your primary programming language?"
 
-    framework_platform:
-      conditional: true
-      depends_on: "primary_language"
-      examples: [ "django", "react", "spring_boot", "gin", "dotnet" ]
-      question: "What framework or platform are you using?"
+        framework_platform:
+            conditional: true
+            depends_on: "primary_language"
+            examples: [ "django", "react", "spring_boot", "gin", "dotnet" ]
+            question: "What framework or platform are you using?"
 
-    database:
-      options: [ "sql", "nosql", "file_based", "none" ]
-      question: "What type of database are you using?"
+        database:
+            options: [ "sql", "nosql", "file_based", "none" ]
+            question: "What type of database are you using?"
 
-    deployment:
-      options: [ "cloud", "on_premise", "hybrid", "local_development_only" ]
-      question: "What is your deployment target?"
+        deployment:
+            options: [ "cloud", "on_premise", "hybrid", "local_development_only" ]
+            question: "What is your deployment target?"
 
-  ddd_pass_selection:
-    documentation_passes:
-      always_enabled: [ "foundation", "requirements", "documentation", "quality" ]
-      description: "Core documentation passes always enabled"
+    ddd_pass_selection:
+        documentation_passes:
+            always_enabled: [ "foundation", "requirements", "documentation", "quality" ]
+            description: "Core documentation passes always enabled"
 
-    implementation_passes:
-      conditional: "enable_for_code_projects"
-      passes: [ "development", "implementation", "testing" ]
-      skip_condition: "documentation_only_project"
+        implementation_passes:
+            conditional: "enable_for_code_projects"
+            passes: [ "development", "implementation", "testing" ]
+            skip_condition: "documentation_only_project"
 
-    testing_passes:
-      conditional: "enable_for_production_code"
-      passes: [ "testing", "code_review" ]
-      optional_condition: "prototype_project"
+        testing_passes:
+            conditional: "enable_for_production_code"
+            passes: [ "testing", "code_review" ]
+            optional_condition: "prototype_project"
 
-    code_review_passes:
-      conditional: "enable_for_team_projects"
-      passes: [ "code_review" ]
-      optional_condition: "personal_project"
+        code_review_passes:
+            conditional: "enable_for_team_projects"
+            passes: [ "code_review" ]
+            optional_condition: "personal_project"
 
-    maintenance_passes:
-      conditional: "enable_for_long_term_projects"
-      passes: [ "refactoring", "prune", "reverse" ]
-      description: "Enable for projects with ongoing maintenance"
+        maintenance_passes:
+            conditional: "enable_for_long_term_projects"
+            passes: [ "refactoring", "prune", "reverse" ]
+            description: "Enable for projects with ongoing maintenance"
 
-  quality_standards:
-    quality_level:
-      options:
-        strict:
-          description: "Enterprise-grade quality requirements"
-          use_case: "production systems, regulated environments"
+    quality_standards:
+        quality_level:
+            options:
+                strict:
+                    description: "Enterprise-grade quality requirements"
+                    use_case: "production systems, regulated environments"
 
-        balanced:
-          description: "Standard team development practices"
-          use_case: "team projects, business applications"
+                balanced:
+                    description: "Standard team development practices"
+                    use_case: "team projects, business applications"
 
-        relaxed:
-          description: "Flexible approach for rapid development"
-          use_case: "personal projects, prototypes"
-      question: "What quality level do you need?"
+                relaxed:
+                    description: "Flexible approach for rapid development"
+                    use_case: "personal projects, prototypes"
+            question: "What quality level do you need?"
 
-    validation_mode:
-      options: [ "full_validation", "essential_only", "minimal_checks" ]
-      question: "What level of validation do you want?"
+        validation_mode:
+            options: [ "full_validation", "essential_only", "minimal_checks" ]
+            question: "What level of validation do you want?"
 
-    documentation_standards:
-      options: [ "complete", "core_only", "lightweight" ]
-      question: "What documentation standards do you need?"
+        documentation_standards:
+            options: [ "complete", "core_only", "lightweight" ]
+            question: "What documentation standards do you need?"
 
-    code_quality:
-      options: [ "high_standards", "standard_practices", "flexible_approach" ]
-      question: "What code quality standards do you want?"
+        code_quality:
+            options: [ "high_standards", "standard_practices", "flexible_approach" ]
+            question: "What code quality standards do you want?"
+
+    python_path_configuration:
+        description: "Configure Python module resolution for Code Location field validation"
+        critical: true
+        purpose: "Enable accurate Code Location field validation in drift scanner"
+
+        project_structure_analysis:
+            scan_directories:
+              - "src/"
+              - "lib/"
+              - "tools/"
+              - "scripts/"
+              - "app/"
+              - "project/"
+
+            detect_patterns:
+                flat_structure: "tools/module_name.py"
+                nested_structure: "src/package/module.py"
+                package_structure: "package/__init__.py"
+
+            check_configuration_files:
+              - "pyproject.toml"
+              - "setup.py"
+              - "setup.cfg"
+              - "requirements.txt"
+
+        configuration_generation:
+            source_directories:
+                description: "Primary directories containing Python modules"
+                auto_detect: true
+                fallback_order: [ "tools", "src", "lib", "scripts", "app", "." ]
+
+            package_structure:
+                flat_modules:
+                    description: "Directories with flat module structure (module_name.py)"
+                    common_patterns: [ "tools", "scripts", "utils" ]
+
+                nested_modules:
+                    description: "Directories with nested package structure (package/module.py)"
+                    common_patterns: [ "src", "lib", "app" ]
+
+            framework_modules:
+                description: "Project-specific module mappings for common imports"
+                auto_generate: true
+                examples:
+                    "tools.drift_scanner": "tools/drift_scanner.py"
+                    "tools.migration_manager": "tools/migration_manager.py"
+                    "src.main": "src/main.py"
+
+            resolution_strategies:
+                order: [ "pyproject_toml", "direct_path", "flat_structure", "nested_structure", "package_init" ]
+                description: "Order of module resolution attempts"
+
+        validation_setup:
+            purpose: "Ensure Code Location fields can be properly validated"
+            requirements:
+              - "All Python modules in Code Location fields must be resolvable"
+              - "Module paths must follow project structure conventions"
+              - "External packages should be marked for skip validation"
+
+            quality_gates:
+              - "Python path configuration complete"
+              - "Module resolution strategies defined"
+              - "Framework-specific modules mapped"
+              - "External packages identified"
 
 # Interactive Process
 interactive_process:
-  question_flow:
-    step_1:
-      question: "What type of project are you working on?"
-      options: [ "web_application", "api_service", "library", "cli_tool", "mobile_app", "other" ]
+    question_flow:
+        step_1:
+            question: "What type of project are you working on?"
+            options: [ "web_application", "api_service", "library", "cli_tool", "mobile_app", "other" ]
 
-    step_2:
-      question: "What is your primary programming language?"
-      options: [ "python", "javascript", "java", "go", "rust", "other" ]
+        step_2:
+            question: "What is your primary programming language?"
+            options: [ "python", "javascript", "java", "go", "rust", "other" ]
 
-    step_3:
-      question: "Is this a personal project or team project?"
-      options: [ "personal", "team", "enterprise" ]
+        step_3:
+            question: "Is this a personal project or team project?"
+            options: [ "personal", "team", "enterprise" ]
 
-    step_4:
-      question: "What quality level do you need?"
-      options: [ "strict", "balanced", "relaxed" ]
+        step_4:
+            question: "What quality level do you need?"
+            options: [ "strict", "balanced", "relaxed" ]
 
-    step_5:
-      question: "Which DDD passes do you want to enable?"
-      method: "multi_select_with_recommendations"
+        step_5:
+            question: "Which DDD passes do you want to enable?"
+            method: "multi_select_with_recommendations"
 
-    step_6:
-      question: "Any specific configuration requirements?"
-      type: "open_ended"
-      optional: true
+        step_6:
+            question: "What Python project structure do you have?"
+            conditional: "primary_language == python"
+            options: [ "flat_tools_structure", "src_layout", "mixed_structure", "custom" ]
+            description: "Configure Python module resolution for Code Location validation"
 
-  validation:
-    consistency_checks:
-    - "validate_language_framework_compatibility"
-    - "check_pass_dependencies"
-    - "verify_quality_level_alignment"
+        step_7:
+            question: "Any specific configuration requirements?"
+            type: "open_ended"
+            optional: true
 
-    conflict_warnings:
-    - "warn_about_incompatible_selections"
-    - "suggest_missing_dependencies"
-    - "recommend_optimal_configurations"
+    validation:
+        consistency_checks:
+          - "validate_language_framework_compatibility"
+          - "check_pass_dependencies"
+          - "verify_quality_level_alignment"
 
-    confirmation:
-    - "display_final_configuration_summary"
-    - "request_user_confirmation"
-    - "allow_modifications_if_needed"
+        conflict_warnings:
+          - "warn_about_incompatible_selections"
+          - "suggest_missing_dependencies"
+          - "recommend_optimal_configurations"
+
+        confirmation:
+          - "display_final_configuration_summary"
+          - "request_user_confirmation"
+          - "allow_modifications_if_needed"
 
 # Expected Outcomes
 expected_outcomes:
-  project_configuration:
-    file: ".agent3d-config.yml"
-    contents: [ "passes", "rules", "quality_thresholds" ]
+    project_configuration:
+        file: ".agent3d-config.yml"
+        contents: [ "passes", "rules", "quality_thresholds" ]
 
-  foundation_structure:
-    directories: [ "docs/", "tests/", ".agent3d-tmp/" ]
-    features: "agent3d_features_configured"
+    foundation_structure:
+        directories: [ "docs/", "tests/", ".agent3d-tmp/" ]
+        features: "agent3d_features_configured"
 
-  configuration_documentation:
-    decisions: "recorded_in_config"
-    scope: "established_and_documented"
+    configuration_documentation:
+        decisions: "recorded_in_config"
+        scope: "established_and_documented"
 
 # Related Passes
 related_passes:
-  sequence: "Requirements → Foundation → Documentation"
-  dependencies:
-    prerequisites: [ "requirements_pass" ]
-    next_pass: "documentation_pass"
+    sequence: "Requirements → Foundation → Documentation"
+    dependencies:
+        prerequisites: [ "requirements_pass" ]
+        next_pass: "documentation_pass"
 
 # Quality Gates
 quality_gates:
-  completion_criteria:
-  - name: "project_type_and_scope_defined"
-    validation: "check_project_metadata_complete"
+    completion_criteria:
+      - name: "project_type_and_scope_defined"
+        validation: "check_project_metadata_complete"
 
-  - name: "technology_stack_configured"
-    validation: "verify_language_and_framework_settings"
+      - name: "technology_stack_configured"
+        validation: "verify_language_and_framework_settings"
 
-  - name: "ddd_pass_selection_finalized"
-    validation: "confirm_enabled_passes_list"
+      - name: "ddd_pass_selection_finalized"
+        validation: "confirm_enabled_passes_list"
 
-  - name: "quality_standards_established"
-    validation: "validate_quality_thresholds_set"
+      - name: "quality_standards_established"
+        validation: "validate_quality_thresholds_set"
 
-  - name: "configuration_file_created"
-    validation: "check_agent3d_config_exists_and_valid"
+      - name: "configuration_file_created"
+        validation: "check_agent3d_config_exists_and_valid"
 
-  - name: "foundation_structure_established"
-    validation: "verify_directory_structure_created"
+      - name: "foundation_structure_established"
+        validation: "verify_directory_structure_created"
 
-  - name: "config_memorized"
-    validation: "confirm_agent_memorized_entire_config"
-    critical: true
+      - name: "config_memorized"
+        validation: "confirm_agent_memorized_entire_config"
+        critical: true
+
+      - name: "python_paths_configured"
+        validation: "verify_python_path_configuration_complete"
+        conditional: "primary_language == python"
+        critical: true
+        description: "Python module resolution paths configured for Code Location validation"
+
+      - name: "config_template_compliance"
+        validation: "verify_configuration_follows_template_structure"
+        critical: true
+        description: "Configuration follows standardized template format v2.0"
+        command: "python3 tools/config_migrator.py --analyze-only"
 
 # Sample Configurations
 sample_configurations:
-  python_web_app:
-    project_type: "web_application"
-    language: "python"
-    quality_level: "balanced"
-    enabled_passes: [ "foundation", "requirements", "documentation", "development", "testing", "code_review", "synchronization" ]
+    python_web_app:
+        project_type: "web_application"
+        language: "python"
+        quality_level: "balanced"
+        enabled_passes: [ "foundation", "requirements", "documentation", "development", "testing", "code_review", "synchronization" ]
 
-  javascript_library:
-    project_type: "library"
-    language: "javascript"
-    quality_level: "strict"
-    enabled_passes: [ "foundation", "requirements", "documentation", "development", "testing", "refactoring", "synchronization" ]
+    javascript_library:
+        project_type: "library"
+        language: "javascript"
+        quality_level: "strict"
+        enabled_passes: [ "foundation", "requirements", "documentation", "development", "testing", "refactoring", "synchronization" ]
 
-  personal_prototype:
-    project_type: "cli_tool"
-    language: "go"
-    quality_level: "relaxed"
-    enabled_passes: [ "foundation", "requirements", "documentation", "development", "synchronization" ]
+    personal_prototype:
+        project_type: "cli_tool"
+        language: "go"
+        quality_level: "relaxed"
+        enabled_passes: [ "foundation", "requirements", "documentation", "development", "synchronization" ]
 
 # Commit Message
 commit_message:
-  format: "DDD: Foundation Pass - Configured Agent3D for {language} {project_type}"
-  example: "DDD: Foundation Pass - Configured Agent3D for Python web application"
+    format: "DDD: Foundation Pass - Configured Agent3D for {language} {project_type}"
+    example: "DDD: Foundation Pass - Configured Agent3D for Python web application"
 
 # Critical Notes
 critical_notes:
-- "IMMEDIATELY_MEMORIZE_ENTIRE_CONFIG after creating/updating .agent3d-config.yml"
-- "Mark completed steps with ✅ during execution"
-- "Validate git_workflow settings before committing"
-- "Ensure all quality gates are met before proceeding"
+  - "IMMEDIATELY_MEMORIZE_ENTIRE_CONFIG after creating/updating .agent3d-config.yml"
+  - "Mark completed steps with ✅ during execution"
+  - "Validate git_workflow settings before committing"
+  - "Ensure all quality gates are met before proceeding"
+  - "CONFIGURE_PYTHON_PATHS for accurate Code Location field validation in Python projects"
+  - "Python path configuration is CRITICAL for drift scanner Code Location analysis"
+  - "CHECK_CONFIG_MIGRATION_NEEDS before proceeding with Foundation Pass"
+  - "USE_CONFIG_TEMPLATE from templates.yml/ for all new projects to ensure standardization"
+  - "MIGRATE_EXISTING_CONFIGS to template format v2.0 for consistency"
