@@ -636,27 +636,127 @@ class TestCaseParser:
         return test_cases
 
 class FeatureParser:
-    """Parses FEATURES.md to extract feature definitions."""
+    """Parses merged FT-TC structure from docs/features/ section files."""
 
-    def __init__(self, features_file: str = 'docs/FEATURES.md',
+    def __init__(self, features_dir: str = 'docs/features',
                  config_manager: Optional[ConfigurationManager] = None):
-        self.features_file = features_file
+        self.features_dir = Path(features_dir)
         self.config_manager = config_manager or ConfigurationManager('.')
 
     def parse_features(self) -> List[Feature]:
-        """Parse FEATURES.md and extract all features."""
-        if not Path(self.features_file).exists():
-            print(f"⚠️  FEATURES.md not found at {self.features_file}")
-            return []
+        """Parse all section files in docs/features/ and extract features with test cases."""
+        if not self.features_dir.exists():
+            print(f"⚠️  Features directory not found at {self.features_dir}")
+            # Fallback to old FEATURES.md structure
+            return self._parse_legacy_features()
 
         features = []
+        section_files = list(self.features_dir.glob('*.md'))
+
+        if not section_files:
+            print(f"⚠️  No section files found in {self.features_dir}")
+            return self._parse_legacy_features()
+
+        print(f"📁 Found {len(section_files)} section files in {self.features_dir}")
+
+        for section_file in section_files:
+            try:
+                with open(section_file, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                section_features = self._parse_section_content(content, section_file.name)
+                features.extend(section_features)
+                print(f"   📄 {section_file.name}: {len(section_features)} features")
+            except Exception as e:
+                print(f"❌ Error reading {section_file}: {e}")
+                continue
+
+        return features
+
+    def _parse_legacy_features(self) -> List[Feature]:
+        """Fallback to parse old FEATURES.md structure."""
+        legacy_file = 'docs/FEATURES.md'
+        if not Path(legacy_file).exists():
+            print(f"⚠️  Legacy FEATURES.md not found at {legacy_file}")
+            return []
 
         try:
-            with open(self.features_file, 'r', encoding='utf-8') as f:
+            with open(legacy_file, 'r', encoding='utf-8') as f:
                 content = f.read()
+            return self._parse_legacy_content(content)
         except Exception as e:
-            print(f"❌ Error reading {self.features_file}: {e}")
+            print(f"❌ Error reading {legacy_file}: {e}")
             return []
+
+    def _parse_section_content(self, content: str, section_name: str) -> List[Feature]:
+        """Parse content from a section file (e.g., core.md, passes.md) with merged FT-TC structure."""
+        features = []
+
+        # Pattern to match features: ## FT-CORE-001 - Feature Name
+        ft_pattern = r'^## (FT-[A-Z]+-\d+) - (.+)$'
+
+        # Pattern to match feature bullets with criteria
+        criteria_pattern = r'- \*\*Criteria:\*\* (.+)'
+
+        # Pattern to match test cases: - [x] **TC-CORE-001** - Test Name
+        tc_pattern = r'^\s+- \[([x~\s])\] \*\*TC-[A-Z]+-\d+[a-z]?\*\* - (.+)'
+
+        lines = content.split('\n')
+        current_feature = None
+        current_tc_ids = []
+
+        for i, line in enumerate(lines):
+            # Check for feature header
+            ft_match = re.match(ft_pattern, line)
+            if ft_match:
+                # Save previous feature if exists
+                if current_feature:
+                    current_feature.tc_ids = current_tc_ids.copy()
+                    features.append(current_feature)
+
+                ft_id, title = ft_match.groups()
+                current_feature = Feature(
+                    ft_id=ft_id,
+                    title=title.strip(),
+                    description="",
+                    status="completed",  # Default, will be updated from bullets
+                    criteria="",
+                    is_sub_feature=False
+                )
+                current_tc_ids = []
+                continue
+
+            # If we're in a feature, look for bullets
+            if current_feature:
+                # Look for criteria
+                criteria_match = re.match(criteria_pattern, line)
+                if criteria_match:
+                    current_feature.criteria = criteria_match.group(1).strip()
+                    continue
+
+                # Look for description
+                if line.strip().startswith('- **Description:**'):
+                    current_feature.description = line.replace('- **Description:**', '').strip()
+                    continue
+
+                # Look for test cases
+                tc_match = re.match(tc_pattern, line)
+                if tc_match:
+                    status_char, tc_name = tc_match.groups()
+                    # Extract TC ID from the line
+                    tc_id_match = re.search(r'TC-[A-Z]+-\d+[a-z]?', line)
+                    if tc_id_match:
+                        current_tc_ids.append(tc_id_match.group(0))
+
+        # Don't forget the last feature
+        if current_feature:
+            current_feature.tc_ids = current_tc_ids.copy()
+            features.append(current_feature)
+
+        return features
+
+    def _parse_legacy_content(self, content: str) -> List[Feature]:
+        """Parse legacy FEATURES.md content structure."""
+        features = []
 
         # Pattern to match features using configured FT pattern
         ft_strict_pattern = self.config_manager.get_pattern_for_prefix('FT-', flexible=False)
@@ -729,14 +829,14 @@ class FeatureParser:
         return relationships
 
 class FTDriftAnalyzer:
-    """Analyzes drift between FEATURES.md and test implementations, including FT-TC relationships."""
+    """Analyzes drift between features and test implementations, including FT-TC relationships."""
 
-    def __init__(self, root_dir: str = '.', features_file: str = 'docs/FEATURES.md',
+    def __init__(self, root_dir: str = '.', features_dir: str = 'docs/features',
                  test_cases_file: str = 'docs/TEST-CASES.md',
                  config_manager: Optional[ConfigurationManager] = None):
         self.root_dir = root_dir
         self.config_manager = config_manager or ConfigurationManager(root_dir)
-        self.feature_parser = FeatureParser(features_file, self.config_manager)
+        self.feature_parser = FeatureParser(features_dir, self.config_manager)
         self.test_case_parser = TestCaseParser(test_cases_file, self.config_manager)
 
     def analyze_ft_drift(self, test_functions: List[TestFunction]) -> DriftReport:
@@ -1609,39 +1709,26 @@ class TestQualityValidator:
         return assertion_count > 0 and (trivial_count / assertion_count if assertion_count > 0 else 1) < 0.5
 
 class FeatureImplementationScanner:
-    """Scans for feature implementation drift between FEATURES.md and actual implementation."""
+    """Scans for feature implementation drift between features and actual implementation."""
 
-    def __init__(self, root_dir: str = '.', features_file: str = 'docs/FEATURES.md'):
+    def __init__(self, root_dir: str = '.', features_dir: str = 'docs/features'):
         self.root_dir = Path(root_dir)
-        self.features_file = features_file
+        self.features_dir = features_dir
+        self.feature_parser = FeatureParser(features_dir)
 
     def parse_features(self) -> List[Dict]:
-        """Parse FEATURES.md to extract feature definitions."""
-        if not Path(self.features_file).exists():
-            print(f"⚠️  FEATURES.md not found at {self.features_file}")
-            return []
+        """Parse features from docs/features/ to extract feature definitions."""
+        features_list = self.feature_parser.parse_features()
 
+        # Convert Feature objects to dictionaries for compatibility
         features = []
-
-        try:
-            with open(self.features_file, 'r', encoding='utf-8') as f:
-                content = f.read()
-        except Exception as e:
-            print(f"❌ Error reading {self.features_file}: {e}")
-            return []
-
-        # Pattern to match features: - [x] Feature name - Description
-        feature_pattern = r'- \[([x~\s])\] \*\*([^*]+)\*\* - ([^(]+)(?:\(([^)]+)\))?'
-
-        for match in re.finditer(feature_pattern, content):
-            status_char, feature_name, description, priority = match.groups()
-            status = 'completed' if status_char == 'x' else 'pending' if status_char == '~' else 'pending'
-
+        for feature in features_list:
             features.append({
-                'name': feature_name.strip(),
-                'description': description.strip(),
-                'status': status,
-                'priority': priority.strip() if priority else 'Medium'
+                'name': feature.ft_id,
+                'title': feature.title,
+                'description': feature.description,
+                'status': feature.status,
+                'criteria': feature.criteria
             })
 
         return features
@@ -1934,9 +2021,9 @@ class MultiModeDriftAnalyzer:
 
         # Initialize individual scanners with configuration
         self.tc_analyzer = TCDriftAnalyzer(root_dir, test_cases_file, change_detector, self.config_manager)
-        self.ft_analyzer = FTDriftAnalyzer(root_dir, 'docs/FEATURES.md', test_cases_file, self.config_manager)
+        self.ft_analyzer = FTDriftAnalyzer(root_dir, 'docs/features', test_cases_file, self.config_manager)
         self.coverage_scanner = CodeCoverageScanner(root_dir)
-        self.feature_scanner = FeatureImplementationScanner(root_dir, 'docs/FEATURES.md')
+        self.feature_scanner = FeatureImplementationScanner(root_dir, 'docs/features')
         self.comprehensive_detector = ComprehensiveDriftDetector(root_dir)
         self.test_quality_validator = TestQualityValidator(root_dir)
 

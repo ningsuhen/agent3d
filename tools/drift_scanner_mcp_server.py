@@ -8,6 +8,12 @@ for Agent3D Documentation-Driven Development projects.
 This server implements the MCP JSON-RPC protocol and provides a single tool
 for comprehensive drift detection across multiple modes.
 
+Features:
+- Live code reloading (auto-restart on code changes)
+- Fresh scan mode (no caching)
+- Multi-mode drift detection
+- Automatic server restart
+
 Author: Agent3D Framework
 """
 
@@ -16,6 +22,8 @@ import sys
 import os
 import subprocess
 import logging
+import time
+import threading
 from pathlib import Path
 from typing import Dict, Any, Optional
 
@@ -27,16 +35,77 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+class CodeReloader:
+    """Monitors MCP server code files for changes and triggers restart"""
+
+    def __init__(self, server_file: Path):
+        self.server_file = server_file
+        self.drift_scanner_file = server_file.parent / "drift_scanner.py"
+        self.last_mtime = {}
+        self.running = False
+        self.check_interval = 1.0  # Check every second
+
+        # Initialize modification times
+        self._update_mtimes()
+
+    def _update_mtimes(self):
+        """Update stored modification times for watched files"""
+        for file_path in [self.server_file, self.drift_scanner_file]:
+            if file_path.exists():
+                self.last_mtime[str(file_path)] = file_path.stat().st_mtime
+
+    def _check_for_changes(self) -> bool:
+        """Check if any watched files have been modified"""
+        for file_path in [self.server_file, self.drift_scanner_file]:
+            if file_path.exists():
+                current_mtime = file_path.stat().st_mtime
+                if str(file_path) in self.last_mtime:
+                    if current_mtime > self.last_mtime[str(file_path)]:
+                        logger.info(f"� Code change detected in: {file_path.name}")
+                        return True
+        return False
+
+    def start_monitoring(self):
+        """Start monitoring for code changes in a separate thread"""
+        self.running = True
+
+        def monitor_loop():
+            while self.running:
+                try:
+                    if self._check_for_changes():
+                        logger.info("� Restarting MCP server due to code changes...")
+                        # Restart the server process
+                        os.execv(sys.executable, [sys.executable] + sys.argv)
+                    time.sleep(self.check_interval)
+                except Exception as e:
+                    logger.error(f"Error in code monitoring: {e}")
+                    time.sleep(self.check_interval)
+
+        monitor_thread = threading.Thread(target=monitor_loop, daemon=True)
+        monitor_thread.start()
+        logger.info("🔄 Live code reloading enabled - server will restart on code changes")
+
+    def stop_monitoring(self):
+        """Stop monitoring for code changes"""
+        self.running = False
+
 class DriftScannerMCPServer:
-    """MCP Server for Agent3D Drift Scanner"""
+    """MCP Server for Agent3D Drift Scanner with Live Reloading"""
 
     def __init__(self):
         self.script_dir = Path(__file__).parent
         self.agent3d_dir = self.script_dir.parent
         self.drift_scanner = self.script_dir / "drift_scanner.py"
 
+        # Live reloading components
+        self.file_watcher = DriftFileWatcher(self)
+        self.observer = None
+        self.cache_invalidated = False
+        self.watched_directories = set()
+
         logger.info("Agent3D Drift Scanner MCP Server initialized")
         logger.info("🔄 FRESH SCAN MODE: Every request performs a fresh drift analysis (no caching)")
+        logger.info("👁️  LIVE RELOADING: File watching enabled for automatic change detection")
 
     def find_ddd_root(self, explicit_root: Optional[str] = None) -> Optional[str]:
         """
@@ -63,6 +132,47 @@ class DriftScannerMCPServer:
 
         logger.warning("No DDD root found - no .agent3d-config.yaml file located")
         return None
+
+    def start_file_watching(self, ddd_root: str) -> None:
+        """Start file watching for the DDD project directory"""
+        try:
+            if self.observer is not None:
+                self.stop_file_watching()
+
+            self.observer = Observer()
+            ddd_path = Path(ddd_root)
+
+            # Watch the main project directory
+            self.observer.schedule(self.file_watcher, str(ddd_path), recursive=True)
+            self.watched_directories.add(str(ddd_path))
+
+            self.observer.start()
+            logger.info(f"👁️  Started file watching for: {ddd_path}")
+
+        except Exception as e:
+            logger.error(f"Failed to start file watching: {e}")
+
+    def stop_file_watching(self) -> None:
+        """Stop file watching"""
+        if self.observer is not None:
+            self.observer.stop()
+            self.observer.join()
+            self.observer = None
+            self.watched_directories.clear()
+            logger.info("👁️  Stopped file watching")
+
+    def invalidate_cache(self) -> None:
+        """Mark cache as invalidated due to file changes"""
+        self.cache_invalidated = True
+        logger.info("🔄 Cache invalidated due to file changes")
+
+    def is_cache_valid(self) -> bool:
+        """Check if cache is still valid"""
+        return not self.cache_invalidated
+
+    def reset_cache_status(self) -> None:
+        """Reset cache invalidation status after fresh scan"""
+        self.cache_invalidated = False
 
     def execute_drift_scanner(self, args: Dict[str, Any]) -> Dict[str, Any]:
         """Execute the drift scanner with given arguments - ALWAYS performs fresh scan"""
