@@ -36,9 +36,9 @@
 
 **Core:** [AGENT-GUIDELINES.md](AGENT-GUIDELINES.md), [docs/](docs/) (BUSINESS-OBJECTIVES, REQUIREMENTS, USER-STORIES, ACCEPTANCE-CRITERIA, HIGH-LEVEL-DESIGN, DDD-STATUS)
 
-**Passes:** [passes/simplified/](passes/simplified/) (0-10: requirements→foundation→documentation→development→testing→refactoring→code_review→synchronization→quality→prune→reverse, [full_pass.md](passes/simplified/full_pass.md))
+**Passes:** [passes.yml/](passes.yml/) (YAML format for LLM agents), [passes/simplified/](passes/simplified/) (Markdown for humans)
 
-**Supporting:** [docs/designs/](docs/designs/) (component specs), [docs/proposals/](docs/proposals/) (unimplemented features), [rules/](rules/) (language-specific), [templates/](templates/) (format specs)
+**Supporting:** [docs/designs/](docs/designs/) (component specs), [docs/proposals/](docs/proposals/) (unimplemented features), [rules.yml/](rules.yml/) (language rules YAML), [rules/](rules/) (language rules Markdown), [templates.yml/](templates.yml/) (LLM templates), [templates/](templates/) (human templates)
 
 **Advanced:** [docs/ADVANCED-FEATURES.md](docs/ADVANCED-FEATURES.md), [docs/CONFIGURATION-GUIDE.md](docs/CONFIGURATION-GUIDE.md), [docs/GITHUB-CLI-INTEGRATION.md](docs/GITHUB-CLI-INTEGRATION.md)
 

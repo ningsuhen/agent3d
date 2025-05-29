@@ -254,7 +254,7 @@ project_overrides:
 
 **Rule Access Optimization:**
 
-- Local file access from `~/.agent3d/rules/` for fast retrieval
+- Local file access from `~/.agent3d/rules.yml/ (LLM) | rules/ (human)` for fast retrieval
 - Language rules loaded once per project session
 - Incremental validation for changed files only
 

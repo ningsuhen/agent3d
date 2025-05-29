@@ -31,7 +31,7 @@ After implementation/testing, technical debt accumulation, before new features, 
 **Modularization:** Component separation, logical grouping, interface simplification, dependency optimization
 **Code Quality:** Complexity reduction, performance optimization, naming improvements, error handling consistency
 **Documentation:** Clarity improvement, LLM-focused compression, test consolidation, language compliance, cross-reference optimization
-**LLM Compression:** Apply rules from `~/.agent3d/rules/markdown.md`, remove basic task explanations, command simplification, essential information only
+**LLM Compression:** Apply rules from `~/.agent3d/rules.yml/markdown.yml` (LLM processing) or `~/.agent3d/rules/markdown.md` (human reference), remove basic task explanations, command simplification, essential information only
 
 ## Guidelines
 

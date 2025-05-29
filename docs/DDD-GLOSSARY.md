@@ -525,13 +525,13 @@ file_locations:
     name: "Rules Directory"
     definition: "Language-specific development rules"
     category: "location"
-    path: "~/.agent3d/rules/"
+    path: "~/.agent3d/rules.yml/ (LLM) | ~/.agent3d/rules/ (human)"
 
   passes_directory:
     name: "Passes Directory"
     definition: "Pass documentation and procedures"
     category: "location"
-    path: "~/.agent3d/passes/simplified/"
+    path: "~/.agent3d/passes.yml/ (LLM) | ~/.agent3d/passes/simplified/ (human)"
 
   tools_directory:
     name: "Tools Directory"

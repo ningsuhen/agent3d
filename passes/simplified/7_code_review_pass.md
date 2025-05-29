@@ -32,15 +32,15 @@
 
 ## Language-Specific Review Criteria
 
-**CRITICAL:** Always consult and strictly enforce the language-specific rules from `~/.agent3d/rules/[language].md` (includes both development rules and review standards).
+**CRITICAL:** Always consult and strictly enforce the language-specific rules from `~/.agent3d/rules.yml/[language].yml` (structured format for LLM processing) or `~/.agent3d/rules/[language].md` (human-readable format).
 
 ### Supported Languages
 
-- **Markdown:** `~/.agent3d/rules/markdown.md`
-- **Python:** `~/.agent3d/rules/python.md`
-- **JavaScript:** `~/.agent3d/rules/javascript.md`
-- **Java:** `~/.agent3d/rules/java.md`
-- **Go:** `~/.agent3d/rules/go.md`
+- **Markdown:** `~/.agent3d/rules.yml/markdown.yml` (LLM) | `~/.agent3d/rules/markdown.md` (human)
+- **Python:** `~/.agent3d/rules.yml/python.yml` (LLM) | `~/.agent3d/rules/python.md` (human)
+- **JavaScript:** `~/.agent3d/rules.yml/javascript.yml` (LLM) | `~/.agent3d/rules/javascript.md` (human)
+- **Java:** `~/.agent3d/rules.yml/java.yml` (LLM) | `~/.agent3d/rules/java.md` (human)
+- **Go:** `~/.agent3d/rules.yml/go.yml` (LLM) | `~/.agent3d/rules/go.md` (human)
 
 ## Example Commit Message
 
@@ -110,7 +110,7 @@ When the local project is on a PR branch:
 - **Be uncompromisingly specific** about every issue found
 - **Demand explanations** for any deviations from language best practices
 - **Provide concrete solutions** with code examples, not just suggestions
-- **Reference specific rules** from `~/.agent3d/rules/[language].md`
+- **Reference specific rules** from `~/.agent3d/rules.yml/[language].yml` (for LLM processing) or `~/.agent3d/rules/[language].md` (for human reference)
 - **Distinguish between critical issues** (must fix) and improvements (should fix)
 - **Focus on long-term maintainability** over short-term convenience
 - **Acknowledge good practices** but don't lower standards for other areas
@@ -121,7 +121,7 @@ When the local project is on a PR branch:
 **Issue:** [Specific problem with the code]
 **Why:** [Explanation of why this violates best practices]
 **Fix:** [Concrete solution with code example]
-**Reference:** ~/.agent3d/rules/[language].md - [specific section]
+**Reference:** ~/.agent3d/rules.yml/[language].yml (LLM) or ~/.agent3d/rules/[language].md (human) - [specific section]
 **Severity:** [Critical/High/Medium/Low]
 ```
 
@@ -146,7 +146,7 @@ See [Common Procedures](../docs/COMMON-PROCEDURES.md#quality--github) for CI/CD 
 ```markdown
 ## Code Review Summary - STRICT STANDARDS APPLIED
 - **Overall Assessment:** [Request Changes/Approve] - NO COMPROMISES ON QUALITY
-- **Language Rules Applied:** [Reference to ~/.agent3d/rules/[language].md]
+- **Language Rules Applied:** [Reference to ~/.agent3d/rules.yml/[language].yml or ~/.agent3d/rules/[language].md]
 - **Critical Issues:** [Must fix before approval - list with severity]
 - **High Priority Issues:** [Should fix for maintainability]
 - **Best Practice Violations:** [Language-specific concerns]

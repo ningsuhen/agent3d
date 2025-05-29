@@ -31,18 +31,17 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 
 ### DDD Passes
 
-- [Full Pass](~/.agent3d/passes/simplified/full_pass.md) - Comprehensive pass encompassing all aspects
-- [0. Requirements Pass](~/.agent3d/passes/simplified/0_requirements_pass.md) - Documenting comprehensive requirements and business objectives
-- [1. Foundation Pass](~/.agent3d/passes/simplified/1_foundation_pass.md) - Project configuration and foundational setup
-- [2. Documentation Pass](~/.agent3d/passes/simplified/2_documentation_pass.md) - Documenting features, requirements, and priorities
-- [3. Development Pass](~/.agent3d/passes/simplified/3_development_pass.md) - Step-by-step feature implementation with checkpoints and execution plans
-- [4. Testing Pass](~/.agent3d/passes/simplified/5_testing_pass.md) - Adding comprehensive tests and verifying edge cases
-- [5. Refactoring Pass](~/.agent3d/passes/simplified/6_refactoring_pass.md) - Cleaning up code without changing functionality
-- [6. Code Review Pass](~/.agent3d/passes/simplified/7_code_review_pass.md) - Reviewing PR changes and providing feedback
-- [7. Synchronization Pass](~/.agent3d/passes/simplified/8_synchronization_pass.md) - Aligning documentation with code at any scale
-- [8. Quality Pass](~/.agent3d/passes/simplified/9_quality_pass.md) - Verifying and improving documentation quality
-- [9. Prune Pass](~/.agent3d/passes/simplified/8_prune_pass.md) - Removing outdated or redundant content
-- [10. Reverse Pass](~/.agent3d/passes/simplified/11_reverse_pass.md) - Detecting and addressing reverse drift (implementation without documentation)
+- [Full Pass](~/.agent3d/passes.yml/full_pass.yml) - Comprehensive pass encompassing all aspects
+- [0. Requirements Pass](~/.agent3d/passes.yml/0_requirements_pass.yml) - Documenting comprehensive requirements and business objectives
+- [1. Foundation Pass](~/.agent3d/passes.yml/1_foundation_pass.yml) - Project configuration and foundational setup
+- [2. Documentation Pass](~/.agent3d/passes.yml/2_documentation_pass.yml) - Documenting features, requirements, and priorities
+- [3. Development Pass](~/.agent3d/passes.yml/3_development_pass.yml) - Step-by-step feature implementation with checkpoints and execution plans
+- [4. Testing Pass](~/.agent3d/passes.yml/5_testing_pass.yml) - Adding comprehensive tests and verifying edge cases
+- [5. Refactoring Pass](~/.agent3d/passes.yml/6_refactoring_pass.yml) - Cleaning up code without changing functionality
+- [6. Code Review Pass](~/.agent3d/passes.yml/7_code_review_pass.yml) - Reviewing PR changes and providing feedback
+- [7. Synchronization Pass](~/.agent3d/passes.yml/9_synchronization_pass.yml) - Aligning documentation with code at any scale
+- [8. Prune Pass](~/.agent3d/passes.yml/8_prune_pass.yml) - Removing outdated or redundant content
+- [9. Reverse Pass](~/.agent3d/passes.yml/10_reverse_pass.yml) - Detecting and addressing reverse drift (implementation without documentation)
 
 ---
 

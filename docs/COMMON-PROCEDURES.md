@@ -5,7 +5,7 @@
 **MEMORIZE Core Patterns:**
 1. **Pass Execution:** SCAN → DRAFT → ASK → SYNC → CONFIRM (if required by config)
 2. **Pass Sequence:** REQ → FOUND → DOC → DEV → TEST → REFACT → REVIEW → SYNC → PRUNE → REV
-3. **File Locations:** CONFIG(.agent3d-config.yml), DOCS(docs/), RULES(~/.agent3d/rules/), TEMPLATES(~/.agent3d/templates/)
+3. **File Locations:** CONFIG(.agent3d-config.yml), DOCS(docs/), RULES(~/.agent3d/rules.yml/ for LLM | ~/.agent3d/rules/ for human), TEMPLATES(~/.agent3d/templates.yml/ for LLM | ~/.agent3d/templates/ for human)
 4. **Quality Gates:** Requirements(objectives), Foundation(config), Documentation(criteria), Implementation(matches), Testing(passes), Review(rules)
 5. **COMPLETE CONFIG:** ALWAYS load and memorize ENTIRE .agent3d-config.yml at session start
 
@@ -66,7 +66,7 @@ git -C ~/.agent3d pull origin main
 ## Templates & Workflow
 
 ```bash
-# Template Usage: ~/.agent3d/templates/{DOCUMENT-NAME}.template.md
+# Template Usage: ~/.agent3d/templates.yml/{DOCUMENT-NAME}.template.yml (LLM) | ~/.agent3d/templates/{DOCUMENT-NAME}.template.md (human)
 # Process: git pull → access templates → replace {{placeholders}} → remove template tags → validate
 ```
 
@@ -228,9 +228,12 @@ docs/                    # Main documentation
 ├── proposals/          # Unimplemented features
 ├── runs/              # Development execution plans
 └── ux/                # UI/UX specs (UI projects)
-passes/simplified/      # Pass documentation
-templates/             # Document templates
-rules/                # Language rules
+passes.yml/            # Pass documentation (YAML for LLM)
+passes/simplified/      # Pass documentation (Markdown for human)
+templates.yml/         # LLM tracking templates (YAML)
+templates/             # Human documentation templates (Markdown)
+rules.yml/             # Language rules (YAML for LLM)
+rules/                # Language rules (Markdown for human)
 ```
 
 ## Quality & GitHub
