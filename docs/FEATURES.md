@@ -96,4 +96,4 @@ python3 tools/drift_scanner.py --mode ft-mapping
 - **[High-Level Design](HIGH-LEVEL-DESIGN.md)** - System architecture and component designs
 - **[Requirements](REQUIREMENTS.md)** - Functional and non-functional requirements
 - **[Tasks](TASKS.md)** - Implementation backlog and priorities
-- **[Common Procedures](COMMON-PROCEDURES.md)** - Feature completion criteria and validation procedures
+- **[DDD Procedures](../procedures.yml/)** - Feature completion criteria and validation procedures

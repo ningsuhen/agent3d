@@ -1,12 +1,8 @@
 metadata:
   name: Reverse Pass
   number: 10
-  purpose: "Backward alignment (Code \u2192 Documentation) - Discover undocumented\
-    \ implementations, identify features marked incomplete despite being implemented,\
-    \ and ensure all code has corresponding documentation."
-  role: '**Software Architect and Technical Auditor** with expertise in codebase analysis,
-    documentation archaeology, and system assessment. Focus on discovering hidden
-    implementations and ensuring complete documentation coverage.'
+  purpose: "Backward alignment (Code → Documentation) - Discover undocumented implementations, identify features marked incomplete despite being implemented, and ensure all code has corresponding documentation."
+  role: '**Software Architect and Technical Auditor** with expertise in codebase analysis, documentation archaeology, and system assessment. Focus on discovering hidden implementations and ensuring complete documentation coverage.'
   description: Converted from 10_reverse_pass.md
 when_to_use:
   conditions:
@@ -20,23 +16,22 @@ when_to_use:
   - After periods of rapid development to catch up documentation
   prerequisites: []
 process:
-  workflow_pattern: "SCAN \u2192 DRAFT \u2192 ASK \u2192 SYNC \u2192 CONFIRM"
+  workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
   phases:
     'scan:':
-      description: '[Repository Management](../docs/COMMON-PROCEDURES.md#repository-management),
-        analyze codebase, audit feature status, hunt implementations'
+      description: '[Repository Management](../procedures.yml/repository.yml#repository-management), analyze codebase, audit feature status, hunt implementations'
       actions: []
     'draft:':
-      description: Compare implementation vs FEATURES.md, identify incomplete features
-        with working code, document undocumented functionality
+      description: Compare implementation vs FEATURES.md, identify incomplete features with working code, document undocumented functionality
       actions: []
     'ask:':
       description: Validate functionality, confirm completion status, verify criteria
       actions: []
     'sync:':
-      description: "Update FEATURES.md status, create missing docs, update architecture,\
-        \ ensure alignment\n\n**Note:** During execution, mark completed steps with\
-        \ \u2705 to track progress."
+      description: "Update FEATURES.md status, create missing docs, update architecture, ensure alignment
+
+
+        **Note:** During execution, mark completed steps with ✅ to track progress."
       actions: []
 expected_outcomes:
 - All functionality documented

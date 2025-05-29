@@ -165,4 +165,4 @@ validation:
   - "Links to issues and PRs are functional"
   - "Migration notes are provided for breaking changes"
 
-  references: [ "BASE.template.yml#universal-validation-rules", "docs/COMMON-PROCEDURES.md#common-validation-checklist" ]
+  references: [ "BASE.template.yml#universal-validation-rules", "procedures.yml/quality.yml#common-validation-checklist" ]

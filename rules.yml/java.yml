@@ -113,53 +113,119 @@ standards:
       - Be cautious with synchronization to avoid deadlocks'
   documentation:
     description: Documentation
-    content: "1. **Javadoc**\n   - Write Javadoc for all public classes and methods\n\
-      \   - Include @param, @return, and @throws tags\n   - Document thread safety\
-      \ guarantees\n   - Keep documentation up-to-date with code changes\n\n2. **Comments**\n\
-      \   - Use comments to explain complex algorithms or non-obvious solutions\n\
-      \   - Avoid redundant comments that just repeat the code\n   - Use TODO comments\
-      \ for temporary solutions or incomplete implementations\n   - Document performance\
-      \ characteristics for critical operations"
+    content: "1. **Javadoc**
+
+      \   - Write Javadoc for all public classes and methods
+
+      \   - Include @param, @return, and @throws tags
+
+      \   - Document thread safety guarantees
+
+      \   - Keep documentation up-to-date with code changes
+
+
+      2. **Comments**
+
+      \   - Use comments to explain complex algorithms or non-obvious solutions
+
+      \   - Avoid redundant comments that just repeat the code
+
+      \   - Use TODO comments for temporary solutions or incomplete implementations
+
+      \   - Document performance characteristics for critical operations"
   testing:
     description: Testing
-    content: "1. **Test Framework**\n   - Use JUnit 5 for unit testing\n   - Use Mockito\
-      \ for mocking dependencies\n   - Use AssertJ or similar for fluent assertions\n\
-      \   - Write both unit and integration tests\n\n2. **Test Organization**\n  \
-      \ - Mirror the package structure of the main code\n   - Name test classes with\
-      \ \"Test\" suffix\n   - Write focused tests that verify a single behavior\n\
-      \   - Use appropriate test fixtures and setup methods\n   - **TC ID Mapping:**\
-      \ **CRITICAL** - Each test method MUST include TC-NNNN in name or @DisplayName\
-      \ for 1:1 traceability"
+    content: "1. **Test Framework**
+
+      \   - Use JUnit 5 for unit testing
+
+      \   - Use Mockito for mocking dependencies
+
+      \   - Use AssertJ or similar for fluent assertions
+
+      \   - Write both unit and integration tests
+
+
+      2. **Test Organization**
+
+      \   - Mirror the package structure of the main code
+
+      \   - Name test classes with \"Test\" suffix
+
+      \   - Write focused tests that verify a single behavior
+
+      \   - Use appropriate test fixtures and setup methods
+
+      \   - **TC ID Mapping:** **CRITICAL** - Each test method MUST include TC-NNNN in name or @DisplayName for 1:1 traceability"
   performance:
     description: Performance
-    content: "1. **Optimization**\n   - Optimize only after measuring performance\n\
-      \   - Use profiling tools to identify bottlenecks\n   - Consider memory usage\
-      \ and garbage collection\n   - Document performance characteristics and requirements\n\
-      \n2. **Collections**\n   - Choose appropriate collection types for the use case\n\
-      \   - Specify initial capacity for collections when the size is known\n   -\
-      \ Use streams for processing collections when appropriate\n   - Be cautious\
-      \ with large collections and memory usage"
+    content: "1. **Optimization**
+
+      \   - Optimize only after measuring performance
+
+      \   - Use profiling tools to identify bottlenecks
+
+      \   - Consider memory usage and garbage collection
+
+      \   - Document performance characteristics and requirements
+
+
+      2. **Collections**
+
+      \   - Choose appropriate collection types for the use case
+
+      \   - Specify initial capacity for collections when the size is known
+
+      \   - Use streams for processing collections when appropriate
+
+      \   - Be cautious with large collections and memory usage"
   security:
     description: Security
-    content: "1. **Input Validation**\n   - Validate all user inputs\n   - Use parameterized\
-      \ queries for database operations\n   - Sanitize data before displaying it to\
-      \ users\n   - Be cautious with reflection, deserialization, and dynamic code\
-      \ execution\n\n2. **Sensitive Data**\n   - Don't log sensitive information\n\
-      \   - Don't include sensitive data in exception messages\n   - Properly handle\
-      \ secrets and credentials\n   - Use secure random number generation for security-sensitive\
-      \ operations"
+    content: "1. **Input Validation**
+
+      \   - Validate all user inputs
+
+      \   - Use parameterized queries for database operations
+
+      \   - Sanitize data before displaying it to users
+
+      \   - Be cautious with reflection, deserialization, and dynamic code execution
+
+
+      2. **Sensitive Data**
+
+      \   - Don't log sensitive information
+
+      \   - Don't include sensitive data in exception messages
+
+      \   - Properly handle secrets and credentials
+
+      \   - Use secure random number generation for security-sensitive operations"
   deployment:
     description: Deployment
-    content: "1. **Containerization**\n   - Use Docker for containerizing Java applications\n\
-      \   - Create minimal container images\n   - Use multi-stage builds to reduce\
-      \ image size\n   - Don't run containers as root\n\n2. **Configuration**\n  \
-      \ - Use environment variables or external configuration sources\n   - Never\
-      \ hardcode sensitive information\n   - Provide sensible defaults for all configuration\
-      \ options\n   - Document all configuration parameters"
+    content: "1. **Containerization**
+
+      \   - Use Docker for containerizing Java applications
+
+      \   - Create minimal container images
+
+      \   - Use multi-stage builds to reduce image size
+
+      \   - Don't run containers as root
+
+
+      2. **Configuration**
+
+      \   - Use environment variables or external configuration sources
+
+      \   - Never hardcode sensitive information
+
+      \   - Provide sensible defaults for all configuration options
+
+      \   - Document all configuration parameters"
   code_review_standards:
     description: Code Review Standards
-    content: '**Role:** Senior Java Engineer with expertise in object-oriented design,
-      enterprise patterns, and JVM optimization.
+    content: '**Role:** Senior Java Engineer with expertise in object-oriented design, enterprise patterns, and JVM optimization.
 
 
       ### Critical Review Areas
@@ -273,24 +339,19 @@ standards:
       ### Severity Classification
 
 
-      **Critical:** Thread safety violations, memory leaks or resource leaks, security
-      vulnerabilities, violation of SOLID principles, missing exception handling
+      **Critical:** Thread safety violations, memory leaks or resource leaks, security vulnerabilities, violation of SOLID principles, missing exception handling
 
-      **High:** Poor performance patterns, missing dependency injection, legacy Java
-      patterns, inadequate test coverage, missing input validation
+      **High:** Poor performance patterns, missing dependency injection, legacy Java patterns, inadequate test coverage, missing input validation
 
-      **Medium:** Missing JavaDoc on public APIs, inconsistent naming conventions,
-      suboptimal collection usage, missing logging
+      **Medium:** Missing JavaDoc on public APIs, inconsistent naming conventions, suboptimal collection usage, missing logging
 
-      **Low:** Code style improvements, additional modern Java features, performance
-      micro-optimizations, documentation enhancements
+      **Low:** Code style improvements, additional modern Java features, performance micro-optimizations, documentation enhancements
 
 
       ### Anti-Patterns to Reject
 
 
-      - Using raw types instead of generics, catching Exception instead of specific
-      exceptions
+      - Using raw types instead of generics, catching Exception instead of specific exceptions
 
       - Not using try-with-resources, synchronizing on public objects
 
@@ -316,7 +377,7 @@ standards:
       - [ ] No resource leaks
 
 
-      **Universal (see [Common Procedures](../docs/COMMON-PROCEDURES.md#quality-standards)):**
+      **Universal (see [DDD Procedures](../procedures.yml/quality.yml#quality-standards)):**
 
 
       - [ ] Proper exception handling throughout
@@ -330,8 +391,7 @@ standards:
       - [ ] Performance considerations addressed'
 code_review:
   role: Senior Engineer
-  standards: '**Role:** Senior Java Engineer with expertise in object-oriented design,
-    enterprise patterns, and JVM optimization.
+  standards: '**Role:** Senior Java Engineer with expertise in object-oriented design, enterprise patterns, and JVM optimization.
 
 
     ### Critical Review Areas
@@ -445,24 +505,19 @@ code_review:
     ### Severity Classification
 
 
-    **Critical:** Thread safety violations, memory leaks or resource leaks, security
-    vulnerabilities, violation of SOLID principles, missing exception handling
+    **Critical:** Thread safety violations, memory leaks or resource leaks, security vulnerabilities, violation of SOLID principles, missing exception handling
 
-    **High:** Poor performance patterns, missing dependency injection, legacy Java
-    patterns, inadequate test coverage, missing input validation
+    **High:** Poor performance patterns, missing dependency injection, legacy Java patterns, inadequate test coverage, missing input validation
 
-    **Medium:** Missing JavaDoc on public APIs, inconsistent naming conventions, suboptimal
-    collection usage, missing logging
+    **Medium:** Missing JavaDoc on public APIs, inconsistent naming conventions, suboptimal collection usage, missing logging
 
-    **Low:** Code style improvements, additional modern Java features, performance
-    micro-optimizations, documentation enhancements
+    **Low:** Code style improvements, additional modern Java features, performance micro-optimizations, documentation enhancements
 
 
     ### Anti-Patterns to Reject
 
 
-    - Using raw types instead of generics, catching Exception instead of specific
-    exceptions
+    - Using raw types instead of generics, catching Exception instead of specific exceptions
 
     - Not using try-with-resources, synchronizing on public objects
 
@@ -488,7 +543,7 @@ code_review:
     - [ ] No resource leaks
 
 
-    **Universal (see [Common Procedures](../docs/COMMON-PROCEDURES.md#quality-standards)):**
+    **Universal (see [DDD Procedures](../procedures.yml/quality.yml#quality-standards)):**
 
 
     - [ ] Proper exception handling throughout

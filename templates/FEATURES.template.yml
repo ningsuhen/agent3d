@@ -101,7 +101,7 @@ template_content: |
   - **[High-Level Design](docs/HIGH-LEVEL-DESIGN.md)** - System architecture and component designs
   - **[Requirements](docs/REQUIREMENTS.md)** - Functional and non-functional requirements
   - **[Tasks](docs/TASKS.md)** - Implementation backlog and priorities
-  - **[Common Procedures](docs/COMMON-PROCEDURES.md)** - Feature completion criteria and validation procedures
+  - **[DDD Procedures](procedures.yml/)** - Feature completion criteria and validation procedures
 
 examples:
   project_name: "Agent3D, MyProject, SystemName"

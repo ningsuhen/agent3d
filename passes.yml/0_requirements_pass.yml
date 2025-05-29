@@ -28,7 +28,7 @@ process:
   phases:
     scan:
       purpose: "Detect missing/outdated business documentation and requirements"
-      description: '[Repository Management](../docs/COMMON-PROCEDURES.md#repository-management), identify gaps, review business docs, assess alignment'
+      description: '[Repository Management](../procedures.yml/repository.yml#repository-management), identify gaps, review business docs, assess alignment'
       actions:
       - "check_business_objectives"
       - "review_existing_requirements"

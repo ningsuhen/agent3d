@@ -11,7 +11,7 @@ usage:
     description: "Template for docs/features/ section files"
     naming_convention: "{{section_name}}.md, FT-{{SECTION}}-NNN, TC-{{SECTION}}-NNN"
     test_strategy: "5-8 test cases per feature. Sub-tests ONLY for parameterized testing (same logic, different parameters)"
-    critical_requirement: "Follow Common Procedures for merged FT-TC structure"
+    critical_requirement: "Follow DDD Procedures for merged FT-TC structure"
 
 template_content: |
     # FT-{{SECTION}} - {{Module Title}}

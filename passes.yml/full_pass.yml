@@ -1,10 +1,8 @@
 metadata:
   name: Full Pass
   number: null
-  purpose: Comprehensive DDD pass reducing project drift and achieving balanced alignment
-    across all passes.
-  role: '**Technical Project Manager** coordinating domain experts. Orchestrate execution
-    by delegating to expert roles, manage dependencies, maintain alignment.'
+  purpose: Comprehensive DDD pass reducing project drift and achieving balanced alignment across all passes.
+  role: '**Technical Project Manager** coordinating domain experts. Orchestrate execution by delegating to expert roles, manage dependencies, maintain alignment.'
   description: Converted from full_pass.md
 when_to_use:
   conditions:
@@ -17,19 +15,16 @@ when_to_use:
   - When multiple passes have alignment levels below 85%
   prerequisites: []
 process:
-  workflow_pattern: "SCAN \u2192 DRAFT \u2192 ASK \u2192 SYNC \u2192 CONFIRM"
+  workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
   phases:
     'scan:':
-      description: '[Repository Management](../docs/COMMON-PROCEDURES.md#repository-management),
-        assess project health, review drift levels, identify low alignment passes'
+      description: '[Repository Management](../procedures.yml/repository.yml#repository-management), assess project health, review drift levels, identify low alignment passes'
       actions: []
     'draft:':
-      description: "Delegate to pass experts (Product Manager\u2192Requirements, Architect\u2192\
-        Foundation, etc.), coordinate handoffs, monitor progress"
+      description: "Delegate to pass experts (Product Manager→Requirements, Architect→Foundation, etc.), coordinate handoffs, monitor progress"
       actions: []
     'ask:':
-      description: Facilitate expert-stakeholder communication, escalate decisions,
-        coordinate conflict resolution, ensure alignment
+      description: Facilitate expert-stakeholder communication, escalate decisions, coordinate conflict resolution, ensure alignment
       actions: []
 expected_outcomes:
 - Coordinated execution by domain experts

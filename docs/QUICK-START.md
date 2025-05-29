@@ -34,4 +34,4 @@ Regularly pull updates from `~/.agent3d` to keep rules and templates current. Re
 
 ---
 
-For detailed procedures and advanced configuration, see [Configuration Guide](CONFIGURATION-GUIDE.md) and [Common Procedures](COMMON-PROCEDURES.md).
+For detailed procedures and advanced configuration, see [Configuration Guide](CONFIGURATION-GUIDE.md) and [DDD Procedures](../procedures.yml/).

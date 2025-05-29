@@ -10,7 +10,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 
 ## Project Root Detection
 
-**CRITICAL**: Before starting any DDD work, establish the project root. See [Common Procedures - Project Root Establishment](docs/COMMON-PROCEDURES.md#project-root-establishment) for complete instructions.
+**CRITICAL**: Before starting any DDD work, establish the project root. See [DDD Procedures - Repository Management](procedures.yml/repository.yml#project-root-establishment) for complete instructions.
 
 ## Prime Directive
 
@@ -91,7 +91,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 | `docs/ux/*.md` | UI/UX specifications, wireframes, and user flows (for UI projects) | `~/.agent3d/templates/UX-SPECIFICATIONS.template.md` |
 | `CHANGELOG.md` | Chronological record of all project changes | `~/.agent3d/templates/CHANGELOG.template.md` |
 
-**🚨 CRITICAL**: All documentation creation and standards are defined in [Common Procedures](docs/COMMON-PROCEDURES.md). Follow these procedures for all DDD activities.
+**🚨 CRITICAL**: All documentation creation and standards are defined in [DDD Procedures](procedures.yml/). Follow these procedures for all DDD activities.
 
 ---
 
@@ -105,7 +105,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 - CI/CD pipelines must validate documentation-code alignment
 - Agents must reject tasks that violate DDD principles
 
-**All procedures in [Common Procedures](docs/COMMON-PROCEDURES.md):**
+**All procedures in [DDD Procedures](procedures.yml/):**
 
 - Repository management, templates, documentation standards
 - Feature completion, progress tracking, status updates
@@ -173,7 +173,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 | **Files** | CONFIG(.agent3d-config.yml), DOCS(docs/), RULES(~/.agent3d/rules/), TEMPLATES(~/.agent3d/templates/) |
 | **Quality Gates** | Requirements(objectives), Foundation(config), Documentation(criteria), Planning(checkpoints), Implementation(matches), Testing(passes), Review(rules) |
 
-**DETAILED PROCEDURES:** See [Common Procedures](docs/COMMON-PROCEDURES.md) for all standards and workflows
+**DETAILED PROCEDURES:** See [DDD Procedures](procedures.yml/) for all standards and workflows
 
 ### Speed Optimization (MEMORIZE)
 
@@ -187,7 +187,7 @@ pass_config: {specific settings}
 
 **STATUS PATTERNS:** `[x]` = Complete, `[~]` = In progress, `[ ]` = Not started
 
-**LANGUAGE SHORTCUTS:** See [Common Procedures - Language Rules](docs/COMMON-PROCEDURES.md#language-specific-rules-speed-optimized)
+**LANGUAGE SHORTCUTS:** See [DDD Procedures - Language Rules](procedures.yml/language-rules.yml#language-specific-rules-speed-optimized)
 
 **EXECUTION RULES:**
 
@@ -200,7 +200,7 @@ pass_config: {specific settings}
 
 **References:**
 
-- [Common Procedures](docs/COMMON-PROCEDURES.md) - All standards and procedures
+- [DDD Procedures](procedures.yml/) - All standards and procedures
 - [Advanced Features Guide](docs/ADVANCED-FEATURES.md) - Sophisticated capabilities and power-user features
 - [Configuration Guide](docs/CONFIGURATION-GUIDE.md) - Customization and project-specific settings
 - `~/.agent3d/rules/[language].md` - Language-specific rules

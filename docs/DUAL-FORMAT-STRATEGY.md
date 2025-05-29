@@ -220,4 +220,4 @@ This approach ensures that both LLM agents and human developers can work efficie
 
 ---
 
-*For questions about the dual format strategy, see the [Common Procedures](COMMON-PROCEDURES.md) or [Configuration Guide](CONFIGURATION-GUIDE.md).*
+*For questions about the dual format strategy, see the [DDD Procedures](../procedures.yml/) or [Configuration Guide](CONFIGURATION-GUIDE.md).*

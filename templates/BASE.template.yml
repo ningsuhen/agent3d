@@ -110,7 +110,7 @@ variable_reference:
 
 universal_validation_rules:
     all_templates_must:
-      - "Follow Common Procedures for common validation checklist"
+      - "Follow DDD Procedures for common validation checklist"
       - "Replace ALL {{placeholders}} with actual content"
       - "Remove <template> and <example> tags"
       - "Use ## Groups / ### Sub-Groups structure"
@@ -178,5 +178,5 @@ version_tracking_system:
         patch_change: "2.0.1 - Bug fixes or minor improvements"
 
 validation:
-    rules: [ "See Common Procedures - Template System for complete usage instructions" ]
-    references: [ "docs/COMMON-PROCEDURES.md#template-system" ]
+    rules: [ "See DDD Procedures - Template System for complete usage instructions" ]
+    references: [ "procedures.yml/templates.yml#template-system" ]
