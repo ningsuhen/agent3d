@@ -5,6 +5,7 @@
 - **Criteria:** All documented features have corresponding implementations with basic tests
 - **Dependencies:** Documentation Pass completion, development environment
 - **Impact:** High - Core functionality delivery
+- **Code Location:** passes.yml/3_development_pass.yml | ~/.agent3d/passes.yml/3_development_pass.yml
 - **Test Coverage:** 2 test cases, 6 sub-tests
 - **Related Features:** [FT-PASS-002](passes.md#ft-pass-002) (Documentation Pass), [FT-IMPL-002](implementation.md#ft-impl-002) (Testing Pass)
 - **Test Cases:**
@@ -158,6 +159,7 @@
 - **Criteria:** All undocumented features are identified and documented
 - **Dependencies:** Code analysis tools, documentation gap detection
 - **Impact:** High - Documentation completeness
+- **Code Location:** tools.drift_scanner[DriftScanner._analyze_feature_implementation] | passes.yml/10_reverse_pass.yml
 - **Test Coverage:** 2 test cases, 6 sub-tests
 - **Related Features:** [FT-IMPL-005](implementation.md#ft-impl-005) (Synchronization Pass), [FT-STAT-004](status-tracking.md#ft-stat-004) (Drift Detection)
 - **Test Cases:**

@@ -298,6 +298,7 @@ best_practices:
     - "Every test MUST import project code and call project functions"
     - "Tests must validate actual behavior, not just assert against hardcoded values"
     - "Prefer integration tests over pure mock scenarios"
+    - "Use Code Location field in features to identify what code to test"
 
   performance_optimization:
   - "Use --changed-only for fast development workflow (10x+ speed improvement)"

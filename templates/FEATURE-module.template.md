@@ -16,6 +16,7 @@
 - **Criteria:** {{Acceptance criteria}}
 - **Dependencies:** {{Related features/requirements}}
 - **Impact:** {{High/Medium/Low}} - {{Impact description}}
+- **Code Location:** {{module.path}}[{{ImportedObject/Class}}] | {{file_path}} | {{N/A for documentation-only}}
 - **Test Coverage:** {{5-8}} test cases covering all aspects
 - **Related Features:** [FT-{{RELATED_SECTION}}-{{NNN}}]({{related_file}}.md#ft-{{related_section}}-{{nnn}})
 - **Test Cases:**
@@ -33,6 +34,7 @@
 - **Criteria:** {{Acceptance criteria}}
 - **Dependencies:** {{Related features/requirements}}
 - **Impact:** {{High/Medium/Low}} - {{Impact description}}
+- **Code Location:** {{module.path}}[{{ImportedObject/Class}}] | {{file_path}} | {{N/A for documentation-only}}
 - **Test Coverage:** {{4-6}} test cases covering key scenarios
 - **Related Features:** [FT-{{SECTION}}-001]({{current_file}}.md#ft-{{section}}-001)
 - **Test Cases:**
@@ -48,6 +50,13 @@
 **EXAMPLES:** `security.md` → FT-SEC-001, `performance.md` → FT-PERF-001
 
 **REPLACEMENTS:** `{{SECTION}}` = SEC/PERF, `{{status}}` = [x]/[~]/[ ], `{{5-8}}` = numbers
+
+**CODE LOCATION EXAMPLES:**
+- **Python:** `tools.drift_scanner[DriftScanner]` | `tools.migration_manager[MigrationManager.execute_migration]`
+- **TypeScript:** `vscode-ddd-navigator/src/extension[activate]` | `src/providers/definitionProvider[DddDefinitionProvider]`
+- **Shell:** `tools/drift_scanner_mcp_server.sh` | `vscode-ddd-navigator/install.sh`
+- **Documentation:** `N/A` (for documentation-only features)
+- **Multiple:** `tools.drift_scanner[DriftScanner], workflows.validate-sync[WorkflowSyncValidator]`
 
 **TEST TYPES:** Core, Edge Cases, Error Handling, Integration, Performance, Security, Validation, Boundary
 

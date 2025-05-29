@@ -6,20 +6,20 @@ migration_date: "2025-01-27"
 
 overview:
   description: "Agent3D has migrated to a merged FT-TC structure for improved documentation organization and traceability"
-  
+
   benefits:
-    - "Modular organization: Features grouped by logical sections"
-    - "Integrated testing: Test cases directly under their features"
-    - "Better traceability: Clear FT-TC relationships in single location"
-    - "Scalability: Easy to add new sections without modifying multiple files"
-    - "Drift scanner support: Automatic detection of merged structure with fallback"
+  - "Modular organization: Features grouped by logical sections"
+  - "Integrated testing: Test cases directly under their features"
+  - "Better traceability: Clear FT-TC relationships in single location"
+  - "Scalability: Easy to add new sections without modifying multiple files"
+  - "Drift scanner support: Automatic detection of merged structure with fallback"
 
 structure_comparison:
   old_structure:
     features_file: "docs/FEATURES.md - Single file with all features"
     test_cases_file: "docs/TEST-CASES.md - Separate file with all test cases"
     cross_referencing: "Manual cross-referencing between FT and TC IDs"
-  
+
   new_structure:
     features_directory: "docs/features/ - Directory with modular section files"
     integrated_structure: "Each section file contains features AND their associated test cases"
@@ -27,36 +27,36 @@ structure_comparison:
 
 section_files:
   directory: "docs/features/"
-  
+
   files:
     core:
       file: "core.md"
       content: "FT-CORE-* features with TC-CORE-* test cases"
-    
+
     implementation:
       file: "implementation.md"
       content: "FT-IMPL-* features with TC-IMPL-* test cases"
-    
+
     integration:
       file: "integration.md"
       content: "FT-INTG-* features with TC-INTG-* test cases"
-    
+
     language_rules:
       file: "language-rules.md"
       content: "FT-LANG-* features with TC-LANG-* test cases"
-    
+
     passes:
       file: "passes.md"
       content: "FT-PASS-* features with TC-PASS-* test cases"
-    
+
     proposals:
       file: "proposals.md"
       content: "FT-PROP-* features with TC-PROP-* test cases"
-    
+
     status_tracking:
       file: "status-tracking.md"
       content: "FT-STAT-* features with TC-STAT-* test cases"
-    
+
     templates:
       file: "templates.md"
       content: "FT-TMPL-* features with TC-TMPL-* test cases"
@@ -68,6 +68,7 @@ feature_format:
     - **Criteria:** Acceptance criteria for completion
     - **Dependencies:** Related features or requirements
     - **Impact:** High/Medium/Low impact assessment
+    - **Code Location:** module.path[ImportedObject/Class] | file_path | N/A for documentation-only
     - **Test Coverage:** Number of test cases and sub-tests
     - **Related Features:** Links to related features
     - **Test Cases:**
@@ -75,20 +76,21 @@ feature_format:
             - [x] **TC-CORE-001a** - Sub-test Name - Detailed test description
             - [x] **TC-CORE-001b** - Sub-test Name - Detailed test description
         - [x] **TC-CORE-002** - Test Name (Manual, Medium) ✅ **PRODUCTION**
-  
+
   required_fields:
-    - "Description: Brief feature description"
-    - "Criteria: Acceptance criteria for completion"
-    - "Dependencies: Related features or requirements"
-    - "Impact: High/Medium/Low impact assessment"
-    - "Test Coverage: Number of test cases and sub-tests"
-    - "Related Features: Links to related features"
-    - "Test Cases: Indented list of test cases"
-  
+  - "Description: Brief feature description"
+  - "Criteria: Acceptance criteria for completion"
+  - "Dependencies: Related features or requirements"
+  - "Impact: High/Medium/Low impact assessment"
+  - "Code Location: Implementation location for feature-implementation analysis"
+  - "Test Coverage: Number of test cases and sub-tests"
+  - "Related Features: Links to related features"
+  - "Test Cases: Indented list of test cases"
+
   test_case_format:
     main_test: "- [x] **TC-CORE-001** - Test Name (Automated, High) ✅ **PRODUCTION**"
     sub_test: "    - [x] **TC-CORE-001a** - Sub-test Name - Detailed test description"
-    
+
   status_indicators:
     completed: "[x]"
     in_progress: "[~]"
@@ -98,23 +100,23 @@ feature_format:
 working_procedures:
   adding_features:
     steps:
-      - "Edit appropriate section file in docs/features/"
-      - "Follow the feature format template"
-      - "Include test cases directly under the feature"
-      - "Run drift scanner to validate relationships"
-    
+    - "Edit appropriate section file in docs/features/"
+    - "Follow the feature format template"
+    - "Include test cases directly under the feature"
+    - "Run drift scanner to validate relationships"
+
     validation: "python3 ~/.agent3d/tools/drift_scanner.py --mode ft-mapping"
-  
+
   creating_new_sections:
     steps:
-      - "Create new .md file in docs/features/"
-      - "Use templates/FEATURE-module.template.md"
-      - "Follow FT-SECTION-NNN naming convention"
-      - "Update docs/FEATURES.md index"
-    
+    - "Create new .md file in docs/features/"
+    - "Use templates/FEATURE-module.template.md"
+    - "Follow FT-SECTION-NNN naming convention"
+    - "Update docs/FEATURES.md index"
+
     naming_convention: "FT-SECTION-NNN"
     template: "templates/FEATURE-module.template.md"
-  
+
   validation_commands:
     merged_structure: "python3 ~/.agent3d/tools/drift_scanner.py --mode ft-mapping"
     ft_tc_relationships: "python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping"
@@ -124,23 +126,23 @@ naming_conventions:
   feature_ids:
     pattern: "FT-SECTION-NNN"
     examples:
-      - "FT-CORE-001"
-      - "FT-IMPL-002"
-      - "FT-LANG-003"
-  
+    - "FT-CORE-001"
+    - "FT-IMPL-002"
+    - "FT-LANG-003"
+
   test_case_ids:
     pattern: "TC-SECTION-NNN"
     examples:
-      - "TC-CORE-001"
-      - "TC-IMPL-002"
-      - "TC-LANG-003"
-  
+    - "TC-CORE-001"
+    - "TC-IMPL-002"
+    - "TC-LANG-003"
+
   sub_test_ids:
     pattern: "TC-SECTION-NNNx"
     examples:
-      - "TC-CORE-001a"
-      - "TC-IMPL-002b"
-      - "TC-LANG-003c"
+    - "TC-CORE-001a"
+    - "TC-IMPL-002b"
+    - "TC-LANG-003c"
 
 migration_benefits:
   modular_organization: "Features grouped by logical sections"
@@ -153,15 +155,39 @@ drift_scanner_compatibility:
   automatic_detection: "Drift scanner automatically detects merged structure"
   fallback_support: "Falls back to legacy structure if merged structure not found"
   validation_modes:
-    - "ft-mapping: Validates feature-test relationships"
-    - "ft-tc-mapping: Validates FT-TC cross-references"
-    - "all: Comprehensive validation including merged structure"
+  - "ft-mapping: Validates feature-test relationships"
+  - "ft-tc-mapping: Validates FT-TC cross-references"
+  - "all: Comprehensive validation including merged structure"
+
+code_location_field:
+  purpose: "Links features to their actual implementation for better analysis and testing"
+
+  format_examples:
+    python_module: "tools.drift_scanner[DriftScanner]"
+    python_function: "tools.migration_manager[MigrationManager.execute_migration]"
+    typescript_file: "vscode-ddd-navigator/src/extension[activate]"
+    typescript_class: "src/providers/definitionProvider[DddDefinitionProvider]"
+    shell_script: "tools/drift_scanner_mcp_server.sh"
+    configuration: "passes.yml/3_development_pass.yml"
+    documentation_only: "N/A"
+    multiple_locations: "tools.drift_scanner[DriftScanner], workflows.validate-sync[WorkflowSyncValidator]"
+
+  benefits:
+    feature_implementation_analysis: "Enables automated verification that features have corresponding implementations"
+    test_writing: "Helps test writers understand what code to import and test"
+    quality_assessment: "Allows quality tools to analyze feature-implementation alignment"
+    drift_detection: "Improves drift scanner accuracy in feature-implementation mapping"
+    code_navigation: "Provides direct links from features to implementation code"
+    maintenance: "Helps maintainers understand which code implements which features"
 
 best_practices:
-  - "Use appropriate section files for feature organization"
-  - "Maintain clear FT-TC relationships within each section"
-  - "Follow consistent naming conventions"
-  - "Validate structure with drift scanner after changes"
-  - "Keep test cases directly under their parent features"
-  - "Use sub-tests only for parameterized testing scenarios"
-  - "Update docs/FEATURES.md index when adding new sections"
+- "Use appropriate section files for feature organization"
+- "Maintain clear FT-TC relationships within each section"
+- "Follow consistent naming conventions"
+- "Validate structure with drift scanner after changes"
+- "Keep test cases directly under their parent features"
+- "Use sub-tests only for parameterized testing scenarios"
+- "Update docs/FEATURES.md index when adding new sections"
+- "Always include Code Location field for implemented features"
+- "Use N/A for documentation-only features"
+- "Specify multiple locations with comma separation when applicable"
