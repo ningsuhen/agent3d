@@ -5,6 +5,7 @@
 - **Criteria:** Complete rules covering environment, style, and testing for Python
 - **Dependencies:** Python development environment, linting tools
 - **Impact:** High - Python project quality
+- **Code Location:** rules.yml/python.yml
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-IMPL-003](implementation.md#ft-impl-003) (Refactoring Pass), [FT-STAT-004](status-tracking.md#ft-stat-004) (Drift Detection)
 - **Test Cases:**
@@ -28,6 +29,7 @@
 - **Criteria:** Complete rules covering environment, style, and testing for JavaScript
 - **Dependencies:** Node.js environment, JavaScript tooling
 - **Impact:** High - JavaScript project quality
+- **Code Location:** rules.yml/javascript.yml
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-IMPL-003](implementation.md#ft-impl-003) (Refactoring Pass), [FT-STAT-004](status-tracking.md#ft-stat-004) (Drift Detection)
 - **Test Cases:**
@@ -51,6 +53,7 @@
 - **Criteria:** Complete rules covering environment, style, and testing for Java
 - **Dependencies:** Java development environment, build tools
 - **Impact:** Medium - Java project quality
+- **Code Location:** rules.yml/java.yml
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-IMPL-003](implementation.md#ft-impl-003) (Refactoring Pass), [FT-STAT-004](status-tracking.md#ft-stat-004) (Drift Detection)
 - **Test Cases:**
@@ -74,6 +77,7 @@
 - **Criteria:** Complete rules covering environment, style, and testing for Go
 - **Dependencies:** Go development environment, Go tooling
 - **Impact:** Medium - Go project quality
+- **Code Location:** rules.yml/go.yml
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-IMPL-003](implementation.md#ft-impl-003) (Refactoring Pass), [FT-STAT-004](status-tracking.md#ft-stat-004) (Drift Detection)
 - **Test Cases:**
@@ -97,6 +101,7 @@
 - **Criteria:** Complete rules covering linting, validation, and quality standards for markdown
 - **Dependencies:** Markdown linting tools, validation framework
 - **Impact:** Medium - Documentation quality
+- **Code Location:** rules.yml/markdown.yml
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-TMPL-003](templates.md#ft-tmpl-003) (Validation Framework), [FT-IMPL-006](implementation.md#ft-impl-006) (Quality Pass)
 - **Test Cases:**

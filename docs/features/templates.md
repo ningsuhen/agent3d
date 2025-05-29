@@ -5,6 +5,7 @@
 - **Criteria:** Complete template system with inheritance, validation, and intelligent selection
 - **Dependencies:** Template processing engine, project analysis tools
 - **Impact:** High - Documentation automation
+- **Code Location:** templates/ | templates.yml/
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-TMPL-002](templates.md#ft-tmpl-002) (Simple Template Access), [FT-TMPL-003](templates.md#ft-tmpl-003) (Validation Framework)
 - **Test Cases:**
@@ -28,6 +29,7 @@
 - **Criteria:** All templates accessible from ~/.agent3d/templates/ directory
 - **Dependencies:** Local repository structure, file system access
 - **Impact:** Medium - Template accessibility
+- **Code Location:** templates/ | templates.yml/
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-CORE-001](core.md#ft-core-001) (Agent Guideline Protocol), [FT-TMPL-001](templates.md#ft-tmpl-001) (Template Engine)
 - **Test Cases:**
@@ -51,6 +53,7 @@
 - **Criteria:** Multi-level validation with base requirements and context-specific rules
 - **Dependencies:** Validation engine, quality standards
 - **Impact:** High - Template quality assurance
+- **Code Location:** N/A (Documentation validation framework)
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-CORE-003](core.md#ft-core-003) (Documentation Standards), [FT-IMPL-006](implementation.md#ft-impl-006) (Quality Pass)
 - **Test Cases:**
@@ -74,6 +77,7 @@
 - **Criteria:** All templates and documentation use `date +%Y-%m-%d` commands for accurate timestamps
 - **Dependencies:** System command access, shell integration
 - **Impact:** Low - Timestamp accuracy
+- **Code Location:** N/A (Documentation standard for date commands)
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-TMPL-002](templates.md#ft-tmpl-002) (Simple Template Access), [FT-STAT-002](status-tracking.md#ft-stat-002) (Change Tracking)
 - **Test Cases:**

@@ -5,6 +5,7 @@
 - **Criteria:** Real-time tracking of all pass statuses with drift indicators
 - **Dependencies:** Status monitoring system, metrics collection
 - **Impact:** High - Project visibility
+- **Code Location:** docs/DDD-STATUS.yml
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-CORE-002](core.md#ft-core-002) (DDD Pass System), [FT-STAT-004](status-tracking.md#ft-stat-004) (Drift Detection)
 - **Test Cases:**
@@ -28,6 +29,7 @@
 - **Criteria:** Comprehensive changelog with DDD pass integration
 - **Dependencies:** Change detection system, logging framework
 - **Impact:** Medium - Change management
+- **Code Location:** CHANGELOG.md
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-STAT-001](status-tracking.md#ft-stat-001) (DDD Status Tracking), [FT-INTG-003](integration.md#ft-intg-003) (Version Control Integration)
 - **Test Cases:**
@@ -51,6 +53,7 @@
 - **Criteria:** Visual progress representation for all passes with percentage completion
 - **Dependencies:** Progress tracking system, visualization tools
 - **Impact:** Medium - Progress visibility
+- **Code Location:** N/A (Visual progress tracking system)
 - **Test Coverage:** 2 test cases, 6 sub-tests
 - **Related Features:** [FT-STAT-001](status-tracking.md#ft-stat-001) (DDD Status Tracking), [FT-CORE-002](core.md#ft-core-002) (DDD Pass System)
 - **Test Cases:**
@@ -70,6 +73,7 @@
 - **Criteria:** Multi-mode drift analysis with detailed reporting and actionable insights
 - **Dependencies:** Drift analysis engine, reporting system
 - **Impact:** High - Quality assurance
+- **Code Location:** tools/drift_scanner.py#DriftScanner
 - **Test Coverage:** 5 test cases, 15 sub-tests
 - **Related Features:** [FT-PASS-003](passes.md#ft-pass-003) (Synchronization Pass), [FT-INTG-005](integration.md#ft-intg-005) (MCP Server Integration)
 - **Test Cases:**

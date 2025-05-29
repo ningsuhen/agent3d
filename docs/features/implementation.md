@@ -5,7 +5,7 @@
 - **Criteria:** All documented features have corresponding implementations with basic tests
 - **Dependencies:** Documentation Pass completion, development environment
 - **Impact:** High - Core functionality delivery
-- **Code Location:** passes.yml/3_development_pass.yml | ~/.agent3d/passes.yml/3_development_pass.yml
+- **Code Location:** passes.yml/3_development_pass.yml
 - **Test Coverage:** 2 test cases, 6 sub-tests
 - **Related Features:** [FT-PASS-002](passes.md#ft-pass-002) (Documentation Pass), [FT-IMPL-002](implementation.md#ft-impl-002) (Testing Pass)
 - **Test Cases:**
@@ -25,6 +25,7 @@
 - **Criteria:** 90%+ test coverage with automated execution framework
 - **Dependencies:** Implementation Pass completion, testing framework
 - **Impact:** High - Quality assurance
+- **Code Location:** passes.yml/5_testing_pass.yml
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-IMPL-001](implementation.md#ft-impl-001) (Implementation Pass), [FT-STAT-004](status-tracking.md#ft-stat-004) (Drift Detection)
 - **Test Cases:**
@@ -48,6 +49,7 @@
 - **Criteria:** Code quality improvements without breaking existing features
 - **Dependencies:** Testing Pass completion, code quality tools
 - **Impact:** Medium - Code maintainability
+- **Code Location:** passes.yml/6_refactoring_pass.yml
 - **Test Coverage:** 2 test cases, 6 sub-tests
 - **Related Features:** [FT-IMPL-002](implementation.md#ft-impl-002) (Testing Pass), [FT-IMPL-004](implementation.md#ft-impl-004) (Code Review Pass)
 - **Test Cases:**
@@ -67,6 +69,7 @@
 - **Criteria:** All PRs receive structured review with actionable feedback
 - **Dependencies:** Review process, team collaboration tools
 - **Impact:** High - Code quality assurance
+- **Code Location:** passes.yml/7_code_review_pass.yml
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-IMPL-003](implementation.md#ft-impl-003) (Refactoring Pass), [FT-INTG-002](integration.md#ft-intg-002) (CI/CD Integration)
 - **Test Cases:**
@@ -90,6 +93,7 @@
 - **Criteria:** Zero drift between documentation and implementation
 - **Dependencies:** Drift detection tools, synchronization processes
 - **Impact:** High - Documentation accuracy
+- **Code Location:** passes.yml/9_synchronization_pass.yml
 - **Test Coverage:** 2 test cases, 6 sub-tests
 - **Related Features:** [FT-PASS-003](passes.md#ft-pass-003) (Synchronization Pass), [FT-STAT-004](status-tracking.md#ft-stat-004) (Drift Detection)
 - **Test Cases:**
@@ -109,6 +113,7 @@
 - **Criteria:** All documentation meets clarity and consistency standards
 - **Dependencies:** Quality standards, validation tools
 - **Impact:** Medium - Documentation quality
+- **Code Location:** N/A (Documentation framework quality process)
 - **Test Coverage:** 2 test cases, 6 sub-tests
 - **Related Features:** [FT-CORE-003](core.md#ft-core-003) (Documentation Standards), [FT-TMPL-003](templates.md#ft-tmpl-003) (Validation Framework)
 - **Test Cases:**
@@ -128,6 +133,7 @@
 - **Criteria:** No duplicate or obsolete content remains in documentation
 - **Dependencies:** Content audit tools, historical analysis
 - **Impact:** Medium - Documentation maintainability
+- **Code Location:** passes.yml/8_prune_pass.yml
 - **Test Coverage:** 5 test cases, 15 sub-tests
 - **Related Features:** [FT-IMPL-006](implementation.md#ft-impl-006) (Quality Pass), [FT-STAT-002](status-tracking.md#ft-stat-002) (Change Tracking)
 - **Test Cases:**
@@ -159,7 +165,7 @@
 - **Criteria:** All undocumented features are identified and documented
 - **Dependencies:** Code analysis tools, documentation gap detection
 - **Impact:** High - Documentation completeness
-- **Code Location:** tools.drift_scanner[DriftScanner._analyze_feature_implementation] | passes.yml/10_reverse_pass.yml
+- **Code Location:** tools/drift_scanner.py#DriftScanner._analyze_feature_implementation | passes.yml/10_reverse_pass.yml
 - **Test Coverage:** 2 test cases, 6 sub-tests
 - **Related Features:** [FT-IMPL-005](implementation.md#ft-impl-005) (Synchronization Pass), [FT-STAT-004](status-tracking.md#ft-stat-004) (Drift Detection)
 - **Test Cases:**
@@ -179,6 +185,7 @@
 - **Criteria:** All passes executed with balanced alignment levels and minimized drift
 - **Dependencies:** All previous passes, expert coordination system
 - **Impact:** High - Complete project delivery
+- **Code Location:** passes.yml/full_pass.yml
 - **Test Coverage:** 5 test cases, 15 sub-tests
 - **Related Features:** [FT-CORE-002](core.md#ft-core-002) (DDD Pass System), [FT-STAT-001](status-tracking.md#ft-stat-001) (DDD Status Tracking)
 - **Test Cases:**

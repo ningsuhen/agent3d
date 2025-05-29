@@ -5,6 +5,7 @@
 - **Criteria:** Agents can automatically fetch, cache, and follow DDD guidelines
 - **Dependencies:** Agent communication protocols, guideline repository
 - **Impact:** High - Agent adoption
+- **Code Location:** AGENT-GUIDELINES.md | AGENT-GUIDELINES.yml
 - **Test Coverage:** 2 test cases, 6 sub-tests
 - **Related Features:** [FT-CORE-001](core.md#ft-core-001) (Agent Guideline Protocol), [FT-INTG-005](integration.md#ft-intg-005) (MCP Server Integration)
 - **Test Cases:**
@@ -24,6 +25,7 @@
 - **Criteria:** Automated validation prevents documentation-code drift
 - **Dependencies:** CI/CD systems, validation tools
 - **Impact:** High - Continuous validation
+- **Code Location:** N/A (Documentation guidelines for CI/CD integration)
 - **Test Coverage:** 2 test cases, 6 sub-tests
 - **Related Features:** [FT-STAT-004](status-tracking.md#ft-stat-004) (Drift Detection), [FT-IMPL-004](implementation.md#ft-impl-004) (Code Review Pass)
 - **Test Cases:**
@@ -43,6 +45,7 @@
 - **Criteria:** Documentation changes are tracked and validated in version control
 - **Dependencies:** Version control systems, change tracking
 - **Impact:** Medium - Change management
+- **Code Location:** N/A (Documentation best practices for version control)
 - **Test Coverage:** 2 test cases, 6 sub-tests
 - **Related Features:** [FT-STAT-002](status-tracking.md#ft-stat-002) (Change Tracking), [FT-IMPL-004](implementation.md#ft-impl-004) (Code Review Pass)
 - **Test Cases:**
@@ -62,7 +65,7 @@
 - **Criteria:** Full TypeScript extension with definition providers, hover support, and quick navigation
 - **Dependencies:** VSCode extension API, TypeScript development
 - **Impact:** High - Developer productivity
-- **Code Location:** vscode-ddd-navigator/src/extension[activate] | vscode-ddd-navigator/src/providers/definitionProvider[DddDefinitionProvider] | vscode-ddd-navigator/install.sh
+- **Code Location:** vscode-ddd-navigator/src/extension.ts#activate | vscode-ddd-navigator/src/providers/definitionProvider.ts#DddDefinitionProvider | vscode-ddd-navigator/install.sh
 - **Test Coverage:** 6 test cases, 18 sub-tests
 - **Related Features:** [FT-STAT-004](status-tracking.md#ft-stat-004) (Drift Detection), [FT-CORE-002](core.md#ft-core-002) (DDD Pass System)
 - **Test Cases:**
@@ -98,7 +101,7 @@
 - **Criteria:** Complete JSON-RPC server with comprehensive drift detection capabilities
 - **Dependencies:** MCP protocol implementation, drift analysis tools
 - **Impact:** High - AI tool integration
-- **Code Location:** tools/drift_scanner_mcp_server.sh | tools.drift_scanner[DriftScanner] | tools.mcp_server[MCPServer]
+- **Code Location:** tools/drift_scanner_mcp_server.sh | tools/drift_scanner.py#DriftScanner | tools/drift_scanner_mcp_server.py
 - **Test Coverage:** 4 test cases, 12 sub-tests
 - **Related Features:** [FT-STAT-004](status-tracking.md#ft-stat-004) (Drift Detection), [FT-INTG-001](integration.md#ft-intg-001) (LLM Agent Integration)
 - **Test Cases:**

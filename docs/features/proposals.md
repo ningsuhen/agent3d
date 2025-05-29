@@ -5,6 +5,7 @@
 - **Criteria:** Complete proposal lifecycle from draft to implementation
 - **Dependencies:** Proposal templates, workflow management
 - **Impact:** Medium - Feature planning
+- **Code Location:** docs/proposals/ | templates/PROPOSAL.template.md
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-PROP-002](proposals.md#ft-prop-002) (Component Design System), [FT-TMPL-001](templates.md#ft-tmpl-001) (Template Engine)
 - **Test Cases:**
@@ -28,6 +29,7 @@
 - **Criteria:** DETAILED-DESIGN template supports comprehensive component documentation
 - **Dependencies:** Design templates, component analysis
 - **Impact:** Medium - Component documentation
+- **Code Location:** templates/DETAILED-DESIGN.template.md
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-PROP-001](proposals.md#ft-prop-001) (Proposal Framework), [FT-CORE-003](core.md#ft-core-003) (Documentation Standards)
 - **Test Cases:**

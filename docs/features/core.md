@@ -33,6 +33,7 @@
 - **Criteria:** All 12 numbered passes plus Full Pass are documented and executable
 - **Dependencies:** Pass templates, execution framework
 - **Impact:** High - Core methodology
+- **Code Location:** passes.yml/ | passes.yml/full_pass.yml
 - **Test Coverage:** 3 test cases, 8 sub-tests
 - **Related Features:** [FT-PASS-001](passes.md#ft-pass-001) (Foundation Pass), [FT-IMPL-009](implementation.md#ft-impl-009) (Full Pass)
 - **Test Cases:**
@@ -55,6 +56,7 @@
 - **Criteria:** All required documentation files have templates and validation criteria
 - **Dependencies:** Template system, validation rules
 - **Impact:** Medium - Quality assurance
+- **Code Location:** N/A (Documentation standards and guidelines)
 - **Test Coverage:** 2 test cases, 5 sub-tests
 - **Related Features:** [FT-TMPL-003](templates.md#ft-tmpl-003) (Validation Framework)
 - **Test Cases:**

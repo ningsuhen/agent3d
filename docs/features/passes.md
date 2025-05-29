@@ -5,6 +5,7 @@
 - **Criteria:** All 6 required documentation files are created and complete
 - **Dependencies:** Template system, project analysis
 - **Impact:** High - Project foundation
+- **Code Location:** passes.yml/1_foundation_pass.yml
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-CORE-002](core.md#ft-core-002) (DDD Pass System), [FT-TMPL-002](templates.md#ft-tmpl-002) (Template Access)
 - **Test Cases:**
@@ -28,6 +29,7 @@
 - **Criteria:** All features have acceptance criteria and test cases are documented
 - **Dependencies:** Foundation Pass completion, feature analysis
 - **Impact:** High - Documentation completeness
+- **Code Location:** passes.yml/2_documentation_pass.yml
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-PASS-001](passes.md#ft-pass-001) (Foundation Pass), [FT-STAT-002](status-tracking.md#ft-stat-002) (Change Tracking)
 - **Test Cases:**
@@ -51,6 +53,7 @@
 - **Criteria:** Documentation matches implementation with zero drift indicators
 - **Dependencies:** Drift detection tools, code analysis
 - **Impact:** High - Documentation accuracy
+- **Code Location:** passes.yml/9_synchronization_pass.yml
 - **Test Coverage:** 4 test cases, 12 sub-tests
 - **Related Features:** [FT-STAT-004](status-tracking.md#ft-stat-004) (Drift Detection), [FT-INTG-005](integration.md#ft-intg-005) (MCP Server)
 - **Test Cases:**
