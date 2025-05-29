@@ -1,0 +1,358 @@
+metadata:
+    name: "Rewrite {Feature/Test} Procedure"
+    version: "1.0.0"
+    purpose: "Systematic loop workflow for large-scale refactoring using DDD methodologies"
+    approach: "Pure LLM-based rewriting without programming language execution"
+    scope: "Documentation files, test files, configuration files"
+    created: "2025-01-29"
+
+description: |
+    A comprehensive procedure for systematically rewriting files using DDD methodologies and templates.
+    This procedure implements a backup-and-rewrite loop workflow that processes directories of files
+    one at a time, ensuring quality improvements while maintaining safety through backups.
+
+workflow_pattern: "SCAN → SELECT → BACKUP → REWRITE → VALIDATE → COMPARE → CLEANUP → LOOP"
+
+# Target Scope Configuration
+target_scopes:
+    documentation_features:
+        pattern: "docs/features/*.md"
+        description: "Feature documentation files requiring DDD template compliance"
+        backup_suffix: ".backup"
+        validation_criteria: [ "template_compliance", "content_completeness", "link_validity" ]
+
+    test_files:
+        pattern: "tests/**/test_*.py"
+        description: "Test files requiring modernization and DDD compliance"
+        backup_suffix: ".backup"
+        validation_criteria: [ "test_structure", "tc_id_compliance", "framework_classification" ]
+
+    configuration_files:
+        pattern: "**/*.yml"
+        description: "Configuration files requiring standardization"
+        backup_suffix: ".backup"
+        validation_criteria: [ "schema_compliance", "structure_consistency", "documentation_quality" ]
+
+    pass_documentation:
+        pattern: "passes.yml/*.yml"
+        description: "Pass documentation requiring template compliance"
+        backup_suffix: ".backup"
+        validation_criteria: [ "pass_template_compliance", "workflow_clarity", "quality_gates" ]
+
+# Workflow Phases
+phases:
+    scan:
+        purpose: "Identify target files and assess rewrite requirements"
+        description: "Scan target directory, identify files needing rewrite, assess current state"
+        actions:
+          - "scan_target_directory"
+          - "identify_files_for_rewrite"
+          - "assess_current_quality_state"
+          - "prioritize_rewrite_candidates"
+          - "estimate_rewrite_effort"
+
+        outputs:
+          - "rewrite_candidate_list"
+          - "priority_assessment"
+          - "quality_baseline"
+
+        quality_checks:
+          - "target_directory_exists"
+          - "files_match_expected_patterns"
+          - "backup_directory_available"
+
+    select:
+        purpose: "Choose specific file for rewrite and prepare context"
+        description: "Select next file from candidate list, gather context, prepare templates"
+        actions:
+          - "select_next_file_from_list"
+          - "gather_file_context_and_dependencies"
+          - "identify_applicable_templates"
+          - "prepare_rewrite_requirements"
+          - "document_current_file_state"
+
+        outputs:
+          - "selected_file_path"
+          - "rewrite_requirements"
+          - "applicable_templates"
+          - "context_documentation"
+
+        quality_checks:
+          - "file_exists_and_readable"
+          - "templates_identified"
+          - "requirements_documented"
+
+    backup:
+        purpose: "Create safe backup of existing file"
+        description: "Move existing file to backup location with timestamp"
+        actions:
+          - "create_backup_filename_with_timestamp"
+          - "move_existing_file_to_backup"
+          - "verify_backup_creation"
+          - "document_backup_location"
+
+        backup_naming_convention: "{original_filename}.backup.{timestamp}"
+
+        outputs:
+          - "backup_file_path"
+          - "backup_verification"
+
+        quality_checks:
+          - "backup_file_created_successfully"
+          - "original_file_moved_safely"
+          - "backup_readable_and_complete"
+
+        safety_measures:
+          - "never_overwrite_existing_backups"
+          - "verify_backup_integrity"
+          - "maintain_backup_registry"
+
+    rewrite:
+        purpose: "Completely rewrite file using DDD methodologies and templates"
+        description: "Pure LLM-based rewriting following DDD standards and templates"
+
+        rewrite_methodology:
+            approach: "pure_llm_analysis_and_generation"
+            constraints:
+              - "no_python_code_execution"
+              - "no_external_tool_usage"
+              - "pure_text_analysis_and_generation"
+              - "template_based_structure"
+
+            process:
+              - "analyze_original_content_structure"
+              - "identify_content_elements_to_preserve"
+              - "apply_ddd_templates_and_standards"
+              - "enhance_content_quality_and_clarity"
+              - "ensure_template_compliance"
+              - "validate_content_completeness"
+
+        quality_standards:
+            documentation_files:
+              - "follow_feature_template_structure"
+              - "include_all_required_sections"
+              - "maintain_content_accuracy"
+              - "improve_clarity_and_readability"
+              - "ensure_link_validity"
+              - "add_missing_metadata"
+
+            test_files:
+              - "follow_test_structure_conventions"
+              - "include_proper_tc_id_comments"
+              - "apply_framework_classification"
+              - "improve_test_documentation"
+              - "ensure_pytest_compliance"
+              - "maintain_test_functionality"
+
+            configuration_files:
+              - "follow_yaml_structure_standards"
+              - "include_comprehensive_documentation"
+              - "ensure_schema_compliance"
+              - "improve_readability_and_organization"
+              - "add_validation_criteria"
+
+        outputs:
+          - "rewritten_file_content"
+          - "rewrite_summary"
+          - "quality_improvements_made"
+
+    validate:
+        purpose: "Validate rewritten file against quality standards"
+        description: "Comprehensive validation of rewritten content"
+
+        validation_layers:
+            structural_validation:
+              - "template_compliance_check"
+              - "required_sections_present"
+              - "proper_formatting_applied"
+              - "metadata_completeness"
+
+            content_validation:
+              - "content_accuracy_preserved"
+              - "information_completeness"
+              - "clarity_and_readability"
+              - "consistency_with_standards"
+
+            technical_validation:
+              - "syntax_correctness"
+              - "link_validity"
+              - "reference_accuracy"
+              - "integration_compatibility"
+
+        validation_criteria_by_type:
+            documentation:
+              - "feature_template_compliance"
+              - "test_case_structure_validity"
+              - "cross_reference_accuracy"
+              - "markdown_syntax_correctness"
+
+            tests:
+              - "pytest_syntax_validity"
+              - "tc_id_pattern_compliance"
+              - "framework_classification_adherence"
+              - "test_structure_standards"
+
+            configuration:
+              - "yaml_syntax_validity"
+              - "schema_compliance"
+              - "structure_consistency"
+              - "documentation_completeness"
+
+        outputs:
+          - "validation_results"
+          - "quality_score"
+          - "issues_identified"
+          - "improvement_recommendations"
+
+    compare:
+        purpose: "Verify content integrity between original and rewritten file"
+        description: "Comprehensive comparison to ensure no content loss during rewrite"
+
+        comparison_methodology:
+            approach: "pure_llm_content_analysis"
+            constraints:
+              - "no_automated_diff_tools"
+              - "pure_text_analysis_and_comparison"
+              - "content_semantic_analysis"
+              - "structure_independent_verification"
+
+        comparison_process:
+          - "load_original_content_from_backup"
+          - "load_rewritten_content_from_new_file"
+          - "analyze_content_elements_systematically"
+          - "verify_all_information_preserved"
+          - "check_semantic_equivalence"
+          - "validate_reference_accuracy"
+          - "document_content_verification"
+
+        verification_criteria:
+            mandatory_preservation:
+              - "all_factual_information_intact"
+              - "all_technical_details_preserved"
+              - "all_references_and_links_maintained"
+              - "all_metadata_and_identifiers_kept"
+              - "all_functional_specifications_retained"
+
+            acceptable_improvements:
+              - "enhanced_structure_and_organization"
+              - "improved_clarity_and_readability"
+              - "better_template_compliance"
+              - "standardized_formatting"
+              - "corrected_grammar_and_style"
+
+        failure_handling:
+          - "restore_from_backup_if_content_loss_detected"
+          - "document_content_gaps_identified"
+          - "retry_rewrite_with_content_preservation_focus"
+
+        outputs:
+          - "content_integrity_verification_status"
+          - "preservation_confirmation"
+          - "improvement_documentation"
+
+    cleanup:
+        purpose: "Clean up backup file after successful verification"
+        description: "Remove backup file only after content integrity is verified"
+
+        cleanup_criteria:
+            prerequisites:
+              - "content_integrity_verification_passed"
+              - "no_content_loss_detected"
+              - "quality_validation_successful"
+              - "rewritten_file_confirmed_complete"
+
+        cleanup_process:
+          - "final_verification_of_content_preservation"
+          - "confirm_rewritten_file_quality"
+          - "delete_backup_file_safely"
+          - "update_progress_tracking"
+          - "document_completion"
+          - "prepare_for_next_file_iteration"
+
+        safety_measures:
+          - "double_check_content_integrity_before_deletion"
+          - "verify_rewritten_file_accessibility"
+          - "ensure_no_critical_information_lost"
+          - "maintain_deletion_audit_trail"
+
+        outputs:
+          - "cleanup_completion_status"
+          - "file_processing_summary"
+          - "next_iteration_readiness"
+
+# Loop Control
+loop_control:
+    continuation_criteria:
+      - "more_files_in_candidate_list"
+      - "quality_threshold_not_yet_achieved"
+      - "no_critical_errors_encountered"
+
+    termination_criteria:
+      - "all_files_processed_successfully"
+      - "quality_threshold_achieved"
+      - "critical_error_encountered"
+      - "maximum_iteration_limit_reached"
+
+    progress_tracking:
+      - "files_processed_count"
+      - "files_remaining_count"
+      - "overall_quality_improvement"
+      - "time_per_file_average"
+
+# Safety and Recovery
+safety_measures:
+    backup_management:
+      - "never_overwrite_existing_backups"
+      - "maintain_backup_registry"
+      - "verify_backup_integrity"
+      - "provide_easy_restoration_process"
+
+    error_handling:
+      - "graceful_failure_recovery"
+      - "automatic_backup_restoration"
+      - "detailed_error_logging"
+      - "user_notification_of_issues"
+
+    quality_assurance:
+      - "mandatory_validation_before_confirmation"
+      - "quality_threshold_enforcement"
+      - "content_integrity_verification"
+      - "template_compliance_checking"
+
+# Expected Outcomes
+expected_outcomes:
+    immediate:
+      - "systematically_improved_file_quality"
+      - "ddd_template_compliance_achieved"
+      - "enhanced_content_clarity_and_structure"
+      - "maintained_content_accuracy_and_integrity"
+
+    long_term:
+      - "consistent_documentation_standards"
+      - "improved_maintainability"
+      - "enhanced_user_experience"
+      - "reduced_technical_debt"
+
+# Quality Gates
+quality_gates:
+    per_file:
+      - name: "template_compliance"
+        threshold: "100%"
+        critical: true
+      - name: "content_completeness"
+        threshold: "95%"
+        critical: true
+      - name: "quality_improvement"
+        threshold: "20%"
+        critical: false
+
+    overall_procedure:
+      - name: "files_processed_successfully"
+        threshold: "90%"
+        critical: true
+      - name: "average_quality_improvement"
+        threshold: "25%"
+        critical: false
+      - name: "zero_data_loss"
+        threshold: "100%"
+        critical: true
