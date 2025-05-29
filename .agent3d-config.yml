@@ -340,14 +340,17 @@ templates:
     - requirement_templates
 structure:
   docs_directory: docs/
-  yaml_templates_directory: templates/
-  markdown_templates_directory: templates/
-  passes_directory: passes.yml/
-  procedures_directory: procedures.yml/
-  rules_directory: rules.yml/
-  source_directory: src/
+  templates_directory: templates/
+  passes_directory: passes/
+  procedures_directory: procedures/
+  rules_directory: rules/
+  guidelines_directory: guidelines/
+  migrations_directory: migrations/
+  workflows_directory: workflows/
+  source_directory: tools/
   test_directory: tests/
   build_directory: build/
+  vscode_extension_directory: vscode-ddd-navigator/
 project_settings:
   development_tools:
   - python

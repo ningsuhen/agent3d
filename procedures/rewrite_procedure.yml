@@ -1,12 +1,20 @@
 metadata:
   name: "Rewrite Files Procedure"
-  version: "2.3.0"
+  type: "procedure"
+  version: "3.0.0"
   purpose: "Automated file refactoring with DDD methodologies, test case optimization, and feature status management"
   approach: "Pure LLM-based rewriting with zero confirmation"
   scope: "Documentation, test files, configuration files, source code"
+  automation_level: "fully_automated"
   created: "2025-01-29"
   last_updated: "2025-01-29"
-  features: "Version tracking, TC-ID optimization, test case compression, feature status system, zero confirmation automation"
+  features:
+  - "Zero confirmation fully automated execution"
+  - "Intelligent test case regeneration from scratch"
+  - "TC-ID optimization and compression"
+  - "Feature status lifecycle management"
+  - "Template version tracking and compliance"
+  - "Memorization-driven consistency"
 
 description: "Automated backup-and-rewrite loop for systematic file quality improvement using DDD templates and intelligent test case optimization."
 

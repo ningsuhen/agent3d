@@ -1,0 +1,211 @@
+metadata:
+  name: "Agent3D Consistency Standards"
+  version: "1.0.0"
+  purpose: "Comprehensive consistency standards for Agent3D framework"
+  created: "2025-01-29"
+  last_updated: "2025-01-29"
+
+# DIRECTORY STRUCTURE STANDARDS
+directory_structure:
+  standard_directories:
+    docs: "Documentation and specifications"
+    templates: "All template files (YAML and Markdown)"
+    procedures: "Procedure files (YAML format for LLM consumption)"
+    passes: "Pass definition files (YAML format for LLM consumption)"
+    rules: "Language-specific rules (YAML format for LLM consumption)"
+    guidelines: "Framework guidelines and standards"
+    migrations: "Migration scripts and tracking"
+    workflows: "Workflow automation scripts"
+    tools: "Python tools and utilities"
+    tests: "Test files and test data"
+    vscode-ddd-navigator: "VSCode extension source code"
+
+  legacy_directories:
+    procedures.yml: "Legacy - migrate to procedures/"
+    passes.yml: "Legacy - migrate to passes/"
+    rules.yml: "Legacy - migrate to rules/"
+
+  naming_conventions:
+    directories: "lowercase-with-hyphens or single_words"
+    no_suffixes: "Avoid .yml/ directory suffixes"
+    descriptive: "Use clear, descriptive names"
+
+# FILE NAMING STANDARDS
+file_naming:
+  templates:
+    format: "{NAME}.template.{ext}"
+    extensions: ["yml", "md"]
+    examples: ["FEATURE-module.template.yml", "README.template.md"]
+
+  procedures:
+    format: "{name}.yml"
+    location: "procedures/"
+    examples: ["rewrite-procedure.yml", "test-case-guidelines.yml"]
+
+  passes:
+    format: "{number}_{name}_pass.yml"
+    location: "passes/"
+    examples: ["1_foundation_pass.yml", "2_development_pass.yml"]
+
+  rules:
+    format: "{language}.yml"
+    location: "rules/"
+    examples: ["python.yml", "javascript.yml", "markdown.yml"]
+
+  guidelines:
+    format: "{topic}-{type}.yml"
+    location: "guidelines/"
+    examples: ["consistency-standards.yml", "testing-guidelines.yml"]
+
+# VERSION MANAGEMENT STANDARDS
+version_management:
+  format: "X.Y.Z (Major.Minor.Patch)"
+  
+  version_triggers:
+    major: "Breaking changes, major refactoring"
+    minor: "New features, significant improvements"
+    patch: "Bug fixes, minor improvements, documentation updates"
+
+  metadata_structure:
+    required_fields:
+      - name
+      - version
+      - purpose
+      - created
+      - last_updated
+    
+    optional_fields:
+      - description
+      - features
+      - new_features
+      - breaking_changes
+      - deprecated
+
+  version_tracking:
+    templates: "Include version in metadata and template comments"
+    procedures: "Include version in metadata"
+    passes: "Include version in metadata"
+    rules: "Include version in metadata"
+
+# METADATA STANDARDS
+metadata_standards:
+  yaml_structure:
+    metadata:
+      name: "Human-readable name"
+      version: "X.Y.Z"
+      purpose: "Brief purpose description"
+      created: "YYYY-MM-DD"
+      last_updated: "YYYY-MM-DD"
+      features: "Optional: List of key features"
+
+  template_metadata:
+    additional_fields:
+      type: "template"
+      format: "markdown_content_with_yaml_metadata | yaml_only"
+      scope: "Template application scope"
+
+  procedure_metadata:
+    additional_fields:
+      type: "procedure"
+      automation_level: "manual | semi_automated | fully_automated"
+      dependencies: "List of required procedures/templates"
+
+# CONTENT STRUCTURE STANDARDS
+content_structure:
+  yaml_files:
+    indentation: "2 spaces"
+    line_length: "120 characters maximum"
+    list_format: "Use - for lists"
+    string_quoting: "Quote strings with special characters"
+
+  markdown_files:
+    heading_structure: "Hierarchical (H1 > H2 > H3)"
+    line_length: "120 characters maximum"
+    link_format: "Use reference-style links for readability"
+    code_blocks: "Use language-specific syntax highlighting"
+
+  template_files:
+    placeholder_format: "{{VARIABLE_NAME}}"
+    instruction_format: "{{INSTRUCTION: Description}}"
+    comment_format: "<!-- Template Version: X.Y.Z -->"
+
+# CONFIGURATION STANDARDS
+configuration_standards:
+  exclude_patterns:
+    standard_excludes:
+      - ".agent3d-tmp"
+      - "node_modules"
+      - ".git"
+      - ".vscode"
+      - "out"
+      - "dist"
+      - "build"
+      - "__pycache__"
+      - "venv"
+      - ".pytest_cache"
+
+  path_resolution:
+    relative_paths: "Use relative paths from repository root"
+    absolute_paths: "Only for system-level configurations"
+    environment_variables: "Use for user-specific paths"
+
+# QUALITY STANDARDS
+quality_standards:
+  documentation:
+    completeness: "All public interfaces documented"
+    clarity: "Clear, concise descriptions"
+    examples: "Include usage examples"
+    maintenance: "Keep documentation current with code"
+
+  code:
+    consistency: "Follow established patterns"
+    readability: "Self-documenting code preferred"
+    testing: "Comprehensive test coverage"
+    error_handling: "Graceful error handling"
+
+  templates:
+    completeness: "All placeholders documented"
+    validation: "Include validation rules"
+    examples: "Provide usage examples"
+    versioning: "Track template versions"
+
+# MIGRATION STANDARDS
+migration_standards:
+  backward_compatibility:
+    legacy_support: "Maintain legacy directory support during transition"
+    deprecation_warnings: "Warn about deprecated patterns"
+    migration_tools: "Provide automated migration tools"
+
+  migration_process:
+    planning: "Document migration plan"
+    testing: "Test migration thoroughly"
+    rollback: "Provide rollback procedures"
+    documentation: "Update all documentation"
+
+# VALIDATION STANDARDS
+validation_standards:
+  automated_checks:
+    syntax: "YAML/Markdown syntax validation"
+    structure: "Template structure validation"
+    references: "Cross-reference validation"
+    consistency: "Naming convention validation"
+
+  quality_gates:
+    template_compliance: "90% minimum"
+    documentation_completeness: "95% minimum"
+    cross_reference_validity: "100% required"
+    consistency_score: "95% minimum"
+
+# ENFORCEMENT STANDARDS
+enforcement:
+  tools:
+    drift_scanner: "Automated consistency checking"
+    version_manager: "Automated version management"
+    linting: "Code and documentation linting"
+    testing: "Automated testing of standards"
+
+  processes:
+    code_review: "Manual review for consistency"
+    automated_validation: "CI/CD pipeline checks"
+    regular_audits: "Periodic consistency audits"
+    continuous_improvement: "Regular standard updates"
