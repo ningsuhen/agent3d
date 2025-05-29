@@ -57,7 +57,7 @@ target_scope_examples:
     common_templates: [ "config_template", "yaml_template", "json_template" ]
 
   source_code:
-    patterns: [ "src/**/*.py", "lib/**/*.js", "tools/**/*.py" ]
+    patterns: [ "src/**/*.py", "lib/**/*.js", "src/**/*.java", "tools/**/*.py" ]
     description: "Source code files"
     common_templates: [ "class_template", "module_template", "function_template" ]
 

@@ -72,27 +72,8 @@
 
 ---
 
-## FT-LANG-004 - Go Rules
-- **Description:** Development guidelines for Go projects covering environment, style, and testing
-- **Criteria:** Complete rules covering environment, style, and testing for Go
-- **Dependencies:** Go development environment, Go tooling
-- **Impact:** Medium - Go project quality
-- **Code Location:** rules.yml/go.yml
-- **Test Coverage:** 3 test cases, 9 sub-tests
-- **Related Features:** [FT-IMPL-003](implementation.md#ft-impl-003) (Refactoring Pass), [FT-STAT-004](status-tracking.md#ft-stat-004) (Drift Detection)
-- **Test Cases:**
-    - [x] **TC-LANG-010** - Environment Setup (Manual, High) ✅ **PRODUCTION**
-        - [x] **TC-LANG-010a** - Go Installation - Test Go compiler and tools setup
-        - [x] **TC-LANG-010b** - Module Management - Test go.mod and dependency handling
-        - [x] **TC-LANG-010c** - Workspace Configuration - Test GOPATH and module workspace
-    - [x] **TC-LANG-011** - Code Style (Automated, High) ✅ **PRODUCTION**
-        - [x] **TC-LANG-011a** - Go Format - Test gofmt code formatting
-        - [x] **TC-LANG-011b** - Go Vet - Test go vet static analysis
-        - [x] **TC-LANG-011c** - Golint Integration - Test golint style checking
-    - [x] **TC-LANG-012** - Testing Framework (Automated, Medium) ✅ **PRODUCTION**
-        - [x] **TC-LANG-012a** - Go Test - Test built-in testing framework
-        - [x] **TC-LANG-012b** - Benchmark Tests - Test performance testing capabilities
-        - [x] **TC-LANG-012c** - Coverage Reporting - Test go test coverage integration
+
+
 
 ---
 

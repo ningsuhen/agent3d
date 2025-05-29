@@ -92,7 +92,7 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(markdownWatcher);
 
     // Watch for programming file changes to update file references
-    const codeWatcher = vscode.workspace.createFileSystemWatcher('**/*.{js,ts,jsx,tsx,py,java,go,c,cpp,h,hpp,cs,php,rb,rs,swift,kt,scala,clj,hs,ml,fs,elm,dart,lua,r,m,pl,sh,bat,ps1}');
+    const codeWatcher = vscode.workspace.createFileSystemWatcher('**/*.{js,ts,jsx,tsx,py,java,c,cpp,h,hpp,cs,php,rb,rs,swift,kt,scala,clj,hs,ml,fs,elm,dart,lua,r,m,pl,sh,bat,ps1}');
     codeWatcher.onDidCreate((uri) => {
         if (!shouldExcludeFile(uri, excludeDirectories)) {
             buildIndex();

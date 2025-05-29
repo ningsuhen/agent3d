@@ -5,150 +5,136 @@ last_updated: "2025-01-27"
 
 language_rules:
   memorization_requirement: "MEMORIZE these patterns for speed optimization"
-  
+
   languages:
     markdown:
       key_patterns:
-        - "LLM compression"
-        - "command-first"
-        - "no verbose explanations"
-      
+      - "LLM compression"
+      - "command-first"
+      - "no verbose explanations"
+
       specific_rules:
-        - "Use concise, action-oriented language"
-        - "Prioritize commands and procedures"
-        - "Minimize explanatory text"
-        - "Structure for LLM parsing efficiency"
-    
+      - "Use concise, action-oriented language"
+      - "Prioritize commands and procedures"
+      - "Minimize explanatory text"
+      - "Structure for LLM parsing efficiency"
+
     python:
       key_patterns:
-        - "Type hints"
-        - "docstrings"
-        - "pytest"
-        - "pyproject.toml"
-        - "black formatting"
-      
+      - "Type hints"
+      - "docstrings"
+      - "pytest"
+      - "pyproject.toml"
+      - "black formatting"
+
       specific_rules:
-        - "Always include type hints for function parameters and returns"
-        - "Write comprehensive docstrings for all functions and classes"
-        - "Use pytest for all testing"
-        - "Configure projects with pyproject.toml"
-        - "Apply black formatting for code consistency"
-        - "Include TC ID references in test implementations"
-        - "Import project code in tests (no mock-only tests)"
-    
+      - "Always include type hints for function parameters and returns"
+      - "Write comprehensive docstrings for all functions and classes"
+      - "Use pytest for all testing"
+      - "Configure projects with pyproject.toml"
+      - "Apply black formatting for code consistency"
+      - "Include TC ID references in test implementations"
+      - "Import project code in tests (no mock-only tests)"
+
     javascript:
       key_patterns:
-        - "ESLint"
-        - "TypeScript preferred"
-        - "Jest testing"
-        - "modern ES6+"
-      
+      - "ESLint"
+      - "TypeScript preferred"
+      - "Jest testing"
+      - "modern ES6+"
+
       specific_rules:
-        - "Use ESLint for code quality"
-        - "Prefer TypeScript over plain JavaScript"
-        - "Use Jest for testing framework"
-        - "Apply modern ES6+ features"
-        - "Follow functional programming patterns where appropriate"
-    
+      - "Use ESLint for code quality"
+      - "Prefer TypeScript over plain JavaScript"
+      - "Use Jest for testing framework"
+      - "Apply modern ES6+ features"
+      - "Follow functional programming patterns where appropriate"
+
     java:
       key_patterns:
-        - "Spring patterns"
-        - "JUnit"
-        - "Maven/Gradle"
-        - "SOLID principles"
-      
+      - "Spring patterns"
+      - "JUnit"
+      - "Maven/Gradle"
+      - "SOLID principles"
+
       specific_rules:
-        - "Follow Spring framework patterns"
-        - "Use JUnit for testing"
-        - "Configure with Maven or Gradle"
-        - "Apply SOLID design principles"
-        - "Use dependency injection"
-    
-    go:
-      key_patterns:
-        - "gofmt"
-        - "standard library preferred"
-        - "table tests"
-        - "idioms"
-      
-      specific_rules:
-        - "Use gofmt for formatting"
-        - "Prefer standard library over external dependencies"
-        - "Use table-driven tests"
-        - "Follow Go idioms and conventions"
-        - "Handle errors explicitly"
+      - "Follow Spring framework patterns"
+      - "Use JUnit for testing"
+      - "Configure with Maven or Gradle"
+      - "Apply SOLID design principles"
+      - "Use dependency injection"
 
 speed_optimization:
   caching_strategy: "Cache on first use, apply from memory, no repeated lookups"
-  
+
   performance_rules:
-    - "Load language rules once per session"
-    - "Cache patterns in working memory"
-    - "Apply from memory without file access"
-    - "Use memorized patterns for validation"
-    - "Avoid repeated rule lookups"
+  - "Load language rules once per session"
+  - "Cache patterns in working memory"
+  - "Apply from memory without file access"
+  - "Use memorized patterns for validation"
+  - "Avoid repeated rule lookups"
 
 application_guidelines:
   consistency:
-    - "Apply language rules consistently across all files"
-    - "Use memorized patterns for code generation"
-    - "Validate against cached rules"
-    - "Maintain language-specific standards"
-  
+  - "Apply language rules consistently across all files"
+  - "Use memorized patterns for code generation"
+  - "Validate against cached rules"
+  - "Maintain language-specific standards"
+
   validation:
-    - "Check code against memorized language patterns"
-    - "Ensure compliance with language-specific rules"
-    - "Apply formatting standards consistently"
-    - "Validate testing approaches match language conventions"
+  - "Check code against memorized language patterns"
+  - "Ensure compliance with language-specific rules"
+  - "Apply formatting standards consistently"
+  - "Validate testing approaches match language conventions"
 
 testing_requirements:
   universal_rules:
-    - "Include TC ID references for traceability"
-    - "Import actual project code (not just mocks)"
-    - "Test real functionality, not just assertions"
-    - "Maintain 1:1 TC ID to test mapping"
-  
+  - "Include TC ID references for traceability"
+  - "Import actual project code (not just mocks)"
+  - "Test real functionality, not just assertions"
+  - "Maintain 1:1 TC ID to test mapping"
+
   language_specific:
     python:
-      - "Use pytest framework"
-      - "Include type hints in test functions"
-      - "Write descriptive test docstrings"
-      - "Use pytest fixtures appropriately"
-    
+    - "Use pytest framework"
+    - "Include type hints in test functions"
+    - "Write descriptive test docstrings"
+    - "Use pytest fixtures appropriately"
+
     javascript:
-      - "Use Jest testing framework"
-      - "Write TypeScript tests when possible"
-      - "Use describe/it structure"
-      - "Mock external dependencies appropriately"
-    
+    - "Use Jest testing framework"
+    - "Write TypeScript tests when possible"
+    - "Use describe/it structure"
+    - "Mock external dependencies appropriately"
+
     java:
-      - "Use JUnit framework"
-      - "Follow AAA pattern (Arrange, Act, Assert)"
-      - "Use appropriate annotations"
-      - "Test Spring components with proper context"
-    
+    - "Use JUnit framework"
+    - "Follow AAA pattern (Arrange, Act, Assert)"
+    - "Use appropriate annotations"
+    - "Test Spring components with proper context"
+
     go:
-      - "Use table-driven tests"
-      - "Follow Go testing conventions"
-      - "Use testify for assertions when needed"
-      - "Test error conditions explicitly"
+    - "Use table-driven tests"
+    - "Follow Go testing conventions"
+    - "Use testify for assertions when needed"
+    - "Test error conditions explicitly"
 
 memory_management:
   loading_strategy:
-    - "Load all language rules at session start"
-    - "Cache in working memory for duration of session"
-    - "Reference from memory during code operations"
-    - "Update memory only when rules change"
-  
+  - "Load all language rules at session start"
+  - "Cache in working memory for duration of session"
+  - "Reference from memory during code operations"
+  - "Update memory only when rules change"
+
   access_pattern:
-    - "Memory-only access during operations"
-    - "No file system reads after initial load"
-    - "Fast pattern matching from cached rules"
-    - "Consistent application across all code"
+  - "Memory-only access during operations"
+  - "No file system reads after initial load"
+  - "Fast pattern matching from cached rules"
+  - "Consistent application across all code"
 
 best_practices:
-  - "Memorize language rules at session start"
-  - "Apply consistently across all code"
-  - "Use cached patterns for validation"
-  - "Maintain language-specific testing standards"
-  - "Include TC ID mapping in all tests"
+- "Memorize language rules at session start"
+- "Apply consistently across all code"
+- "Use cached patterns for validation"
+- "Maintain language-specific testing standards"
+- "Include TC ID mapping in all tests"

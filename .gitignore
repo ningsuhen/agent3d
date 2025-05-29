@@ -60,15 +60,7 @@ target/
 build/
 out/
 
-# Go
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
-*.test
-*.out
-go.work
+
 
 # IDE
 .idea/

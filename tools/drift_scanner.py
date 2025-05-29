@@ -600,16 +600,7 @@ class LanguageDetector:
             'tc_id_pattern': r'TC-[A-Z0-9]+-\d+[a-z]?',
             'comment_patterns': ['//', '/*', '*/', '/**', '@DisplayName'],
         },
-        'go': {
-            'file_patterns': ['*_test.go'],
-            'test_function_patterns': [
-                r'func\s+(Test\w+)\s*\(',  # func TestSomething(
-                r'func\s+(Benchmark\w+)\s*\(',  # func BenchmarkSomething(
-            ],
-            'class_patterns': [],
-            'tc_id_pattern': r'TC-[A-Z0-9]+-\d+[a-z]?',
-            'comment_patterns': ['//'],
-        },
+
         'rust': {
             'file_patterns': ['**/tests/*.rs', 'src/**/*test*.rs'],
             'test_function_patterns': [
@@ -631,8 +622,6 @@ class LanguageDetector:
             return 'javascript'
         elif suffix == '.java':
             return 'java'
-        elif suffix == '.go':
-            return 'go'
         elif suffix == '.rs':
             return 'rust'
         return None
@@ -1145,8 +1134,7 @@ class TestImplementationScanner:
             test_functions.extend(self._scan_javascript_tests(file_path, content))
         elif language == 'java':
             test_functions.extend(self._scan_java_tests(file_path, content))
-        elif language == 'go':
-            test_functions.extend(self._scan_go_tests(file_path, content))
+
         elif language == 'rust':
             test_functions.extend(self._scan_rust_tests(file_path, content))
 
@@ -1308,51 +1296,7 @@ class TestImplementationScanner:
 
         return test_functions
 
-    def _scan_go_tests(self, file_path: Path, content: str) -> List[TestFunction]:
-        """Scan Go test files."""
-        test_functions = []
 
-        # Find Test functions
-        test_pattern = r'func\s+(Test\w+)\s*\('
-        test_matches = re.finditer(test_pattern, content)
-
-        for test_match in test_matches:
-            func_name = test_match.group(1)
-            test_position = test_match.start()
-
-            tc_ids = self._find_tc_ids_near_position(content, test_position)
-            line_number = self._get_line_number(content, test_position)
-
-            test_functions.append(TestFunction(
-                file=str(file_path),
-                function=func_name,
-                full_name=func_name,
-                type='test_function',
-                tc_ids=tc_ids,
-                line_number=line_number
-            ))
-
-        # Find Benchmark functions
-        benchmark_pattern = r'func\s+(Benchmark\w+)\s*\('
-        benchmark_matches = re.finditer(benchmark_pattern, content)
-
-        for benchmark_match in benchmark_matches:
-            func_name = benchmark_match.group(1)
-            test_position = benchmark_match.start()
-
-            tc_ids = self._find_tc_ids_near_position(content, test_position)
-            line_number = self._get_line_number(content, test_position)
-
-            test_functions.append(TestFunction(
-                file=str(file_path),
-                function=func_name,
-                full_name=func_name,
-                type='benchmark_function',
-                tc_ids=tc_ids,
-                line_number=line_number
-            ))
-
-        return test_functions
 
     def _scan_rust_tests(self, file_path: Path, content: str) -> List[TestFunction]:
         """Scan Rust test files."""
@@ -1415,7 +1359,6 @@ class CodeCoverageScanner:
             'python': ['*.py', 'src/**/*.py', 'app/**/*.py'],
             'javascript': ['*.js', '*.ts', 'src/**/*.js', 'src/**/*.ts'],
             'java': ['src/main/**/*.java'],
-            'go': ['*.go', 'cmd/**/*.go', 'pkg/**/*.go'],
             'rust': ['src/**/*.rs', 'src/main.rs', 'src/lib.rs']
         }
 
@@ -1434,7 +1377,7 @@ class CodeCoverageScanner:
         name = file_path.name.lower()
         return (name.startswith('test_') or name.endswith('_test.py') or
                 name.endswith('.test.js') or name.endswith('.spec.js') or
-                name.endswith('Test.java') or name.endswith('_test.go'))
+                name.endswith('Test.java'))
 
     def scan_coverage_issues(self, test_functions: List[TestFunction]) -> List[CoverageIssue]:
         """Scan for code coverage issues."""
@@ -1518,14 +1461,7 @@ class CodeCoverageScanner:
                     line_num = content[:match.start()].count('\n') + 1
                     functions.append((func_name, line_num))
 
-        elif language == 'go':
-            # Find Go functions
-            pattern = r'func\s+(?:\([^)]*\)\s+)?([a-zA-Z_][a-zA-Z0-9_]*)\s*\('
-            for match in re.finditer(pattern, content):
-                func_name = match.group(1)
-                if func_name[0].isupper():  # Only public functions
-                    line_num = content[:match.start()].count('\n') + 1
-                    functions.append((func_name, line_num))
+
 
         return functions
 
@@ -1555,11 +1491,7 @@ class CodeCoverageScanner:
             if test_path.exists():
                 return test_path
 
-        elif language == 'go':
-            test_name = f"{source_file.stem}_test.go"
-            test_path = source_file.parent / test_name
-            if test_path.exists():
-                return test_path
+
 
         return None
 

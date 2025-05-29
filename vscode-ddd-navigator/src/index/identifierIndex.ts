@@ -34,7 +34,7 @@ export class IdentifierIndex {
 
         // Find all text-based files (markdown, text, code files)
         const textFiles = await vscode.workspace.findFiles(
-            new vscode.RelativePattern(workspaceFolder, '**/*.{md,txt,js,ts,py,java,go,c,cpp,h,hpp,cs,php,rb,rs,swift,kt,scala,clj,hs,ml,fs,elm,dart,lua,r,m,pl,sh,bat,ps1,yaml,yml,json,xml,html,css,scss,less,sql}'),
+            new vscode.RelativePattern(workspaceFolder, '**/*.{md,txt,js,ts,py,java,c,cpp,h,hpp,cs,php,rb,rs,swift,kt,scala,clj,hs,ml,fs,elm,dart,lua,r,m,pl,sh,bat,ps1,yaml,yml,json,xml,html,css,scss,less,sql}'),
             excludePattern
         );
 

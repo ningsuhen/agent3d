@@ -129,8 +129,7 @@ javascript: {version: ">=16.0.0", package_manager: "npm", testing: {framework: "
 # Java
 java: {version: ">=11", build_tool: "gradle", testing: {framework: "junit5", coverage_threshold: 75}, code_style: {formatter: "spotless", static_analysis: [checkstyle, pmd, spotbugs]}}
 
-# Go
-go: {version: ">=1.19", testing: {coverage_threshold: 80, race_detection: true}, code_style: {formatter: "gofmt", linter: "golangci-lint"}}
+
 ```
 
 ## Templates & Thresholds

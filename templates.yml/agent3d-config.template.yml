@@ -320,7 +320,7 @@ project_settings:
     test_update_goldens: "{TEST_UPDATE_GOLDENS}" # e.g., "./run_test.sh --update_goldens --all"
     test_framework: "{TEST_FRAMEWORK}" # e.g., "pytest", "jest", "junit"
     test_paths: [ "{TEST_PATH_1}", "{TEST_PATH_2}" ] # e.g., ["test", "tests", "spec"]
-    test_files: [ "{TEST_FILE_PATTERN_1}" ] # e.g., ["test_*.py", "*.test.js", "*_test.go"]
+    test_files: [ "{TEST_FILE_PATTERN_1}" ] # e.g., ["test_*.py", "*.test.js", "*Test.java"]
     test_classes: [ "{TEST_CLASS_PATTERN}" ] # e.g., ["Test*", "*Test", "*TestCase"]
     test_functions: [ "{TEST_FUNCTION_PATTERN}" ] # e.g., ["test_*", "it_*", "should_*"]
 

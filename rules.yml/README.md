@@ -7,7 +7,6 @@ This directory contains language-specific development rules converted to YAML fo
 - `python.yml` - Python development standards and best practices
 - `javascript.yml` - JavaScript/TypeScript development rules
 - `java.yml` - Java development standards
-- `go.yml` - Go development best practices
 - `markdown.yml` - Markdown documentation rules and LLM optimization
 
 ## YAML Structure
