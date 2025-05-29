@@ -613,11 +613,10 @@ class TestCaseParser:
 
                 test_case = TestCase(
                     tc_id=tc_id,
-                    description=description.strip(),
+                    title=description.strip(),
                     execution_type=execution_type.strip(),
                     priority=priority.strip(),
-                    status='complete' if status_char == 'x' else 'pending',
-                    line_number=line_num
+                    status='complete' if status_char == 'x' else 'pending'
                 )
                 test_cases.append(test_case)
 
@@ -628,11 +627,10 @@ class TestCaseParser:
 
                 test_case = TestCase(
                     tc_id=tc_id,
-                    description=description.strip(),
+                    title=description.strip(),
                     execution_type=execution_type.strip(),
                     priority=priority.strip(),
-                    status='complete' if status_char == 'x' else 'pending',
-                    line_number=line_num
+                    status='complete' if status_char == 'x' else 'pending'
                 )
                 test_cases.append(test_case)
 
@@ -2281,8 +2279,8 @@ class TCDriftAnalyzer:
         else:
             print("🔍 Starting TC ID drift analysis...\n")
 
-        # Parse test cases from TEST-CASES.md
-        print("📋 Parsing TEST-CASES.md...")
+        # Parse test cases from merged FT-TC structure in docs/features/
+        print("📋 Parsing test cases from docs/features/...")
         test_cases = self.test_case_parser.parse_test_cases()
         print(f"  Found {len(test_cases)} test cases")
 
@@ -2386,7 +2384,7 @@ class TCDriftAnalyzer:
         print("="*80)
 
         print(f"\n📊 OVERVIEW:")
-        print(f"  Test Cases in TEST-CASES.md: {report.metadata['total_test_cases']}")
+        print(f"  Test Cases in docs/features/: {report.metadata['total_test_cases']}")
         print(f"  Test Functions in Code: {report.metadata['total_test_functions']}")
         print(f"  Languages Detected: {', '.join(report.metadata['languages_detected'])}")
         print(f"  Unique TC IDs in Code: {report.metadata['unique_tc_ids_in_code']}")
@@ -2434,7 +2432,7 @@ class TCDriftAnalyzer:
         if report.orphaned_tc_ids:
             print(f"\n⚠️  ORPHANED TC IDs IN CODE ({len(report.orphaned_tc_ids)}):")
             print("-" * 60)
-            print("  These TC IDs exist in code but not in TEST-CASES.md:")
+            print("  These TC IDs exist in code but not in docs/features/:")
             for tc_id in sorted(report.orphaned_tc_ids):
                 implementations = report.tc_mappings.get(tc_id, [])
                 print(f"    {tc_id} (used in {len(implementations)} implementations)")
@@ -2754,8 +2752,8 @@ def main():
                        choices=['tc-mapping', 'ft-mapping', 'ft-tc-mapping', 'code-coverage', 'feature-impl', 'test-quality', 'all'],
                        help='Drift analysis mode (default: tc-mapping)')
     parser.add_argument('--root-dir', default='.', help='Root directory to scan (default: current directory)')
-    parser.add_argument('--test-cases-file', default='docs/TEST-CASES.md',
-                       help='Path to TEST-CASES.md file (default: docs/TEST-CASES.md)')
+    parser.add_argument('--test-cases-file', default='docs/features',
+                       help='Path to features directory or legacy TEST-CASES.md file (default: docs/features)')
     parser.add_argument('--output', default=None,
                        help='Output YAML file (default: auto-generated in .agent3d-tmp/drift-reports/)')
     parser.add_argument('--quiet', action='store_true', help='Suppress detailed output')

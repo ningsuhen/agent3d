@@ -8,25 +8,25 @@ project:
   type: "documentation_framework"
   language: "markdown"
   description: "Documentation-Driven Development Guidelines for LLM Coding Agents"
-  quality_level: "comprehensive"  # Enhanced from "strict" for thorough execution
-  execution_mode: "comprehensive_full_pass"  # Current execution mode
+  quality_level: "comprehensive" # Enhanced from "strict" for thorough execution
+  execution_mode: "comprehensive_full_pass" # Current execution mode
 
 # DDD Pass Configuration
 enabled_passes:
-  - requirements      # Business requirements and objectives
-  - foundation       # Project configuration and setup
-  - documentation    # Feature and requirement documentation
-  - development      # Documentation development with step-by-step execution plans
-  - testing          # Documentation testing (markdown linting, link checking)
-  - refactoring      # Markdown documentation refactoring and cleanup
-  - code_review      # Markdown documentation review and quality checks
-  - synchronization  # Documentation alignment and consistency
-  - prune           # Remove outdated documentation with enhanced historical artifact removal
-  - reverse         # Detect documentation drift
+- requirements # Business requirements and objectives
+- foundation # Project configuration and setup
+- documentation # Feature and requirement documentation
+- development # Documentation development with step-by-step execution plans
+- testing # Documentation testing (markdown linting, link checking)
+- refactoring # Markdown documentation refactoring and cleanup
+- code_review # Markdown documentation review and quality checks
+- synchronization # Documentation alignment and consistency
+- prune # Remove outdated documentation with enhanced historical artifact removal
+- reverse # Detect documentation drift
 
 disabled_passes:
-  - planning         # Replaced by Development Pass planning sub-pass
-  - implementation   # Replaced by Development Pass implementation sub-pass
+- planning # Replaced by Development Pass planning sub-pass
+- implementation # Replaced by Development Pass implementation sub-pass
 
 # Pass-Specific Configuration
 pass_config:
@@ -36,10 +36,10 @@ pass_config:
     selection_mode: "auto"
     runs_directory: "docs/runs/"
     focus:
-      - framework_enhancement
-      - documentation_implementation
-      - template_development
-      - guideline_creation
+    - framework_enhancement
+    - documentation_implementation
+    - template_development
+    - guideline_creation
     auto_selection:
       priority_threshold: "medium"
       max_features_per_run: 2
@@ -52,11 +52,11 @@ pass_config:
   testing:
     type: "documentation"
     checks:
-      - markdown_linting  # Priority 1 validation with markdownlint
-      - link_validation
-      - template_verification
-      - documentation_completeness
-      - expert_coordination_validation  # Comprehensive execution addition
+    - markdown_linting # Priority 1 validation with markdownlint
+    - link_validation
+    - template_verification
+    - documentation_completeness
+    - expert_coordination_validation # Comprehensive execution addition
     coverage_threshold: 95
     markdown_linting:
       priority: 1
@@ -67,40 +67,40 @@ pass_config:
     type: "documentation"
     scope: "markdown_only"
     focus:
-      - structure_optimization
-      - content_consolidation
-      - duplicate_removal
-      - clarity_improvement
-      - llm_focused_compression
+    - structure_optimization
+    - content_consolidation
+    - duplicate_removal
+    - clarity_improvement
+    - llm_focused_compression
 
   code_review:
     type: "documentation"
     scope: "markdown_only"
     criteria:
-      - content_accuracy
-      - structure_consistency
-      - language_clarity
-      - template_compliance
-      - cross_reference_validity
+    - content_accuracy
+    - structure_consistency
+    - language_clarity
+    - template_compliance
+    - cross_reference_validity
 
   synchronization:
     type: "content_alignment"
     checks:
-      - cross_reference_validity
-      - content_consistency
-      - information_freshness
-      - framework_integration
+    - cross_reference_validity
+    - content_consistency
+    - information_freshness
+    - framework_integration
 
   prune:
     type: "content_maintenance"
     focus:
-      - outdated_information_removal
-      - duplicate_content_elimination
-      - historical_artifact_removal
-      - migration_notes_cleanup
-      - legacy_reference_elimination
-      - relevance_optimization
-      - cognitive_load_reduction
+    - outdated_information_removal
+    - duplicate_content_elimination
+    - historical_artifact_removal
+    - migration_notes_cleanup
+    - legacy_reference_elimination
+    - relevance_optimization
+    - cognitive_load_reduction
 
 # Quality Standards
 quality_gates:
@@ -121,22 +121,21 @@ validation:
 
 # Git Workflow Settings (CRITICAL - MEMORIZE THESE SETTINGS)
 git_workflow:
-  require_commit_confirmation: true      # Set to false to disable commit confirmation
+  require_commit_confirmation: true # Set to false to disable commit confirmation
   commit_message_format: "DDD: {pass_name} - {description}"
-  always_confirm_before_commit: true     # Set to false to allow auto-commits
-  human_approval_required: true          # Set to false for automated workflows
+  always_confirm_before_commit: true # Set to false to allow auto-commits
+  human_approval_required: true # Set to false for automated workflows
 
   # Execution Plan Branch Workflow
   exec_plan_branches:
     enabled: true
-    branch_naming: "exec-plan/{exec_plan_name}"     # e.g., exec-plan/horizontal-compression-pass
-    auto_commit_during_execution: true              # Auto-commit steps and checkpoints
-    require_confirmation_for_merge: true            # Confirm before merging to main
-    tag_steps_and_checkpoints: true                # Tag branch with step/checkpoint progress
-
+    branch_naming: "exec-plan/{exec_plan_name}" # e.g., exec-plan/horizontal-compression-pass
+    auto_commit_during_execution: true # Auto-commit steps and checkpoints
+    require_confirmation_for_merge: true # Confirm before merging to main
+    tag_steps_and_checkpoints: true # Tag branch with step/checkpoint progress
   # LLM Agent Instructions: MEMORIZE entire config, refresh when updated, auto-commit on exec-plan/* branches
 
-# Expert Coordination (Comprehensive Execution)
+  # Expert Coordination (Comprehensive Execution)
 expert_coordination:
   enabled: true
   mode: "comprehensive"
@@ -175,123 +174,131 @@ identifier_patterns:
     description: "Test case identifiers"
     pattern: "TC-[A-Z0-9]+-\\d+[a-z]?"
     flexible_pattern: "TC-[A-Za-z0-9-]+"
-    primary_files: ["docs/features/*.md"]
-    reference_files: ["**/*.py", "**/*.js", "**/*.ts", "**/*.java", "**/*.go", "**/*.rs", "**/*.md"]
+    primary_files: [ "docs/features/*.md", "docs/FEATURES.md" ]
+    reference_files: [ "**/*.py", "**/*.js", "**/*.ts", "**/*.java", "**/*.go", "**/*.rs", "**/*.md" ]
     format_example: "TC-0001, TC-0001a, TC-ENV-007"
-    status_indicators: ["[x]", "[ ]", "[~]", "[s]"]
-    relationship_targets: ["FT-*", "REQ-*"]
+    status_indicators: [ "[x]", "[ ]", "[~]", "[s]" ]
+    relationship_targets: [ "FT-*", "REQ-*" ]
+    legacy_files: [ "docs/TEST-CASES.md" ] # Legacy file - migrated to docs/features/
 
   FT-:
     name: "Feature"
     description: "Feature tracking identifiers"
     pattern: "FT-[A-Z]+-\\d+[a-z]?"
     flexible_pattern: "FT-[A-Za-z0-9-]+"
-    primary_files: ["docs/FEATURES.md", "FEATURES.md"]
-    reference_files: ["docs/features/*.md", "**/*.md"]
+    primary_files: [ "docs/features/*.md", "docs/FEATURES.md", "FEATURES.md" ]
+    reference_files: [ "docs/features/*.md", "**/*.md" ]
     format_example: "FT-CORE-001, FT-LANG-002a"
-    status_indicators: ["[x]", "[ ]", "[~]"]
-    relationship_targets: ["TC-*", "REQ-*"]
+    status_indicators: [ "[x]", "[ ]", "[~]" ]
+    relationship_targets: [ "TC-*", "REQ-*" ]
+    legacy_files: [ "docs/TEST-CASES.md" ] # Legacy structure - now integrated with features
 
   REQ-:
     name: "Requirement"
     description: "Requirement identifiers"
     pattern: "REQ-[A-Z0-9]+-\\d+[a-z]?"
     flexible_pattern: "REQ-[A-Za-z0-9-]+"
-    primary_files: ["docs/REQUIREMENTS.md", "REQUIREMENTS.md"]
-    reference_files: ["docs/features/*.md", "docs/FEATURES.md", "**/*.md"]
+    primary_files: [ "docs/REQUIREMENTS.md", "REQUIREMENTS.md" ]
+    reference_files: [ "docs/features/*.md", "docs/FEATURES.md", "**/*.md" ]
     format_example: "REQ-001, REQ-FUNC-001"
-    status_indicators: ["[x]", "[ ]", "[~]"]
-    relationship_targets: ["TC-*", "FT-*"]
+    status_indicators: [ "[x]", "[ ]", "[~]" ]
+    relationship_targets: [ "TC-*", "FT-*" ]
 
   US-:
     name: "User Story"
     description: "User story identifiers"
     pattern: "US-[A-Z0-9]+-\\d+[a-z]?"
     flexible_pattern: "US-[A-Za-z0-9-]+"
-    primary_files: ["docs/USER-STORIES.md"]
-    reference_files: ["docs/REQUIREMENTS.md", "**/*.md"]
+    primary_files: [ "docs/USER-STORIES.md" ]
+    reference_files: [ "docs/REQUIREMENTS.md", "**/*.md" ]
     format_example: "US-001, US-AUTH-001"
-    status_indicators: ["[x]", "[ ]", "[~]"]
-    relationship_targets: ["REQ-*", "TC-*"]
+    status_indicators: [ "[x]", "[ ]", "[~]" ]
+    relationship_targets: [ "REQ-*", "TC-*" ]
 
   AC-:
     name: "Acceptance Criteria"
     description: "Acceptance criteria identifiers"
     pattern: "AC-[A-Z0-9]+-\\d+[a-z]?"
     flexible_pattern: "AC-[A-Za-z0-9-]+"
-    primary_files: ["docs/ACCEPTANCE-CRITERIA.md"]
-    reference_files: ["docs/FEATURES.md", "docs/features/*.md", "**/*.md"]
+    primary_files: [ "docs/ACCEPTANCE-CRITERIA.md" ]
+    reference_files: [ "docs/FEATURES.md", "docs/features/*.md", "**/*.md" ]
     format_example: "AC-001, AC-LOGIN-001"
-    status_indicators: ["[x]", "[ ]", "[~]"]
-    relationship_targets: ["TC-*", "FT-*", "US-*"]
+    status_indicators: [ "[x]", "[ ]", "[~]" ]
+    relationship_targets: [ "TC-*", "FT-*", "US-*" ]
 
   BUG-:
     name: "Bug"
     description: "Bug tracking identifiers"
     pattern: "BUG-[A-Z0-9]+-\\d+[a-z]?"
     flexible_pattern: "BUG-[A-Za-z0-9-]+"
-    primary_files: ["docs/BUGS.md", "BUGS.md"]
-    reference_files: ["**/*.md", "**/*.py", "**/*.js"]
+    primary_files: [ "docs/BUGS.md", "BUGS.md" ]
+    reference_files: [ "**/*.md", "**/*.py", "**/*.js" ]
     format_example: "BUG-001, BUG-CRIT-001"
-    status_indicators: ["[x]", "[ ]", "[~]"]
-    relationship_targets: ["TC-*", "FT-*"]
+    status_indicators: [ "[x]", "[ ]", "[~]" ]
+    relationship_targets: [ "TC-*", "FT-*" ]
 
   DOC-:
     name: "Documentation"
     description: "Documentation task identifiers"
     pattern: "DOC-[A-Z0-9]+-\\d+[a-z]?"
     flexible_pattern: "DOC-[A-Za-z0-9-]+"
-    primary_files: ["docs/DOCUMENTATION-TASKS.md"]
-    reference_files: ["**/*.md"]
+    primary_files: [ "docs/DOCUMENTATION-TASKS.md" ]
+    reference_files: [ "**/*.md" ]
     format_example: "DOC-001, DOC-API-001"
-    status_indicators: ["[x]", "[ ]", "[~]"]
-    relationship_targets: ["FT-*", "REQ-*"]
+    status_indicators: [ "[x]", "[ ]", "[~]" ]
+    relationship_targets: [ "FT-*", "REQ-*" ]
 
   API-:
     name: "API Endpoint"
     description: "API endpoint identifiers"
     pattern: "API-[A-Z0-9]+-\\d+[a-z]?"
     flexible_pattern: "API-[A-Za-z0-9-]+"
-    primary_files: ["docs/API-SPECIFICATION.md"]
-    reference_files: ["**/*.py", "**/*.js", "**/*.java", "**/*.md"]
+    primary_files: [ "docs/API-SPECIFICATION.md" ]
+    reference_files: [ "**/*.py", "**/*.js", "**/*.java", "**/*.md" ]
     format_example: "API-001, API-AUTH-001"
-    status_indicators: ["[x]", "[ ]", "[~]"]
-    relationship_targets: ["TC-*", "REQ-*"]
+    status_indicators: [ "[x]", "[ ]", "[~]" ]
+    relationship_targets: [ "TC-*", "REQ-*" ]
 
   PERF-:
     name: "Performance"
     description: "Performance requirement identifiers"
     pattern: "PERF-[A-Z0-9]+-\\d+[a-z]?"
     flexible_pattern: "PERF-[A-Za-z0-9-]+"
-    primary_files: ["docs/PERFORMANCE-REQUIREMENTS.md"]
-    reference_files: ["**/*.md", "**/*.py"]
+    primary_files: [ "docs/PERFORMANCE-REQUIREMENTS.md" ]
+    reference_files: [ "**/*.md", "**/*.py" ]
     format_example: "PERF-001, PERF-LOAD-001"
-    status_indicators: ["[x]", "[ ]", "[~]"]
-    relationship_targets: ["TC-*", "REQ-*"]
+    status_indicators: [ "[x]", "[ ]", "[~]" ]
+    relationship_targets: [ "TC-*", "REQ-*" ]
 
   SEC-:
     name: "Security"
     description: "Security requirement identifiers"
     pattern: "SEC-[A-Z0-9]+-\\d+[a-z]?"
     flexible_pattern: "SEC-[A-Za-z0-9-]+"
-    primary_files: ["docs/SECURITY-REQUIREMENTS.md"]
-    reference_files: ["**/*.md", "**/*.py", "**/*.js"]
+    primary_files: [ "docs/SECURITY-REQUIREMENTS.md" ]
+    reference_files: [ "**/*.md", "**/*.py", "**/*.js" ]
     format_example: "SEC-001, SEC-AUTH-001"
-    status_indicators: ["[x]", "[ ]", "[~]"]
-    relationship_targets: ["TC-*", "REQ-*"]
+    status_indicators: [ "[x]", "[ ]", "[~]" ]
+    relationship_targets: [ "TC-*", "REQ-*" ]
 
 # Drift Detection Configuration
 drift_detection:
-  enabled_patterns: ["TC-", "FT-", "REQ-", "US-", "AC-", "BUG-", "DOC-", "API-", "PERF-", "SEC-"]
-  primary_patterns: ["TC-", "FT-", "REQ-"]  # Non-deprecated core patterns
+  enabled_patterns: [ "TC-", "FT-", "REQ-", "US-", "AC-", "BUG-", "DOC-", "API-", "PERF-", "SEC-" ]
+  primary_patterns: [ "TC-", "FT-", "REQ-" ] # Non-deprecated core patterns
   relationship_validation: true
   cross_reference_checking: true
   orphaned_identifier_detection: true
   missing_implementation_detection: true
+  # Updated file structure configuration
+  feature_files:
+    primary: "docs/features/*.md"
+    index: "docs/FEATURES.md"
+    legacy: "docs/TEST-CASES.md" # No longer used - migrated to features structure
+  test_case_integration: "merged_with_features" # TC-* IDs are now embedded within FT-* features
 
 # MCP Server Configuration
 mcp_server:
-  enabled: false  # Explicitly disabled - do not use DDD MCP server
+  enabled: false # Explicitly disabled - do not use DDD MCP server
   reason: "User preference - MCP server functionality disabled"
   alternative: "Use standalone drift scanner: python3 ~/.agent3d/tools/drift_scanner.py"
 

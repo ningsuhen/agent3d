@@ -8,21 +8,21 @@
 - **Test Coverage:** 4 test cases, 12 sub-tests
 - **Related Features:** [FT-PASS-001](passes.md#ft-pass-001) (Foundation Pass), [FT-TMPL-002](templates.md#ft-tmpl-002) (Template Access)
 - **Test Cases:**
-    - [x] **TC-CORE-001** - Remote Guidelines Retrieval (Automated, High) ✅ **PRODUCTION**
-        - [x] **TC-CORE-001a** - SSH Repository Access - Test git clone via SSH
-        - [x] **TC-CORE-001b** - HTTPS Repository Access - Test git clone via HTTPS
-        - [x] **TC-CORE-001c** - Repository Caching - Test local cache management
-        - [x] **TC-CORE-001d** - Update Detection - Test git pull for updates
-    - [x] **TC-CORE-002** - Configuration Loading (Automated, High) ✅ **PRODUCTION**
-        - [x] **TC-CORE-002a** - YAML Parsing - Test .agent3d-config.yaml parsing
-        - [x] **TC-CORE-002b** - Default Values - Test fallback configuration
-        - [x] **TC-CORE-002c** - Validation - Test configuration validation
-    - [x] **TC-CORE-003** - Guideline Following (Manual, Medium) ✅ **PRODUCTION**
-        - [x] **TC-CORE-003a** - Pass Execution - Test DDD pass execution
-        - [x] **TC-CORE-003b** - Template Usage - Test template application
-        - [x] **TC-CORE-003c** - Rule Compliance - Test language rule following
-    - [ ] **TC-CORE-004** - Error Handling (Automated, Medium) 🚧 **DEVELOPMENT**
-        - [x] **TC-CORE-004a** - Network Failures - Test offline scenarios
+    - [ ] **TC-CORE-001** - Remote Guidelines Retrieval (Automated, High) 📋 **DOCUMENTED**
+        - [ ] **TC-CORE-001a** - SSH Repository Access - Test git clone via SSH
+        - [ ] **TC-CORE-001b** - HTTPS Repository Access - Test git clone via HTTPS
+        - [ ] **TC-CORE-001c** - Repository Caching - Test local cache management
+        - [ ] **TC-CORE-001d** - Update Detection - Test git pull for updates
+    - [ ] **TC-CORE-002** - Configuration Loading (Automated, High) 📋 **DOCUMENTED**
+        - [ ] **TC-CORE-002a** - YAML Parsing - Test .agent3d-config.yaml parsing
+        - [ ] **TC-CORE-002b** - Default Values - Test fallback configuration
+        - [ ] **TC-CORE-002c** - Validation - Test configuration validation
+    - [ ] **TC-CORE-003** - Guideline Following (Manual, Medium) 📋 **DOCUMENTED**
+        - [ ] **TC-CORE-003a** - Pass Execution - Test DDD pass execution
+        - [ ] **TC-CORE-003b** - Template Usage - Test template application
+        - [ ] **TC-CORE-003c** - Rule Compliance - Test language rule following
+    - [ ] **TC-CORE-004** - Error Handling (Automated, Medium) 📋 **DOCUMENTED**
+        - [ ] **TC-CORE-004a** - Network Failures - Test offline scenarios
         - [ ] **TC-CORE-004b** - Invalid Repositories - Test error handling
 
 ---
@@ -35,16 +35,16 @@
 - **Test Coverage:** 3 test cases, 8 sub-tests
 - **Related Features:** [FT-PASS-001](passes.md#ft-pass-001) (Foundation Pass), [FT-IMPL-009](implementation.md#ft-impl-009) (Full Pass)
 - **Test Cases:**
-    - [x] **TC-CORE-005** - Pass Documentation (Manual, High) ✅ **PRODUCTION**
-        - [x] **TC-CORE-005a** - Pass Templates - Verify all passes have templates
-        - [x] **TC-CORE-005b** - Pass Sequence - Test correct pass ordering
-        - [x] **TC-CORE-005c** - Pass Dependencies - Test prerequisite handling
-    - [x] **TC-CORE-006** - Pass Execution (Automated, High) ✅ **PRODUCTION**
-        - [x] **TC-CORE-006a** - Individual Pass Execution - Test single pass runs
-        - [x] **TC-CORE-006b** - Full Pass Execution - Test complete workflow
-        - [x] **TC-CORE-006c** - Pass Coordination - Test multi-pass workflows
-    - [ ] **TC-CORE-007** - Pass Integration (Manual, Medium) 🚧 **DEVELOPMENT**
-        - [x] **TC-CORE-007a** - Pass Dependencies - Test prerequisite handling
+    - [ ] **TC-CORE-005** - Pass Documentation (Manual, High) 📋 **DOCUMENTED**
+        - [ ] **TC-CORE-005a** - Pass Templates - Verify all passes have templates
+        - [ ] **TC-CORE-005b** - Pass Sequence - Test correct pass ordering
+        - [ ] **TC-CORE-005c** - Pass Dependencies - Test prerequisite handling
+    - [ ] **TC-CORE-006** - Pass Execution (Automated, High) 📋 **DOCUMENTED**
+        - [ ] **TC-CORE-006a** - Individual Pass Execution - Test single pass runs
+        - [ ] **TC-CORE-006b** - Full Pass Execution - Test complete workflow
+        - [ ] **TC-CORE-006c** - Pass Coordination - Test multi-pass workflows
+    - [ ] **TC-CORE-007** - Pass Integration (Manual, Medium) � **DOCUMENTED**
+        - [ ] **TC-CORE-007a** - Pass Dependencies - Test prerequisite handling
         - [ ] **TC-CORE-007b** - Pass Coordination - Test multi-pass workflows
 
 ---
