@@ -142,7 +142,7 @@ code_location_requirements:
       description: "Features with configuration requiring schema validation"
       code_location_patterns: [ ".yml", ".yaml", ".json", "config/" ]
       testing_approach: "Schema validation + manual review"
-      examples: [ ".agent3d-config.yml", "passes.yml/", "templates.yml/" ]
+      examples: [ ".agent3d-config.yml", "passes.yml/", "templates/" ]
       validation: "Configuration validation and manual configuration review"
 
     non_testable:

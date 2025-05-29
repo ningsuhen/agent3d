@@ -40,7 +40,7 @@ prerequisites:
   - "pyyaml"
 
   required_files:
-  - "templates.yml/agent3d-config.template.yml"
+  - "templates/agent3d-config.template.yml"
   - "tools/config_migrator.py"
 
   environment_checks:
@@ -264,7 +264,7 @@ agent_instructions:
   - "MEMORIZE entire configuration after migration"
 
   general_usage:
-  - "Use templates.yml/agent3d-config.template.yml as reference for new projects"
+  - "Use templates/agent3d-config.template.yml as reference for new projects"
   - "Always validate configuration after manual changes"
   - "Keep configuration version updated when making structural changes"
   - "Ensure Python projects have python_paths section configured"

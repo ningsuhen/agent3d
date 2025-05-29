@@ -276,7 +276,8 @@ templates:
 # ============================================================================
 structure:
     docs_directory: "{DOCS_DIRECTORY}" # e.g., "docs/", "documentation/"
-    templates_directory: "{TEMPLATES_DIR}" # e.g., "templates/", ".agent3d/templates/"
+    yaml_templates_directory: "{TEMPLATES_DIR}" # e.g., "templates/", ".agent3d/templates/"
+    markdown_templates_directory: "{TEMPLATES_DIR}" # e.g., "templates/", ".agent3d/templates/"
     passes_directory: "{PASSES_DIRECTORY}" # e.g., "passes/", ".agent3d/passes/"
     rules_directory: "{RULES_DIRECTORY}" # e.g., "rules/", ".agent3d/rules/"
 

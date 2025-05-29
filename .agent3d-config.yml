@@ -316,7 +316,7 @@ templates:
 
     # Template type configurations
     yaml:
-        base_path: templates.yml/
+        base_path: templates/
         format: yaml
         file_extension: .yml
         use_case: execution_plans_status_tracking
@@ -340,7 +340,7 @@ templates:
           - requirement_templates
 structure:
     docs_directory: docs/
-    yaml_templates_directory: templates.yml/
+    yaml_templates_directory: templates/
     markdown_templates_directory: templates/
     passes_directory: passes.yml/
     procedures_directory: procedures.yml/
@@ -352,8 +352,7 @@ project_settings:
     development_tools:
       - python
       - node
-
-    # Multi-language testing configuration
+      # Multi-language testing configuration
     testing:
         python:
             test_command: pytest

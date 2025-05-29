@@ -6,7 +6,7 @@ last_updated: "2025-01-27"
 execution_plans:
   location: "docs/runs/EXEC-PLAN-{change-name}.yml"
   format: "YAML"
-  template: "~/.agent3d/templates.yml/EXEC-PLAN.template.yml"
+  template: "~/.agent3d/templates/EXEC-PLAN.template.yml"
   requirement: "ALWAYS use YAML format for execution plans"
 
   lifecycle:
@@ -32,7 +32,7 @@ execution_plans:
 ddd_status:
   location: "docs/DDD-STATUS.yml"
   format: "YAML"
-  template: "~/.agent3d/templates.yml/DDD-STATUS.template.yml"
+  template: "~/.agent3d/templates/DDD-STATUS.template.yml"
   requirement: "ALWAYS use YAML format for DDD status tracking"
   update_frequency: "after each pass"
 
@@ -159,5 +159,5 @@ best_practices:
 - "Maintain DDD status after each pass"
 - "Archive completed plans for future reference"
 - "ALWAYS use YAML format for execution plans and DDD status"
-- "Use templates from ~/.agent3d/templates.yml/ for consistency"
+- "Use templates from ~/.agent3d/templates/ for consistency"
 - "Never create Markdown versions of execution tracking files"

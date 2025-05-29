@@ -14,7 +14,7 @@ core_patterns:
     priority: "critical"
 
   - name: "File Locations"
-    pattern: "CONFIG(.agent3d-config.yml), DOCS(docs/), RULES(~/.agent3d/rules.yml/ for LLM | ~/.agent3d/rules/ for human), TEMPLATES(~/.agent3d/templates.yml/ for LLM | ~/.agent3d/templates/ for human)"
+    pattern: "CONFIG(.agent3d-config.yml), DOCS(docs/), RULES(~/.agent3d/rules.yml/ for LLM | ~/.agent3d/rules/ for human), TEMPLATES(~/.agent3d/templates/)"
     priority: "high"
 
   - name: "Quality Gates"
@@ -47,4 +47,4 @@ usage_notes:
 - "Cache language rules on first access"
 - "Apply speed rules consistently across all passes"
 - "ALWAYS use YAML format for DDD-STATUS and EXEC-PLAN files"
-- "Use templates from ~/.agent3d/templates.yml/ for execution tracking"
+- "Use templates from ~/.agent3d/templates/ for execution tracking"

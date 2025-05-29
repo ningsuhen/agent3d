@@ -16,7 +16,7 @@ The DDD framework maintains two parallel formats:
 ├── passes/simplified/       # Human-readable pass documentation
 ├── rules.yml/              # LLM-optimized language rules
 ├── rules/                  # Human-readable language rules
-├── templates.yml/          # LLM tracking templates
+├── templates/          # LLM tracking templates
 └── templates/              # Human documentation templates
 ```
 
@@ -27,7 +27,7 @@ The DDD framework maintains two parallel formats:
 **Primary Sources:**
 - `passes.yml/` - All pass execution logic
 - `rules.yml/` - Language-specific development rules
-- `templates.yml/` - Status tracking and execution planning
+- `templates/` - Status tracking and execution planning
 
 **Benefits:**
 - Direct programmatic access

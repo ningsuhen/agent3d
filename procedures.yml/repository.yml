@@ -8,14 +8,14 @@ repository_management:
     frequency: "start of every pass"
     command: "git -C ~/.agent3d pull origin main"
     description: "Update Agent3D repository to latest version"
-    
+
   project_root_detection:
     primary_indicator: ".agent3d-config.yml"
     process:
-      - "Look for .agent3d-config.yml file"
-      - "MEMORIZE entire config contents"
-      - "Cache project root location"
-    
+    - "Look for .agent3d-config.yml file"
+    - "MEMORIZE entire config contents"
+    - "Cache project root location"
+
     fallback_action:
       condition: "no config found"
       action: "Run Foundation Pass immediately"
@@ -24,53 +24,52 @@ repository_management:
 directory_structure:
   agent3d_repo: "~/.agent3d"
   project_root: "where .agent3d-config.yml is located"
-  
+
   key_directories:
     docs: "docs/"
     passes_yaml: "passes.yml/"
     passes_human: "passes/simplified/"
-    templates_yaml: "templates.yml/"
-    templates_human: "templates/"
+    templates: "templates/"
     rules_yaml: "rules.yml/"
     rules_human: "rules/"
     procedures_yaml: "procedures.yml/"
 
 validation_steps:
-  - step: "Verify ~/.agent3d directory exists"
-    action: "Clone if missing: git clone git@github.com:ningsuhen/agent3d.git ~/.agent3d"
-  
-  - step: "Check git status"
-    action: "git -C ~/.agent3d status"
-  
-  - step: "Update repository"
-    action: "git -C ~/.agent3d pull origin main"
-  
-  - step: "Locate project root"
-    action: "Find .agent3d-config.yml"
-  
-  - step: "Load configuration"
-    action: "MEMORIZE entire .agent3d-config.yml contents"
+- step: "Verify ~/.agent3d directory exists"
+  action: "Clone if missing: git clone git@github.com:ningsuhen/agent3d.git ~/.agent3d"
+
+- step: "Check git status"
+  action: "git -C ~/.agent3d status"
+
+- step: "Update repository"
+  action: "git -C ~/.agent3d pull origin main"
+
+- step: "Locate project root"
+  action: "Find .agent3d-config.yml"
+
+- step: "Load configuration"
+  action: "MEMORIZE entire .agent3d-config.yml contents"
 
 error_handling:
   repository_missing:
     action: "git clone git@github.com:ningsuhen/agent3d.git ~/.agent3d"
     description: "Clone Agent3D repository if missing"
-  
+
   update_failure:
     actions:
-      - "Check network connectivity"
-      - "Verify git credentials"
-      - "Check for local changes: git -C ~/.agent3d status"
-      - "Stash if needed: git -C ~/.agent3d stash"
-      - "Retry pull: git -C ~/.agent3d pull origin main"
-  
+    - "Check network connectivity"
+    - "Verify git credentials"
+    - "Check for local changes: git -C ~/.agent3d status"
+    - "Stash if needed: git -C ~/.agent3d stash"
+    - "Retry pull: git -C ~/.agent3d pull origin main"
+
   config_missing:
     action: "Run Foundation Pass to initialize project"
     description: "Create .agent3d-config.yml if missing"
 
 best_practices:
-  - "Always update repository before starting any pass"
-  - "Cache project root location for session duration"
-  - "Verify configuration exists before proceeding"
-  - "Use memorized config throughout session"
-  - "Handle missing dependencies gracefully"
+- "Always update repository before starting any pass"
+- "Cache project root location for session duration"
+- "Verify configuration exists before proceeding"
+- "Use memorized config throughout session"
+- "Handle missing dependencies gracefully"

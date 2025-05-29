@@ -392,5 +392,5 @@ critical_notes:
 - "CONFIGURE_PYTHON_PATHS for accurate Code Location field validation in Python projects"
 - "Python path configuration is CRITICAL for drift scanner Code Location analysis"
 - "CHECK_CONFIG_MIGRATION_NEEDS before proceeding with Foundation Pass"
-- "USE_CONFIG_TEMPLATE from templates.yml/ for all new projects to ensure standardization"
+- "USE_CONFIG_TEMPLATE from templates/ for all new projects to ensure standardization"
 - "MIGRATE_EXISTING_CONFIGS to template format v2.0 for consistency"

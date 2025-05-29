@@ -5,7 +5,7 @@ This directory contains the standardized templates for the Agent3D Documentation
 ## 📁 Directory Structure
 
 ```
-templates.yml/
+templates/
 ├── index.yml                           # Template system index and configuration
 ├── agent3d-config.template.yml         # Main project configuration template
 ├── README.md                           # This file
@@ -70,9 +70,9 @@ The templates.yml directory provides:
 
 | Use Case | Template Type | Directory |
 |----------|---------------|-----------|
-| Status tracking | YAML | `templates.yml/` |
-| Execution planning | YAML | `templates.yml/` |
-| Framework migrations | YAML | `templates.yml/` |
+| Status tracking | YAML | `templates/` |
+| Execution planning | YAML | `templates/` |
+| Framework migrations | YAML | `templates/` |
 | Feature documentation | Markdown | `../templates/` |
 | Requirements documentation | Markdown | `../templates/` |
 | User stories | Markdown | `../templates/` |

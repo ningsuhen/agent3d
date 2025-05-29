@@ -14,15 +14,15 @@ def update_file_references(file_path: Path, replacements: List[Tuple[str, str]])
     try:
         content = file_path.read_text()
         original_content = content
-        
+
         for old_ref, new_ref in replacements:
             content = content.replace(old_ref, new_ref)
-        
+
         if content != original_content:
             file_path.write_text(content)
             print(f"Updated: {file_path}")
             return True
-        
+
         return False
     except Exception as e:
         print(f"Error updating {file_path}: {e}")
@@ -30,22 +30,22 @@ def update_file_references(file_path: Path, replacements: List[Tuple[str, str]])
 
 def main():
     """Main update function"""
-    
+
     # Define replacement patterns
     replacements = [
         # Pass references
         ("passes/simplified/", "passes.yml/ (LLM) | passes/simplified/ (human)"),
         ("~/.agent3d/passes/simplified/", "~/.agent3d/passes.yml/ (LLM) | ~/.agent3d/passes/simplified/ (human)"),
-        
+
         # Rule references
         ("rules/", "rules.yml/ (LLM) | rules/ (human)"),
         ("~/.agent3d/rules/", "~/.agent3d/rules.yml/ (LLM) | ~/.agent3d/rules/ (human)"),
-        
-        # Template references for LLM tracking
-        ("templates/DDD-STATUS.template.md", "templates.yml/DDD-STATUS.template.yml (LLM) | templates/DDD-STATUS.template.md (human)"),
-        ("templates/EXEC-PLAN.template.md", "templates.yml/EXEC-PLAN.template.yml"),
-        ("templates/migration.template.yml", "templates.yml/migration.template.yml"),
-        
+
+        # Template references - now unified in templates/
+        ("templates/DDD-STATUS.template.md", "templates/DDD-STATUS.template.yml"),
+        ("templates/EXEC-PLAN.template.md", "templates/EXEC-PLAN.template.yml"),
+        ("templates/migration.template.yml", "templates/migration.template.yml"),
+
         # Specific file references
         ("~/.agent3d/rules/python.md", "~/.agent3d/rules.yml/python.yml (LLM) | ~/.agent3d/rules/python.md (human)"),
         ("~/.agent3d/rules/javascript.md", "~/.agent3d/rules.yml/javascript.yml (LLM) | ~/.agent3d/rules/javascript.md (human)"),
@@ -53,7 +53,7 @@ def main():
         ("~/.agent3d/rules/go.md", "~/.agent3d/rules.yml/go.yml (LLM) | ~/.agent3d/rules/go.md (human)"),
         ("~/.agent3d/rules/markdown.md", "~/.agent3d/rules.yml/markdown.yml (LLM) | ~/.agent3d/rules/markdown.md (human)"),
     ]
-    
+
     # Files to update
     files_to_update = [
         "docs/CONFIGURATION-GUIDE.md",
@@ -88,28 +88,28 @@ def main():
         "vscode-ddd-navigator/README.md",
         "workflows/README.md",
     ]
-    
+
     updated_count = 0
-    
+
     # Update each file
     for file_path_str in files_to_update:
         file_path = Path(file_path_str)
-        
+
         if file_path.exists():
             if update_file_references(file_path, replacements):
                 updated_count += 1
         else:
             print(f"File not found: {file_path}")
-    
+
     print(f"\nUpdate complete! Updated {updated_count} files.")
-    
+
     # Create a summary of changes
     print("\nSummary of YAML reference updates:")
     print("✅ Pass references now point to YAML versions for LLM agents")
     print("✅ Rule references now point to YAML versions for LLM agents")
     print("✅ Template references updated for LLM tracking templates")
     print("✅ Dual format strategy clearly indicated (LLM | human)")
-    
+
     # Recommendations
     print("\nRecommendations for LLM agents:")
     print("1. Use YAML versions for all automated processing")

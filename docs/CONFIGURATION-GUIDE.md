@@ -10,10 +10,10 @@ Complete guide for configuring Agent3D using `.agent3d-config.yml` in project ro
 
 ```bash
 # Check if template exists
-ls templates.yml/agent3d-config.template.yml
+ls templates/agent3d-config.template.yml
 
 # Copy template to project root
-cp templates.yml/agent3d-config.template.yml .agent3d-config.yml
+cp templates/agent3d-config.template.yml .agent3d-config.yml
 
 # Edit placeholders manually or use Foundation Pass
 # Validate configuration with drift scanner
