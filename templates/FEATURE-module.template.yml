@@ -12,6 +12,7 @@ usage:
     naming_convention: "{{section_name}}.md, FT-{{SECTION}}-NNN, TC-{{SECTION}}-NNN"
     test_strategy: "Select test cases judiciously based on feature complexity and risk. Sub-tests only when testing same logic with different parameters. Quality over quantity."
     critical_requirement: "Follow DDD Procedures for merged FT-TC structure"
+    guidelines_reference: "See procedures.yml/test-case-guidelines.yml for test case selection guidance"
 
 template_content: |
     # FT-{{SECTION}} - {{Module Title}}

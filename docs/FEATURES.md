@@ -96,6 +96,5 @@ python3 tools/drift_scanner.py --mode ft-mapping
 - **[High-Level Design](HIGH-LEVEL-DESIGN.md)** - System architecture and component designs
 - **[Requirements](REQUIREMENTS.md)** - Functional and non-functional requirements
 - **[Tasks](TASKS.md)** - Implementation backlog and priorities
-- **[Test Case Selection Guidelines](TEST-CASE-SELECTION-GUIDELINES.md)** - Judicious test case selection based on feature needs
-- **[TC Sub-Test Guidelines](TC-SUBTEST-GUIDELINES.md)** - Guidelines for creating sub-test cases
+- **[Test Case Guidelines](../procedures.yml/test-case-guidelines.yml)** - Comprehensive YAML guidelines for test case selection and implementation
 - **[DDD Procedures](../procedures.yml/)** - Feature completion criteria and validation procedures

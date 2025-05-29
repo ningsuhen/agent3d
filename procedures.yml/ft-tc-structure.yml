@@ -93,7 +93,7 @@ feature_format:
 
   test_case_selection:
     principle: "Quality over quantity - select test cases based on feature needs and risk"
-    guidelines: "See docs/TEST-CASE-SELECTION-GUIDELINES.md for comprehensive guidance"
+    guidelines: "See test-case-guidelines.yml for comprehensive guidance"
     sub_test_usage: "Use sub-tests only for parameterized testing (same logic, different inputs)"
 
   status_indicators:

@@ -346,7 +346,7 @@ integration_points:
     tc_id_format: "TC-[A-Z0-9]+-\\d+[a-z]?"
     mapping_requirement: "Each TC ID must map to exactly one test function"
     sub_test_usage: "Sub-tests (TC-XXX-001a) only for parameterized testing - use judiciously"
-    documentation_location: "docs/TEST-CASE-SELECTION-GUIDELINES.md | docs/TC-SUBTEST-GUIDELINES.md"
+    documentation_location: "procedures.yml/test-case-guidelines.yml"
 
 # Code Formatting Standards
 code_formatting_standards:
