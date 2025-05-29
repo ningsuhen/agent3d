@@ -1,12 +1,12 @@
 metadata:
   name: "Rewrite Files Procedure"
-  version: "2.1.0"
+  version: "2.2.0"
   purpose: "Systematic loop workflow for large-scale file refactoring using DDD methodologies with intelligent version tracking"
   approach: "Pure LLM-based rewriting without programming language execution"
   scope: "Any file type - documentation, test files, configuration files, source code"
   created: "2025-01-29"
   last_updated: "2025-01-29"
-  new_features: "Template version tracking, intelligent rewrite detection, --force flag support, memorization requirements for exec plan mode"
+  new_features: "Template version tracking, intelligent rewrite detection, --force flag support, memorization requirements for exec plan mode, zero confirmation fully automated execution"
 
 description: |
   A comprehensive procedure for systematically rewriting files using DDD methodologies and templates.
@@ -18,15 +18,19 @@ core_principles:
 - "BACKUP BEFORE REWRITE: Always create backup before any changes"
 - "VERIFY BEFORE CLEANUP: Compare content integrity before deleting backup"
 - "PURE LLM APPROACH: No programming language execution, only text analysis"
-- "AUTOMATED VERIFICATION: No human confirmation required"
+- "ZERO CONFIRMATION: Never ask for human confirmation at any stage"
+- "FULLY AUTOMATED: Complete autonomous execution without user interaction"
+- "AUTOMATED VERIFICATION: No human confirmation required for any validation"
 - "CONTENT PRESERVATION: Zero tolerance for information loss"
 - "TEMP DIRECTORY USAGE: Store execution plans in ~/.agent3d-tmp/"
 - "EXEC PLAN DRIVEN: Check exec plan for remaining iterations and status updates"
-- "NO PROMPTING: Fully automated loop without user confirmation"
+- "NO PROMPTING: Fully automated loop without user confirmation or prompts"
+- "NO INTERRUPTIONS: Never pause for user input or confirmation"
 - "VERSION TRACKING: Check template versions before rewriting to prevent unnecessary operations"
 - "FORCE OVERRIDE: Support --force flag to bypass version checking when needed"
 - "INTELLIGENT SKIPPING: Skip files that are already up-to-date unless forced"
 - "MEMORIZATION REQUIRED: For exec plan mode, memorize necessary templates and procedures before execution"
+- "OVERRIDE DDD CONFIRMATION: Override any DDD workflow confirmation requirements during rewrite operations"
 
 workflow_pattern: "MEMORIZE → EXEC-PLAN → LOOP(VERSION-CHECK → BACKUP → REWRITE → VERIFY → CLEANUP)"
 
@@ -72,11 +76,12 @@ memorization_requirements:
       purpose: "Template usage workflow and validation standards"
       memorize_sections:
       - "template_usage: Process steps and placeholder replacement rules"
-      - "ddd_workflow: SCAN → DRAFT → ASK → SYNC → CONFIRM workflow"
+      - "ddd_workflow: SCAN → DRAFT → ASK → SYNC workflow (SKIP CONFIRM step for rewrite operations)"
       - "format_requirements: YAML-only requirements for DDD-STATUS and EXEC-PLAN"
       - "validation_checklist: Structure and drift validation requirements"
       - "best_practices: Template handling and format consistency"
       critical_for: "Template compliance, workflow execution, format standards"
+      rewrite_override: "Override DDD workflow confirmation requirements - proceed directly to execution"
 
   supporting_templates:
     exec_plan_template:
@@ -260,12 +265,18 @@ execution_phases:
       execution_control:
         auto_continue: true
         no_prompting: true
+        no_confirmation: true
+        fully_automated: true
+        never_ask_user: true
+        override_ddd_confirmation: true
         check_remaining_iterations: true
         resume_from_iteration: null
         max_iterations: {file_count}
         force_rewrite: false  # Set to true to bypass version checking
         version_tracking_enabled: true
         skip_up_to_date_files: true
+        autonomous_execution: true
+        zero_user_interaction: true
 
     speed_optimizations:
     - "scan_once_execute_many"
@@ -462,16 +473,37 @@ execution_phases:
     - "verify_content_integrity_passed"
     - "confirm_backup_and_original_different_from_new_file"
 
+# DDD Workflow Override for Rewrite Operations
+ddd_workflow_override:
+  critical_rule: "Rewrite operations NEVER require confirmation - override all DDD workflow confirmation steps"
+
+  standard_ddd_workflow: "SCAN → DRAFT → ASK → SYNC → CONFIRM BEFORE COMMIT"
+  rewrite_workflow_override: "SCAN → DRAFT → SYNC → EXECUTE (SKIP ASK and CONFIRM steps)"
+
+  confirmation_overrides:
+  - "Skip 'ASK' step - no user questions during rewrite operations"
+  - "Skip 'CONFIRM BEFORE COMMIT' step - proceed directly to execution"
+  - "Override any template-based confirmation requirements"
+  - "Bypass any procedural confirmation checkpoints"
+  - "Never pause for user input or approval"
+
+  rationale: "Rewrite operations are designed to be fully automated with built-in safety through backup and validation"
+  safety_measures: "Safety ensured through backup creation, content verification, and automated validation - no human confirmation needed"
+
 # Loop Control
 loop_control:
   exec_plan_driven: true
   no_prompting: true
+  no_confirmation: true
+  fully_automated: true
+  zero_user_interaction: true
 
   continuation_criteria:
   - "check_exec_plan_for_remaining_iterations"
   - "next_iteration_exists_in_exec_plan"
   - "no_critical_errors_encountered"
   - "auto_continue_enabled_in_exec_plan"
+  - "never_wait_for_user_confirmation"
 
   termination_criteria:
   - "all_files_in_exec_plan_processed_successfully"
@@ -515,7 +547,8 @@ safety_measures:
   - "graceful_failure_recovery"
   - "automatic_backup_restoration"
   - "detailed_error_logging"
-  - "user_notification_of_issues"
+  - "automated_issue_resolution"
+  - "no_user_intervention_required"
 
   quality_assurance:
   - "mandatory_content_integrity_verification"
@@ -523,6 +556,8 @@ safety_measures:
   - "quality_threshold_enforcement"
   - "template_compliance_validation"
   - "no_backup_deletion_without_verification"
+  - "automated_validation_sufficient_for_safety"
+  - "no_human_confirmation_needed_due_to_built_in_safety"
 
 # Expected Outcomes
 expected_outcomes:
@@ -566,6 +601,10 @@ quality_gates:
     threshold: "95%"
     critical: true
     description: "Test case selection follows decision framework and guidelines"
+  - name: "zero_confirmation_compliance"
+    threshold: "100%"
+    critical: true
+    description: "No confirmation prompts or user interaction during rewrite operations"
 
   overall_procedure:
   - name: "files_processed_successfully"
