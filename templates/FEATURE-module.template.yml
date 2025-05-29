@@ -104,10 +104,12 @@ code_location_discovery:
           - "Review existing test files for import statements (but don't use test paths as Code Location)"
 
         pattern_matching:
-            api_features: "Look in API route files, controllers, or handlers"
-            ui_features: "Look in component files, views, or templates"
-            cli_features: "Look in command files, CLI modules, or scripts"
-            config_features: "Look in configuration files, schema files, or validation modules"
+            drift_scanner_features: "Look in tools/drift_scanner.py, tools/drift_scanner_mcp_server.py"
+            vscode_extension_features: "Look in vscode-ddd-navigator/src/ directory"
+            pass_system_features: "Look in passes.yml/ directory for pass configurations"
+            documentation_features: "Look in docs/ directory, templates/ directory"
+            config_features: "Look in .agent3d-config.yml, pyproject.toml"
+            shell_script_features: "Look in tools/ directory for .sh files"
 
         if_still_unknown:
           - "Use N/A (Feature description - code location to be determined)"
@@ -115,10 +117,12 @@ code_location_discovery:
           - "Prioritize finding Code Location before implementing tests"
 
 framework_classification:
-    code_framework: "{module.path}#{ClassName} or {file_path} → Automated testing"
-    documentation_framework: "docs/{path}.md or README.md → Manual validation"
-    configuration_framework: "{config_file}.yml or {config_file}.json → Schema validation"
-    non_testable: "N/A ({description}) → Manual process validation"
+    python_code: "tools/file.py#ClassName.method → Automated testing"
+    typescript_code: "vscode-ddd-navigator/src/file.ts#ClassName → Automated testing"
+    shell_scripts: "tools/script.sh → Automated testing"
+    yaml_config: "passes.yml/pass_name.yml → Schema validation"
+    documentation_only: "N/A (Description) → Manual validation"
+    mixed_implementation: "code_file.py#Class | config.yml → Automated + Schema testing"
 
 test_guidelines:
     test_types: "Core, Edge Cases, Error Handling, Integration, Performance, Security, Validation, Boundary"
@@ -139,4 +143,4 @@ post_creation:
 
 validation:
     rules: [ "See Base Template System for universal validation rules" ]
-    references: [ "BASE.template.md#universal-validation-rules" ]
+    references: [ "BASE.template.yml#universal-validation-rules" ]

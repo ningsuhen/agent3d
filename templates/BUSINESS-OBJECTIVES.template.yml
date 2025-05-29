@@ -8,16 +8,16 @@ usage:
   description: "Template for documenting business objectives, KPIs, success criteria, and strategic planning"
 
   required_sections:
-    - "Executive Summary - vision, business case, ROI, timeline"
-    - "Strategic Objectives - primary and secondary objectives with metrics"
-    - "Key Performance Indicators - financial, operational, and strategic KPIs"
-    - "Success Criteria - critical success factors and metrics"
-    - "Stakeholder Value - value delivered to different stakeholder groups"
-    - "Business Risks and Mitigation - risk assessment and mitigation strategies"
-    - "Resource Requirements - budget, human resources, technology"
-    - "Timeline and Milestones - major milestones and critical path"
-    - "Governance and Oversight - steering committee and reporting structure"
-    - "Measurement and Monitoring - monitoring framework and continuous improvement"
+  - "Executive Summary - vision, business case, ROI, timeline"
+  - "Strategic Objectives - primary and secondary objectives with metrics"
+  - "Key Performance Indicators - financial, operational, and strategic KPIs"
+  - "Success Criteria - critical success factors and metrics"
+  - "Stakeholder Value - value delivered to different stakeholder groups"
+  - "Business Risks and Mitigation - risk assessment and mitigation strategies"
+  - "Resource Requirements - budget, human resources, technology"
+  - "Timeline and Milestones - major milestones and critical path"
+  - "Governance and Oversight - steering committee and reporting structure"
+  - "Measurement and Monitoring - monitoring framework and continuous improvement"
 
 template_content: |
   # Business Objectives
@@ -278,10 +278,10 @@ examples:
 
 validation:
   rules:
-    - "All objectives must have measurable success metrics"
-    - "KPIs must include baseline and target values"
-    - "Risk mitigation strategies must be specific and actionable"
-    - "Resource requirements must be comprehensive and realistic"
-    - "Timeline must include major milestones with success criteria"
-    - "Stakeholder value must be clearly defined for each group"
-  references: ["BASE.template.md#universal-validation-rules"]
+  - "All objectives must have measurable success metrics"
+  - "KPIs must include baseline and target values"
+  - "Risk mitigation strategies must be specific and actionable"
+  - "Resource requirements must be comprehensive and realistic"
+  - "Timeline must include major milestones with success criteria"
+  - "Stakeholder value must be clearly defined for each group"
+  references: [ "BASE.template.yml#universal-validation-rules" ]

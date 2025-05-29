@@ -8,12 +8,12 @@ usage:
   description: "Tasks organized by priority (High/Medium/Low/Completed) with status [x]/[ ]/[~] and actionable descriptions"
   structure: "Use ## Groups/### Sub-Groups structure"
   sub_tasks: "Complex tasks can have sub-tasks using indented bullets (2 spaces)"
-  
+
   priority_guidelines:
     high_priority: "Tasks that block other work, critical bugs, security issues"
     medium_priority: "Feature improvements, performance optimizations, documentation updates"
     low_priority: "Nice-to-have features, experimental ideas, long-term goals"
-  
+
   critical_structure: "Use ## Groups (Priority Levels) for High/Medium/Low/Completed and ### Sub-Groups (Functional Areas) for specific work areas within each priority"
 
 template_content: |
@@ -75,11 +75,11 @@ examples:
   completion_description: "Description of what was completed"
 
 validation:
-  rules: 
-    - "Follow Common Procedures for common validation checklist"
-    - "Replace ALL {{placeholders}} with actual content"
-    - "Remove <template> tags"
-    - "Use ## Groups / ### Sub-Groups structure"
-    - "Include functional links and single-line entries"
-    - "Mark [x] only with verifiable evidence"
-  references: ["BASE.template.md#universal-validation-rules", "BASE.template.md#documentation-templates-features-requirements-tasks-etc"]
+  rules:
+  - "Follow Common Procedures for common validation checklist"
+  - "Replace ALL {{placeholders}} with actual content"
+  - "Remove <template> tags"
+  - "Use ## Groups / ### Sub-Groups structure"
+  - "Include functional links and single-line entries"
+  - "Mark [x] only with verifiable evidence"
+  references: [ "BASE.template.yml#universal-validation-rules", "BASE.template.yml#documentation-templates-features-requirements-tasks-etc" ]

@@ -6,23 +6,23 @@ metadata:
 
 usage:
   description: "This document must provide a comprehensive record of all changes made to the project, organized chronologically and categorized by change type"
-  
+
   required_content:
-    - "Clear versioning scheme (Semantic Versioning recommended)"
-    - "Chronological organization with most recent changes first"
-    - "Categorized changes (Added, Changed, Deprecated, Removed, Fixed, Security)"
-    - "DDD pass execution tracking with specific pass types"
-    - "Links to relevant documentation, issues, or pull requests"
-    - "Breaking change notifications"
-    - "Migration guidance for significant changes"
-  
+  - "Clear versioning scheme (Semantic Versioning recommended)"
+  - "Chronological organization with most recent changes first"
+  - "Categorized changes (Added, Changed, Deprecated, Removed, Fixed, Security)"
+  - "DDD pass execution tracking with specific pass types"
+  - "Links to relevant documentation, issues, or pull requests"
+  - "Breaking change notifications"
+  - "Migration guidance for significant changes"
+
   required_sections:
-    - "Unreleased - Changes not yet released"
-    - "Version Entries - Released versions with dates"
-    - "Change Categories - Organized by type of change"
-    - "DDD Pass Tracking - Record of pass executions"
-    - "Breaking Changes - Significant compatibility changes"
-    - "Migration Notes - Guidance for upgrading"
+  - "Unreleased - Changes not yet released"
+  - "Version Entries - Released versions with dates"
+  - "Change Categories - Organized by type of change"
+  - "DDD Pass Tracking - Record of pass executions"
+  - "Breaking Changes - Significant compatibility changes"
+  - "Migration Notes - Guidance for upgrading"
 
 template_content: |
   # Changelog
@@ -154,12 +154,12 @@ ddd_pass_types:
 
 validation:
   checklist:
-    - "All changes are categorized appropriately (Added, Changed, Fixed, etc.)"
-    - "DDD pass executions are recorded with dates and descriptions"
-    - "Breaking changes are clearly marked and explained"
-    - "Version numbers follow semantic versioning"
-    - "Most recent changes appear first"
-    - "Links to issues and PRs are functional"
-    - "Migration notes are provided for breaking changes"
-  
-  references: ["BASE.template.md#universal-validation-rules", "../docs/COMMON-PROCEDURES.md#common-validation-checklist"]
+  - "All changes are categorized appropriately (Added, Changed, Fixed, etc.)"
+  - "DDD pass executions are recorded with dates and descriptions"
+  - "Breaking changes are clearly marked and explained"
+  - "Version numbers follow semantic versioning"
+  - "Most recent changes appear first"
+  - "Links to issues and PRs are functional"
+  - "Migration notes are provided for breaking changes"
+
+  references: [ "BASE.template.yml#universal-validation-rules", "docs/COMMON-PROCEDURES.md#common-validation-checklist" ]

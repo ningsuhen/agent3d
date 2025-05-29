@@ -6,34 +6,34 @@ metadata:
 
 usage:
   description: "This document must provide comprehensive UI/UX specifications with design principles, layouts, and implementation guidelines"
-  
+
   required_content:
-    - "Design principles and UX philosophy"
-    - "Main interface layout with component specifications"
-    - "Interaction patterns and user flows"
-    - "Responsive design specifications for all breakpoints"
-    - "Accessibility requirements and WCAG compliance"
-    - "Visual design system (colors, typography, spacing)"
-    - "Component library specifications"
-    - "Performance requirements and constraints"
-    - "Testing requirements (usability and A/B testing)"
-    - "Implementation notes and technical constraints"
-    - "Wireframes and design asset references"
-  
+  - "Design principles and UX philosophy"
+  - "Main interface layout with component specifications"
+  - "Interaction patterns and user flows"
+  - "Responsive design specifications for all breakpoints"
+  - "Accessibility requirements and WCAG compliance"
+  - "Visual design system (colors, typography, spacing)"
+  - "Component library specifications"
+  - "Performance requirements and constraints"
+  - "Testing requirements (usability and A/B testing)"
+  - "Implementation notes and technical constraints"
+  - "Wireframes and design asset references"
+
   required_sections:
-    - "Overview - Project overview with UX focus"
-    - "Design Principles - User-centric design philosophy and UX principles"
-    - "Main Interface Layout - Layout specifications and component details"
-    - "Interaction Patterns - User interaction flows and feedback"
-    - "Responsive Design - Specifications for desktop, tablet, and mobile"
-    - "Accessibility Requirements - WCAG compliance and accessibility features"
-    - "Visual Design System - Colors, typography, and spacing guidelines"
-    - "Component Library - Reusable UI component specifications"
-    - "User Flows - Primary and secondary user flow documentation"
-    - "Performance Requirements - Load times and interaction response requirements"
-    - "Testing Requirements - Usability and A/B testing strategies"
-    - "Implementation Notes - Technical constraints and browser support"
-    - "Wireframes and Mockups - Design asset references and links"
+  - "Overview - Project overview with UX focus"
+  - "Design Principles - User-centric design philosophy and UX principles"
+  - "Main Interface Layout - Layout specifications and component details"
+  - "Interaction Patterns - User interaction flows and feedback"
+  - "Responsive Design - Specifications for desktop, tablet, and mobile"
+  - "Accessibility Requirements - WCAG compliance and accessibility features"
+  - "Visual Design System - Colors, typography, and spacing guidelines"
+  - "Component Library - Reusable UI component specifications"
+  - "User Flows - Primary and secondary user flow documentation"
+  - "Performance Requirements - Load times and interaction response requirements"
+  - "Testing Requirements - Usability and A/B testing strategies"
+  - "Implementation Notes - Technical constraints and browser support"
+  - "Wireframes and Mockups - Design asset references and links"
 
 template_content: |
   # UI/UX Specifications
@@ -247,8 +247,8 @@ template_content: |
   - [User Journey Maps](user-flows/{{USER_JOURNEY_FILE}})
   - [Wireframe Documentation](wireframes/{{WIREFRAME_DOC_FILE}})
   - [Interaction Patterns](interaction-patterns/{{INTERACTION_PATTERNS_FILE}})
-  - [Requirements](../REQUIREMENTS.md)
-  - [Features](../FEATURES.md)
+  - [Requirements](docs/REQUIREMENTS.md)
+  - [Features](docs/FEATURES.md)
 
 examples:
   project_name: "E-commerce Platform, Mobile Banking App, Dashboard Interface"
@@ -269,13 +269,13 @@ examples:
 
 validation:
   checklist:
-    - "All user flows documented and validated"
-    - "Wireframes created for all major screens"
-    - "Responsive behavior specified for all breakpoints"
-    - "Accessibility requirements defined and testable"
-    - "Component specifications complete"
-    - "Interaction patterns documented"
-    - "Performance requirements specified"
-    - "Testing strategy defined"
-  
-  references: ["BASE.template.md#universal-validation-rules"]
+  - "All user flows documented and validated"
+  - "Wireframes created for all major screens"
+  - "Responsive behavior specified for all breakpoints"
+  - "Accessibility requirements defined and testable"
+  - "Component specifications complete"
+  - "Interaction patterns documented"
+  - "Performance requirements specified"
+  - "Testing strategy defined"
+
+  references: [ "BASE.template.yml#universal-validation-rules" ]

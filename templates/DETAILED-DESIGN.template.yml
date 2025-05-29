@@ -6,34 +6,34 @@ metadata:
 
 usage:
   description: "This document must provide comprehensive design specifications for a specific component or system part"
-  
+
   required_content:
-    - "Component overview and purpose"
-    - "Component architecture with detailed specifications"
-    - "API specifications and interfaces"
-    - "Data flow diagrams and sequence diagrams"
-    - "Error handling and recovery strategies"
-    - "Configuration and customization options"
-    - "Performance requirements and constraints"
-    - "Security considerations"
-    - "Testing strategy and validation"
-    - "Integration points with other components"
-    - "Monitoring and logging specifications"
-    - "Future enhancements and scalability considerations"
-  
+  - "Component overview and purpose"
+  - "Component architecture with detailed specifications"
+  - "API specifications and interfaces"
+  - "Data flow diagrams and sequence diagrams"
+  - "Error handling and recovery strategies"
+  - "Configuration and customization options"
+  - "Performance requirements and constraints"
+  - "Security considerations"
+  - "Testing strategy and validation"
+  - "Integration points with other components"
+  - "Monitoring and logging specifications"
+  - "Future enhancements and scalability considerations"
+
   required_sections:
-    - "Overview - Component purpose and scope"
-    - "Component Architecture - Detailed component breakdown"
-    - "API Specifications - Interfaces, methods, and data structures"
-    - "Data Flow - Detailed data movement and processing"
-    - "Error Handling - Error scenarios and recovery mechanisms"
-    - "Configuration - Settings, parameters, and customization"
-    - "Performance Requirements - Response times, throughput, resource usage"
-    - "Security Considerations - Security measures and validation"
-    - "Testing Strategy - Unit, integration, and performance testing"
-    - "Integration Points - Connections with other components/systems"
-    - "Monitoring and Logging - Observability and diagnostics"
-    - "Future Enhancements - Planned features and scalability"
+  - "Overview - Component purpose and scope"
+  - "Component Architecture - Detailed component breakdown"
+  - "API Specifications - Interfaces, methods, and data structures"
+  - "Data Flow - Detailed data movement and processing"
+  - "Error Handling - Error scenarios and recovery mechanisms"
+  - "Configuration - Settings, parameters, and customization"
+  - "Performance Requirements - Response times, throughput, resource usage"
+  - "Security Considerations - Security measures and validation"
+  - "Testing Strategy - Unit, integration, and performance testing"
+  - "Integration Points - Connections with other components/systems"
+  - "Monitoring and Logging - Observability and diagnostics"
+  - "Future Enhancements - Planned features and scalability"
 
 template_content: |
   # {{component_name}} - Design
@@ -234,18 +234,18 @@ examples:
 
 validation:
   checklist:
-    - "Module overview clearly explains purpose and scope"
-    - "All major components are documented with detailed specifications"
-    - "API specifications include complete interface definitions"
-    - "Data flow diagrams accurately represent information movement"
-    - "Error handling covers all failure scenarios with recovery strategies"
-    - "Configuration options are comprehensive and well-documented"
-    - "Performance requirements are specific and measurable"
-    - "Security considerations address all relevant threats"
-    - "Testing strategy covers unit, integration, and performance testing"
-    - "Integration points with other modules are clearly defined"
-    - "Monitoring and logging provide adequate observability"
-    - "Future enhancements and scalability plans are realistic"
-    - "Diagrams use proper Mermaid syntax and render correctly"
-  
-  references: ["BASE.template.md#universal-validation-rules"]
+  - "Module overview clearly explains purpose and scope"
+  - "All major components are documented with detailed specifications"
+  - "API specifications include complete interface definitions"
+  - "Data flow diagrams accurately represent information movement"
+  - "Error handling covers all failure scenarios with recovery strategies"
+  - "Configuration options are comprehensive and well-documented"
+  - "Performance requirements are specific and measurable"
+  - "Security considerations address all relevant threats"
+  - "Testing strategy covers unit, integration, and performance testing"
+  - "Integration points with other modules are clearly defined"
+  - "Monitoring and logging provide adequate observability"
+  - "Future enhancements and scalability plans are realistic"
+  - "Diagrams use proper Mermaid syntax and render correctly"
+
+  references: [ "BASE.template.yml#universal-validation-rules" ]

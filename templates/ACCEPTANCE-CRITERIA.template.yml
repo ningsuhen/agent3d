@@ -1,13 +1,13 @@
 metadata:
-  name: "Acceptance Criteria Template"
-  type: "template"
-  format: "markdown_content_with_yaml_metadata"
-  purpose: "Define acceptance criteria for all requirements and user stories"
+   name: "Acceptance Criteria Template"
+   type: "template"
+   format: "markdown_content_with_yaml_metadata"
+   purpose: "Define acceptance criteria for all requirements and user stories"
 
 usage:
-  description: "This document defines the acceptance criteria for all requirements and user stories. Each criterion must be testable, measurable, and clearly define the conditions for acceptance"
-  
-  required_sections:
+   description: "This document defines the acceptance criteria for all requirements and user stories. Each criterion must be testable, measurable, and clearly define the conditions for acceptance"
+
+   required_sections:
     - "Functional Acceptance Criteria - feature-specific criteria with scenarios"
     - "Non-Functional Acceptance Criteria - performance, security, usability"
     - "Integration Acceptance Criteria - external system and database integration"
@@ -17,276 +17,276 @@ usage:
     - "Validation Process - review and approval process"
 
 template_content: |
-  # Acceptance Criteria
+   # Acceptance Criteria
 
-  **Project:** [Project Name]
-  **Version:** [Version Number]
-  **Date:** [Date]
+   **Project:** [Project Name]
+   **Version:** [Version Number]
+   **Date:** [Date]
 
-  ## Overview
+   ## Overview
 
-  This document defines the acceptance criteria for all requirements and user stories. Each criterion must be testable, measurable, and clearly define the conditions for acceptance.
+   This document defines the acceptance criteria for all requirements and user stories. Each criterion must be testable, measurable, and clearly define the conditions for acceptance.
 
-  ## Functional Acceptance Criteria
+   ## Functional Acceptance Criteria
 
-  ### Feature 1: [Feature Name]
+   ### Feature 1: [Feature Name]
 
-  **Requirement ID:** REQ-001
-  **User Story:** US-001
+   **Requirement ID:** REQ-001
+   **User Story:** US-001
 
-  #### Scenario 1: [Scenario Name]
+   #### Scenario 1: [Scenario Name]
 
-  **Given:** [Initial conditions]
-  **When:** [Action or event]
-  **Then:** [Expected outcome]
+   **Given:** [Initial conditions]
+   **When:** [Action or event]
+   **Then:** [Expected outcome]
 
-  **Acceptance Criteria:**
+   **Acceptance Criteria:**
 
-  - [ ] [Specific testable condition 1]
-  - [ ] [Specific testable condition 2]
-  - [ ] [Specific testable condition 3]
+   - [ ] [Specific testable condition 1]
+   - [ ] [Specific testable condition 2]
+   - [ ] [Specific testable condition 3]
 
-  #### Scenario 2: [Scenario Name]
+   #### Scenario 2: [Scenario Name]
 
-  **Given:** [Initial conditions]
-  **When:** [Action or event]
-  **Then:** [Expected outcome]
+   **Given:** [Initial conditions]
+   **When:** [Action or event]
+   **Then:** [Expected outcome]
 
-  **Acceptance Criteria:**
+   **Acceptance Criteria:**
 
-  - [ ] [Specific testable condition 1]
-  - [ ] [Specific testable condition 2]
-  - [ ] [Specific testable condition 3]
+   - [ ] [Specific testable condition 1]
+   - [ ] [Specific testable condition 2]
+   - [ ] [Specific testable condition 3]
 
-  ### Feature 2: [Feature Name]
+   ### Feature 2: [Feature Name]
 
-  **Requirement ID:** REQ-002
-  **User Story:** US-002
+   **Requirement ID:** REQ-002
+   **User Story:** US-002
 
-  #### Scenario 1: [Scenario Name]
+   #### Scenario 1: [Scenario Name]
 
-  **Given:** [Initial conditions]
-  **When:** [Action or event]
-  **Then:** [Expected outcome]
+   **Given:** [Initial conditions]
+   **When:** [Action or event]
+   **Then:** [Expected outcome]
 
-  **Acceptance Criteria:**
+   **Acceptance Criteria:**
 
-  - [ ] [Specific testable condition 1]
-  - [ ] [Specific testable condition 2]
-  - [ ] [Specific testable condition 3]
+   - [ ] [Specific testable condition 1]
+   - [ ] [Specific testable condition 2]
+   - [ ] [Specific testable condition 3]
 
-  ## Non-Functional Acceptance Criteria
+   ## Non-Functional Acceptance Criteria
 
-  ### Performance Criteria
+   ### Performance Criteria
 
-  **Requirement ID:** REQ-PERF-001
+   **Requirement ID:** REQ-PERF-001
 
-  #### Response Time
+   #### Response Time
 
-  - [ ] Page load time must be less than 2 seconds
-  - [ ] API response time must be less than 500ms
-  - [ ] Database query time must be less than 100ms
+   - [ ] Page load time must be less than 2 seconds
+   - [ ] API response time must be less than 500ms
+   - [ ] Database query time must be less than 100ms
 
-  #### Throughput
+   #### Throughput
 
-  - [ ] System must handle 1000 concurrent users
-  - [ ] System must process 10,000 transactions per hour
-  - [ ] Batch processing must complete within 4 hours
+   - [ ] System must handle 1000 concurrent users
+   - [ ] System must process 10,000 transactions per hour
+   - [ ] Batch processing must complete within 4 hours
 
-  #### Scalability
+   #### Scalability
 
-  - [ ] System must scale to 10,000 users without performance degradation
-  - [ ] Database must handle 1TB of data without performance impact
-  - [ ] System must auto-scale based on load
+   - [ ] System must scale to 10,000 users without performance degradation
+   - [ ] Database must handle 1TB of data without performance impact
+   - [ ] System must auto-scale based on load
 
-  ### Security Criteria
+   ### Security Criteria
 
-  **Requirement ID:** REQ-SEC-001
+   **Requirement ID:** REQ-SEC-001
 
-  #### Authentication
+   #### Authentication
 
-  - [ ] Users must authenticate with valid credentials
-  - [ ] Failed login attempts must be limited to 3 tries
-  - [ ] Account must be locked after 3 failed attempts
-  - [ ] Password must meet complexity requirements
+   - [ ] Users must authenticate with valid credentials
+   - [ ] Failed login attempts must be limited to 3 tries
+   - [ ] Account must be locked after 3 failed attempts
+   - [ ] Password must meet complexity requirements
 
-  #### Authorization
+   #### Authorization
 
-  - [ ] Users can only access authorized resources
-  - [ ] Admin users have elevated privileges
-  - [ ] Guest users have read-only access
-  - [ ] API endpoints enforce proper authorization
+   - [ ] Users can only access authorized resources
+   - [ ] Admin users have elevated privileges
+   - [ ] Guest users have read-only access
+   - [ ] API endpoints enforce proper authorization
 
-  #### Data Protection
+   #### Data Protection
 
-  - [ ] Sensitive data must be encrypted at rest
-  - [ ] Data transmission must use HTTPS
-  - [ ] Personal data must comply with privacy regulations
-  - [ ] Data backup must be encrypted
+   - [ ] Sensitive data must be encrypted at rest
+   - [ ] Data transmission must use HTTPS
+   - [ ] Personal data must comply with privacy regulations
+   - [ ] Data backup must be encrypted
 
-  ### Usability Criteria
+   ### Usability Criteria
 
-  **Requirement ID:** REQ-UX-001
+   **Requirement ID:** REQ-UX-001
 
-  #### User Interface
+   #### User Interface
 
-  - [ ] Interface must be responsive on mobile devices
-  - [ ] Interface must be accessible (WCAG 2.1 AA compliance)
-  - [ ] Interface must support keyboard navigation
-  - [ ] Interface must provide clear error messages
+   - [ ] Interface must be responsive on mobile devices
+   - [ ] Interface must be accessible (WCAG 2.1 AA compliance)
+   - [ ] Interface must support keyboard navigation
+   - [ ] Interface must provide clear error messages
 
-  #### User Experience
+   #### User Experience
 
-  - [ ] New users can complete onboarding in under 5 minutes
-  - [ ] Common tasks can be completed in 3 clicks or less
-  - [ ] Help documentation is easily accessible
-  - [ ] User feedback is collected and actionable
+   - [ ] New users can complete onboarding in under 5 minutes
+   - [ ] Common tasks can be completed in 3 clicks or less
+   - [ ] Help documentation is easily accessible
+   - [ ] User feedback is collected and actionable
 
-  ## Integration Acceptance Criteria
+   ## Integration Acceptance Criteria
 
-  ### External System Integration
+   ### External System Integration
 
-  **Requirement ID:** REQ-INT-001
+   **Requirement ID:** REQ-INT-001
 
-  #### API Integration
+   #### API Integration
 
-  - [ ] API calls must complete successfully
-  - [ ] Error handling must be implemented for all API failures
-  - [ ] Data format must match specification
-  - [ ] Rate limiting must be respected
+   - [ ] API calls must complete successfully
+   - [ ] Error handling must be implemented for all API failures
+   - [ ] Data format must match specification
+   - [ ] Rate limiting must be respected
 
-  #### Database Integration
+   #### Database Integration
 
-  - [ ] Data must be stored correctly in the database
-  - [ ] Database transactions must maintain ACID properties
-  - [ ] Data migration must complete without data loss
-  - [ ] Database performance must meet requirements
+   - [ ] Data must be stored correctly in the database
+   - [ ] Database transactions must maintain ACID properties
+   - [ ] Data migration must complete without data loss
+   - [ ] Database performance must meet requirements
 
-  ## Quality Gates
+   ## Quality Gates
 
-  ### Code Quality
+   ### Code Quality
 
-  - [ ] Code coverage must be at least 80%
-  - [ ] All unit tests must pass
-  - [ ] All integration tests must pass
-  - [ ] Code must pass static analysis checks
-  - [ ] Code must follow established coding standards
+   - [ ] Code coverage must be at least 80%
+   - [ ] All unit tests must pass
+   - [ ] All integration tests must pass
+   - [ ] Code must pass static analysis checks
+   - [ ] Code must follow established coding standards
 
-  ### Documentation Quality
+   ### Documentation Quality
 
-  - [ ] All features must be documented
-  - [ ] API documentation must be complete and accurate
-  - [ ] User documentation must be clear and comprehensive
-  - [ ] Technical documentation must be up to date
+   - [ ] All features must be documented
+   - [ ] API documentation must be complete and accurate
+   - [ ] User documentation must be clear and comprehensive
+   - [ ] Technical documentation must be up to date
 
-  ### Deployment Quality
+   ### Deployment Quality
 
-  - [ ] Deployment must be automated
-  - [ ] Rollback procedures must be tested
-  - [ ] Environment configuration must be validated
-  - [ ] Monitoring and alerting must be in place
+   - [ ] Deployment must be automated
+   - [ ] Rollback procedures must be tested
+   - [ ] Environment configuration must be validated
+   - [ ] Monitoring and alerting must be in place
 
-  ## Test Scenarios
+   ## Test Scenarios
 
-  ### Happy Path Scenarios
+   ### Happy Path Scenarios
 
-  1. **Scenario:** [Normal user flow]
-     - **Steps:** [Detailed steps]
-     - **Expected Result:** [What should happen]
-     - **Acceptance Criteria:** [Specific conditions to verify]
+   1. **Scenario:** [Normal user flow]
+      - **Steps:** [Detailed steps]
+      - **Expected Result:** [What should happen]
+      - **Acceptance Criteria:** [Specific conditions to verify]
 
-  2. **Scenario:** [Another normal flow]
-     - **Steps:** [Detailed steps]
-     - **Expected Result:** [What should happen]
-     - **Acceptance Criteria:** [Specific conditions to verify]
+   2. **Scenario:** [Another normal flow]
+      - **Steps:** [Detailed steps]
+      - **Expected Result:** [What should happen]
+      - **Acceptance Criteria:** [Specific conditions to verify]
 
-  ### Edge Case Scenarios
+   ### Edge Case Scenarios
 
-  1. **Scenario:** [Boundary condition]
-     - **Steps:** [Detailed steps]
-     - **Expected Result:** [What should happen]
-     - **Acceptance Criteria:** [Specific conditions to verify]
+   1. **Scenario:** [Boundary condition]
+      - **Steps:** [Detailed steps]
+      - **Expected Result:** [What should happen]
+      - **Acceptance Criteria:** [Specific conditions to verify]
 
-  2. **Scenario:** [Error condition]
-     - **Steps:** [Detailed steps]
-     - **Expected Result:** [How errors should be handled]
-     - **Acceptance Criteria:** [Specific conditions to verify]
+   2. **Scenario:** [Error condition]
+      - **Steps:** [Detailed steps]
+      - **Expected Result:** [How errors should be handled]
+      - **Acceptance Criteria:** [Specific conditions to verify]
 
-  ### Negative Test Scenarios
+   ### Negative Test Scenarios
 
-  1. **Scenario:** [Invalid input]
-     - **Steps:** [Detailed steps]
-     - **Expected Result:** [How system should respond]
-     - **Acceptance Criteria:** [Specific conditions to verify]
+   1. **Scenario:** [Invalid input]
+      - **Steps:** [Detailed steps]
+      - **Expected Result:** [How system should respond]
+      - **Acceptance Criteria:** [Specific conditions to verify]
 
-  2. **Scenario:** [Unauthorized access]
-     - **Steps:** [Detailed steps]
-     - **Expected Result:** [Security response]
-     - **Acceptance Criteria:** [Specific conditions to verify]
+   2. **Scenario:** [Unauthorized access]
+      - **Steps:** [Detailed steps]
+      - **Expected Result:** [Security response]
+      - **Acceptance Criteria:** [Specific conditions to verify]
 
-  ## Definition of Done
+   ## Definition of Done
 
-  ### Feature Level
+   ### Feature Level
 
-  - [ ] All acceptance criteria are met
-  - [ ] All tests are passing
-  - [ ] Code review is completed
-  - [ ] Documentation is updated
-  - [ ] Security review is completed
-  - [ ] Performance testing is completed
+   - [ ] All acceptance criteria are met
+   - [ ] All tests are passing
+   - [ ] Code review is completed
+   - [ ] Documentation is updated
+   - [ ] Security review is completed
+   - [ ] Performance testing is completed
 
-  ### Release Level
+   ### Release Level
 
-  - [ ] All features meet acceptance criteria
-  - [ ] Integration testing is completed
-  - [ ] User acceptance testing is completed
-  - [ ] Performance benchmarks are met
-  - [ ] Security audit is completed
-  - [ ] Deployment procedures are tested
+   - [ ] All features meet acceptance criteria
+   - [ ] Integration testing is completed
+   - [ ] User acceptance testing is completed
+   - [ ] Performance benchmarks are met
+   - [ ] Security audit is completed
+   - [ ] Deployment procedures are tested
 
-  ## Validation Process
+   ## Validation Process
 
-  ### Review Process
+   ### Review Process
 
-  1. **Requirements Review:** Stakeholders validate acceptance criteria
-  2. **Technical Review:** Development team validates feasibility
-  3. **Test Review:** QA team validates testability
-  4. **User Review:** End users validate usability
+   1. **Requirements Review:** Stakeholders validate acceptance criteria
+   2. **Technical Review:** Development team validates feasibility
+   3. **Test Review:** QA team validates testability
+   4. **User Review:** End users validate usability
 
-  ### Approval Process
+   ### Approval Process
 
-  - **Business Approval:** [Who approves business criteria]
-  - **Technical Approval:** [Who approves technical criteria]
-  - **Quality Approval:** [Who approves quality criteria]
-  - **Final Approval:** [Who gives final approval]
+   - **Business Approval:** [Who approves business criteria]
+   - **Technical Approval:** [Who approves technical criteria]
+   - **Quality Approval:** [Who approves quality criteria]
+   - **Final Approval:** [Who gives final approval]
 
-  ---
+   ---
 
-  **Document Control:**
+   **Document Control:**
 
-  - **Created by:** [Author name]
-  - **Reviewed by:** [Reviewer names]
-  - **Approved by:** [Approver names]
-  - **Last Updated:** [Date]
-  - **Next Review:** [Date]
+   - **Created by:** [Author name]
+   - **Reviewed by:** [Reviewer names]
+   - **Approved by:** [Approver names]
+   - **Last Updated:** [Date]
+   - **Next Review:** [Date]
 
 examples:
-  project_name: "E-commerce Platform, Mobile App, API Gateway"
-  version_number: "1.0, 2.1, 3.0-beta"
-  feature_name: "User Registration, Payment Processing, Search Functionality"
-  requirement_id: "REQ-001, REQ-PERF-001, REQ-SEC-001"
-  user_story: "US-001, US-002, US-003"
-  scenario_name: "Successful Login, Invalid Password, Network Timeout"
-  initial_conditions: "User is on login page, Database is available, User has valid account"
-  action_or_event: "User enters credentials, User clicks submit, System validates input"
-  expected_outcome: "User is logged in, Error message displayed, Success confirmation shown"
+   project_name: "E-commerce Platform, Mobile App, API Gateway"
+   version_number: "1.0, 2.1, 3.0-beta"
+   feature_name: "User Registration, Payment Processing, Search Functionality"
+   requirement_id: "REQ-001, REQ-PERF-001, REQ-SEC-001"
+   user_story: "US-001, US-002, US-003"
+   scenario_name: "Successful Login, Invalid Password, Network Timeout"
+   initial_conditions: "User is on login page, Database is available, User has valid account"
+   action_or_event: "User enters credentials, User clicks submit, System validates input"
+   expected_outcome: "User is logged in, Error message displayed, Success confirmation shown"
 
 validation:
-  rules:
+   rules:
     - "Each criterion must be testable and measurable"
     - "All scenarios must have clear Given-When-Then structure"
     - "Acceptance criteria must be specific and verifiable"
     - "Quality gates must include measurable thresholds"
     - "Definition of Done must be comprehensive"
     - "Validation process must include all stakeholder groups"
-  references: ["BASE.template.md#universal-validation-rules"]
+   references: [ "BASE.template.yml#universal-validation-rules" ]

@@ -6,17 +6,17 @@ metadata:
 
 usage:
   description: "Unified template structure and validation system for Agent3D documentation"
-  
+
   common_template_structure:
     standard_sections:
-      - "Format Specification - Document purpose and requirements"
-      - "Template Content - Placeholder structure with {{variables}}"
-      - "Validation - Universal + template-specific rules"
-  
+    - "Format Specification - Document purpose and requirements"
+    - "Template Content - Placeholder structure with {{variables}}"
+    - "Validation - Universal + template-specific rules"
+
   universal_variables:
-    - "{{document_title}}, {{document_purpose}}, {{project_name}}"
-    - "{{author}}, {{creation_date}}, {{last_updated}}, {{version}}"
-  
+  - "{{document_title}}, {{document_purpose}}, {{project_name}}"
+  - "{{author}}, {{creation_date}}, {{last_updated}}, {{version}}"
+
   date_commands_critical:
     rule: "ALWAYS use date +%Y-%m-%d for creation_date and last_updated"
     warning: "NEVER use LLM knowledge for dates - use system commands only"
@@ -84,19 +84,19 @@ variable_reference:
     creation_date: "Creation timestamp (USE: date +%Y-%m-%d)"
     last_updated: "Last update timestamp (USE: date +%Y-%m-%d)"
     version: "Document version"
-  
+
   content_structure:
     module_name: "Organizational structure"
     sub_module_name: "Organizational structure"
     content_section_title: "Dynamic section naming"
     main_content: "Primary content area"
     additional_validation_rules: "Template-specific validation"
-  
+
   language_specific:
     language: "Programming language for code blocks"
     installation_commands: "Language-specific installation"
     code_example: "Language-specific code examples"
-  
+
   project_specific:
     feature_name: "Feature documentation"
     feature_description: "Feature documentation"
@@ -105,54 +105,54 @@ variable_reference:
 
 universal_validation_rules:
   all_templates_must:
-    - "Follow Common Procedures for common validation checklist"
-    - "Replace ALL {{placeholders}} with actual content"
-    - "Remove <template> and <example> tags"
-    - "Use ## Groups / ### Sub-Groups structure"
-    - "Include functional links and single-line entries"
-    - "Mark [x] only with verifiable evidence"
+  - "Follow Common Procedures for common validation checklist"
+  - "Replace ALL {{placeholders}} with actual content"
+  - "Remove <template> and <example> tags"
+  - "Use ## Groups / ### Sub-Groups structure"
+  - "Include functional links and single-line entries"
+  - "Mark [x] only with verifiable evidence"
 
 template_specific_validation:
   documentation_templates:
     description: "FEATURES, REQUIREMENTS, TASKS, etc."
     rules:
-      - "Format Compliance: Follow specified format patterns exactly"
-      - "Priority Organization: Use High/Medium/Low/Completed structure where applicable"
-      - "Status Indicators: Use [x]/[ ]/[~] consistently"
-      - "Functional Grouping: Organize content by logical functional areas"
-      - "Completion Criteria: Include clear acceptance criteria for each item"
-  
+    - "Format Compliance: Follow specified format patterns exactly"
+    - "Priority Organization: Use High/Medium/Low/Completed structure where applicable"
+    - "Status Indicators: Use [x]/[ ]/[~] consistently"
+    - "Functional Grouping: Organize content by logical functional areas"
+    - "Completion Criteria: Include clear acceptance criteria for each item"
+
   design_templates:
     description: "HIGH-LEVEL-DESIGN, DETAILED-DESIGN, etc."
     rules:
-      - "Architecture Clarity: Clear system architecture and component relationships"
-      - "Technical Accuracy: All technical specifications are accurate and testable"
-      - "Diagram Validation: All diagrams render correctly and support the text"
-      - "Interface Documentation: All APIs and interfaces properly documented"
-  
+    - "Architecture Clarity: Clear system architecture and component relationships"
+    - "Technical Accuracy: All technical specifications are accurate and testable"
+    - "Diagram Validation: All diagrams render correctly and support the text"
+    - "Interface Documentation: All APIs and interfaces properly documented"
+
   process_templates:
     description: "EXEC-PLAN, etc."
     rules:
-      - "Step Sequencing: Logical step-by-step progression"
-      - "Checkpoint Definition: Clear checkpoints and verification criteria"
-      - "Risk Assessment: Identified risks with mitigation strategies"
-      - "Resource Planning: Required resources and dependencies identified"
-  
+    - "Step Sequencing: Logical step-by-step progression"
+    - "Checkpoint Definition: Clear checkpoints and verification criteria"
+    - "Risk Assessment: Identified risks with mitigation strategies"
+    - "Resource Planning: Required resources and dependencies identified"
+
   user_focused_templates:
     description: "USER-STORIES, USER-JOURNEY-MAP, etc."
     rules:
-      - "User Perspective: Written from user's point of view"
-      - "Acceptance Criteria: Clear, testable acceptance criteria"
-      - "Journey Mapping: Logical user flow and interaction patterns"
-      - "Persona Alignment: Content aligns with defined user personas"
+    - "User Perspective: Written from user's point of view"
+    - "Acceptance Criteria: Clear, testable acceptance criteria"
+    - "Journey Mapping: Logical user flow and interaction patterns"
+    - "Persona Alignment: Content aligns with defined user personas"
 
 template_usage_process:
   steps:
-    - "Access: Templates from ~/.agent3d/templates/"
-    - "Replace: All {{placeholders}} with actual content"
-    - "Remove: Template tags before finalizing"
-    - "Validate: Against universal + specific rules"
+  - "Access: Templates from ~/.agent3d/templates/"
+  - "Replace: All {{placeholders}} with actual content"
+  - "Remove: Template tags before finalizing"
+  - "Validate: Against universal + specific rules"
 
 validation:
-  rules: ["See Common Procedures - Template System for complete usage instructions"]
-  references: ["../docs/COMMON-PROCEDURES.md#template-system"]
+  rules: [ "See Common Procedures - Template System for complete usage instructions" ]
+  references: [ "docs/COMMON-PROCEDURES.md#template-system" ]

@@ -6,26 +6,26 @@ metadata:
 
 usage:
   description: "This document must serve as the main entry point for the project"
-  
+
   required_content:
-    - "Clear project title and one-line description"
-    - "Project overview explaining what the project does"
-    - "Key features or benefits"
-    - "Installation/setup instructions (if applicable)"
-    - "Usage examples or getting started guide"
-    - "Links to additional documentation"
-    - "Contributing guidelines"
-    - "License information"
-  
+  - "Clear project title and one-line description"
+  - "Project overview explaining what the project does"
+  - "Key features or benefits"
+  - "Installation/setup instructions (if applicable)"
+  - "Usage examples or getting started guide"
+  - "Links to additional documentation"
+  - "Contributing guidelines"
+  - "License information"
+
   required_sections:
-    - "Project title and description"
-    - "Overview/What it does"
-    - "Key features or benefits"
-    - "Installation/Setup (if applicable)"
-    - "Usage/Getting Started"
-    - "Documentation links"
-    - "Contributing"
-    - "License"
+  - "Project title and description"
+  - "Overview/What it does"
+  - "Key features or benefits"
+  - "Installation/Setup (if applicable)"
+  - "Usage/Getting Started"
+  - "Documentation links"
+  - "Contributing"
+  - "License"
 
 template_content: |
   # {{project_name}} - {{project_description}}
@@ -89,10 +89,10 @@ examples:
 
 validation:
   rules:
-    - "Clear project name/description"
-    - "Complete installation instructions"
-    - "Functional examples"
-    - "Clear contributing guidelines"
-    - "All required sections present"
-    - "Links to documentation are functional"
-  references: ["BASE.template.md#universal-validation-rules"]
+  - "Clear project name/description"
+  - "Complete installation instructions"
+  - "Functional examples"
+  - "Clear contributing guidelines"
+  - "All required sections present"
+  - "Links to documentation are functional"
+  references: [ "BASE.template.yml#universal-validation-rules" ]

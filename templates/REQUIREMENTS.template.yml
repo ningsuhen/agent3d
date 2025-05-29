@@ -7,12 +7,12 @@ metadata:
 usage:
   description: "Template for documenting business and technical requirements"
   sections:
-    - "Business Requirements - objectives, stakeholders, constraints"
-    - "Functional Requirements - core features and integrations"
-    - "Non-Functional Requirements - performance, security, usability"
-    - "Acceptance Criteria - definition of done and quality gates"
-    - "Requirements Traceability - mapping and test coverage"
-    - "Risk Management - assumptions, dependencies, mitigation"
+  - "Business Requirements - objectives, stakeholders, constraints"
+  - "Functional Requirements - core features and integrations"
+  - "Non-Functional Requirements - performance, security, usability"
+  - "Acceptance Criteria - definition of done and quality gates"
+  - "Requirements Traceability - mapping and test coverage"
+  - "Risk Management - assumptions, dependencies, mitigation"
 
 template_content: |
   # Requirements
@@ -204,8 +204,8 @@ examples:
 
 validation:
   rules:
-    - "All REQ-* identifiers must be unique"
-    - "Each requirement must have acceptance criteria"
-    - "Traceability matrices must be complete"
-    - "All placeholders must be replaced"
-  references: ["BASE.template.md#universal-validation-rules"]
+  - "All REQ-* identifiers must be unique"
+  - "Each requirement must have acceptance criteria"
+  - "Traceability matrices must be complete"
+  - "All placeholders must be replaced"
+  references: [ "BASE.template.yml#universal-validation-rules" ]

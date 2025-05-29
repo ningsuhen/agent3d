@@ -3,14 +3,14 @@ metadata:
   type: "template"
   format: "markdown_content_with_yaml_metadata"
   purpose: "Template for docs/FEATURES.md - serves as an index of all feature modules"
-  
+
 usage:
   description: "Template for docs/FEATURES.md - serves as an index of all feature modules"
   structure: "Index of feature modules in docs/features/ directory with merged FT-TC structure"
-  
+
   usage_scenarios:
     features_index: "Use this template for the main docs/FEATURES.md file"
-    individual_features: "Use FEATURE-module.template.md for creating section files in docs/features/"
+    individual_features: "Use FEATURE-module.template.yml for creating section files in docs/features/"
 
 template_content: |
   # Features Index
@@ -76,8 +76,8 @@ template_content: |
   - **Validation:** Use drift scanner to verify FT-TC relationships
 
   ### Template Usage:
-  - **Features Index:** Use `templates/FEATURES.template.md`
-  - **New modules:** Use `templates/FEATURE-module.template.md`
+  - **Features Index:** Use `templates/FEATURES.template.yml`
+  - **New modules:** Use `templates/FEATURE-module.template.yml`
 
   ## Code Location Field
 
@@ -88,15 +88,15 @@ template_content: |
   - **Quality Assessment:** Better code review and maintenance capabilities
   - **Drift Detection:** Enhanced accuracy in feature-implementation mapping
 
-  **Documentation:** See [CODE-LOCATION-FIELD.md](CODE-LOCATION-FIELD.md) for complete documentation and examples.
+  **Documentation:** See [CODE-LOCATION-FIELD.md](docs/CODE-LOCATION-FIELD.md) for complete documentation and examples.
 
   ## Related Documentation
 
-  - **[Code Location Field](CODE-LOCATION-FIELD.md)** - Complete guide to the new Code Location field
-  - **[High-Level Design](HIGH-LEVEL-DESIGN.md)** - System architecture and component designs
-  - **[Requirements](REQUIREMENTS.md)** - Functional and non-functional requirements
-  - **[Tasks](TASKS.md)** - Implementation backlog and priorities
-  - **[Common Procedures](COMMON-PROCEDURES.md)** - Feature completion criteria and validation procedures
+  - **[Code Location Field](docs/CODE-LOCATION-FIELD.md)** - Complete guide to the new Code Location field
+  - **[High-Level Design](docs/HIGH-LEVEL-DESIGN.md)** - System architecture and component designs
+  - **[Requirements](docs/REQUIREMENTS.md)** - Functional and non-functional requirements
+  - **[Tasks](docs/TASKS.md)** - Implementation backlog and priorities
+  - **[Common Procedures](docs/COMMON-PROCEDURES.md)** - Feature completion criteria and validation procedures
 
 examples:
   project_name: "Agent3D, MyProject, SystemName"
@@ -108,5 +108,5 @@ examples:
   status_1: "✅ **PRODUCTION**, 🚧 **DEVELOPMENT**, 📋 **PLANNED**"
 
 validation:
-  rules: ["See Base Template System for universal validation rules", "Documentation Templates validation"]
-  references: ["BASE.template.md#universal-validation-rules", "BASE.template.md#documentation-templates-features-requirements-tasks-etc"]
+  rules: [ "See Base Template System for universal validation rules", "Documentation Templates validation" ]
+  references: [ "BASE.template.yml#universal-validation-rules", "BASE.template.yml#documentation-templates-features-requirements-tasks-etc" ]

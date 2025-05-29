@@ -8,23 +8,23 @@ usage:
   description: "This document must provide comprehensive user stories with personas, epics, use cases, and story mapping"
 
   required_content:
-    - "User personas with detailed characteristics and goals"
-    - "Epic stories with business value and user mapping"
-    - "Individual user stories following standard format"
-    - "Use cases with detailed flows and scenarios"
-    - "User journey maps with touchpoints and emotions"
-    - "Story mapping with release planning"
-    - "Story dependencies and relationships"
-    - "Validation criteria for stories and personas"
+  - "User personas with detailed characteristics and goals"
+  - "Epic stories with business value and user mapping"
+  - "Individual user stories following standard format"
+  - "Use cases with detailed flows and scenarios"
+  - "User journey maps with touchpoints and emotions"
+  - "Story mapping with release planning"
+  - "Story dependencies and relationships"
+  - "Validation criteria for stories and personas"
 
   required_sections:
-    - "User Personas - Primary and secondary personas with detailed profiles"
-    - "Epic Stories - High-level epics with associated user stories"
-    - "Use Cases - Detailed use cases with flows and exceptions"
-    - "User Journey Maps - Journey steps with touchpoints and emotions"
-    - "Story Mapping - Release planning with prioritized stories"
-    - "Story Dependencies - Dependency mapping and explanations"
-    - "Validation Criteria - Story and persona validation checklists"
+  - "User Personas - Primary and secondary personas with detailed profiles"
+  - "Epic Stories - High-level epics with associated user stories"
+  - "Use Cases - Detailed use cases with flows and exceptions"
+  - "User Journey Maps - Journey steps with touchpoints and emotions"
+  - "Story Mapping - Release planning with prioritized stories"
+  - "Story Dependencies - Dependency mapping and explanations"
+  - "Validation Criteria - Story and persona validation checklists"
 
 template_content: |
   # User Stories
@@ -250,12 +250,12 @@ examples:
 
 validation:
   checklist:
-    - "Each story follows 'As a... I want... So that...' format"
-    - "Stories are independent and testable"
-    - "Personas are based on real user research"
-    - "Use cases include main and alternative flows"
-    - "Journey maps include emotional aspects"
-    - "Story mapping aligns with release planning"
-    - "Dependencies are clearly documented"
+  - "Each story follows 'As a... I want... So that...' format"
+  - "Stories are independent and testable"
+  - "Personas are based on real user research"
+  - "Use cases include main and alternative flows"
+  - "Journey maps include emotional aspects"
+  - "Story mapping aligns with release planning"
+  - "Dependencies are clearly documented"
 
-  references: ["BASE.template.md#universal-validation-rules"]
+  references: [ "BASE.template.yml#universal-validation-rules" ]
