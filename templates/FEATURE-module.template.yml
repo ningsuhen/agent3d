@@ -3,10 +3,10 @@ metadata:
     type: "template"
     format: "markdown_content_with_yaml_metadata"
     purpose: "Template for docs/features/ section files"
-    version: "2.3.0"
+    version: "2.4.0"
     created: "2025-01-29"
     last_updated: "2025-01-29"
-    new_features: "Prioritized test case selection guidelines, TC-ID preservation for rewrite force mode"
+    new_features: "Prioritized test case selection guidelines, TC-ID optimization for rewrite force mode, comprehensive feature status system"
 
 usage:
     description: "Template for docs/features/ section files"
@@ -21,15 +21,43 @@ usage:
         avoid_testing: "Simple getters/setters, Framework functionality, Obvious implementations, Duplicate scenarios"
         critical_requirement: "MUST analyze feature complexity and risk profile before selecting test cases"
 
-    # PRIORITY 2: TC-ID Preservation (for rewrite force mode)
-    tc_id_preservation:
-        when_rewriting: "ALWAYS preserve existing TC-IDs when regenerating test cases"
-        extraction_required: "Extract all existing TC-#### and TC-####-{a,b,c...} identifiers from original file"
-        mapping_strategy: "Map existing TC-IDs to new test cases based on functionality similarity"
-        new_tc_assignment: "Only assign new TC-IDs for genuinely new test cases not covered by existing ones"
-        validation: "Ensure 1:1 traceability between old and new TC-IDs where functionality remains the same"
+    # PRIORITY 2: TC-ID Optimization (for rewrite force mode)
+    tc_id_optimization:
+        when_rewriting: "Optimize and compress test cases for quality improvement"
+        compression_strategy: "Remove redundant, trivial, or low-value test cases"
+        quality_focus: "Prioritize fewer, higher-quality test cases over comprehensive coverage"
+        intelligent_numbering: "Compress TC-ID sequences and optimize numbering for clarity"
+        decision_framework_application: "Apply selection criteria to determine optimal test case set"
+        documentation: "Document compression decisions and rationale for removed test cases"
 
-    # PRIORITY 3: DDD Framework Compliance
+    # PRIORITY 3: Feature Status System
+    feature_status_system:
+        purpose: "Track feature lifecycle from conception to completion or retirement"
+        status_values: "NEW, PLANNED, IN_DEVELOPMENT, FEATURE_IMPLEMENTED, TEST_IMPLEMENTED, READY, DEPRECATED, ARCHIVED"
+        status_transitions: "Follow logical progression through development lifecycle"
+        archive_implications: "ARCHIVED status allows deletion of associated code if not used by other active features"
+
+        status_definitions:
+            NEW: "Feature just identified/documented, awaiting planning"
+            PLANNED: "Feature approved and scheduled for development"
+            IN_DEVELOPMENT: "Code implementation in progress"
+            FEATURE_IMPLEMENTED: "Code implementation complete, tests pending"
+            TEST_IMPLEMENTED: "Test cases implemented and passing"
+            READY: "Feature fully complete and ready for production use"
+            DEPRECATED: "Feature marked for removal/replacement, still functional"
+            ARCHIVED: "Feature no longer active, code can be safely deleted"
+
+        transition_workflow:
+            typical_flow: "NEW → PLANNED → IN_DEVELOPMENT → FEATURE_IMPLEMENTED → TEST_IMPLEMENTED → READY"
+            retirement_flow: "READY → DEPRECATED → ARCHIVED"
+            skip_allowed: "Can skip statuses if appropriate (e.g., NEW → IN_DEVELOPMENT for urgent fixes)"
+
+        archive_safety_rules:
+            code_deletion_criteria: "Only delete code for ARCHIVED features if not referenced by other non-ARCHIVED features"
+            dependency_check: "Verify no active features depend on ARCHIVED feature code"
+            documentation_retention: "Keep feature documentation even when ARCHIVED for historical reference"
+
+    # PRIORITY 4: DDD Framework Compliance
     ddd_compliance:
         structure: "Follow DDD Procedures for merged FT-TC structure"
         guidelines_reference: "See procedures.yml/test-case-guidelines.yml for comprehensive guidance"
@@ -41,6 +69,7 @@ template_content: |
     <!-- Template Version: {{template_version}} -->
 
     ## FT-{{SECTION}}-001 - {{Feature Name}}
+    - **Status:** {{NEW/PLANNED/IN_DEVELOPMENT/FEATURE_IMPLEMENTED/TEST_IMPLEMENTED/READY/DEPRECATED/ARCHIVED}}
     - **Description:** {{Brief feature description}}
     - **Criteria:** {{Acceptance criteria}}
     - **Dependencies:** {{Related features/requirements}}
@@ -51,7 +80,7 @@ template_content: |
     - **Test Cases:** {{CRITICAL: Use decision framework from procedures.yml/test-case-guidelines.yml - Quality over quantity}}
         {{STEP 1: Analyze feature - Is this core functionality? Error-prone? User-impacting?}}
         {{STEP 2: Apply selection criteria - Always test: Core/Error/Integration/Security, Avoid: Getters/Framework/Obvious/Duplicate}}
-        {{STEP 3: If rewriting existing file, PRESERVE existing TC-IDs and map to similar functionality}}
+        {{STEP 3: If rewriting existing file, COMPRESS and OPTIMIZE test cases - remove redundant/trivial tests}}
         {{STEP 4: Select test cases based on analysis, not arbitrary numbers}}
         - [{{status}}] **TC-{{SECTION}}-001** - {{Core Functionality Test - ALWAYS include}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
         - [{{status}}] **TC-{{SECTION}}-002** - {{Error Condition Test - ALWAYS include}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
@@ -60,6 +89,7 @@ template_content: |
             - [{{status}}] **TC-{{SECTION}}-003b** - {{Sub-test: Same logic, different input - use sparingly}} - {{Boundary/Parameter variation}}
 
     ## FT-{{SECTION}}-002 - {{Feature Name}}
+    - **Status:** {{NEW/PLANNED/IN_DEVELOPMENT/FEATURE_IMPLEMENTED/TEST_IMPLEMENTED/READY/DEPRECATED/ARCHIVED}}
     - **Description:** {{Brief feature description}}
     - **Criteria:** {{Acceptance criteria}}
     - **Dependencies:** {{Related features/requirements}}
@@ -83,6 +113,22 @@ examples:
         SECTION: "SEC/PERF"
         status: "[x]/[~]/[ ]"
         complexity_guidance: "Simple(1-2), Moderate(2-4), Complex(3-6) test cases based on feature complexity"
+
+    feature_status_examples:
+        NEW: "FT-AUTH-003 - Multi-factor Authentication (just identified)"
+        PLANNED: "FT-SEC-002 - Data Encryption (approved for Q2 development)"
+        IN_DEVELOPMENT: "FT-API-001 - REST API Endpoints (code in progress)"
+        FEATURE_IMPLEMENTED: "FT-UI-004 - Dashboard Widget (code complete, tests pending)"
+        TEST_IMPLEMENTED: "FT-DB-001 - Database Migration (code and tests complete)"
+        READY: "FT-CORE-001 - User Authentication (fully complete and deployed)"
+        DEPRECATED: "FT-LEGACY-001 - Old Login System (replaced by FT-CORE-001)"
+        ARCHIVED: "FT-BETA-001 - Beta Feature (removed, code deleted)"
+
+    status_transition_examples:
+        new_feature: "NEW → PLANNED → IN_DEVELOPMENT → FEATURE_IMPLEMENTED → TEST_IMPLEMENTED → READY"
+        urgent_fix: "NEW → IN_DEVELOPMENT → FEATURE_IMPLEMENTED → TEST_IMPLEMENTED → READY"
+        feature_retirement: "READY → DEPRECATED → ARCHIVED"
+        cancelled_feature: "PLANNED → ARCHIVED"
 
     code_location_examples:
         python_class_method: "tools/drift_scanner.py#DriftScanner.analyze_code_locations"
@@ -188,6 +234,95 @@ test_case_selection_framework:
         moderate_features: "2-4 test cases (API endpoints, Data processing, User authentication)"
         complex_features: "3-6 test cases (Multi-step workflows, Integration systems, Advanced algorithms)"
 
+# FEATURE STATUS MANAGEMENT FRAMEWORK
+feature_status_management:
+    purpose: "Comprehensive lifecycle tracking for features from conception to retirement"
+
+    status_definitions:
+        NEW:
+            description: "Feature just identified/documented, awaiting planning"
+            entry_criteria: "Feature documented with basic description"
+            exit_criteria: "Feature approved and scheduled for development"
+            typical_duration: "1-7 days"
+
+        PLANNED:
+            description: "Feature approved and scheduled for development"
+            entry_criteria: "Feature approved, requirements defined, development scheduled"
+            exit_criteria: "Development work begins"
+            typical_duration: "1-30 days"
+
+        IN_DEVELOPMENT:
+            description: "Code implementation in progress"
+            entry_criteria: "Developer assigned, work started"
+            exit_criteria: "Code implementation complete"
+            typical_duration: "1-14 days"
+
+        FEATURE_IMPLEMENTED:
+            description: "Code implementation complete, tests pending"
+            entry_criteria: "Feature code complete and functional"
+            exit_criteria: "Test cases implemented and passing"
+            typical_duration: "1-5 days"
+
+        TEST_IMPLEMENTED:
+            description: "Test cases implemented and passing"
+            entry_criteria: "All test cases implemented and passing"
+            exit_criteria: "Feature ready for production use"
+            typical_duration: "1-3 days"
+
+        READY:
+            description: "Feature fully complete and ready for production use"
+            entry_criteria: "Code complete, tests passing, documentation updated"
+            exit_criteria: "Feature deployed or marked for retirement"
+            typical_duration: "Indefinite (active use)"
+
+        DEPRECATED:
+            description: "Feature marked for removal/replacement, still functional"
+            entry_criteria: "Decision made to retire feature"
+            exit_criteria: "Feature usage eliminated, ready for archival"
+            typical_duration: "30-90 days"
+
+        ARCHIVED:
+            description: "Feature no longer active, code can be safely deleted"
+            entry_criteria: "Feature no longer used, dependencies removed"
+            exit_criteria: "N/A (terminal state)"
+            code_deletion_allowed: true
+
+    transition_rules:
+        allowed_transitions:
+            NEW: [ "PLANNED", "IN_DEVELOPMENT", "ARCHIVED" ]
+            PLANNED: [ "IN_DEVELOPMENT", "ARCHIVED" ]
+            IN_DEVELOPMENT: [ "FEATURE_IMPLEMENTED", "PLANNED", "ARCHIVED" ]
+            FEATURE_IMPLEMENTED: [ "TEST_IMPLEMENTED", "IN_DEVELOPMENT" ]
+            TEST_IMPLEMENTED: [ "READY", "FEATURE_IMPLEMENTED" ]
+            READY: [ "DEPRECATED", "IN_DEVELOPMENT" ]
+            DEPRECATED: [ "ARCHIVED", "READY" ]
+            ARCHIVED: [] # Terminal state
+
+        skip_transitions:
+            emergency_development: "NEW → IN_DEVELOPMENT (for urgent fixes)"
+            cancelled_features: "Any status → ARCHIVED (for cancelled features)"
+            rollback_scenarios: "Any status → previous status (for rollbacks)"
+
+    archive_management:
+        code_deletion_criteria:
+          - "Feature status is ARCHIVED"
+          - "No other non-ARCHIVED features depend on this feature's code"
+          - "Code location analysis confirms safe deletion"
+          - "Backup/version control retains code history"
+
+        dependency_analysis:
+            check_imports: "Scan codebase for imports/references to feature code"
+            check_features: "Verify no active features list this as dependency"
+            check_tests: "Ensure no active tests depend on this feature's code"
+
+        deletion_process:
+            step_1: "Verify feature is ARCHIVED status"
+            step_2: "Run dependency analysis to confirm safe deletion"
+            step_3: "Create backup/tag in version control"
+            step_4: "Delete code files and associated tests"
+            step_5: "Update documentation to reflect code deletion"
+            step_6: "Update feature status with deletion timestamp"
+
 # TC-ID PRESERVATION FOR REWRITE FORCE MODE
 tc_id_preservation_framework:
     critical_requirement: "ALWAYS preserve existing TC-IDs when regenerating test cases in rewrite force mode"
@@ -242,8 +377,15 @@ validation:
       - "Sub-tests used only for same logic with different inputs"
 
     tc_id_validation:
-      - "Existing TC-IDs preserved when rewriting files (force mode)"
-      - "1:1 traceability maintained between old and new TC-IDs"
-      - "New TC-IDs only assigned for genuinely new functionality"
-      - "TC-ID numbering sequence consistent within section"
-      - "No TC-ID loss without documented rationale"
+      - "TC-ID optimization improves quality while maintaining coverage"
+      - "Test case compression follows decision framework"
+      - "Redundant and trivial test cases removed"
+      - "TC-ID numbering sequence optimized for clarity"
+      - "Compression decisions documented with rationale"
+
+    feature_status_validation:
+      - "Feature status is one of the defined valid statuses"
+      - "Status transitions follow allowed transition rules"
+      - "ARCHIVED features have dependency analysis completed"
+      - "Status changes are documented with rationale"
+      - "Code deletion only occurs for ARCHIVED features with no dependencies"

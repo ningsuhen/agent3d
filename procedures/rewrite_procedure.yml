@@ -1,17 +1,14 @@
 metadata:
   name: "Rewrite Files Procedure"
-  version: "2.2.0"
-  purpose: "Systematic loop workflow for large-scale file refactoring using DDD methodologies with intelligent version tracking"
-  approach: "Pure LLM-based rewriting without programming language execution"
-  scope: "Any file type - documentation, test files, configuration files, source code"
+  version: "2.3.0"
+  purpose: "Automated file refactoring with DDD methodologies, test case optimization, and feature status management"
+  approach: "Pure LLM-based rewriting with zero confirmation"
+  scope: "Documentation, test files, configuration files, source code"
   created: "2025-01-29"
   last_updated: "2025-01-29"
-  new_features: "Template version tracking, intelligent rewrite detection, --force flag support, memorization requirements for exec plan mode, zero confirmation fully automated execution"
+  features: "Version tracking, TC-ID optimization, test case compression, feature status system, zero confirmation automation"
 
-description: |
-  A comprehensive procedure for systematically rewriting files using DDD methodologies and templates.
-  This procedure implements a backup-and-rewrite loop workflow that processes directories of files
-  one at a time, ensuring quality improvements while maintaining safety through backups.
+description: "Automated backup-and-rewrite loop for systematic file quality improvement using DDD templates and intelligent test case optimization."
 
 core_principles:
 - "ONE FILE AT A TIME: Process only one file per iteration"
@@ -327,10 +324,18 @@ execution_phases:
   rewrite:
     action: "apply_cached_template_to_original_content_or_convert_format"
     approach: "pure_llm_analysis_and_generation"
-    preserve: "all_factual_information_technical_details_references"
+    preserve: "factual_information_technical_details_references_but_regenerate_test_cases"
     improve: "structure_clarity_template_compliance"
 
     template_compliance: "follow_cached_template_format_exactly"
+
+    # Critical Test Case Regeneration Rules
+    test_case_regeneration_requirements:
+      critical_rule: "ALWAYS regenerate test cases from scratch using memorized decision framework"
+      preserve_attributes: "Feature descriptions, criteria, dependencies, impact, code location, related features"
+      regenerate_completely: "All test case bullets under **Test Cases:** section"
+      decision_framework_application: "Apply memorized test case selection guidelines to generate new test cases"
+      tc_id_handling: "Preserve existing TC-IDs but regenerate test case names and descriptions based on analysis"
 
     version_tracking_requirements:
       template_version_injection: "ALWAYS include <!-- Template Version: {template.version} --> comment in generated files"
@@ -338,10 +343,11 @@ execution_phases:
       format: "<!-- Template Version: X.X.X -->"
       critical: "Version tracking is MANDATORY for all generated files"
 
-    # TC-ID Preservation for Feature Documentation
-    tc_id_preservation_requirements:
+    # TC-ID Management for Feature Documentation
+    tc_id_management_requirements:
       when_applicable: "Feature documentation files containing TC-#### identifiers"
-      critical_rule: "ALWAYS preserve existing TC-IDs when regenerating test cases in force mode"
+      approach: "Intelligent TC-ID compression and optimization based on quality analysis"
+      critical_rule: "Optimize test cases using decision framework - preserve, compress, or regenerate as needed"
 
       extraction_phase:
         step_1: "Scan backup file for all TC-#### patterns (main test cases)"
@@ -349,23 +355,35 @@ execution_phases:
         step_3: "Extract test case names, descriptions, and functionality"
         step_4: "Create TC-ID mapping table: Original TC-ID → Functionality → Status"
 
+      analysis_phase:
+        quality_assessment: "Analyze existing test cases for quality, relevance, and decision framework compliance"
+        compression_opportunities: "Identify redundant, trivial, or framework-testing test cases for removal"
+        optimization_strategy: "Compress test cases to focus on core functionality, error conditions, and integration points"
+        decision_framework_application: "Apply memorized selection criteria to determine optimal test case set"
+
       mapping_phase:
-        preserve_rule: "Map existing TC-IDs to functionally equivalent new test cases"
+        preserve_quality: "Preserve high-quality test cases that align with decision framework"
+        compress_redundant: "Compress or remove redundant, trivial, or low-value test cases"
         functionality_match: "Match based on test purpose and core functionality, not exact wording"
-        sequence_maintenance: "Keep TC-ID numbering sequence intact where possible"
-        new_assignment_rule: "Only assign new TC-IDs for genuinely new functionality not covered by existing tests"
+        sequence_optimization: "Optimize TC-ID numbering sequence for clarity and logical flow"
+        intelligent_assignment: "Assign TC-IDs based on feature complexity analysis and quality criteria"
 
       regeneration_phase:
-        apply_guidelines: "Use memorized test case selection guidelines for new test case generation"
-        preserve_mapping: "Apply TC-ID mapping to maintain traceability"
-        quality_focus: "Follow quality-over-quantity principle while preserving existing TC-IDs"
-        validation: "Ensure 1:1 mapping between old and new TC-IDs for same functionality"
+        apply_guidelines: "Use memorized test case selection guidelines for optimal test case generation"
+        compression_focus: "Compress test cases to essential high-value tests only"
+        quality_over_quantity: "Prioritize fewer, higher-quality test cases over comprehensive coverage"
+        regenerate_content: "COMPLETELY regenerate test case names and descriptions using decision framework"
+        analyze_feature: "Apply feature complexity analysis to determine minimum viable test case set"
+        fresh_generation: "Generate test cases from scratch based on feature analysis, not copying old content"
+        intelligent_numbering: "Assign TC-IDs logically, compressing sequence gaps where appropriate"
+        optimization_validation: "Ensure optimized test cases cover critical functionality with minimal redundancy"
 
       validation_requirements:
-        traceability_check: "Verify all original TC-IDs are accounted for (preserved or documented as removed)"
-        functionality_match: "Confirm preserved TC-IDs map to equivalent functionality"
-        sequence_consistency: "Validate TC-ID numbering remains consistent within section"
-        no_loss_rule: "No existing TC-IDs lost unless functionality is genuinely removed"
+        compression_documentation: "Document TC-ID compression decisions and rationale"
+        functionality_coverage: "Confirm essential functionality is covered by optimized test cases"
+        quality_improvement: "Validate that compressed test cases represent quality improvement"
+        decision_framework_compliance: "Ensure all remaining test cases align with memorized selection criteria"
+        compression_rationale: "Document why specific test cases were removed or compressed"
 
     # Special handling for template conversion
     template_conversion_rules:
@@ -413,23 +431,27 @@ execution_phases:
     check: "template_compliance_syntax_correctness_required_sections"
     pass_criteria: "all_validation_checks_successful"
 
-    # TC-ID Preservation Validation
-    tc_id_preservation_validation:
+    # TC-ID Optimization Validation
+    tc_id_optimization_validation:
       when: "feature documentation files with TC-#### identifiers"
       critical_checks:
-      - "all_original_tc_ids_accounted_for"
-      - "preserved_tc_ids_map_to_equivalent_functionality"
-      - "tc_id_numbering_sequence_consistent"
-      - "no_tc_id_loss_without_documented_rationale"
+      - "test_case_compression_improves_quality"
+      - "essential_functionality_coverage_maintained"
+      - "decision_framework_compliance_achieved"
+      - "redundant_trivial_tests_removed"
       - "test_case_selection_follows_memorized_guidelines"
       - "quality_over_quantity_principle_applied"
+      - "compression_decisions_documented"
 
       validation_process:
-        step_1: "Compare original TC-IDs from backup with new file TC-IDs"
-        step_2: "Verify functionality mapping for preserved TC-IDs"
-        step_3: "Validate new TC-IDs only assigned for new functionality"
-        step_4: "Check test case selection follows decision framework"
-        step_5: "Confirm no arbitrary test case quantity targets"
+        step_1: "Analyze compression decisions and quality improvements"
+        step_2: "Verify essential functionality coverage in optimized test cases"
+        step_3: "Validate decision framework compliance for all remaining test cases"
+        step_4: "Confirm removal of redundant, trivial, or low-value test cases"
+        step_5: "Check that test case compression improves overall quality"
+        step_6: "Verify test case content is regenerated, not copied from original"
+        step_7: "Confirm test cases reflect feature complexity analysis"
+        step_8: "Validate compression rationale is documented"
 
     # Special validation for template conversion
     template_conversion_validation:
@@ -593,10 +615,10 @@ quality_gates:
     threshold: "100%"
     critical: true
     description: "All generated files must include template version comment"
-  - name: "tc_id_preservation_accuracy"
-    threshold: "100%"
+  - name: "tc_id_optimization_quality"
+    threshold: "95%"
     critical: true
-    description: "All existing TC-IDs preserved or documented when rewriting feature files"
+    description: "Test case compression and optimization improves quality while maintaining coverage"
   - name: "test_case_selection_quality"
     threshold: "95%"
     critical: true
