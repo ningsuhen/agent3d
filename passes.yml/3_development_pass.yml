@@ -215,3 +215,13 @@ code_location_requirements:
   - "Code Location paths are validated and resolvable"
   - "Code Location format follows project conventions"
   - "Drift scanner code-location mode passes without critical issues"
+
+# Critical Notes
+critical_notes:
+- "ALWAYS create execution plan before implementation"
+- "ALWAYS use YAML format for execution plans"
+- "ALWAYS commit execution plan before starting implementation"
+- "ALWAYS validate Code Location fields before marking complete"
+- "ALWAYS run tests after implementation"
+- "ALWAYS update DDD-STATUS after completion"
+- "ALWAYS update versions when writing template or framework YAML files"

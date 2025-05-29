@@ -341,6 +341,20 @@ integration_points:
 
     rationale: "YAML format provides better machine readability and structured data for LLM processing"
 
+  version_management:
+    requirement: "ALWAYS update versions when writing template or framework YAML files"
+    trigger_files:
+    - "templates/*.template.yml"
+    - "templates/*.template.md"
+    - "templates/index.yml"
+    - "procedures.yml/*.yml"
+    - "passes.yml/*.yml"
+    - "rules.yml/*.yml"
+    - ".agent3d-config.yml"
+    - "AGENT-GUIDELINES.yml"
+    process: "See procedures.yml/version-management.yml for complete workflow"
+    tool: "tools/version_manager.py"
+
   test_case_requirements:
     selection_principle: "Quality over quantity - select test cases based on feature needs and risk"
     tc_id_format: "TC-[A-Z0-9]+-\\d+[a-z]?"

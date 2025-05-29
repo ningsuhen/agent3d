@@ -1,12 +1,12 @@
 metadata:
   name: "Rewrite Files Procedure"
-  version: "2.0.0"
+  version: "2.1.0"
   purpose: "Systematic loop workflow for large-scale file refactoring using DDD methodologies with intelligent version tracking"
   approach: "Pure LLM-based rewriting without programming language execution"
   scope: "Any file type - documentation, test files, configuration files, source code"
   created: "2025-01-29"
   last_updated: "2025-01-29"
-  new_features: "Template version tracking, intelligent rewrite detection, --force flag support"
+  new_features: "Template version tracking, intelligent rewrite detection, --force flag support, memorization requirements for exec plan mode"
 
 description: |
   A comprehensive procedure for systematically rewriting files using DDD methodologies and templates.
@@ -26,18 +26,129 @@ core_principles:
 - "VERSION TRACKING: Check template versions before rewriting to prevent unnecessary operations"
 - "FORCE OVERRIDE: Support --force flag to bypass version checking when needed"
 - "INTELLIGENT SKIPPING: Skip files that are already up-to-date unless forced"
+- "MEMORIZATION REQUIRED: For exec plan mode, memorize necessary templates and procedures before execution"
 
-workflow_pattern: "EXEC-PLAN → LOOP(VERSION-CHECK → BACKUP → REWRITE → VERIFY → CLEANUP)"
+workflow_pattern: "MEMORIZE → EXEC-PLAN → LOOP(VERSION-CHECK → BACKUP → REWRITE → VERIFY → CLEANUP)"
+
+# Memorization Requirements for Exec Plan Mode
+memorization_requirements:
+  description: "Before creating execution plans, agents must memorize key templates and procedures to ensure consistent, high-quality rewriting"
+
+  when_required:
+  - "exec_plan_mode: true"
+  - "target_scope involves feature documentation"
+  - "target_scope involves test case documentation"
+  - "target_scope involves template conversion"
+  - "any rewrite operation requiring template compliance"
+
+  critical_templates:
+    feature_module_template:
+      location: "templates/FEATURE-module.template.yml"
+      purpose: "Feature documentation structure and test case integration"
+      memorize_sections:
+      - "template_content: Complete template structure with placeholders"
+      - "examples: Code location examples and replacement patterns"
+      - "critical_rules: Code location rules and correct/wrong examples"
+      - "code_location_discovery: Steps for finding unknown code locations"
+      - "framework_classification: Testing approach based on code type"
+      - "test_guidelines: Reference to test case selection principles"
+      critical_for: "Feature documentation rewriting, FT-TC structure compliance"
+
+    test_case_guidelines:
+      location: "procedures.yml/test-case-guidelines.yml"
+      purpose: "Judicious test case selection and sub-test implementation"
+      memorize_sections:
+      - "philosophy: Quality over quantity principle"
+      - "selection_criteria: Always test, consider testing, avoid testing"
+      - "feature_complexity: Simple(1-2), Moderate(2-4), Complex(3-6) ranges"
+      - "sub_test_guidelines: When to use/not use sub-tests"
+      - "decision_framework: Test case and sub-test decision trees"
+      - "implementation_examples: Good vs poor sub-test usage patterns"
+      - "tc_identifier_placement: Allowed and forbidden locations"
+      critical_for: "Test case selection, sub-test implementation, TC ID mapping"
+
+    templates_procedure:
+      location: "procedures.yml/templates.yml"
+      purpose: "Template usage workflow and validation standards"
+      memorize_sections:
+      - "template_usage: Process steps and placeholder replacement rules"
+      - "ddd_workflow: SCAN → DRAFT → ASK → SYNC → CONFIRM workflow"
+      - "format_requirements: YAML-only requirements for DDD-STATUS and EXEC-PLAN"
+      - "validation_checklist: Structure and drift validation requirements"
+      - "best_practices: Template handling and format consistency"
+      critical_for: "Template compliance, workflow execution, format standards"
+
+  supporting_templates:
+    exec_plan_template:
+      location: "templates/EXEC-PLAN.template.yml"
+      purpose: "Execution plan structure and progress tracking"
+      memorize_sections: [ "metadata structure", "checkpoint format", "validation criteria" ]
+      when_needed: "Creating execution plans for any rewrite operation"
+
+    ddd_status_template:
+      location: "templates/DDD-STATUS.template.yml"
+      purpose: "DDD status tracking and pass execution"
+      memorize_sections: [ "status format", "pass tracking", "completion criteria" ]
+      when_needed: "DDD pass execution and status updates"
+
+    base_template:
+      location: "templates/BASE.template.yml"
+      purpose: "Universal validation rules and template standards"
+      memorize_sections: [ "universal validation rules", "template compliance standards" ]
+      when_needed: "All template-based rewriting operations"
+
+  memorization_process:
+    step_1:
+      action: "Identify target scope and determine required templates"
+      validation: "Check target_scope against memorization_requirements.when_required"
+
+    step_2:
+      action: "Load and memorize critical templates based on scope"
+      method: "Use view tool to read complete template files"
+      focus: "Pay special attention to memorize_sections for each template"
+
+    step_3:
+      action: "Load and memorize supporting procedures"
+      method: "Use view tool to read complete procedure files"
+      focus: "Understand workflow patterns, validation rules, and best practices"
+
+    step_4:
+      action: "Verify memorization completeness"
+      validation: "Confirm understanding of template structures, rules, and workflows"
+
+    step_5:
+      action: "Proceed with execution plan creation"
+      prerequisite: "All required templates and procedures memorized"
+
+  quality_assurance:
+    memorization_validation:
+    - "Can recite template structure without referring to files"
+    - "Understands placeholder replacement patterns"
+    - "Knows validation rules and quality standards"
+    - "Familiar with workflow patterns and best practices"
+
+    execution_validation:
+    - "Rewritten files comply with memorized template structures"
+    - "Test case selection follows memorized guidelines"
+    - "Code location discovery uses memorized procedures"
+    - "Format requirements match memorized standards"
+
+  benefits:
+    consistency: "All rewritten files follow same high-quality standards"
+    efficiency: "No need to repeatedly reference template files during execution"
+    quality: "Deep understanding of templates leads to better rewriting"
+    compliance: "Ensures adherence to DDD framework requirements"
 
 execution_strategy:
   approach: "execution_plan_driven"
   speed_optimization: "pre_computed_file_list_and_templates"
-  description: "Create execution plan once, then execute fast loop per file"
+  description: "Memorize templates, create execution plan once, then execute fast loop per file"
 
   optimized_workflow:
+    phase_0: "MEMORIZE-TEMPLATES-AND-PROCEDURES (load critical templates and procedures into memory)"
     phase_1: "CREATE-EXEC-PLAN (scan all files, cache templates, generate roadmap)"
     phase_2: "FAST-LOOP per file: BACKUP → REWRITE → VERIFY → CLEANUP"
-    benefits: "Eliminates redundant scanning, template loading, and planning per file"
+    benefits: "Eliminates redundant scanning, template loading, and planning per file; ensures consistent quality through memorized standards"
 
 # Target Scope Configuration (Examples)
 target_scope_examples:
@@ -75,9 +186,27 @@ target_scope_examples:
 
 # Execution Plan Workflow
 execution_phases:
+  memorize_templates_and_procedures:
+    purpose: "Load critical templates and procedures into memory before execution"
+    description: "Prerequisite phase: memorize templates and procedures required for target scope"
+    prerequisite: "Determine target scope and identify required memorization items"
+
+    process:
+      step_1: "Analyze target scope against memorization_requirements.when_required"
+      step_2: "Load critical templates based on scope (feature_module_template, test_case_guidelines, templates_procedure)"
+      step_3: "Load supporting templates as needed (exec_plan_template, ddd_status_template, base_template)"
+      step_4: "Verify memorization completeness before proceeding"
+
+    validation:
+    - "All required templates memorized completely"
+    - "Template structures and rules understood"
+    - "Workflow patterns and best practices internalized"
+    - "Ready to proceed with execution plan creation"
+
   create_exec_plan:
     purpose: "Create comprehensive execution plan for all target files"
     description: "One-time setup: scan directory, identify files, determine templates, create execution roadmap"
+    prerequisite: "memorize_templates_and_procedures phase completed successfully"
 
     exec_plan_format: "YAML"
     exec_plan_location: "~/.agent3d-tmp/"
@@ -198,6 +327,35 @@ execution_phases:
       format: "<!-- Template Version: X.X.X -->"
       critical: "Version tracking is MANDATORY for all generated files"
 
+    # TC-ID Preservation for Feature Documentation
+    tc_id_preservation_requirements:
+      when_applicable: "Feature documentation files containing TC-#### identifiers"
+      critical_rule: "ALWAYS preserve existing TC-IDs when regenerating test cases in force mode"
+
+      extraction_phase:
+        step_1: "Scan backup file for all TC-#### patterns (main test cases)"
+        step_2: "Scan backup file for all TC-####-{a,b,c...} patterns (sub-test cases)"
+        step_3: "Extract test case names, descriptions, and functionality"
+        step_4: "Create TC-ID mapping table: Original TC-ID → Functionality → Status"
+
+      mapping_phase:
+        preserve_rule: "Map existing TC-IDs to functionally equivalent new test cases"
+        functionality_match: "Match based on test purpose and core functionality, not exact wording"
+        sequence_maintenance: "Keep TC-ID numbering sequence intact where possible"
+        new_assignment_rule: "Only assign new TC-IDs for genuinely new functionality not covered by existing tests"
+
+      regeneration_phase:
+        apply_guidelines: "Use memorized test case selection guidelines for new test case generation"
+        preserve_mapping: "Apply TC-ID mapping to maintain traceability"
+        quality_focus: "Follow quality-over-quantity principle while preserving existing TC-IDs"
+        validation: "Ensure 1:1 mapping between old and new TC-IDs for same functionality"
+
+      validation_requirements:
+        traceability_check: "Verify all original TC-IDs are accounted for (preserved or documented as removed)"
+        functionality_match: "Confirm preserved TC-IDs map to equivalent functionality"
+        sequence_consistency: "Validate TC-ID numbering remains consistent within section"
+        no_loss_rule: "No existing TC-IDs lost unless functionality is genuinely removed"
+
     # Special handling for template conversion
     template_conversion_rules:
       when: "target_scope is template_conversion"
@@ -243,6 +401,24 @@ execution_phases:
   validate:
     check: "template_compliance_syntax_correctness_required_sections"
     pass_criteria: "all_validation_checks_successful"
+
+    # TC-ID Preservation Validation
+    tc_id_preservation_validation:
+      when: "feature documentation files with TC-#### identifiers"
+      critical_checks:
+      - "all_original_tc_ids_accounted_for"
+      - "preserved_tc_ids_map_to_equivalent_functionality"
+      - "tc_id_numbering_sequence_consistent"
+      - "no_tc_id_loss_without_documented_rationale"
+      - "test_case_selection_follows_memorized_guidelines"
+      - "quality_over_quantity_principle_applied"
+
+      validation_process:
+        step_1: "Compare original TC-IDs from backup with new file TC-IDs"
+        step_2: "Verify functionality mapping for preserved TC-IDs"
+        step_3: "Validate new TC-IDs only assigned for new functionality"
+        step_4: "Check test case selection follows decision framework"
+        step_5: "Confirm no arbitrary test case quantity targets"
 
     # Special validation for template conversion
     template_conversion_validation:
@@ -382,6 +558,14 @@ quality_gates:
     threshold: "100%"
     critical: true
     description: "All generated files must include template version comment"
+  - name: "tc_id_preservation_accuracy"
+    threshold: "100%"
+    critical: true
+    description: "All existing TC-IDs preserved or documented when rewriting feature files"
+  - name: "test_case_selection_quality"
+    threshold: "95%"
+    critical: true
+    description: "Test case selection follows decision framework and guidelines"
 
   overall_procedure:
   - name: "files_processed_successfully"

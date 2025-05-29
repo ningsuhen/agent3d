@@ -38,7 +38,7 @@
 
 **Passes:** [passes.yml/](passes.yml/) (YAML format for LLM agents), [passes/simplified/](passes/simplified/) (Markdown for humans)
 
-**Supporting:** [docs/designs/](docs/designs/) (component specs), [docs/proposals/](docs/proposals/) (unimplemented features), [rules.yml/](rules.yml/) (language rules YAML), [rules/](rules/) (language rules Markdown), [templates/](templates/) (templates), [procedures.yml/](procedures.yml/) (DDD procedures and guidelines)
+**Supporting:** [docs/designs/](docs/designs/) (component specs), [docs/proposals/](docs/proposals/) (unimplemented features), [rules.yml/](rules.yml/) (language rules YAML), [rules/](rules/) (language rules Markdown), [templates/](templates/) (templates), [procedures.yml/](procedures.yml/) (DDD procedures and guidelines), [tools/](tools/) (version management and utilities)
 
 **Advanced:** [docs/ADVANCED-FEATURES.md](docs/ADVANCED-FEATURES.md), [docs/CONFIGURATION-GUIDE.md](docs/CONFIGURATION-GUIDE.md), [docs/GITHUB-CLI-INTEGRATION.md](docs/GITHUB-CLI-INTEGRATION.md)
 

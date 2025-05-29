@@ -48,3 +48,31 @@ usage_notes:
 - "Apply speed rules consistently across all passes"
 - "ALWAYS use YAML format for DDD-STATUS and EXEC-PLAN files"
 - "Use templates from ~/.agent3d/templates/ for execution tracking"
+- "ALWAYS update versions when writing template or framework YAML files"
+
+file_operations:
+  before_write:
+  - "validate_file_path"
+  - "check_file_permissions"
+  - "backup_if_exists"
+  - "validate_content_format"
+  - "update_version_if_template_or_framework_file"
+
+  version_management:
+    trigger_files:
+    - "templates/*.template.yml"
+    - "templates/*.template.md"
+    - "templates/index.yml"
+    - "procedures.yml/*.yml"
+    - "passes.yml/*.yml"
+    - "rules.yml/*.yml"
+    - ".agent3d-config.yml"
+    - "AGENT-GUIDELINES.yml"
+
+    update_process:
+    - "detect_file_category"
+    - "read_current_version"
+    - "determine_change_type"
+    - "increment_version"
+    - "update_metadata"
+    - "add_version_comment"

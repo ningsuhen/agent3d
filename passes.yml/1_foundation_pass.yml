@@ -74,6 +74,7 @@ process:
       - action: "save_agent3d_config"
         file: ".agent3d-config.yml"
         critical: true
+        version_management: "update_config_version_before_save"
       - action: "memorize_entire_config"
         requirement: "IMMEDIATELY_MEMORIZE_ENTIRE_NEW_CONFIG"
         critical: true

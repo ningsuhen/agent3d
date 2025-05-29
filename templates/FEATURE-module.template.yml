@@ -3,16 +3,37 @@ metadata:
     type: "template"
     format: "markdown_content_with_yaml_metadata"
     purpose: "Template for docs/features/ section files"
-    version: "2.2.0"
+    version: "2.3.0"
     created: "2025-01-29"
     last_updated: "2025-01-29"
+    new_features: "Prioritized test case selection guidelines, TC-ID preservation for rewrite force mode"
 
 usage:
     description: "Template for docs/features/ section files"
     naming_convention: "{{section_name}}.md, FT-{{SECTION}}-NNN, TC-{{SECTION}}-NNN"
-    test_strategy: "Follow complexity-based test case selection - see procedures.yml/test-case-guidelines.yml"
-    critical_requirement: "Follow DDD Procedures for merged FT-TC structure"
-    guidelines_reference: "See procedures.yml/test-case-guidelines.yml for comprehensive test case selection and implementation guidance"
+
+    # PRIORITY 1: Test Case Selection Guidelines (CRITICAL)
+    test_case_selection_priority:
+        philosophy: "Quality over quantity - select test cases based on feature needs and risk"
+        decision_framework: "Use procedures.yml/test-case-guidelines.yml decision trees for every test case"
+        complexity_ranges: "Simple(1-2), Moderate(2-4), Complex(3-6) based on feature analysis"
+        always_test: "Core functionality, Error conditions, Integration points, Security boundaries"
+        avoid_testing: "Simple getters/setters, Framework functionality, Obvious implementations, Duplicate scenarios"
+        critical_requirement: "MUST analyze feature complexity and risk profile before selecting test cases"
+
+    # PRIORITY 2: TC-ID Preservation (for rewrite force mode)
+    tc_id_preservation:
+        when_rewriting: "ALWAYS preserve existing TC-IDs when regenerating test cases"
+        extraction_required: "Extract all existing TC-#### and TC-####-{a,b,c...} identifiers from original file"
+        mapping_strategy: "Map existing TC-IDs to new test cases based on functionality similarity"
+        new_tc_assignment: "Only assign new TC-IDs for genuinely new test cases not covered by existing ones"
+        validation: "Ensure 1:1 traceability between old and new TC-IDs where functionality remains the same"
+
+    # PRIORITY 3: DDD Framework Compliance
+    ddd_compliance:
+        structure: "Follow DDD Procedures for merged FT-TC structure"
+        guidelines_reference: "See procedures.yml/test-case-guidelines.yml for comprehensive guidance"
+        template_compliance: "Follow template structure exactly while applying selection criteria"
 
 template_content: |
     # FT-{{SECTION}} - {{Module Title}}
@@ -25,14 +46,18 @@ template_content: |
     - **Dependencies:** {{Related features/requirements}}
     - **Impact:** {{High/Medium/Low}} - {{Impact description}}
     - **Code Location:** {{module.path}}[{{ImportedObject/Class}}] | {{file_path}} | {{N/A for documentation-only}}
-    - **Test Coverage:** {{Select based on complexity: Simple(1-2), Moderate(2-4), Complex(3-6) - see guidelines}}
+    - **Test Coverage:** {{ANALYZE FIRST: Feature complexity (Simple/Moderate/Complex) → Apply decision framework → Select range}}
     - **Related Features:** [FT-{{RELATED_SECTION}}-{{NNN}}]({{related_file}}.md#ft-{{related_section}}-{{nnn}})
-    - **Test Cases:** {{Select test cases based on feature complexity and risk - see procedures.yml/test-case-guidelines.yml}}
-        - [{{status}}] **TC-{{SECTION}}-001** - {{Test Name Based on Selection Criteria}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
-        - [{{status}}] **TC-{{SECTION}}-002** - {{Test Name Based on Selection Criteria}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
-        - [{{status}}] **TC-{{SECTION}}-003** - {{Test Name Based on Selection Criteria}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
-            - [{{status}}] **TC-{{SECTION}}-003a** - {{Sub-test only for parameterized testing}} - {{Same logic, different input}}
-            - [{{status}}] **TC-{{SECTION}}-003b** - {{Sub-test only for parameterized testing}} - {{Same logic, different input}}
+    - **Test Cases:** {{CRITICAL: Use decision framework from procedures.yml/test-case-guidelines.yml - Quality over quantity}}
+        {{STEP 1: Analyze feature - Is this core functionality? Error-prone? User-impacting?}}
+        {{STEP 2: Apply selection criteria - Always test: Core/Error/Integration/Security, Avoid: Getters/Framework/Obvious/Duplicate}}
+        {{STEP 3: If rewriting existing file, PRESERVE existing TC-IDs and map to similar functionality}}
+        {{STEP 4: Select test cases based on analysis, not arbitrary numbers}}
+        - [{{status}}] **TC-{{SECTION}}-001** - {{Core Functionality Test - ALWAYS include}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
+        - [{{status}}] **TC-{{SECTION}}-002** - {{Error Condition Test - ALWAYS include}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
+        - [{{status}}] **TC-{{SECTION}}-003** - {{Additional test based on complexity analysis}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
+            - [{{status}}] **TC-{{SECTION}}-003a** - {{Sub-test: Same logic, different input - use sparingly}} - {{Boundary/Parameter variation}}
+            - [{{status}}] **TC-{{SECTION}}-003b** - {{Sub-test: Same logic, different input - use sparingly}} - {{Boundary/Parameter variation}}
 
     ## FT-{{SECTION}}-002 - {{Feature Name}}
     - **Description:** {{Brief feature description}}
@@ -40,13 +65,17 @@ template_content: |
     - **Dependencies:** {{Related features/requirements}}
     - **Impact:** {{High/Medium/Low}} - {{Impact description}}
     - **Code Location:** {{module.path}}[{{ImportedObject/Class}}] | {{file_path}} | {{N/A for documentation-only}}
-    - **Test Coverage:** {{Select based on complexity: Simple(1-2), Moderate(2-4), Complex(3-6) - see guidelines}}
+    - **Test Coverage:** {{ANALYZE FIRST: Feature complexity (Simple/Moderate/Complex) → Apply decision framework → Select range}}
     - **Related Features:** [FT-{{SECTION}}-001]({{current_file}}.md#ft-{{section}}-001)
-    - **Test Cases:** {{Select test cases based on feature complexity and risk - see procedures.yml/test-case-guidelines.yml}}
-        - [{{status}}] **TC-{{SECTION}}-004** - {{Test Name Based on Selection Criteria}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
-        - [{{status}}] **TC-{{SECTION}}-005** - {{Test Name Based on Selection Criteria}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
-            - [{{status}}] **TC-{{SECTION}}-005a** - {{Sub-test only for parameterized testing}} - {{Same logic, different input}}
-            - [{{status}}] **TC-{{SECTION}}-005b** - {{Sub-test only for parameterized testing}} - {{Same logic, different input}}
+    - **Test Cases:** {{CRITICAL: Use decision framework from procedures.yml/test-case-guidelines.yml - Quality over quantity}}
+        {{STEP 1: Analyze feature - Is this core functionality? Error-prone? User-impacting?}}
+        {{STEP 2: Apply selection criteria - Always test: Core/Error/Integration/Security, Avoid: Getters/Framework/Obvious/Duplicate}}
+        {{STEP 3: If rewriting existing file, PRESERVE existing TC-IDs and map to similar functionality}}
+        {{STEP 4: Select test cases based on analysis, not arbitrary numbers}}
+        - [{{status}}] **TC-{{SECTION}}-004** - {{Core Functionality Test - ALWAYS include}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
+        - [{{status}}] **TC-{{SECTION}}-005** - {{Error Condition Test - ALWAYS include}} ({{Auto/Manual}}, {{H/M/L}}) {{✅/🚧/📋}}
+            - [{{status}}] **TC-{{SECTION}}-005a** - {{Sub-test: Same logic, different input - use sparingly}} - {{Boundary/Parameter variation}}
+            - [{{status}}] **TC-{{SECTION}}-005b** - {{Sub-test: Same logic, different input - use sparingly}} - {{Boundary/Parameter variation}}
 
 examples:
     section_examples: "security.md → FT-SEC-001, performance.md → FT-PERF-001"
@@ -124,17 +153,97 @@ framework_classification:
     documentation_only: "N/A (Description) → Manual validation"
     mixed_implementation: "code_file.py#Class | config.yml → Automated + Schema testing"
 
+# PRIORITIZED TEST CASE SELECTION GUIDELINES
+test_case_selection_framework:
+    core_philosophy: "Quality over quantity - select test cases based on feature needs and risk"
+    reference: "procedures.yml/test-case-guidelines.yml for comprehensive guidance"
+
+    decision_framework:
+        step_1: "Is this core functionality? → YES: Create test case"
+        step_2: "Does failure impact users significantly? → YES: Create test case"
+        step_3: "Is this complex or error-prone logic? → YES: Create test case"
+        step_4: "Is this already covered by other tests? → YES: Skip test case"
+        step_5: "Is this trivial or framework code? → YES: Skip test case"
+
+    selection_criteria:
+        always_test:
+          - "Core functionality (Primary feature behavior and main use cases)"
+          - "Error conditions (Failure modes and edge cases)"
+          - "Integration points (Interfaces with other components)"
+          - "Security boundaries (Authentication, authorization, data validation)"
+
+        consider_testing:
+          - "Complex business logic (Multi-step workflows and complex decision trees)"
+          - "Data transformations (Input/output processing and format conversions)"
+          - "Performance critical paths (Bottlenecks and resource-intensive operations)"
+
+        avoid_testing:
+          - "Simple getters/setters (Trivial property access without logic)"
+          - "Framework functionality (Well-tested third-party code)"
+          - "Obvious implementations (Straightforward logic with no complexity)"
+          - "Duplicate scenarios (Already covered by other tests)"
+
+    complexity_analysis:
+        simple_features: "1-2 test cases (Basic CRUD, Simple validations, Configuration loading)"
+        moderate_features: "2-4 test cases (API endpoints, Data processing, User authentication)"
+        complex_features: "3-6 test cases (Multi-step workflows, Integration systems, Advanced algorithms)"
+
+# TC-ID PRESERVATION FOR REWRITE FORCE MODE
+tc_id_preservation_framework:
+    critical_requirement: "ALWAYS preserve existing TC-IDs when regenerating test cases in rewrite force mode"
+
+    extraction_process:
+        step_1: "Scan original file for all TC-#### patterns (main test cases)"
+        step_2: "Scan original file for all TC-####-{a,b,c...} patterns (sub-test cases)"
+        step_3: "Extract test case names and descriptions for mapping"
+        step_4: "Create mapping table: TC-ID → Functionality → New Test Case"
+
+    mapping_strategy:
+        preserve_existing: "Map existing TC-IDs to functionally equivalent new test cases"
+        functionality_match: "Match based on test purpose, not exact wording"
+        maintain_sequence: "Keep TC-ID numbering sequence intact where possible"
+        new_assignments: "Only assign new TC-IDs for genuinely new functionality"
+
+    validation_requirements:
+        traceability: "Ensure 1:1 mapping between old and new TC-IDs for same functionality"
+        no_loss: "No existing TC-IDs should be lost unless functionality is removed"
+        documentation: "Document any TC-ID changes with clear rationale"
+        consistency: "Maintain consistent TC-ID patterns within the section"
+
+    example_mapping:
+        original: "TC-AUTH-001 - User Login Validation"
+        preserved: "TC-AUTH-001 - Core Authentication Functionality (preserved from original)"
+        rationale: "Same core functionality, TC-ID preserved for traceability"
+
 test_guidelines:
     reference: "See procedures.yml/test-case-guidelines.yml for comprehensive test case selection and implementation guidance"
     key_principle: "Quality over quantity - select test cases based on feature complexity and risk"
+    critical_process: "ALWAYS use decision framework and preserve TC-IDs in rewrite mode"
 
 post_creation:
     steps:
-      - "Replace placeholders"
+      - "Apply test case selection framework and decision trees"
+      - "If rewriting: Extract and preserve existing TC-IDs"
+      - "Replace placeholders with analyzed values"
       - "Remove template tags"
+      - "Validate TC-ID consistency and traceability"
       - "Update docs/FEATURES.md"
-      - "Run drift scanner"
+      - "Run drift scanner to verify TC-ID mapping"
 
 validation:
     rules: [ "See Base Template System for universal validation rules" ]
     references: [ "BASE.template.yml#universal-validation-rules" ]
+
+    test_case_validation:
+      - "All test cases follow decision framework from procedures.yml/test-case-guidelines.yml"
+      - "Test case selection based on feature complexity analysis, not arbitrary numbers"
+      - "Core functionality and error conditions always tested"
+      - "Trivial and framework functionality avoided"
+      - "Sub-tests used only for same logic with different inputs"
+
+    tc_id_validation:
+      - "Existing TC-IDs preserved when rewriting files (force mode)"
+      - "1:1 traceability maintained between old and new TC-IDs"
+      - "New TC-IDs only assigned for genuinely new functionality"
+      - "TC-ID numbering sequence consistent within section"
+      - "No TC-ID loss without documented rationale"
