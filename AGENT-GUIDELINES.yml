@@ -107,10 +107,14 @@ pass_execution:
 
   # Dual-Mode Execution Support
   execution_modes:
-    full:
-      description: "Complete pass execution with comprehensive workflow"
-      phases: [ "scan", "draft", "ask", "sync", "confirm" ]
+    complete:
+      description: "Complete pass execution with comprehensive workflow and fresh start"
+      phases: [ "clean", "memorize", "scan", "draft", "ask", "sync", "confirm" ]
       use_cases: [ "new projects", "major changes", "comprehensive reviews" ]
+      fresh_start_protocol:
+        ddd_status_cleaning: "echo '' > .agent3d-tmp/DDD-STATUS.yml"
+        config_memorization: "memorize_.agent3d-config.yml_and_language_rules"
+        baseline_establishment: "start_from_scratch_with_clean_slate"
 
     incremental:
       description: "Targeted updates with streamlined workflow"
@@ -140,12 +144,30 @@ pass_execution:
   execution_steps:
   - "analyze_user_request_against_indicators"
   - "detect_appropriate_execution_mode"
+  - "if_complete_mode_execute_fresh_start_protocol"
   - "select_appropriate_pass_from_registry"
   - "load_pass_configuration_from_yaml_file"
   - "validate_prerequisites_and_conditions"
   - "execute_workflow_phases_for_selected_mode"
   - "validate_quality_gates_completion"
   - "determine_next_pass_if_applicable"
+  # Complete Mode Fresh Start Protocol
+  fresh_start_protocol:
+    phase_1_clean:
+      action: "echo '' > .agent3d-tmp/DDD-STATUS.yml"
+      purpose: "Empty existing DDD status for fresh evaluation"
+
+    phase_2_memorize:
+      actions:
+      - "memorize_entire_.agent3d-config.yml_contents"
+      - "memorize_applicable_language_rules_from_rules.yml"
+      - "memorize_identifier_patterns_and_file_mappings"
+      - "memorize_git_workflow_and_quality_settings"
+      purpose: "Establish configuration baseline for consistent behavior"
+
+    phase_3_baseline:
+      action: "establish_fresh_evaluation_baseline"
+      purpose: "Start evaluation from clean slate with memorized configuration"
 
 # Standard Workflow Pattern (used by all passes)
 standard_workflow:
@@ -178,6 +200,16 @@ memory_patterns:
   - "enabled_passes_list"
   - "git_workflow_settings"
   - "quality_thresholds"
+  - "applicable_language_rules_from_rules.yml"
+  # Configuration Memorization Protocol
+  config_memorization:
+    trigger: "complete_mode_pass_execution"
+    requirements:
+    - "memorize_entire_.agent3d-config.yml_contents"
+    - "memorize_project_language_rules_from_rules.yml"
+    - "memorize_identifier_patterns_and_file_mappings"
+    - "memorize_git_workflow_and_expert_coordination_settings"
+    update_frequency: "when_config_changes"
 
   decision_shortcuts:
     no_config: "foundation_pass"
@@ -235,9 +267,18 @@ usage_instructions:
   - "establish_project_context"
   - "cache_critical_configurations"
 
+  complete_mode_initialization:
+  - "execute_fresh_start_protocol_if_complete_mode"
+  - "clean_ddd_status_with_echo_command"
+  - "memorize_entire_agent3d_config_yml"
+  - "memorize_applicable_language_rules"
+  - "establish_fresh_evaluation_baseline"
+
   decision_making_process:
   - "analyze_user_request"
   - "match_against_task_categories"
+  - "detect_execution_mode_complete_or_incremental"
+  - "execute_fresh_start_protocol_if_complete_mode"
   - "select_appropriate_pass"
   - "load_pass_file_for_detailed_execution"
   - "execute_workflow_phases"
