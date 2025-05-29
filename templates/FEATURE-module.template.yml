@@ -3,14 +3,14 @@ metadata:
     type: "template"
     format: "markdown_content_with_yaml_metadata"
     purpose: "Template for docs/features/ section files"
-    version: "2.1.0"
+    version: "2.2.0"
     created: "2025-01-29"
     last_updated: "2025-01-29"
 
 usage:
     description: "Template for docs/features/ section files"
     naming_convention: "{{section_name}}.md, FT-{{SECTION}}-NNN, TC-{{SECTION}}-NNN"
-    test_strategy: "5-8 test cases per feature. Sub-tests ONLY for parameterized testing (same logic, different parameters)"
+    test_strategy: "Select test cases judiciously based on feature complexity and risk. Sub-tests only when testing same logic with different parameters. Quality over quantity."
     critical_requirement: "Follow DDD Procedures for merged FT-TC structure"
 
 template_content: |

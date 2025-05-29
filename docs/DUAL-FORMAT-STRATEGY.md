@@ -16,8 +16,7 @@ The DDD framework maintains two parallel formats:
 ├── passes/simplified/       # Human-readable pass documentation
 ├── rules.yml/              # LLM-optimized language rules
 ├── rules/                  # Human-readable language rules
-├── templates/          # LLM tracking templates
-└── templates/              # Human documentation templates
+└── templates/              # Unified templates (YAML and Markdown)
 ```
 
 ## When to Use Each Format

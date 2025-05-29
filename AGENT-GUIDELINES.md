@@ -54,6 +54,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 | **Real Tests** | **CRITICAL**: Tests MUST import and call actual project code - never test only mock data |
 | **Project Code Testing** | **CRITICAL**: Every test must import from project source and call project functions |
 | **Integration Focus** | Prefer integration tests over pure unit tests; avoid mocks except for external APIs |
+| **Judicious Testing** | **CRITICAL**: Select test cases based on feature needs and risk - quality over quantity |
 | **Full Traceability** | Link requirements (`REQ-####`) to features to test cases (`TC-####`) |
 | **Requirements Validation** | Ensure all features trace back to business objectives |
 | **Fast Feedback** | Run critical tests in CI |

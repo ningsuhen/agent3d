@@ -91,6 +91,11 @@ feature_format:
     main_test: "- [x] **TC-CORE-001** - Test Name (Automated, High) ✅ **PRODUCTION**"
     sub_test: "    - [x] **TC-CORE-001a** - Sub-test Name - Detailed test description"
 
+  test_case_selection:
+    principle: "Quality over quantity - select test cases based on feature needs and risk"
+    guidelines: "See docs/TEST-CASE-SELECTION-GUIDELINES.md for comprehensive guidance"
+    sub_test_usage: "Use sub-tests only for parameterized testing (same logic, different inputs)"
+
   status_indicators:
     completed: "[x]"
     in_progress: "[~]"

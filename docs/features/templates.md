@@ -5,7 +5,7 @@
 - **Criteria:** Complete template system with inheritance, validation, and intelligent selection
 - **Dependencies:** Template processing engine, project analysis tools
 - **Impact:** High - Documentation automation
-- **Code Location:** templates/ | templates/
+- **Code Location:** templates/
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-TMPL-002](templates.md#ft-tmpl-002) (Simple Template Access), [FT-TMPL-003](templates.md#ft-tmpl-003) (Validation Framework)
 - **Test Cases:**
@@ -29,7 +29,7 @@
 - **Criteria:** All templates accessible from ~/.agent3d/templates/ directory
 - **Dependencies:** Local repository structure, file system access
 - **Impact:** Medium - Template accessibility
-- **Code Location:** templates/ | templates/
+- **Code Location:** templates/
 - **Test Coverage:** 3 test cases, 9 sub-tests
 - **Related Features:** [FT-CORE-001](core.md#ft-core-001) (Agent Guideline Protocol), [FT-TMPL-001](templates.md#ft-tmpl-001) (Template Engine)
 - **Test Cases:**

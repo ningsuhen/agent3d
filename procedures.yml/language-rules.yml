@@ -93,6 +93,8 @@ testing_requirements:
   - "Import actual project code (not just mocks)"
   - "Test real functionality, not just assertions"
   - "Maintain 1:1 TC ID to test mapping"
+  - "Select test cases judiciously based on feature needs and risk"
+  - "Use sub-tests only for parameterized testing (same logic, different inputs)"
 
   language_specific:
     python:

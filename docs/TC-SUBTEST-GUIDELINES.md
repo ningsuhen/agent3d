@@ -1,5 +1,7 @@
 # Test Case and Sub-Test Guidelines
 
+**⚠️ IMPORTANT: Use test cases and sub-tests judiciously. Quality over quantity. See [Test Case Selection Guidelines](TEST-CASE-SELECTION-GUIDELINES.md) for comprehensive guidance.**
+
 ## 🧪 Test Case Hierarchy and Mapping
 
 ### Test Case Structure
