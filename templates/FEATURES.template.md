@@ -1,36 +1,107 @@
-# Features Template
+# Features Index Template
 
-**NEW STRUCTURE:** As of 2025-01-27, Agent3D uses merged FT-TC structure in `docs/features/` directory.
+**PURPOSE:** Template for `docs/FEATURES.md` - serves as an index of all feature modules.
+
+**STRUCTURE:** Index of feature modules in `docs/features/` directory with merged FT-TC structure.
 
 **USAGE:**
-- **Individual features:** Use this template for adding features to existing section files
-- **New modules:** Use `FEATURE-module.template.md` for creating new section files
-
-**FORMAT:** Merged FT-TC structure with features and test cases together
-**CRITICAL:** Follow completion criteria from [Common Procedures](../docs/COMMON-PROCEDURES.md#merged-ft-tc-structure-new).
+- **Features Index:** Use this template for the main `docs/FEATURES.md` file
+- **Individual features:** Use `FEATURE-module.template.md` for creating section files in `docs/features/`
 
 <template>
-## {{ft_id}} - {{feature_name}}
-- **Description:** {{brief_description}}
-- **Criteria:** {{acceptance_criteria}}
-- **Dependencies:** {{related_features_or_requirements}}
-- **Impact:** {{high_medium_low}} - {{impact_description}}
-- **Test Coverage:** {{test_count}} test cases, {{subtest_count}} sub-tests
-- **Related Features:** [{{related_ft_id}}]({{section_file}}#{{anchor}}) ({{relationship_description}})
-- **Test Cases:**
-    - [{{status}}] **{{tc_id}}** - {{test_name}} ({{test_type}}, {{priority}}) {{production_status}}
-        - [{{status}}] **{{tc_sub_id}}** - {{sub_test_name}} - {{detailed_test_description}}
-        - [{{status}}] **{{tc_sub_id}}** - {{sub_test_name}} - {{detailed_test_description}}
-    - [{{status}}] **{{tc_id}}** - {{test_name}} ({{test_type}}, {{priority}}) {{production_status}}
+# Features Index
+
+This document provides an index of all {{PROJECT_NAME}} features organized by module with FT-* identifiers for traceability.
+
+## Important Note
+
+**{{PROJECT_NAME}} is a {{PROJECT_TYPE}} framework.** {{PROJECT_DESCRIPTION}}
+
+## New Merged FT-TC Structure
+
+**As of {{MIGRATION_DATE}}**, {{PROJECT_NAME}} has migrated to a **merged FT-TC structure** where features and their associated test cases are documented together in modular section files located in `docs/features/`. This replaces the previous separate `FEATURES.md` and `TEST-CASES.md` files.
+
+### Structure Benefits:
+- **Modular Organization:** Features organized by logical sections
+- **Integrated Testing:** Test cases directly associated with their features
+- **Better Traceability:** Clear FT-TC relationships in a single location
+- **Scalability:** Easy to add new feature sections without modifying multiple files
+- **Code Location Linking:** Direct links from features to implementation code for better analysis
+
+### Migration Guide:
+- **Old:** Single `docs/FEATURES.md` file with separate `docs/TEST-CASES.md`
+- **New:** Multiple section files in `docs/features/` directory with merged FT-TC content
+- **Compatibility:** Drift scanner supports both structures with automatic fallback
+
+## Feature Modules
+
+### {{MODULE_CATEGORY_1}}
+- [FT-{{SECTION_1}}](features/{{section_1_file}}.md) - {{Module_1_Title}} ({{feature_count_1}} features) {{status_1}}
+
+### {{MODULE_CATEGORY_2}}
+- [FT-{{SECTION_2}}](features/{{section_2_file}}.md) - {{Module_2_Title}} ({{feature_count_2}} features) {{status_2}}
+
+### {{MODULE_CATEGORY_3}}
+- [FT-{{SECTION_3}}](features/{{section_3_file}}.md) - {{Module_3_Title}} ({{feature_count_3}} features) {{status_3}}
+
+## Quick Reference
+
+- **Total Features:** {{total_features}} features across {{total_modules}} modules
+- **Status:** {{overall_status}}
+- **Documentation:** Each module has detailed feature specifications with test cases
+- **Navigation:** Click any module link above to view detailed features and test cases
+
+## Working with the New Structure
+
+### For Developers:
+```bash
+# View all features by section
+ls docs/features/
+
+# View specific feature section
+cat docs/features/{{example_section}}.md
+
+# Run drift analysis on new structure
+python3 tools/drift_scanner.py --mode ft-mapping
+```
+
+### For Documentation:
+- **Add new features:** Edit appropriate section file in `docs/features/`
+- **Create new sections:** Add new `.md` file in `docs/features/` directory
+- **Test case integration:** Include test cases directly under each feature
+- **Validation:** Use drift scanner to verify FT-TC relationships
+
+### Template Usage:
+- **Features Index:** Use `templates/FEATURES.template.md`
+- **New modules:** Use `templates/FEATURE-module.template.md`
+
+## Code Location Field
+
+**New Enhancement ({{ENHANCEMENT_DATE}}):** All features now include a **Code Location** field that links features to their actual implementation code. This enhancement improves:
+
+- **Feature-Implementation Analysis:** Automated verification of feature-code alignment
+- **Test Writing:** Clear guidance on what code to import and test
+- **Quality Assessment:** Better code review and maintenance capabilities
+- **Drift Detection:** Enhanced accuracy in feature-implementation mapping
+
+**Documentation:** See [CODE-LOCATION-FIELD.md](CODE-LOCATION-FIELD.md) for complete documentation and examples.
+
+## Related Documentation
+
+- **[Code Location Field](CODE-LOCATION-FIELD.md)** - Complete guide to the new Code Location field
+- **[High-Level Design](HIGH-LEVEL-DESIGN.md)** - System architecture and component designs
+- **[Requirements](REQUIREMENTS.md)** - Functional and non-functional requirements
+- **[Tasks](TASKS.md)** - Implementation backlog and priorities
+- **[Common Procedures](COMMON-PROCEDURES.md)** - Feature completion criteria and validation procedures
 </template>
 
 **EXAMPLE VALUES:**
-- `{{ft_id}}`: FT-CORE-001, FT-IMPL-005, FT-LANG-002
-- `{{tc_id}}`: TC-CORE-001, TC-IMPL-005, TC-LANG-002
-- `{{tc_sub_id}}`: TC-CORE-001a, TC-IMPL-005b, TC-LANG-002c
-- `{{status}}`: [x] (completed), [~] (in progress), [ ] (not started)
-- `{{test_type}}`: Automated, Manual, Integration
-- `{{priority}}`: High, Medium, Low
-- `{{production_status}}`: ✅ **PRODUCTION**, 🚧 **DEVELOPMENT**, 📋 **PLANNED**
+- `{{PROJECT_NAME}}`: Agent3D, MyProject, SystemName
+- `{{PROJECT_TYPE}}`: documentation-only, software, configuration
+- `{{MIGRATION_DATE}}`: 2025-01-27, 2024-12-15
+- `{{SECTION_1}}`: CORE, AUTH, API
+- `{{section_1_file}}`: core, authentication, api-endpoints
+- `{{feature_count_1}}`: 3, 5, 8
+- `{{status_1}}`: ✅ **PRODUCTION**, 🚧 **DEVELOPMENT**, 📋 **PLANNED**
 
 **VALIDATION:** See [Base Template System](BASE.template.md#universal-validation-rules) + [Documentation Templates](BASE.template.md#documentation-templates-features-requirements-tasks-etc)

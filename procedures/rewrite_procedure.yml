@@ -1,200 +1,389 @@
 metadata:
-    name: "Rewrite {Feature/Test} Procedure"
-    version: "1.0.0"
-    purpose: "Systematic loop workflow for large-scale refactoring using DDD methodologies"
-    approach: "Pure LLM-based rewriting without programming language execution"
-    scope: "Documentation files, test files, configuration files"
-    created: "2025-01-29"
+  name: "Rewrite Files Procedure"
+  version: "1.0.0"
+  purpose: "Systematic loop workflow for large-scale file refactoring using DDD methodologies"
+  approach: "Pure LLM-based rewriting without programming language execution"
+  scope: "Any file type - documentation, test files, configuration files, source code"
+  created: "2025-01-29"
 
 description: |
-    A comprehensive procedure for systematically rewriting files using DDD methodologies and templates.
-    This procedure implements a backup-and-rewrite loop workflow that processes directories of files
-    one at a time, ensuring quality improvements while maintaining safety through backups.
+  A comprehensive procedure for systematically rewriting files using DDD methodologies and templates.
+  This procedure implements a backup-and-rewrite loop workflow that processes directories of files
+  one at a time, ensuring quality improvements while maintaining safety through backups.
 
 core_principles:
-  - "ONE FILE AT A TIME: Process only one file per iteration"
-  - "BACKUP BEFORE REWRITE: Always create backup before any changes"
-  - "VERIFY BEFORE CLEANUP: Compare content integrity before deleting backup"
-  - "PURE LLM APPROACH: No programming language execution, only text analysis"
-  - "AUTOMATED VERIFICATION: No human confirmation required"
-  - "CONTENT PRESERVATION: Zero tolerance for information loss"
+- "ONE FILE AT A TIME: Process only one file per iteration"
+- "BACKUP BEFORE REWRITE: Always create backup before any changes"
+- "VERIFY BEFORE CLEANUP: Compare content integrity before deleting backup"
+- "PURE LLM APPROACH: No programming language execution, only text analysis"
+- "AUTOMATED VERIFICATION: No human confirmation required"
+- "CONTENT PRESERVATION: Zero tolerance for information loss"
+- "TEMP DIRECTORY USAGE: Store execution plans in ~/.agent3d-tmp/"
+- "EXEC PLAN DRIVEN: Check exec plan for remaining iterations and status updates"
+- "NO PROMPTING: Fully automated loop without user confirmation"
 
 workflow_pattern: "EXEC-PLAN → LOOP(BACKUP → REWRITE → VERIFY → CLEANUP)"
 
 execution_strategy:
-    approach: "execution_plan_driven"
-    speed_optimization: "pre_computed_file_list_and_templates"
-    description: "Create execution plan once, then execute fast loop per file"
+  approach: "execution_plan_driven"
+  speed_optimization: "pre_computed_file_list_and_templates"
+  description: "Create execution plan once, then execute fast loop per file"
 
-    optimized_workflow:
-        phase_1: "CREATE-EXEC-PLAN (scan all files, cache templates, generate roadmap)"
-        phase_2: "FAST-LOOP per file: BACKUP → REWRITE → VERIFY → CLEANUP"
-        benefits: "Eliminates redundant scanning, template loading, and planning per file"
+  optimized_workflow:
+    phase_1: "CREATE-EXEC-PLAN (scan all files, cache templates, generate roadmap)"
+    phase_2: "FAST-LOOP per file: BACKUP → REWRITE → VERIFY → CLEANUP"
+    benefits: "Eliminates redundant scanning, template loading, and planning per file"
 
-# Target Scope Configuration
-target_scopes:
-    documentation_features:
-        pattern: "docs/features/*.md"
-        description: "Feature documentation files requiring DDD template compliance"
-        backup_suffix: ".backup"
-        validation_criteria: [ "template_compliance", "content_completeness", "link_validity" ]
+# Target Scope Configuration (Examples)
+target_scope_examples:
+  documentation_files:
+    patterns: [ "docs/**/*.md", "*.md", "README.md" ]
+    description: "Markdown documentation files"
+    common_templates: [ "feature_template", "readme_template", "documentation_template" ]
 
-    test_files:
-        pattern: "tests/**/test_*.py"
-        description: "Test files requiring modernization and DDD compliance"
-        backup_suffix: ".backup"
-        validation_criteria: [ "test_structure", "tc_id_compliance", "framework_classification" ]
+  test_files:
+    patterns: [ "tests/**/*.py", "test/**/*.js", "spec/**/*.ts" ]
+    description: "Test files in various languages"
+    common_templates: [ "test_template", "pytest_template", "jest_template" ]
 
-    configuration_files:
-        pattern: "**/*.yml"
-        description: "Configuration files requiring standardization"
-        backup_suffix: ".backup"
-        validation_criteria: [ "schema_compliance", "structure_consistency", "documentation_quality" ]
+  configuration_files:
+    patterns: [ "**/*.yml", "**/*.yaml", "**/*.json", "*.toml" ]
+    description: "Configuration files"
+    common_templates: [ "config_template", "yaml_template", "json_template" ]
 
-    pass_documentation:
-        pattern: "passes.yml/*.yml"
-        description: "Pass documentation requiring template compliance"
-        backup_suffix: ".backup"
-        validation_criteria: [ "pass_template_compliance", "workflow_clarity", "quality_gates" ]
+  source_code:
+    patterns: [ "src/**/*.py", "lib/**/*.js", "tools/**/*.py" ]
+    description: "Source code files"
+    common_templates: [ "class_template", "module_template", "function_template" ]
+
+  pass_documentation:
+    patterns: [ "passes.yml/*.yml", "procedures.yml/*.yml" ]
+    description: "DDD pass and procedure documentation"
+    common_templates: [ "pass_template", "procedure_template" ]
+
+  template_conversion:
+    patterns: [ "templates/*.template.md" ]
+    description: "Convert markdown templates to YAML format"
+    output_pattern: "templates/*.template.yml"
+    conversion_type: "markdown_to_yaml_with_preserved_content"
+    common_templates: [ "yaml_template_structure" ]
 
 # Execution Plan Workflow
 execution_phases:
-    create_exec_plan:
-        purpose: "Create comprehensive execution plan for all target files"
-        description: "One-time setup: scan directory, identify files, determine templates, create execution roadmap"
+  create_exec_plan:
+    purpose: "Create comprehensive execution plan for all target files"
+    description: "One-time setup: scan directory, identify files, determine templates, create execution roadmap"
 
-        exec_plan_template: |
-            # REWRITE EXECUTION PLAN - {timestamp}
+    exec_plan_format: "YAML"
+    exec_plan_location: "~/.agent3d-tmp/"
+    exec_plan_filename: "REWRITE-PLAN-{target_scope}-{timestamp}.yml"
+    exec_plan_full_path: "~/.agent3d-tmp/REWRITE-PLAN-{target_scope}-{timestamp}.yml"
 
-            **Target Pattern**: {target_pattern}
-            **Total Files**: {file_count}
-            **Estimated Duration**: {estimated_time}
+    rewrite_plan_template: |
+      # File Rewrite Plan
+      # Location: ~/.agent3d-tmp/REWRITE-PLAN-{target_scope}-{timestamp}.yml
+      metadata:
+        operation: "file_rewrite"
+        target_pattern: "{target_pattern}"
+        total_files: {file_count}
+        estimated_duration: "{estimated_time}"
+        created: "{timestamp}"
+        plan_location: "~/.agent3d-tmp/"
 
-            ## Execution Queue
+      files_to_process:
+        - path: "{file_path_1}"
+          template: "{template_name}"
+          backup: "{file_path_1}.backup.{timestamp}"
+          priority: "{priority_level}"
+          status: "pending"
 
-            ### 1. {file_path_1}
-            - **Template**: {template_name}
-            - **Backup**: {file_path_1}.backup.{timestamp}
-            - **Priority**: {priority_level}
+        - path: "{file_path_2}"
+          template: "{template_name}"
+          backup: "{file_path_2}.backup.{timestamp}"
+          priority: "{priority_level}"
+          status: "pending"
 
-            ### 2. {file_path_2}
-            - **Template**: {template_name}
-            - **Backup**: {file_path_2}.backup.{timestamp}
-            - **Priority**: {priority_level}
+      templates_cache:
+        "{template_name_1}": "{cached_template_content_1}"
+        "{template_name_2}": "{cached_template_content_2}"
 
-            [Continue for all files...]
+      progress:
+        completed: 0
+        remaining: {file_count}
+        current_iteration: 0
+        next_iteration: 1
+        current_file: null
+        errors: []
 
-            ## Templates Cache
-            - **Feature Template**: [cached_content]
-            - **Test Template**: [cached_content]
-            - **Config Template**: [cached_content]
+      execution_control:
+        auto_continue: true
+        no_prompting: true
+        check_remaining_iterations: true
+        resume_from_iteration: null
+        max_iterations: {file_count}
 
-        speed_optimizations:
-          - "scan_once_execute_many"
-          - "pre_cache_all_templates"
-          - "pre_calculate_all_backup_paths"
-          - "batch_file_validation"
+    speed_optimizations:
+    - "scan_once_execute_many"
+    - "pre_cache_all_templates"
+    - "pre_calculate_all_backup_paths"
+    - "batch_file_validation"
 
-    # Fast Loop Phases (per file from exec plan)
-    backup:
-        action: "mv {file_path} {file_path}.backup.{timestamp}"
-        verify: "backup_file_exists_and_readable"
-        safety: "never_overwrite_existing_backups"
+  # Fast Loop Phases (per file from exec plan)
+  backup:
+    action: "mv {file_path} {file_path}.backup.{timestamp}"
+    verify: "backup_file_exists_and_readable"
+    safety: "never_overwrite_existing_backups"
 
-    rewrite:
-        action: "apply_cached_template_to_original_content"
-        approach: "pure_llm_analysis_and_generation"
-        preserve: "all_factual_information_technical_details_references"
-        improve: "structure_clarity_template_compliance"
+  rewrite:
+    action: "apply_cached_template_to_original_content_or_convert_format"
+    approach: "pure_llm_analysis_and_generation"
+    preserve: "all_factual_information_technical_details_references"
+    improve: "structure_clarity_template_compliance"
 
-    validate:
-        check: "template_compliance_syntax_correctness_required_sections"
-        pass_criteria: "all_validation_checks_successful"
+    template_compliance: "follow_cached_template_format_exactly"
 
-    compare:
-        action: "verify_all_original_content_preserved_in_rewritten_file"
-        approach: "pure_llm_semantic_comparison"
-        critical: "zero_tolerance_for_information_loss"
+    # Special handling for template conversion
+    template_conversion_rules:
+      when: "target_scope is template_conversion"
+      conversion_type: "markdown_to_yaml_with_preserved_content"
 
-    cleanup:
-        action: "rm {file_path}.backup.{timestamp}"
-        prerequisite: "content_integrity_verification_passed"
-        safety: "double_check_before_deletion"
+      preserve_exactly:
+      - "All content within <template> tags in original markdown format"
+      - "All placeholder syntax: {{variable_name}}"
+      - "Original template structure and formatting"
+      - "Example content and demonstrations"
+
+      convert_to_yaml:
+      - "**USAGE:** sections → yaml usage field"
+      - "**EXAMPLE VALUES:** → yaml examples field"
+      - "**VALIDATION:** → yaml validation field"
+      - "**CRITICAL RULES:** → yaml critical_rules field"
+      - "Descriptive text → yaml description field"
+      - "**PURPOSE:** → yaml metadata.purpose field"
+
+      yaml_structure_target: |
+        metadata:
+          name: "{template_name}"
+          type: "template"
+          format: "markdown_content_with_yaml_metadata"
+          purpose: "{extracted_purpose}"
+
+        usage:
+          description: "{extracted_usage_instructions}"
+          when_to_use: "{extracted_scenarios}"
+
+        template_content: |
+          {original_template_content_preserved_exactly}
+
+        examples:
+          {extracted_example_values_as_yaml}
+
+        validation:
+          rules: ["{extracted_validation_rules}"]
+
+        critical_rules:
+          - "{extracted_critical_rules}"
+
+  validate:
+    check: "template_compliance_syntax_correctness_required_sections"
+    pass_criteria: "all_validation_checks_successful"
+
+    # Special validation for template conversion
+    template_conversion_validation:
+      when: "target_scope is template_conversion"
+      additional_checks:
+      - "yaml_syntax_validity"
+      - "template_content_preservation_in_template_content_field"
+      - "all_placeholders_preserved_correctly"
+      - "instruction_sections_converted_to_yaml_fields"
+      - "no_template_content_loss"
+
+  compare:
+    action: "verify_all_original_content_preserved_in_rewritten_file"
+    approach: "pure_llm_semantic_comparison"
+    critical: "zero_tolerance_for_information_loss"
+
+  cleanup:
+    action: "remove_backup_and_original_if_different_names"
+    prerequisite: "content_integrity_verification_passed"
+    safety: "double_check_before_deletion"
+
+    cleanup_logic:
+      same_filename:
+        condition: "input_path == output_path"
+        action: "rm {backup_path}"
+        description: "Remove backup only - original file was overwritten"
+
+      different_filename:
+        condition: "input_path != output_path (e.g., .md → .yml conversion)"
+        actions:
+        - "rm {backup_path}"
+        - "rm {input_path} (if still exists)"
+        description: "Remove both backup and original file - new file created with different name"
+
+    file_name_scenarios:
+      template_conversion: "templates/FILE.template.md → templates/FILE.template.yml"
+      regular_rewrite: "docs/features/core.md → docs/features/core.md (same file)"
+
+    safety_checks:
+    - "verify_new_file_exists_and_valid"
+    - "verify_content_integrity_passed"
+    - "confirm_backup_and_original_different_from_new_file"
 
 # Loop Control
 loop_control:
-    continuation_criteria:
-      - "more_files_in_candidate_list"
-      - "quality_threshold_not_yet_achieved"
-      - "no_critical_errors_encountered"
+  exec_plan_driven: true
+  no_prompting: true
 
-    termination_criteria:
-      - "all_files_processed_successfully"
-      - "quality_threshold_achieved"
-      - "critical_error_encountered"
-      - "maximum_iteration_limit_reached"
+  continuation_criteria:
+  - "check_exec_plan_for_remaining_iterations"
+  - "next_iteration_exists_in_exec_plan"
+  - "no_critical_errors_encountered"
+  - "auto_continue_enabled_in_exec_plan"
 
-    progress_tracking:
-      - "files_processed_count"
-      - "files_remaining_count"
-      - "overall_quality_improvement"
-      - "time_per_file_average"
+  termination_criteria:
+  - "all_files_in_exec_plan_processed_successfully"
+  - "no_more_iterations_in_exec_plan"
+  - "critical_error_encountered"
+  - "maximum_iteration_limit_reached"
+
+  exec_plan_management:
+  - "update_current_iteration_in_exec_plan"
+  - "update_next_iteration_in_exec_plan"
+  - "update_file_status_to_completed"
+  - "increment_completed_count"
+  - "decrement_remaining_count"
+  - "log_errors_to_exec_plan"
+
+  progress_tracking:
+  - "files_processed_count_from_exec_plan"
+  - "files_remaining_count_from_exec_plan"
+  - "current_iteration_from_exec_plan"
+  - "next_iteration_from_exec_plan"
+  - "overall_quality_improvement"
+  - "time_per_file_average"
+
+  resumption_support:
+  - "can_resume_from_any_iteration"
+  - "exec_plan_tracks_completion_status"
+  - "failed_iterations_can_be_retried"
+  - "progress_persisted_in_exec_plan_file"
 
 # Safety and Recovery
 safety_measures:
-    backup_management:
-      - "never_overwrite_existing_backups"
-      - "maintain_backup_registry"
-      - "verify_backup_integrity"
-      - "provide_easy_restoration_process"
+  backup_management:
+  - "never_overwrite_existing_backups"
+  - "maintain_backup_registry"
+  - "verify_backup_integrity"
+  - "provide_easy_restoration_process"
 
-    error_handling:
-      - "graceful_failure_recovery"
-      - "automatic_backup_restoration"
-      - "detailed_error_logging"
-      - "user_notification_of_issues"
+  error_handling:
+  - "graceful_failure_recovery"
+  - "automatic_backup_restoration"
+  - "detailed_error_logging"
+  - "user_notification_of_issues"
 
-    quality_assurance:
-      - "mandatory_content_integrity_verification"
-      - "automated_content_preservation_checking"
-      - "quality_threshold_enforcement"
-      - "template_compliance_validation"
-      - "no_backup_deletion_without_verification"
+  quality_assurance:
+  - "mandatory_content_integrity_verification"
+  - "automated_content_preservation_checking"
+  - "quality_threshold_enforcement"
+  - "template_compliance_validation"
+  - "no_backup_deletion_without_verification"
 
 # Expected Outcomes
 expected_outcomes:
-    immediate:
-      - "systematically_improved_file_quality"
-      - "ddd_template_compliance_achieved"
-      - "enhanced_content_clarity_and_structure"
-      - "maintained_content_accuracy_and_integrity"
+  immediate:
+  - "systematically_improved_file_quality"
+  - "ddd_template_compliance_achieved"
+  - "enhanced_content_clarity_and_structure"
+  - "maintained_content_accuracy_and_integrity"
 
-    long_term:
-      - "consistent_documentation_standards"
-      - "improved_maintainability"
-      - "enhanced_user_experience"
-      - "reduced_technical_debt"
+  long_term:
+  - "consistent_documentation_standards"
+  - "improved_maintainability"
+  - "enhanced_user_experience"
+  - "reduced_technical_debt"
 
 # Quality Gates
 quality_gates:
-    per_file:
-      - name: "template_compliance"
-        threshold: "100%"
-        critical: true
-      - name: "content_completeness"
-        threshold: "95%"
-        critical: true
-      - name: "quality_improvement"
-        threshold: "20%"
-        critical: false
+  per_file:
+  - name: "template_compliance"
+    threshold: "100%"
+    critical: true
+  - name: "content_completeness"
+    threshold: "95%"
+    critical: true
+  - name: "quality_improvement"
+    threshold: "20%"
+    critical: false
 
-    overall_procedure:
-      - name: "files_processed_successfully"
-        threshold: "90%"
-        critical: true
-      - name: "average_quality_improvement"
-        threshold: "25%"
-        critical: false
-      - name: "zero_data_loss"
-        threshold: "100%"
-        critical: true
+  overall_procedure:
+  - name: "files_processed_successfully"
+    threshold: "90%"
+    critical: true
+  - name: "average_quality_improvement"
+    threshold: "25%"
+    critical: false
+  - name: "zero_data_loss"
+    threshold: "100%"
+    critical: true
+
+  template_conversion_specific:
+  - name: "yaml_syntax_validity"
+    threshold: "100%"
+    critical: true
+  - name: "template_content_preservation"
+    threshold: "100%"
+    critical: true
+  - name: "instruction_conversion_completeness"
+    threshold: "95%"
+    critical: true
+
+# Template Conversion Example
+template_conversion_example:
+  input_markdown_template: |
+    # Feature Template
+
+    **PURPOSE:** Template for feature documentation
+
+    **USAGE:**
+    - Use this template for creating new features
+    - Fill in all placeholder values
+
+    <template>
+    ## {{ft_id}} - {{feature_name}}
+    - **Description:** {{description}}
+    - **Status:** {{status}}
+    </template>
+
+    **EXAMPLE VALUES:**
+    - {{ft_id}}: FT-CORE-001
+    - {{feature_name}}: Core Feature
+
+    **VALIDATION:** Check all fields completed
+
+  output_yaml_template: |
+    metadata:
+      name: "Feature Template"
+      type: "template"
+      format: "markdown_content_with_yaml_metadata"
+      purpose: "Template for feature documentation"
+
+    usage:
+      description: "Use this template for creating new features"
+      instructions:
+        - "Fill in all placeholder values"
+
+    template_content: |
+      ## {{ft_id}} - {{feature_name}}
+      - **Description:** {{description}}
+      - **Status:** {{status}}
+
+    examples:
+      ft_id: "FT-CORE-001"
+      feature_name: "Core Feature"
+      description: "Brief description of the feature"
+      status: "complete/pending/in-progress"
+
+    validation:
+      rules: ["Check all fields completed"]
