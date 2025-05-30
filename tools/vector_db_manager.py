@@ -167,6 +167,16 @@ class MultiRootVectorDBManager:
 
         metadata = self.metadata[ddd_root]
 
+        # Check if actual cache files exist
+        cache_key = hashlib.md5(ddd_root.encode()).hexdigest()
+        cache_path = self.cache_dir / f"{cache_key}"
+        chunks_file = cache_path / "chunks.pkl"
+        embeddings_file = cache_path / "embeddings.npy"
+
+        if not cache_path.exists() or not chunks_file.exists() or not embeddings_file.exists():
+            self.logger.info(f"📁 Cache files missing for {ddd_root}, cache invalid")
+            return False
+
         # Check if content has changed
         current_hash = self._calculate_content_hash(ddd_root, [
             '.git', '__pycache__', '.pytest_cache', 'node_modules',
