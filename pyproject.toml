@@ -1,0 +1,178 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent3d"
+version = "1.0.0"
+description = "Documentation-Driven Development Guidelines for LLM Coding Agents with MCP and VS Code Extension Support"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Agent3D Framework", email = "agent3d@example.com"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Text Processing :: Markup :: Markdown",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "pyyaml>=6.0",
+    "pathlib",
+    "typing-extensions",
+    "dataclasses; python_version<'3.7'",
+]
+
+[project.optional-dependencies]
+vector = [
+    "sentence-transformers>=2.0.0",
+    "faiss-cpu>=1.7.0",
+    "numpy>=1.21.0",
+    "scikit-learn>=1.0.0",
+]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=22.0.0",
+    "flake8>=5.0.0",
+    "mypy>=1.0.0",
+]
+watch = [
+    "watchdog>=2.0.0",
+]
+all = [
+    "agent3d[vector,watch]",
+]
+
+[project.urls]
+Homepage = "https://github.com/ningsuhen/agent3d"
+Repository = "https://github.com/ningsuhen/agent3d.git"
+Documentation = "https://github.com/ningsuhen/agent3d/blob/main/README.md"
+Issues = "https://github.com/ningsuhen/agent3d/issues"
+
+[project.scripts]
+agent3d-mcp = "tools.agent3d_mcp_server:main"
+agent3d-mcp-http = "tools.agent3d_mcp_http_server:main"
+agent3d-drift = "tools.drift_scanner:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tools*", "agents*", "workflows*"]
+exclude = ["tests*", "venv*", "build*", "dist*", ".agent3d-tmp*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.yml", "*.yaml", "*.md", "*.txt", "*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--verbose",
+    "--tb=short",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+    "vector: marks tests that require vector database dependencies",
+    "mcp: marks tests for MCP server functionality",
+]
+
+[tool.black]
+line-length = 120
+target-version = ['py39']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | node_modules
+  | \.agent3d-tmp
+)/
+'''
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = [
+    "sentence_transformers.*",
+    "faiss.*",
+    "watchdog.*",
+    "numpy.*",
+    "sklearn.*",
+]
+ignore_missing_imports = true
+
+[tool.flake8]
+max-line-length = 120
+extend-ignore = ["E203", "W503", "E501"]
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    ".venv",
+    "venv",
+    ".agent3d-tmp",
+    "node_modules",
+]
+
+[tool.coverage.run]
+source = ["tools", "agents", "workflows"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/__pycache__/*",
+    "*/venv/*",
+    "*/.agent3d-tmp/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
