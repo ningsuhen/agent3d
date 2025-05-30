@@ -87,11 +87,12 @@ class MultiRootVectorDBManager:
 
         # Check if we already have this database loaded
         if ddd_root in self.databases and not force_reindex:
-            if self._is_cache_valid(ddd_root):
+            if self._is_cache_valid(ddd_root) and not self._should_force_full_reindex(ddd_root):
                 self.logger.info(f"📚 Using cached vector database for: {ddd_root}")
                 return self.databases[ddd_root]
             else:
-                self.logger.info(f"🔄 Cache invalid, reindexing: {ddd_root}")
+                reason = "cache invalid" if not self._is_cache_valid(ddd_root) else "periodic full reindex"
+                self.logger.info(f"🔄 Full reindex needed ({reason}): {ddd_root}")
 
         # Create or recreate the database
         return self._create_database(ddd_root)
@@ -195,6 +196,21 @@ class MultiRootVectorDBManager:
             return False
 
         return True
+
+    def _should_force_full_reindex(self, ddd_root: str) -> bool:
+        """Check if we should force a full reindex for periodic sync."""
+        if ddd_root not in self.metadata:
+            return True
+
+        metadata = self.metadata[ddd_root]
+
+        # Force full reindex every 6 hours to ensure sync
+        time_since_last_index = time.time() - metadata.last_indexed
+        if time_since_last_index > 6 * 3600:  # 6 hours
+            self.logger.info(f"⏰ Forcing periodic full reindex for {ddd_root} ({time_since_last_index/3600:.1f}h since last)")
+            return True
+
+        return False
 
     def _calculate_content_hash(self, ddd_root: str, exclude_patterns: List[str]) -> str:
         """Calculate a hash of the repository content for cache validation."""
@@ -333,6 +349,105 @@ class MultiRootVectorDBManager:
             self.databases.clear()
             self.metadata.clear()
             self.logger.info("🗑️  Invalidated all vector database caches")
+
+    def incremental_reindex(self, ddd_root: str, changed_file_path: str) -> bool:
+        """Perform incremental reindexing for a single changed file.
+
+        Args:
+            ddd_root: Path to the DDD project root
+            changed_file_path: Path to the file that changed
+
+        Returns:
+            True if incremental reindex was successful, False if full reindex needed
+        """
+        if not VECTOR_DB_AVAILABLE:
+            return False
+
+        ddd_root = str(Path(ddd_root).resolve())
+        changed_file_path = str(Path(changed_file_path).resolve())
+
+        # Check if we have an existing database
+        if ddd_root not in self.databases:
+            self.logger.info(f"🔄 No existing database for {ddd_root}, full reindex needed")
+            return False
+
+        db = self.databases[ddd_root]
+
+        try:
+            self.logger.info(f"🔄 Incremental reindex: {Path(changed_file_path).name}")
+
+            # Remove old chunks for this file
+            old_chunk_count = len(db.chunks)
+            db.chunks = [chunk for chunk in db.chunks if chunk.file_path != changed_file_path]
+            removed_chunks = old_chunk_count - len(db.chunks)
+
+            # Check if file still exists and should be indexed
+            file_path = Path(changed_file_path)
+            if file_path.exists() and file_path.is_file():
+                # Check if file should be excluded
+                exclude_patterns = [
+                    '.git', '__pycache__', '.pytest_cache', 'node_modules',
+                    '.venv', 'venv', '.env', '.agent3d-tmp', '.DS_Store',
+                    '*.pyc', '*.pyo', '*.pyd', '*.so', '*.dll', '*.dylib'
+                ]
+
+                relative_path = file_path.relative_to(Path(ddd_root))
+                path_str = str(relative_path)
+
+                excluded = False
+                for pattern in exclude_patterns:
+                    if pattern in path_str or file_path.name.startswith('.'):
+                        excluded = True
+                        break
+
+                if not excluded:
+                    # Index the changed file using the same method as full indexing
+                    try:
+                        file_stats = db._index_file(file_path, Path(ddd_root))
+                        added_chunks = file_stats["chunks"]
+                    except Exception as e:
+                        self.logger.error(f"❌ Failed to index file {file_path.name}: {e}")
+                        return False
+
+                    self.logger.info(f"📝 Updated {Path(changed_file_path).name}: "
+                                   f"removed {removed_chunks}, added {added_chunks} chunks")
+                else:
+                    self.logger.info(f"📝 Removed {removed_chunks} chunks from excluded file: {file_path.name}")
+            else:
+                self.logger.info(f"📝 Removed {removed_chunks} chunks from deleted file: {Path(changed_file_path).name}")
+
+            # Rebuild embeddings and index
+            if db.chunks:
+                db._build_vector_index()
+
+                # Update metadata
+                if ddd_root in self.metadata:
+                    self.metadata[ddd_root].last_indexed = time.time()
+                    self.metadata[ddd_root].chunk_count = len(db.chunks)
+                    # Update content hash
+                    exclude_patterns = [
+                        '.git', '__pycache__', '.pytest_cache', 'node_modules',
+                        '.venv', 'venv', '.env', '.agent3d-tmp', '.DS_Store',
+                        '*.pyc', '*.pyo', '*.pyd', '*.so', '*.dll', '*.dylib'
+                    ]
+                    self.metadata[ddd_root].content_hash = self._calculate_content_hash(ddd_root, exclude_patterns)
+
+                    # Save updated metadata
+                    self._save_metadata(ddd_root)
+
+                # Save updated cache
+                cache_key = hashlib.md5(ddd_root.encode()).hexdigest()
+                db.save_to_cache(cache_key)
+
+                self.logger.info(f"✅ Incremental reindex completed: {len(db.chunks)} total chunks")
+                return True
+            else:
+                self.logger.warning(f"⚠️  No chunks remaining after incremental update")
+                return False
+
+        except Exception as e:
+            self.logger.error(f"❌ Incremental reindex failed: {e}")
+            return False
 
     def cleanup_old_caches(self, max_age_hours: int = 168):  # 1 week default
         """Clean up old cache files.

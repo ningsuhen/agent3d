@@ -94,9 +94,8 @@ if WATCHDOG_AVAILABLE:
 
             if file_path.suffix.lower() in relevant_extensions:
                 logger.info(f"📝 File change detected: {file_path.name}")
-                self.server.invalidate_cache()
-                # Trigger reindexing for the affected DDD root
-                self.server.trigger_reindexing(str(file_path.parent))
+                # Trigger incremental reindexing for the specific file
+                self.server.trigger_incremental_reindex(str(file_path))
 else:
     class Agent3DFileWatcher:
         """Dummy file watcher when watchdog is not available"""
@@ -214,31 +213,56 @@ class Agent3DMCPServer:
             self.vector_db_manager.invalidate_cache()
             logger.info("🗑️  Invalidated all vector database caches")
 
-    def trigger_reindexing(self, file_path: str):
-        """Trigger reindexing for the DDD root containing the changed file"""
+    def trigger_incremental_reindex(self, file_path: str):
+        """Trigger incremental reindexing for a specific changed file"""
         if not self.vector_db_manager:
             return
 
-        # Find the DDD root for this file path
         file_path = Path(file_path)
 
-        # Check each watched directory to see if this file belongs to it
+        # Find the DDD root for this file path
         for watched_dir in self.watched_directories:
             watched_path = Path(watched_dir)
             try:
                 # Check if the file is within this watched directory
                 file_path.relative_to(watched_path)
 
-                # Invalidate cache for this specific DDD root
-                self.vector_db_manager.invalidate_cache(watched_dir)
-                logger.info(f"🗑️  Vector database cache invalidated")
+                # Attempt incremental reindexing
+                success = self.vector_db_manager.incremental_reindex(watched_dir, str(file_path))
 
-                # The next search/operation will automatically trigger reindexing
-                # due to cache invalidation
+                if success:
+                    logger.info(f"✅ Incremental reindex completed for: {file_path.name}")
+                else:
+                    # Fall back to full cache invalidation if incremental fails
+                    logger.info(f"⚠️  Incremental reindex failed, invalidating cache for: {watched_dir}")
+                    self.vector_db_manager.invalidate_cache(watched_dir)
+
                 break
             except ValueError:
                 # File is not within this watched directory
                 continue
+
+    def force_full_reindex_on_startup(self, ddd_root: str):
+        """Force a full reindex on server startup to ensure sync"""
+        if not self.vector_db_manager:
+            return
+
+        try:
+            logger.info(f"🔄 Performing startup full reindex for: {ddd_root}")
+
+            # Force invalidate cache to ensure fresh start
+            self.vector_db_manager.invalidate_cache(ddd_root)
+
+            # Create database with force_reindex=True
+            db = self.vector_db_manager.get_or_create_database(ddd_root, force_reindex=True)
+
+            if db:
+                logger.info(f"✅ Startup full reindex completed for: {ddd_root}")
+            else:
+                logger.warning(f"⚠️  Startup full reindex failed for: {ddd_root}")
+
+        except Exception as e:
+            logger.error(f"❌ Startup full reindex error for {ddd_root}: {e}")
 
     def get_drift_analyzer(self, ddd_root: str) -> Optional[Any]:
         """Get or create drift analyzer for the specified DDD root"""
@@ -306,10 +330,23 @@ class Agent3DMCPServer:
             # Start file watching for this root
             self.start_file_watching(ddd_root)
 
+            # Check if this is the first access to this DDD root (startup reindex)
+            is_first_access = ddd_root not in getattr(self.vector_db_manager, 'databases', {})
+
             # Get or create vector database
             db = self.vector_db_manager.get_or_create_database(ddd_root)
             if not db:
                 return {"error": "Failed to create vector database"}
+
+            # Perform startup verification reindex if this is the first access
+            if is_first_access:
+                logger.info(f"🔄 First access detected, performing startup verification for: {ddd_root}")
+                # This ensures we have the most up-to-date content on startup
+                self.force_full_reindex_on_startup(ddd_root)
+                # Reload the database after startup reindex
+                db = self.vector_db_manager.get_or_create_database(ddd_root)
+                if not db:
+                    return {"error": "Failed to create vector database after startup reindex"}
 
             # Apply filters based on file type
             filter_language = None
