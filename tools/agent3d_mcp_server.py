@@ -35,6 +35,7 @@ import logging
 import time
 import threading
 import re
+import importlib
 from pathlib import Path
 from typing import Dict, Any, Optional, List, Tuple, Union
 
@@ -270,6 +271,17 @@ class Agent3DMCPServer:
             return None
 
         try:
+            # Force reload the drift_scanner module to pick up any changes
+            try:
+                import drift_scanner
+                importlib.reload(drift_scanner)
+                # Re-import the class after reload
+                from drift_scanner import MultiModeDriftAnalyzer
+            except Exception as reload_error:
+                logger.warning(f"Failed to reload drift_scanner module: {reload_error}")
+                # Fall back to cached version
+                pass
+
             analyzer = MultiModeDriftAnalyzer(
                 root_dir=ddd_root,
                 enable_vector_db=bool(self.vector_db_manager)

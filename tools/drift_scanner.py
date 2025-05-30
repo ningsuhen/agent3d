@@ -687,40 +687,79 @@ class TestCaseParser:
         test_cases = []
 
         try:
-            # Search for TC-* patterns in documentation
-            tc_search_results = vector_db_manager.search(
-                self.config_manager.root_dir,
+            # Search for TC-* patterns in documentation with multiple strategies
+            search_queries = [
                 "TC- test case",
-                top_k=50,
-                filter_language="markdown"
-            )
+                "TC-AUTH test authentication",
+                "TC-HTTP test HTTP",
+                "TC-CORE test core functionality",
+                "test case TC-",
+                "**TC-"
+            ]
 
-            # Process search results to extract test cases
             seen_tc_ids = set()
 
-            for chunk, score in tc_search_results:
-                if score < 0.3:  # Skip low-relevance results
-                    continue
+            for query in search_queries:
+                # Try both with and without language filter
+                for filter_lang in [None, "markdown"]:
+                    tc_search_results = vector_db_manager.search(
+                        self.config_manager.root_dir,
+                        query,
+                        top_k=20,
+                        filter_language=filter_lang
+                    )
 
-                if hasattr(chunk, 'content'):
-                    # Extract TC IDs and details from chunk content
-                    tc_pattern = r'- \[([x~\s])\] \*\*(TC-[A-Z]+-\d+[a-z]?)\*\* - ([^(]+)\(([^,]+),\s*([^)]+)\)'
+                    # Process search results to extract test cases
+                    for chunk, score in tc_search_results:
+                        if score < 0.2:  # Lower threshold for broader search
+                            continue
 
-                    matches = re.finditer(tc_pattern, chunk.content)
-                    for match in matches:
-                        status_char, tc_id, description, execution_type, priority = match.groups()
+                        if hasattr(chunk, 'content'):
+                            # Extract TC IDs and details from chunk content
+                            # Main test case pattern: - [x] **TC-ID** - Description (ExecutionType, Priority) Status
+                            main_tc_pattern = r'- \[([x~\s])\] \*\*(TC-[A-Z]+-\d+[a-z]?)\*\* - ([^(]+?)\s*\(([^,]+),\s*([^)]+)\).*'
+                            # Sub-test case pattern: - [x] **TC-ID** - Description Status (no execution type/priority)
+                            sub_tc_pattern = r'\s+- \[([x~\s])\] \*\*(TC-[A-Z]+-\d+[a-z]?)\*\* - (.+?)(?:\s+[🔶✅].*)?$'
 
-                        if tc_id not in seen_tc_ids:
-                            seen_tc_ids.add(tc_id)
+                            current_execution_type = "Unknown"
+                            current_priority = "Unknown"
 
-                            test_case = TestCase(
-                                tc_id=tc_id,
-                                title=description.strip(),
-                                execution_type=execution_type.strip(),
-                                priority=priority.strip(),
-                                status='complete' if status_char == 'x' else 'pending'
-                            )
-                            test_cases.append(test_case)
+                            # Process main test cases
+                            matches = re.finditer(main_tc_pattern, chunk.content)
+                            for match in matches:
+                                status_char, tc_id, description, execution_type, priority = match.groups()
+                                current_execution_type = execution_type.strip()
+                                current_priority = priority.strip()
+
+                                if tc_id not in seen_tc_ids:
+                                    seen_tc_ids.add(tc_id)
+
+                                    test_case = TestCase(
+                                        tc_id=tc_id,
+                                        title=description.strip(),
+                                        execution_type=current_execution_type,
+                                        priority=current_priority,
+                                        status='complete' if status_char == 'x' else 'pending'
+                                    )
+                                    test_cases.append(test_case)
+
+                            # Process sub-test cases
+                            sub_matches = re.finditer(sub_tc_pattern, chunk.content, re.MULTILINE)
+                            for match in sub_matches:
+                                status_char, tc_id, description = match.groups()
+
+                                if tc_id not in seen_tc_ids:
+                                    seen_tc_ids.add(tc_id)
+
+                                    test_case = TestCase(
+                                        tc_id=tc_id,
+                                        title=description.strip(),
+                                        execution_type=current_execution_type,
+                                        priority=current_priority,
+                                        status='complete' if status_char == 'x' else 'pending'
+                                    )
+                                    test_cases.append(test_case)
+                                    print(f"  ✅ Found test case: {tc_id} - {description.strip()[:50]}...")
 
             print(f"🔍 Vector search found {len(test_cases)} test cases")
             return test_cases
@@ -735,37 +774,46 @@ class TestCaseParser:
 
         # Pattern to match test cases using configured TC pattern
         tc_strict_pattern = self.config_manager.get_pattern_for_prefix('TC-', flexible=False)
-        tc_pattern = rf'- \[([x~\s])\] \*\*({tc_strict_pattern})\*\* - ([^(]+)\(([^,]+),\s*([^)]+)\)'
 
-        # Pattern for sub-test cases using configured TC pattern
-        sub_tc_pattern = rf'\s+- \[([x~\s])\] \*\*({tc_strict_pattern})\*\* - ([^(]+)\(([^,]+),\s*([^)]+)\)'
+        # Main test case pattern: - [x] **TC-ID** - Description (ExecutionType, Priority) Status
+        tc_pattern = rf'- \[([x~\s])\] \*\*({tc_strict_pattern})\*\* - ([^(]+?)\s*\(([^,]+),\s*([^)]+)\).*'
+
+        # Sub-test case pattern: - [x] **TC-ID** - Description Status (no execution type/priority)
+        sub_tc_pattern = rf'\s+- \[([x~\s])\] \*\*({tc_strict_pattern})\*\* - (.+?)(?:\s+[🔶✅].*)?$'
 
         lines = content.split('\n')
+        current_execution_type = "Unknown"
+        current_priority = "Unknown"
+
         for line_num, line in enumerate(lines, 1):
-            # Match main test cases
+            # Match main test cases (with execution type and priority)
             match = re.match(tc_pattern, line.strip())
             if match:
                 status_char, tc_id, description, execution_type, priority = match.groups()
 
+                # Store current execution type and priority for sub-test cases
+                current_execution_type = execution_type.strip()
+                current_priority = priority.strip()
+
                 test_case = TestCase(
                     tc_id=tc_id,
                     title=description.strip(),
-                    execution_type=execution_type.strip(),
-                    priority=priority.strip(),
+                    execution_type=current_execution_type,
+                    priority=current_priority,
                     status='complete' if status_char == 'x' else 'pending'
                 )
                 test_cases.append(test_case)
 
-            # Match sub-test cases
+            # Match sub-test cases (inherit execution type and priority from parent)
             sub_match = re.match(sub_tc_pattern, line)
             if sub_match:
-                status_char, tc_id, description, execution_type, priority = sub_match.groups()
+                status_char, tc_id, description = sub_match.groups()
 
                 test_case = TestCase(
                     tc_id=tc_id,
                     title=description.strip(),
-                    execution_type=execution_type.strip(),
-                    priority=priority.strip(),
+                    execution_type=current_execution_type,
+                    priority=current_priority,
                     status='complete' if status_char == 'x' else 'pending'
                 )
                 test_cases.append(test_case)
@@ -837,8 +885,8 @@ class FeatureParser:
         # Pattern to match Code Location field
         code_location_pattern = r'- \*\*Code Location:\*\* (.+)'
 
-        # Pattern to match test cases: - [x] **TC-CORE-001** - Test Name
-        tc_pattern = r'^\s+- \[([x~\s])\] \*\*TC-[A-Z]+-\d+[a-z]?\*\* - (.+)'
+        # Pattern to match test cases: - [x] **TC-CORE-001** - Test Name (with status indicators)
+        tc_pattern = r'^\s+- \[([x~\s])\] \*\*TC-[A-Z]+-\d+[a-z]?\*\* - (.+?)(?:\s+[🔶✅].*)?$'
 
         lines = content.split('\n')
         current_feature = None
@@ -979,11 +1027,13 @@ class FTDriftAnalyzer:
 
     def __init__(self, root_dir: str = '.', features_dir: str = 'docs/features',
                  test_cases_file: str = 'docs/TEST-CASES.md',
-                 config_manager: Optional[ConfigurationManager] = None):
+                 config_manager: Optional[ConfigurationManager] = None,
+                 vector_db_manager=None):
         self.root_dir = root_dir
         self.config_manager = config_manager or ConfigurationManager(root_dir)
         self.feature_parser = FeatureParser(features_dir, self.config_manager)
         self.test_case_parser = TestCaseParser(test_cases_file, self.config_manager)
+        self.vector_db_manager = vector_db_manager
 
     def analyze_ft_drift(self, test_functions: List[TestFunction]) -> DriftReport:
         """Analyze FT-* feature drift and FT-TC relationships."""
@@ -991,7 +1041,7 @@ class FTDriftAnalyzer:
 
         # Parse features and test cases
         features = self.feature_parser.parse_features()
-        test_cases = self.test_case_parser.parse_test_cases()
+        test_cases = self.test_case_parser.parse_test_cases(self.vector_db_manager)
 
         print(f"📋 Found {len(features)} features and {len(test_cases)} test cases")
         print(f"🧪 Analyzing {len(test_functions)} test functions")
@@ -2608,8 +2658,8 @@ class MultiModeDriftAnalyzer:
             print("⚠️  Vector database dependencies not available, using traditional file scanning")
 
         # Initialize individual scanners with configuration
-        self.tc_analyzer = TCDriftAnalyzer(root_dir, test_cases_file, change_detector, self.config_manager)
-        self.ft_analyzer = FTDriftAnalyzer(root_dir, 'docs/features', test_cases_file, self.config_manager)
+        self.tc_analyzer = TCDriftAnalyzer(root_dir, test_cases_file, change_detector, self.config_manager, self.vector_db_manager)
+        self.ft_analyzer = FTDriftAnalyzer(root_dir, 'docs/features', test_cases_file, self.config_manager, self.vector_db_manager)
         self.coverage_scanner = CodeCoverageScanner(root_dir)
         self.feature_scanner = FeatureImplementationScanner(root_dir, 'docs/features')
         self.comprehensive_detector = ComprehensiveDriftDetector(root_dir)
@@ -3501,12 +3551,14 @@ class TCDriftAnalyzer:
 
     def __init__(self, root_dir: str = '.', features_dir: str = 'docs/features',
                  change_detector: Optional[GitChangeDetector] = None,
-                 config_manager: Optional[ConfigurationManager] = None):
+                 config_manager: Optional[ConfigurationManager] = None,
+                 vector_db_manager=None):
         self.root_dir = root_dir
         self.config_manager = config_manager or ConfigurationManager(root_dir)
         self.test_case_parser = TestCaseParser(features_dir, self.config_manager)
         self.change_detector = change_detector
         self.implementation_scanner = TestImplementationScanner(root_dir, change_detector, self.config_manager)
+        self.vector_db_manager = vector_db_manager
 
     def analyze_drift(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
         """Perform complete drift analysis, optionally filtered by changed files."""
@@ -3517,7 +3569,7 @@ class TCDriftAnalyzer:
 
         # Parse test cases from merged FT-TC structure in docs/features/
         print("📋 Parsing test cases from docs/features/...")
-        test_cases = self.test_case_parser.parse_test_cases()
+        test_cases = self.test_case_parser.parse_test_cases(self.vector_db_manager)
         print(f"  Found {len(test_cases)} test cases")
 
         # Scan test implementations
