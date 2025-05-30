@@ -682,6 +682,53 @@ class TestCaseParser:
 
         return test_cases
 
+    def _parse_test_cases_with_vector_db(self, vector_db_manager) -> List[TestCase]:
+        """Parse test cases using vector database search for TC-* identifiers."""
+        test_cases = []
+
+        try:
+            # Search for TC-* patterns in documentation
+            tc_search_results = vector_db_manager.search(
+                self.config_manager.root_dir,
+                "TC- test case",
+                top_k=50,
+                filter_language="markdown"
+            )
+
+            # Process search results to extract test cases
+            seen_tc_ids = set()
+
+            for chunk, score in tc_search_results:
+                if score < 0.3:  # Skip low-relevance results
+                    continue
+
+                if hasattr(chunk, 'content'):
+                    # Extract TC IDs and details from chunk content
+                    tc_pattern = r'- \[([x~\s])\] \*\*(TC-[A-Z]+-\d+[a-z]?)\*\* - ([^(]+)\(([^,]+),\s*([^)]+)\)'
+
+                    matches = re.finditer(tc_pattern, chunk.content)
+                    for match in matches:
+                        status_char, tc_id, description, execution_type, priority = match.groups()
+
+                        if tc_id not in seen_tc_ids:
+                            seen_tc_ids.add(tc_id)
+
+                            test_case = TestCase(
+                                tc_id=tc_id,
+                                title=description.strip(),
+                                execution_type=execution_type.strip(),
+                                priority=priority.strip(),
+                                status='complete' if status_char == 'x' else 'pending'
+                            )
+                            test_cases.append(test_case)
+
+            print(f"🔍 Vector search found {len(test_cases)} test cases")
+            return test_cases
+
+        except Exception as e:
+            print(f"❌ Error in vector-enhanced test case parsing: {e}")
+            return []
+
     def _parse_merged_test_cases(self, content: str, file_path: str) -> List[TestCase]:
         """Parse test cases from merged FT-TC structure content."""
         test_cases = []

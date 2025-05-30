@@ -17,10 +17,10 @@
 set -euo pipefail
 
 # Configuration
-AGENT3D_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SCRIPT_DIR=$AGENT3D_DIR
-VENV_PATH="$SCRIPT_DIR/venv"
-PYTHON_MCP_ROUTER="$SCRIPT_DIR/tools/agent3d_mcp_router.py"
+# Resolve symlinks to get the actual Agent3D root directory
+AGENT3D_ROOT="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}" || echo "${BASH_SOURCE[0]}")")" && pwd)"
+VENV_PATH="$AGENT3D_ROOT/venv"
+PYTHON_MCP_ROUTER="$AGENT3D_ROOT/tools/agent3d_mcp_router.py"
 
 # Logging function - log to stderr to avoid breaking MCP JSON-RPC protocol
 log() {
