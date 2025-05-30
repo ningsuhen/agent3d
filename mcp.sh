@@ -17,10 +17,10 @@
 set -euo pipefail
 
 # Configuration
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-AGENT3D_DIR="$(dirname "$SCRIPT_DIR")"
-VENV_PATH="$AGENT3D_DIR/venv"
-PYTHON_MCP_SERVER="$SCRIPT_DIR/agent3d_mcp_server.py"
+AGENT3D_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR=$AGENT3D_DIR
+VENV_PATH="$SCRIPT_DIR/venv"
+PYTHON_MCP_SERVER="$SCRIPT_DIR/tools/agent3d_mcp_server.py"
 
 # Logging function - log to stderr to avoid breaking MCP JSON-RPC protocol
 log() {
