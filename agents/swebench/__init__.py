@@ -7,7 +7,7 @@ into the Agent3D Documentation-Driven Development framework.
 The SWE-bench agent is a specialized coding agent designed for complex software
 engineering tasks including:
 - Bug fixes in existing codebases
-- Feature implementation with tests  
+- Feature implementation with tests
 - Code refactoring and optimization
 - Multi-step software engineering problems
 
@@ -31,7 +31,7 @@ AGENT_METADATA = {
     "capabilities": [
         "complex_coding_tasks",
         "bug_fixes",
-        "feature_implementation", 
+        "feature_implementation",
         "code_refactoring",
         "test_writing",
         "multi_step_problem_solving"

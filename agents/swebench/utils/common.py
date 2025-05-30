@@ -1,4 +1,4 @@
-"""Tool definitions and utilities for SWE-bench Agent in Agent3D Framework."""
+"""Tool definitions and utilities."""
 
 import copy
 import json
@@ -13,12 +13,16 @@ from anthropic import BadRequestError
 from termcolor import colored
 from typing_extensions import final
 
-from .token_counter import ClaudeTokenCounter
+from .token_counter import (
+    ClaudeTokenCounter,
+)
 from .llm_client import (
     AnthropicRedactedThinkingBlock,
     AnthropicThinkingBlock,
     ToolCall,
     ToolFormattedResult,
+)
+from .llm_client import (
     AssistantContentBlock,
     GeneralContentBlock,
     LLMMessages,
@@ -30,8 +34,9 @@ from .llm_client import (
 ToolInputSchema = dict[str, Any]
 """A JSON schema describing the input to a tool."""
 
+
 RIGHT = ""  # "▶"
-LEFT = ""   # "◀"
+LEFT = ""  # "◀"
 
 
 @dataclass
@@ -44,12 +49,13 @@ class ToolCallParameters:
 @dataclass
 class ToolImplOutput:
     """Output from an LLM tool implementation.
-    
+
     Attributes:
         tool_output: The main output string that will be shown to the model.
         tool_result_message: A description of what the tool did, for logging purposes.
         auxiliary_data: Additional data that the tool wants to pass along for logging only.
     """
+
     tool_output: str
     tool_result_message: str
     auxiliary_data: dict[str, Any] = field(default_factory=dict)
@@ -57,9 +63,10 @@ class ToolImplOutput:
 
 class DialogMessages:
     """Keeps track of messages that compose a dialog.
-    
-    A dialog alternates between user and assistant turns.
-    Each turn consists of one or more messages, represented by GeneralContentBlock.
+
+    A dialog alternates between user and assistant turns. Each turn consists
+    of one or more messages, represented by GeneralContentBlock.
+
     A user turn consists of one or more prompts and tool results.
     An assistant turn consists of a model answer and tool calls.
     """
@@ -80,7 +87,14 @@ class DialogMessages:
     def add_user_prompt(
         self, message: str, allow_append_to_tool_call_results: bool = False
     ):
-        """Add a user prompt to the dialog."""
+        """Add a user prompt to the dialog.
+
+        Args:
+            message: The message to add.
+            allow_append_to_tool_call_results: If True, and if the last message
+                is a tool call result, then the message will be appended to that
+                turn.
+        """
         if self.is_user_turn():
             self._message_lists.append([TextPrompt(message)])
         else:
@@ -148,6 +162,7 @@ class DialogMessages:
 
     def run_truncation_strategy(self) -> None:
         """Truncate all the tool results apart from the last N turns."""
+
         print(
             colored(
                 f"Truncating all but the last {self.truncate_all_but_N} turns as we hit the token budget {self.token_budget_to_trigger_truncation}.",
@@ -159,6 +174,7 @@ class DialogMessages:
         )
 
         old_token_ct = self.count_tokens()
+
         new_message_lists: list[list[GeneralContentBlock]] = copy.deepcopy(
             self._message_lists
         )
@@ -189,6 +205,7 @@ class DialogMessages:
                             )
 
         self._message_lists = new_message_lists
+
         new_token_ct = self.count_tokens()
         print(
             colored(
@@ -196,24 +213,35 @@ class DialogMessages:
                 "yellow",
             )
         )
+
         self.truncation_history_token_cts.append(old_token_ct - new_token_ct)
 
     def get_messages_for_llm_client(self) -> LLMMessages:
         """Returns messages in the format the LM client expects."""
+
         if (
             self.use_prompt_budgeting
             and self.count_tokens() > self.token_budget_to_trigger_truncation
         ):
             self.run_truncation_strategy()
+
         return list(self._message_lists)
 
     def drop_final_assistant_turn(self):
-        """Remove the final assistant turn."""
+        """Remove the final assistant turn.
+
+        This allows dialog messages to be passed to tools as they are called,
+        without containing the final tool call.
+        """
         if self.is_user_turn():
             self._message_lists.pop()
 
     def drop_tool_calls_from_final_turn(self):
-        """Remove tool calls from the final assistant turn."""
+        """Remove tool calls from the final assistant turn.
+
+        This allows dialog messages to be passed to tools as they are called,
+        without containing the final tool call.
+        """
         if self.is_user_turn():
             new_turn_messages = [
                 message
@@ -223,11 +251,13 @@ class DialogMessages:
             self._message_lists[-1] = cast(list[GeneralContentBlock], new_turn_messages)
 
     def get_pending_tool_calls(self) -> list[ToolCallParameters]:
-        """Returns the tool calls from the last assistant turn."""
+        """Returns the tool calls from the last assistant turn.
+
+        Returns an empty list of no tool calls are pending.
+        """
         self._assert_user_turn()
         if len(self._message_lists) == 0:
             return []
-
         tool_calls = []
         for message in self._message_lists[-1]:
             if isinstance(message, ToolCall):
@@ -284,7 +314,9 @@ class DialogMessages:
 
     def get_summary(self, max_str_len: int = 100) -> str:
         """Returns a summary of the dialog."""
+
         def truncate_strings(obj):
+            # Truncate all leaf strings to 100 characters
             if isinstance(obj, str):
                 if len(obj) > max_str_len:
                     return obj[:max_str_len] + "..."
@@ -312,14 +344,25 @@ class DialogMessages:
 
 
 class Tool:
-    """A tool that can be called by an LLM."""
+    """A tool that can be called by an LLM.
+
+    A general tool may require additional parameters that the model does not
+    provide. It may also return arbitrary structured output. Therefore, a
+    general tool does not have a well-defined interface for calling it.
+    """
+
     name: str
     description: str
     input_schema: ToolInputSchema
 
 
 class LLMTool:
-    """A tool that fits into the standard LLM tool-calling paradigm."""
+    """A tool that fits into the standard LLM tool-calling paradigm.
+
+    An LLM tool can be called by supplying the parameters specified in its
+    input_schema, and returns a string that is then shown to the model.
+    """
+
     name: str
     description: str
     input_schema: ToolInputSchema
@@ -329,13 +372,24 @@ class LLMTool:
         """Whether the tool wants to stop the current agentic run."""
         return False
 
+    # Final is here to indicate that subclasses should override run_impl(), not
+    # run(). There may be a reason in the future to override run() itself, and
+    # if such a reason comes up, this @final decorator can be removed.
     @final
     def run(
         self,
         tool_input: dict[str, Any],
         dialog_messages: Optional[DialogMessages] = None,
     ) -> str:
-        """Run the tool."""
+        """Run the tool.
+
+        Args:
+            tool_input: The input to the tool.
+            dialog_messages: The dialog messages so far, if available. The tool
+                is allowed to modify this object, so the caller should make a copy
+                if that's not desired. The dialog messages should not contain
+                pending tool calls. They should end where it's the user's turn.
+        """
         if dialog_messages:
             assert dialog_messages.is_user_turn()
 
@@ -359,7 +413,11 @@ class LLMTool:
         tool_input: dict[str, Any],
         dialog_messages: Optional[DialogMessages] = None,
     ) -> ToolImplOutput:
-        """Subclasses should implement this."""
+        """Subclasses should implement this.
+
+        Returns:
+            A ToolImplOutput containing the output string, description, and any auxiliary data.
+        """
         raise NotImplementedError()
 
     def get_tool_param(self) -> ToolParam:
@@ -370,7 +428,11 @@ class LLMTool:
         )
 
     def _validate_tool_input(self, tool_input: dict[str, Any]):
-        """Validates the tool input."""
+        """Validates the tool input.
+
+        Raises:
+            jsonschema.ValidationError: If the tool input is invalid.
+        """
         jsonschema.validate(instance=tool_input, schema=self.input_schema)
 
 
@@ -379,7 +441,13 @@ def call_tools(
     calls_to_make: list[ToolCallParameters],
     dialog_messages: Optional[DialogMessages] = None,
 ) -> list[str]:
-    """Call the requested tools and return their outputs."""
+    """Call the requested tools and return their outputs.
+
+    Args:
+        tools: The tools to call.
+        calls_to_make: The calls to make.
+        dialog_messages: If supplied, the tool call results will be recorded here.
+    """
     tool_outputs = []
     for call in calls_to_make:
         tool = next(t for t in tools if t.name == call.tool_name)
@@ -402,10 +470,8 @@ def generate_patch(git_repo, reverse=False):
         "--no-color",  # Don't include color codes in the output
         "HEAD",  # Compare against the current commit
     ]
-
     if reverse:
         cmd.append("-R")
-
     max_retries = 3
     for attempt in range(max_retries):
         try:

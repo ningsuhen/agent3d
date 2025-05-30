@@ -263,19 +263,10 @@ class SWEBenchTool:
             import os
             from pathlib import Path
 
-            # Add the augment-swebench-agent directory to Python path
-            swebench_path = Path(__file__).parent.parent.parent / "augment-swebench-agent"
-            if swebench_path.exists():
-                sys.path.insert(0, str(swebench_path))
-            else:
-                self.logger.warning("❌ augment-swebench-agent directory not found")
-                self.agent = None
-                return
-
-            # Import real SWE-bench agent components
-            from tools.agent import Agent
-            from utils.llm_client import AnthropicDirectClient
-            from utils.workspace_manager import WorkspaceManager
+            # Import from the integrated agents.swebench module
+            from agents.swebench import SWEBenchAgent
+            from agents.swebench.utils.llm_client import AnthropicDirectClient
+            from agents.swebench.utils.workspace_manager import WorkspaceManager
             from rich.console import Console
 
             # Initialize components
@@ -299,7 +290,7 @@ class SWEBenchTool:
             console = Console()
 
             # Initialize real SWE-bench agent optimized for file-focused tasks
-            self.agent = Agent(
+            self.agent = SWEBenchAgent(
                 client=llm_client,
                 workspace_manager=workspace_manager,
                 console=console,

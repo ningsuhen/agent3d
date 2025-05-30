@@ -1,77 +1,48 @@
-"""
-Augment SWE-bench Agent - Integrated into Agent3D Framework
-
-This is the #1 open-source SWE-bench Verified agent (65.4% success rate)
-adapted for integration with the Agent3D Documentation-Driven Development framework.
-
-Original: https://github.com/augmentcode/augment-swebench-agent
-"""
-
 from copy import deepcopy
-from typing import Any, Optional, Union
-import logging
-
-from .tools.bash_tool import create_bash_tool, create_docker_bash_tool
-from .utils.common import (
+from typing import Any, Optional
+from tools.bash_tool import create_bash_tool, create_docker_bash_tool
+from utils.common import (
     DialogMessages,
     LLMTool,
     ToolImplOutput,
 )
-from .utils.llm_client import LLMClient, TextResult
-from .utils.workspace_manager import WorkspaceManager
-from .tools.complete_tool import CompleteTool
-from .prompts.system_prompt import SYSTEM_PROMPT
-from .tools.str_replace_tool import StrReplaceEditorTool
-from .tools.sequential_thinking_tool import SequentialThinkingTool
+from utils.llm_client import LLMClient, TextResult
+from utils.workspace_manager import WorkspaceManager
+from tools.complete_tool import CompleteTool
+from prompts.system_prompt import SYSTEM_PROMPT
+from tools.str_replace_tool import StrReplaceEditorTool
+from tools.sequential_thinking_tool import SequentialThinkingTool
 from termcolor import colored
 from rich.console import Console
+import logging
 
 
-class SWEBenchAgent(LLMTool):
-    """
-    SWE-bench Agent integrated into Agent3D Framework
-
-    A specialized coding agent that achieved 65.4% success rate on SWE-bench Verified.
-    Designed for complex software engineering tasks including bug fixes, feature
-    implementation, and code refactoring.
-    """
-
-    name = "swebench_agent"
+class Agent(LLMTool):
+    name = "general_agent"
     description = """\
-A specialized software engineering agent that can solve complex coding tasks.
-This agent achieved 65.4% success rate on SWE-bench Verified and is designed for:
-- Bug fixes in existing codebases
-- Feature implementation with tests
-- Code refactoring and optimization
-- Multi-step software engineering problems
+A general agent that can accomplish tasks and answer questions.
 
-If faced with complex coding tasks, this agent can break them down into smaller
-steps and execute them systematically using specialized tools.
+If you are faced with a task that involves more than a few steps, or if the task is complex, or if the instructions are very long,
+try breaking down the task into smaller steps and call this tool multiple times.
 """
-
     input_schema = {
         "type": "object",
         "properties": {
             "instruction": {
                 "type": "string",
-                "description": "The software engineering task instruction.",
+                "description": "The instruction to the agent.",
             },
-            "workspace_root": {
-                "type": "string",
-                "description": "Root directory for the workspace (optional)",
-                "default": "."
-            },
-            "use_docker": {
-                "type": "boolean",
-                "description": "Whether to use Docker for isolated execution",
-                "default": False
-            }
         },
         "required": ["instruction"],
     }
 
     def _get_system_prompt(self):
-        """Get the system prompt with Agent3D DDD integration."""
+        """Get the system prompt, including any pending messages.
+
+        Returns:
+            The system prompt with messages prepended if any
+        """
+
         return SYSTEM_PROMPT.format(
             workspace_root=self.workspace_manager.root,
         )
@@ -82,26 +53,19 @@ steps and execute them systematically using specialized tools.
         workspace_manager: WorkspaceManager,
         console: Console,
         logger_for_agent_logs: logging.Logger,
-        max_output_tokens_per_turn: int = 32768,  # Increased for complex tasks
-        max_turns: int = 200,  # Increased for SWE-bench tasks
+        max_output_tokens_per_turn: int = 8192,
+        max_turns: int = 10,
         use_prompt_budgeting: bool = True,
         ask_user_permission: bool = False,
         docker_container_id: Optional[str] = None,
-        agent3d_integration: bool = True,  # New parameter for Agent3D features
     ):
-        """Initialize the SWE-bench agent with Agent3D integration.
+        """Initialize the agent.
 
         Args:
             client: The LLM client to use
-            workspace_manager: Workspace manager for file operations
-            console: Rich console for output
-            logger_for_agent_logs: Logger for agent operations
             max_output_tokens_per_turn: Maximum tokens per turn
             max_turns: Maximum number of turns
-            use_prompt_budgeting: Whether to use prompt budgeting
-            ask_user_permission: Whether to ask for permission before commands
-            docker_container_id: Docker container ID for isolated execution
-            agent3d_integration: Enable Agent3D-specific features
+            workspace_manager: Optional workspace manager for taking snapshots
         """
         super().__init__()
         self.client = client
@@ -111,8 +75,6 @@ steps and execute them systematically using specialized tools.
         self.max_turns = max_turns
         self.workspace_manager = workspace_manager
         self.interrupted = False
-        self.agent3d_integration = agent3d_integration
-
         self.dialog = DialogMessages(
             logger_for_agent_logs=logger_for_agent_logs,
             use_prompt_budgeting=use_prompt_budgeting,
@@ -121,7 +83,6 @@ steps and execute them systematically using specialized tools.
         # Create and store the complete tool
         self.complete_tool = CompleteTool()
 
-        # Configure bash tool (Docker or local)
         if docker_container_id is not None:
             print(
                 colored(
@@ -141,7 +102,6 @@ steps and execute them systematically using specialized tools.
                 ask_user_permission=ask_user_permission,
             )
 
-        # Initialize core tools
         self.tools = [
             bash_tool,
             StrReplaceEditorTool(workspace_manager=workspace_manager),
@@ -149,38 +109,26 @@ steps and execute them systematically using specialized tools.
             self.complete_tool,
         ]
 
-        # Add Agent3D-specific tools if integration is enabled
-        if self.agent3d_integration:
-            self._add_agent3d_tools()
-
-    def _add_agent3d_tools(self):
-        """Add Agent3D-specific tools for DDD integration."""
-        # TODO: Add Agent3D-specific tools like:
-        # - DDD drift scanner integration
-        # - Template system access
-        # - Pass coordination tools
-        # - Quality gate validation
-        pass
-
     def run_impl(
         self,
         tool_input: dict[str, Any],
         dialog_messages: Optional[DialogMessages] = None,
     ) -> ToolImplOutput:
-        """Execute the SWE-bench agent with the given instruction."""
         instruction = tool_input["instruction"]
 
-        # Log the start of execution
-        user_input_delimiter = "-" * 45 + " SWE-BENCH AGENT START " + "-" * 45 + "\n" + instruction
+        user_input_delimiter = "-" * 45 + " USER INPUT " + "-" * 45 + "\n" + instruction
         self.logger_for_agent_logs.info(f"\n{user_input_delimiter}\n")
 
-        # Add instruction to dialog
+        # print("Agent starting with instruction:", instruction)
+
+        # Add instruction to dialog before getting mode
         self.dialog.add_user_prompt(instruction)
         self.interrupted = False
-        remaining_turns = self.max_turns
 
+        remaining_turns = self.max_turns
         while remaining_turns > 0:
             remaining_turns -= 1
+
             delimiter = "-" * 45 + " NEW TURN " + "-" * 45
             self.logger_for_agent_logs.info(f"\n{delimiter}\n")
 
@@ -211,6 +159,7 @@ steps and execute them systematically using specialized tools.
 
                 # Handle tool calls
                 pending_tool_calls = self.dialog.get_pending_tool_calls()
+
                 if len(pending_tool_calls) == 0:
                     # No tools were called, so assume the task is complete
                     self.logger_for_agent_logs.info("[no tools were called]")
@@ -231,7 +180,7 @@ steps and execute them systematically using specialized tools.
                 if len(text_results) > 0:
                     text_result = text_results[0]
                     self.logger_for_agent_logs.info(
-                        f"SWE-bench agent planning next step: {text_result.text}\n",
+                        f"Top-level agent planning next step: {text_result.text}\n",
                     )
 
                 try:
@@ -243,6 +192,7 @@ steps and execute them systematically using specialized tools.
 
                 try:
                     result = tool.run(tool_call.tool_input, deepcopy(self.dialog))
+
                     tool_input_str = "\n".join(
                         [f" - {k}: {v}" for k, v in tool_call.tool_input.items()]
                     )
@@ -259,7 +209,8 @@ steps and execute them systematically using specialized tools.
                     self.dialog.add_tool_call_result(tool_call, tool_result)
 
                     if self.complete_tool.should_stop:
-                        # Add a fake model response for potential resumption
+                        # Add a fake model response, so the next turn is the user's
+                        # turn in case they want to resume
                         self.dialog.add_model_response(
                             [TextResult(text="Completed the task.")]
                         )
@@ -267,7 +218,6 @@ steps and execute them systematically using specialized tools.
                             tool_output=self.complete_tool.answer,
                             tool_result_message="Task completed",
                         )
-
                 except KeyboardInterrupt:
                     # Handle interruption during tool execution
                     self.interrupted = True
@@ -286,7 +236,7 @@ steps and execute them systematically using specialized tools.
                     )
 
             except KeyboardInterrupt:
-                # Handle interruption during model generation
+                # Handle interruption during model generation or other operations
                 self.interrupted = True
                 self.dialog.add_model_response(
                     [
@@ -306,43 +256,38 @@ steps and execute them systematically using specialized tools.
         )
 
     def get_tool_start_message(self, tool_input: dict[str, Any]) -> str:
-        return f"SWE-bench Agent started with instruction: {tool_input['instruction']}"
+        return f"Agent started with instruction: {tool_input['instruction']}"
 
     def run_agent(
         self,
         instruction: str,
         resume: bool = False,
-        orientation_instruction: Union[str, None] = None,
+        orientation_instruction: str | None = None,
     ) -> str:
-        """Start a new agent run with Agent3D integration.
+        """Start a new agent run.
 
         Args:
-            instruction: The software engineering task instruction
-            resume: Whether to resume from previous state
-            orientation_instruction: Optional orientation for the task
+            instruction: The instruction to the agent.
+            resume: Whether to resume the agent from the previous state,
+                continuing the dialog.
 
         Returns:
-            The result of the agent execution
+            A tuple of (result, message).
         """
         self.complete_tool.reset()
-
         if resume:
             assert self.dialog.is_user_turn()
         else:
             self.dialog.clear()
-
-        self.interrupted = False
+            self.interrupted = False
 
         tool_input = {
             "instruction": instruction,
         }
-
         if orientation_instruction:
             tool_input["orientation_instruction"] = orientation_instruction
-
         return self.run(tool_input, self.dialog)
 
     def clear(self):
-        """Clear the agent state for a fresh start."""
         self.dialog.clear()
         self.interrupted = False
