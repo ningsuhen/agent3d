@@ -45,6 +45,14 @@ except ImportError:
     Observer = None
     FileSystemEventHandler = None
 
+# Vector database manager for enhanced file discovery (optional dependency)
+try:
+    from vector_db_manager import MultiRootVectorDBManager
+    VECTOR_DB_AVAILABLE = True
+except ImportError:
+    VECTOR_DB_AVAILABLE = False
+    MultiRootVectorDBManager = None
+
 # Configure logging to stderr only (MCP protocol uses stdout for JSON-RPC)
 logging.basicConfig(
     level=logging.INFO,
@@ -76,6 +84,10 @@ class DriftFileWatcher(FileSystemEventHandler if WATCHDOG_AVAILABLE else object)
         if file_path.suffix.lower() in relevant_extensions:
             logger.info(f"📝 File change detected: {file_path.name}")
             self.server.invalidate_cache()
+            # Also invalidate vector database cache if available
+            if hasattr(self.server, 'vector_db_manager') and self.server.vector_db_manager:
+                # Invalidate cache for all DDD roots since we don't know which one this file belongs to
+                self.server.invalidate_vector_cache()
 
 class CodeReloader:
     """Monitors MCP server code files for changes and triggers restart"""
@@ -132,7 +144,7 @@ class CodeReloader:
         self.running = False
 
 class DriftScannerMCPServer:
-    """MCP Server for Agent3D Drift Scanner with Live Reloading"""
+    """MCP Server for Agent3D Drift Scanner with Live Reloading and Vector Database Support"""
 
     def __init__(self):
         self.script_dir = Path(__file__).parent
@@ -153,6 +165,10 @@ class DriftScannerMCPServer:
             self.observer = None
             self.cache_invalidated = True  # Always invalidated if no watching
             self.watched_directories = set()
+
+        # Vector database manager for enhanced file discovery
+        self.vector_db_manager = None
+        self._initialize_vector_db()
 
         logger.info("Agent3D Drift Scanner MCP Server initialized")
         logger.info("🔄 FRESH SCAN MODE: Every request performs a fresh drift analysis (no caching)")
@@ -178,6 +194,33 @@ class DriftScannerMCPServer:
                     logger.warning("   To enable: Set mcp_server.enabled = true in .agent3d-config.yml")
         except Exception as e:
             logger.debug(f"Could not check MCP configuration: {e}")
+
+    def _initialize_vector_db(self):
+        """Initialize vector database manager if available."""
+        if not VECTOR_DB_AVAILABLE:
+            logger.info("⚠️  Vector database dependencies not available, using traditional file scanning")
+            return
+
+        try:
+            self.vector_db_manager = MultiRootVectorDBManager(logger=logger)
+            logger.info("✅ Vector database manager initialized for enhanced file discovery")
+        except Exception as e:
+            logger.warning(f"⚠️  Failed to initialize vector database manager: {e}")
+            logger.info("   Falling back to traditional file scanning")
+            self.vector_db_manager = None
+
+    def get_vector_db_stats(self, ddd_root: str) -> Dict[str, Any]:
+        """Get vector database statistics for a DDD_ROOT."""
+        if not self.vector_db_manager:
+            return {"status": "unavailable", "reason": "Vector database not initialized"}
+
+        return self.vector_db_manager.get_statistics(ddd_root)
+
+    def invalidate_vector_cache(self, ddd_root: str = None):
+        """Invalidate vector database cache for specific or all DDD_ROOT directories."""
+        if self.vector_db_manager:
+            self.vector_db_manager.invalidate_cache(ddd_root)
+            logger.info(f"🗑️  Vector database cache invalidated for: {ddd_root or 'all directories'}")
 
     def find_ddd_root(self, explicit_root: Optional[str] = None) -> Optional[str]:
         """
@@ -256,13 +299,29 @@ class DriftScannerMCPServer:
     def execute_drift_scanner(self, args: Dict[str, Any]) -> Dict[str, Any]:
         """Execute the drift scanner with given arguments - ALWAYS performs fresh scan"""
         try:
-            # Build command arguments for the original drift scanner
-            cmd_args = [sys.executable, str(self.drift_scanner)]
-
             # Determine DDD root and change to that directory
             ddd_root = self.find_ddd_root(args.get('ddd_root'))
             if not ddd_root:
                 raise Exception("No DDD root found. Ensure .agent3d-config.yaml exists or set DDD_ROOT environment variable.")
+
+            # Initialize vector database for this DDD root if available
+            vector_db_stats = None
+            if self.vector_db_manager:
+                try:
+                    # Get or create vector database for this DDD root
+                    vector_db = self.vector_db_manager.get_or_create_database(ddd_root)
+                    if vector_db:
+                        vector_db_stats = self.vector_db_manager.get_statistics(ddd_root)
+                        logger.info(f"📊 Vector database ready: {vector_db_stats.get('total_chunks', 0)} chunks indexed")
+                except Exception as e:
+                    logger.warning(f"⚠️  Vector database initialization failed: {e}")
+
+            # Build command arguments for the original drift scanner
+            cmd_args = [sys.executable, str(self.drift_scanner)]
+
+            # Enable vector database in drift scanner if available
+            if self.vector_db_manager and vector_db_stats:
+                cmd_args.append("--enable-vector-db")
 
             # Add mode
             mode = args.get('mode', 'tc-mapping')

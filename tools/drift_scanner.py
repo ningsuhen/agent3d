@@ -24,8 +24,16 @@ import os
 import subprocess
 from pathlib import Path
 from collections import defaultdict
-from typing import Dict, List, Optional, Tuple, Set
+from typing import Dict, List, Optional, Tuple, Set, Any
 from dataclasses import dataclass, field, asdict
+
+# Import vector database manager for enhanced file discovery
+try:
+    from vector_db_manager import MultiRootVectorDBManager
+    VECTOR_DB_AVAILABLE = True
+except ImportError:
+    VECTOR_DB_AVAILABLE = False
+    MultiRootVectorDBManager = None
 
 # Agent3D temporary directory for drift scanner operations
 AGENT3D_TMP_DIR = Path('.agent3d-tmp')
@@ -2518,11 +2526,24 @@ class MultiModeDriftAnalyzer:
     """Multi-mode drift analyzer that can run different types of drift detection."""
 
     def __init__(self, root_dir: str = '.', test_cases_file: str = 'docs/TEST-CASES.md',
-                 change_detector: Optional[GitChangeDetector] = None):
+                 change_detector: Optional[GitChangeDetector] = None, enable_vector_db: bool = True):
         self.root_dir = root_dir
         self.test_cases_file = test_cases_file
         self.change_detector = change_detector
         self.config_manager = ConfigurationManager(root_dir)
+        self.enable_vector_db = enable_vector_db and VECTOR_DB_AVAILABLE
+
+        # Initialize vector database manager if available
+        self.vector_db_manager = None
+        if self.enable_vector_db:
+            try:
+                self.vector_db_manager = MultiRootVectorDBManager()
+                print("✅ Vector database manager initialized for enhanced file discovery")
+            except Exception as e:
+                print(f"⚠️  Failed to initialize vector database manager: {e}")
+                self.enable_vector_db = False
+        elif not VECTOR_DB_AVAILABLE:
+            print("⚠️  Vector database dependencies not available, using traditional file scanning")
 
         # Initialize individual scanners with configuration
         self.tc_analyzer = TCDriftAnalyzer(root_dir, test_cases_file, change_detector, self.config_manager)
@@ -2532,6 +2553,426 @@ class MultiModeDriftAnalyzer:
         self.comprehensive_detector = ComprehensiveDriftDetector(root_dir)
         self.test_quality_validator = TestQualityValidator(root_dir)
         self.code_location_analyzer = CodeLocationAnalyzer(root_dir, 'docs/features', self.config_manager)
+
+    def get_vector_db_stats(self) -> Dict[str, Any]:
+        """Get vector database statistics."""
+        if not self.vector_db_manager:
+            return {"status": "unavailable", "reason": "Vector database not initialized"}
+
+        return self.vector_db_manager.get_statistics(self.root_dir)
+
+    def search_related_files(self, query: str, top_k: int = 10,
+                           filter_language: str = None, filter_chunk_type: str = None) -> List[Tuple[Any, float]]:
+        """Search for files related to a query using vector database.
+
+        Args:
+            query: Search query (e.g., "test cases for authentication")
+            top_k: Number of results to return
+            filter_language: Filter by programming language (e.g., "python")
+            filter_chunk_type: Filter by chunk type (e.g., "test", "function", "class")
+
+        Returns:
+            List of (chunk, similarity_score) tuples
+        """
+        if not self.vector_db_manager:
+            print("⚠️  Vector database not available for search")
+            return []
+
+        return self.vector_db_manager.search(self.root_dir, query, top_k, filter_language, filter_chunk_type)
+
+    def find_related_test_files(self, feature_description: str, top_k: int = 5) -> List[str]:
+        """Find test files related to a feature description.
+
+        Args:
+            feature_description: Description of the feature to find tests for
+            top_k: Number of test files to return
+
+        Returns:
+            List of test file paths
+        """
+        if not self.vector_db_manager:
+            return []
+
+        # Search for test-related chunks
+        test_query = f"test {feature_description}"
+        results = self.vector_db_manager.search(
+            self.root_dir, test_query, top_k * 2,
+            filter_chunk_type="test"
+        )
+
+        # Extract unique file paths
+        test_files = []
+        seen_files = set()
+        for chunk, score in results:
+            if hasattr(chunk, 'file_path') and chunk.file_path not in seen_files:
+                seen_files.add(chunk.file_path)
+                test_files.append(chunk.file_path)
+                if len(test_files) >= top_k:
+                    break
+
+        return test_files
+
+    def find_implementation_files(self, feature_description: str, top_k: int = 5) -> List[str]:
+        """Find implementation files related to a feature description.
+
+        Args:
+            feature_description: Description of the feature to find implementation for
+            top_k: Number of implementation files to return
+
+        Returns:
+            List of implementation file paths
+        """
+        if not self.vector_db_manager:
+            return []
+
+        # Search for implementation-related chunks (exclude tests)
+        results = self.vector_db_manager.search(
+            self.root_dir, feature_description, top_k * 3
+        )
+
+        # Filter out test files and extract unique file paths
+        impl_files = []
+        seen_files = set()
+        for chunk, score in results:
+            if hasattr(chunk, 'file_path') and chunk.file_path not in seen_files:
+                # Skip test files
+                if 'test' not in chunk.file_path.lower() and chunk.chunk_type != 'test':
+                    seen_files.add(chunk.file_path)
+                    impl_files.append(chunk.file_path)
+                    if len(impl_files) >= top_k:
+                        break
+
+        return impl_files
+
+    def vector_enhanced_feature_mapping(self, features: List[Feature], test_functions: List[TestFunction]) -> Dict[str, List[TestFunction]]:
+        """Enhanced feature-to-test mapping using vector database semantic search.
+
+        Args:
+            features: List of features to map
+            test_functions: List of test functions to search through
+
+        Returns:
+            Dictionary mapping feature IDs to related test functions
+        """
+        if not self.vector_db_manager:
+            print("⚠️  Vector database not available, falling back to traditional mapping")
+            return self.ft_analyzer._map_features_to_tests(features, test_functions)
+
+        print("🔍 Using vector-enhanced feature mapping...")
+        ft_mappings = {}
+
+        for feature in features:
+            # Create search query from feature content
+            search_query = f"{feature.title} {feature.description} {feature.criteria}"
+
+            # Search for related test chunks
+            test_results = self.vector_db_manager.search(
+                self.root_dir, search_query, top_k=20,
+                filter_chunk_type="test"
+            )
+
+            # Also search for general code that might be related
+            code_results = self.vector_db_manager.search(
+                self.root_dir, search_query, top_k=10,
+                filter_language="python"
+            )
+
+            # Combine and filter results
+            related_tests = []
+            seen_files = set()
+
+            # Process test results first (higher priority)
+            for chunk, score in test_results:
+                if hasattr(chunk, 'file_path') and score > 0.3:  # Similarity threshold
+                    # Find test functions in this file
+                    for test_func in test_functions:
+                        if (test_func.file == chunk.file_path and
+                            test_func.file not in seen_files):
+                            related_tests.append(test_func)
+                            seen_files.add(test_func.file)
+
+            # Process code results for additional context
+            for chunk, score in code_results:
+                if hasattr(chunk, 'file_path') and score > 0.4:  # Higher threshold for code
+                    # Check if this is a test file we haven't seen
+                    if 'test' in chunk.file_path.lower():
+                        for test_func in test_functions:
+                            if (test_func.file == chunk.file_path and
+                                test_func.file not in seen_files):
+                                related_tests.append(test_func)
+                                seen_files.add(test_func.file)
+
+            if related_tests:
+                ft_mappings[feature.ft_id] = related_tests
+                print(f"  📋 {feature.ft_id}: Found {len(related_tests)} related tests via vector search")
+            else:
+                print(f"  ❌ {feature.ft_id}: No related tests found via vector search")
+
+        return ft_mappings
+
+    def vector_enhanced_test_coverage_analysis(self, test_functions: List[TestFunction]) -> List[CoverageIssue]:
+        """Enhanced test coverage analysis using vector database to find missing tests.
+
+        Args:
+            test_functions: List of existing test functions
+
+        Returns:
+            List of coverage issues found via vector analysis
+        """
+        if not self.vector_db_manager:
+            print("⚠️  Vector database not available, falling back to traditional coverage analysis")
+            return self.coverage_scanner.scan_coverage_issues(test_functions)
+
+        print("🔍 Using vector-enhanced coverage analysis...")
+        coverage_issues = []
+
+        # Get all source files
+        source_files = self.coverage_scanner.find_source_files()
+
+        # Create a set of tested file patterns from existing tests
+        tested_patterns = set()
+        for test_func in test_functions:
+            # Extract likely source file patterns from test names
+            test_name = test_func.function.lower()
+            if test_name.startswith('test_'):
+                pattern = test_name[5:]  # Remove 'test_' prefix
+                tested_patterns.add(pattern)
+
+        for file_path, language in source_files:
+            if language != 'python':  # Focus on Python for now
+                continue
+
+            # Extract functions from source file
+            functions = self.coverage_scanner._extract_functions_from_source(file_path, language)
+
+            for func_name, line_num in functions:
+                # Use vector search to find related tests
+                search_query = f"test {func_name} {file_path.stem}"
+
+                test_results = self.vector_db_manager.search(
+                    self.root_dir, search_query, top_k=5,
+                    filter_chunk_type="test"
+                )
+
+                # Check if we found any relevant tests
+                has_related_test = False
+                for chunk, score in test_results:
+                    if score > 0.4:  # Similarity threshold
+                        # Check if any test function is in this chunk's file
+                        for test_func in test_functions:
+                            if test_func.file == chunk.file_path:
+                                has_related_test = True
+                                break
+                    if has_related_test:
+                        break
+
+                if not has_related_test:
+                    coverage_issues.append(CoverageIssue(
+                        file=str(file_path),
+                        function=func_name,
+                        line_number=line_num,
+                        issue_type="missing_test_vector",
+                        severity="medium"
+                    ))
+                    print(f"  ❌ Missing test for {file_path}::{func_name} (vector analysis)")
+
+        print(f"🔍 Vector coverage analysis found {len(coverage_issues)} potential issues")
+        return coverage_issues
+
+    def vector_enhanced_test_quality_analysis(self, test_functions: List[TestFunction]) -> Tuple[List[TestQualityIssue], float]:
+        """Enhanced test quality analysis using vector database to assess test relevance.
+
+        Args:
+            test_functions: List of test functions to analyze
+
+        Returns:
+            Tuple of (quality issues, overall quality score)
+        """
+        if not self.vector_db_manager:
+            print("⚠️  Vector database not available, falling back to traditional quality analysis")
+            return self.test_quality_validator.validate_test_quality(test_functions)
+
+        print("🔍 Using vector-enhanced test quality analysis...")
+        quality_issues = []
+        quality_scores = []
+
+        for test_func in test_functions:
+            # Use vector search to find related implementation code
+            search_query = f"{test_func.function} {test_func.class_name or ''}"
+
+            # Search for related implementation chunks
+            impl_results = self.vector_db_manager.search(
+                self.root_dir, search_query, top_k=10,
+                filter_language="python"
+            )
+
+            # Filter out test files to focus on implementation
+            impl_chunks = []
+            for chunk, score in impl_results:
+                if (hasattr(chunk, 'file_path') and
+                    'test' not in chunk.file_path.lower() and
+                    chunk.chunk_type != 'test' and
+                    score > 0.3):
+                    impl_chunks.append((chunk, score))
+
+            # Calculate quality score based on vector similarity to implementation
+            if impl_chunks:
+                # High similarity to implementation code suggests good test quality
+                max_similarity = max(score for _, score in impl_chunks)
+                avg_similarity = sum(score for _, score in impl_chunks) / len(impl_chunks)
+
+                # Quality score based on similarity to implementation
+                quality_score = (max_similarity * 0.6 + avg_similarity * 0.4)
+                quality_scores.append(quality_score)
+
+                # Check for quality issues
+                if quality_score < 0.4:
+                    quality_issues.append(TestQualityIssue(
+                        test_file=test_func.file,
+                        test_function=test_func.function,
+                        issue_type="low_implementation_similarity",
+                        severity="medium",
+                        description=f"Test has low similarity to implementation code (score: {quality_score:.2f})",
+                        suggestion="Review test to ensure it properly tests project functionality"
+                    ))
+                    print(f"  ⚠️  {test_func.function}: Low implementation similarity ({quality_score:.2f})")
+                else:
+                    print(f"  ✅ {test_func.function}: Good implementation similarity ({quality_score:.2f})")
+            else:
+                # No related implementation found
+                quality_scores.append(0.0)
+                quality_issues.append(TestQualityIssue(
+                    test_file=test_func.file,
+                    test_function=test_func.function,
+                    issue_type="no_related_implementation",
+                    severity="high",
+                    description="No related implementation code found via vector search",
+                    suggestion="Ensure test is testing actual project code, not just mock data"
+                ))
+                print(f"  ❌ {test_func.function}: No related implementation found")
+
+        overall_score = sum(quality_scores) / len(quality_scores) if quality_scores else 0.0
+        print(f"🔍 Vector quality analysis: {len(quality_issues)} issues, overall score: {overall_score:.2f}")
+
+        return quality_issues, overall_score
+
+    def vector_enhanced_code_location_analysis(self, features: List[Feature]) -> List[CodeLocationIssue]:
+        """Enhanced code location analysis using vector database to validate feature locations.
+
+        Args:
+            features: List of features with code location fields
+
+        Returns:
+            List of code location issues found via vector analysis
+        """
+        if not self.vector_db_manager:
+            print("⚠️  Vector database not available, falling back to traditional code location analysis")
+            return self.code_location_analyzer.analyze_code_locations(features)
+
+        print("🔍 Using vector-enhanced code location analysis...")
+        location_issues = []
+
+        for feature in features:
+            if not feature.code_location or feature.code_location.strip().upper() == 'N/A':
+                # Try to find implementation using vector search
+                search_query = f"{feature.title} {feature.description}"
+
+                impl_results = self.vector_db_manager.search(
+                    self.root_dir, search_query, top_k=5,
+                    filter_language="python"
+                )
+
+                # Filter out test files and documentation
+                impl_candidates = []
+                for chunk, score in impl_results:
+                    if (hasattr(chunk, 'file_path') and
+                        'test' not in chunk.file_path.lower() and
+                        chunk.chunk_type in ['function', 'class'] and
+                        score > 0.4):
+                        impl_candidates.append((chunk.file_path, score))
+
+                if impl_candidates:
+                    # Found potential implementation
+                    best_match = max(impl_candidates, key=lambda x: x[1])
+                    location_issues.append(CodeLocationIssue(
+                        feature_id=feature.ft_id,
+                        feature_name=feature.title,
+                        code_location=feature.code_location,
+                        issue_type='missing_code_location_with_suggestion',
+                        severity='medium',
+                        description=f"Code Location missing but implementation found via vector search",
+                        suggestion=f"Consider setting Code Location to: {best_match[0]}",
+                        expected_path=best_match[0]
+                    ))
+                    print(f"  💡 {feature.ft_id}: Found potential implementation at {best_match[0]} (similarity: {best_match[1]:.2f})")
+                else:
+                    location_issues.append(CodeLocationIssue(
+                        feature_id=feature.ft_id,
+                        feature_name=feature.title,
+                        code_location=feature.code_location,
+                        issue_type='missing_code_location',
+                        severity='low',
+                        description="Code Location missing and no implementation found via vector search",
+                        suggestion="Feature may be documentation-only or implementation not yet created"
+                    ))
+                    print(f"  ❌ {feature.ft_id}: No implementation found via vector search")
+
+            else:
+                # Validate existing code location using vector search
+                search_query = f"{feature.title} {feature.description}"
+
+                impl_results = self.vector_db_manager.search(
+                    self.root_dir, search_query, top_k=10,
+                    filter_language="python"
+                )
+
+                # Check if the specified location appears in results
+                location_found = False
+                for chunk, score in impl_results:
+                    if (hasattr(chunk, 'file_path') and
+                        feature.code_location in chunk.file_path and
+                        score > 0.3):
+                        location_found = True
+                        print(f"  ✅ {feature.ft_id}: Code location validated via vector search (similarity: {score:.2f})")
+                        break
+
+                if not location_found:
+                    # Check if there are better alternatives
+                    better_alternatives = []
+                    for chunk, score in impl_results:
+                        if (hasattr(chunk, 'file_path') and
+                            'test' not in chunk.file_path.lower() and
+                            chunk.chunk_type in ['function', 'class'] and
+                            score > 0.4):
+                            better_alternatives.append((chunk.file_path, score))
+
+                    if better_alternatives:
+                        best_alt = max(better_alternatives, key=lambda x: x[1])
+                        location_issues.append(CodeLocationIssue(
+                            feature_id=feature.ft_id,
+                            feature_name=feature.title,
+                            code_location=feature.code_location,
+                            issue_type='potentially_incorrect_location',
+                            severity='medium',
+                            description=f"Current location not found in vector search, better match available",
+                            suggestion=f"Consider updating Code Location to: {best_alt[0]}",
+                            expected_path=best_alt[0]
+                        ))
+                        print(f"  ⚠️  {feature.ft_id}: Better location found at {best_alt[0]} (similarity: {best_alt[1]:.2f})")
+                    else:
+                        location_issues.append(CodeLocationIssue(
+                            feature_id=feature.ft_id,
+                            feature_name=feature.title,
+                            code_location=feature.code_location,
+                            issue_type='location_not_found_vector',
+                            severity='high',
+                            description="Specified location not validated by vector search",
+                            suggestion="Verify the Code Location field points to correct implementation"
+                        ))
+                        print(f"  ❌ {feature.ft_id}: Location not validated by vector search")
+
+        print(f"🔍 Vector location analysis found {len(location_issues)} potential issues")
+        return location_issues
 
     def analyze_drift(self, mode: str = 'tc-mapping', changed_files: Optional[Set[Path]] = None) -> DriftReport:
         """Analyze drift based on the specified mode, optionally filtered by changed files."""
@@ -2565,7 +3006,7 @@ class MultiModeDriftAnalyzer:
         return tc_report
 
     def _analyze_ft_mapping(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
-        """Analyze FT ID mapping drift."""
+        """Analyze FT ID mapping drift with optional vector enhancement."""
         if changed_files is not None:
             print("🔍 Starting FT ID mapping drift analysis (change-based)...\n")
         else:
@@ -2574,10 +3015,53 @@ class MultiModeDriftAnalyzer:
         # Get test functions first
         test_functions = self.tc_analyzer.implementation_scanner.scan_all_tests(changed_files)
 
-        # Analyze FT drift
-        ft_report = self.ft_analyzer.analyze_ft_drift(test_functions)
-        ft_report.mode = 'ft-mapping'
-        return ft_report
+        # Use vector-enhanced analysis if available
+        if self.vector_db_manager:
+            print("🚀 Using vector-enhanced feature mapping...")
+            features = self.ft_analyzer.feature_parser.parse_features()
+
+            # Use vector-enhanced mapping
+            ft_mappings = self.vector_enhanced_feature_mapping(features, test_functions)
+
+            # Find features without tests and tests without features
+            features_without_tests = []
+            tests_without_features = []
+
+            for feature in features:
+                if feature.ft_id not in ft_mappings:
+                    features_without_tests.append(feature)
+
+            # Find test functions not mapped to any feature
+            mapped_test_files = set()
+            for test_list in ft_mappings.values():
+                for test_func in test_list:
+                    mapped_test_files.add(test_func.file)
+
+            for test_func in test_functions:
+                if test_func.file not in mapped_test_files:
+                    tests_without_features.append(test_func)
+
+            # Generate metadata
+            metadata = {
+                'total_features': len(features),
+                'total_test_functions': len(test_functions),
+                'features_with_tests': len(ft_mappings),
+                'vector_enhanced': True,
+                'mapping_method': 'vector_semantic_search'
+            }
+
+            return DriftReport(
+                mode='ft-mapping',
+                features_without_tests=features_without_tests,
+                tests_without_features=tests_without_features,
+                ft_mappings=ft_mappings,
+                metadata=metadata
+            )
+        else:
+            # Fallback to traditional analysis
+            ft_report = self.ft_analyzer.analyze_ft_drift(test_functions)
+            ft_report.mode = 'ft-mapping'
+            return ft_report
 
     def _analyze_ft_tc_mapping(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
         """Analyze FT-TC relationship mapping drift."""
@@ -2617,7 +3101,7 @@ class MultiModeDriftAnalyzer:
         )
 
     def _analyze_code_coverage(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
-        """Analyze code coverage drift."""
+        """Analyze code coverage drift with optional vector enhancement."""
         if changed_files is not None:
             print("🔍 Starting code coverage drift analysis (change-based)...\n")
         else:
@@ -2626,33 +3110,73 @@ class MultiModeDriftAnalyzer:
         # Get test functions first
         test_functions = self.tc_analyzer.implementation_scanner.scan_all_tests(changed_files)
 
-        # Analyze coverage issues
-        coverage_issues = self.coverage_scanner.scan_coverage_issues(test_functions)
+        # Use vector-enhanced analysis if available
+        if self.vector_db_manager:
+            print("🚀 Using vector-enhanced coverage analysis...")
+            vector_coverage_issues = self.vector_enhanced_test_coverage_analysis(test_functions)
+            traditional_coverage_issues = self.coverage_scanner.scan_coverage_issues(test_functions)
 
-        # Calculate coverage percentage
-        source_files = self.coverage_scanner.find_source_files()
-        total_functions = sum(len(self.coverage_scanner._extract_functions_from_source(f, lang))
-                            for f, lang in source_files)
+            # Combine both analyses
+            all_coverage_issues = traditional_coverage_issues + vector_coverage_issues
 
-        coverage_percentage = 0.0
-        if total_functions > 0:
-            tested_functions = total_functions - len([issue for issue in coverage_issues
-                                                   if issue.issue_type in ['missing_test', 'missing_test_file']])
-            coverage_percentage = (tested_functions / total_functions) * 100
+            # Calculate coverage percentage
+            source_files = self.coverage_scanner.find_source_files()
+            total_functions = sum(len(self.coverage_scanner._extract_functions_from_source(f, lang))
+                                for f, lang in source_files)
 
-        metadata = {
-            'total_source_files': len(source_files),
-            'total_functions': total_functions,
-            'coverage_issues_count': len(coverage_issues),
-            'coverage_percentage': round(coverage_percentage, 2)
-        }
+            coverage_percentage = 0.0
+            if total_functions > 0:
+                tested_functions = total_functions - len([issue for issue in all_coverage_issues
+                                                       if issue.issue_type in ['missing_test', 'missing_test_file', 'missing_test_vector']])
+                coverage_percentage = (tested_functions / total_functions) * 100
 
-        return DriftReport(
-            mode='code-coverage',
-            coverage_issues=coverage_issues,
-            coverage_percentage=coverage_percentage,
-            metadata=metadata
-        )
+            metadata = {
+                'total_source_files': len(source_files),
+                'total_functions': total_functions,
+                'coverage_issues_count': len(all_coverage_issues),
+                'traditional_issues': len(traditional_coverage_issues),
+                'vector_issues': len(vector_coverage_issues),
+                'coverage_percentage': round(coverage_percentage, 2),
+                'vector_enhanced': True,
+                'analysis_method': 'hybrid_traditional_vector'
+            }
+
+            return DriftReport(
+                mode='code-coverage',
+                coverage_issues=all_coverage_issues,
+                coverage_percentage=coverage_percentage,
+                metadata=metadata
+            )
+        else:
+            # Fallback to traditional analysis
+            coverage_issues = self.coverage_scanner.scan_coverage_issues(test_functions)
+
+            # Calculate coverage percentage
+            source_files = self.coverage_scanner.find_source_files()
+            total_functions = sum(len(self.coverage_scanner._extract_functions_from_source(f, lang))
+                                for f, lang in source_files)
+
+            coverage_percentage = 0.0
+            if total_functions > 0:
+                tested_functions = total_functions - len([issue for issue in coverage_issues
+                                                       if issue.issue_type in ['missing_test', 'missing_test_file']])
+                coverage_percentage = (tested_functions / total_functions) * 100
+
+            metadata = {
+                'total_source_files': len(source_files),
+                'total_functions': total_functions,
+                'coverage_issues_count': len(coverage_issues),
+                'coverage_percentage': round(coverage_percentage, 2),
+                'vector_enhanced': False,
+                'analysis_method': 'traditional_only'
+            }
+
+            return DriftReport(
+                mode='code-coverage',
+                coverage_issues=coverage_issues,
+                coverage_percentage=coverage_percentage,
+                metadata=metadata
+            )
 
     def _analyze_feature_implementation(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
         """Analyze feature implementation drift."""
@@ -2675,7 +3199,7 @@ class MultiModeDriftAnalyzer:
         )
 
     def _analyze_code_location(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
-        """Analyze Code Location field validation."""
+        """Analyze Code Location field validation with optional vector enhancement."""
         if changed_files is not None:
             print("🔍 Starting Code Location analysis (change-based)...\n")
         else:
@@ -2683,39 +3207,85 @@ class MultiModeDriftAnalyzer:
 
         # Parse features and analyze their Code Location fields
         features = self.ft_analyzer.feature_parser.parse_features()
-        code_location_issues = self.code_location_analyzer.analyze_code_locations(features)
 
-        # Calculate statistics
-        total_features = len(features)
-        features_with_code_location = len([f for f in features if f.code_location])
-        features_with_valid_location = len([f for f in features
-                                          if f.code_location and f.code_location.strip().upper() != 'N/A'])
-        documentation_only_features = len([f for f in features
-                                         if f.code_location and f.code_location.strip().upper() == 'N/A'])
+        # Use vector-enhanced analysis if available
+        if self.vector_db_manager:
+            print("🚀 Using vector-enhanced code location analysis...")
+            vector_location_issues = self.vector_enhanced_code_location_analysis(features)
+            traditional_location_issues = self.code_location_analyzer.analyze_code_locations(features)
 
-        metadata = {
-            'total_features': total_features,
-            'features_with_code_location': features_with_code_location,
-            'features_with_valid_location': features_with_valid_location,
-            'documentation_only_features': documentation_only_features,
-            'code_location_issues_count': len(code_location_issues),
-            'missing_code_location': len([issue for issue in code_location_issues
-                                        if issue.issue_type == 'missing_code_location']),
-            'file_not_found': len([issue for issue in code_location_issues
-                                 if issue.issue_type == 'file_not_found']),
-            'class_not_found': len([issue for issue in code_location_issues
-                                  if issue.issue_type == 'class_not_found']),
-            'coverage_percentage': round((features_with_code_location / total_features) * 100, 2) if total_features > 0 else 0
-        }
+            # Combine both analyses, prioritizing vector results
+            all_location_issues = vector_location_issues + traditional_location_issues
 
-        return DriftReport(
-            mode='code-location',
-            code_location_issues=code_location_issues,
-            metadata=metadata
-        )
+            # Calculate statistics
+            total_features = len(features)
+            features_with_code_location = len([f for f in features if f.code_location])
+            features_with_valid_location = len([f for f in features
+                                              if f.code_location and f.code_location.strip().upper() != 'N/A'])
+            documentation_only_features = len([f for f in features
+                                             if f.code_location and f.code_location.strip().upper() == 'N/A'])
+
+            metadata = {
+                'total_features': total_features,
+                'features_with_code_location': features_with_code_location,
+                'features_with_valid_location': features_with_valid_location,
+                'documentation_only_features': documentation_only_features,
+                'code_location_issues_count': len(all_location_issues),
+                'vector_issues': len(vector_location_issues),
+                'traditional_issues': len(traditional_location_issues),
+                'vector_enhanced': True,
+                'analysis_method': 'hybrid_vector_traditional',
+                'missing_code_location': len([issue for issue in all_location_issues
+                                            if issue.issue_type == 'missing_code_location']),
+                'file_not_found': len([issue for issue in all_location_issues
+                                     if issue.issue_type == 'file_not_found']),
+                'class_not_found': len([issue for issue in all_location_issues
+                                      if issue.issue_type == 'class_not_found']),
+                'coverage_percentage': round((features_with_code_location / total_features) * 100, 2) if total_features > 0 else 0
+            }
+
+            return DriftReport(
+                mode='code-location',
+                code_location_issues=all_location_issues,
+                metadata=metadata
+            )
+        else:
+            # Fallback to traditional analysis
+            code_location_issues = self.code_location_analyzer.analyze_code_locations(features)
+
+            # Calculate statistics
+            total_features = len(features)
+            features_with_code_location = len([f for f in features if f.code_location])
+            features_with_valid_location = len([f for f in features
+                                              if f.code_location and f.code_location.strip().upper() != 'N/A'])
+            documentation_only_features = len([f for f in features
+                                             if f.code_location and f.code_location.strip().upper() == 'N/A'])
+
+            metadata = {
+                'total_features': total_features,
+                'features_with_code_location': features_with_code_location,
+                'features_with_valid_location': features_with_valid_location,
+                'documentation_only_features': documentation_only_features,
+                'code_location_issues_count': len(code_location_issues),
+                'vector_enhanced': False,
+                'analysis_method': 'traditional_only',
+                'missing_code_location': len([issue for issue in code_location_issues
+                                            if issue.issue_type == 'missing_code_location']),
+                'file_not_found': len([issue for issue in code_location_issues
+                                     if issue.issue_type == 'file_not_found']),
+                'class_not_found': len([issue for issue in code_location_issues
+                                      if issue.issue_type == 'class_not_found']),
+                'coverage_percentage': round((features_with_code_location / total_features) * 100, 2) if total_features > 0 else 0
+            }
+
+            return DriftReport(
+                mode='code-location',
+                code_location_issues=code_location_issues,
+                metadata=metadata
+            )
 
     def _analyze_test_quality(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
-        """Analyze test quality to ensure tests actually test project code."""
+        """Analyze test quality to ensure tests actually test project code with optional vector enhancement."""
         if changed_files is not None:
             print("🔍 Starting test quality analysis (change-based)...\n")
         else:
@@ -2724,31 +3294,84 @@ class MultiModeDriftAnalyzer:
         # Get test functions first
         test_functions = self.tc_analyzer.implementation_scanner.scan_all_tests(changed_files)
 
-        # Validate test quality
-        quality_issues, overall_score = self.test_quality_validator.validate_test_quality(test_functions)
+        # Use vector-enhanced analysis if available
+        if self.vector_db_manager:
+            print("🚀 Using vector-enhanced test quality analysis...")
+            vector_quality_issues, vector_overall_score = self.vector_enhanced_test_quality_analysis(test_functions)
+            traditional_quality_issues, traditional_overall_score = self.test_quality_validator.validate_test_quality(test_functions)
 
-        # Identify low-quality tests
-        low_quality_tests = [func for func in test_functions if func.test_quality_score < 0.7]
+            # Combine both analyses
+            all_quality_issues = traditional_quality_issues + vector_quality_issues
 
-        metadata = {
-            'total_test_functions': len(test_functions),
-            'test_quality_score': round(overall_score, 3),
-            'high_quality_tests': len([func for func in test_functions if func.test_quality_score >= 0.7]),
-            'low_quality_tests': len(low_quality_tests),
-            'quality_issues_count': len(quality_issues),
-            'critical_quality_issues': len([issue for issue in quality_issues if issue.severity == 'critical']),
-            'tests_without_project_imports': len([func for func in test_functions if not func.imports_project_code]),
-            'tests_without_function_calls': len([func for func in test_functions if not func.calls_project_functions]),
-            'tests_using_only_mocks': len([func for func in test_functions if func.uses_only_mocks])
-        }
+            # Calculate combined overall score (weighted average)
+            combined_score = (traditional_overall_score * 0.6 + vector_overall_score * 0.4)
 
-        return DriftReport(
-            mode='test-quality',
-            test_quality_issues=quality_issues,
-            low_quality_tests=low_quality_tests,
-            test_quality_score=overall_score,
-            metadata=metadata
-        )
+            # Identify low-quality tests based on combined analysis
+            low_quality_tests = [func for func in test_functions
+                               if (hasattr(func, 'test_quality_score') and func.test_quality_score < 0.7)]
+
+            metadata = {
+                'total_test_functions': len(test_functions),
+                'test_quality_score': round(combined_score, 3),
+                'traditional_score': round(traditional_overall_score, 3),
+                'vector_score': round(vector_overall_score, 3),
+                'vector_enhanced': True,
+                'analysis_method': 'hybrid_traditional_vector',
+                'high_quality_tests': len([func for func in test_functions
+                                         if hasattr(func, 'test_quality_score') and func.test_quality_score >= 0.7]),
+                'low_quality_tests': len(low_quality_tests),
+                'quality_issues_count': len(all_quality_issues),
+                'traditional_issues': len(traditional_quality_issues),
+                'vector_issues': len(vector_quality_issues),
+                'critical_quality_issues': len([issue for issue in all_quality_issues if issue.severity == 'critical']),
+                'tests_without_project_imports': len([func for func in test_functions
+                                                    if hasattr(func, 'imports_project_code') and not func.imports_project_code]),
+                'tests_without_function_calls': len([func for func in test_functions
+                                                   if hasattr(func, 'calls_project_functions') and not func.calls_project_functions]),
+                'tests_using_only_mocks': len([func for func in test_functions
+                                             if hasattr(func, 'uses_only_mocks') and func.uses_only_mocks])
+            }
+
+            return DriftReport(
+                mode='test-quality',
+                test_quality_issues=all_quality_issues,
+                low_quality_tests=low_quality_tests,
+                test_quality_score=combined_score,
+                metadata=metadata
+            )
+        else:
+            # Fallback to traditional analysis
+            quality_issues, overall_score = self.test_quality_validator.validate_test_quality(test_functions)
+
+            # Identify low-quality tests
+            low_quality_tests = [func for func in test_functions
+                               if hasattr(func, 'test_quality_score') and func.test_quality_score < 0.7]
+
+            metadata = {
+                'total_test_functions': len(test_functions),
+                'test_quality_score': round(overall_score, 3),
+                'vector_enhanced': False,
+                'analysis_method': 'traditional_only',
+                'high_quality_tests': len([func for func in test_functions
+                                         if hasattr(func, 'test_quality_score') and func.test_quality_score >= 0.7]),
+                'low_quality_tests': len(low_quality_tests),
+                'quality_issues_count': len(quality_issues),
+                'critical_quality_issues': len([issue for issue in quality_issues if issue.severity == 'critical']),
+                'tests_without_project_imports': len([func for func in test_functions
+                                                    if hasattr(func, 'imports_project_code') and not func.imports_project_code]),
+                'tests_without_function_calls': len([func for func in test_functions
+                                                   if hasattr(func, 'calls_project_functions') and not func.calls_project_functions]),
+                'tests_using_only_mocks': len([func for func in test_functions
+                                             if hasattr(func, 'uses_only_mocks') and func.uses_only_mocks])
+            }
+
+            return DriftReport(
+                mode='test-quality',
+                test_quality_issues=quality_issues,
+                low_quality_tests=low_quality_tests,
+                test_quality_score=overall_score,
+                metadata=metadata
+            )
 
     def _analyze_all_modes(self, changed_files: Optional[Set[Path]] = None) -> DriftReport:
         """Analyze all drift modes and combine results."""
@@ -3437,6 +4060,8 @@ def main():
     parser.add_argument('--output', default=None,
                        help='Output YAML file (default: auto-generated in .agent3d-tmp/drift-reports/)')
     parser.add_argument('--quiet', action='store_true', help='Suppress detailed output')
+    parser.add_argument('--enable-vector-db', action='store_true',
+                       help='Enable vector database for enhanced file discovery (requires vector dependencies)')
 
     # Change-based scanning options
     parser.add_argument('--changed-only', action='store_true',
@@ -3476,7 +4101,8 @@ def main():
     log_analysis_start(args.mode, args.root_dir, log_file)
 
     # Initialize multi-mode analyzer
-    analyzer = MultiModeDriftAnalyzer(args.root_dir, args.test_cases_file, change_detector)
+    analyzer = MultiModeDriftAnalyzer(args.root_dir, args.test_cases_file, change_detector,
+                                    enable_vector_db=args.enable_vector_db)
 
     # Determine output file path - always use .agent3d-tmp directory
     if args.output:
