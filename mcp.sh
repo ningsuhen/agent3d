@@ -20,7 +20,7 @@ set -euo pipefail
 AGENT3D_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SCRIPT_DIR=$AGENT3D_DIR
 VENV_PATH="$SCRIPT_DIR/venv"
-PYTHON_MCP_SERVER="$SCRIPT_DIR/tools/agent3d_mcp_server.py"
+PYTHON_MCP_ROUTER="$SCRIPT_DIR/tools/agent3d_mcp_router.py"
 
 # Logging function - log to stderr to avoid breaking MCP JSON-RPC protocol
 log() {
@@ -56,18 +56,18 @@ main() {
         echo "This is an MCP server that communicates via JSON-RPC over stdin/stdout" >&2
         exit 1
     fi
-    
+
     log "Starting Agent3D MCP Server (Shell Wrapper)"
-    
+
     # Activate virtual environment
     activate_venv
-    
+
     # Check dependencies
     check_dependencies
-    
-    # Delegate to Python MCP server
-    log "Delegating to Python MCP server: $PYTHON_MCP_SERVER"
-    exec python3 "$PYTHON_MCP_SERVER"
+
+    # Delegate to Python MCP router
+    log "Delegating to Python MCP router: $PYTHON_MCP_ROUTER"
+    exec python3 "$PYTHON_MCP_ROUTER"
 }
 
 # Run main function
