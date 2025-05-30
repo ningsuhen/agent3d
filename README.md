@@ -1,49 +1,81 @@
-# Agent3D - Documentation-Driven Development for LLM Agents
+# Python Calculator Module
 
-**Documentation-only** framework for LLM coding agents. DDD principles: documentation precedes code implementation.
+A simple and robust calculator module implementing basic arithmetic operations following Domain-Driven Design principles.
 
 **Core Principle:** "Write the docs, then write the code—keep it lean, test it for real."
 
-## Features & Usage
+## Features
 
-**Features:** LLM speed optimized, memory-cached patterns (SCAN→DRAFT→ASK→SYNC), configuration-centric (`.agent3d-config.yml`), documentation as source of truth, language-specific rules, lean code principles
+- Basic arithmetic operations:
+  - Addition
+  - Subtraction
+  - Multiplication
+  - Division
+- Input validation
+- Error handling for division by zero
+- Floating-point number support
 
-**Usage:** Memorize core patterns → Configure project (Foundation Pass) → Speed execution with memory-cached patterns → Follow DDD passes
+## Usage
 
-**Quick Start:** [Quick Start Guide](docs/QUICK-START.md)
+```python
+from calculator import Calculator
 
-## Agent Guideline Protocol
+# Create a calculator instance
+calc = Calculator()
 
-**Entry point** for Agent3D system. Clone `git@github.com:ningsuhen/agent3d.git` to `~/.agent3d`, use `~/.agent3d/AGENT-GUIDELINES.md` as main entry point, update with `cd ~/.agent3d && git pull`.
+# Perform calculations
+result_add = calc.add(5, 3)      # Returns 8
+result_sub = calc.subtract(5, 3)  # Returns 2
+result_mul = calc.multiply(5, 3)  # Returns 15
+result_div = calc.divide(6, 2)    # Returns 3.0
+```
 
-## DDD Passes
+## Installation
 
-0. **Requirements** - Business objectives
-1. **Foundation** - Project configuration
-2. **Documentation** - Features/requirements
-3. **Development** - Step-by-step feature implementation with execution plans (replaces Planning + Implementation)
-4. **Testing** - Comprehensive tests
-5. **Refactoring** - Code cleanup
-6. **Code Review** - PR reviews
-7. **Synchronization** - Doc-code alignment
-8. **Quality** - Documentation quality
-9. **Prune** - Remove outdated content
-10. **Reverse** - Detect reverse drift
+```bash
+# Local installation
+pip install .
+```
 
-**Full Pass** - All passes for comprehensive updates
+## Testing
 
-## Documentation Structure
+The module includes comprehensive unit tests to ensure reliability:
 
-**Core:** [AGENT-GUIDELINES.md](AGENT-GUIDELINES.md), [docs/](docs/) (BUSINESS-OBJECTIVES, REQUIREMENTS, USER-STORIES, ACCEPTANCE-CRITERIA, HIGH-LEVEL-DESIGN, DDD-STATUS)
+```bash
+python -m pytest tests/
+```
 
-**Passes:** [passes.yml/](passes.yml/) (YAML format for LLM agents), [passes/simplified/](passes/simplified/) (Markdown for humans)
+## Domain Model
 
-**Supporting:** [docs/designs/](docs/designs/) (component specs), [docs/proposals/](docs/proposals/) (unimplemented features), [rules.yml/](rules.yml/) (language rules YAML), [rules/](rules/) (language rules Markdown), [templates/](templates/) (templates), [procedures.yml/](procedures.yml/) (DDD procedures and guidelines), [tools/](tools/) (version management and utilities)
+The calculator module follows these DDD concepts:
 
-**Advanced:** [docs/ADVANCED-FEATURES.md](docs/ADVANCED-FEATURES.md), [docs/CONFIGURATION-GUIDE.md](docs/CONFIGURATION-GUIDE.md), [docs/GITHUB-CLI-INTEGRATION.md](docs/GITHUB-CLI-INTEGRATION.md)
+- **Entity**: Calculator (maintains calculation state)
+- **Value Objects**: Numbers and Operations
+- **Services**: Arithmetic operations
+- **Aggregates**: Calculation history (future feature)
 
-**Note:** Documentation-only project. No implementation files, libraries, or code to import.
+## Development Guidelines
 
-## License & Contributing
+1. Follow DDD principles for any new features
+2. Maintain test coverage for all operations
+3. Document any new functionality
+4. Follow PEP 8 style guidelines
+5. Add appropriate type hints
 
-[MIT License](LICENSE) - Contributions welcome via Pull Request.
+## Error Handling
+
+The module includes robust error handling:
+
+- Division by zero protection
+- Type checking for inputs
+- Invalid operation handling
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Submit a pull request
+
+## License
+
+MIT License - See LICENSE file for details

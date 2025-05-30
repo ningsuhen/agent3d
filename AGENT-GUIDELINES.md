@@ -6,6 +6,14 @@
 
 All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGENT-GUIDELINES.md`) is the main entry point for all operations.
 
+**🚨 CRITICAL FILE ACCESS RULE**: Always use `cat` command or similar tools to read DDD files from `~/.agent3d` directory. Do not rely on cached or assumed content - always fetch the current state of files directly from the filesystem using commands like:
+- `cat ~/.agent3d/[filename]`
+- `head -n [lines] ~/.agent3d/[filename]`
+- `tail -n [lines] ~/.agent3d/[filename]`
+- `grep [pattern] ~/.agent3d/[filename]`
+
+This ensures you're working with the most current version of all DDD framework files.
+
 **Project Configuration:** Each project uses `.agent3d-config.yml` in the project root to define project-specific settings, enabled passes, and quality standards.
 
 ## Project Root Detection
@@ -115,15 +123,16 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 
 **Workflow:**
 
-1. **Create Mental Memory Map:** Build comprehensive understanding of Agent3D framework
-2. **Check Migration Status:** Run `python tools/migration_manager.py status` to identify applicable migrations
-3. **Execute Required Migrations:** Apply any pending migrations before proceeding with development
-4. Configure project (`.agent3d-config.yml` in project root)
-5. Follow `~/.agent3d/AGENT-GUIDELINES.md`
-6. Run DDD pass for missing/outdated documentation
-7. **Write Real Tests:** Every test MUST import project code and call project functions
-8. **Update Guidelines Regularly:** Run `git -C ~/.agent3d pull origin main` to keep cached rules and templates current
-9. **Use System Date Commands:** Always use `date +%Y-%m-%d` or `date +%Y-%m-%d\ %H:%M:%S` for timestamps instead of LLM knowledge
+1. **Always Read DDD Files Fresh:** Use `cat ~/.agent3d/[filename]` to read current content - never rely on cached knowledge
+2. **Create Mental Memory Map:** Build comprehensive understanding of Agent3D framework
+3. **Check Migration Status:** Run `python tools/migration_manager.py status` to identify applicable migrations
+4. **Execute Required Migrations:** Apply any pending migrations before proceeding with development
+5. Configure project (`.agent3d-config.yml` in project root)
+6. Follow `~/.agent3d/AGENT-GUIDELINES.md`
+7. Run DDD pass for missing/outdated documentation
+8. **Write Real Tests:** Every test MUST import project code and call project functions
+9. **Update Guidelines Regularly:** Run `git -C ~/.agent3d pull origin main` to keep cached rules and templates current
+10. **Use System Date Commands:** Always use `date +%Y-%m-%d` or `date +%Y-%m-%d\ %H:%M:%S` for timestamps instead of LLM knowledge
 
 **Test Quality Requirements:**
 
@@ -192,6 +201,7 @@ pass_config: {specific settings}
 
 **EXECUTION RULES:**
 
+- **ALWAYS** use `cat ~/.agent3d/[filename]` to read DDD files - never rely on cached content
 - **NEVER** look up pass definitions during execution
 - **CACHE** language rules in working memory
 - **MINIMIZE** template/rule file access

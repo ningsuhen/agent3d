@@ -5,24 +5,47 @@ metadata:
   role: "Senior Software Engineer with expertise in code quality, security, and maintainability"
   description: Converted from 7_code_review_pass.md
 when_to_use:
-  conditions: ['When a pull request has been submitted', 'Before merging code changes into the main branch', 'As part of the continuous integration process', 'When conducting peer reviews of code changes', 'For quality assurance of feature implementations']
+  conditions: [ 'When a pull request has been submitted', 'Before merging code changes into the main branch', 'As part of the continuous integration process', 'When conducting peer reviews of code changes', 'For quality assurance of feature implementations' ]
   prerequisites: []
 process:
   workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
   phases:
-    'scan:':
-      description: '`gh pr status`, apply language rules, identify issues, verify coverage'
-      actions: []
-    'draft:':
-      description: Generate review comments, include solutions, note documentation updates
-      actions: []
-    'ask:':
-      description: Submit pending PR comments, verify requirements, challenge decisions
-      actions: []
-    'sync:':
-      description: "Submit automated comments, request changes, hand off to human **Note:** During execution, mark completed steps with ✅ to track progress."
-      actions: []
-expected_outcomes: ['Automated PR comments in pending mode', 'Actionable feedback with solutions', 'Human-agent collaborative workflow', 'Strict standards enforcement', 'Language-specific compliance']
+    scan:
+      description: "Check PR status with `gh pr status`, apply language rules, identify issues, verify coverage"
+      actions:
+      - "Determine if in PR context or direct code review"
+      - "Apply language-specific rules from rules.yml/"
+      - "Identify critical issues and improvements"
+      - "Verify test coverage and documentation"
+    draft:
+      description: "Generate review comments with solutions, note documentation updates"
+      actions:
+      - "Create detailed review comments with specific solutions"
+      - "Include code examples for fixes"
+      - "Note required documentation updates"
+      - "Categorize issues by severity"
+    ask:
+      description: "Submit review feedback using appropriate format (PR comments or DDD comments)"
+      actions:
+      - "If in PR: Submit pending PR comments via GitHub"
+      - "If not in PR: Add inline comments using # DDD: <comment> format"
+      - "Verify requirements compliance"
+      - "Challenge questionable decisions"
+    sync:
+      description: "Finalize review process and hand off to human reviewer"
+      actions:
+      - "Submit all automated feedback"
+      - "Request changes if critical issues found"
+      - "Mark completed steps with ✅ for progress tracking"
+      - "Hand off to human for final approval"
+expected_outcomes:
+- 'Context-appropriate review feedback (PR comments or DDD inline comments)'
+- 'Automated PR comments in pending mode when in PR context'
+- 'DDD-formatted inline comments when not in PR context'
+- 'Actionable feedback with concrete solutions and examples'
+- 'Human-agent collaborative workflow with clear handoff'
+- 'Strict standards enforcement with severity classification'
+- 'Language-specific compliance verification'
 # Language-Specific Review Criteria
 language_rules:
   critical_requirement: "Always consult and strictly enforce language-specific rules"
@@ -47,13 +70,50 @@ language_rules:
       yaml: "~/.agent3d/rules.yml/go.yml"
       markdown: "~/.agent3d/rules/go.md"
 
+# Review Context Detection
+review_context:
+  pr_context:
+    detection: "Use `gh pr status` to check if current branch has an open PR"
+    comment_format: "Submit comments via GitHub PR interface"
+    workflow: "Standard GitHub PR review process"
+
+  direct_review_context:
+    detection: "No open PR found for current branch or reviewing uncommitted changes"
+    comment_format: "Add inline comments using # DDD: <comment> format"
+    placement: "Add comments directly in the code files being reviewed"
+
+  comment_format_examples:
+    critical_issue: "# DDD: CRITICAL - This function lacks input validation, could cause security vulnerability"
+    improvement: "# DDD: Consider extracting this logic into a separate method for better readability"
+    style_issue: "# DDD: Variable naming should follow camelCase convention per language rules"
+    documentation: "# DDD: Missing docstring - add description of parameters and return value"
+
 # Review Standards
 review_standards:
   approach: "UNCOMPROMISINGLY_STRICT"
-  principles: ['be_uncompromisingly_specific_about_every_issue', 'demand_explanations_for_deviations', 'provide_concrete_solutions_with_examples', 'reference_specific_language_rules', 'distinguish_critical_vs_improvement_issues', 'focus_on_long_term_maintainability']
+  principles: [ 'be_uncompromisingly_specific_about_every_issue', 'demand_explanations_for_deviations', 'provide_concrete_solutions_with_examples', 'reference_specific_language_rules', 'distinguish_critical_vs_improvement_issues', 'focus_on_long_term_maintainability' ]
+
+  comment_guidelines:
+    ddd_format_rules:
+    - "Always prefix with # DDD: when not in PR context"
+    - "Be specific and actionable in comments"
+    - "Include severity level (CRITICAL, IMPORTANT, SUGGESTION)"
+    - "Provide concrete solutions or examples"
+    - "Reference specific language rules when applicable"
+
+    severity_levels:
+      critical: "# DDD: CRITICAL - Issues that must be fixed (security, functionality, breaking changes)"
+      important: "# DDD: IMPORTANT - Issues that should be fixed (performance, maintainability, standards)"
+      suggestion: "# DDD: Consider - Improvements that could be made (style, optimization, clarity)"
 
 # Quality Gates
 quality_gates:
+- name: "review_context_detected"
+  validation: "Correctly identified PR vs direct review context"
+  critical: true
+- name: "appropriate_comment_format"
+  validation: "Used GitHub PR comments or # DDD: format as appropriate"
+  critical: true
 - name: "language_rules_applied"
   validation: "verify_language_specific_rules_referenced"
   critical: true
@@ -66,3 +126,6 @@ quality_gates:
 - name: "severity_classification"
   validation: "issues_properly_categorized_by_severity"
   critical: true
+- name: "ddd_comment_compliance"
+  validation: "DDD comments follow proper format and severity levels"
+  critical: false

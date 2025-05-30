@@ -1,0 +1,23 @@
+# Vector Database Dependencies for Agent3D Orchestrator
+# Install with: pip install -r requirements-vector-db.txt
+
+# Core vector database functionality
+sentence-transformers>=2.2.0
+numpy>=1.21.0
+
+# Fast similarity search (optional but recommended)
+faiss-cpu>=1.7.0
+
+# Alternative FAISS for GPU (uncomment if you have CUDA)
+# faiss-gpu>=1.7.0
+
+# Additional dependencies for better performance
+torch>=1.9.0
+transformers>=4.20.0
+
+# For better text processing
+nltk>=3.7
+scikit-learn>=1.0.0
+
+# Progress bars and utilities
+tqdm>=4.64.0
