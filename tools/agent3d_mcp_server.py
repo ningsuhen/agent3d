@@ -722,7 +722,7 @@ class Agent3DMCPServer:
                     } for issue in report.coverage_issues[:10]  # Limit for MCP
                 ]
 
-            if hasattr(report, 'test_quality_score'):
+            if hasattr(report, 'test_quality_score') and report.test_quality_score is not None:
                 result["test_quality_score"] = round(report.test_quality_score, 3)
 
             return result

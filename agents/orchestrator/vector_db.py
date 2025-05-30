@@ -44,12 +44,13 @@ class CodeChunk:
 class RepositoryVectorDB:
     """In-memory vector database for repository code indexing."""
 
-    def __init__(self, logger: logging.Logger = None, model_name: str = "all-MiniLM-L6-v2"):
+    def __init__(self, logger: logging.Logger = None, model_name: str = "all-MiniLM-L12-v2", cache_dir: str = None):
         """Initialize the vector database.
 
         Args:
             logger: Logger instance
             model_name: Sentence transformer model name
+            cache_dir: Directory for caching embeddings and index
         """
         self.logger = logger or logging.getLogger(__name__)
         self.model_name = model_name
@@ -57,7 +58,9 @@ class RepositoryVectorDB:
         self.index = None
         self.chunks: List[CodeChunk] = []
         self.embeddings: Optional[np.ndarray] = None
-        self.dimension = 384  # Default for all-MiniLM-L6-v2
+        self.dimension = 384  # Default for all-MiniLM-L12-v2
+        self.cache_dir = Path(cache_dir) if cache_dir else Path.cwd() / ".agent3d-tmp" / "vector-cache"
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
 
         self._initialize_model()
         self._initialize_index()
@@ -662,3 +665,67 @@ class RepositoryVectorDB:
             stats["chunk_types"][chunk_type] = stats["chunk_types"].get(chunk_type, 0) + 1
 
         return stats
+
+    def save_to_cache(self, cache_key: str):
+        """Save embeddings and index to cache."""
+        if self.embeddings is None or not self.chunks:
+            return
+
+        try:
+            cache_path = self.cache_dir / f"{cache_key}"
+            cache_path.mkdir(exist_ok=True)
+
+            # Save chunks
+            chunks_file = cache_path / "chunks.pkl"
+            with open(chunks_file, 'wb') as f:
+                import pickle
+                pickle.dump(self.chunks, f)
+
+            # Save embeddings
+            embeddings_file = cache_path / "embeddings.npy"
+            np.save(embeddings_file, self.embeddings)
+
+            # Save FAISS index if available
+            if self.index is not None:
+                index_file = cache_path / "faiss.index"
+                import faiss
+                faiss.write_index(self.index, str(index_file))
+
+            self.logger.info(f"✅ Vector database cached to: {cache_path}")
+
+        except Exception as e:
+            self.logger.warning(f"Failed to save cache: {e}")
+
+    def load_from_cache(self, cache_key: str) -> bool:
+        """Load embeddings and index from cache."""
+        try:
+            cache_path = self.cache_dir / f"{cache_key}"
+            if not cache_path.exists():
+                return False
+
+            chunks_file = cache_path / "chunks.pkl"
+            embeddings_file = cache_path / "embeddings.npy"
+
+            if not chunks_file.exists() or not embeddings_file.exists():
+                return False
+
+            # Load chunks
+            with open(chunks_file, 'rb') as f:
+                import pickle
+                self.chunks = pickle.load(f)
+
+            # Load embeddings
+            self.embeddings = np.load(embeddings_file)
+
+            # Load FAISS index if available
+            index_file = cache_path / "faiss.index"
+            if index_file.exists():
+                import faiss
+                self.index = faiss.read_index(str(index_file))
+
+            self.logger.info(f"✅ Vector database loaded from cache: {cache_path}")
+            return True
+
+        except Exception as e:
+            self.logger.warning(f"Failed to load cache: {e}")
+            return False

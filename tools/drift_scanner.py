@@ -3136,7 +3136,7 @@ class MultiModeDriftAnalyzer:
                 'coverage_issues_count': len(all_coverage_issues),
                 'traditional_issues': len(traditional_coverage_issues),
                 'vector_issues': len(vector_coverage_issues),
-                'coverage_percentage': round(coverage_percentage, 2),
+                'coverage_percentage': round(coverage_percentage, 2) if coverage_percentage is not None else 0.0,
                 'vector_enhanced': True,
                 'analysis_method': 'hybrid_traditional_vector'
             }
@@ -3166,7 +3166,7 @@ class MultiModeDriftAnalyzer:
                 'total_source_files': len(source_files),
                 'total_functions': total_functions,
                 'coverage_issues_count': len(coverage_issues),
-                'coverage_percentage': round(coverage_percentage, 2),
+                'coverage_percentage': round(coverage_percentage, 2) if coverage_percentage is not None else 0.0,
                 'vector_enhanced': False,
                 'analysis_method': 'traditional_only'
             }
@@ -3312,9 +3312,9 @@ class MultiModeDriftAnalyzer:
 
             metadata = {
                 'total_test_functions': len(test_functions),
-                'test_quality_score': round(combined_score, 3),
-                'traditional_score': round(traditional_overall_score, 3),
-                'vector_score': round(vector_overall_score, 3),
+                'test_quality_score': round(combined_score, 3) if combined_score is not None else 0.0,
+                'traditional_score': round(traditional_overall_score, 3) if traditional_overall_score is not None else 0.0,
+                'vector_score': round(vector_overall_score, 3) if vector_overall_score is not None else 0.0,
                 'vector_enhanced': True,
                 'analysis_method': 'hybrid_traditional_vector',
                 'high_quality_tests': len([func for func in test_functions
@@ -3349,7 +3349,7 @@ class MultiModeDriftAnalyzer:
 
             metadata = {
                 'total_test_functions': len(test_functions),
-                'test_quality_score': round(overall_score, 3),
+                'test_quality_score': round(overall_score, 3) if overall_score is not None else 0.0,
                 'vector_enhanced': False,
                 'analysis_method': 'traditional_only',
                 'high_quality_tests': len([func for func in test_functions
@@ -3507,8 +3507,8 @@ class TCDriftAnalyzer:
             'unique_tc_ids_in_code': len(tc_id_to_implementations),
             'orphaned_tc_ids_count': len(orphaned_tc_ids),
             'duplicate_tc_ids_count': len(duplicate_tc_issues),
-            'languages_detected': list(set(self.implementation_scanner.detector.detect_language(Path(f.file))
-                                         for f in test_functions if self.implementation_scanner.detector.detect_language(Path(f.file))))
+            'languages_detected': list(set(lang for f in test_functions
+                                         if (lang := self.implementation_scanner.detector.detect_language(Path(f.file))) is not None))
         }
 
         return DriftReport(
@@ -3544,19 +3544,24 @@ class TCDriftAnalyzer:
     def generate_report(self, report: DriftReport, output_file: str = 'tc-drift-report.yaml') -> None:
         """Generate YAML report file."""
         # Convert dataclasses to dictionaries for YAML serialization
+        metadata = report.metadata or {}
+        total_test_cases = metadata.get('total_test_cases', 0)
+        total_test_functions = metadata.get('total_test_functions', 0)
+
+        drift_items = len(report.test_cases_without_implementations) + len(report.implementations_without_test_cases)
+        total_items = max(1, total_test_cases + total_test_functions)
+        drift_percentage = (drift_items / total_items) * 100
+
         report_dict = {
-            'metadata': report.metadata,
+            'metadata': metadata,
             'summary': {
-                'total_test_cases': report.metadata['total_test_cases'],
-                'total_test_functions': report.metadata['total_test_functions'],
+                'total_test_cases': total_test_cases,
+                'total_test_functions': total_test_functions,
                 'test_cases_without_implementations': len(report.test_cases_without_implementations),
                 'implementations_without_test_cases': len(report.implementations_without_test_cases),
                 'orphaned_tc_ids': len(report.orphaned_tc_ids),
                 'duplicate_tc_ids': len(report.duplicate_tc_issues),
-                'drift_percentage': round((len(report.test_cases_without_implementations) +
-                                         len(report.implementations_without_test_cases)) /
-                                        max(1, report.metadata['total_test_cases'] +
-                                            report.metadata['total_test_functions']) * 100, 2)
+                'drift_percentage': round(drift_percentage, 2) if drift_percentage is not None else 0.0
             },
             'test_cases_without_implementations': [asdict(tc) for tc in report.test_cases_without_implementations],
             'implementations_without_test_cases': [asdict(func) for func in report.implementations_without_test_cases],
@@ -3579,15 +3584,17 @@ class TCDriftAnalyzer:
         print("🎯 TC ID DRIFT ANALYSIS SUMMARY")
         print("="*80)
 
+        metadata = report.metadata or {}
+
         print(f"\n📊 OVERVIEW:")
-        print(f"  Test Cases in docs/features/: {report.metadata['total_test_cases']}")
-        print(f"  Test Functions in Code: {report.metadata['total_test_functions']}")
-        print(f"  Languages Detected: {', '.join(report.metadata['languages_detected'])}")
-        print(f"  Unique TC IDs in Code: {report.metadata['unique_tc_ids_in_code']}")
-        print(f"  Duplicate TC IDs: {report.metadata.get('duplicate_tc_ids_count', 0)}")
+        print(f"  Test Cases in docs/features/: {metadata.get('total_test_cases', 0)}")
+        print(f"  Test Functions in Code: {metadata.get('total_test_functions', 0)}")
+        print(f"  Languages Detected: {', '.join(metadata.get('languages_detected', []))}")
+        print(f"  Unique TC IDs in Code: {metadata.get('unique_tc_ids_in_code', 0)}")
+        print(f"  Duplicate TC IDs: {metadata.get('duplicate_tc_ids_count', 0)}")
 
         # Calculate drift metrics
-        total_items = report.metadata['total_test_cases'] + report.metadata['total_test_functions']
+        total_items = metadata.get('total_test_cases', 0) + metadata.get('total_test_functions', 0)
         drift_items = len(report.test_cases_without_implementations) + len(report.implementations_without_test_cases)
         drift_percentage = (drift_items / max(1, total_items)) * 100
 
