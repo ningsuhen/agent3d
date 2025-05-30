@@ -647,14 +647,29 @@ class TestCaseParser:
         self.features_dir = features_dir
         self.config_manager = config_manager or ConfigurationManager('.')
 
-    def parse_test_cases(self) -> List[TestCase]:
-        """Parse test cases from merged FT-TC structure in docs/features/ directory."""
+    def parse_test_cases(self, vector_db_manager=None) -> List[TestCase]:
+        """Parse test cases from merged FT-TC structure in docs/features/ directory.
+
+        Args:
+            vector_db_manager: Optional vector database manager for enhanced parsing
+        """
         if not Path(self.features_dir).exists():
             print(f"⚠️  Features directory not found at {self.features_dir}")
             return []
 
         test_cases = []
 
+        # Try vector-enhanced parsing first
+        if vector_db_manager:
+            print("🔍 Using vector-enhanced test case discovery...")
+            test_cases = self._parse_test_cases_with_vector_db(vector_db_manager)
+            if test_cases:
+                print(f"✅ Found {len(test_cases)} test cases via vector search")
+                return test_cases
+            else:
+                print("⚠️  Vector search found no test cases, falling back to regex parsing")
+
+        # Fallback to traditional regex parsing
         try:
             # Parse all .md files in the features directory
             for feature_file in Path(self.features_dir).glob('*.md'):

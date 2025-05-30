@@ -89,12 +89,14 @@ if WATCHDOG_AVAILABLE:
                 return
 
             # Check if it's a relevant file
-            relevant_extensions = {'.md', '.py', '.yaml', '.yml', '.json', '.txt'}
+            relevant_extensions = {'.md', '.py', '.yaml', '.yml', '.json', '.txt', '.js', '.ts', '.jsx', '.tsx'}
             file_path = Path(event.src_path)
 
             if file_path.suffix.lower() in relevant_extensions:
                 logger.info(f"📝 File change detected: {file_path.name}")
                 self.server.invalidate_cache()
+                # Trigger reindexing for the affected DDD root
+                self.server.trigger_reindexing(str(file_path.parent))
 else:
     class Agent3DFileWatcher:
         """Dummy file watcher when watchdog is not available"""
@@ -210,7 +212,33 @@ class Agent3DMCPServer:
         """Invalidate all caches"""
         if self.vector_db_manager:
             self.vector_db_manager.invalidate_cache()
-            logger.info("🗑️  Vector database cache invalidated")
+            logger.info("🗑️  Invalidated all vector database caches")
+
+    def trigger_reindexing(self, file_path: str):
+        """Trigger reindexing for the DDD root containing the changed file"""
+        if not self.vector_db_manager:
+            return
+
+        # Find the DDD root for this file path
+        file_path = Path(file_path)
+
+        # Check each watched directory to see if this file belongs to it
+        for watched_dir in self.watched_directories:
+            watched_path = Path(watched_dir)
+            try:
+                # Check if the file is within this watched directory
+                file_path.relative_to(watched_path)
+
+                # Invalidate cache for this specific DDD root
+                self.vector_db_manager.invalidate_cache(watched_dir)
+                logger.info(f"🗑️  Vector database cache invalidated")
+
+                # The next search/operation will automatically trigger reindexing
+                # due to cache invalidation
+                break
+            except ValueError:
+                # File is not within this watched directory
+                continue
 
     def get_drift_analyzer(self, ddd_root: str) -> Optional[Any]:
         """Get or create drift analyzer for the specified DDD root"""
@@ -358,26 +386,49 @@ class Agent3DMCPServer:
             # Start file watching
             self.start_file_watching(ddd_root)
 
-            # Search for test cases
-            search_query = f"TC-{tc_id}" if tc_id else f"test case {query}"
+            # Search for test cases using multiple strategies
+            search_results = []
 
-            results = self.vector_db_manager.search(
-                ddd_root, search_query, top_k * 2,
-                filter_chunk_type="test"
-            )
+            if tc_id:
+                # Search for specific TC-* identifier
+                tc_query = f"TC-{tc_id}"
+                # Search in documentation first (where test cases are defined)
+                doc_results = self.vector_db_manager.search(
+                    ddd_root, tc_query, top_k * 2,
+                    filter_language="markdown"
+                )
+                search_results.extend(doc_results)
 
-            # Also search in documentation
-            doc_results = self.vector_db_manager.search(
-                ddd_root, search_query, top_k,
-                filter_language="markdown"
-            )
+                # Also search for test implementations that reference this TC-*
+                impl_results = self.vector_db_manager.search(
+                    ddd_root, tc_query, top_k,
+                    filter_chunk_type="test"
+                )
+                search_results.extend(impl_results)
+            else:
+                # Search for test case descriptions
+                # First search in feature documentation
+                doc_query = f"test case {query}"
+                doc_results = self.vector_db_manager.search(
+                    ddd_root, doc_query, top_k,
+                    filter_language="markdown"
+                )
+                search_results.extend(doc_results)
+
+                # Then search for related test implementations
+                test_query = f"test {query}"
+                test_results = self.vector_db_manager.search(
+                    ddd_root, test_query, top_k,
+                    filter_chunk_type="test"
+                )
+                search_results.extend(test_results)
 
             # Combine and process results
             all_results = []
             seen_items = set()
 
-            # Process test implementation results
-            for chunk, score in results:
+            # Process all search results
+            for chunk, score in search_results:
                 if hasattr(chunk, 'file_path') and score > 0.3:
                     key = f"impl_{chunk.file_path}"
                     if key not in seen_items:
@@ -421,8 +472,11 @@ class Agent3DMCPServer:
             # Sort by similarity score
             all_results.sort(key=lambda x: x['similarity_score'], reverse=True)
 
+            # Determine the primary search query used
+            primary_query = f"TC-{tc_id}" if tc_id else f"test case {query}"
+
             return {
-                "search_query": search_query,
+                "search_query": primary_query,
                 "tc_id": tc_id,
                 "query": query,
                 "ddd_root": ddd_root,
@@ -812,87 +866,87 @@ class Agent3DMCPServer:
         tools = [
             {
                 "name": "search_files",
-                "description": "Search for files using semantic search with various filters (python, test, doc, config, any)",
+                "description": "Semantic file search across repository using vector embeddings. Searches file content, not just names. Supports: Python (.py), JavaScript/TypeScript (.js/.ts), Markdown (.md), YAML (.yml/.yaml), JSON, and other text files. Filters: 'python' (Python files only), 'test' (test files), 'doc' (documentation), 'config' (configuration files), 'any' (all supported types). Returns similarity scores (0.0-1.0) with file paths and content previews. Requires vector database to be indexed for the target repository.",
                 "inputSchema": {
                     "type": "object",
                     "properties": {
-                        "query": {"type": "string", "description": "Search query"},
-                        "file_type": {"type": "string", "enum": ["any", "python", "test", "doc", "config"], "default": "any"},
-                        "top_k": {"type": "integer", "default": 10, "minimum": 1, "maximum": 50},
-                        "min_similarity": {"type": "number", "default": 0.3, "minimum": 0.0, "maximum": 1.0},
-                        "ddd_root": {"type": "string", "description": "DDD project root (optional)"}
+                        "query": {"type": "string", "description": "Natural language search query (e.g., 'HTTP client implementation', 'error handling functions')"},
+                        "file_type": {"type": "string", "enum": ["any", "python", "test", "doc", "config"], "default": "any", "description": "File type filter: 'python' (.py files), 'test' (test files), 'doc' (documentation), 'config' (config files), 'any' (all types)"},
+                        "top_k": {"type": "integer", "default": 10, "minimum": 1, "maximum": 50, "description": "Maximum number of results to return"},
+                        "min_similarity": {"type": "number", "default": 0.3, "minimum": 0.0, "maximum": 1.0, "description": "Minimum similarity score threshold (0.3 = 30% similarity)"},
+                        "ddd_root": {"type": "string", "description": "DDD project root directory path (optional, defaults to current project)"}
                     },
                     "required": ["query"]
                 }
             },
             {
                 "name": "search_test_cases",
-                "description": "Search for test cases with TC-* identifiers in both documentation and implementation",
+                "description": "Search for test cases (TC-*) in feature documentation files, NOT test implementations. Test cases are specifications defined in feature files (docs/features/*.md) with TC-* identifiers like TC-HTTP-001. This tool searches both test case documentation and finds related test implementations that reference these TC-* IDs. Supports semantic search by description or exact TC-* ID lookup. Returns test case specifications from documentation and any Python test functions that implement them (with @pytest.mark or TC-* comments).",
                 "inputSchema": {
                     "type": "object",
                     "properties": {
-                        "query": {"type": "string", "description": "Search query for test cases"},
-                        "tc_id": {"type": "string", "description": "Specific TC-* identifier (without TC- prefix)"},
-                        "top_k": {"type": "integer", "default": 10, "minimum": 1, "maximum": 50},
-                        "ddd_root": {"type": "string", "description": "DDD project root (optional)"}
+                        "query": {"type": "string", "description": "Search query for test case descriptions (e.g., 'HTTP error handling', 'authentication tests') or leave empty when using tc_id"},
+                        "tc_id": {"type": "string", "description": "Specific TC-* identifier without 'TC-' prefix (e.g., 'HTTP-001' for TC-HTTP-001)"},
+                        "top_k": {"type": "integer", "default": 10, "minimum": 1, "maximum": 50, "description": "Maximum number of results to return"},
+                        "ddd_root": {"type": "string", "description": "DDD project root directory path (optional, defaults to current project)"}
                     }
                 }
             },
             {
                 "name": "search_features",
-                "description": "Search for features with FT-* identifiers in documentation and implementation",
+                "description": "Search for feature specifications (FT-*) in documentation files and their implementations. Features are defined in docs/features/*.md files with FT-* identifiers like FT-CORE-001. Each feature includes description, test cases (TC-*), code locations, and implementation status. This tool searches feature documentation semantically and can locate corresponding source code implementations. Returns feature specifications, associated test cases, code locations, and implementation status. Does NOT search arbitrary code - only documented features with FT-* identifiers.",
                 "inputSchema": {
                     "type": "object",
                     "properties": {
-                        "query": {"type": "string", "description": "Search query for features"},
-                        "ft_id": {"type": "string", "description": "Specific FT-* identifier (without FT- prefix)"},
-                        "top_k": {"type": "integer", "default": 10, "minimum": 1, "maximum": 50},
-                        "ddd_root": {"type": "string", "description": "DDD project root (optional)"}
+                        "query": {"type": "string", "description": "Search query for feature descriptions (e.g., 'user authentication', 'HTTP client', 'data validation') or leave empty when using ft_id"},
+                        "ft_id": {"type": "string", "description": "Specific FT-* identifier without 'FT-' prefix (e.g., 'CORE-001' for FT-CORE-001)"},
+                        "top_k": {"type": "integer", "default": 10, "minimum": 1, "maximum": 50, "description": "Maximum number of results to return"},
+                        "ddd_root": {"type": "string", "description": "DDD project root directory path (optional, defaults to current project)"}
                     }
                 }
             },
             {
                 "name": "find_feature_test_mapping",
-                "description": "Find mapping between features (FT-*) and test cases (TC-*) using semantic search",
+                "description": "Find relationships between feature specifications (FT-*) and their test cases (TC-*) using semantic analysis. This tool analyzes feature documentation to identify which test cases validate each feature, and finds test implementations that cover those test cases. Returns comprehensive mapping showing: feature specifications, associated test cases from documentation, test implementations in code, coverage gaps, and traceability matrix. Useful for understanding test coverage and ensuring features are properly validated.",
                 "inputSchema": {
                     "type": "object",
                     "properties": {
-                        "feature_query": {"type": "string", "description": "Feature search query"},
-                        "ft_id": {"type": "string", "description": "Specific FT-* identifier (without FT- prefix)"},
-                        "top_k": {"type": "integer", "default": 10, "minimum": 1, "maximum": 50},
-                        "ddd_root": {"type": "string", "description": "DDD project root (optional)"}
+                        "feature_query": {"type": "string", "description": "Natural language query for features to analyze (e.g., 'authentication features', 'HTTP client functionality')"},
+                        "ft_id": {"type": "string", "description": "Specific FT-* identifier without 'FT-' prefix (e.g., 'CORE-001' for FT-CORE-001) to analyze specific feature"},
+                        "top_k": {"type": "integer", "default": 10, "minimum": 1, "maximum": 50, "description": "Maximum number of feature-test mappings to return"},
+                        "ddd_root": {"type": "string", "description": "DDD project root directory path (optional, defaults to current project)"}
                     }
                 }
             },
             {
                 "name": "analyze_drift",
-                "description": "Perform comprehensive drift analysis with vector enhancement",
+                "description": "Comprehensive drift analysis to detect inconsistencies between documentation and implementation in DDD projects. Analyzes: test case mapping (TC-* in docs vs implementations), feature mapping (FT-* documentation vs code), feature-test relationships, code coverage gaps, test quality metrics, and code location accuracy. Uses vector search for enhanced semantic analysis. Modes: 'tc-mapping' (test case drift), 'ft-mapping' (feature drift), 'ft-tc-mapping' (feature-test relationships), 'code-coverage' (implementation gaps), 'test-quality' (test completeness), 'code-location' (location accuracy), 'all' (comprehensive analysis). Returns detailed drift report with recommendations.",
                 "inputSchema": {
                     "type": "object",
                     "properties": {
-                        "mode": {"type": "string", "enum": ["tc-mapping", "ft-mapping", "ft-tc-mapping", "code-coverage", "test-quality", "code-location", "all"], "default": "all"},
-                        "quiet": {"type": "boolean", "default": False},
-                        "ddd_root": {"type": "string", "description": "DDD project root (optional)"}
+                        "mode": {"type": "string", "enum": ["tc-mapping", "ft-mapping", "ft-tc-mapping", "code-coverage", "test-quality", "code-location", "all"], "default": "all", "description": "Analysis mode: 'tc-mapping' (test case drift), 'ft-mapping' (feature drift), 'ft-tc-mapping' (feature-test relationships), 'code-coverage' (implementation gaps), 'test-quality' (test completeness), 'code-location' (location accuracy), 'all' (comprehensive)"},
+                        "quiet": {"type": "boolean", "default": False, "description": "Suppress verbose output, return summary only"},
+                        "ddd_root": {"type": "string", "description": "DDD project root directory path (optional, defaults to current project)"}
                     }
                 }
             },
             {
                 "name": "validate_code_locations",
-                "description": "Validate and suggest code locations for features using vector search",
+                "description": "Validate and suggest accurate code locations for features using vector search and semantic analysis. Analyzes feature documentation (FT-*) to verify that specified code locations (file paths, classes, methods) actually exist and contain relevant implementations. Uses vector search to find better code locations when current ones are invalid or incomplete. Returns validation results showing: valid locations, invalid/missing locations, suggested alternatives with similarity scores, and recommendations for updating feature documentation. Helps maintain accurate traceability between features and their implementations.",
                 "inputSchema": {
                     "type": "object",
                     "properties": {
-                        "ddd_root": {"type": "string", "description": "DDD project root (optional)"}
+                        "ddd_root": {"type": "string", "description": "DDD project root directory path (optional, defaults to current project)"}
                     }
                 }
             },
             {
                 "name": "get_vector_stats",
-                "description": "Get vector database statistics and indexing information",
+                "description": "Get comprehensive statistics and health information about the vector database for a project. Returns detailed metrics including: total indexed files and code chunks, supported programming languages, embedding model information, index size and performance, cache status, and database health indicators. Useful for understanding search capabilities, troubleshooting indexing issues, and monitoring vector database performance. Shows whether semantic search is available and functioning properly for the target repository.",
                 "inputSchema": {
                     "type": "object",
                     "properties": {
-                        "ddd_root": {"type": "string", "description": "DDD project root (optional)"}
+                        "ddd_root": {"type": "string", "description": "DDD project root directory path (optional, defaults to current project)"}
                     }
                 }
             }
