@@ -265,23 +265,43 @@ class SWEBenchTool:
 
             # Import from the integrated agents.swebench module
             from agents.swebench import SWEBenchAgent
-            from agents.swebench.utils.llm_client import AnthropicDirectClient
+            from agents.swebench.utils.llm_client import AnthropicDirectClient, GeminiDirectClient, get_client
             from agents.swebench.utils.workspace_manager import WorkspaceManager
             from rich.console import Console
 
-            # Initialize components
-            api_key = os.getenv('ANTHROPIC_API_KEY')
-            if not api_key:
-                self.logger.warning("❌ ANTHROPIC_API_KEY not found, SWE-bench agent will not be available")
+            # Initialize components - try Gemini first, then fallback to Anthropic
+            llm_client = None
+
+            # Try Gemini first
+            google_api_key = os.getenv('GOOGLE_API_KEY')
+            if google_api_key:
+                try:
+                    llm_client = GeminiDirectClient(
+                        model_name="gemini-1.5-flash",  # Use Flash for lower rate limits
+                        max_retries=2
+                    )
+                    self.logger.info("✅ Using Google Gemini for SWE-bench agent")
+                except Exception as e:
+                    self.logger.warning(f"Failed to initialize Gemini client: {e}")
+
+            # Fallback to Anthropic if Gemini not available
+            if llm_client is None:
+                anthropic_api_key = os.getenv('ANTHROPIC_API_KEY')
+                if anthropic_api_key:
+                    try:
+                        llm_client = AnthropicDirectClient(
+                            model_name="claude-3-5-sonnet-20241022",
+                            max_retries=2,
+                            use_caching=True
+                        )
+                        self.logger.info("✅ Using Anthropic Claude for SWE-bench agent")
+                    except Exception as e:
+                        self.logger.warning(f"Failed to initialize Anthropic client: {e}")
+
+            if llm_client is None:
+                self.logger.warning("❌ No API keys found (GOOGLE_API_KEY or ANTHROPIC_API_KEY), SWE-bench agent will not be available")
                 self.agent = None
                 return
-
-            # Create LLM client (using Claude Sonnet 4)
-            llm_client = AnthropicDirectClient(
-                model_name="claude-3-5-sonnet-20241022",
-                max_retries=2,
-                use_caching=True
-            )
 
             # Create workspace manager (use current directory as workspace)
             workspace_manager = WorkspaceManager(root=Path("."))

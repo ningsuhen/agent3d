@@ -9,6 +9,14 @@ from typing import Any, Tuple, cast
 from dataclasses_json import DataClassJsonMixin
 import anthropic
 import openai
+
+# Google AI imports (optional)
+try:
+    import google.generativeai as genai
+    GOOGLE_AI_AVAILABLE = True
+except ImportError:
+    GOOGLE_AI_AVAILABLE = False
+    genai = None
 from anthropic import (
     NOT_GIVEN as Anthropic_NOT_GIVEN,
 )
@@ -596,11 +604,144 @@ class OpenAIDirectClient(LLMClient):
         return augment_messages, message_metadata
 
 
+class GeminiDirectClient(LLMClient):
+    """Use Google Gemini models via first party API."""
+
+    def __init__(self, model_name: str = "gemini-1.5-pro", max_retries=2):
+        """Initialize the Google Gemini first party client."""
+        if not GOOGLE_AI_AVAILABLE:
+            raise ImportError("google-generativeai package is required for GeminiDirectClient")
+
+        api_key = os.getenv("GOOGLE_API_KEY")
+        if not api_key:
+            raise ValueError("GOOGLE_API_KEY environment variable is required")
+
+        genai.configure(api_key=api_key)
+        self.model_name = model_name
+        self.max_retries = max_retries
+        self.model = genai.GenerativeModel(model_name)
+
+    def generate(
+        self,
+        messages: LLMMessages,
+        max_tokens: int,
+        system_prompt: Union[str, None] = None,
+        temperature: float = 0.0,
+        tools: list[ToolParam] = [],
+        tool_choice: Union[dict[str, str], None] = None,
+        thinking_tokens: Union[int, None] = None,
+    ) -> Tuple[list[AssistantContentBlock], dict[str, Any]]:
+        """Generate responses.
+
+        Args:
+            messages: A list of messages.
+            max_tokens: The maximum number of tokens to generate.
+            system_prompt: A system prompt.
+            temperature: The temperature.
+            tools: A list of tools.
+            tool_choice: A tool choice.
+            thinking_tokens: Not supported for Gemini.
+
+        Returns:
+            A generated response.
+        """
+        if thinking_tokens is not None:
+            print("Warning: thinking_tokens not supported for Gemini")
+
+        # Convert messages to Gemini format
+        gemini_messages = []
+
+        # Add system prompt if provided
+        if system_prompt:
+            gemini_messages.append({
+                "role": "user",
+                "parts": [{"text": f"System: {system_prompt}"}]
+            })
+            gemini_messages.append({
+                "role": "model",
+                "parts": [{"text": "I understand the system instructions."}]
+            })
+
+        # Convert message format
+        for idx, message_list in enumerate(messages):
+            role = "user" if idx % 2 == 0 else "model"
+
+            # Combine all messages in the list into one text
+            combined_text = ""
+            for message in message_list:
+                if str(type(message)) == str(TextPrompt):
+                    message = cast(TextPrompt, message)
+                    combined_text += message.text + "\n"
+                elif str(type(message)) == str(TextResult):
+                    message = cast(TextResult, message)
+                    combined_text += message.text + "\n"
+                elif str(type(message)) == str(ToolCall):
+                    message = cast(ToolCall, message)
+                    combined_text += f"Tool Call: {message.tool_name}({message.tool_input})\n"
+                elif str(type(message)) == str(ToolFormattedResult):
+                    message = cast(ToolFormattedResult, message)
+                    combined_text += f"Tool Result: {message.tool_output}\n"
+                else:
+                    print(f"Warning: Unknown message type for Gemini: {type(message)}")
+
+            if combined_text.strip():
+                gemini_messages.append({
+                    "role": role,
+                    "parts": [{"text": combined_text.strip()}]
+                })
+
+        # Configure generation parameters
+        generation_config = genai.types.GenerationConfig(
+            max_output_tokens=max_tokens,
+            temperature=temperature,
+        )
+
+        response = None
+        for retry in range(self.max_retries):
+            try:
+                # Generate response
+                if len(gemini_messages) == 0:
+                    # Handle empty messages case
+                    response = self.model.generate_content(
+                        "Please respond.",
+                        generation_config=generation_config
+                    )
+                else:
+                    response = self.model.generate_content(
+                        gemini_messages,
+                        generation_config=generation_config
+                    )
+                break
+            except Exception as e:
+                if retry == self.max_retries - 1:
+                    print(f"Failed Gemini request after {retry + 1} retries: {e}")
+                    raise e
+                else:
+                    print(f"Retrying Gemini request: {retry + 1}/{self.max_retries}")
+                    time.sleep(2 * random.uniform(0.8, 1.2))
+
+        # Convert response back to Augment format
+        augment_messages = []
+        if response and response.text:
+            augment_messages.append(TextResult(text=response.text))
+
+        # Create metadata
+        message_metadata = {
+            "raw_response": response,
+            "input_tokens": getattr(response.usage_metadata, "prompt_token_count", 0) if response.usage_metadata else 0,
+            "output_tokens": getattr(response.usage_metadata, "candidates_token_count", 0) if response.usage_metadata else 0,
+        }
+
+        return augment_messages, message_metadata
+
+
 def get_client(client_name: str, **kwargs) -> LLMClient:
     """Get a client for a given client name."""
     if client_name == "anthropic-direct":
         return AnthropicDirectClient(**kwargs)
     elif client_name == "openai-direct":
         return OpenAIDirectClient(**kwargs)
+    elif client_name == "gemini-direct":
+        return GeminiDirectClient(**kwargs)
     else:
         raise ValueError(f"Unknown client name: {client_name}")
