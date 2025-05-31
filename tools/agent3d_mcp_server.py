@@ -321,39 +321,89 @@ class Agent3DMCPServer:
 
     # ==================== FRAMEWORK ACCESS FUNCTIONS ====================
 
+    def _validate_string_param(self, args: Dict[str, Any], param_name: str, required: bool = True) -> str:
+        """Validate and return a string parameter"""
+        value = args.get(param_name, '').strip()
+        if required and not value:
+            raise ValueError(f"Parameter '{param_name}' is required and cannot be empty")
+        return value
+
+    def _validate_dict_param(self, args: Dict[str, Any], param_name: str, required: bool = True) -> Dict[str, Any]:
+        """Validate and return a dictionary parameter"""
+        value = args.get(param_name, {})
+        if required and not isinstance(value, dict):
+            raise ValueError(f"Parameter '{param_name}' must be a dictionary")
+        return value
+
+    def _safe_read_file(self, file_path: Path) -> str:
+        """Safely read a file with proper error handling"""
+        try:
+            if not file_path.exists():
+                raise FileNotFoundError(f"File not found: {file_path}")
+            if not file_path.is_file():
+                raise ValueError(f"Path is not a file: {file_path}")
+            return file_path.read_text(encoding='utf-8')
+        except UnicodeDecodeError as e:
+            raise ValueError(f"File encoding error: {e}")
+        except PermissionError as e:
+            raise ValueError(f"Permission denied: {e}")
+
     def get_template(self, args: Dict[str, Any]) -> Dict[str, Any]:
         """Get a template file from the DDD framework"""
         try:
-            template_name = args.get('template_name', '')
+            # Validate input parameters
+            template_name = self._validate_string_param(args, 'template_name', required=True)
+
+            # Sanitize template name (prevent path traversal)
+            template_name = template_name.replace('/', '').replace('\\', '').replace('..', '')
             if not template_name:
-                raise Exception("template_name parameter is required")
+                raise ValueError("Invalid template name after sanitization")
+
+            logger.info(f"Searching for template: {template_name}")
 
             # Search for template in the framework
             template_query = f"template {template_name}"
 
             # Use vector search to find the template
             if self.vector_db_manager:
-                # Search in the agent3d directory for templates
-                results = self.vector_db_manager.search(
-                    str(self.agent3d_dir), template_query, 5,
-                    filter_language="markdown"
-                )
+                try:
+                    # Search in the agent3d directory for templates
+                    results = self.vector_db_manager.search(
+                        str(self.agent3d_dir), template_query, 5,
+                        filter_language="markdown"
+                    )
 
-                for chunk, score in results:
-                    if 'template' in chunk.file_path.lower() and template_name.lower() in chunk.file_path.lower():
-                        # Read the template file
-                        template_path = Path(chunk.file_path)
-                        if template_path.exists():
-                            content = template_path.read_text(encoding='utf-8')
-                            return {
-                                "template_name": template_name,
-                                "file_path": str(template_path),
-                                "content": content,
-                                "found": True
-                            }
+                    for chunk, _ in results:
+                        if ('template' in chunk.file_path.lower() and
+                            template_name.lower() in chunk.file_path.lower()):
+                            # Read the template file
+                            template_path = Path(chunk.file_path)
+                            try:
+                                content = self._safe_read_file(template_path)
+                                logger.info(f"Found template via vector search: {template_path}")
+                                return {
+                                    "template_name": template_name,
+                                    "file_path": str(template_path),
+                                    "content": content,
+                                    "found": True,
+                                    "search_method": "vector"
+                                }
+                            except Exception as e:
+                                logger.warning(f"Failed to read template file {template_path}: {e}")
+                                continue
+                except Exception as e:
+                    logger.warning(f"Vector search failed for template: {e}")
 
             # Fallback: direct template search
             template_dir = self.agent3d_dir / "templates"
+            if not template_dir.exists():
+                logger.warning(f"Templates directory not found: {template_dir}")
+                return {
+                    "template_name": template_name,
+                    "found": False,
+                    "error": f"Templates directory not found: {template_dir}"
+                }
+
             possible_names = [
                 f"{template_name}.template.md",
                 f"{template_name}.template.yml",
@@ -364,74 +414,118 @@ class Agent3DMCPServer:
             for name in possible_names:
                 template_path = template_dir / name
                 if template_path.exists():
-                    content = template_path.read_text(encoding='utf-8')
-                    return {
-                        "template_name": template_name,
-                        "file_path": str(template_path),
-                        "content": content,
-                        "found": True
-                    }
+                    try:
+                        content = self._safe_read_file(template_path)
+                        logger.info(f"Found template via direct search: {template_path}")
+                        return {
+                            "template_name": template_name,
+                            "file_path": str(template_path),
+                            "content": content,
+                            "found": True,
+                            "search_method": "direct"
+                        }
+                    except Exception as e:
+                        logger.warning(f"Failed to read template file {template_path}: {e}")
+                        continue
 
+            logger.info(f"Template not found: {template_name}")
             return {
                 "template_name": template_name,
                 "found": False,
-                "error": f"Template '{template_name}' not found"
+                "error": f"Template '{template_name}' not found in {template_dir}",
+                "searched_names": possible_names
             }
 
+        except ValueError as e:
+            logger.error(f"Validation error in get_template: {e}")
+            return {"error": f"Validation error: {str(e)}"}
         except Exception as e:
-            logger.error(f"Error in get_template: {e}")
-            return {"error": str(e)}
+            logger.error(f"Unexpected error in get_template: {e}")
+            return {"error": f"Unexpected error: {str(e)}"}
 
     def get_language_rules(self, args: Dict[str, Any]) -> Dict[str, Any]:
         """Get language-specific rules from the DDD framework"""
         try:
-            language = args.get('language', '')
+            # Validate input parameters
+            language = self._validate_string_param(args, 'language', required=True)
+
+            # Sanitize language name
+            language = language.lower().replace('/', '').replace('\\', '').replace('..', '')
             if not language:
-                raise Exception("language parameter is required")
+                raise ValueError("Invalid language name after sanitization")
+
+            logger.info(f"Searching for language rules: {language}")
 
             # Search for language rules
             rules_query = f"rules {language}"
 
             if self.vector_db_manager:
-                results = self.vector_db_manager.search(
-                    str(self.agent3d_dir), rules_query, 3,
-                    filter_language="markdown"
-                )
+                try:
+                    results = self.vector_db_manager.search(
+                        str(self.agent3d_dir), rules_query, 3,
+                        filter_language="markdown"
+                    )
 
-                for chunk, score in results:
-                    if 'rules' in chunk.file_path.lower() and language.lower() in chunk.file_path.lower():
-                        rules_path = Path(chunk.file_path)
-                        if rules_path.exists():
-                            content = rules_path.read_text(encoding='utf-8')
-                            return {
-                                "language": language,
-                                "file_path": str(rules_path),
-                                "content": content,
-                                "found": True
-                            }
+                    for chunk, _ in results:
+                        if ('rules' in chunk.file_path.lower() and
+                            language in chunk.file_path.lower()):
+                            rules_path = Path(chunk.file_path)
+                            try:
+                                content = self._safe_read_file(rules_path)
+                                logger.info(f"Found language rules via vector search: {rules_path}")
+                                return {
+                                    "language": language,
+                                    "file_path": str(rules_path),
+                                    "content": content,
+                                    "found": True,
+                                    "search_method": "vector"
+                                }
+                            except Exception as e:
+                                logger.warning(f"Failed to read rules file {rules_path}: {e}")
+                                continue
+                except Exception as e:
+                    logger.warning(f"Vector search failed for language rules: {e}")
 
             # Fallback: direct rules search
             rules_dir = self.agent3d_dir / "rules"
-            rules_path = rules_dir / f"{language.lower()}.md"
-
-            if rules_path.exists():
-                content = rules_path.read_text(encoding='utf-8')
+            if not rules_dir.exists():
+                logger.warning(f"Rules directory not found: {rules_dir}")
                 return {
                     "language": language,
-                    "file_path": str(rules_path),
-                    "content": content,
-                    "found": True
+                    "found": False,
+                    "error": f"Rules directory not found: {rules_dir}"
                 }
 
+            rules_path = rules_dir / f"{language}.md"
+
+            if rules_path.exists():
+                try:
+                    content = self._safe_read_file(rules_path)
+                    logger.info(f"Found language rules via direct search: {rules_path}")
+                    return {
+                        "language": language,
+                        "file_path": str(rules_path),
+                        "content": content,
+                        "found": True,
+                        "search_method": "direct"
+                    }
+                except Exception as e:
+                    logger.warning(f"Failed to read rules file {rules_path}: {e}")
+
+            logger.info(f"Language rules not found: {language}")
             return {
                 "language": language,
                 "found": False,
-                "error": f"Language rules for '{language}' not found"
+                "error": f"Language rules for '{language}' not found in {rules_dir}",
+                "searched_path": str(rules_path)
             }
 
+        except ValueError as e:
+            logger.error(f"Validation error in get_language_rules: {e}")
+            return {"error": f"Validation error: {str(e)}"}
         except Exception as e:
-            logger.error(f"Error in get_language_rules: {e}")
-            return {"error": str(e)}
+            logger.error(f"Unexpected error in get_language_rules: {e}")
+            return {"error": f"Unexpected error: {str(e)}"}
 
     def get_pass_definition(self, args: Dict[str, Any]) -> Dict[str, Any]:
         """Get a DDD pass definition from the framework"""
