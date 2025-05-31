@@ -319,6 +319,508 @@ class Agent3DMCPServer:
             self.watched_directories.clear()
             logger.info("👁️  File watching stopped")
 
+    # ==================== FRAMEWORK ACCESS FUNCTIONS ====================
+
+    def get_template(self, args: Dict[str, Any]) -> Dict[str, Any]:
+        """Get a template file from the DDD framework"""
+        try:
+            template_name = args.get('template_name', '')
+            if not template_name:
+                raise Exception("template_name parameter is required")
+
+            # Search for template in the framework
+            template_query = f"template {template_name}"
+
+            # Use vector search to find the template
+            if self.vector_db_manager:
+                # Search in the agent3d directory for templates
+                results = self.vector_db_manager.search(
+                    str(self.agent3d_dir), template_query, 5,
+                    filter_language="markdown"
+                )
+
+                for chunk, score in results:
+                    if 'template' in chunk.file_path.lower() and template_name.lower() in chunk.file_path.lower():
+                        # Read the template file
+                        template_path = Path(chunk.file_path)
+                        if template_path.exists():
+                            content = template_path.read_text(encoding='utf-8')
+                            return {
+                                "template_name": template_name,
+                                "file_path": str(template_path),
+                                "content": content,
+                                "found": True
+                            }
+
+            # Fallback: direct template search
+            template_dir = self.agent3d_dir / "templates"
+            possible_names = [
+                f"{template_name}.template.md",
+                f"{template_name}.template.yml",
+                f"{template_name}.md",
+                f"{template_name}.yml"
+            ]
+
+            for name in possible_names:
+                template_path = template_dir / name
+                if template_path.exists():
+                    content = template_path.read_text(encoding='utf-8')
+                    return {
+                        "template_name": template_name,
+                        "file_path": str(template_path),
+                        "content": content,
+                        "found": True
+                    }
+
+            return {
+                "template_name": template_name,
+                "found": False,
+                "error": f"Template '{template_name}' not found"
+            }
+
+        except Exception as e:
+            logger.error(f"Error in get_template: {e}")
+            return {"error": str(e)}
+
+    def get_language_rules(self, args: Dict[str, Any]) -> Dict[str, Any]:
+        """Get language-specific rules from the DDD framework"""
+        try:
+            language = args.get('language', '')
+            if not language:
+                raise Exception("language parameter is required")
+
+            # Search for language rules
+            rules_query = f"rules {language}"
+
+            if self.vector_db_manager:
+                results = self.vector_db_manager.search(
+                    str(self.agent3d_dir), rules_query, 3,
+                    filter_language="markdown"
+                )
+
+                for chunk, score in results:
+                    if 'rules' in chunk.file_path.lower() and language.lower() in chunk.file_path.lower():
+                        rules_path = Path(chunk.file_path)
+                        if rules_path.exists():
+                            content = rules_path.read_text(encoding='utf-8')
+                            return {
+                                "language": language,
+                                "file_path": str(rules_path),
+                                "content": content,
+                                "found": True
+                            }
+
+            # Fallback: direct rules search
+            rules_dir = self.agent3d_dir / "rules"
+            rules_path = rules_dir / f"{language.lower()}.md"
+
+            if rules_path.exists():
+                content = rules_path.read_text(encoding='utf-8')
+                return {
+                    "language": language,
+                    "file_path": str(rules_path),
+                    "content": content,
+                    "found": True
+                }
+
+            return {
+                "language": language,
+                "found": False,
+                "error": f"Language rules for '{language}' not found"
+            }
+
+        except Exception as e:
+            logger.error(f"Error in get_language_rules: {e}")
+            return {"error": str(e)}
+
+    def get_pass_definition(self, args: Dict[str, Any]) -> Dict[str, Any]:
+        """Get a DDD pass definition from the framework"""
+        try:
+            pass_name = args.get('pass_name', '')
+            if not pass_name:
+                raise Exception("pass_name parameter is required")
+
+            # Search for pass definition
+            pass_query = f"pass {pass_name}"
+
+            if self.vector_db_manager:
+                results = self.vector_db_manager.search(
+                    str(self.agent3d_dir), pass_query, 5,
+                    filter_language="yaml"
+                )
+
+                for chunk, score in results:
+                    if 'pass' in chunk.file_path.lower() and pass_name.lower() in chunk.file_path.lower():
+                        pass_path = Path(chunk.file_path)
+                        if pass_path.exists():
+                            content = pass_path.read_text(encoding='utf-8')
+                            return {
+                                "pass_name": pass_name,
+                                "file_path": str(pass_path),
+                                "content": content,
+                                "found": True
+                            }
+
+            # Fallback: direct pass search
+            passes_dir = self.agent3d_dir / "passes.yml"
+            possible_names = [
+                f"{pass_name}.yml",
+                f"{pass_name}_pass.yml",
+                f"{pass_name.replace('_', '-')}.yml"
+            ]
+
+            for name in possible_names:
+                pass_path = passes_dir / name
+                if pass_path.exists():
+                    content = pass_path.read_text(encoding='utf-8')
+                    return {
+                        "pass_name": pass_name,
+                        "file_path": str(pass_path),
+                        "content": content,
+                        "found": True
+                    }
+
+            return {
+                "pass_name": pass_name,
+                "found": False,
+                "error": f"Pass definition for '{pass_name}' not found"
+            }
+
+        except Exception as e:
+            logger.error(f"Error in get_pass_definition: {e}")
+            return {"error": str(e)}
+
+    def get_project_config(self, args: Dict[str, Any]) -> Dict[str, Any]:
+        """Get project configuration (.agent3d-config.yml)"""
+        try:
+            ddd_root = self.find_ddd_root(args.get('ddd_root'))
+            if not ddd_root:
+                raise Exception("No DDD root found")
+
+            config_path = Path(ddd_root) / ".agent3d-config.yml"
+
+            if config_path.exists():
+                content = config_path.read_text(encoding='utf-8')
+
+                # Parse YAML to provide structured data
+                try:
+                    import yaml
+                    config_data = yaml.safe_load(content)
+                except Exception as yaml_error:
+                    logger.warning(f"Failed to parse YAML config: {yaml_error}")
+                    config_data = None
+
+                return {
+                    "ddd_root": ddd_root,
+                    "config_path": str(config_path),
+                    "content": content,
+                    "config_data": config_data,
+                    "found": True
+                }
+            else:
+                return {
+                    "ddd_root": ddd_root,
+                    "found": False,
+                    "error": "No .agent3d-config.yml found in project root"
+                }
+
+        except Exception as e:
+            logger.error(f"Error in get_project_config: {e}")
+            return {"error": str(e)}
+
+    def next_action(self, args: Dict[str, Any]) -> Dict[str, Any]:
+        """Determine the next action for the agent based on project state and DDD workflow"""
+        try:
+            ddd_root = self.find_ddd_root(args.get('ddd_root'))
+            if not ddd_root:
+                raise Exception("No DDD root found")
+
+            context = args.get('context', '')
+            current_task = args.get('current_task', '')
+
+            # Get project configuration
+            config_result = self.get_project_config(args)
+            if not config_result.get('found'):
+                return {
+                    "action": "create_project_config",
+                    "priority": "high",
+                    "description": "Create .agent3d-config.yml to configure the project",
+                    "next_steps": [
+                        "Run Foundation Pass to set up project configuration",
+                        "Define project type, language, and quality standards",
+                        "Enable appropriate DDD passes"
+                    ],
+                    "suggested_tools": ["get_template", "get_pass_definition"],
+                    "reasoning": "Project configuration is required before any DDD work can begin"
+                }
+
+            config_data = config_result.get('config_data', {})
+
+            # Check DDD status
+            ddd_status_path = Path(ddd_root) / "docs" / "DDD-STATUS.yml"
+            ddd_status = {}
+            if ddd_status_path.exists():
+                try:
+                    import yaml
+                    ddd_status = yaml.safe_load(ddd_status_path.read_text(encoding='utf-8')) or {}
+                except Exception:
+                    pass
+
+            # Analyze current state using drift analysis (suppress output)
+            import io
+            import contextlib
+
+            # Capture stdout to prevent drift analysis from interfering with JSON-RPC
+            captured_output = io.StringIO()
+            with contextlib.redirect_stdout(captured_output):
+                drift_result = self.analyze_drift({"ddd_root": ddd_root, "mode": "all", "quiet": True})
+
+            # Determine next action based on state
+            enabled_passes = config_data.get('enabled_passes', [])
+            pass_status = ddd_status.get('passes', {})
+
+            # Check for missing critical documentation
+            missing_docs = drift_result.get('missing_documentation', [])
+            if missing_docs:
+                critical_docs = ['REQUIREMENTS.md', 'FEATURES.md', 'BUSINESS-OBJECTIVES.md']
+                missing_critical = [doc for doc in missing_docs if any(critical in doc for critical in critical_docs)]
+
+                if missing_critical:
+                    return {
+                        "action": "create_documentation",
+                        "priority": "high",
+                        "description": f"Create missing critical documentation: {', '.join(missing_critical)}",
+                        "target_files": missing_critical,
+                        "next_steps": [
+                            "Run Documentation Pass to create missing files",
+                            "Use templates to ensure consistent structure",
+                            "Gather requirements and business objectives"
+                        ],
+                        "suggested_tools": ["get_template", "get_pass_definition"],
+                        "reasoning": "Critical documentation is missing and required for DDD workflow"
+                    }
+
+            # Check for drift issues
+            drift_issues = drift_result.get('drift_summary', {})
+            high_priority_drift = []
+
+            if drift_issues.get('missing_test_cases', 0) > 0:
+                high_priority_drift.append("missing_test_cases")
+            if drift_issues.get('invalid_code_locations', 0) > 0:
+                high_priority_drift.append("invalid_code_locations")
+            if drift_issues.get('outdated_features', 0) > 0:
+                high_priority_drift.append("outdated_features")
+
+            if high_priority_drift:
+                return {
+                    "action": "fix_drift",
+                    "priority": "medium",
+                    "description": f"Fix documentation-code drift: {', '.join(high_priority_drift)}",
+                    "drift_issues": high_priority_drift,
+                    "next_steps": [
+                        "Run Synchronization Pass to align docs with code",
+                        "Update feature documentation",
+                        "Add missing test cases",
+                        "Validate code locations"
+                    ],
+                    "suggested_tools": ["analyze_drift", "validate_code_locations", "search_features"],
+                    "reasoning": "Documentation and code are out of sync"
+                }
+
+            # Check pass progression
+            if 'requirements' in enabled_passes and pass_status.get('requirements', {}).get('status') != 'complete':
+                return {
+                    "action": "run_requirements_pass",
+                    "priority": "high",
+                    "description": "Execute Requirements Pass to document project requirements",
+                    "next_steps": [
+                        "Gather business objectives and user needs",
+                        "Document functional and non-functional requirements",
+                        "Create acceptance criteria"
+                    ],
+                    "suggested_tools": ["get_pass_definition", "get_template"],
+                    "reasoning": "Requirements Pass is enabled but not complete"
+                }
+
+            if 'documentation' in enabled_passes and pass_status.get('documentation', {}).get('status') != 'complete':
+                return {
+                    "action": "run_documentation_pass",
+                    "priority": "high",
+                    "description": "Execute Documentation Pass to create comprehensive project documentation",
+                    "next_steps": [
+                        "Document features and their acceptance criteria",
+                        "Create test case specifications",
+                        "Design system architecture"
+                    ],
+                    "suggested_tools": ["get_pass_definition", "search_features"],
+                    "reasoning": "Documentation Pass is enabled but not complete"
+                }
+
+            if 'development' in enabled_passes and pass_status.get('development', {}).get('status') != 'complete':
+                return {
+                    "action": "run_development_pass",
+                    "priority": "medium",
+                    "description": "Execute Development Pass to implement documented features",
+                    "next_steps": [
+                        "Create execution plan for feature implementation",
+                        "Implement features according to specifications",
+                        "Ensure code matches documentation"
+                    ],
+                    "suggested_tools": ["get_pass_definition", "search_features", "validate_code_locations"],
+                    "reasoning": "Development Pass is enabled but not complete"
+                }
+
+            # If no specific issues, suggest maintenance actions
+            return {
+                "action": "maintenance",
+                "priority": "low",
+                "description": "Project is in good state, perform maintenance tasks",
+                "next_steps": [
+                    "Run drift analysis to check for any new issues",
+                    "Update documentation if code has changed",
+                    "Consider running Prune Pass to clean up outdated content"
+                ],
+                "suggested_tools": ["analyze_drift", "get_vector_stats"],
+                "reasoning": "No critical issues found, focus on maintenance and optimization"
+            }
+
+        except Exception as e:
+            logger.error(f"Error in next_action: {e}")
+            return {"error": str(e)}
+
+    def save_exec_plan(self, args: Dict[str, Any]) -> Dict[str, Any]:
+        """Save an execution plan to the project"""
+        try:
+            ddd_root = self.find_ddd_root(args.get('ddd_root'))
+            if not ddd_root:
+                raise Exception("No DDD root found")
+
+            plan_name = args.get('plan_name', '')
+            plan_content = args.get('plan_content', '')
+            plan_data = args.get('plan_data', {})
+
+            if not plan_name:
+                raise Exception("plan_name parameter is required")
+
+            if not plan_content and not plan_data:
+                raise Exception("Either plan_content or plan_data is required")
+
+            # Ensure docs/runs directory exists
+            runs_dir = Path(ddd_root) / "docs" / "runs"
+            runs_dir.mkdir(parents=True, exist_ok=True)
+
+            # Generate filename
+            plan_filename = f"EXEC-PLAN-{plan_name.lower().replace(' ', '-')}.yml"
+            plan_path = runs_dir / plan_filename
+
+            # If plan_data is provided, convert to YAML
+            if plan_data:
+                import yaml
+                plan_content = yaml.dump(plan_data, default_flow_style=False, sort_keys=False)
+
+            # Add metadata if not present
+            if plan_data and 'metadata' not in plan_data:
+                import datetime
+                metadata = {
+                    'created_at': datetime.datetime.now().isoformat(),
+                    'created_by': 'agent3d-mcp',
+                    'plan_name': plan_name,
+                    'version': '1.0'
+                }
+                plan_data['metadata'] = metadata
+                import yaml
+                plan_content = yaml.dump(plan_data, default_flow_style=False, sort_keys=False)
+
+            # Write the plan
+            plan_path.write_text(plan_content, encoding='utf-8')
+
+            return {
+                "plan_name": plan_name,
+                "plan_path": str(plan_path),
+                "filename": plan_filename,
+                "saved": True,
+                "size": len(plan_content)
+            }
+
+        except Exception as e:
+            logger.error(f"Error in save_exec_plan: {e}")
+            return {"error": str(e)}
+
+    def update_exec_plan(self, args: Dict[str, Any]) -> Dict[str, Any]:
+        """Update an existing execution plan"""
+        try:
+            ddd_root = self.find_ddd_root(args.get('ddd_root'))
+            if not ddd_root:
+                raise Exception("No DDD root found")
+
+            plan_name = args.get('plan_name', '')
+            updates = args.get('updates', {})
+            append_steps = args.get('append_steps', [])
+            update_status = args.get('update_status', '')
+
+            if not plan_name:
+                raise Exception("plan_name parameter is required")
+
+            # Find the execution plan
+            runs_dir = Path(ddd_root) / "docs" / "runs"
+            plan_filename = f"EXEC-PLAN-{plan_name.lower().replace(' ', '-')}.yml"
+            plan_path = runs_dir / plan_filename
+
+            if not plan_path.exists():
+                return {
+                    "plan_name": plan_name,
+                    "found": False,
+                    "error": f"Execution plan '{plan_filename}' not found"
+                }
+
+            # Load existing plan
+            try:
+                import yaml
+                plan_content = plan_path.read_text(encoding='utf-8')
+                plan_data = yaml.safe_load(plan_content) or {}
+            except Exception as yaml_error:
+                return {"error": f"Failed to parse existing plan: {yaml_error}"}
+
+            # Apply updates
+            if updates:
+                plan_data.update(updates)
+
+            if append_steps:
+                if 'execution_steps' not in plan_data:
+                    plan_data['execution_steps'] = []
+                plan_data['execution_steps'].extend(append_steps)
+
+            if update_status:
+                plan_data['status'] = update_status
+
+            # Update metadata
+            import datetime
+            if 'metadata' not in plan_data:
+                plan_data['metadata'] = {}
+            plan_data['metadata']['updated_at'] = datetime.datetime.now().isoformat()
+            plan_data['metadata']['updated_by'] = 'agent3d-mcp'
+
+            # Save updated plan
+            import yaml
+            updated_content = yaml.dump(plan_data, default_flow_style=False, sort_keys=False)
+            plan_path.write_text(updated_content, encoding='utf-8')
+
+            return {
+                "plan_name": plan_name,
+                "plan_path": str(plan_path),
+                "updated": True,
+                "size": len(updated_content),
+                "changes_applied": {
+                    "updates": bool(updates),
+                    "appended_steps": len(append_steps),
+                    "status_updated": bool(update_status)
+                }
+            }
+
+        except Exception as e:
+            logger.error(f"Error in update_exec_plan: {e}")
+            return {"error": str(e)}
+
     # ==================== SEARCH FUNCTIONS ====================
 
     def search_files(self, args: Dict[str, Any]) -> Dict[str, Any]:
@@ -914,6 +1416,90 @@ class Agent3DMCPServer:
         """Handle tools/list request"""
         tools = [
             {
+                "name": "get_template",
+                "description": "Get a template file from the DDD framework. Templates are used for creating standardized documentation files like README, REQUIREMENTS, etc. Returns the template content that agents can use to create new documentation.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "template_name": {"type": "string", "description": "Name of the template (e.g., 'README', 'REQUIREMENTS', 'FEATURES')"}
+                    },
+                    "required": ["template_name"]
+                }
+            },
+            {
+                "name": "get_language_rules",
+                "description": "Get language-specific coding rules and guidelines from the DDD framework. These rules define coding standards, best practices, and conventions for different programming languages.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "language": {"type": "string", "description": "Programming language (e.g., 'python', 'javascript', 'java', 'go', 'markdown')"}
+                    },
+                    "required": ["language"]
+                }
+            },
+            {
+                "name": "get_pass_definition",
+                "description": "Get a DDD pass definition from the framework. Passes define structured workflows for different development activities like requirements gathering, documentation, development, testing, etc.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "pass_name": {"type": "string", "description": "Name of the DDD pass (e.g., 'foundation', 'requirements', 'documentation', 'development', 'testing')"}
+                    },
+                    "required": ["pass_name"]
+                }
+            },
+            {
+                "name": "get_project_config",
+                "description": "Get the project configuration (.agent3d-config.yml) which defines project-specific settings, enabled passes, quality standards, and workflow preferences.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "ddd_root": {"type": "string", "description": "DDD project root directory path (optional, defaults to current project)"}
+                    }
+                }
+            },
+            {
+                "name": "next_action",
+                "description": "Determine the next action for the agent based on current project state, DDD workflow progress, and drift analysis. Provides intelligent workflow guidance by analyzing project configuration, documentation status, and code-documentation alignment to suggest the most appropriate next step.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "ddd_root": {"type": "string", "description": "DDD project root directory path (optional, defaults to current project)"},
+                        "context": {"type": "string", "description": "Additional context about current work or goals (optional)"},
+                        "current_task": {"type": "string", "description": "Description of current task being worked on (optional)"}
+                    }
+                }
+            },
+            {
+                "name": "save_exec_plan",
+                "description": "Save an execution plan to the project's docs/runs directory. Execution plans document the steps, decisions, and progress for implementing features or completing tasks. Supports both raw YAML content and structured data objects.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "plan_name": {"type": "string", "description": "Name of the execution plan (will be used to generate filename)"},
+                        "plan_content": {"type": "string", "description": "Raw YAML content of the execution plan (optional if plan_data provided)"},
+                        "plan_data": {"type": "object", "description": "Structured execution plan data (optional if plan_content provided)"},
+                        "ddd_root": {"type": "string", "description": "DDD project root directory path (optional, defaults to current project)"}
+                    },
+                    "required": ["plan_name"]
+                }
+            },
+            {
+                "name": "update_exec_plan",
+                "description": "Update an existing execution plan with new information, additional steps, or status changes. Allows incremental updates to execution plans as work progresses without overwriting the entire plan.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "plan_name": {"type": "string", "description": "Name of the execution plan to update"},
+                        "updates": {"type": "object", "description": "Key-value pairs to update in the plan (optional)"},
+                        "append_steps": {"type": "array", "items": {"type": "string"}, "description": "Additional execution steps to append (optional)"},
+                        "update_status": {"type": "string", "description": "New status for the execution plan (optional)"},
+                        "ddd_root": {"type": "string", "description": "DDD project root directory path (optional, defaults to current project)"}
+                    },
+                    "required": ["plan_name"]
+                }
+            },
+            {
                 "name": "search_files",
                 "description": "Semantic file search across repository using vector embeddings. Searches file content, not just names. Supports: Python (.py), JavaScript/TypeScript (.js/.ts), Markdown (.md), YAML (.yml/.yaml), JSON, and other text files. Filters: 'python' (Python files only), 'test' (test files), 'doc' (documentation), 'config' (configuration files), 'any' (all supported types). Returns similarity scores (0.0-1.0) with file paths and content previews. Requires vector database to be indexed for the target repository.",
                 "inputSchema": {
@@ -1014,7 +1600,21 @@ class Agent3DMCPServer:
 
         try:
             # Route to appropriate function
-            if tool_name == "search_files":
+            if tool_name == "get_template":
+                result = self.get_template(arguments)
+            elif tool_name == "get_language_rules":
+                result = self.get_language_rules(arguments)
+            elif tool_name == "get_pass_definition":
+                result = self.get_pass_definition(arguments)
+            elif tool_name == "get_project_config":
+                result = self.get_project_config(arguments)
+            elif tool_name == "next_action":
+                result = self.next_action(arguments)
+            elif tool_name == "save_exec_plan":
+                result = self.save_exec_plan(arguments)
+            elif tool_name == "update_exec_plan":
+                result = self.update_exec_plan(arguments)
+            elif tool_name == "search_files":
                 result = self.search_files(arguments)
             elif tool_name == "search_test_cases":
                 result = self.search_test_cases(arguments)

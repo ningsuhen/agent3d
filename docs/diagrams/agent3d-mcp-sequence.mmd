@@ -1,0 +1,94 @@
+sequenceDiagram
+    participant Agent as 🤖 LLM Coding Agent
+    participant MCP as 📡 Agent3D MCP Server
+    participant VDB as 🔍 Vector Database
+    participant Framework as 📚 DDD Framework (~/.agent3d)
+    participant Project as 📁 Project Repository
+
+    Note over Agent: Agent starts work on project
+    Note over Agent: (No knowledge of ~/.agent3d location)
+
+    %% 1. Get Project Configuration
+    Agent->>+MCP: get_project_config()
+    MCP->>+Project: Read .agent3d-config.yml
+    Project-->>-MCP: Project configuration
+    MCP-->>-Agent: {config_data, enabled_passes, quality_level}
+
+    %% 2. Get Template for Documentation
+    Agent->>+MCP: get_template("REQUIREMENTS")
+    MCP->>+Framework: Search templates/REQUIREMENTS.template.md
+    Framework-->>-MCP: Template content
+    MCP-->>-Agent: Template with structure and guidelines
+
+    %% 3. Search for Existing Features
+    Agent->>+MCP: search_features("user authentication")
+    MCP->>+VDB: Semantic search for features
+    VDB->>+Project: Query docs/features/*.md
+    Project-->>-VDB: Feature documents
+    VDB-->>-MCP: Matching features with scores
+    MCP-->>-Agent: [FT-AUTH-001, FT-AUTH-002, ...]
+
+    %% 4. Find Related Test Cases
+    Agent->>+MCP: search_test_cases("authentication")
+    MCP->>+VDB: Search for TC-* identifiers
+    VDB->>+Project: Query test documentation
+    Project-->>-VDB: Test case specs
+    VDB-->>-MCP: [TC-AUTH-001, TC-AUTH-002, ...]
+    MCP-->>-Agent: Test cases with descriptions
+
+    %% 5. Get Language Rules
+    Agent->>+MCP: get_language_rules("python")
+    MCP->>+Framework: Read rules/python.md
+    Framework-->>-MCP: Python coding standards
+    MCP-->>-Agent: Language-specific rules and conventions
+
+    %% 6. Analyze Current State
+    Agent->>+MCP: analyze_drift("all")
+    MCP->>+VDB: Comprehensive drift analysis
+    VDB->>+Project: Scan all files for inconsistencies
+    Project-->>-VDB: File contents and metadata
+    VDB-->>-MCP: Drift analysis results
+    MCP-->>-Agent: {missing_docs, outdated_features, test_gaps}
+
+    %% 7. Get Pass Definition
+    Agent->>+MCP: get_pass_definition("development")
+    MCP->>+Framework: Read passes.yml/development_pass.yml
+    Framework-->>-MCP: Pass workflow and steps
+    MCP-->>-Agent: Development pass structure
+
+    %% 8. Search for Implementation Code
+    Agent->>+MCP: search_files("HTTP client implementation")
+    MCP->>+VDB: Semantic code search
+    VDB->>+Project: Search source files
+    Project-->>-VDB: Code chunks with similarity scores
+    VDB-->>-MCP: Relevant code locations
+    MCP-->>-Agent: Code files and functions to modify
+
+    %% 9. Validate Code Locations
+    Agent->>+MCP: validate_code_locations()
+    MCP->>+VDB: Check feature-to-code mappings
+    VDB->>+Project: Verify file paths and functions exist
+    Project-->>-VDB: Validation results
+    VDB-->>-MCP: Valid/invalid locations
+    MCP-->>-Agent: Code location validation report
+
+    %% 10. Get Vector Database Stats
+    Agent->>+MCP: get_vector_stats()
+    MCP->>+VDB: Database statistics
+    VDB-->>-MCP: {indexed_files: 228, chunks: 2889, languages: [...]}
+    MCP-->>-Agent: Indexing status and capabilities
+
+    Note over Agent: Agent implements changes using MCP data
+    Note over Agent: All framework access abstracted through MCP
+    Note over Agent: No direct file system access needed
+
+    %% Benefits Box
+    rect rgb(240, 248, 255)
+        Note over Agent, Project: 🎯 Benefits of MCP-First Architecture
+        Note over Agent, Project: ✅ Location-agnostic agents
+        Note over Agent, Project: ✅ Centralized framework access
+        Note over Agent, Project: ✅ Consistent semantic search
+        Note over Agent, Project: ✅ Automatic drift detection
+        Note over Agent, Project: ✅ Standardized tool interface
+        Note over Agent, Project: ✅ Easy agent integration
+    end

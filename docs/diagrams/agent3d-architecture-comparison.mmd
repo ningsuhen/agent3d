@@ -1,0 +1,101 @@
+graph TB
+    subgraph "BEFORE: Direct File Access Architecture"
+        subgraph "Agents (Location-Aware)"
+            B_A1[LLM Agent<br/>❌ Knows ~/.agent3d]
+            B_A2[VS Code Extension<br/>❌ Hardcoded paths]
+            B_A3[CI/CD Agent<br/>❌ Shell commands]
+        end
+        
+        subgraph "Direct File Operations"
+            B_CMD1[cat ~/.agent3d/templates/README.md]
+            B_CMD2[grep ~/.agent3d/rules/python.md]
+            B_CMD3[ls ~/.agent3d/passes.yml/]
+        end
+        
+        subgraph "DDD Framework"
+            B_F1[~/.agent3d/templates/]
+            B_F2[~/.agent3d/rules/]
+            B_F3[~/.agent3d/passes.yml/]
+        end
+        
+        B_A1 -.->|Shell Commands| B_CMD1
+        B_A2 -.->|File System API| B_CMD2
+        B_A3 -.->|Direct Access| B_CMD3
+        
+        B_CMD1 -.-> B_F1
+        B_CMD2 -.-> B_F2
+        B_CMD3 -.-> B_F3
+    end
+
+    subgraph "AFTER: MCP-First Architecture"
+        subgraph "Agents (Location-Agnostic)"
+            A_A1[LLM Agent<br/>✅ MCP Tools Only]
+            A_A2[VS Code Extension<br/>✅ JSON-RPC]
+            A_A3[CI/CD Agent<br/>✅ Standardized API]
+        end
+        
+        subgraph "MCP Server Layer"
+            A_MCP[Agent3D MCP Server<br/>📡 Centralized Access]
+            
+            subgraph "MCP Tools"
+                A_T1[get_template]
+                A_T2[get_language_rules]
+                A_T3[search_files]
+                A_T4[analyze_drift]
+            end
+        end
+        
+        subgraph "DDD Framework (Hidden)"
+            A_F1[~/.agent3d/templates/]
+            A_F2[~/.agent3d/rules/]
+            A_F3[~/.agent3d/passes.yml/]
+            A_VDB[(Vector Database)]
+        end
+        
+        A_A1 -.->|JSON-RPC| A_MCP
+        A_A2 -.->|JSON-RPC| A_MCP
+        A_A3 -.->|JSON-RPC| A_MCP
+        
+        A_MCP --> A_T1
+        A_MCP --> A_T2
+        A_MCP --> A_T3
+        A_MCP --> A_T4
+        
+        A_T1 -.-> A_F1
+        A_T2 -.-> A_F2
+        A_T3 -.-> A_VDB
+        A_T4 -.-> A_VDB
+        A_VDB -.-> A_F3
+    end
+
+    %% Comparison Annotations
+    subgraph "Problems with BEFORE"
+        P1[❌ Agents know ~/.agent3d location]
+        P2[❌ Hardcoded file paths]
+        P3[❌ Shell command dependencies]
+        P4[❌ No semantic search]
+        P5[❌ Inconsistent access patterns]
+        P6[❌ Difficult agent integration]
+    end
+
+    subgraph "Benefits of AFTER"
+        B1[✅ Location-agnostic agents]
+        B2[✅ Standardized JSON-RPC API]
+        B3[✅ Centralized framework access]
+        B4[✅ Semantic search capabilities]
+        B5[✅ Consistent tool interface]
+        B6[✅ Easy agent integration]
+        B7[✅ Automatic drift detection]
+        B8[✅ Vector-powered search]
+    end
+
+    %% Styling
+    classDef before fill:#ffebee,stroke:#c62828,stroke-width:2px
+    classDef after fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef problem fill:#ffcdd2,stroke:#d32f2f,stroke-width:1px
+    classDef benefit fill:#c8e6c9,stroke:#388e3c,stroke-width:1px
+
+    class B_A1,B_A2,B_A3,B_CMD1,B_CMD2,B_CMD3,B_F1,B_F2,B_F3 before
+    class A_A1,A_A2,A_A3,A_MCP,A_T1,A_T2,A_T3,A_T4,A_F1,A_F2,A_F3,A_VDB after
+    class P1,P2,P3,P4,P5,P6 problem
+    class B1,B2,B3,B4,B5,B6,B7,B8 benefit

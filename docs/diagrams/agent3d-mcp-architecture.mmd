@@ -1,0 +1,179 @@
+graph TB
+    %% External Agents (Location-Agnostic)
+    subgraph "External Agents (Location-Agnostic)"
+        A1[LLM Coding Agent]
+        A2[VS Code Extension]
+        A3[CI/CD Pipeline Agent]
+        A4[Documentation Agent]
+        A5[Testing Agent]
+    end
+
+    %% MCP Communication Layer
+    subgraph "MCP Communication Layer"
+        MCP[Agent3D MCP Server<br/>📡 JSON-RPC over stdin/stdout]
+
+        subgraph "MCP Tools"
+            subgraph "Framework Access"
+                T1[get_template]
+                T2[get_language_rules]
+                T3[get_pass_definition]
+                T4[get_project_config]
+            end
+
+            subgraph "Workflow Management"
+                T5[next_action]
+                T6[save_exec_plan]
+                T7[update_exec_plan]
+            end
+
+            subgraph "Search & Analysis"
+                T8[search_files]
+                T9[search_test_cases]
+                T10[search_features]
+                T11[find_feature_test_mapping]
+                T12[analyze_drift]
+                T13[validate_code_locations]
+                T14[get_vector_stats]
+            end
+        end
+    end
+
+    %% DDD Framework (Hidden from Agents)
+    subgraph "DDD Framework (~/.agent3d) - Hidden from Agents"
+        subgraph "Templates"
+            TMP1[README.template.md]
+            TMP2[REQUIREMENTS.template.md]
+            TMP3[FEATURES.template.md]
+            TMP4[TEST-CASES.template.md]
+        end
+
+        subgraph "Rules"
+            R1[python.md]
+            R2[javascript.md]
+            R3[markdown.md]
+            R4[java.md]
+        end
+
+        subgraph "Passes"
+            P1[foundation_pass.yml]
+            P2[requirements_pass.yml]
+            P3[documentation_pass.yml]
+            P4[development_pass.yml]
+        end
+
+        subgraph "Procedures"
+            PR1[repository.yml]
+            PR2[documentation.yml]
+            PR3[testing.yml]
+        end
+    end
+
+    %% Vector Database
+    subgraph "Vector Database"
+        VDB[(Vector DB<br/>Semantic Search)]
+        IDX[File Indexer<br/>2,889 chunks]
+    end
+
+    %% Project Repository
+    subgraph "Project Repository"
+        subgraph "Project Config"
+            CFG[.agent3d-config.yml]
+        end
+
+        subgraph "Documentation"
+            DOC1[docs/REQUIREMENTS.md]
+            DOC2[docs/FEATURES.md]
+            DOC3[docs/TEST-CASES.md]
+            DOC4[docs/DDD-STATUS.yml]
+        end
+
+        subgraph "Source Code"
+            SRC1[src/main.py]
+            SRC2[src/utils.py]
+            SRC3[tests/test_main.py]
+        end
+    end
+
+    %% Communication Flows
+    A1 -.->|JSON-RPC Request| MCP
+    A2 -.->|JSON-RPC Request| MCP
+    A3 -.->|JSON-RPC Request| MCP
+    A4 -.->|JSON-RPC Request| MCP
+    A5 -.->|JSON-RPC Request| MCP
+
+    MCP --> T1
+    MCP --> T2
+    MCP --> T3
+    MCP --> T4
+    MCP --> T5
+    MCP --> T6
+    MCP --> T7
+    MCP --> T8
+    MCP --> T9
+    MCP --> T10
+    MCP --> T11
+    MCP --> T12
+    MCP --> T13
+    MCP --> T14
+
+    %% MCP accesses DDD Framework
+    T1 -.->|Reads| TMP1
+    T1 -.->|Reads| TMP2
+    T1 -.->|Reads| TMP3
+    T1 -.->|Reads| TMP4
+
+    T2 -.->|Reads| R1
+    T2 -.->|Reads| R2
+    T2 -.->|Reads| R3
+    T2 -.->|Reads| R4
+
+    T3 -.->|Reads| P1
+    T3 -.->|Reads| P2
+    T3 -.->|Reads| P3
+    T3 -.->|Reads| P4
+
+    T4 -.->|Reads| CFG
+
+    T5 -.->|Analyzes State| CFG
+    T5 -.->|Analyzes State| DOC4
+    T5 -.->|Analyzes State| VDB
+
+    T6 -.->|Writes| DOC4
+    T7 -.->|Updates| DOC4
+
+    T8 -.->|Queries| VDB
+    T9 -.->|Queries| VDB
+    T10 -.->|Queries| VDB
+    T11 -.->|Queries| VDB
+    T12 -.->|Analyzes| VDB
+    T13 -.->|Validates| VDB
+    T14 -.->|Stats| VDB
+
+    %% Vector DB indexes project
+    IDX -.->|Indexes| DOC1
+    IDX -.->|Indexes| DOC2
+    IDX -.->|Indexes| DOC3
+    IDX -.->|Indexes| SRC1
+    IDX -.->|Indexes| SRC2
+    IDX -.->|Indexes| SRC3
+
+    %% Styling
+    classDef agent fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef mcp fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef tool fill:#fff3e0,stroke:#e65100,stroke-width:1px
+    classDef framework fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef project fill:#fff8e1,stroke:#f57f17,stroke-width:2px
+    classDef vector fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+
+    class A1,A2,A3,A4,A5 agent
+    class MCP mcp
+    class T1,T2,T3,T4 tool
+    class T5,T6,T7 workflow
+    class T8,T9,T10,T11,T12,T13,T14 search
+    class TMP1,TMP2,TMP3,TMP4,R1,R2,R3,R4,P1,P2,P3,P4,PR1,PR2,PR3 framework
+    class CFG,DOC1,DOC2,DOC3,DOC4,SRC1,SRC2,SRC3 project
+    class VDB,IDX vector
+
+    %% Additional styling for new tool categories
+    classDef workflow fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef search fill:#fff3e0,stroke:#e65100,stroke-width:1px

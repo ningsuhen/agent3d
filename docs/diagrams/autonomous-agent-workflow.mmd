@@ -1,0 +1,87 @@
+sequenceDiagram
+    participant Agent as 🤖 Autonomous Agent
+    participant MCP as 📡 Agent3D MCP Server
+    participant Framework as 📚 DDD Framework
+    participant Project as 📁 Project Repository
+
+    Note over Agent: Agent starts autonomous work session
+    Note over Agent: (No knowledge of ~/.agent3d or file paths)
+
+    %% 1. Get Intelligent Guidance
+    Agent->>+MCP: next_action()
+    MCP->>+Project: Analyze .agent3d-config.yml
+    MCP->>+Project: Check docs/DDD-STATUS.yml
+    MCP->>+Framework: Run drift analysis
+    Project-->>-MCP: Project state data
+    Framework-->>-MCP: Analysis results
+    MCP-->>-Agent: {action: "create_documentation", priority: "high", next_steps: [...]}
+
+    %% 2. Get Project Configuration
+    Agent->>+MCP: get_project_config()
+    MCP->>+Project: Read .agent3d-config.yml
+    Project-->>-MCP: {enabled_passes: [...], quality_level: "high"}
+    MCP-->>-Agent: Project configuration
+
+    %% 3. Get Required Template
+    Agent->>+MCP: get_template("REQUIREMENTS")
+    MCP->>+Framework: Read templates/REQUIREMENTS.template.md
+    Framework-->>-MCP: Template structure and guidelines
+    MCP-->>-Agent: Template content
+
+    %% 4. Save Execution Plan
+    Agent->>+MCP: save_exec_plan(plan_name="create-requirements-doc", plan_data={...})
+    MCP->>+Project: Create docs/runs/EXEC-PLAN-create-requirements-doc.yml
+    Project-->>-MCP: Plan saved successfully
+    MCP-->>-Agent: {saved: true, plan_path: "docs/runs/..."}
+
+    Note over Agent: Agent works on creating documentation
+    Note over Agent: Following the template and guidelines
+
+    %% 5. Update Progress
+    Agent->>+MCP: update_exec_plan(plan_name="create-requirements-doc", update_status="in_progress")
+    MCP->>+Project: Update execution plan with progress
+    Project-->>-MCP: Plan updated
+    MCP-->>-Agent: {updated: true, changes_applied: {...}}
+
+    %% 6. Search for Related Features
+    Agent->>+MCP: search_features("user authentication")
+    MCP->>+Project: Semantic search in docs/features/
+    Project-->>-MCP: Related feature specifications
+    MCP-->>-Agent: [FT-AUTH-001, FT-AUTH-002, ...]
+
+    %% 7. Get Language Rules
+    Agent->>+MCP: get_language_rules("python")
+    MCP->>+Framework: Read rules/python.md
+    Framework-->>-MCP: Python coding standards
+    MCP-->>-Agent: Language-specific guidelines
+
+    Note over Agent: Agent completes documentation task
+
+    %% 8. Update Final Status
+    Agent->>+MCP: update_exec_plan(plan_name="create-requirements-doc", update_status="completed")
+    MCP->>+Project: Mark execution plan as complete
+    Project-->>-MCP: Status updated
+    MCP-->>-Agent: {updated: true, status: "completed"}
+
+    %% 9. Get Next Action
+    Agent->>+MCP: next_action()
+    MCP->>+Project: Re-analyze project state
+    MCP->>+Framework: Check for new drift or issues
+    Project-->>-MCP: Updated project state
+    Framework-->>-MCP: Fresh analysis
+    MCP-->>-Agent: {action: "run_documentation_pass", priority: "high", ...}
+
+    %% 10. Continue Autonomous Loop
+    Note over Agent: Agent continues with next recommended action
+    Note over Agent: Fully autonomous workflow with intelligent guidance
+
+    %% Benefits Box
+    rect rgb(240, 248, 255)
+        Note over Agent, Project: 🎯 Autonomous Agent Benefits
+        Note over Agent, Project: ✅ Intelligent workflow guidance
+        Note over Agent, Project: ✅ Automatic execution plan management
+        Note over Agent, Project: ✅ Progress tracking and updates
+        Note over Agent, Project: ✅ Context-aware next actions
+        Note over Agent, Project: ✅ No manual workflow decisions needed
+        Note over Agent, Project: ✅ Continuous improvement loop
+    end
