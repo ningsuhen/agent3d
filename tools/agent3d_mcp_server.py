@@ -584,8 +584,80 @@ class Agent3DMCPServer:
             logger.error(f"Error in get_pass_definition: {e}")
             return {"error": str(e)}
 
+    def _load_default_config_template(self, project_type: str = "default") -> Dict[str, Any]:
+        """Load default configuration template"""
+        try:
+            template_name = f"{project_type}-config.yml"
+            template_path = self.agent3d_dir / "templates" / "config-templates" / template_name
+
+            if not template_path.exists():
+                # Fallback to default template
+                template_path = self.agent3d_dir / "templates" / "config-templates" / "default-config.yml"
+
+            if template_path.exists():
+                import yaml
+                content = self._safe_read_file(template_path)
+                return yaml.safe_load(content)
+            else:
+                logger.warning(f"No default config template found at {template_path}")
+                return {}
+        except Exception as e:
+            logger.warning(f"Failed to load default config template: {e}")
+            return {}
+
+    def _validate_config_structure(self, config_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Validate configuration structure and provide defaults"""
+        try:
+            # Load default template for validation
+            default_config = self._load_default_config_template()
+
+            # Validate required sections
+            required_sections = ["project", "enabled_passes"]
+            validation_errors = []
+
+            for section in required_sections:
+                if section not in config_data:
+                    validation_errors.append(f"Missing required section: {section}")
+
+            # Validate project section
+            if "project" in config_data:
+                project = config_data["project"]
+                required_project_fields = ["name", "type", "language"]
+
+                for field in required_project_fields:
+                    if field not in project:
+                        validation_errors.append(f"Missing required project field: {field}")
+
+            # Validate enabled_passes
+            if "enabled_passes" in config_data:
+                passes = config_data["enabled_passes"]
+                if not isinstance(passes, list):
+                    validation_errors.append("enabled_passes must be a list")
+                else:
+                    valid_passes = ["foundation", "requirements", "documentation",
+                                  "development", "testing", "synchronization", "prune"]
+                    invalid_passes = [p for p in passes if p not in valid_passes]
+                    if invalid_passes:
+                        validation_errors.append(f"Invalid passes: {invalid_passes}")
+
+            return {
+                "valid": len(validation_errors) == 0,
+                "errors": validation_errors,
+                "warnings": [],
+                "default_config": default_config
+            }
+
+        except Exception as e:
+            logger.error(f"Error validating config structure: {e}")
+            return {
+                "valid": False,
+                "errors": [f"Validation error: {str(e)}"],
+                "warnings": [],
+                "default_config": {}
+            }
+
     def get_project_config(self, args: Dict[str, Any]) -> Dict[str, Any]:
-        """Get project configuration (.agent3d-config.yml)"""
+        """Get project configuration (.agent3d-config.yml) with validation and defaults"""
         try:
             ddd_root = self.find_ddd_root(args.get('ddd_root'))
             if not ddd_root:
@@ -594,32 +666,133 @@ class Agent3DMCPServer:
             config_path = Path(ddd_root) / ".agent3d-config.yml"
 
             if config_path.exists():
-                content = config_path.read_text(encoding='utf-8')
-
-                # Parse YAML to provide structured data
                 try:
+                    content = self._safe_read_file(config_path)
+
+                    # Parse YAML to provide structured data
                     import yaml
                     config_data = yaml.safe_load(content)
-                except Exception as yaml_error:
-                    logger.warning(f"Failed to parse YAML config: {yaml_error}")
-                    config_data = None
 
+                    if config_data is None:
+                        config_data = {}
+
+                    # Validate configuration structure
+                    validation_result = self._validate_config_structure(config_data)
+
+                    logger.info(f"Loaded project config from {config_path}")
+                    return {
+                        "ddd_root": ddd_root,
+                        "config_path": str(config_path),
+                        "content": content,
+                        "config_data": config_data,
+                        "found": True,
+                        "validation": validation_result,
+                        "has_errors": not validation_result["valid"]
+                    }
+
+                except Exception as yaml_error:
+                    logger.error(f"Failed to parse YAML config: {yaml_error}")
+                    return {
+                        "ddd_root": ddd_root,
+                        "config_path": str(config_path),
+                        "found": True,
+                        "error": f"Invalid YAML configuration: {str(yaml_error)}",
+                        "has_errors": True
+                    }
+            else:
+                # No config file found - provide default template
+                project_type = args.get('project_type', 'default')
+                default_config = self._load_default_config_template(project_type)
+
+                logger.info(f"No config found at {config_path}, providing default template")
                 return {
                     "ddd_root": ddd_root,
                     "config_path": str(config_path),
-                    "content": content,
-                    "config_data": config_data,
-                    "found": True
-                }
-            else:
-                return {
-                    "ddd_root": ddd_root,
                     "found": False,
-                    "error": "No .agent3d-config.yml found in project root"
+                    "error": "No .agent3d-config.yml found in project root",
+                    "default_config": default_config,
+                    "suggested_action": "create_config",
+                    "available_templates": ["default", "library", "application"]
                 }
 
         except Exception as e:
             logger.error(f"Error in get_project_config: {e}")
+            return {"error": str(e)}
+
+    def create_project_config(self, args: Dict[str, Any]) -> Dict[str, Any]:
+        """Create a new project configuration file from template"""
+        try:
+            # Validate input parameters
+            ddd_root = self.find_ddd_root(args.get('ddd_root'))
+            if not ddd_root:
+                raise Exception("No DDD root found")
+
+            project_type = self._validate_string_param(args, 'project_type', required=False) or 'default'
+            project_name = self._validate_string_param(args, 'project_name', required=False)
+            project_language = self._validate_string_param(args, 'project_language', required=False) or 'python'
+            overwrite = args.get('overwrite', False)
+
+            config_path = Path(ddd_root) / ".agent3d-config.yml"
+
+            # Check if config already exists
+            if config_path.exists() and not overwrite:
+                return {
+                    "created": False,
+                    "error": "Configuration file already exists. Use overwrite=true to replace it.",
+                    "existing_config_path": str(config_path)
+                }
+
+            # Load template
+            template_config = self._load_default_config_template(project_type)
+            if not template_config:
+                return {
+                    "created": False,
+                    "error": f"Failed to load template for project type: {project_type}",
+                    "available_templates": ["default", "library", "application"]
+                }
+
+            # Customize template with provided values
+            if project_name:
+                template_config.setdefault('project', {})['name'] = project_name
+
+            if project_language:
+                template_config.setdefault('project', {})['language'] = project_language
+
+            # Update metadata
+            import datetime
+            template_config.setdefault('metadata', {})
+            template_config['metadata'].update({
+                'created_by': 'agent3d-mcp',
+                'created_at': datetime.datetime.now().isoformat(),
+                'template_type': project_type
+            })
+
+            # Write configuration file
+            import yaml
+            config_content = yaml.dump(template_config, default_flow_style=False, sort_keys=False)
+
+            # Ensure directory exists
+            config_path.parent.mkdir(parents=True, exist_ok=True)
+
+            # Write the file
+            config_path.write_text(config_content, encoding='utf-8')
+
+            logger.info(f"Created project config at {config_path}")
+            return {
+                "created": True,
+                "config_path": str(config_path),
+                "project_type": project_type,
+                "project_name": template_config.get('project', {}).get('name'),
+                "project_language": template_config.get('project', {}).get('language'),
+                "size": len(config_content),
+                "template_used": project_type
+            }
+
+        except ValueError as e:
+            logger.error(f"Validation error in create_project_config: {e}")
+            return {"error": f"Validation error: {str(e)}"}
+        except Exception as e:
+            logger.error(f"Error in create_project_config: {e}")
             return {"error": str(e)}
 
     def next_action(self, args: Dict[str, Any]) -> Dict[str, Any]:
@@ -1544,11 +1717,26 @@ class Agent3DMCPServer:
             },
             {
                 "name": "get_project_config",
-                "description": "Get the project configuration (.agent3d-config.yml) which defines project-specific settings, enabled passes, quality standards, and workflow preferences.",
+                "description": "Get the project configuration (.agent3d-config.yml) which defines project-specific settings, enabled passes, quality standards, and workflow preferences. Includes validation and provides default templates when config is missing.",
                 "inputSchema": {
                     "type": "object",
                     "properties": {
-                        "ddd_root": {"type": "string", "description": "DDD project root directory path (optional, defaults to current project)"}
+                        "ddd_root": {"type": "string", "description": "DDD project root directory path (optional, defaults to current project)"},
+                        "project_type": {"type": "string", "description": "Project type for default template (default, library, application) when config is missing"}
+                    }
+                }
+            },
+            {
+                "name": "create_project_config",
+                "description": "Create a new project configuration file (.agent3d-config.yml) from template. Supports different project types with appropriate defaults and can customize basic project settings.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "ddd_root": {"type": "string", "description": "DDD project root directory path (optional, defaults to current project)"},
+                        "project_type": {"type": "string", "description": "Project type template (default, library, application)", "default": "default"},
+                        "project_name": {"type": "string", "description": "Name of the project (optional)"},
+                        "project_language": {"type": "string", "description": "Primary programming language (optional, defaults to python)"},
+                        "overwrite": {"type": "boolean", "description": "Whether to overwrite existing config file", "default": False}
                     }
                 }
             },
@@ -1702,6 +1890,8 @@ class Agent3DMCPServer:
                 result = self.get_pass_definition(arguments)
             elif tool_name == "get_project_config":
                 result = self.get_project_config(arguments)
+            elif tool_name == "create_project_config":
+                result = self.create_project_config(arguments)
             elif tool_name == "next_action":
                 result = self.next_action(arguments)
             elif tool_name == "save_exec_plan":

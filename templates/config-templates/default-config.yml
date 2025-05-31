@@ -1,0 +1,234 @@
+# Agent3D Default Configuration Template
+# This file provides default settings for Agent3D projects
+
+# Project metadata
+project:
+  name: "my-project"
+  type: "library"  # Options: library, application, service, monorepo
+  language: "python"  # Primary language: python, javascript, typescript, java, etc.
+  description: "A project using Agent3D Documentation-Driven Development"
+  version: "1.0.0"
+  
+  # Quality standards
+  quality_level: "high"  # Options: basic, standard, high, enterprise
+  
+  # Project structure
+  structure:
+    docs_dir: "docs"
+    src_dir: "src"
+    tests_dir: "tests"
+    config_dir: "config"
+
+# Enabled DDD passes - controls which workflows are active
+enabled_passes:
+  - "foundation"      # Project setup and configuration
+  - "requirements"    # Requirements gathering and documentation
+  - "documentation"   # Feature and test case documentation
+  - "development"     # Implementation and coding
+  - "testing"         # Test implementation and execution
+  - "synchronization" # Keep docs and code in sync
+  - "prune"          # Clean up outdated content
+
+# Pass-specific configuration
+pass_config:
+  foundation:
+    auto_create_structure: true
+    setup_git_hooks: false
+    create_templates: true
+    
+  requirements:
+    gather_stakeholder_input: true
+    create_user_stories: true
+    define_acceptance_criteria: true
+    business_objectives_required: true
+    
+  documentation:
+    include_diagrams: true
+    generate_api_docs: true
+    create_architecture_docs: true
+    feature_template_validation: true
+    test_case_coverage_required: true
+    
+  development:
+    code_review_required: true
+    automated_testing: true
+    continuous_integration: true
+    follow_coding_standards: true
+    implementation_validation: true
+    
+  testing:
+    unit_tests_required: true
+    integration_tests_required: true
+    coverage_threshold: 80
+    test_automation: true
+    performance_testing: false
+    
+  synchronization:
+    auto_sync_frequency: "daily"
+    drift_detection: true
+    auto_fix_minor_drift: false
+    notification_on_drift: true
+    
+  prune:
+    auto_prune: false
+    backup_before_prune: true
+    prune_frequency: "monthly"
+
+# Quality standards and validation rules
+quality:
+  # Documentation quality
+  documentation:
+    min_feature_description_length: 50
+    max_feature_description_length: 500
+    require_test_cases: true
+    require_code_locations: true
+    require_acceptance_criteria: true
+    
+  # Code quality
+  code:
+    enforce_naming_conventions: true
+    require_docstrings: true
+    max_function_length: 50
+    max_class_length: 500
+    complexity_threshold: 10
+    
+  # Test quality
+  testing:
+    min_test_coverage: 80
+    require_test_documentation: true
+    test_naming_convention: "descriptive"
+    require_edge_case_tests: true
+
+# Language-specific settings
+language_config:
+  python:
+    version: "3.8+"
+    package_manager: "pip"
+    virtual_env: true
+    linting: ["flake8", "black", "mypy"]
+    testing_framework: "pytest"
+    
+  javascript:
+    version: "ES2020+"
+    package_manager: "npm"
+    linting: ["eslint", "prettier"]
+    testing_framework: "jest"
+    
+  typescript:
+    version: "4.0+"
+    package_manager: "npm"
+    linting: ["eslint", "@typescript-eslint", "prettier"]
+    testing_framework: "jest"
+
+# Integration settings
+integrations:
+  # Version control
+  git:
+    auto_commit_docs: false
+    commit_message_template: "docs: {action} - {description}"
+    branch_protection: true
+    
+  # CI/CD
+  ci_cd:
+    platform: "github_actions"  # Options: github_actions, gitlab_ci, jenkins
+    auto_run_tests: true
+    auto_deploy_docs: false
+    
+  # External tools
+  external_tools:
+    jira_integration: false
+    slack_notifications: false
+    email_notifications: false
+
+# Performance and optimization
+performance:
+  # Vector database settings
+  vector_db:
+    cache_size: "1GB"
+    index_batch_size: 100
+    search_timeout: 30
+    auto_reindex_frequency: "weekly"
+    
+  # Drift analysis
+  drift_analysis:
+    cache_results: true
+    parallel_processing: true
+    max_analysis_time: 300  # seconds
+    
+  # File watching
+  file_watching:
+    enabled: true
+    debounce_delay: 1000  # milliseconds
+    ignore_patterns: ["*.tmp", "*.log", ".git/*"]
+
+# Notification and reporting
+notifications:
+  # Drift detection alerts
+  drift_alerts:
+    enabled: true
+    severity_threshold: "medium"  # low, medium, high, critical
+    channels: ["console"]  # console, email, slack, webhook
+    
+  # Progress reporting
+  progress_reports:
+    enabled: false
+    frequency: "weekly"
+    include_metrics: true
+    
+  # Error reporting
+  error_reporting:
+    enabled: true
+    auto_report: false
+    include_stack_traces: true
+
+# Security settings
+security:
+  # File access restrictions
+  file_access:
+    restrict_to_project: true
+    allow_symlinks: false
+    max_file_size: "10MB"
+    
+  # API security
+  api_security:
+    rate_limiting: true
+    input_validation: true
+    output_sanitization: true
+    
+  # Audit logging
+  audit:
+    log_all_operations: true
+    log_file_access: true
+    retention_period: "90 days"
+
+# Development and debugging
+development:
+  # Debug settings
+  debug:
+    enabled: false
+    log_level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+    verbose_output: false
+    
+  # Feature flags
+  features:
+    experimental_features: false
+    beta_features: false
+    legacy_compatibility: true
+    
+  # Development tools
+  dev_tools:
+    auto_reload: true
+    hot_reloading: false
+    development_server: false
+
+# Metadata and versioning
+metadata:
+  config_version: "1.0"
+  created_by: "agent3d-mcp"
+  created_at: "2024-12-19"
+  last_modified: "2024-12-19"
+  schema_version: "1.0"
+  
+  # Compatibility
+  min_agent3d_version: "1.0.0"
+  compatible_versions: ["1.x"]

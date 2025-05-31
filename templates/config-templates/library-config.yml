@@ -1,0 +1,133 @@
+# Agent3D Library Project Configuration Template
+# Optimized for library/package development
+
+project:
+  name: "my-library"
+  type: "library"
+  language: "python"
+  description: "A reusable library built with Agent3D DDD"
+  version: "0.1.0"
+  quality_level: "high"
+
+# Library-focused passes
+enabled_passes:
+  - "foundation"
+  - "requirements"
+  - "documentation"
+  - "development"
+  - "testing"
+  - "synchronization"
+
+pass_config:
+  requirements:
+    gather_stakeholder_input: true
+    create_user_stories: false  # Less relevant for libraries
+    define_acceptance_criteria: true
+    business_objectives_required: false
+    
+  documentation:
+    include_diagrams: true
+    generate_api_docs: true      # Critical for libraries
+    create_architecture_docs: true
+    feature_template_validation: true
+    test_case_coverage_required: true
+    
+  development:
+    code_review_required: true
+    automated_testing: true
+    continuous_integration: true
+    follow_coding_standards: true
+    implementation_validation: true
+    
+  testing:
+    unit_tests_required: true
+    integration_tests_required: true
+    coverage_threshold: 90       # Higher for libraries
+    test_automation: true
+    performance_testing: true    # Important for libraries
+
+quality:
+  documentation:
+    min_feature_description_length: 100  # More detailed for libraries
+    max_feature_description_length: 800
+    require_test_cases: true
+    require_code_locations: true
+    require_acceptance_criteria: true
+    require_usage_examples: true         # Library-specific
+    
+  code:
+    enforce_naming_conventions: true
+    require_docstrings: true
+    max_function_length: 30              # Stricter for libraries
+    max_class_length: 300
+    complexity_threshold: 8
+    require_type_hints: true             # Important for libraries
+    
+  testing:
+    min_test_coverage: 90                # Higher standard
+    require_test_documentation: true
+    test_naming_convention: "descriptive"
+    require_edge_case_tests: true
+    require_performance_tests: true
+
+language_config:
+  python:
+    version: "3.8+"
+    package_manager: "pip"
+    virtual_env: true
+    linting: ["flake8", "black", "mypy", "isort"]
+    testing_framework: "pytest"
+    build_system: "setuptools"
+    distribution: "pypi"
+
+integrations:
+  ci_cd:
+    platform: "github_actions"
+    auto_run_tests: true
+    auto_deploy_docs: true              # Important for libraries
+    auto_publish: false                 # Manual control for releases
+    
+  external_tools:
+    readthedocs: true                   # Documentation hosting
+    codecov: true                       # Coverage reporting
+    pypi_integration: true              # Package distribution
+
+performance:
+  vector_db:
+    cache_size: "512MB"                 # Smaller for libraries
+    index_batch_size: 50
+    search_timeout: 15
+    
+  drift_analysis:
+    cache_results: true
+    parallel_processing: true
+    max_analysis_time: 120              # Faster for libraries
+
+security:
+  file_access:
+    restrict_to_project: true
+    allow_symlinks: false
+    max_file_size: "5MB"                # Smaller files expected
+    
+  api_security:
+    rate_limiting: true
+    input_validation: true
+    output_sanitization: true
+
+development:
+  debug:
+    enabled: false
+    log_level: "WARNING"                # Less verbose for libraries
+    verbose_output: false
+    
+  features:
+    experimental_features: false
+    beta_features: false
+    legacy_compatibility: true
+
+metadata:
+  config_version: "1.0"
+  template_type: "library"
+  created_by: "agent3d-mcp"
+  created_at: "2024-12-19"
+  min_agent3d_version: "1.0.0"

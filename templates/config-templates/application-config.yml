@@ -1,0 +1,139 @@
+# Agent3D Application Project Configuration Template
+# Optimized for application/service development
+
+project:
+  name: "my-application"
+  type: "application"
+  language: "python"
+  description: "An application built with Agent3D DDD"
+  version: "1.0.0"
+  quality_level: "standard"
+
+# Application-focused passes
+enabled_passes:
+  - "foundation"
+  - "requirements"
+  - "documentation"
+  - "development"
+  - "testing"
+  - "synchronization"
+  - "prune"
+
+pass_config:
+  requirements:
+    gather_stakeholder_input: true
+    create_user_stories: true          # Important for applications
+    define_acceptance_criteria: true
+    business_objectives_required: true # Critical for applications
+    
+  documentation:
+    include_diagrams: true
+    generate_api_docs: false           # Less critical for applications
+    create_architecture_docs: true
+    feature_template_validation: true
+    test_case_coverage_required: true
+    
+  development:
+    code_review_required: true
+    automated_testing: true
+    continuous_integration: true
+    follow_coding_standards: true
+    implementation_validation: true
+    
+  testing:
+    unit_tests_required: true
+    integration_tests_required: true
+    coverage_threshold: 75             # Balanced for applications
+    test_automation: true
+    performance_testing: false        # Optional for applications
+
+quality:
+  documentation:
+    min_feature_description_length: 50
+    max_feature_description_length: 500
+    require_test_cases: true
+    require_code_locations: true
+    require_acceptance_criteria: true
+    require_user_scenarios: true      # Application-specific
+    
+  code:
+    enforce_naming_conventions: true
+    require_docstrings: true
+    max_function_length: 50
+    max_class_length: 500
+    complexity_threshold: 10
+    
+  testing:
+    min_test_coverage: 75
+    require_test_documentation: true
+    test_naming_convention: "descriptive"
+    require_edge_case_tests: true
+    require_user_acceptance_tests: true # Application-specific
+
+language_config:
+  python:
+    version: "3.8+"
+    package_manager: "pip"
+    virtual_env: true
+    linting: ["flake8", "black"]
+    testing_framework: "pytest"
+    web_framework: "flask"            # Application-specific
+    database: "sqlite"                # Default for applications
+
+integrations:
+  ci_cd:
+    platform: "github_actions"
+    auto_run_tests: true
+    auto_deploy_docs: false
+    auto_deploy_staging: true         # Application-specific
+    
+  external_tools:
+    monitoring: true                  # Important for applications
+    logging: true                     # Critical for applications
+    error_tracking: true              # Application-specific
+
+performance:
+  vector_db:
+    cache_size: "1GB"
+    index_batch_size: 100
+    search_timeout: 30
+    
+  drift_analysis:
+    cache_results: true
+    parallel_processing: true
+    max_analysis_time: 300
+
+security:
+  file_access:
+    restrict_to_project: true
+    allow_symlinks: false
+    max_file_size: "10MB"
+    
+  api_security:
+    rate_limiting: true
+    input_validation: true
+    output_sanitization: true
+    authentication_required: true     # Application-specific
+    
+  audit:
+    log_all_operations: true
+    log_user_actions: true            # Application-specific
+    retention_period: "90 days"
+
+development:
+  debug:
+    enabled: true                     # Useful for applications
+    log_level: "INFO"
+    verbose_output: true
+    
+  features:
+    experimental_features: true       # More flexibility for applications
+    beta_features: true
+    legacy_compatibility: true
+
+metadata:
+  config_version: "1.0"
+  template_type: "application"
+  created_by: "agent3d-mcp"
+  created_at: "2024-12-19"
+  min_agent3d_version: "1.0.0"
