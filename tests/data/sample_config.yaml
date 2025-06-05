@@ -1,0 +1,22 @@
+# Sample configuration for testing
+project:
+  name: test_project
+  type: test
+  language: python
+
+identifier_patterns:
+  TC-:
+    pattern: 'TC-\d+'
+    primary_files:
+      - 'docs/features/*.md'
+    reference_files:
+      - '**/*.py'
+      - '**/*.md'
+
+  FT-:
+    pattern: 'FT-\w+'
+    primary_files:
+      - 'docs/features/*.md'
+    reference_files:
+      - '**/*.py'
+      - '**/*.md'

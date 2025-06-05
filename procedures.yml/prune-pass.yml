@@ -1,149 +1,161 @@
-name: "Prune Pass Procedures"
-description: "Safe removal procedures and repository cleanup guidelines"
-version: "1.0.0"
-last_updated: "2025-01-27"
-
+name: Prune Pass Procedures
+description: Safe removal procedures and repository cleanup guidelines
+version: 1.0.0
+last_updated: '2025-01-27'
 pre_prune_analysis:
   repository_scan:
     cache_files:
-      commands: ["find . -name '__pycache__' -type d", "find . -name '*.pyc'", "find . -name 'node_modules' -type d"]
-      description: "Identify cache files for safe removal"
-    
+      commands:
+      - find . -name '__pycache__' -type d
+      - find . -name '*.pyc'
+      - find . -name 'node_modules' -type d
+      description: Identify cache files for safe removal
     temporary_files:
       commands:
-        - "find .agent3d-tmp/ -name '*test*' -o -name '*debug*'"
-        - "find .agent3d-tmp/logs/ -mtime +7"
-      description: "Find temporary files older than 7 days"
-    
+      - find .agent3d-tmp/ -name '*test*' -o -name '*debug*'
+      - find .agent3d-tmp/logs/ -mtime +7
+      description: Find temporary files older than 7 days
     empty_directories:
-      command: "find . -type d -empty"
-      description: "Check for empty directories"
-  
+      command: find . -type d -empty
+      description: Check for empty directories
   cross_reference_check:
     baseline_drift_analysis:
-      command: "python3 ~/.agent3d/tools/drift_scanner.py --mode all --output pre-prune-baseline.yaml"
-      description: "Run baseline drift analysis before pruning"
-    
+      command: python3 ~/.agent3d/tools/drift_scanner.py --mode all --output pre-prune-baseline.yaml
+      description: Run baseline drift analysis before pruning
     broken_links:
-      command: "markdown-link-check docs/**/*.md"
-      description: "Check for broken links (if available)"
+      command: markdown-link-check docs/**/*.md
+      description: Check for broken links (if available)
       optional: true
-
 safe_removal_categories:
   always_safe:
     cache_directories:
-      - "__pycache__/ directories"
-      - "*.pyc files"
-      - "node_modules/ (can be regenerated with npm install)"
-    
-    build_artifacts: ['dist/', 'build/', 'out/', 'target/']
-    
+    - __pycache__/ directories
+    - '*.pyc files'
+    - node_modules/ (can be regenerated with npm install)
+    build_artifacts:
+    - dist/
+    - build/
+    - out/
+    - target/
     temporary_files:
-      - "Temporary test files with names containing 'test', 'debug', 'temp'"
-      - "Log files older than 7 days"
-      - "Empty directories (after verification)"
-    
+    - Temporary test files with names containing 'test', 'debug', 'temp'
+    - Log files older than 7 days
+    - Empty directories (after verification)
     ide_cache:
-      - ".vscode/settings.json"
-      - ".idea/workspace.xml"
-    
-    verification_required: "Always verify before removal"
-  
+    - .vscode/settings.json
+    - .idea/workspace.xml
+    verification_required: Always verify before removal
   archive_first:
     implemented_proposals:
-      destination: "docs/proposals/archive/implemented/"
-      criteria: "Proposals that have been fully implemented"
-    
+      destination: docs/proposals/archive/implemented/
+      criteria: Proposals that have been fully implemented
     deprecated_documentation:
-      criteria: "Documentation with historical value"
-      action: "Archive before removal"
-    
+      criteria: Documentation with historical value
+      action: Archive before removal
     migration_guides:
-      criteria: "May be referenced later"
-      action: "Archive in appropriate location"
-    
+      criteria: May be referenced later
+      action: Archive in appropriate location
     legacy_templates:
-      criteria: "Provide examples for future reference"
-      action: "Archive with clear labeling"
-  
+      criteria: Provide examples for future reference
+      action: Archive with clear labeling
   never_remove:
-    configuration_files: ['.agent3d-config.yml', 'package.json', 'pyproject.toml']
-    
+    configuration_files:
+    - .agent3d-config.yml
+    - package.json
+    - pyproject.toml
     production_reports:
-      - "Current state indicators"
-      - "Production drift reports"
-    
+    - Current state indicators
+    - Production drift reports
     template_files:
-      - "Even if seemingly redundant"
-      - "Required for template system"
-    
+    - Even if seemingly redundant
+    - Required for template system
     active_documentation:
-      - "Documentation with active cross-references"
-      - "Current project documentation"
-    
+    - Documentation with active cross-references
+    - Current project documentation
     recent_logs:
-      - "Last 7 days"
-      - "Current session logs"
-    
+    - Last 7 days
+    - Current session logs
     referenced_files:
-      - "Any file referenced in current documentation"
-      - "Files with active dependencies"
-
+    - Any file referenced in current documentation
+    - Files with active dependencies
 removal_procedures:
   cache_cleanup:
     python_cache:
       commands:
-        - "find . -name '__pycache__' -type d -exec rm -rf {} +"
-        - "find . -name '*.pyc' -delete"
-      safety: "Always safe - can be regenerated"
-    
+      - find . -name '__pycache__' -type d -exec rm -rf {} +
+      - find . -name '*.pyc' -delete
+      safety: Always safe - can be regenerated
     node_modules:
-      command: "rm -rf node_modules/"
-      regeneration: "npm install"
-      safety: "Safe if package.json exists"
-    
+      command: rm -rf node_modules/
+      regeneration: npm install
+      safety: Safe if package.json exists
     build_artifacts:
       commands:
-        - "rm -rf dist/ build/ out/ target/"
-      safety: "Safe - build artifacts are regenerated"
-  
+      - rm -rf dist/ build/ out/ target/
+      safety: Safe - build artifacts are regenerated
   temporary_cleanup:
     old_logs:
-      command: "find .agent3d-tmp/logs/ -mtime +7 -delete"
-      criteria: "Logs older than 7 days"
-    
+      command: find .agent3d-tmp/logs/ -mtime +7 -delete
+      criteria: Logs older than 7 days
     test_files:
-      command: "find .agent3d-tmp/ -name '*test*' -o -name '*debug*' -o -name '*temp*'"
-      verification: "Verify files are truly temporary before removal"
-    
+      command: find .agent3d-tmp/ -name '*test*' -o -name '*debug*' -o -name '*temp*'
+      verification: Verify files are truly temporary before removal
     empty_directories:
-      command: "find . -type d -empty -delete"
-      verification: "Verify directories are truly empty and unused"
-
+      command: find . -type d -empty -delete
+      verification: Verify directories are truly empty and unused
 archival_procedures:
   implemented_proposals:
-    source: "docs/proposals/"
-    destination: "docs/proposals/archive/implemented/"
-    criteria: "Proposals marked as implemented in current documentation"
-    
-    process: ['Identify implemented proposals', 'Create archive directory if needed', 'Move proposals to archive with date stamp', 'Update proposal index']
-  
+    source: docs/proposals/
+    destination: docs/proposals/archive/implemented/
+    criteria: Proposals marked as implemented in current documentation
+    process:
+    - Identify implemented proposals
+    - Create archive directory if needed
+    - Move proposals to archive with date stamp
+    - Update proposal index
   deprecated_documentation:
-    criteria: "Documentation no longer current but historically valuable"
-    process: ['Create archive directory structure', 'Move deprecated docs with clear labeling', 'Update references and indexes', 'Document archival reason and date']
-
+    criteria: Documentation no longer current but historically valuable
+    process:
+    - Create archive directory structure
+    - Move deprecated docs with clear labeling
+    - Update references and indexes
+    - Document archival reason and date
 validation_procedures:
-  pre_removal_validation: ['Run drift scanner baseline', 'Check for active references', 'Verify file dependencies', 'Confirm backup/archive status']
-  
-  post_removal_validation: ['Run drift scanner comparison', 'Test build processes', 'Verify documentation links', 'Confirm system functionality']
-  
-  rollback_procedures: ['Maintain removal log', 'Keep temporary backups during session', 'Document removal rationale', 'Provide restoration instructions']
-
+  pre_removal_validation:
+  - Run drift scanner baseline
+  - Check for active references
+  - Verify file dependencies
+  - Confirm backup/archive status
+  post_removal_validation:
+  - Run drift scanner comparison
+  - Test build processes
+  - Verify documentation links
+  - Confirm system functionality
+  rollback_procedures:
+  - Maintain removal log
+  - Keep temporary backups during session
+  - Document removal rationale
+  - Provide restoration instructions
 safety_guidelines:
-  verification_steps: ['Always check file references before removal', 'Verify files are truly unused', 'Confirm regeneration capability', 'Test after removal']
-  
-  backup_strategy: ['Archive valuable content before removal', 'Maintain removal logs', 'Keep session backups', 'Document removal decisions']
-  
-  risk_mitigation: ['Start with obviously safe removals', 'Verify each category before proceeding', 'Test functionality after each removal batch', 'Maintain ability to rollback changes']
-
-best_practices: ['Always run pre-prune analysis', 'Archive before removing valuable content', 'Verify file dependencies and references', 'Test functionality after removal', 'Document removal decisions and rationale', 'Maintain ability to restore removed content']
+  verification_steps:
+  - Always check file references before removal
+  - Verify files are truly unused
+  - Confirm regeneration capability
+  - Test after removal
+  backup_strategy:
+  - Archive valuable content before removal
+  - Maintain removal logs
+  - Keep session backups
+  - Document removal decisions
+  risk_mitigation:
+  - Start with obviously safe removals
+  - Verify each category before proceeding
+  - Test functionality after each removal batch
+  - Maintain ability to rollback changes
+best_practices:
+- Always run pre-prune analysis
+- Archive before removing valuable content
+- Verify file dependencies and references
+- Test functionality after removal
+- Document removal decisions and rationale
+- Maintain ability to restore removed content

@@ -1,9 +1,17 @@
 metadata:
   name: Prune Pass
+  purpose: Focused pass to identify and remove outdated, redundant, or irrelevant
+    documentation, streamlining documentation for improved maintainability while ensuring
+    quality standards are maintained.
   number: 7
-  purpose: Focused pass to identify and remove outdated, redundant, or irrelevant documentation, streamlining documentation for improved maintainability while ensuring quality standards are maintained.
-  role: '**Technical Debt Specialist and Maintenance Engineer** with expertise in information architecture, content lifecycle management, system optimization, and quality validation. Focus on eliminating documentation debt while preserving valuable historical context and ensuring remaining content meets quality standards.'
+  role: '**Technical Debt Specialist and Maintenance Engineer** with expertise in
+    information architecture, content lifecycle management, system optimization, and
+    quality validation. Focus on eliminating documentation debt while preserving valuable
+    historical context and ensuring remaining content meets quality standards.'
   description: Converted from 8_prune_pass.md
+  type: configuration
+  last_updated: '2025-05-31'
+  configuration_version: 1.0.0
 when_to_use:
   conditions:
   - After feature deprecation or removal
@@ -14,25 +22,32 @@ when_to_use:
   - Before major releases to ensure documentation is lean and relevant
   prerequisites: []
 process:
-  workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
+  workflow_pattern: SCAN → DRAFT → ASK → SYNC → CONFIRM
   phases:
     'scan:':
-      description: Outdated/redundant documentation, deprecated features, duplicate information, historical content, migration notes, quality validation needs
+      description: Outdated/redundant documentation, deprecated features, duplicate
+        information, historical content, migration notes, quality validation needs
       actions: []
     'draft:':
-      description: Mark for removal/archiving, consolidation plans, historical content removal strategy, removal rationale, quality assessment
+      description: Mark for removal/archiving, consolidation plans, historical content
+        removal strategy, removal rationale, quality assessment
       actions: []
     'ask:':
-      description: Confirm safe removal, verify obsolescence, clarify historical value, validate historical relevance, validate quality standards
+      description: Confirm safe removal, verify obsolescence, clarify historical value,
+        validate historical relevance, validate quality standards
       actions: []
     'sync:':
-      description: "Remove/archive content, eliminate historical artifacts, update cross-references, maintain coherence, ensure quality standards **Note:** During execution, mark completed steps with ✅ to track progress."
+      description: Remove/archive content, eliminate historical artifacts, update
+        cross-references, maintain coherence, ensure quality standards **Note:** During
+        execution, mark completed steps with ✅ to track progress.
       actions: []
 expected_outcomes:
 - Streamlined relevant documentation
 - Removed deprecated references
-- '**Eliminated historical artifacts** (migration notes, legacy references, outdated changelogs)'
-- '**Removed irrelevant historical content** (old version notes, deprecated workflows, obsolete procedures)'
+- '**Eliminated historical artifacts** (migration notes, legacy references, outdated
+  changelogs)'
+- '**Removed irrelevant historical content** (old version notes, deprecated workflows,
+  obsolete procedures)'
 - Archived valuable historical information (if needed)
 - Improved maintainability
 - Reduced cognitive load
@@ -40,3 +55,4 @@ expected_outcomes:
 - '**Quality-validated remaining content**'
 - '**Ensured documentation meets standards before finalization**'
 quality_gates: []
+quality_gates_reference: common-patterns.yml#quality_gates.universal_gates

@@ -1,9 +1,14 @@
 metadata:
   name: Requirements Pass
+  purpose: Establish requirements and business objectives. Document stakeholder needs,
+    goals, success criteria.
   number: 0
-  purpose: Establish requirements and business objectives. Document stakeholder needs, goals, success criteria.
-  role: Senior Product Manager - requirements gathering, stakeholder management, business analysis.
+  role: Senior Product Manager - requirements gathering, stakeholder management, business
+    analysis.
   description: Converted from 0_requirements_pass.md
+  type: configuration
+  last_updated: '2025-05-31'
+  configuration_version: 1.0.0
 when_to_use:
   conditions:
   - Starting any new project or major initiative (first pass)
@@ -13,95 +18,97 @@ when_to_use:
   - During product discovery phases
   - When pivoting or changing project direction
   - Before any development or technical work begins
-  # Decision Tree Indicators
   indicators:
-  - "missing BUSINESS-OBJECTIVES.md"
-  - "missing REQUIREMENTS.md"
-  - "unclear project goals"
-  - "stakeholder misalignment"
-  - "undefined success criteria"
-
+  - missing BUSINESS-OBJECTIVES.md
+  - missing REQUIREMENTS.md
+  - unclear project goals
+  - stakeholder misalignment
+  - undefined success criteria
   prerequisites: []
-  next_pass: "documentation_pass"
+  next_pass: documentation_pass
 process:
-  workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
+  workflow_pattern: SCAN → DRAFT → ASK → SYNC → CONFIRM
   phases:
     scan:
-      purpose: "Detect missing/outdated business documentation"
-      actions: [ "check_business_objectives", "review_existing_requirements", "identify_stakeholder_needs", "assess_gaps" ]
-
+      purpose: Detect missing/outdated business documentation
+      actions:
+      - check_business_objectives
+      - review_existing_requirements
+      - identify_stakeholder_needs
+      - assess_gaps
     draft:
-      purpose: "Create/update business requirements and objectives"
-      actions: [ "create_BUSINESS-OBJECTIVES.md", "create_REQUIREMENTS.md", "create_USER-STORIES.md", "create_ACCEPTANCE-CRITERIA.md", "document_constraints" ]
-
+      purpose: Create/update business requirements and objectives
+      actions:
+      - create_BUSINESS-OBJECTIVES.md
+      - create_REQUIREMENTS.md
+      - create_USER-STORIES.md
+      - create_ACCEPTANCE-CRITERIA.md
+      - document_constraints
     ask:
-      purpose: "Clarify gaps and get stakeholder input"
-      description: "Clarify objectives, validate personas, confirm scope, resolve conflicts, verify metrics"
+      purpose: Clarify gaps and get stakeholder input
+      description: Clarify objectives, validate personas, confirm scope, resolve conflicts,
+        verify metrics
       protocol:
-      - "ask_one_question_at_a_time"
-      - "wait_for_response"
-      - "no_multiple_questions"
+      - ask_one_question_at_a_time
+      - wait_for_response
+      - no_multiple_questions
       questions:
-      - "business_goals: [list of objectives]"
-      - "target_users: [user personas]"
-      - "success_metrics: [measurable criteria]"
-      - "constraints: [technical/business limitations]"
-      - "priority_requirements: [high/medium/low]"
-
+      - 'business_goals: [list of objectives]'
+      - 'target_users: [user personas]'
+      - 'success_metrics: [measurable criteria]'
+      - 'constraints: [technical/business limitations]'
+      - 'priority_requirements: [high/medium/low]'
     sync:
-      purpose: "Finalize changes and ensure stakeholder alignment"
-      description: "Finalize documentation, ensure sign-off, create baseline, establish change management"
+      purpose: Finalize changes and ensure stakeholder alignment
+      description: Finalize documentation, ensure sign-off, create baseline, establish
+        change management
       actions:
-      - "validate_requirements_completeness"
-      - "ensure_traceability"
-      - "get_stakeholder_sign_off"
-      - "establish_change_management_process"
-      - "update_status_tracking"
-
+      - validate_requirements_completeness
+      - ensure_traceability
+      - get_stakeholder_sign_off
+      - establish_change_management_process
+      - update_status_tracking
     confirm:
-      purpose: "Get approval before committing (if required)"
-      condition: "git_workflow.require_commit_confirmation == true"
+      purpose: Get approval before committing (if required)
+      condition: git_workflow.require_commit_confirmation == true
       actions:
-      - "show_changes_summary"
-      - "request_confirmation"
-      - "commit_with_ddd_format"
+      - show_changes_summary
+      - request_confirmation
+      - commit_with_ddd_format
 expected_outcomes:
-- Requirements documentation (REQUIREMENTS.md, USER-STORIES.md, ACCEPTANCE-CRITERIA.md, BUSINESS-OBJECTIVES.md)
+- Requirements documentation (REQUIREMENTS.md, USER-STORIES.md, ACCEPTANCE-CRITERIA.md,
+  BUSINESS-OBJECTIVES.md)
 - '**UX Requirements** (for UI projects: USER-PERSONAS.md, UX-PRINCIPLES.md, USER-JOURNEY-MAPS.md)'
 - Stakeholder alignment on scope and priorities
 - Requirements baseline with traceability
-
-# Quality Gates
 quality_gates:
   documentation_requirements:
-  - name: "business_objectives_complete"
-    validation: "BUSINESS-OBJECTIVES.md exists and contains clear goals"
+  - name: business_objectives_complete
+    validation: BUSINESS-OBJECTIVES.md exists and contains clear goals
     critical: true
-  - name: "requirements_documented"
-    validation: "REQUIREMENTS.md exists with functional and non-functional requirements"
+  - name: requirements_documented
+    validation: REQUIREMENTS.md exists with functional and non-functional requirements
     critical: true
-  - name: "user_stories_defined"
-    validation: "USER-STORIES.md exists with acceptance criteria"
+  - name: user_stories_defined
+    validation: USER-STORIES.md exists with acceptance criteria
     critical: true
-  - name: "stakeholder_alignment"
-    validation: "All stakeholders have reviewed and approved requirements"
+  - name: stakeholder_alignment
+    validation: All stakeholders have reviewed and approved requirements
     critical: true
-
   content_quality:
-  - name: "traceability_established"
-    validation: "Requirements are traceable to business objectives"
+  - name: traceability_established
+    validation: Requirements are traceable to business objectives
     critical: true
-  - name: "success_metrics_defined"
-    validation: "Measurable success criteria are documented"
+  - name: success_metrics_defined
+    validation: Measurable success criteria are documented
     critical: true
-  - name: "constraints_documented"
-    validation: "Technical and business constraints are clearly stated"
+  - name: constraints_documented
+    validation: Technical and business constraints are clearly stated
     critical: false
-
   validation_criteria:
-  - name: "no_placeholders"
-    validation: "All template placeholders are replaced with actual content"
+  - name: no_placeholders
+    validation: All template placeholders are replaced with actual content
     critical: true
-  - name: "functional_links"
-    validation: "All cross-references and links are functional"
+  - name: functional_links
+    validation: All cross-references and links are functional
     critical: true

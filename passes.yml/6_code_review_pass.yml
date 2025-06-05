@@ -1,68 +1,87 @@
 metadata:
   name: Code Review Pass
+  purpose: Reviewing code changes between the base branch and a pull request, providing
+    feedback through comments on the PR, and setting the review status to "Pending"
+    until all issues are addressed.
   number: 6
-  purpose: Reviewing code changes between the base branch and a pull request, providing feedback through comments on the PR, and setting the review status to "Pending" until all issues are addressed.
-  role: "Senior Software Engineer with expertise in code quality, security, and maintainability"
+  role: Senior Software Engineer with expertise in code quality, security, and maintainability
   description: Converted from 7_code_review_pass.md
+  type: configuration
+  last_updated: '2025-05-31'
+  configuration_version: 1.0.0
 when_to_use:
-  conditions: ['When a pull request has been submitted', 'Before merging code changes into the main branch', 'As part of the continuous integration process', 'When conducting peer reviews of code changes', 'For quality assurance of feature implementations']
+  conditions:
+  - When a pull request has been submitted
+  - Before merging code changes into the main branch
+  - As part of the continuous integration process
+  - When conducting peer reviews of code changes
+  - For quality assurance of feature implementations
   prerequisites: []
 process:
-  workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
+  workflow_pattern: SCAN → DRAFT → ASK → SYNC → CONFIRM
   phases:
     'scan:':
-      description: '`gh pr status`, apply language rules, identify issues, verify coverage'
+      description: '`gh pr status`, apply language rules, identify issues, verify
+        coverage'
       actions: []
     'draft:':
-      description: Generate review comments, include solutions, note documentation updates
+      description: Generate review comments, include solutions, note documentation
+        updates
       actions: []
     'ask:':
       description: Submit pending PR comments, verify requirements, challenge decisions
       actions: []
     'sync:':
-      description: "Submit automated comments, request changes, hand off to human **Note:** During execution, mark completed steps with ✅ to track progress."
+      description: Submit automated comments, request changes, hand off to human **Note:**
+        During execution, mark completed steps with ✅ to track progress.
       actions: []
-expected_outcomes: ['Automated PR comments in pending mode', 'Actionable feedback with solutions', 'Human-agent collaborative workflow', 'Strict standards enforcement', 'Language-specific compliance']
-# Language-Specific Review Criteria
+expected_outcomes:
+- Automated PR comments in pending mode
+- Actionable feedback with solutions
+- Human-agent collaborative workflow
+- Strict standards enforcement
+- Language-specific compliance
 language_rules:
-  critical_requirement: "Always consult and strictly enforce language-specific rules"
+  critical_requirement: Always consult and strictly enforce language-specific rules
   sources:
-    yaml_format: "~/.agent3d/rules.yml/[language].yml"
-    markdown_format: "~/.agent3d/rules/[language].md"
-
+    yaml_format: ~/.agent3d/rules.yml/[language].yml
+    markdown_format: ~/.agent3d/rules/[language].md
   supported_languages:
     markdown:
-      yaml: "~/.agent3d/rules.yml/markdown.yml"
-      markdown: "~/.agent3d/rules/markdown.md"
+      yaml: ~/.agent3d/rules.yml/markdown.yml
+      markdown: ~/.agent3d/rules/markdown.md
     python:
-      yaml: "~/.agent3d/rules.yml/python.yml"
-      markdown: "~/.agent3d/rules/python.md"
+      yaml: ~/.agent3d/rules.yml/python.yml
+      markdown: ~/.agent3d/rules/python.md
     javascript:
-      yaml: "~/.agent3d/rules.yml/javascript.yml"
-      markdown: "~/.agent3d/rules/javascript.md"
+      yaml: ~/.agent3d/rules.yml/javascript.yml
+      markdown: ~/.agent3d/rules/javascript.md
     java:
-      yaml: "~/.agent3d/rules.yml/java.yml"
-      markdown: "~/.agent3d/rules/java.md"
+      yaml: ~/.agent3d/rules.yml/java.yml
+      markdown: ~/.agent3d/rules/java.md
     go:
-      yaml: "~/.agent3d/rules.yml/go.yml"
-      markdown: "~/.agent3d/rules/go.md"
-
-# Review Standards
+      yaml: ~/.agent3d/rules.yml/go.yml
+      markdown: ~/.agent3d/rules/go.md
 review_standards:
-  approach: "UNCOMPROMISINGLY_STRICT"
-  principles: ['be_uncompromisingly_specific_about_every_issue', 'demand_explanations_for_deviations', 'provide_concrete_solutions_with_examples', 'reference_specific_language_rules', 'distinguish_critical_vs_improvement_issues', 'focus_on_long_term_maintainability']
-
-# Quality Gates
+  approach: UNCOMPROMISINGLY_STRICT
+  principles:
+  - be_uncompromisingly_specific_about_every_issue
+  - demand_explanations_for_deviations
+  - provide_concrete_solutions_with_examples
+  - reference_specific_language_rules
+  - distinguish_critical_vs_improvement_issues
+  - focus_on_long_term_maintainability
 quality_gates:
-- name: "language_rules_applied"
-  validation: "verify_language_specific_rules_referenced"
+- name: language_rules_applied
+  validation: verify_language_specific_rules_referenced
   critical: true
-- name: "critical_issues_identified"
-  validation: "all_critical_issues_flagged_and_explained"
+- name: critical_issues_identified
+  validation: all_critical_issues_flagged_and_explained
   critical: true
-- name: "concrete_solutions_provided"
-  validation: "actionable_fixes_with_code_examples"
+- name: concrete_solutions_provided
+  validation: actionable_fixes_with_code_examples
   critical: true
-- name: "severity_classification"
-  validation: "issues_properly_categorized_by_severity"
+- name: severity_classification
+  validation: issues_properly_categorized_by_severity
   critical: true
+quality_gates_reference: common-patterns.yml#quality_gates.universal_gates

@@ -1,94 +1,136 @@
 metadata:
-  name: "Quality and Validation Procedures"
-  type: "procedure"
-  version: "2.0.0"
-  purpose: "Quality standards, validation procedures, and GitHub integration guidelines"
-  created: "2025-01-27"
-  last_updated: "2025-01-29"
-  refactoring_version: "1.0.0"
-  inherits_from: "common-patterns.yml"
-  features: [ 'Quality standards and validation procedures', 'GitHub integration guidelines', 'TC ID mapping and drift validation', 'Code quality and documentation standards' ]
-
+  name: Quality and Validation Procedures
+  type: procedure
+  version: 2.0.0
+  purpose: Quality standards, validation procedures, and GitHub integration guidelines
+  created: '2025-01-27'
+  last_updated: '2025-01-29'
+  refactoring_version: 1.0.0
+  features:
+  - Quality standards and validation procedures
+  - GitHub integration guidelines
+  - TC ID mapping and drift validation
+  - Code quality and documentation standards
+  inherits_from: common-patterns.yml
+  configuration_version: 1.0.0
 quality_standards:
-  documentation: [ 'Simple language', 'Complete coverage', 'Consistent patterns', 'Requirements→features→tests traceability', 'Current documentation' ]
-
-  code_quality: [ 'Exception handling', 'Memory efficiency', 'Test coverage', 'Security', 'Performance', 'Documentation', 'Zero technical debt' ]
-
+  documentation:
+  - Simple language
+  - Complete coverage
+  - Consistent patterns
+  - Requirements→features→tests traceability
+  - Current documentation
+  code_quality:
+  - Exception handling
+  - Memory efficiency
+  - Test coverage
+  - Security
+  - Performance
+  - Documentation
+  - Zero technical debt
   tc_id_mapping:
-    requirement: "All test implementations MUST include TC-NNNN references for 1:1 traceability"
-    validation: "TC ID drift <10%"
-    tool: "python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping"
-
+    requirement: All test implementations MUST include TC-NNNN references for 1:1
+      traceability
+    validation: TC ID drift <10%
+    tool: python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping
 validation_procedures:
-  # Inherits universal validation rules from common-patterns.yml
-  inherits: "common-patterns.yml#validation_rules"
-
+  inherits: common-patterns.yml#validation_rules
   structure_validation:
-    extends: "common-patterns.yml#validation_rules.universal_requirements"
-    additional_checks: [ '2-space indentation', 'LLM-friendly language', 'traceability links' ]
-
+    extends: common-patterns.yml#validation_rules.universal_requirements
+    additional_checks:
+    - 2-space indentation
+    - LLM-friendly language
+    - traceability links
   format_validation:
-    extends: "common-patterns.yml#validation_rules.format_requirements"
-    additional_requirements: [ 'Functional links', 'No template tags', 'Proper hierarchy' ]
-
+    extends: common-patterns.yml#validation_rules.format_requirements
+    additional_requirements:
+    - Functional links
+    - No template tags
+    - Proper hierarchy
   content_validation:
-    requirements: [ 'LLM-friendly language', 'Requirements-to-features-to-tests traceability', 'Verifiable completion evidence', 'Consistent patterns throughout' ]
-
+    requirements:
+    - LLM-friendly language
+    - Requirements-to-features-to-tests traceability
+    - Verifiable completion evidence
+    - Consistent patterns throughout
 github_integration:
-  reference: "GitHub CLI Integration Guide (GITHUB-CLI-INTEGRATION.md)"
-
-  features: [ 'Automated PR detection', 'Pending reviews', 'Human-agent workflow' ]
-
-  workflow_integration: [ 'Automated status updates', 'Review request management', 'Merge conflict resolution', 'Branch management' ]
-
+  reference: GitHub CLI Integration Guide (GITHUB-CLI-INTEGRATION.md)
+  features:
+  - Automated PR detection
+  - Pending reviews
+  - Human-agent workflow
+  workflow_integration:
+  - Automated status updates
+  - Review request management
+  - Merge conflict resolution
+  - Branch management
 drift_validation:
   tc_id_drift:
-    threshold: "<10%"
-    command: "python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping"
-    frequency: "After each testing pass"
-
+    threshold: <10%
+    command: python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping
+    frequency: After each testing pass
   feature_drift:
-    command: "python3 ~/.agent3d/tools/drift_scanner.py --mode ft-mapping"
-    frequency: "After feature implementation"
-
+    command: python3 ~/.agent3d/tools/drift_scanner.py --mode ft-mapping
+    frequency: After feature implementation
   comprehensive_drift:
-    command: "python3 ~/.agent3d/tools/drift_scanner.py --mode all"
-    frequency: "During synchronization pass"
-
+    command: python3 ~/.agent3d/tools/drift_scanner.py --mode all
+    frequency: During synchronization pass
 quality_gates:
-  # Inherits universal quality gates from common-patterns.yml
-  inherits: "common-patterns.yml#quality_gates"
-
-  # Pass-specific gates extend the universal gates
+  inherits: common-patterns.yml#quality_gates
   pass_gates:
-    extends: "common-patterns.yml#quality_gates.pass_specific_gates"
+    extends: common-patterns.yml#quality_gates.pass_specific_gates
     additional_gates:
       implementation_gate:
-        criteria: "matches"
-        validation: "Implementation matches requirements and design"
-
+        criteria: matches
+        validation: Implementation matches requirements and design
       review_gate:
-        criteria: "rules"
-        validation: "Code review passes language-specific rules"
-
+        criteria: rules
+        validation: Code review passes language-specific rules
 validation_workflow:
-  pre_validation: [ 'Check structure and format', 'Validate placeholder replacement', 'Verify link functionality', 'Confirm traceability' ]
-
-  content_validation: [ 'Review language clarity', 'Check completeness', 'Validate consistency', 'Verify evidence' ]
-
-  post_validation: [ 'Run drift scanner', 'Check quality gates', 'Validate integration', 'Confirm standards compliance' ]
-
+  pre_validation:
+  - Check structure and format
+  - Validate placeholder replacement
+  - Verify link functionality
+  - Confirm traceability
+  content_validation:
+  - Review language clarity
+  - Check completeness
+  - Validate consistency
+  - Verify evidence
+  post_validation:
+  - Run drift scanner
+  - Check quality gates
+  - Validate integration
+  - Confirm standards compliance
 error_handling:
   validation_failures:
-    structure_errors: [ 'Fix hierarchy issues', 'Correct formatting problems', 'Replace missing placeholders' ]
-
-    content_errors: [ 'Clarify unclear language', 'Add missing traceability', 'Provide verifiable evidence' ]
-
-    drift_errors: [ 'Fix TC ID mapping issues', 'Update feature references', 'Resolve orphaned identifiers' ]
-
+    structure_errors:
+    - Fix hierarchy issues
+    - Correct formatting problems
+    - Replace missing placeholders
+    content_errors:
+    - Clarify unclear language
+    - Add missing traceability
+    - Provide verifiable evidence
+    drift_errors:
+    - Fix TC ID mapping issues
+    - Update feature references
+    - Resolve orphaned identifiers
 continuous_improvement:
-  feedback_loops: [ 'Collect validation metrics', 'Identify common issues', 'Update procedures based on findings', 'Refine quality standards' ]
-
-  metrics_tracking: [ 'Validation pass rates', 'Drift percentages', 'Quality gate success rates', 'Time to validation completion' ]
-
-best_practices: [ 'Validate early and often', 'Use automated tools for drift detection', 'Maintain traceability throughout development', 'Apply quality standards consistently', 'Document validation results', 'Continuously improve validation procedures' ]
+  feedback_loops:
+  - Collect validation metrics
+  - Identify common issues
+  - Update procedures based on findings
+  - Refine quality standards
+  metrics_tracking:
+  - Validation pass rates
+  - Drift percentages
+  - Quality gate success rates
+  - Time to validation completion
+best_practices:
+- Validate early and often
+- Use automated tools for drift detection
+- Maintain traceability throughout development
+- Apply quality standards consistently
+- Document validation results
+- Continuously improve validation procedures

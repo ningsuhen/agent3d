@@ -1,120 +1,111 @@
-name: "Configuration Memorization and Management"
-description: "Critical procedures for loading, memorizing, and managing .agent3d-config.yml"
-version: "1.0.0"
-last_updated: "2025-01-27"
-
+name: Configuration Memorization and Management
+description: Critical procedures for loading, memorizing, and managing .agent3d-config.yml
+version: 1.0.0
+last_updated: '2025-01-27'
 configuration_memorization:
-  critical_step: "ALWAYS MEMORIZE ENTIRE .agent3d-config.yml AT SESSION START"
-  
+  critical_step: ALWAYS MEMORIZE ENTIRE .agent3d-config.yml AT SESSION START
   loading_process:
     steps:
-      - step: 1
-        action: "git -C ~/.agent3d pull origin main"
-        description: "Update Agent3D repository"
-      
-      - step: 2
-        action: "Locate .agent3d-config.yml in project root"
-        description: "Find configuration file"
-      
-      - step: 3
-        action: "LOAD AND MEMORIZE ENTIRE configuration file contents"
-        description: "Load complete config into memory"
-        priority: "critical"
-      
-      - step: 4
-        action: "Cache ALL settings in working memory for session duration"
-        description: "Store in working memory"
-        priority: "critical"
-      
-      - step: 5
-        action: "Apply memorized config throughout all passes"
-        description: "Use memorized config consistently"
-        priority: "critical"
-
+    - step: 1
+      action: git -C ~/.agent3d pull origin main
+      description: Update Agent3D repository
+    - step: 2
+      action: Locate .agent3d-config.yml in project root
+      description: Find configuration file
+    - step: 3
+      action: LOAD AND MEMORIZE ENTIRE configuration file contents
+      description: Load complete config into memory
+      priority: critical
+    - step: 4
+      action: Cache ALL settings in working memory for session duration
+      description: Store in working memory
+      priority: critical
+    - step: 5
+      action: Apply memorized config throughout all passes
+      description: Use memorized config consistently
+      priority: critical
   sections_to_memorize:
-    - section: "project"
-      fields: ["name", "type", "description", "language", "quality_level"]
-    
-    - section: "enabled_passes"
-      fields: ["list of enabled passes"]
-    
-    - section: "disabled_passes"
-      fields: ["list of disabled passes"]
-    
-    - section: "pass_config"
-      fields: ["pass-specific configurations"]
-    
-    - section: "git_workflow"
-      fields: ["commit confirmation settings"]
-    
-    - section: "validation"
-      fields: ["validation mode and rules"]
-    
-    - section: "documentation"
-      fields: ["format and standards"]
-    
-    - section: "quality_gates"
-      fields: ["thresholds and weights"]
-    
-    - section: "template_overrides"
-      fields: ["custom template paths"]
-    
-    - section: "language_config"
-      fields: ["language-specific settings"]
-
+  - section: project
+    fields:
+    - name
+    - type
+    - description
+    - language
+    - quality_level
+  - section: enabled_passes
+    fields:
+    - list of enabled passes
+  - section: disabled_passes
+    fields:
+    - list of disabled passes
+  - section: pass_config
+    fields:
+    - pass-specific configurations
+  - section: git_workflow
+    fields:
+    - commit confirmation settings
+  - section: validation
+    fields:
+    - validation mode and rules
+  - section: documentation
+    fields:
+    - format and standards
+  - section: quality_gates
+    fields:
+    - thresholds and weights
+  - section: template_overrides
+    fields:
+    - custom template paths
+  - section: language_config
+    fields:
+    - language-specific settings
 memorization_rules:
-  - rule: "Load config ONCE per session, use from memory thereafter"
-    priority: "critical"
-  
-  - rule: "NEVER re-read .agent3d-config.yml during pass execution"
-    priority: "critical"
-  
-  - rule: "Apply memorized settings consistently across all operations"
-    priority: "high"
-  
-  - rule: "Check memorized config before every major decision (commits, pass selection, validation)"
-    priority: "high"
-  
-  - rule: "When config is updated, IMMEDIATELY refresh memory with new config"
-    priority: "critical"
-
+- rule: Load config ONCE per session, use from memory thereafter
+  priority: critical
+- rule: NEVER re-read .agent3d-config.yml during pass execution
+  priority: critical
+- rule: Apply memorized settings consistently across all operations
+  priority: high
+- rule: Check memorized config before every major decision (commits, pass selection,
+    validation)
+  priority: high
+- rule: When config is updated, IMMEDIATELY refresh memory with new config
+  priority: critical
 config_update_protocol:
   steps:
-    - step: 1
-      action: "Save changes to .agent3d-config.yml"
-      description: "Persist configuration changes"
-    
-    - step: 2
-      action: "IMMEDIATELY re-load and memorize ENTIRE updated configuration"
-      description: "Refresh memory with new config"
-      priority: "critical"
-    
-    - step: 3
-      action: "Replace old memorized config with new config in working memory"
-      description: "Update working memory"
-      priority: "critical"
-    
-    - step: 4
-      action: "Apply new memorized config to all subsequent operations"
-      description: "Use updated config"
-      priority: "critical"
-    
-    - step: 5
-      action: "Verify memory update by checking key settings (git_workflow, enabled_passes, etc.)"
-      description: "Validate memory update"
-      priority: "high"
-
-validation_checks: ['Verify git_workflow settings are memorized', 'Confirm enabled_passes list is cached', 'Check language_config is accessible from memory', 'Validate quality_gates thresholds are memorized', 'Ensure template_overrides are cached']
-
+  - step: 1
+    action: Save changes to .agent3d-config.yml
+    description: Persist configuration changes
+  - step: 2
+    action: IMMEDIATELY re-load and memorize ENTIRE updated configuration
+    description: Refresh memory with new config
+    priority: critical
+  - step: 3
+    action: Replace old memorized config with new config in working memory
+    description: Update working memory
+    priority: critical
+  - step: 4
+    action: Apply new memorized config to all subsequent operations
+    description: Use updated config
+    priority: critical
+  - step: 5
+    action: Verify memory update by checking key settings (git_workflow, enabled_passes,
+      etc.)
+    description: Validate memory update
+    priority: high
+validation_checks:
+- Verify git_workflow settings are memorized
+- Confirm enabled_passes list is cached
+- Check language_config is accessible from memory
+- Validate quality_gates thresholds are memorized
+- Ensure template_overrides are cached
 error_handling:
   missing_config:
-    action: "Run Foundation Pass immediately"
-    description: "Initialize configuration if missing"
-  
+    action: Run Foundation Pass immediately
+    description: Initialize configuration if missing
   corrupted_config:
-    action: "Validate YAML syntax and restore from backup"
-    description: "Handle configuration corruption"
-  
+    action: Validate YAML syntax and restore from backup
+    description: Handle configuration corruption
   memory_failure:
-    action: "Re-load configuration and verify memorization"
-    description: "Handle memory loading failures"
+    action: Re-load configuration and verify memorization
+    description: Handle memory loading failures

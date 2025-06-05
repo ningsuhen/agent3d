@@ -1,9 +1,16 @@
 metadata:
   name: Testing Pass
+  purpose: Adding comprehensive test coverage and verifying edge cases, focusing on
+    the test cases documented in `TEST-CASES.md`.
   number: 4
-  purpose: Adding comprehensive test coverage and verifying edge cases, focusing on the test cases documented in `TEST-CASES.md`.
-  role: Assume the role of a **Senior QA Engineer** with expertise in test strategy, automation, and quality assurance. Apply rigorous testing methodologies, focus on edge cases, and ensure comprehensive coverage. Think like a quality-focused professional who takes pride in finding issues before they reach production.
+  role: Assume the role of a **Senior QA Engineer** with expertise in test strategy,
+    automation, and quality assurance. Apply rigorous testing methodologies, focus
+    on edge cases, and ensure comprehensive coverage. Think like a quality-focused
+    professional who takes pride in finding issues before they reach production.
   description: Converted from 5_testing_pass.md
+  type: configuration
+  last_updated: '2025-05-31'
+  configuration_version: 1.0.0
 when_to_use:
   conditions:
   - After an Implementation Pass has established basic functionality
@@ -13,59 +20,75 @@ when_to_use:
   - As part of regular quality assurance cycles
   prerequisites: []
 process:
-  workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
+  workflow_pattern: SCAN → DRAFT → ASK → SYNC → CONFIRM
   phases:
     'scan:':
-      description: Review coverage gaps, analyze `TEST-CASES.md`, identify edge cases, check bug reports
+      description: Review coverage gaps, analyze `TEST-CASES.md`, identify edge cases,
+        check bug reports
       actions: []
     'draft:':
-      description: Plan test strategy, document edge cases, identify integration scenarios, plan performance tests
+      description: Plan test strategy, document edge cases, identify integration scenarios,
+        plan performance tests
       actions: []
     'ask:':
-      description: Clarify edge case behavior, confirm priorities, verify acceptance criteria
+      description: Clarify edge case behavior, confirm priorities, verify acceptance
+        criteria
       actions: []
     'sync:':
-      description: "Implement test suite, add edge case tests, create integration tests, update `TEST-CASES.md` **Note:** During execution, mark completed steps with ✅ to track progress."
+      description: Implement test suite, add edge case tests, create integration tests,
+        update `TEST-CASES.md` **Note:** During execution, mark completed steps with
+        ✅ to track progress.
       actions: []
-expected_outcomes: ['Comprehensive test coverage', 'Edge case and error tests', 'Integration tests', 'Updated test documentation', 'Increased quality confidence']
-
-# Testing Framework Classification
+expected_outcomes:
+- Comprehensive test coverage
+- Edge case and error tests
+- Integration tests
+- Updated test documentation
+- Increased quality confidence
 testing_framework_rules:
-  critical_distinction: "Test implementation depends on Code Location framework type"
-
+  critical_distinction: Test implementation depends on Code Location framework type
   automated_testing_scope:
-    description: "ONLY create automated tests for Code Framework features"
+    description: ONLY create automated tests for Code Framework features
     applicable_to:
-    - "Features with Code Location pointing to .py, .js, .ts, .java, .go files"
-    - "Executable code that can be unit/integration tested"
-    - "APIs, functions, classes, and modules"
-    testing_approach: ['Create pytest/jest/junit test files', 'Implement unit and integration tests', 'Add to CI/CD pipeline', 'Achieve target coverage metrics']
-
+    - Features with Code Location pointing to .py, .js, .ts, .java, .go files
+    - Executable code that can be unit/integration tested
+    - APIs, functions, classes, and modules
+    testing_approach:
+    - Create pytest/jest/junit test files
+    - Implement unit and integration tests
+    - Add to CI/CD pipeline
+    - Achieve target coverage metrics
   manual_validation_scope:
-    description: "NO automated tests for Documentation/Configuration/Process features"
+    description: NO automated tests for Documentation/Configuration/Process features
     applicable_to:
-    - "Features with Code Location pointing to .md, .yml, .json files"
-    - "Documentation framework features (docs/, README, etc.)"
-    - "Configuration framework features (.agent3d-config.yml, passes.yml/)"
-    - "Process features with N/A or descriptive Code Locations"
-    validation_approach: ['Manual review and validation only', 'Schema validation for configuration files', 'Process adherence verification', 'Documentation quality assessment']
-
+    - Features with Code Location pointing to .md, .yml, .json files
+    - Documentation framework features (docs/, README, etc.)
+    - Configuration framework features (.agent3d-config.yml, passes.yml/)
+    - Process features with N/A or descriptive Code Locations
+    validation_approach:
+    - Manual review and validation only
+    - Schema validation for configuration files
+    - Process adherence verification
+    - Documentation quality assessment
   implementation_guidelines:
     before_creating_tests:
-    - "Check Code Location field of the feature"
-    - "Identify framework type (Code/Documentation/Configuration/Process)"
-    - "Apply appropriate testing strategy"
-    - "Do NOT create automated tests for non-code features"
-
-    test_organization: ['Group tests by feature module/component', 'Use TC ID comments for drift scanner detection', 'Follow language-specific testing conventions', 'Maintain test documentation and coverage reports']
-
+    - Check Code Location field of the feature
+    - Identify framework type (Code/Documentation/Configuration/Process)
+    - Apply appropriate testing strategy
+    - Do NOT create automated tests for non-code features
+    test_organization:
+    - Group tests by feature module/component
+    - Use TC ID comments for drift scanner detection
+    - Follow language-specific testing conventions
+    - Maintain test documentation and coverage reports
 quality_gates:
-- name: "framework_classification_followed"
-  validation: "Tests created only for Code Framework features"
+- name: framework_classification_followed
+  validation: Tests created only for Code Framework features
   critical: true
-- name: "manual_validation_documented"
-  validation: "Manual validation approach documented for non-code features"
+- name: manual_validation_documented
+  validation: Manual validation approach documented for non-code features
   critical: true
-- name: "test_coverage_appropriate"
-  validation: "Coverage metrics apply only to testable code"
+- name: test_coverage_appropriate
+  validation: Coverage metrics apply only to testable code
   critical: true
+quality_gates_reference: common-patterns.yml#quality_gates.universal_gates

@@ -1,26 +1,35 @@
 metadata:
   name: Refactoring Pass
+  purpose: Code structure improvement without changing functionality, LLM-focused
+    compression, DRY compliance.
   number: 5
-  purpose: Code structure improvement without changing functionality, LLM-focused compression, DRY compliance.
-  role: '**Senior Software Engineer** - refactoring techniques, performance optimization, technical debt management.'
+  role: '**Senior Software Engineer** - refactoring techniques, performance optimization,
+    technical debt management.'
   description: Converted from 6_refactoring_pass.md
+  type: configuration
+  last_updated: '2025-05-31'
+  configuration_version: 1.0.0
 when_to_use:
   conditions: []
   prerequisites: []
 process:
-  workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
+  workflow_pattern: SCAN → DRAFT → ASK → SYNC → CONFIRM
   phases:
     'scan:':
-      description: Repository-wide DRY audit, modularization opportunities, LLM compression targets
+      description: Repository-wide DRY audit, modularization opportunities, LLM compression
+        targets
       actions: []
     'draft:':
       description: Consolidation plan, DRY implementation strategy, compression approach
       actions: []
     'ask:':
-      description: Structural changes approval, priority alignment, breaking change discussion
+      description: Structural changes approval, priority alignment, breaking change
+        discussion
       actions: []
     'sync:':
-      description: "Incremental implementation, duplication elimination, testing verification (mark ✅)"
+      description: Incremental implementation, duplication elimination, testing verification
+        (mark ✅)
       actions: []
 expected_outcomes: []
 quality_gates: []
+quality_gates_reference: common-patterns.yml#quality_gates.universal_gates

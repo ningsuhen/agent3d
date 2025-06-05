@@ -1,9 +1,17 @@
 metadata:
   name: Synchronization Pass
+  purpose: Align documentation with code implementation, ensuring consistency between
+    documentation and current codebase.
   number: 8
-  purpose: Align documentation with code implementation, ensuring consistency between documentation and current codebase.
-  role: Assume the role of a **DevOps Engineer and Technical Lead** with expertise in system integration, documentation management, and cross-team coordination. Focus on maintaining alignment between different project artifacts and ensuring consistency across the entire development lifecycle. Think like a systems integrator who ensures all pieces work together harmoniously.
+  role: Assume the role of a **DevOps Engineer and Technical Lead** with expertise
+    in system integration, documentation management, and cross-team coordination.
+    Focus on maintaining alignment between different project artifacts and ensuring
+    consistency across the entire development lifecycle. Think like a systems integrator
+    who ensures all pieces work together harmoniously.
   description: Converted from 9_synchronization_pass.md
+  type: configuration
+  last_updated: '2025-05-31'
+  configuration_version: 1.0.0
 when_to_use:
   conditions:
   - After code changes without corresponding documentation updates
@@ -11,22 +19,33 @@ when_to_use:
   - After major refactoring without documentation updates
   - During technical debt reduction efforts
   - When preparing for releases
-  - '**Legacy documentation refactoring** (e.g., updating `ARCHITECTURE.md` references to `HIGH-LEVEL-DESIGN.md`)'
+  - '**Legacy documentation refactoring** (e.g., updating `ARCHITECTURE.md` references
+    to `HIGH-LEVEL-DESIGN.md`)'
   prerequisites: []
 process:
-  workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
+  workflow_pattern: SCAN → DRAFT → ASK → SYNC → CONFIRM
   phases:
     'scan:':
-      description: Identify code-documentation discrepancies, review implementation divergence
+      description: Identify code-documentation discrepancies, review implementation
+        divergence
       actions: []
     'draft:':
       description: Update documentation to match implementation, revise affected sections
       actions: []
     'ask:':
-      description: Clarify implementation details, confirm intended behavior, verify constraints
+      description: Clarify implementation details, confirm intended behavior, verify
+        constraints
       actions: []
     'sync:':
-      description: "Ensure docs accuracy, update diagrams, validate alignment **Note:** During execution, mark completed steps with ✅ to track progress."
+      description: Ensure docs accuracy, update diagrams, validate alignment **Note:**
+        During execution, mark completed steps with ✅ to track progress.
       actions: []
-expected_outcomes: ['Documentation reflects implementation', 'Updated status markers', 'Corrected technical details', 'Aligned feature descriptions', 'Updated diagrams', 'Aligned test cases']
+expected_outcomes:
+- Documentation reflects implementation
+- Updated status markers
+- Corrected technical details
+- Aligned feature descriptions
+- Updated diagrams
+- Aligned test cases
 quality_gates: []
+quality_gates_reference: common-patterns.yml#quality_gates.universal_gates

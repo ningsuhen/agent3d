@@ -1,243 +1,348 @@
 metadata:
-  name: "Common Patterns and Shared Components"
-  type: "procedure"
-  version: "1.0.0"
-  purpose: "Consolidated common patterns, validation rules, and shared components for DRY compliance"
-  created: "2025-01-29"
-  last_updated: "2025-01-29"
-  refactoring_version: "1.0.0"
+  name: Common Patterns and Shared Components
+  type: procedure
+  version: 2.0.0
+  purpose: Consolidated common patterns, validation rules, and shared components for
+    DRY compliance and YAML standardization
+  created: '2025-01-29'
+  last_updated: '2025-05-31'
+  refactoring_version: 2.0.0
+  configuration_version: 1.0.0
   features:
-    - "Universal workflow patterns and validation rules"
-    - "Shared quality gates and success criteria"
-    - "Common command patterns and tool integrations"
-    - "Standardized metadata and configuration patterns"
-
-# UNIVERSAL WORKFLOW PATTERNS
+  - Universal workflow patterns and validation rules
+  - Shared quality gates and success criteria
+  - Common command patterns and tool integrations
+  - Standardized metadata and configuration patterns
+  - YAML configuration standardization framework
+  - Metadata format consistency enforcement
+  - Common field ordering and naming conventions
 workflow_patterns:
   standard_pass_workflow:
-    pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
-    description: "Standard workflow for all DDD passes"
+    pattern: SCAN → DRAFT → ASK → SYNC → CONFIRM
+    description: Standard workflow for all DDD passes
     phases:
       scan:
-        purpose: "Analyze current state and identify opportunities"
-        common_actions: ["repository_update", "status_assessment", "gap_analysis"]
+        purpose: Analyze current state and identify opportunities
+        common_actions:
+        - repository_update
+        - status_assessment
+        - gap_analysis
       draft:
-        purpose: "Create execution plan and strategy"
-        common_actions: ["plan_creation", "strategy_definition", "checkpoint_establishment"]
+        purpose: Create execution plan and strategy
+        common_actions:
+        - plan_creation
+        - strategy_definition
+        - checkpoint_establishment
       ask:
-        purpose: "Validate approach and get confirmation"
-        common_actions: ["approach_validation", "priority_confirmation", "risk_assessment"]
+        purpose: Validate approach and get confirmation
+        common_actions:
+        - approach_validation
+        - priority_confirmation
+        - risk_assessment
       sync:
-        purpose: "Execute planned changes with tracking"
-        common_actions: ["incremental_execution", "progress_tracking", "checkpoint_validation"]
+        purpose: Execute planned changes with tracking
+        common_actions:
+        - incremental_execution
+        - progress_tracking
+        - checkpoint_validation
       confirm:
-        purpose: "Finalize changes and update status"
-        common_actions: ["completion_validation", "status_update", "cleanup"]
-
+        purpose: Finalize changes and update status
+        common_actions:
+        - completion_validation
+        - status_update
+        - cleanup
   validation_workflow:
-    pattern: "LINT → VALIDATE → OPTIMIZE → REVIEW"
-    description: "Standard validation workflow for content and code"
+    pattern: LINT → VALIDATE → OPTIMIZE → REVIEW
+    description: Standard validation workflow for content and code
     phases:
       lint:
-        purpose: "Automated syntax and format checking"
-        tools: ["markdownlint", "yamllint", "python syntax check"]
+        purpose: Automated syntax and format checking
+        tools:
+        - markdownlint
+        - yamllint
+        - python syntax check
       validate:
-        purpose: "Content and structure validation"
-        checks: ["completeness", "consistency", "compliance"]
+        purpose: Content and structure validation
+        checks:
+        - completeness
+        - consistency
+        - compliance
       optimize:
-        purpose: "Performance and quality optimization"
-        techniques: ["redundancy_elimination", "compression", "efficiency_improvement"]
+        purpose: Performance and quality optimization
+        techniques:
+        - redundancy_elimination
+        - compression
+        - efficiency_improvement
       review:
-        purpose: "Manual review and approval"
-        criteria: ["quality_standards", "requirements_compliance", "best_practices"]
-
-# COMMON VALIDATION RULES
+        purpose: Manual review and approval
+        criteria:
+        - quality_standards
+        - requirements_compliance
+        - best_practices
 validation_rules:
   universal_requirements:
     placeholder_replacement:
-      rule: "All {{placeholders}} must be replaced with actual content"
-      validation: "grep -n '{{.*}}' file should return no results"
+      rule: All {{placeholders}} must be replaced with actual content
+      validation: grep -n '{{.*}}' file should return no results
       critical: true
-    
     yaml_syntax:
-      rule: "Valid YAML syntax required for all .yml files"
-      validation: "python -c 'import yaml; yaml.safe_load(open(\"file.yml\"))'"
+      rule: Valid YAML syntax required for all .yml files
+      validation: python -c 'import yaml; yaml.safe_load(open("file.yml"))'
       critical: true
-    
     metadata_completeness:
-      rule: "All required metadata fields must be present"
-      required_fields: ["name", "version", "purpose", "created", "last_updated"]
-      validation: "Check metadata section contains all required fields"
+      rule: All required metadata fields must be present
+      required_fields:
+      - name
+      - version
+      - purpose
+      - created
+      - last_updated
+      validation: Check metadata section contains all required fields
       critical: true
-    
     content_structure:
-      rule: "Follow standard content organization patterns"
-      requirements: ["Clear sections", "Logical hierarchy", "Consistent formatting"]
-      validation: "Manual review for structure compliance"
+      rule: Follow standard content organization patterns
+      requirements:
+      - Clear sections
+      - Logical hierarchy
+      - Consistent formatting
+      validation: Manual review for structure compliance
       critical: false
-
   format_requirements:
     markdown_compliance:
-      rule: "Markdown files must follow standard formatting"
-      checks: ["heading_hierarchy", "link_functionality", "list_formatting"]
-      tool: "markdownlint"
-      
+      rule: Markdown files must follow standard formatting
+      checks:
+      - heading_hierarchy
+      - link_functionality
+      - list_formatting
+      tool: markdownlint
     yaml_compliance:
-      rule: "YAML files must follow 2-space indentation and standard structure"
-      checks: ["indentation", "key_ordering", "value_formatting"]
-      tool: "yamllint"
-
-# COMMON QUALITY GATES
+      rule: YAML files must follow 2-space indentation and standard structure
+      checks:
+      - indentation
+      - key_ordering
+      - value_formatting
+      tool: yamllint
 quality_gates:
   universal_gates:
     functionality_preservation:
-      name: "no_functionality_loss"
-      validation: "All existing functionality preserved"
+      name: no_functionality_loss
+      validation: All existing functionality preserved
       critical: true
-      
     syntax_validation:
-      name: "syntax_compliance"
-      validation: "All files pass syntax validation"
+      name: syntax_compliance
+      validation: All files pass syntax validation
       critical: true
-      
     content_completeness:
-      name: "content_complete"
-      validation: "All required content sections present"
+      name: content_complete
+      validation: All required content sections present
       critical: true
-      
     quality_improvement:
-      name: "quality_enhanced"
-      validation: "Changes improve overall quality metrics"
+      name: quality_enhanced
+      validation: Changes improve overall quality metrics
       critical: false
-
   pass_specific_gates:
     requirements_gate:
-      criteria: "objectives"
-      validation: "Business objectives clearly defined and measurable"
-      
+      criteria: objectives
+      validation: Business objectives clearly defined and measurable
     foundation_gate:
-      criteria: "config"
-      validation: "Configuration complete and memorized"
-      
+      criteria: config
+      validation: Configuration complete and memorized
     documentation_gate:
-      criteria: "criteria"
-      validation: "Acceptance criteria defined and testable"
-      
+      criteria: criteria
+      validation: Acceptance criteria defined and testable
     testing_gate:
-      criteria: "passes"
-      validation: "All tests pass and TC ID mapping <10% drift"
-
-# COMMON COMMAND PATTERNS
+      criteria: passes
+      validation: All tests pass and TC ID mapping <10% drift
 command_patterns:
   drift_scanning:
-    comprehensive: "python3 ~/.agent3d/tools/drift_scanner.py --mode all"
-    quick_check: "python3 ~/.agent3d/tools/drift_scanner.py --mode all --quiet"
-    pr_changes: "python3 ~/.agent3d/tools/drift_scanner.py --mode all --pr-diff --quiet"
-    recent_changes: "python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping --recent-days 3"
-    
+    comprehensive: python3 ~/.agent3d/tools/drift_scanner.py --mode all
+    quick_check: python3 ~/.agent3d/tools/drift_scanner.py --mode all --quiet
+    pr_changes: python3 ~/.agent3d/tools/drift_scanner.py --mode all --pr-diff --quiet
+    recent_changes: python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping
+      --recent-days 3
   validation_commands:
-    yaml_syntax: "python -c 'import yaml; yaml.safe_load(open(\"{{file}}\"))'"
-    markdown_lint: "markdownlint {{file}}"
-    template_validation: "Check against BASE.template.yml validation rules"
-    
+    yaml_syntax: python -c 'import yaml; yaml.safe_load(open("{{file}}"))'
+    markdown_lint: markdownlint {{file}}
+    template_validation: Check against BASE.template.yml validation rules
   git_workflow:
-    create_branch: "git checkout -b {{branch_name}}"
-    commit_changes: "git add . && git commit -m '{{message}}'"
-    merge_branch: "git checkout main && git merge {{branch_name}}"
-    cleanup_branch: "git branch -d {{branch_name}}"
-
-# COMMON STATUS MARKERS
+    create_branch: git checkout -b {{branch_name}}
+    commit_changes: git add . && git commit -m '{{message}}'
+    merge_branch: git checkout main && git merge {{branch_name}}
+    cleanup_branch: git branch -d {{branch_name}}
 status_markers:
   task_status:
-    completed: "[x]"
-    in_progress: "[~]"
-    not_started: "[ ]"
-    blocked: "[!]"
-    
+    completed: '[x]'
+    in_progress: '[~]'
+    not_started: '[ ]'
+    blocked: '[!]'
   priority_levels:
-    critical: "Critical"
-    high: "High"
-    medium: "Medium"
-    low: "Low"
-    
+    critical: Critical
+    high: High
+    medium: Medium
+    low: Low
   execution_types:
-    automated: "Automated"
-    manual: "Manual"
-    semi_automated: "Semi-Automated"
-
-# COMMON METADATA PATTERNS
+    automated: Automated
+    manual: Manual
+    semi_automated: Semi-Automated
 metadata_patterns:
   standard_metadata:
-    required_fields: ["name", "type", "version", "purpose", "created", "last_updated"]
-    optional_fields: ["features", "automation_level", "safety_level", "scope"]
-    
+    required_fields:
+    - name
+    - type
+    - version
+    - purpose
+    - created
+    - last_updated
+    optional_fields:
+    - features
+    - automation_level
+    - safety_level
+    - scope
   versioning_pattern:
-    format: "X.Y.Z"
+    format: X.Y.Z
     increment_rules:
-      major: "Breaking changes or major refactoring"
-      minor: "New features or significant improvements"
-      patch: "Bug fixes or minor improvements"
-      
+      major: Breaking changes or major refactoring
+      minor: New features or significant improvements
+      patch: Bug fixes or minor improvements
   date_format:
-    standard: "YYYY-MM-DD"
-    command: "date +%Y-%m-%d"
-    rule: "ALWAYS use system date command, never LLM knowledge"
-
-# COMMON ERROR HANDLING
+    standard: YYYY-MM-DD
+    command: date +%Y-%m-%d
+    rule: ALWAYS use system date command, never LLM knowledge
 error_handling:
   validation_failures:
     structure_errors:
-      actions: ["Fix hierarchy issues", "Correct formatting problems", "Replace missing placeholders"]
-      
+      actions:
+      - Fix hierarchy issues
+      - Correct formatting problems
+      - Replace missing placeholders
     content_errors:
-      actions: ["Clarify unclear language", "Add missing traceability", "Provide verifiable evidence"]
-      
+      actions:
+      - Clarify unclear language
+      - Add missing traceability
+      - Provide verifiable evidence
     drift_errors:
-      actions: ["Fix TC ID mapping issues", "Update feature references", "Resolve orphaned identifiers"]
-
+      actions:
+      - Fix TC ID mapping issues
+      - Update feature references
+      - Resolve orphaned identifiers
   rollback_procedures:
-    trigger_conditions: ["Functionality loss", "Critical validation failures", "Quality degradation"]
-    rollback_steps: ["Restore from backup", "Validate restoration", "Document failure", "Plan remediation"]
-
-# COMMON SUCCESS CRITERIA
+    trigger_conditions:
+    - Functionality loss
+    - Critical validation failures
+    - Quality degradation
+    rollback_steps:
+    - Restore from backup
+    - Validate restoration
+    - Document failure
+    - Plan remediation
 success_criteria:
   quality_metrics:
-    code_quality: "Reduced duplication, improved maintainability, enhanced readability"
-    documentation_quality: "Clear, complete, consistent, current"
-    test_quality: "Comprehensive coverage, reliable execution, meaningful validation"
-    
+    code_quality: Reduced duplication, improved maintainability, enhanced readability
+    documentation_quality: Clear, complete, consistent, current
+    test_quality: Comprehensive coverage, reliable execution, meaningful validation
   performance_metrics:
-    execution_speed: "Maintained or improved performance"
-    resource_usage: "Optimized memory and CPU usage"
-    scalability: "Enhanced system scalability"
-    
+    execution_speed: Maintained or improved performance
+    resource_usage: Optimized memory and CPU usage
+    scalability: Enhanced system scalability
   maintainability_metrics:
-    code_structure: "Clear separation of concerns, modular design"
-    documentation_structure: "Logical organization, easy navigation"
-    process_efficiency: "Streamlined workflows, reduced overhead"
-
-# INTEGRATION PATTERNS
+    code_structure: Clear separation of concerns, modular design
+    documentation_structure: Logical organization, easy navigation
+    process_efficiency: Streamlined workflows, reduced overhead
 integration_patterns:
   ci_cd_integration:
     github_actions:
-      pr_check: "Run validation on PR changes only"
-      main_check: "Comprehensive validation on main branch"
-      
+      pr_check: Run validation on PR changes only
+      main_check: Comprehensive validation on main branch
   tool_integration:
-    drift_scanner: "Automated drift detection and reporting"
-    template_system: "Standardized document generation"
-    validation_tools: "Automated syntax and content validation"
-
-# USAGE GUIDELINES
+    drift_scanner: Automated drift detection and reporting
+    template_system: Standardized document generation
+    validation_tools: Automated syntax and content validation
+yaml_standardization:
+  metadata_format:
+    standard_structure:
+      required_fields:
+      - name
+      - type
+      - version
+      - purpose
+      - created
+      - last_updated
+      optional_fields:
+      - features
+      - automation_level
+      - safety_level
+      - scope
+      - refactoring_version
+      - configuration_version
+      field_order:
+      - name
+      - type
+      - version
+      - purpose
+      - created
+      - last_updated
+      - refactoring_version
+      - configuration_version
+      - features
+    field_formats:
+      name: String - Human readable name
+      type: String - Category (procedure, template, execution_plan, etc.)
+      version: String - Semantic version (X.Y.Z)
+      purpose: String - Brief description of purpose
+      created: String - YYYY-MM-DD format
+      last_updated: String - YYYY-MM-DD format
+      features: Array - List of key features/capabilities
+  indentation_standards:
+    spaces: 2
+    rule: ALWAYS use 2-space indentation for YAML files
+    validation: yamllint with 2-space indentation rule
+  naming_conventions:
+    keys: snake_case for all YAML keys
+    values: Consistent string quoting for special characters
+    sections: Clear, descriptive section names
+  common_configuration_blocks:
+    validation_block:
+      structure: "validation:\n  syntax_check: true\n  content_validation: true\n\
+        \  quality_gates: [\"gate1\", \"gate2\"]\n"
+    quality_gates_block:
+      structure: "quality_gates:\n  - name: \"gate_name\"\n    validation: \"validation_description\"\
+        \n    critical: true/false\n"
+    workflow_block:
+      structure: "workflow:\n  pattern: \"SCAN → DRAFT → ASK → SYNC → CONFIRM\"\n\
+        \  phases:\n    scan: { purpose: \"...\", actions: [...] }\n"
+configuration_consolidation:
+  common_settings:
+    git_workflow:
+      require_commit_confirmation: true
+      commit_message_format: 'DDD: {pass_name} - {description}'
+      always_confirm_before_commit: true
+    validation_settings:
+      validation_mode: strict
+      required_sections: all
+      allow_empty_sections: false
+    quality_thresholds:
+      markdown_quality: 90
+      documentation_completeness: 95
+      cross_reference_validity: 100
+      template_compliance: 90
+  template_inheritance:
+    base_template_reference: BASE.template.yml
+    inheritance_syntax: 'inherits_from: ''common-patterns.yml'''
+    extension_syntax: 'extends: ''common-patterns.yml#section_name'''
 usage_guidelines:
   referencing_patterns:
-    syntax: "Reference using: common-patterns.yml#section_name"
-    examples: 
-      - "common-patterns.yml#workflow_patterns.standard_pass_workflow"
-      - "common-patterns.yml#validation_rules.universal_requirements"
-      - "common-patterns.yml#quality_gates.universal_gates"
-      
+    syntax: 'Reference using: common-patterns.yml#section_name'
+    examples:
+    - common-patterns.yml#workflow_patterns.standard_pass_workflow
+    - common-patterns.yml#validation_rules.universal_requirements
+    - common-patterns.yml#quality_gates.universal_gates
+    - common-patterns.yml#yaml_standardization.metadata_format
   inheritance_approach:
-    principle: "Import common patterns, extend with specific requirements"
-    implementation: "Use references to avoid duplication"
-    maintenance: "Update common patterns to benefit all procedures"
+    principle: Import common patterns, extend with specific requirements
+    implementation: Use references to avoid duplication
+    maintenance: Update common patterns to benefit all procedures
+  yaml_standardization_usage:
+    metadata_consistency: All YAML files should follow standard metadata format
+    indentation_compliance: Use 2-space indentation consistently
+    field_ordering: Follow standard field ordering for consistency
+    validation_integration: Include common validation blocks where applicable

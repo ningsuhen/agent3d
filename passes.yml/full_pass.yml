@@ -1,30 +1,45 @@
 metadata:
   name: Full Pass
+  purpose: Comprehensive DDD pass reducing project drift and achieving balanced alignment
+    across all passes.
   number: null
-  purpose: Comprehensive DDD pass reducing project drift and achieving balanced alignment across all passes.
-  role: '**Technical Project Manager** coordinating domain experts. Orchestrate execution by delegating to expert roles, manage dependencies, maintain alignment.'
+  role: '**Technical Project Manager** coordinating domain experts. Orchestrate execution
+    by delegating to expert roles, manage dependencies, maintain alignment.'
   description: Converted from full_pass.md
+  type: configuration
+  last_updated: '2025-05-31'
+  configuration_version: 1.0.0
 when_to_use:
   conditions:
-  - 'For major project milestones or releases'
-  - 'When onboarding a new codebase or project'
-  - 'During significant overhauls of existing systems'
-  - 'For annual or semi-annual documentation health checks'
-  - 'When preparing for external audits or reviews'
-  - 'When drift indicators show significant imbalance across passes'
-  - 'When multiple passes have alignment levels below 85%'
+  - For major project milestones or releases
+  - When onboarding a new codebase or project
+  - During significant overhauls of existing systems
+  - For annual or semi-annual documentation health checks
+  - When preparing for external audits or reviews
+  - When drift indicators show significant imbalance across passes
+  - When multiple passes have alignment levels below 85%
   prerequisites: []
 process:
-  workflow_pattern: "SCAN → DRAFT → ASK → SYNC → CONFIRM"
+  workflow_pattern: SCAN → DRAFT → ASK → SYNC → CONFIRM
   phases:
     scan:
-      description: 'Repository Management and comprehensive analysis'
+      description: Repository Management and comprehensive analysis
       actions: []
     draft:
-      description: "Delegate to pass experts (Product Manager→Requirements, Architect→Foundation, etc.), coordinate handoffs, monitor progress"
+      description: Delegate to pass experts (Product Manager→Requirements, Architect→Foundation,
+        etc.), coordinate handoffs, monitor progress
       actions: []
     ask:
-      description: "Facilitate expert-stakeholder communication, escalate decisions, coordinate conflict resolution, ensure alignment"
+      description: Facilitate expert-stakeholder communication, escalate decisions,
+        coordinate conflict resolution, ensure alignment
       actions: []
-expected_outcomes: [ 'Coordinated execution by domain experts', 'Balanced alignment levels (90%+ target)', 'Minimized drift indicators', 'Consistent project health metrics', 'Seamless expert integration', 'Comprehensive project alignment', 'Clear specialist accountability' ]
+expected_outcomes:
+- Coordinated execution by domain experts
+- Balanced alignment levels (90%+ target)
+- Minimized drift indicators
+- Consistent project health metrics
+- Seamless expert integration
+- Comprehensive project alignment
+- Clear specialist accountability
 quality_gates: []
+quality_gates_reference: common-patterns.yml#quality_gates.universal_gates
