@@ -76,10 +76,18 @@ class Agent3DMCPRouter:
             # Start the HTTP server as a background process
             server_script = self.script_dir / "agent3d_mcp_http_server.py"
 
+            # Check if server script exists
+            if not server_script.exists():
+                logger.error(f"HTTP server script not found: {server_script}")
+                return False
+
             # Activate virtual environment if available
             venv_path = self.agent3d_dir / "venv"
             if venv_path.exists():
                 python_path = venv_path / "bin" / "python3"
+                if not python_path.exists():
+                    logger.error(f"Python executable not found in venv: {python_path}")
+                    return False
             else:
                 python_path = "python3"
 
@@ -93,6 +101,10 @@ class Agent3DMCPRouter:
             # Set DDD_ROOT environment variable
             env = os.environ.copy()
             env['DDD_ROOT'] = str(self.agent3d_dir)
+
+            logger.info(f"Starting HTTP server with command: {' '.join(cmd)}")
+            logger.info(f"Working directory: {self.agent3d_dir}")
+            logger.info(f"DDD_ROOT: {env.get('DDD_ROOT')}")
 
             self.http_server_process = subprocess.Popen(
                 cmd,
@@ -113,6 +125,8 @@ class Agent3DMCPRouter:
                     # Process died
                     stderr = self.http_server_process.stderr.read().decode()
                     logger.error(f"HTTP server failed to start: {stderr}")
+                    logger.error(f"HTTP server exit code: {self.http_server_process.returncode}")
+                    logger.error(f"HTTP server command: {cmd}")
                     return False
 
             logger.error("HTTP server failed to start within timeout")
