@@ -36,12 +36,12 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 - [1. Foundation Pass](~/.agent3d/passes.yml/1_foundation_pass.yml) - Project configuration and foundational setup
 - [2. Documentation Pass](~/.agent3d/passes.yml/2_documentation_pass.yml) - Documenting features, requirements, and priorities
 - [3. Development Pass](~/.agent3d/passes.yml/3_development_pass.yml) - Step-by-step feature implementation with checkpoints and execution plans
-- [4. Testing Pass](~/.agent3d/passes.yml/5_testing_pass.yml) - Adding comprehensive tests and verifying edge cases
-- [5. Refactoring Pass](~/.agent3d/passes.yml/6_refactoring_pass.yml) - Cleaning up code without changing functionality
-- [6. Code Review Pass](~/.agent3d/passes.yml/7_code_review_pass.yml) - Reviewing PR changes and providing feedback
-- [7. Synchronization Pass](~/.agent3d/passes.yml/9_synchronization_pass.yml) - Aligning documentation with code at any scale
-- [8. Prune Pass](~/.agent3d/passes.yml/8_prune_pass.yml) - Removing outdated or redundant content
-- [9. Reverse Pass](~/.agent3d/passes.yml/10_reverse_pass.yml) - Detecting and addressing reverse drift (implementation without documentation)
+- [4. Testing Pass](~/.agent3d/passes.yml/4_testing_pass.yml) - Adding comprehensive tests and verifying edge cases
+- [5. Refactoring Pass](~/.agent3d/passes.yml/5_refactoring_pass.yml) - Cleaning up code without changing functionality
+- [6. Code Review Pass](~/.agent3d/passes.yml/6_code_review_pass.yml) - Reviewing PR changes and providing feedback
+- [7. Prune Pass](~/.agent3d/passes.yml/7_prune_pass.yml) - Removing outdated or redundant content
+- [8. Synchronization Pass](~/.agent3d/passes.yml/8_synchronization_pass.yml) - Aligning documentation with code at any scale
+- [9. Reverse Pass](~/.agent3d/passes.yml/9_reverse_pass.yml) - Detecting and addressing reverse drift (implementation without documentation)
 
 ---
 

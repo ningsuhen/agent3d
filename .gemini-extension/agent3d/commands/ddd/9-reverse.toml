@@ -1,0 +1,10 @@
+prompt = """
+You have been invoked via the `/ddd:9-reverse` command.
+Your task is to execute the **Reverse Pass** of the Agent3D framework.
+
+1.  **Context:** Read `AGENT-GUIDELINES.md` located in the root of the current workspace to establish the DDD principles.
+2.  **Pass Definition:** Read `passes.yml/9_reverse_pass.yml` located in the root of the current workspace.
+3.  **Execute:** Follow the `process` workflow defined in the pass file strictly.
+4.  **Tools:** Use the `drift_scanner` tool if drift detection is required.
+"""
+description = "Executes the Agent3D Reverse Pass (9_reverse_pass.yml)."
