@@ -5,4 +5,4 @@ This extension integrates the Agent3D Documentation-Driven Development framework
 The framework's behavior, principles, and pass definitions are centralized in `AGENT-GUIDELINES.md`.
 The commands defined in this extension invoke the specific passes defined in `passes.yml/`.
 
-**Main Entry Point:** `/Users/ningsuhen/git/agent3d/AGENT-GUIDELINES.md`
+**Main Entry Point:** `AGENT-GUIDELINES.md` (located in the extension root)
