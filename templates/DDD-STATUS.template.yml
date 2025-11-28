@@ -213,28 +213,9 @@ passes:
       name: "PR reviews"
       description: "Code review feedback and approvals"
 
-  synchronization_pass:
-    name: "Synchronization Pass"
-    number: 7
-    icon: "🔄"
-    status: "{{status}}"
-    status_icon: "{{status_icon}}"
-    alignment_percentage: "{{alignment_percentage}}"
-    alignment_description: "{{alignment_description}}"
-    drift_level: "{{drift_level}}"
-    drift_icon: "{{drift_icon}}"
-    drift_explanation: "{{drift_explanation}}"
-    last_execution: "{{execution_date}}"
-    priority: "{{priority_level}}"
-    notes: "{{status_notes}}"
-    artifacts:
-    - status: "{{artifact_status}}"
-      name: ".agent3d-tmp/drift-reports/"
-      description: "Drift analysis and synchronization reports"
-
   prune_pass:
     name: "Prune Pass"
-    number: 8
+    number: 7
     icon: "✂️"
     status: "{{status}}"
     status_icon: "{{status_icon}}"
@@ -250,6 +231,25 @@ passes:
     - status: "{{artifact_status}}"
       name: "cleanup documentation"
       description: "Removed outdated content tracking"
+
+  synchronization_pass:
+    name: "Synchronization Pass"
+    number: 8
+    icon: "🔄"
+    status: "{{status}}"
+    status_icon: "{{status_icon}}"
+    alignment_percentage: "{{alignment_percentage}}"
+    alignment_description: "{{alignment_description}}"
+    drift_level: "{{drift_level}}"
+    drift_icon: "{{drift_icon}}"
+    drift_explanation: "{{drift_explanation}}"
+    last_execution: "{{execution_date}}"
+    priority: "{{priority_level}}"
+    notes: "{{status_notes}}"
+    artifacts:
+    - status: "{{artifact_status}}"
+      name: ".agent3d-tmp/drift-reports/"
+      description: "Drift analysis and synchronization reports"
 
   reverse_pass:
     name: "Reverse Pass"
