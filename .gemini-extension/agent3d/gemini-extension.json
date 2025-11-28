@@ -2,14 +2,5 @@
   "name": "agent3d",
   "version": "1.0.0",
   "description": "Agent3D Documentation-Driven Development Extension",
-  "contextFileName": "GEMINI.md",
-  "mcpServers": {
-    "drift_scanner": {
-      "command": "python3",
-      "args": [
-        "${extensionPath}/../../tools/drift_scanner_mcp_server.py"
-      ],
-      "cwd": "${extensionPath}/../.."
-    }
-  }
+  "contextFileName": "GEMINI.md"
 }

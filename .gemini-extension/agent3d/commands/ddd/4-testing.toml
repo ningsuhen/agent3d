@@ -2,9 +2,8 @@ prompt = """
 You have been invoked via the `/ddd:4-testing` command.
 Your task is to execute the **Testing Pass** of the Agent3D framework.
 
-1.  **Context:** Read `AGENT-GUIDELINES.md` located in the root of the current workspace to establish the DDD principles.
-2.  **Pass Definition:** Read `passes.yml/4_testing_pass.yml` located in the root of the current workspace.
+1.  **Context:** Read `AGENT-GUIDELINES.md` to establish the DDD principles and framework context.
+2.  **Pass Definition:** Read `passes.yml/4_testing_pass.yml`.
 3.  **Execute:** Follow the `process` workflow defined in the pass file strictly.
-4.  **Tools:** Use the `drift_scanner` tool if drift detection is required.
 """
 description = "Executes the Agent3D Testing Pass (4_testing_pass.yml)."
