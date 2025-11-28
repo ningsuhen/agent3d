@@ -297,13 +297,13 @@ drift_detection:
   test_case_integration: merged_with_features
 mcp_server:
   enabled: true
-  ddd_root: /Users/nwaikhom/.agent3d
+  ddd_root: .agent3d
   server_type: drift_scanner_ddd-mcp
   configuration:
-    root_directory: /Users/nwaikhom/.agent3d
+    root_directory: .agent3d
     use_ddd_root_env: true
     fallback_to_config: true
-  alternative_standalone: python3 ~/.agent3d/tools/drift_scanner.py
+  alternative_standalone: python3 .agent3d/tools/drift_scanner.py
 templates:
   # Common validation settings for all template types
   common_validation:
