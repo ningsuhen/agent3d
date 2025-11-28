@@ -11,8 +11,8 @@ metadata:
 
 # Summary Statistics
 summary:
-  total_passes: 9
-  completed_count: 3
+  total_passes: 10
+  completed_count: 4
   pending_count: 6
   skipped_count: 0
   overall_drift: "low"
@@ -248,11 +248,20 @@ passes:
     drift_explanation: "No drift"
     last_execution: "2025-11-27"
     priority: "low"
-    notes: "Restored correct status tracking, fixed template drift, consolidated design docs, archived old summaries"
+    notes: "Removed outdated content and fixed references."
     artifacts:
     - status: "completed"
-      name: "docs/DDD-STATUS.yml"
-      description: "Status tracking restored and verified"
+      name: "AGENT-GUIDELINES.md"
+      description: "Updated guideline links and removed outdated references"
+    - status: "completed"
+      name: "passes.yml/README.md"
+      description: "Removed non-existent pass and renumbered passes"
+    - status: "completed"
+      name: "docs/ACCEPTANCE-CRITERIA.md"
+      description: "Removed deprecated Planning Pass and updated pass count"
+    - status: "completed"
+      name: "docs/features/core.md"
+      description: "Updated DDD Pass System pass count"
 
   # Synchronization Pass
   synchronization_pass:
@@ -304,9 +313,9 @@ execution_history:
 - date: "2025-11-27"
   pass: "prune_pass"
   status: "completed"
-  duration: "15 mins"
-  artifacts_created: 0
-  notes: "Cleaned up incorrect RoboTrader references and fixed template numbering drift"
+  duration: "30 mins"
+  artifacts_created: 4
+  notes: "Removed outdated content and fixed references."
 
 # Next Actions
 next_actions:

@@ -61,13 +61,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 | **Language Rules** | Fetch and memorize language-specific rules from links below, apply consistently |
 | **LLM-Friendly Docs** | Use clear, concise language; consistent structure; no legacy references |
 
-### Language-Specific Rules
 
-- [Markdown](~/.agent3d/rules/markdown.md) - Rules for Markdown documentation and LLM optimization
-- [Python](~/.agent3d/rules/python.md) - Rules for Python development
-- [JavaScript](~/.agent3d/rules/javascript.md) - Rules for JavaScript development
-- [Java](~/.agent3d/rules/java.md) - Rules for Java development
-- [Go](~/.agent3d/rules/go.md) - Rules for Go development
 
 ---
 
@@ -84,7 +78,6 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 | `docs/HIGH-LEVEL-DESIGN.md` | System design with diagrams and decisions | `~/.agent3d/templates/HIGH-LEVEL-DESIGN.template.md` |
 | `docs/TASKS.md` | Work backlog organized by priority | `~/.agent3d/templates/TASKS.template.md` |
 | `docs/TEST-CASES.md` | Test specifications with TC-#### format | `~/.agent3d/templates/TEST-CASES.template.md` |
-| `docs/TC-SUBTEST-GUIDELINES.md` | Test Case and Sub-Test implementation guidelines | `~/.agent3d/docs/TC-SUBTEST-GUIDELINES.md` |
 | `docs/DDD-STATUS.yml` | DDD Pass Status, Drift and Health tracking | `~/.agent3d/templates/DDD-STATUS.template.yml` |
 | `docs/designs/*.md` | Component design specifications | `~/.agent3d/templates/DETAILED-DESIGN.template.md` |
 | `docs/proposals/*.md` | Design proposals for unimplemented features | `~/.agent3d/templates/PROPOSAL.template.md` |

@@ -20,7 +20,7 @@ This document defines the acceptance criteria for all requirements and user stor
 **Then:** The pass completes successfully with documented outcomes
 
 **Acceptance Criteria:**
-- [ ] All 12 passes (0-11) are documented with clear objectives
+- [ ] All 10 passes (0-9) are documented with clear objectives
 - [ ] Each pass follows Scan → Draft → Ask → Sync workflow
 - [ ] Each pass produces expected documentation artifacts
 - [ ] Pass execution can be tracked and validated

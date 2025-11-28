@@ -29,8 +29,8 @@
 ---
 
 ## FT-CORE-002 - DDD Pass System
-- **Description:** Structured approach to documentation-driven development with 12 numbered passes
-- **Criteria:** All 12 numbered passes plus Full Pass are documented and executable
+- **Description:** Structured approach to documentation-driven development with 10 numbered passes
+- **Criteria:** All 10 numbered passes plus Full Pass are documented and executable
 - **Dependencies:** Pass templates, execution framework
 - **Impact:** High - Core methodology
 - **Code Location:** passes.yml/ | passes.yml/full_pass.yml
