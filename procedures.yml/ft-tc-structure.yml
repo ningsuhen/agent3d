@@ -102,7 +102,7 @@ working_procedures:
   adding_features:
     steps: ['Edit appropriate section file in docs/features/', 'Follow the feature format template', 'Include test cases directly under the feature', 'Run drift scanner to validate relationships']
 
-    validation: "python3 ~/.agent3d/tools/drift_scanner.py --mode ft-mapping"
+    validation: "python3 .agent3d/tools/drift_scanner.py --mode ft-mapping"
 
   creating_new_sections:
     steps: ['Create new .md file in docs/features/', 'Use templates/FEATURE-module.template.md', 'Follow FT-SECTION-NNN naming convention', 'Update docs/FEATURES.md index']
@@ -111,9 +111,9 @@ working_procedures:
     template: "templates/FEATURE-module.template.md"
 
   validation_commands:
-    merged_structure: "python3 ~/.agent3d/tools/drift_scanner.py --mode ft-mapping"
-    ft_tc_relationships: "python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping"
-    comprehensive: "python3 ~/.agent3d/tools/drift_scanner.py --mode all"
+    merged_structure: "python3 .agent3d/tools/drift_scanner.py --mode ft-mapping"
+    ft_tc_relationships: "python3 .agent3d/tools/drift_scanner.py --mode ft-tc-mapping"
+    comprehensive: "python3 .agent3d/tools/drift_scanner.py --mode all"
 
 naming_conventions:
   feature_ids:

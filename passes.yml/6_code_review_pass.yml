@@ -44,24 +44,24 @@ expected_outcomes:
 language_rules:
   critical_requirement: Always consult and strictly enforce language-specific rules
   sources:
-    yaml_format: ~/.agent3d/rules.yml/[language].yml
-    markdown_format: ~/.agent3d/rules/[language].md
+    yaml_format: .agent3d/rules.yml/[language].yml
+    markdown_format: .agent3d/rules/[language].md
   supported_languages:
     markdown:
-      yaml: ~/.agent3d/rules.yml/markdown.yml
-      markdown: ~/.agent3d/rules/markdown.md
+      yaml: .agent3d/rules.yml/markdown.yml
+      markdown: .agent3d/rules/markdown.md
     python:
-      yaml: ~/.agent3d/rules.yml/python.yml
-      markdown: ~/.agent3d/rules/python.md
+      yaml: .agent3d/rules.yml/python.yml
+      markdown: .agent3d/rules/python.md
     javascript:
-      yaml: ~/.agent3d/rules.yml/javascript.yml
-      markdown: ~/.agent3d/rules/javascript.md
+      yaml: .agent3d/rules.yml/javascript.yml
+      markdown: .agent3d/rules/javascript.md
     java:
-      yaml: ~/.agent3d/rules.yml/java.yml
-      markdown: ~/.agent3d/rules/java.md
+      yaml: .agent3d/rules.yml/java.yml
+      markdown: .agent3d/rules/java.md
     go:
-      yaml: ~/.agent3d/rules.yml/go.yml
-      markdown: ~/.agent3d/rules/go.md
+      yaml: .agent3d/rules.yml/go.yml
+      markdown: .agent3d/rules/go.md
 review_standards:
   approach: UNCOMPROMISINGLY_STRICT
   principles:

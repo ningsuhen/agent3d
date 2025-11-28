@@ -11,7 +11,7 @@ The DDD framework maintains two parallel formats:
 ## Directory Structure
 
 ```
-~/.agent3d/
+.agent3d/
 ├── passes.yml/              # LLM-optimized pass definitions
 ├── passes/simplified/       # Human-readable pass documentation
 ├── rules.yml/              # LLM-optimized language rules
@@ -39,7 +39,7 @@ The DDD framework maintains two parallel formats:
 **Example Usage:**
 ```python
 # Load pass configuration
-with open('~/.agent3d/passes.yml/1_foundation_pass.yml') as f:
+with open('.agent3d/passes.yml/1_foundation_pass.yml') as f:
     foundation_pass = yaml.safe_load(f)
 
 # Access structured data
@@ -72,10 +72,10 @@ workflow = foundation_pass['process']['phases']
 All framework documentation now uses this reference format:
 
 ```markdown
-**For LLM Agents:** ~/.agent3d/rules.yml/python.yml
-**For Humans:** ~/.agent3d/rules/python.md
+**For LLM Agents:** .agent3d/rules.yml/python.yml
+**For Humans:** .agent3d/rules/python.md
 
-**Dual Reference:** ~/.agent3d/rules.yml/python.yml (LLM) | ~/.agent3d/rules/python.md (human)
+**Dual Reference:** .agent3d/rules.yml/python.yml (LLM) | .agent3d/rules/python.md (human)
 ```
 
 ## Migration Guide
@@ -85,7 +85,7 @@ All framework documentation now uses this reference format:
 **Old References:**
 ```python
 # Old way - text parsing required
-with open('~/.agent3d/rules/python.md') as f:
+with open('.agent3d/rules/python.md') as f:
     content = f.read()
     # Parse markdown to extract rules
 ```
@@ -93,7 +93,7 @@ with open('~/.agent3d/rules/python.md') as f:
 **New References:**
 ```python
 # New way - direct data access
-with open('~/.agent3d/rules.yml/python.yml') as f:
+with open('.agent3d/rules.yml/python.yml') as f:
     rules = yaml.safe_load(f)
     critical_rules = rules['testing']['implementation_requirements']['critical_rules']
 ```

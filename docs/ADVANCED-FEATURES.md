@@ -62,7 +62,7 @@ Human-agent collaborative review process:
 4. Human completes final review
 
 **Language-Specific Integration:**
-- Automatic application of `~/.agent3d/rules.yml/ (LLM) | rules/ (human)[language].md` (includes development rules and review standards)
+- Automatic application of `.agent3d/rules.yml/ (LLM) | rules/ (human)[language].md` (includes development rules and review standards)
 - Context-aware rule enforcement
 
 ### Fallback Manual Process
@@ -73,7 +73,7 @@ Human-agent collaborative review process:
 ## Language Rules Advanced Features
 
 ### Rule Loading Optimization
-- Local file access from `~/.agent3d/rules.yml/ (LLM) | rules/ (human)`
+- Local file access from `.agent3d/rules.yml/ (LLM) | rules/ (human)`
 - Language rules loaded once per session
 - Incremental validation for changed files only
 

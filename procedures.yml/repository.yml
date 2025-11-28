@@ -5,7 +5,7 @@ last_updated: '2025-01-27'
 repository_management:
   update_procedure:
     frequency: start of every pass
-    command: git -C ~/.agent3d pull origin main
+    command: git -C .agent3d pull origin main
     description: Update Agent3D repository to latest version
   project_root_detection:
     primary_indicator: .agent3d-config.yml
@@ -18,7 +18,7 @@ repository_management:
       action: Run Foundation Pass immediately
       description: Initialize DDD project structure
 directory_structure:
-  agent3d_repo: ~/.agent3d
+  agent3d_repo: .agent3d
   project_root: where .agent3d-config.yml is located
   key_directories:
     docs: docs/
@@ -29,27 +29,27 @@ directory_structure:
     rules_human: rules/
     procedures_yaml: procedures.yml/
 validation_steps:
-- step: Verify ~/.agent3d directory exists
-  action: 'Clone if missing: git clone git@github.com:ningsuhen/agent3d.git ~/.agent3d'
+- step: Verify .agent3d directory exists
+  action: 'Clone if missing: git clone git@github.com:ningsuhen/agent3d.git .agent3d'
 - step: Check git status
-  action: git -C ~/.agent3d status
+  action: git -C .agent3d status
 - step: Update repository
-  action: git -C ~/.agent3d pull origin main
+  action: git -C .agent3d pull origin main
 - step: Locate project root
   action: Find .agent3d-config.yml
 - step: Load configuration
   action: MEMORIZE entire .agent3d-config.yml contents
 error_handling:
   repository_missing:
-    action: git clone git@github.com:ningsuhen/agent3d.git ~/.agent3d
+    action: git clone git@github.com:ningsuhen/agent3d.git .agent3d
     description: Clone Agent3D repository if missing
   update_failure:
     actions:
     - Check network connectivity
     - Verify git credentials
-    - 'Check for local changes: git -C ~/.agent3d status'
-    - 'Stash if needed: git -C ~/.agent3d stash'
-    - 'Retry pull: git -C ~/.agent3d pull origin main'
+    - 'Check for local changes: git -C .agent3d status'
+    - 'Stash if needed: git -C .agent3d stash'
+    - 'Retry pull: git -C .agent3d pull origin main'
   config_missing:
     action: Run Foundation Pass to initialize project
     description: Create .agent3d-config.yml if missing

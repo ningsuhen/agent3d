@@ -14,7 +14,7 @@ metadata:
   configuration_version: 1.0.0
 template_usage:
   locations:
-    templates: ~/.agent3d/templates/{DOCUMENT-NAME}.template.yml
+    templates: .agent3d/templates/{DOCUMENT-NAME}.template.yml
   process:
     steps:
     - git pull → access templates
@@ -69,7 +69,7 @@ validation_checklist:
   - 2-space indentation, LLM-friendly language, traceability links ✓
   drift_validation:
   - TC ID drift <10%
-  - 'Command: python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping'
+  - 'Command: python3 .agent3d/tools/drift_scanner.py --mode tc-mapping'
 template_types:
   documentation:
   - REQUIREMENTS.template.yml
@@ -100,7 +100,7 @@ format_requirements:
       requirement: ALWAYS use YAML format for pass execution tracking
       rationale: Consistent machine-readable format for all execution tracking
 best_practices:
-- Always use latest templates from ~/.agent3d
+- Always use latest templates from .agent3d
 - Replace placeholders with actual system-generated values
 - Validate template output before proceeding
 - Remove all template artifacts from final documents

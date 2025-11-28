@@ -7,7 +7,7 @@ configuration_memorization:
   loading_process:
     steps:
     - step: 1
-      action: git -C ~/.agent3d pull origin main
+      action: git -C .agent3d pull origin main
       description: Update Agent3D repository
     - step: 2
       action: Locate .agent3d-config.yml in project root

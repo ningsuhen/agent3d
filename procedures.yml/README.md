@@ -82,7 +82,7 @@ This YAML structure replaces the original `docs/COMMON-PROCEDURES.md` file with 
 - **Workflow Automation**: Supports automated DDD workflows
 
 ### External Dependencies
-- **Agent3D Repository**: `~/.agent3d` for templates and tools
+- **Agent3D Repository**: `.agent3d` for templates and tools
 - **Project Configuration**: `.agent3d-config.yml` for project settings
 - **Drift Scanner**: Integration with drift detection tools
 - **Git Workflow**: Branch management and commit procedures

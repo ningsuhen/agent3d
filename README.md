@@ -14,7 +14,7 @@
 
 ## Agent Guideline Protocol
 
-**Entry point** for Agent3D system. Clone `git@github.com:ningsuhen/agent3d.git` to `~/.agent3d`, use `~/.agent3d/AGENT-GUIDELINES.md` as main entry point, update with `cd ~/.agent3d && git pull`.
+**Entry point** for Agent3D system. Clone `git@github.com:ningsuhen/agent3d.git` to `.agent3d`, use `.agent3d/AGENT-GUIDELINES.md` as main entry point, update with `cd .agent3d && git pull`.
 
 ## DDD Passes
 

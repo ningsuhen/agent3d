@@ -3,13 +3,13 @@
 Streamlined introduction for Agent3D framework. Minimum steps to begin using Documentation-Driven Development workflow.
 
 ## 1. Clone Agent3D
-1. Clone Agent3D repository to `~/.agent3d`:
+1. Clone Agent3D repository to `.agent3d`:
    ```bash
-   git clone git@github.com:ningsuhen/agent3d.git ~/.agent3d
+   git clone git@github.com:ningsuhen/agent3d.git .agent3d
    ```
 2. Keep repository up to date:
    ```bash
-   git -C ~/.agent3d pull origin main
+   git -C .agent3d pull origin main
    ```
 
 ## 2. Configure Your Project
@@ -30,7 +30,7 @@ Commit documentation and code together. If commit does not update docs, include 
 Use language‑specific tests and linting to verify code matches documented requirements. Testing pass ensures quality and alignment.
 
 ## 5. Maintain Synchronization
-Regularly pull updates from `~/.agent3d` to keep rules and templates current. Re-run relevant passes when documentation or code drifts.
+Regularly pull updates from `.agent3d` to keep rules and templates current. Re-run relevant passes when documentation or code drifts.
 
 ---
 

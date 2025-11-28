@@ -178,20 +178,20 @@ execution_phases:
     prerequisite: "memorize_templates_and_procedures phase completed successfully"
 
     exec_plan_format: "YAML"
-    exec_plan_location: "~/.agent3d-tmp/"
+    exec_plan_location: ".agent3d-tmp/"
     exec_plan_filename: "REWRITE-PLAN-{target_scope}-{timestamp}.yml"
-    exec_plan_full_path: "~/.agent3d-tmp/REWRITE-PLAN-{target_scope}-{timestamp}.yml"
+    exec_plan_full_path: ".agent3d-tmp/REWRITE-PLAN-{target_scope}-{timestamp}.yml"
 
     rewrite_plan_template: |
       # File Rewrite Plan
-      # Location: ~/.agent3d-tmp/REWRITE-PLAN-{target_scope}-{timestamp}.yml
+      # Location: .agent3d-tmp/REWRITE-PLAN-{target_scope}-{timestamp}.yml
       metadata:
         operation: "file_rewrite"
         target_pattern: "{target_pattern}"
         total_files: {file_count}
         estimated_duration: "{estimated_time}"
         created: "{timestamp}"
-        plan_location: "~/.agent3d-tmp/"
+        plan_location: ".agent3d-tmp/"
 
       files_to_process:
         - path: "{file_path_1}"

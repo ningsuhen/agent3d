@@ -163,7 +163,7 @@ github_integration:
 ```bash
 # Environment Variables
 AGENT3D_REPO="git@github.com:ningsuhen/agent3d.git"
-AGENT3D_LOCAL_PATH="~/.agent3d"
+AGENT3D_LOCAL_PATH=".agent3d"
 DDD_UPDATE_INTERVAL="6h"
 GITHUB_TOKEN="your_token_here"
 DDD_CACHE_ENABLED="true"

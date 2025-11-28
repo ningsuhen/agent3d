@@ -32,7 +32,7 @@ quality_standards:
     requirement: All test implementations MUST include TC-NNNN references for 1:1
       traceability
     validation: TC ID drift <10%
-    tool: python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping
+    tool: python3 .agent3d/tools/drift_scanner.py --mode tc-mapping
 validation_procedures:
   inherits: common-patterns.yml#validation_rules
   structure_validation:
@@ -67,13 +67,13 @@ github_integration:
 drift_validation:
   tc_id_drift:
     threshold: <10%
-    command: python3 ~/.agent3d/tools/drift_scanner.py --mode tc-mapping
+    command: python3 .agent3d/tools/drift_scanner.py --mode tc-mapping
     frequency: After each testing pass
   feature_drift:
-    command: python3 ~/.agent3d/tools/drift_scanner.py --mode ft-mapping
+    command: python3 .agent3d/tools/drift_scanner.py --mode ft-mapping
     frequency: After feature implementation
   comprehensive_drift:
-    command: python3 ~/.agent3d/tools/drift_scanner.py --mode all
+    command: python3 .agent3d/tools/drift_scanner.py --mode all
     frequency: During synchronization pass
 quality_gates:
   inherits: common-patterns.yml#quality_gates

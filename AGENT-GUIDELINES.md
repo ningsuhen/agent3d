@@ -4,7 +4,7 @@
 
 ## Configuration
 
-All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGENT-GUIDELINES.md`) is the main entry point for all operations.
+All Agent3D resources are accessed from `.agent3d`. This file (`.agent3d/AGENT-GUIDELINES.md`) is the main entry point for all operations.
 
 **Project Configuration:** Each project uses `.agent3d-config.yml` in the project root to define project-specific settings, enabled passes, and quality standards.
 
@@ -31,17 +31,17 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 
 ### DDD Passes
 
-- [Full Pass](~/.agent3d/passes.yml/full_pass.yml) - Comprehensive pass encompassing all aspects
-- [0. Requirements Pass](~/.agent3d/passes.yml/0_requirements_pass.yml) - Documenting comprehensive requirements and business objectives
-- [1. Foundation Pass](~/.agent3d/passes.yml/1_foundation_pass.yml) - Project configuration and foundational setup
-- [2. Documentation Pass](~/.agent3d/passes.yml/2_documentation_pass.yml) - Documenting features, requirements, and priorities
-- [3. Development Pass](~/.agent3d/passes.yml/3_development_pass.yml) - Step-by-step feature implementation with checkpoints and execution plans
-- [4. Testing Pass](~/.agent3d/passes.yml/4_testing_pass.yml) - Adding comprehensive tests and verifying edge cases
-- [5. Refactoring Pass](~/.agent3d/passes.yml/5_refactoring_pass.yml) - Cleaning up code without changing functionality
-- [6. Code Review Pass](~/.agent3d/passes.yml/6_code_review_pass.yml) - Reviewing PR changes and providing feedback
-- [7. Prune Pass](~/.agent3d/passes.yml/7_prune_pass.yml) - Removing outdated or redundant content
-- [8. Synchronization Pass](~/.agent3d/passes.yml/8_synchronization_pass.yml) - Aligning documentation with code at any scale
-- [9. Reverse Pass](~/.agent3d/passes.yml/9_reverse_pass.yml) - Detecting and addressing reverse drift (implementation without documentation)
+- [Full Pass](.agent3d/passes.yml/full_pass.yml) - Comprehensive pass encompassing all aspects
+- [0. Requirements Pass](.agent3d/passes.yml/0_requirements_pass.yml) - Documenting comprehensive requirements and business objectives
+- [1. Foundation Pass](.agent3d/passes.yml/1_foundation_pass.yml) - Project configuration and foundational setup
+- [2. Documentation Pass](.agent3d/passes.yml/2_documentation_pass.yml) - Documenting features, requirements, and priorities
+- [3. Development Pass](.agent3d/passes.yml/3_development_pass.yml) - Step-by-step feature implementation with checkpoints and execution plans
+- [4. Testing Pass](.agent3d/passes.yml/4_testing_pass.yml) - Adding comprehensive tests and verifying edge cases
+- [5. Refactoring Pass](.agent3d/passes.yml/5_refactoring_pass.yml) - Cleaning up code without changing functionality
+- [6. Code Review Pass](.agent3d/passes.yml/6_code_review_pass.yml) - Reviewing PR changes and providing feedback
+- [7. Prune Pass](.agent3d/passes.yml/7_prune_pass.yml) - Removing outdated or redundant content
+- [8. Synchronization Pass](.agent3d/passes.yml/8_synchronization_pass.yml) - Aligning documentation with code at any scale
+- [9. Reverse Pass](.agent3d/passes.yml/9_reverse_pass.yml) - Detecting and addressing reverse drift (implementation without documentation)
 
 ---
 
@@ -69,21 +69,21 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 
 | File | Purpose | Local Template Path |
 |------|---------|----------|
-| `README.md` | Project overview | `~/.agent3d/templates/README.template.md` |
-| `docs/BUSINESS-OBJECTIVES.md` | Business goals, metrics, and success criteria | `~/.agent3d/templates/BUSINESS-OBJECTIVES.template.md` |
-| `docs/REQUIREMENTS.md` | Comprehensive functional and non-functional requirements | `~/.agent3d/templates/REQUIREMENTS.template.md` |
-| `docs/USER-STORIES.md` | User personas, stories, and use cases | `~/.agent3d/templates/USER-STORIES.template.md` |
-| `docs/ACCEPTANCE-CRITERIA.md` | Testable acceptance criteria for all requirements | `~/.agent3d/templates/ACCEPTANCE-CRITERIA.template.md` |
-| `docs/FEATURES.md` | Feature checklist with acceptance criteria | `~/.agent3d/templates/FEATURES.template.md` |
-| `docs/HIGH-LEVEL-DESIGN.md` | System design with diagrams and decisions | `~/.agent3d/templates/HIGH-LEVEL-DESIGN.template.md` |
-| `docs/TASKS.md` | Work backlog organized by priority | `~/.agent3d/templates/TASKS.template.md` |
-| `docs/TEST-CASES.md` | Test specifications with TC-#### format | `~/.agent3d/templates/TEST-CASES.template.md` |
-| `docs/DDD-STATUS.yml` | DDD Pass Status, Drift and Health tracking | `~/.agent3d/templates/DDD-STATUS.template.yml` |
-| `docs/designs/*.md` | Component design specifications | `~/.agent3d/templates/DETAILED-DESIGN.template.md` |
-| `docs/proposals/*.md` | Design proposals for unimplemented features | `~/.agent3d/templates/PROPOSAL.template.md` |
-| `docs/migrations/*.yml` | Migration workflows and execution tracking | `~/.agent3d/docs/migrations/` |
-| `docs/ux/*.md` | UI/UX specifications, wireframes, and user flows (for UI projects) | `~/.agent3d/templates/UX-SPECIFICATIONS.template.md` |
-| `CHANGELOG.md` | Chronological record of all project changes | `~/.agent3d/templates/CHANGELOG.template.md` |
+| `README.md` | Project overview | `.agent3d/templates/README.template.md` |
+| `docs/BUSINESS-OBJECTIVES.md` | Business goals, metrics, and success criteria | `.agent3d/templates/BUSINESS-OBJECTIVES.template.md` |
+| `docs/REQUIREMENTS.md` | Comprehensive functional and non-functional requirements | `.agent3d/templates/REQUIREMENTS.template.md` |
+| `docs/USER-STORIES.md` | User personas, stories, and use cases | `.agent3d/templates/USER-STORIES.template.md` |
+| `docs/ACCEPTANCE-CRITERIA.md` | Testable acceptance criteria for all requirements | `.agent3d/templates/ACCEPTANCE-CRITERIA.template.md` |
+| `docs/FEATURES.md` | Feature checklist with acceptance criteria | `.agent3d/templates/FEATURES.template.md` |
+| `docs/HIGH-LEVEL-DESIGN.md` | System design with diagrams and decisions | `.agent3d/templates/HIGH-LEVEL-DESIGN.template.md` |
+| `docs/TASKS.md` | Work backlog organized by priority | `.agent3d/templates/TASKS.template.md` |
+| `docs/TEST-CASES.md` | Test specifications with TC-#### format | `.agent3d/templates/TEST-CASES.template.md` |
+| `docs/DDD-STATUS.yml` | DDD Pass Status, Drift and Health tracking | `.agent3d/templates/DDD-STATUS.template.yml` |
+| `docs/designs/*.md` | Component design specifications | `.agent3d/templates/DETAILED-DESIGN.template.md` |
+| `docs/proposals/*.md` | Design proposals for unimplemented features | `.agent3d/templates/PROPOSAL.template.md` |
+| `docs/migrations/*.yml` | Migration workflows and execution tracking | `.agent3d/docs/migrations/` |
+| `docs/ux/*.md` | UI/UX specifications, wireframes, and user flows (for UI projects) | `.agent3d/templates/UX-SPECIFICATIONS.template.md` |
+| `CHANGELOG.md` | Chronological record of all project changes | `.agent3d/templates/CHANGELOG.template.md` |
 
 **🚨 CRITICAL**: All documentation creation and standards are defined in [DDD Procedures](procedures.yml/). Follow these procedures for all DDD activities.
 
@@ -112,10 +112,10 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 2. **Check Migration Status:** Run `python tools/migration_manager.py status` to identify applicable migrations
 3. **Execute Required Migrations:** Apply any pending migrations before proceeding with development
 4. Configure project (`.agent3d-config.yml` in project root)
-5. Follow `~/.agent3d/AGENT-GUIDELINES.md`
+5. Follow `.agent3d/AGENT-GUIDELINES.md`
 6. Run DDD pass for missing/outdated documentation
 7. **Write Real Tests:** Every test MUST import project code and call project functions
-8. **Update Guidelines Regularly:** Run `git -C ~/.agent3d pull origin main` to keep cached rules and templates current
+8. **Update Guidelines Regularly:** Run `git -C .agent3d pull origin main` to keep cached rules and templates current
 9. **Use System Date Commands:** Always use `date +%Y-%m-%d` or `date +%Y-%m-%d\ %H:%M:%S` for timestamps instead of LLM knowledge
 
 **Test Quality Requirements:**
@@ -164,7 +164,7 @@ All Agent3D resources are accessed from `~/.agent3d`. This file (`~/.agent3d/AGE
 |-----------|---------|
 | **Execution** | SCAN → DRAFT → ASK → SYNC |
 | **Sequence** | REQ → FOUND → DOC → PLAN → IMPL → TEST → REFACT → REVIEW → SYNC → QUAL → PRUNE → REV |
-| **Files** | CONFIG(.agent3d-config.yml), DOCS(docs/), RULES(~/.agent3d/rules/), TEMPLATES(~/.agent3d/templates/) |
+| **Files** | CONFIG(.agent3d-config.yml), DOCS(docs/), RULES(.agent3d/rules/), TEMPLATES(.agent3d/templates/) |
 | **Quality Gates** | Requirements(objectives), Foundation(config), Documentation(criteria), Planning(checkpoints), Implementation(matches), Testing(passes), Review(rules) |
 
 **DETAILED PROCEDURES:** See [DDD Procedures](procedures.yml/) for all standards and workflows
@@ -197,5 +197,5 @@ pass_config: {specific settings}
 - [DDD Procedures](procedures.yml/) - All standards and procedures
 - [Advanced Features Guide](docs/ADVANCED-FEATURES.md) - Sophisticated capabilities and power-user features
 - [Configuration Guide](docs/CONFIGURATION-GUIDE.md) - Customization and project-specific settings
-- `~/.agent3d/rules/[language].md` - Language-specific rules
-- `~/.agent3d/templates/` - Documentation templates
+- `.agent3d/rules/[language].md` - Language-specific rules
+- `.agent3d/templates/` - Documentation templates

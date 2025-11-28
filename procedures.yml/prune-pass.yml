@@ -20,7 +20,7 @@ pre_prune_analysis:
       description: Check for empty directories
   cross_reference_check:
     baseline_drift_analysis:
-      command: python3 ~/.agent3d/tools/drift_scanner.py --mode all --output pre-prune-baseline.yaml
+      command: python3 .agent3d/tools/drift_scanner.py --mode all --output pre-prune-baseline.yaml
       description: Run baseline drift analysis before pruning
     broken_links:
       command: markdown-link-check docs/**/*.md

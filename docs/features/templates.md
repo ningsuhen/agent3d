@@ -26,7 +26,7 @@
 
 ## FT-TMPL-002 - Simple Template Access
 - **Description:** Direct template file access from local repository for straightforward usage
-- **Criteria:** All templates accessible from ~/.agent3d/templates/ directory
+- **Criteria:** All templates accessible from .agent3d/templates/ directory
 - **Dependencies:** Local repository structure, file system access
 - **Impact:** Medium - Template accessibility
 - **Code Location:** templates/

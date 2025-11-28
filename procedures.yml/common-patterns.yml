@@ -155,10 +155,10 @@ quality_gates:
       validation: All tests pass and TC ID mapping <10% drift
 command_patterns:
   drift_scanning:
-    comprehensive: python3 ~/.agent3d/tools/drift_scanner.py --mode all
-    quick_check: python3 ~/.agent3d/tools/drift_scanner.py --mode all --quiet
-    pr_changes: python3 ~/.agent3d/tools/drift_scanner.py --mode all --pr-diff --quiet
-    recent_changes: python3 ~/.agent3d/tools/drift_scanner.py --mode ft-tc-mapping
+    comprehensive: python3 .agent3d/tools/drift_scanner.py --mode all
+    quick_check: python3 .agent3d/tools/drift_scanner.py --mode all --quiet
+    pr_changes: python3 .agent3d/tools/drift_scanner.py --mode all --pr-diff --quiet
+    recent_changes: python3 .agent3d/tools/drift_scanner.py --mode ft-tc-mapping
       --recent-days 3
   validation_commands:
     yaml_syntax: python -c 'import yaml; yaml.safe_load(open("{{file}}"))'
