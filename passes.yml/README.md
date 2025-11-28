@@ -103,12 +103,12 @@ def select_pass_for_condition(condition):
         'unclear_requirements': '0_requirements_pass.yml',
         'missing_documentation': '2_documentation_pass.yml',
         'implementation_needed': '3_development_pass.yml',
-        'tests_failing': '5_testing_pass.yml',
-        'code_quality_issues': '6_refactoring_pass.yml',
-        'review_needed': '7_code_review_pass.yml',
-        'docs_outdated': '9_synchronization_pass.yml',
-        'cleanup_needed': '8_prune_pass.yml',
-        'undocumented_code': '10_reverse_pass.yml'
+        'tests_failing': '4_testing_pass.yml',
+        'code_quality_issues': '5_refactoring_pass.yml',
+        'review_needed': '6_code_review_pass.yml',
+        'cleanup_needed': '7_prune_pass.yml',
+        'docs_outdated': '8_synchronization_pass.yml',
+        'undocumented_code': '9_reverse_pass.yml'
     }
     return pass_mappings.get(condition, 'full_pass.yml')
 ```

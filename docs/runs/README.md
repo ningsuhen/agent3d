@@ -4,7 +4,7 @@ Contains execution plans for Development Pass runs.
 
 ## File Naming Convention
 
-**Active Plans:** `EXEC-PLAN-{change-name}.md`
+**Active Plans:** `EXEC-PLAN-{change-name}.yml`
 
 ## Usage
 

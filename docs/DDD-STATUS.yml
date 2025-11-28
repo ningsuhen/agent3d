@@ -248,20 +248,26 @@ passes:
     drift_explanation: "No drift"
     last_execution: "2025-11-27"
     priority: "low"
-    notes: "Removed outdated content and fixed references."
+    notes: "Removed outdated content, fixed references, archived execution plans, and corrected README examples."
     artifacts:
     - status: "completed"
       name: "AGENT-GUIDELINES.md"
       description: "Updated guideline links and removed outdated references"
     - status: "completed"
       name: "passes.yml/README.md"
-      description: "Removed non-existent pass and renumbered passes"
+      description: "Removed non-existent pass, renumbered passes, and fixed example code"
     - status: "completed"
       name: "docs/ACCEPTANCE-CRITERIA.md"
       description: "Removed deprecated Planning Pass and updated pass count"
     - status: "completed"
       name: "docs/features/core.md"
       description: "Updated DDD Pass System pass count"
+    - status: "completed"
+      name: "docs/runs/README.md"
+      description: "Fixed file extension reference"
+    - status: "completed"
+      name: "docs/runs/archive/"
+      description: "Archived execution plans"
 
   # Synchronization Pass
   synchronization_pass:
