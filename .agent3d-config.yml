@@ -339,7 +339,7 @@ structure:
   docs_directory: docs/
   templates_directory: templates/
   passes_directory: passes/
-  procedures_directory: procedures/
+  procedures_directory: procedures.yml/
   rules_directory: rules/
   guidelines_directory: guidelines/
   migrations_directory: migrations/
