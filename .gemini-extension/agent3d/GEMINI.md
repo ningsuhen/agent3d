@@ -3,7 +3,7 @@
 This extension integrates the Agent3D Documentation-Driven Development framework into the Gemini CLI.
 
 
-**Setup Note:** On activation, verify if `.agent3d` exists. Clone `git@github.com:ningsuhen/agent3d.git` to `.agent3d`, add .agent3d to .gitignore, use `.agent3d/AGENT-GUIDELINES.md` as main entry point, update with `.agent3d && git pull`.
+**Setup Note:** On activation, verify if `.agent3d` exists. If not, add .agent3d to .gitignore and clone `git@github.com:ningsuhen/agent3d.git` to `.agent3d`, use `.agent3d/AGENT-GUIDELINES.md` as main entry point, update with `.agent3d && git pull`.
 EXCEPTION FOR DEVELOPMENT: If workspace is in fact the agent3d project itself, skip the clone and other steps and use the local workspace instead of using `.agent3d` to load guidelines and commands,etc.
 
 ## DDD Passes
